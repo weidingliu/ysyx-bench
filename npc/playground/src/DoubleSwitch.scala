@@ -1,3 +1,5 @@
+package DoubleSwitch
+
 import chisel3._
 
 /**
