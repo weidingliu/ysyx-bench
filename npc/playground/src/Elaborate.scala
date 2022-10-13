@@ -1,4 +1,4 @@
-import DoubleSwitch._
+package DoubleSwitch
 import chisel3.stage.ChiselStage
 
 //package DoubleSwitch

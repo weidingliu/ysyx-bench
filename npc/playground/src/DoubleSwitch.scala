@@ -15,3 +15,7 @@ class DoubleSwitch extends Module {
     val io=IO(new doubleIO)//IO define
     io.out := io.a & io.b
 }
+
+//object Elaborate extends App{
+//  (new ChiselStage).emitVerilog(new DoubleSwitch())
+//}
