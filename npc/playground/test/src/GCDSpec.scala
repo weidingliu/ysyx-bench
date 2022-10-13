@@ -3,7 +3,7 @@ import chisel3._
 import chisel3.experimental.BundleLiterals._
 import chisel3.tester._
 import chiseltest.iotesters._
-import chiseltest.{ChiselScalatestTester, _}
+//import chiseltest.{ChiselScalatestTester, _}
 import org.scalatest.freespec.AnyFreeSpec
 class GCDSpec extends AnyFreeSpec with ChiselScalatestTester{
 
