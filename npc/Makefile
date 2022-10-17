@@ -6,10 +6,10 @@ test:
 verilog:
 	$(call git_commit, "generate verilog")
 	mkdir -p $(BUILD_DIR)
-	mill -i __.test.runMain Spec -td $(BUILD_DIR)
+	mill -i __.test.runMain Double_Switch -td $(BUILD_DIR)
 
 help:
-	mill -i __.test.runMain Spec --help
+	mill -i __.test.runMain Elaborate --help
 
 compile:
 	mill -i __.compile
