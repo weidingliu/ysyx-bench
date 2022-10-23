@@ -39,9 +39,9 @@ object playground extends SbtModule {
   //}
   object test extends Tests with TestModule.ScalaTest {
 
-    override def forkArgs = m.forkArgs
+//    override def forkArgs = m.forkArgs
 
-    override def ivyDeps = super.ivyDeps() ++ Agg(
+    override def ivyDeps = m.ivyDeps() ++ Agg(
       ivys.scalatest
     )
 
