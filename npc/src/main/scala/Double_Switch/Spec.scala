@@ -2,7 +2,6 @@ package scala.Double_Switch
 
 import Double_Switch.Double_Switch
 import chisel3.stage._
-import chiseltest.
 //import java.sql.Driver
 
 object Spec extends App{
