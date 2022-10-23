@@ -33,6 +33,7 @@ object playground extends SbtModule {
 
     object test extends Tests with ScalaTest {
       override def ivyDeps = m.ivyDeps() ++ Agg(
+        ivy"edu.berkeley.cs::chiseltest:0.5.1",
         ivy"org.scalatest::scalatest:3.2.2"
       )
     }
