@@ -1,5 +1,6 @@
 package Double_Switch
 import chisel3._
+
 class doubleIO extends Bundle{
   val a=Input(UInt(1.W))
   val b=Input(UInt(1.W))
