@@ -31,22 +31,22 @@ object playground extends SbtModule {
     ivy"edu.berkeley.cs:::chisel3-plugin:3.5.1",
   )
 
-  //  object test extends Tests with ScalaTest {
-  //    override def ivyDeps = m.ivyDeps() ++ Agg(
-  //      ivy"edu.berkeley.cs::chiseltest:0.5.1"
-  //    )
-  //  }
-  //}
-  object test extends Tests with TestModule.ScalaTest {
-
-//    override def forkArgs = m.forkArgs
-
-    override def ivyDeps = m.ivyDeps() ++ Agg(
-      ivys.scalatest
-    )
-
+    object test extends Tests with ScalaTest {
+      override def ivyDeps = m.ivyDeps() ++ Agg(
+        ivy"org.scalatest::scalatest:3.2.2"
+      )
+    }
   }
-}
+//  object test extends Tests with TestModule.ScalaTest {
+//
+//    override def forkArgs = m.forkArgs
+//
+//    override def ivyDeps = super.ivyDeps() ++ Agg(
+//      ivys.scalatest
+//    )
+//
+//  }
+//}
 //object chiselModule extends CrossSbtModule with HasChisel3 with HasChiselTests with HasXsource211 with HasMacroParadise {
 //  def zincWorker = CustomZincWorkerModule
 //  def crossScalaVersion = "2.11.12"
