@@ -6,7 +6,7 @@ import chiseltest.
 //import java.sql.Driver
 
 object Spec extends App{
-  (new ChiselStage).emitVerilog(new Double_Switch())
+  (new ChiselStage).emitVerilog(new Double_Switch(),Array("--target-dir", "build"))
 }
 
 //object Spec extends App {
