@@ -1,3 +1,7 @@
+// See README.md for license details.
+
+package gcd
+
 import chisel3._
 import chisel3.util.Decoupled
 
@@ -19,8 +23,8 @@ class GcdOutputBundle(val w: Int) extends Bundle {
   * Unless first input is zero then the Gcd is y.
   * Can handle stalls on the producer or consumer side
   */
-class DecoupledGcd(width: Int) extends MultiIOModule {
-  val input  = IO(Flipped(Decoupled(new GcdInputBundle(width))))
+class DecoupledGcd(width: Int) extends Module {
+  val input = IO(Flipped(Decoupled(new GcdInputBundle(width))))
   val output = IO(Decoupled(new GcdOutputBundle(width)))
 
   val xInitial    = Reg(UInt())
@@ -30,11 +34,11 @@ class DecoupledGcd(width: Int) extends MultiIOModule {
   val busy        = RegInit(false.B)
   val resultValid = RegInit(false.B)
 
-  input.ready  := !busy
+  input.ready := ! busy
   output.valid := resultValid
-  output.bits  := DontCare
+  output.bits := DontCare
 
-  when(busy) {
+  when(busy)  {
     when(x > y) {
       x := x - y
     }.otherwise {
@@ -49,21 +53,21 @@ class DecoupledGcd(width: Int) extends MultiIOModule {
 
       output.bits.value1 := xInitial
       output.bits.value2 := yInitial
-      resultValid        := true.B
+      resultValid := true.B
 
       when(output.ready && resultValid) {
-        busy        := false.B
+        busy := false.B
         resultValid := false.B
       }
     }
   }.otherwise {
     when(input.valid) {
       val bundle = input.deq()
-      x        := bundle.value1
-      y        := bundle.value2
+      x := bundle.value1
+      y := bundle.value2
       xInitial := bundle.value1
       yInitial := bundle.value2
-      busy     := true.B
+      busy := true.B
     }
   }
 }
