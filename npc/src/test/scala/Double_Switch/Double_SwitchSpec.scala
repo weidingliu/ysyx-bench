@@ -33,7 +33,7 @@ import scala.util._
 
 class Double_SwitchSpec extends AnyFreeSpec with ChiselScalatestTester{
   "switch should" in {
-    test(new Double_Switch()) { c =>
+    test(new Double_Switch()).withAnnotations(Seq(WriteVcdAnnotation)) { c =>
             c.io.a.poke(0.U)
             c.io.b.poke(0.U)
             c.io.out.expect(0.U)
