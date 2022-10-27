@@ -17,30 +17,30 @@ class encoderIO extends Bundle{
 class prior_encoder_83 extends Module {
     val seg = Module(new BCD7SEG())
     val io=IO(new encoderIO)
-    when(io.in(0)){
+    when(io.in(7)){
       io.flag := 1.U
-      io.out := 0.U
-    }.elsewhen(io.in(1)){
+      io.out := 7.U
+    }.elsewhen(io.in(6)){
       io.flag := 1.U
-      io.out := 1.U
-    }.elsewhen(io.in(2)) {
-      io.flag := 1.U
-      io.out := 2.U
-    }.elsewhen(io.in(3)) {
-      io.flag := 1.U
-      io.out := 3.U
-    }.elsewhen(io.in(4)) {
-      io.flag := 1.U
-      io.out := 4.U
+      io.out := 6.U
     }.elsewhen(io.in(5)) {
       io.flag := 1.U
       io.out := 5.U
-    }.elsewhen(io.in(6)) {
+    }.elsewhen(io.in(4)) {
       io.flag := 1.U
-      io.out := 6.U
-    }.elsewhen(io.in(7)) {
+      io.out := 4.U
+    }.elsewhen(io.in(3)) {
       io.flag := 1.U
-      io.out := 7.U
+      io.out := 3.U
+    }.elsewhen(io.in(2)) {
+      io.flag := 1.U
+      io.out := 2.U
+    }.elsewhen(io.in(1)) {
+      io.flag := 1.U
+      io.out := 1.U
+    }.elsewhen(io.in(0)) {
+      io.flag := 1.U
+      io.out := 0.U
     }.otherwise{
       io.flag := 0.U
       io.out := 0.U
