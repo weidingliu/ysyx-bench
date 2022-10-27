@@ -2,6 +2,7 @@ package Mux41
 import chisel3._
 import chisel3.util._
 
+
 class buldIO extends Bundle{
   val x_0=Input(UInt(2.W))
   val x_1=Input(UInt(2.W))
