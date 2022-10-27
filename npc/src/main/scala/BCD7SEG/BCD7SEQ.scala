@@ -21,13 +21,13 @@ class BCD7SEG extends Module{
       temp := 64.U
     }
     is(1.U(4.W)) {
-      temp := 124.U
+      temp := 121.U
     }
     is(2.U(4.W)) {
       temp := 36.U
     }
     is(3.U(4.W)) {
-      temp := 79.U
+      temp := 48.U
     }
     is(4.U(4.W)) {
       temp := 25.U
