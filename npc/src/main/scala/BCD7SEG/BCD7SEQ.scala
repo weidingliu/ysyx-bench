@@ -8,7 +8,7 @@ import chisel3.util._
 
 class bcd_bundleIO extends Bundle{
   val b=Input(UInt(4.W))//BCD
-  val h=Output(UInt(7.W))
+  val h=Output(UInt(8.W))
 
 }
 
@@ -49,5 +49,5 @@ class BCD7SEG extends Module{
     }
 
   }
-  io.h := temp
+  io.h := Cat(temp,1.U)
 }

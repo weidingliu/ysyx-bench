@@ -10,7 +10,7 @@ class encoderIO extends Bundle{
   val in=Input(UInt(8.W))//encoder input
   val out=Output(UInt(3.W))
   val flag=Output(UInt(1.W))
-  val seg=Output(UInt(7.W))
+  val seg=Output(UInt(8.W))
 }
 
 
