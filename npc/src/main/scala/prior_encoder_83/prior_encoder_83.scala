@@ -13,7 +13,9 @@ class encoderIO extends Bundle{
   val seg=Output(UInt(8.W))
 }
 
-
+/**
+ * prior_encoder
+ */
 class prior_encoder_83 extends Module {
     val seg = Module(new BCD7SEG())
     val io=IO(new encoderIO)

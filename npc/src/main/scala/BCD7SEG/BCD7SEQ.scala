@@ -2,9 +2,6 @@ package BCD7SEG
 import chisel3._
 import chisel3.util._
 
-/*
-* 数码管显示模块,输入是BCD码
-* */
 
 class bcd_bundleIO extends Bundle{
   val b=Input(UInt(4.W))//BCD
@@ -12,6 +9,9 @@ class bcd_bundleIO extends Bundle{
 
 }
 
+/**
+* 数码管显示模块,输入是BCD码
+**/
 class BCD7SEG extends Module{
   val io=IO(new bcd_bundleIO)
   val temp = WireDefault(127.U(7.W))
