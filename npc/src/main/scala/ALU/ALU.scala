@@ -5,7 +5,7 @@ import chisel3.util._
 class ALUIO extends Bundle{
   val A=Input(SInt(4.W))
   val B=Input(SInt(4.W))
-  val Out_s=Output(SInt(4.W))
+  val Out_s=Output(UInt(4.W))
   val sel=Input(UInt(3.W))
   val Out_c=Output(Bool())
   val is_zero=Output(Bool())
@@ -51,6 +51,6 @@ class ALU extends Module{
   io.is_zero := Mux((io.Out_s === 0.S),1.B,0.B)
   io.Out_c := temp(4)
 
-  io.Out_s(0) := temp(0)
+  io.Out_s := temp(3,0)
 
 }
