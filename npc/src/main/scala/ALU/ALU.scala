@@ -49,6 +49,7 @@ class ALU extends Module{
 
   }
   io.is_zero := Mux((io.Out_s === 0.S),1.U,0.U)
-  Cat(io.Out_c,io.Out_s) :=temp
+  io.Out_c := temp(4)
+  io.Out_s := temp(3,0)
 
 }
