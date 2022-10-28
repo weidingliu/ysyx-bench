@@ -13,41 +13,42 @@ class ALUIO extends Bundle{
 
 class ALU extends Module{
   val io=IO(new ALUIO)
-
+  val temp=WireDefault(0.S(5.W))
   switch(io.sel){
     is("b000".U){
-      Cat(io.Out_c,io.Out_s) := io.A + io.B
+      temp := io.A + io.B
     }
     is("b001".U) {
-      Cat(io.Out_c,io.Out_s) := io.A - io.B
+      temp := io.A - io.B
 
     }
     is("b010".U) {
-      io.Out_s := ~io.A
-      io.Out_c := 0.U
+      temp := ~io.A
+
     }
     is("b011".U) {
-      io.Out_s := io.A & io.B
-      io.Out_c := 0.U
+      temp := io.A & io.B
+
     }
     is("b100".U) {
-      io.Out_s := io.A | io.B
-      io.Out_c := 0.U
+      temp := io.A | io.B
+
     }
     is("b101".U) {
-      io.Out_s := io.A ^ io.B
-      io.Out_c := 0.U
+      temp := io.A ^ io.B
+
     }
     is("b110".U) {
-      io.Out_s := Mux((io.A<io.B),1.S,0.S)
-      io.Out_c := 0.U
+      temp := Mux((io.A<io.B),1.S,0.S)
+
     }
     is("b111".U) {
-      io.Out_s := Mux((io.A === io.B), 1.S, 0.S)
-      io.Out_c := 0.U
+      temp := Mux((io.A === io.B), 1.S, 0.S)
+
     }
 
   }
   io.is_zero := Mux((io.Out_s === 0.S),1.U,0.U)
+  Cat(io.Out_c,io.Out_s) :=temp
 
 }
