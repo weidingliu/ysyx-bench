@@ -50,7 +50,7 @@ class ALU extends Module{
   }
   io.is_zero := Mux((io.Out_s === 0.S),1.B,0.B)
   io.Out_c := temp(4)
-  val p=Wire(UInt())
+  val p=Wire(SInt())
   p := temp(3,0)
   io.Out_s := p
 
