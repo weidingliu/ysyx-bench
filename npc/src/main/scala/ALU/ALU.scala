@@ -13,7 +13,7 @@ class ALUIO extends Bundle{
 
 class ALU extends Module{
   val io=IO(new ALUIO)
-  val temp=WireDefault(0.S)
+  val temp=WireDefault(0.S(5.W))
   switch(io.sel){
     is("b000".U){
       temp := io.A + io.B
@@ -50,6 +50,8 @@ class ALU extends Module{
   }
   io.is_zero := Mux((io.Out_s === 0.S),1.B,0.B)
   io.Out_c := temp(4)
-  io.Out_s := temp(3,0)
+  val p=Wire(UInt())
+  p := temp(3,0)
+  io.Out_s := p
 
 }
