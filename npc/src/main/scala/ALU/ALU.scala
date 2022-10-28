@@ -48,7 +48,7 @@ class ALU extends Module{
     }
 
   }
-  io.is_zero := Mux((io.Out_s === 0.S),1.B,0.B)
+  io.is_zero := Mux((io.Out_s === 0.U),1.B,0.B)
   io.Out_c := temp(4)
 
   io.Out_s := temp(3,0)
