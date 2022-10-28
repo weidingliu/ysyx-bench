@@ -8,7 +8,7 @@ class ALUIO extends Bundle{
   val Out_s=Output(UInt(4.W))
   val sel=Input(UInt(3.W))
   val Out_c=Output(Bool())
-  val is_zero=Output(Bool())
+  val is_zero=Output(UInt())
 }
 
 class ALU extends Module{
@@ -48,7 +48,7 @@ class ALU extends Module{
     }
 
   }
-  io.is_zero := Mux((io.Out_s === 0.U),1.B,0.B)
+  io.is_zero := Mux((temp(3,0) === 0.U),1.U,0.U)
   io.Out_c := temp(4)
 
   io.Out_s := temp(3,0)
