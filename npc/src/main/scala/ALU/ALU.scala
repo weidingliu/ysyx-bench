@@ -8,12 +8,12 @@ class ALUIO extends Bundle{
   val Out_s=Output(SInt(4.W))
   val sel=Input(UInt(3.W))
   val Out_c=Output(Bool())
-  val is_zero=Output(UInt(1.W))
+  val is_zero=Output(Bool())
 }
 
 class ALU extends Module{
   val io=IO(new ALUIO)
-  val temp=WireDefault(0.S(5.W))
+  val temp=WireDefault(0.S)
   switch(io.sel){
     is("b000".U){
       temp := io.A + io.B
@@ -48,7 +48,7 @@ class ALU extends Module{
     }
 
   }
-  io.is_zero := Mux((io.Out_s === 0.S),1.U,0.U)
+  io.is_zero := Mux((io.Out_s === 0.S),1.B,0.B)
   io.Out_c := temp(4)
   io.Out_s := temp(3,0)
 
