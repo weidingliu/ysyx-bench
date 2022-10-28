@@ -7,7 +7,7 @@ class ALUIO extends Bundle{
   val B=Input(SInt(4.W))
   val Out_s=Output(SInt(4.W))
   val sel=Input(UInt(3.W))
-  val Out_c=Output(SInt(1.W))
+  val Out_c=Output(Bool())
   val is_zero=Output(UInt(1.W))
 }
 
