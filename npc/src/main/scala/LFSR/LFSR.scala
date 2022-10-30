@@ -5,7 +5,7 @@ import chisel3.util._
 
 class LFSR extends Module {
     val io=IO(new Bundle() {
-      val en=Input(clock)
+      val en=Input(Clock())
       val out=Output(UInt(8.W))
     })
 
