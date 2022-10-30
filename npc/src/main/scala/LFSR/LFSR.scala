@@ -9,11 +9,13 @@ class LFSR extends Module {
       val out=Output(UInt(8.W))
     })
 
-    val temp=RegInit(0.U(8.W))
+
   withClock(io.en){
+    val temp=RegInit(0.U(8.W))
     temp := Cat(temp(0)^temp(2)^temp(3)^temp(4),temp(7,1))
+    io.out := temp
   }
-  io.out := temp
+
 }
 
 import chisel3.stage._
