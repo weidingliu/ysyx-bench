@@ -81,9 +81,9 @@ class LFSR extends Module {
 
 }
 
-//import chisel3.stage._
-////import java.sql.Driver
-//
-//object Spec extends App{
-//  (new ChiselStage).emitVerilog(new LFSR(),Array("--target-dir", "build"))
-//}
+import chisel3.stage._
+//import java.sql.Driver
+
+object Spec extends App{
+  (new ChiselStage).emitVerilog(new LFSR(),Array("--target-dir", "build"))
+}
