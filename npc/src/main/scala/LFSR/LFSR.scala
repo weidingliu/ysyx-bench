@@ -68,7 +68,8 @@ class segcon extends Module{
 class LFSR extends Module {
     val io=IO(new Bundle() {
       val en=Input(Clock())
-      val out=Output(UInt(8.W))
+      val out1=Output(UInt(8.W))
+      val out2=Output(UInt(8.W))
     })
 
 
@@ -79,7 +80,8 @@ class LFSR extends Module {
     temp := Cat(temp(0)^temp(2)^temp(3)^temp(4),temp(7,1))
     seg1.io.in := temp(3,0)
     seg2.io.in := temp(7,4)
-    io.out := Cat(seg2.io.out,seg1.io.out)
+    io.out1 := seg1.io.out
+    io.out2 := seg2.io.out
   }
 
 }
