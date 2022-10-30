@@ -13,52 +13,52 @@ class segcon extends Module{
   })
   val temp=WireDefault(127.U(8.W))
   switch(io.in){
-    is(0.U(8.W)) {
+    is(0.U(4.W)) {
       temp := 64.U
     }
-    is(1.U(8.W)) {
+    is(1.U(4.W)) {
       temp := 121.U
     }
-    is(2.U(8.W)) {
+    is(2.U(4.W)) {
       temp := 36.U
     }
-    is(3.U(8.W)) {
+    is(3.U(4.W)) {
       temp := 48.U
     }
-    is(4.U(8.W)) {
+    is(4.U(4.W)) {
       temp := 25.U
     }
-    is(5.U(8.W)) {
+    is(5.U(4.W)) {
       temp := 18.U
     }
-    is(6.U(8.W)) {
+    is(6.U(4.W)) {
       temp := 2.U
     }
-    is(7.U(8.W)) {
+    is(7.U(4.W)) {
       temp := 120.U
     }
-    is(8.U(8.W)) {
+    is(8.U(4.W)) {
       temp := 0.U
     }
-    is(9.U(8.W)) {
+    is(9.U(4.W)) {
       temp := 16.U
     }
-    is(10.U(8.W)) {
+    is(10.U(4.W)) {
       temp := 24.U
     }
-    is(11.U(8.W)) {
+    is(11.U(4.W)) {
       temp := 3.U
     }
-    is(12.U(8.W)) {
+    is(12.U(4.W)) {
       temp := 70.U
     }
-    is(13.U(8.W)) {
+    is(13.U(4.W)) {
       temp := 33.U
     }
-    is(14.U(8.W)) {
+    is(14.U(4.W)) {
       temp := 6.U
     }
-    is(15.U(8.W)) {
+    is(15.U(4.W)) {
       temp := 14.U
     }
   }
