@@ -62,6 +62,7 @@ class segcon extends Module{
       temp := 14.U
     }
   }
+  io.out := temp
 }
 
 class LFSR extends Module {
