@@ -76,7 +76,7 @@ class LFSR extends Module {
   withClock(io.en){
     val seg1=Module(new segcon)
     val seg2=Module(new segcon)
-    val temp=RegInit(0.U(8.W))
+    val temp=RegInit(6.U(8.W))
     temp := Cat(temp(0)^temp(2)^temp(3)^temp(4),temp(7,1))
     seg1.io.in := temp(3,0)
     seg2.io.in := temp(7,4)
@@ -86,9 +86,9 @@ class LFSR extends Module {
 
 }
 
-import chisel3.stage._
-//import java.sql.Driver
-
-object Spec extends App{
-  (new ChiselStage).emitVerilog(new LFSR(),Array("--target-dir", "build"))
-}
+//import chisel3.stage._
+////import java.sql.Driver
+//
+//object Spec extends App{
+//  (new ChiselStage).emitVerilog(new LFSR(),Array("--target-dir", "build"))
+//}
