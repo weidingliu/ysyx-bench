@@ -10,7 +10,7 @@ class ALU_test extends AnyFreeSpec with ChiselScalatestTester {
       c.io.B.poke((7.S))
       c.io.sel.poke(0.U)
 //      c.io.Out_s.expect(5.U)
-      println("result is " + c.io.Out_s.peek().toString())
+      println("result is " + c.io.Out_s.peek().toString()+" cout is "+ c.io.Out_c.peek().toString())
 
       c.io.A.poke(3.S)
       c.io.B.poke((2.S))
@@ -34,13 +34,13 @@ class ALU_test extends AnyFreeSpec with ChiselScalatestTester {
       c.io.B.poke((2.S))
       c.io.sel.poke(3.U)
       c.io.Out_s.expect(0.U)
-      println("result is " + c.io.Out_s.peek().toString()+c.io.Out_c.peek().toString())
+      println("result is " + c.io.Out_s.peek().toString()+" cout is "+ c.io.Out_c.peek().toString()+" is_zero "+c.io.is_zero.peek().toString())
 
       c.io.A.poke(0.S)
       c.io.B.poke((4.S))
       c.io.sel.poke(4.U)
       c.io.Out_s.expect(4.U)
-      println("result is " + c.io.Out_s.peek().toString()+c.io.Out_c.peek().toString())
+      println("result is " + c.io.Out_s.peek().toString()+" cout is "+ c.io.Out_c.peek().toString())
 
       c.io.A.poke(0.S)
       c.io.B.poke((2.S))
