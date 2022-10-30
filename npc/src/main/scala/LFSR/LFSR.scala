@@ -2,6 +2,67 @@ package LFSR
 import chisel3._
 import chisel3.util._
 
+/**
+ * seg显示16进制
+ *
+ */
+class segcon extends Module{
+  val io=IO(new Bundle() {
+    val in =Input(UInt(8.W))
+    val out = Output(UInt(8.W))
+  })
+  val temp=WireDefault(127.U(8.W))
+  switch(io.in){
+    is(0.U(8.W)) {
+      temp := 64.U
+    }
+    is(1.U(8.W)) {
+      temp := 121.U
+    }
+    is(2.U(8.W)) {
+      temp := 36.U
+    }
+    is(3.U(8.W)) {
+      temp := 48.U
+    }
+    is(4.U(8.W)) {
+      temp := 25.U
+    }
+    is(5.U(8.W)) {
+      temp := 18.U
+    }
+    is(6.U(8.W)) {
+      temp := 2.U
+    }
+    is(7.U(8.W)) {
+      temp := 120.U
+    }
+    is(8.U(8.W)) {
+      temp := 0.U
+    }
+    is(9.U(8.W)) {
+      temp := 16.U
+    }
+    is(10.U(8.W)) {
+      temp := 24.U
+    }
+    is(11.U(8.W)) {
+      temp := 3.U
+    }
+    is(12.U(8.W)) {
+      temp := 70.U
+    }
+    is(13.U(8.W)) {
+      temp := 33.U
+    }
+    is(14.U(8.W)) {
+      temp := 6.U
+    }
+    is(15.U(8.W)) {
+      temp := 14.U
+    }
+  }
+}
 
 class LFSR extends Module {
     val io=IO(new Bundle() {
@@ -11,16 +72,18 @@ class LFSR extends Module {
 
 
   withClock(io.en){
+    val seg=Module(new segcon)
     val temp=RegInit(0.U(8.W))
     temp := Cat(temp(0)^temp(2)^temp(3)^temp(4),temp(7,1))
-    io.out := temp
+    seg.io.in := temp
+    io.out := seg.io.out
   }
 
 }
 
-import chisel3.stage._
-//import java.sql.Driver
-
-object Spec extends App{
-  (new ChiselStage).emitVerilog(new LFSR(),Array("--target-dir", "build"))
-}
+//import chisel3.stage._
+////import java.sql.Driver
+//
+//object Spec extends App{
+//  (new ChiselStage).emitVerilog(new LFSR(),Array("--target-dir", "build"))
+//}
