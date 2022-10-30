@@ -7,8 +7,8 @@ import chisel3.util._
  *
  */
 class segcon extends Module{
-  val io=IO(new Bundle() {
-    val in =Input(UInt(8.W))
+    val io=IO(new Bundle() {
+    val in =Input(UInt(4.W))
     val out = Output(UInt(8.W))
   })
   val temp=WireDefault(127.U(8.W))
@@ -72,11 +72,13 @@ class LFSR extends Module {
 
 
   withClock(io.en){
-    val seg=Module(new segcon)
+    val seg1=Module(new segcon)
+    val seg2=Module(new segcon)
     val temp=RegInit(0.U(8.W))
     temp := Cat(temp(0)^temp(2)^temp(3)^temp(4),temp(7,1))
-    seg.io.in := temp
-    io.out := seg.io.out
+    seg1.io.in := temp(3,0)
+    seg2.io.in := temp(7,4)
+    io.out := Cat(seg2.io.out,seg1.io.out)
   }
 
 }
