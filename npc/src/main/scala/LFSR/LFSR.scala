@@ -11,7 +11,7 @@ class segcon extends Module{
     val in =Input(UInt(4.W))
     val out = Output(UInt(8.W))
   })
-  val temp=WireDefault(127.U(8.W))
+  val temp=WireDefault(127.U(7.W))
   switch(io.in){
     is(0.U(4.W)) {
       temp := 64.U
@@ -62,7 +62,7 @@ class segcon extends Module{
       temp := 14.U
     }
   }
-  io.out := temp
+  io.out := Cat(temp,1.U)
 }
 
 class LFSR extends Module {
