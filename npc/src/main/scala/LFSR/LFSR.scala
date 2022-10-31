@@ -77,14 +77,15 @@ class LFSR extends Module {
     val seg1 = Module(new segcon)
     val seg2 = Module(new segcon)
     val temp = RegInit(16.U(8.W))
+    val shift = Wire(UInt(1.W))
+    shift  := temp(0) ^ temp(2) ^ temp(3) ^ temp(4)
     seg1.io.in := temp(3, 0)
     seg2.io.in := temp(7, 4)
     when(io.rs){
       temp := io.in
     }otherwise {
-      temp := Cat(temp(0) ^ temp(2) ^ temp(3) ^ temp(4), temp(7, 1))
+      temp := Cat(shift , temp(7, 1))
     }
-
     io.out1 := seg1.io.out
     io.out2 := seg2.io.out
   }
