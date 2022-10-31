@@ -8,7 +8,7 @@ class LFSR_test extends AnyFreeSpec with ChiselScalatestTester {
     test(new LFSR()){c=>
       c.io.en.step()
 //      c.io.out1.expect(6.U)
-      c.io.en.poke(1.B)
+      c.io.en.step()
       c.io.out1.expect(8.U)
 
 
