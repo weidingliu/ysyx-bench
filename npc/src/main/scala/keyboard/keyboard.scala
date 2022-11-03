@@ -92,7 +92,7 @@ class keyboard extends Module{
     val seg4=Output(UInt(8.W))
     val seg5=Output(UInt(8.W))
   })
-  val ps2key=new ps2_keyboard
+  val ps2key=Module(new ps2_keyboard)
 
   val Seg0=new segcon()
   val Seg1=new segcon()
