@@ -87,27 +87,27 @@ class keyboard extends Module{
     val ps2_data = Input(UInt(1.W))
     val seg0=Output(UInt(8.W))
     val seg1=Output(UInt(8.W))
-    val seg2=Output(UInt(8.W))
-    val seg3=Output(UInt(8.W))
-    val seg4=Output(UInt(8.W))
-    val seg5=Output(UInt(8.W))
+//    val seg2=Output(UInt(8.W))
+//    val seg3=Output(UInt(8.W))
+//    val seg4=Output(UInt(8.W))
+//    val seg5=Output(UInt(8.W))
   })
   val ps2key=Module(new ps2_keyboard)
 
   val Seg0=Module(new segcon)
   val Seg1=Module(new segcon)
-  val Seg2=Module(new segcon)
-  val Seg3=Module(new segcon)
-  val Seg4=Module(new segcon)
-  val Seg5=Module(new segcon)
-  val Seg6=Module(new segcon)
-  val Seg7=Module(new segcon)
+//  val Seg2=Module(new segcon)
+//  val Seg3=Module(new segcon)
+//  val Seg4=Module(new segcon)
+//  val Seg5=Module(new segcon)
+//  val Seg6=Module(new segcon)
+//  val Seg7=Module(new segcon)
 
   val iDLE :: oUT :: eND :: Nil =Enum(3)
 
   val statereg=RegInit(iDLE)
   val count=RegInit(0.U(8.W))
-  val temp=Wire(UInt(8.W))
+  val temp=WireDefault(0.U(8.W))
   ps2key.io.clk := clock
   ps2key.io.clrn := reset
   ps2key.io.ps2_clk := io.ps2_clk
