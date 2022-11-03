@@ -7,7 +7,7 @@ import chisel3.util.{Cat, is, switch}
 class ps2_keyboard extends BlackBox{
   val io=IO(new Bundle() {
     val clk=Input(Clock())
-    val clrn=Input(UInt(1.W))
+    val clrn=Input(Bool())
     val ps2_clk=Input(UInt(1.W))
     val ps2_data=Input(UInt(1.W))
     val nextdata_n=Input(Bool())//output data featch finish
@@ -87,7 +87,7 @@ class keyboard extends Module{
     val ps2_data = Input(UInt(1.W))
     val seg0=Output(UInt(8.W))
     val seg1=Output(UInt(8.W))
-//    val seg2=Output(UInt(8.W))
+    val seg2=Output(UInt(8.W))
 //    val seg3=Output(UInt(8.W))
 //    val seg4=Output(UInt(8.W))
 //    val seg5=Output(UInt(8.W))
@@ -96,7 +96,7 @@ class keyboard extends Module{
 
   val Seg0=Module(new segcon)
   val Seg1=Module(new segcon)
-//  val Seg2=Module(new segcon)
+  val Seg2=Module(new segcon)
 //  val Seg3=Module(new segcon)
 //  val Seg4=Module(new segcon)
 //  val Seg5=Module(new segcon)
@@ -109,14 +109,18 @@ class keyboard extends Module{
   val count=RegInit(0.U(8.W))
   val temp=WireDefault(0.U(8.W))
   ps2key.io.clk := clock
-  ps2key.io.clrn := ~(reset)
+  ps2key.io.clrn := reset
   ps2key.io.ps2_clk := io.ps2_clk
   ps2key.io.ps2_data := io.ps2_data
 
   Seg0.io.in := temp(3,0)
   Seg1.io.in := temp(7,4)
+  Seg2.io.in := statereg
+//  Seg3.io.in := ps2key.io.data
   io.seg0 := Seg0.io.out
   io.seg1 := Seg1.io.out
+  io.seg2 :=Seg2.io.out
+//  io.seg3 := Seg3.io.out
 
   switch(statereg){
     is(iDLE){
