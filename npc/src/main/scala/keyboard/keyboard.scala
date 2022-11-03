@@ -7,7 +7,7 @@ import chisel3.util.{Cat, is, switch}
 class ps2_keyboard extends BlackBox{
   val io=IO(new Bundle() {
     val clk=Input(Clock())
-    val clrn=Input(Bool())
+    val clrn=Input(UInt(1.W))
     val ps2_clk=Input(UInt(1.W))
     val ps2_data=Input(UInt(1.W))
     val nextdata_n=Input(Bool())//output data featch finish
@@ -109,7 +109,7 @@ class keyboard extends Module{
   val count=RegInit(0.U(8.W))
   val temp=WireDefault(0.U(8.W))
   ps2key.io.clk := clock
-  ps2key.io.clrn := reset
+  ps2key.io.clrn := ~(reset)
   ps2key.io.ps2_clk := io.ps2_clk
   ps2key.io.ps2_data := io.ps2_data
 
