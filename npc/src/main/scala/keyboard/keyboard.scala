@@ -94,14 +94,14 @@ class keyboard extends Module{
   })
   val ps2key=Module(new ps2_keyboard)
 
-  val Seg0=new segcon()
-  val Seg1=new segcon()
-  val Seg2=new segcon()
-  val Seg3=new segcon()
-  val Seg4=new segcon()
-  val Seg5=new segcon()
-  val Seg6=new segcon()
-  val Seg7=new segcon()
+  val Seg0=Module(new segcon)
+  val Seg1=Module(new segcon)
+  val Seg2=Module(new segcon)
+  val Seg3=Module(new segcon)
+  val Seg4=Module(new segcon)
+  val Seg5=Module(new segcon)
+  val Seg6=Module(new segcon)
+  val Seg7=Module(new segcon)
 
   val iDLE :: oUT :: eND :: Nil =Enum(3)
 
