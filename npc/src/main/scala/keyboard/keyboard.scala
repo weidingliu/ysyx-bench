@@ -109,7 +109,7 @@ class keyboard extends Module{
   val count=RegInit(0.U(8.W))
   val temp=Wire(UInt(8.W))
   ps2key.io.clk := clock
-  ~ps2key.io.clrn := reset
+  ps2key.io.clrn := reset
   ps2key.io.ps2_clk := io.ps2_clk
   ps2key.io.ps2_data := io.ps2_data
 
