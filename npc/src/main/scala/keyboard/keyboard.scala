@@ -88,7 +88,7 @@ class keyboard extends Module{
     val seg0=Output(UInt(8.W))
     val seg1=Output(UInt(8.W))
     val seg2=Output(UInt(8.W))
-//    val seg3=Output(UInt(8.W))
+    val seg3=Output(UInt(8.W))
     val seg4=Output(UInt(8.W))
     val seg5=Output(UInt(8.W))
   })
@@ -97,7 +97,7 @@ class keyboard extends Module{
   val Seg0=Module(new segcon)
   val Seg1=Module(new segcon)
   val Seg2=Module(new segcon)
-//  val Seg3=Module(new segcon)
+  val Seg3=Module(new segcon)
   val Seg4=Module(new segcon)
   val Seg5=Module(new segcon)
 //  val Seg6=Module(new segcon)
@@ -108,6 +108,7 @@ class keyboard extends Module{
   val statereg=RegInit(iDLE)
   val count=RegInit(0.U(8.W))
   val temp=RegInit(0.U(8.W))
+  val ascii=WireDefault(0.U(8.W))
   ps2key.io.clk := clock
   ps2key.io.clrn := reset
   ps2key.io.ps2_clk := io.ps2_clk
@@ -115,15 +116,15 @@ class keyboard extends Module{
 
   Seg0.io.in := temp(3,0)
   Seg1.io.in := temp(7,4)
-  Seg2.io.in := statereg
-//  Seg3.io.in := ps2key.io.data
+  Seg2.io.in := ascii(3,0)
+  Seg3.io.in := ascii(7,4)
   Seg4.io.in := count(3,0)
   Seg5.io.in := count(7,4)
 
   io.seg0 := Seg0.io.out
   io.seg1 := Seg1.io.out
   io.seg2 :=Seg2.io.out
-//  io.seg3 := Seg3.io.out
+  io.seg3 := Seg3.io.out
   io.seg4 :=Seg4.io.out
   io.seg5 :=Seg5.io.out
 
@@ -154,6 +155,221 @@ class keyboard extends Module{
       statereg := iDLE
       ps2key.io.nextdata_n := 0.B
     }
+  }
+
+  switch(temp){
+    is("h00".U){
+      ascii := "h00".U
+    }
+    is("h76".U){
+      ascii := "h1b".U//esc
+    }
+    is("h05".U) {
+      ascii := "112".U//f1
+    }
+    is("h06".U) {
+      ascii := "113".U //f2
+    }
+    is("h04".U) {
+      ascii := "114".U //f3
+    }
+    is("h0c".U) {
+      ascii := "115".U //f4
+    }
+    is("h03".U) {
+      ascii := "116".U //f5
+    }
+    is("h0b".U) {
+      ascii := "117".U //f6
+    }
+    is("h83".U) {
+      ascii := "118".U //f7
+    }
+    is("h0a".U) {
+      ascii := "119".U //f8
+    }
+    is("h01".U) {
+      ascii := "120".U //f9
+    }
+    is("h09".U) {
+      ascii := "121".U //f10
+    }
+    is("h78".U) {
+      ascii := "122".U //f11
+    }
+    is("h07".U) {
+      ascii := "123".U //f12
+    }
+
+    is("h0e".U) {
+      ascii := "h60".U // `
+    }
+    is("h16".U) {
+      ascii := "h31".U // 1
+    }
+    is("h1e".U) {
+      ascii := "h32".U // 2
+    }
+    is("h26".U) {
+      ascii := "h33".U // 3
+    }
+    is("h25".U) {
+      ascii := "h34".U // 4
+    }
+    is("h2e".U) {
+      ascii := "h35".U // 5
+    }
+    is("h36".U) {
+      ascii := "h36".U // 6
+    }
+    is("h3d".U) {
+      ascii := "h37".U // 7
+    }
+    is("h3e".U) {
+      ascii := "h38".U // 8
+    }
+    is("h46".U) {
+      ascii := "h39".U // 9
+    }
+    is("h45".U) {
+      ascii := "h30".U // 0
+    }
+    is("h4e".U) {
+      ascii := "h2d".U // -_
+    }
+    is("h55".U) {
+      ascii := "h3d".U // +=
+    }
+    is("h5d".U) {
+      ascii := "h6c".U // |
+    }
+    is("h66".U) {
+      ascii := "h08".U // backspace
+    }
+    is("h0d".U) {
+      ascii := "h09".U // tab
+    }
+    is("h15".U) {
+      ascii := "h71".U // q
+    }
+    is("h1d".U) {
+      ascii := "h77".U // w
+    }
+    is("h24".U) {
+      ascii := "h65".U // e
+    }
+    is("h2d".U) {
+      ascii := "h72".U // r
+    }
+    is("h2c".U) {
+      ascii := "h74".U // t
+    }
+    is("h35".U) {
+      ascii := "h79".U // y
+    }
+    is("h3c".U) {
+      ascii := "h75".U // u
+    }
+    is("h43".U) {
+      ascii := "h68".U // i
+    }
+    is("h44".U) {
+      ascii := "h6f".U // o
+    }
+    is("h4d".U) {
+      ascii := "h70".U // p
+    }
+    is("h54".U) {
+      ascii := "h5b".U // [
+    }
+    is("h5b".U) {
+      ascii := "h5d".U // ]
+    }
+    is("h5a".U) {
+      ascii := "h0d".U // enter
+    }
+    is("h1c".U) {
+      ascii := "h61".U // a
+    }
+    is("h1b".U) {
+      ascii := "h73".U // s
+    }
+    is("h23".U) {
+      ascii := "h64".U // d
+    }
+    is("h2b".U) {
+      ascii := "h66".U // f
+    }
+    is("h34".U) {
+      ascii := "h67".U // g
+    }
+    is("h33".U) {
+      ascii := "h68".U // h
+    }
+    is("h3b".U) {
+      ascii := "h6a".U // j
+    }
+    is("h42".U) {
+      ascii := "h6b".U // k
+    }
+    is("h4b".U) {
+      ascii := "h6c".U // l
+    }
+    is("h4c".U) {
+      ascii := "h3b".U // ;
+    }
+    is("h52".U) {
+      ascii := "h27".U // '
+    }
+    is("h58".U) {
+      ascii := "h14".U // caps
+    }
+    is("h12".U) {
+      ascii := "h0a".U // shift
+    }
+    is("h1a".U) {
+      ascii := "h7a".U // z
+    }
+    is("h22".U) {
+      ascii := "h78".U // x
+    }
+    is("h21".U) {
+      ascii := "h63".U // c
+    }
+    is("h2a".U) {
+      ascii := "h76".U // v
+    }
+    is("h32".U) {
+      ascii := "h62".U // b
+    }
+    is("h31".U) {
+      ascii := "h6e".U // n
+    }
+    is("h3a".U) {
+      ascii := "h6d".U // m
+    }
+    is("h41".U) {
+      ascii := "h2c".U // ,
+    }
+    is("h49".U) {
+      ascii := "h2e".U // .
+    }
+    is("h4a".U) {
+      ascii := "h2f".U // /
+    }
+    is("h59".U) {
+      ascii := "h0a".U // right shift
+    }
+    is("h29".U) {
+      ascii := "h20".U // space
+    }
+    is("h14".U) {
+      ascii := "h11".U // ctrl
+    }
+    is("h11".U) {
+      ascii := "h12".U // alt
+    }
+
   }
 
 }
