@@ -165,40 +165,40 @@ class keyboard extends Module{
       ascii := "h1b".U//esc
     }
     is("h05".U) {
-      ascii := "112".U//f1
+      ascii := "h70".U//f1
     }
     is("h06".U) {
-      ascii := "113".U //f2
+      ascii := "h71".U //f2
     }
     is("h04".U) {
-      ascii := "114".U //f3
+      ascii := "h72".U //f3
     }
     is("h0c".U) {
-      ascii := "115".U //f4
+      ascii := "h73".U //f4
     }
     is("h03".U) {
-      ascii := "116".U //f5
+      ascii := "h74".U //f5
     }
     is("h0b".U) {
-      ascii := "117".U //f6
+      ascii := "h75".U //f6
     }
     is("h83".U) {
-      ascii := "118".U //f7
+      ascii := "h76".U //f7
     }
     is("h0a".U) {
-      ascii := "119".U //f8
+      ascii := "h77".U //f8
     }
     is("h01".U) {
-      ascii := "120".U //f9
+      ascii := "h78".U //f9
     }
     is("h09".U) {
-      ascii := "121".U //f10
+      ascii := "h79".U //f10
     }
     is("h78".U) {
-      ascii := "122".U //f11
+      ascii := "h7a".U //f11
     }
     is("h07".U) {
-      ascii := "123".U //f12
+      ascii := "h7b".U //f12
     }
 
     is("h0e".U) {
