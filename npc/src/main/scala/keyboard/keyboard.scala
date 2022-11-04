@@ -89,8 +89,8 @@ class keyboard extends Module{
     val seg1=Output(UInt(8.W))
     val seg2=Output(UInt(8.W))
 //    val seg3=Output(UInt(8.W))
-//    val seg4=Output(UInt(8.W))
-//    val seg5=Output(UInt(8.W))
+    val seg4=Output(UInt(8.W))
+    val seg5=Output(UInt(8.W))
   })
   val ps2key=Module(new ps2_keyboard)
 
@@ -98,8 +98,8 @@ class keyboard extends Module{
   val Seg1=Module(new segcon)
   val Seg2=Module(new segcon)
 //  val Seg3=Module(new segcon)
-//  val Seg4=Module(new segcon)
-//  val Seg5=Module(new segcon)
+  val Seg4=Module(new segcon)
+  val Seg5=Module(new segcon)
 //  val Seg6=Module(new segcon)
 //  val Seg7=Module(new segcon)
 
@@ -117,10 +117,15 @@ class keyboard extends Module{
   Seg1.io.in := temp(7,4)
   Seg2.io.in := statereg
 //  Seg3.io.in := ps2key.io.data
+  Seg4.io.in := count(3,0)
+  Seg5.io.in := count(7,4)
+
   io.seg0 := Seg0.io.out
   io.seg1 := Seg1.io.out
   io.seg2 :=Seg2.io.out
 //  io.seg3 := Seg3.io.out
+  io.seg4 :=Seg4.io.out
+  io.seg5 :=Seg5.io.out
 
   switch(statereg){
     is(iDLE){
@@ -134,9 +139,11 @@ class keyboard extends Module{
     }
     is(oUT){
         statereg := eND
-        count := count+1.U
         ps2key.io.nextdata_n := 1.B
         temp := ps2key.io.data
+        when(ps2key.io.data==="hf0".U){
+          count := count+1.U
+        }
     }
     is(eND){
       statereg := iDLE
