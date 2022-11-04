@@ -107,7 +107,7 @@ class keyboard extends Module{
 
   val statereg=RegInit(iDLE)
   val count=RegInit(0.U(8.W))
-  val temp=WireDefault(0.U(8.W))
+  val temp=RegInit(0.U(8.W))
   ps2key.io.clk := clock
   ps2key.io.clrn := reset
   ps2key.io.ps2_clk := io.ps2_clk
