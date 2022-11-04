@@ -140,7 +140,12 @@ class keyboard extends Module{
     is(oUT){
         statereg := eND
         ps2key.io.nextdata_n := 1.B
-        temp := ps2key.io.data
+
+        when(temp==="hf0".U){
+          temp := 0.U
+        }otherwise {
+          temp := ps2key.io.data
+        }
         when(ps2key.io.data==="hf0".U){
           count := count+1.U
         }
