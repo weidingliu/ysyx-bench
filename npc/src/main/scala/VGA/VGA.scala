@@ -10,7 +10,7 @@ class vga_ctrl extends BlackBox{
     val v_addr = Output(UInt(10.W))
     val hsync = Output(UInt(1.W))
     val vsync = Output(UInt(1.W))
-    val vaild = Output(UInt(1.W))
+    val valid = Output(UInt(1.W))
     val vga_r = Output(UInt(8.W))
     val vga_g = Output(UInt(8.W))
     val vga_b = Output(UInt(8.W))
@@ -28,7 +28,7 @@ class VGA extends Module{
   val io = IO(new Bundle() {
     val hsync = Output(UInt(1.W))
     val vsync = Output(UInt(1.W))
-    val vaild = Output(UInt(1.W))
+    val valid = Output(UInt(1.W))
     val vga_r = Output(UInt(8.W))
     val vga_g = Output(UInt(8.W))
     val vga_b = Output(UInt(8.W))
@@ -45,7 +45,7 @@ class VGA extends Module{
 
   io.hsync := vga_ctrl.io.hsync
   io.vsync := vga_ctrl.io.vsync
-  io.vaild := vga_ctrl.io.vaild
+  io.valid := vga_ctrl.io.valid
   io.vga_r := vga_ctrl.io.vga_r
   io.vga_g := vga_ctrl.io.vga_g
   io.vga_b := vga_ctrl.io.vga_b
