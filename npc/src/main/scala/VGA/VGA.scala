@@ -20,7 +20,7 @@ class vgam extends BlackBox{
   val io = IO(new Bundle() {
     val vga_data = Output(UInt(24.W))
     val h_addr = Input(UInt(10.W))
-    val v_addr = Input(UInt(10.W))
+    val v_addr = Input(UInt(9.W))
   })
 }
 
@@ -41,7 +41,7 @@ class VGA extends Module{
   vga_ctrl.io.vga_data := vgam.io.vga_data
 
   vgam.io.h_addr := vga_ctrl.io.h_addr
-  vgam.io.v_addr := vga_ctrl.io.v_addr
+  vgam.io.v_addr := vga_ctrl.io.v_addr(8,0)
 
   io.hsync := vga_ctrl.io.hsync
   io.vsync := vga_ctrl.io.vsync
