@@ -50,6 +50,7 @@ class VGA extends Module{
   io.vga_g := vga_ctrl.io.vga_g
   io.vga_b := vga_ctrl.io.vga_b
 
+  
 }
 
 
