@@ -164,7 +164,7 @@ static int cmd_info(char *args){
 }
 
 static int cmd_x(char *args){
-    word_t out=paddr_read(0x80000000,10);
+    word_t out=paddr_read(0x80000000,4);
     printf("%ld",out);
     return 0;
 }
