@@ -164,7 +164,7 @@ static int cmd_info(char *args){
 }
 
 static int cmd_x(char *args){
-    paddr_read(0x80000000,1);
+    paddr_read(0x80000000,2);
     return 0;
 }
 
