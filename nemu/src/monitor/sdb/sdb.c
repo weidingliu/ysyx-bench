@@ -13,6 +13,7 @@
 * See the Mulan PSL v2 for more details.
 ***************************************************************************************/
 
+#include <memory/paddr.h>
 #include <isa.h>
 #include <cpu/cpu.h>
 #include <readline/readline.h>
@@ -82,6 +83,8 @@ static int cmd_si(char *args);
 
 static int cmd_info(char *args);
 
+static int cmd_x(char *args);
+
 static struct {
   const char *name;
   const char *description;
@@ -92,6 +95,7 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
   { "si", "si [N] N step execute", cmd_si },
   { "info", "info SUBCMD display reg state or watchdog info",  cmd_info},
+  { "x", "x [N] EXPR ,Hexadecimal output N byte in memory, EXPR is address", cmd_x },
   /* TODO: Add more commands */
 
 };
@@ -157,6 +161,11 @@ static int cmd_info(char *args){
 	    return 0;
 	}
 	return 0;
+}
+
+static int cmd_x(char *args){
+    paddr_read(0,10);
+    return 0;
 }
 
 void sdb_set_batch_mode() {
