@@ -80,6 +80,8 @@ static int cmd_help(char *args);
 
 static int cmd_si(char *args);
 
+static int cmd_info(char *args);
+
 static struct {
   const char *name;
   const char *description;
@@ -89,6 +91,7 @@ static struct {
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
   { "si", "N step execute", cmd_si },
+  { "info SUBCMD", "display reg state or watchdog info",  cmd_info},
   /* TODO: Add more commands */
 
 };
@@ -128,11 +131,16 @@ static int cmd_si(char *args){
     else {
     	uint64_t si_step=atoi64_t(arg);
     	cpu_exec(si_step);
-    	printf("%lu\n",si_step);
+    	//printf("%lu\n",si_step);
         //printf("%s\n",arg);
     }
     
     return 0;
+}
+
+static int cmd_info(char *args){
+	isa_reg_display();
+	return 0;
 }
 
 void sdb_set_batch_mode() {
