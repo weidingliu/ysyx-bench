@@ -150,7 +150,7 @@ static int cmd_info(char *args){
 	}
 	else{
 	    printf("Illegal parameter!");
-	    return -1;
+	    return 0;
 	}
 	return 0;
 }
