@@ -141,7 +141,7 @@ static int cmd_si(char *args){
 static int cmd_info(char *args){
 	char *arg = strtok(NULL, " ");
 	if(arg == NULL){
-	    printf("need parameter!");
+	    printf("need parameter!\n");
 	    return 0;
 	}
 	else if(strcmp(arg, "r")==0){
@@ -149,11 +149,11 @@ static int cmd_info(char *args){
 	    return 0;
 	}
 	else if(strcmp(arg, "w")==0){
-	     printf("Not accomplish!");
+	     printf("Not accomplish!\n");
 	     return 0;
 	}
 	else{
-	    printf("Illegal parameter!");
+	    printf("Illegal parameter!\n");
 	    return 0;
 	}
 	return 0;
