@@ -126,7 +126,7 @@ static int cmd_si(char *args){
     char *arg = strtok(NULL, " ");
     if (arg == NULL){
         cpu_exec(1);
-        printf("1\n");
+        //printf("1\n");
     }
     else {
     	uint64_t si_step=atoi64_t(arg);
@@ -139,7 +139,19 @@ static int cmd_si(char *args){
 }
 
 static int cmd_info(char *args){
-	isa_reg_display();
+	char *arg = strtok(NULL, " ");
+	if(strcmp(arg, "r")==0){
+	    isa_reg_display();
+	    return 0;
+	}
+	else if(strcmp(arg, "w")==0){
+	     printf("Not accomplish!");
+	     return 0;
+	}
+	else{
+	    printf("Illegal parameter!");
+	    return -1;
+	}
 	return 0;
 }
 
