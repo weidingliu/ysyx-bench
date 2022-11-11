@@ -13,7 +13,7 @@
 * See the Mulan PSL v2 for more details.
 ***************************************************************************************/
 
-#include <memory/paddr.h>
+#include <memory/paddr.h>//////
 #include <isa.h>
 #include <cpu/cpu.h>
 #include <readline/readline.h>
@@ -164,7 +164,7 @@ static int cmd_info(char *args){
 }
 
 static int cmd_x(char *args){
-    paddr_read(0x80000000,2);
+    paddr_read(0x80000000,10);
     return 0;
 }
 
