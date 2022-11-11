@@ -140,7 +140,11 @@ static int cmd_si(char *args){
 
 static int cmd_info(char *args){
 	char *arg = strtok(NULL, " ");
-	if(strcmp(arg, "r")==0){
+	if(arg == NULL){
+	    printf("need parameter!");
+	    return 0;
+	}
+	else if(strcmp(arg, "r")==0){
 	    isa_reg_display();
 	    return 0;
 	}
