@@ -97,7 +97,14 @@ static int cmd_help(char *args) {
 static int cmd_si(char *args){
     //cpu_exec(n);
     char *arg = strtok(NULL, " ");
-    printf("%s\n",arg);
+    if (arg == NULL){
+        cpu_exec(1);
+        printf("1");
+    }
+    else {
+        printf("%s\n",arg);
+    }
+    
     return 0;
 }
 
