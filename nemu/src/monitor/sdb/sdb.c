@@ -96,7 +96,8 @@ static int cmd_help(char *args) {
 
 static int cmd_si(char *args){
     //cpu_exec(n);
-    printf("cmd-si");
+    char *arg = strtok(NULL, " ");
+    printf("%s\n",arg);
     return 0;
 }
 
