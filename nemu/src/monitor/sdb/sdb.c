@@ -90,8 +90,8 @@ static struct {
   { "help", "Display information about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
-  { "si", "N step execute", cmd_si },
-  { "info SUBCMD", "display reg state or watchdog info",  cmd_info},
+  { "si", "si [N] N step execute", cmd_si },
+  { "info", "info SUBCMD display reg state or watchdog info",  cmd_info},
   /* TODO: Add more commands */
 
 };
