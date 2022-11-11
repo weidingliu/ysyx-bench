@@ -28,18 +28,18 @@ uint64_t nTmpRes =0;
 uint64_t ntmp10=1;
 if (arrTmp == NULL)
 {
-return 0;
+	return 0;
 }
 len=strlen(arrTmp);
  
 for (i =len-1 ; i >=0;i--)
 {
-ntmp10 =1;
-for (j=1;j<(len -i); j++)
-{
-ntmp10 = ntmp10*10;
-}
-nTmpRes = nTmpRes+(arrTmp[i]-48)*ntmp10;
+	ntmp10 =1;
+	for (j=1;j<(len -i); j++)
+	{
+		ntmp10 = ntmp10*10;
+	}
+	nTmpRes = nTmpRes+(arrTmp[i]-48)*ntmp10;
 }
 return nTmpRes;
 }
@@ -126,9 +126,10 @@ static int cmd_si(char *args){
         printf("1\n");
     }
     else {
-    	uint64_t o=atoi64_t(arg);
-    	printf("%lu\n",o);
-        printf("%s\n",arg);
+    	uint64_t si_step=atoi64_t(arg);
+    	cpu_exec(si_step);
+    	printf("%lu\n",si_step);
+        //printf("%s\n",arg);
     }
     
     return 0;
