@@ -24,7 +24,7 @@ uint32_t atoi32_t(char *arg){
     uint32_t temp=0x0;
     for (int i=2;i<strlen(arg);i++){
         if(arg[i]>= '0' && arg[i] <= '9'){
-            temp=0x0+temp*16+ arg[i]-'0';
+            temp=temp*16+ arg[i]-'0';
         }
         else if(arg[i]>= 'a' && arg[i] <= 'f'){
             temp=temp*16+ arg[i]-'a'+10;
