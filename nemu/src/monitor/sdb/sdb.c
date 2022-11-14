@@ -214,7 +214,7 @@ static int cmd_x(char *args){
             printf("0x%08lx",out);*/
             for (int i =0; i<mem_len;i++){
                 word_t out=paddr_read(temp_addr,4);
-                printf("address %ld : ",mem_len);
+                printf("address %08x : ",temp_addr);
                 printf("0x%08lx\n",out);
                 temp_addr=temp_addr+0x4;
             }
