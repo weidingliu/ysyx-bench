@@ -23,7 +23,16 @@
 uint32_t atoi32_t(char *arg){
     uint32_t temp=0x0;
     for (int i=2;i<strlen(arg);i++){
-        temp=temp*16+ arg[i]-'0';
+        if(arg[i]>= '0' && arg[i] <= '9'){
+            temp=temp*16+ arg[i]-'0';
+        }
+        else if(arg[i]>= 'a' && arg[i] <= 'f'){
+            temp=temp*16+ arg[i]-'a'+10;
+        }
+        else if(arg[i]>= 'A' && arg[i] <= 'F'){
+            temp=temp*16+ arg[i]-'A'+10;
+        }
+        
     }
     return temp;
 }
@@ -193,7 +202,7 @@ static int cmd_x(char *args){
             printf("%s\n",addr);
             char temp=atoi32_t(addr);
             
-            printf("0xxxxx%08x",temp);
+            printf("0x%08x",temp);
             //char *tem = strtok(NULL,"x");
             //char* tem=addr[2];
             //printf("%s\n",tem);
