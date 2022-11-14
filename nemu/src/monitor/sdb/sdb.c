@@ -32,7 +32,7 @@ uint32_t atoi32_t(char *arg){
         else if(arg[i]>= 'A' && arg[i] <= 'F'){
             temp=temp*16+ arg[i]-'A'+10;
         }
-        printf("%d",temp);
+        printf("%d\n",temp);
         
     }
     return temp;
