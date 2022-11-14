@@ -183,7 +183,7 @@ static int cmd_x(char *args){
                 
             }
             printf("%s\n",addr);
-            char *tem = strtok(addr,"0x");
+            char *tem = strtok(NULL,"x");
             printf("%s\n",tem);
             
             //printf("%ld\n",atoi64_t(addr[0]));
