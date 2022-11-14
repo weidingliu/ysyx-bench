@@ -201,7 +201,7 @@ static int cmd_x(char *args){
                 
             }
             printf("%s\n",addr);
-            char temp=atoi32_t(addr);
+            uint32_t temp=atoi32_t(addr);
             
             printf("0x%08x",temp);
             //char *tem = strtok(NULL,"x");
