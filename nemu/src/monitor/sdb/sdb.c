@@ -176,12 +176,18 @@ static int cmd_x(char *args){
             return 0;
         }
         else{
-            //char *addr = strtok(NULL, " ");
-             
+            char *addr = strtok(NULL, " ");
+            printf("%s\n",addr);
+            /*for (int i =0; i<mem_len;i++){
+                word_t out=paddr_read(addr,4);
+                printf("address %ld : ",mem_len);
+                printf("0x%08lx\n",out);
+                addr++;
+            }*/
         }
     }
-    word_t out=paddr_read(0x80000000,4);
-    printf("0x%08lx",out);
+    /*word_t out=paddr_read(0x80000000,4);
+    printf("0x%08lx",out);*/
     return 0;
 }
 
