@@ -183,7 +183,7 @@ static int cmd_x(char *args){
                 
             }
             printf("%s\n",addr);
-            printf("%d\n",atoi(addr));
+            printf("%ld\n",atoi64_t(addr));
             uint64_t o=80000000;
             word_t out=paddr_read(o,4);
             printf("0x%08lx",out);
