@@ -164,6 +164,22 @@ static int cmd_info(char *args){
 }
 
 static int cmd_x(char *args){
+    char *arg = strtok(NULL, " ");
+    if(arg == NULL ){
+        printf("Illegal parameter!\n");
+        return 0;
+    }
+    else{
+        uint64_t mem_len=atoi64_t(arg);
+        if(mem_len==0){
+            printf("Illegal parameter[%ld]!\n",mem_len);
+            return 0;
+        }
+        else{
+            //char *addr = strtok(NULL, " ");
+             
+        }
+    }
     word_t out=paddr_read(0x80000000,4);
     printf("%ld",out);
     return 0;
