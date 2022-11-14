@@ -21,8 +21,12 @@
 #include "sdb.h"
 
 uint32_t atoi32_t(char *arg){
+    /*uint32_t temp=0x0;
+    for (int i=2;i<strlen(arg);i++){
+        temp=temp*16+
     
-return 0;
+    }*/
+    return 0;
 }
 
 uint64_t atoi64_t(char *arrTmp)
@@ -188,7 +192,8 @@ static int cmd_x(char *args){
                 
             }
             printf("%s\n",addr);
-            uint32_t tem=0x1*16+0x1;
+            char o='1';
+            uint32_t tem=0x1*16+ o-'0';
             printf("%x",tem);
             //char *tem = strtok(NULL,"x");
             //char* tem=addr[2];
