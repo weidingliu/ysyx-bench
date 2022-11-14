@@ -20,6 +20,11 @@
 #include <readline/history.h>
 #include "sdb.h"
 
+uint32_t atoi32_t(char *arg){
+    
+return 0;
+}
+
 uint64_t atoi64_t(char *arrTmp)
 {
 int len =0;
@@ -183,6 +188,8 @@ static int cmd_x(char *args){
                 
             }
             printf("%s\n",addr);
+            uint32_t tem=0x1;
+            printf("%x",tem);
             //char *tem = strtok(NULL,"x");
             //char* tem=addr[2];
             //printf("%s\n",tem);
