@@ -183,6 +183,7 @@ static int cmd_x(char *args){
                 
             }
             printf("%s\n",addr);
+            printf("%d\n",atoi(addr));
             /*for (int i =0; i<mem_len;i++){
                 word_t out=paddr_read(addr,4);
                 printf("address %ld : ",mem_len);
