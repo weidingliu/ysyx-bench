@@ -188,7 +188,7 @@ static int cmd_x(char *args){
                 
             }
             printf("%s\n",addr);
-            uint32_t tem=0x123;
+            uint32_t tem=0x123a;
             printf("%x",tem);
             //char *tem = strtok(NULL,"x");
             //char* tem=addr[2];
