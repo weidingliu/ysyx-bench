@@ -199,7 +199,7 @@ static int cmd_x(char *args){
             }*/
         }
     }
-    word_t out=paddr_read(80000000,4);
+    word_t out=paddr_read(0x80000000,4);
     printf("0x%08lx",out);
     return 0;
 }
