@@ -183,8 +183,9 @@ static int cmd_x(char *args){
                 
             }
             printf("%s\n",addr);
-            char *tem = strtok(NULL,"x");
-            printf("%s\n",tem);
+            //char *tem = strtok(NULL,"x");
+            //char* tem=addr[2];
+            //printf("%s\n",tem);
             
             //printf("%ld\n",atoi64_t(addr[0]));
             /*uint64_t o=80000000;
@@ -198,8 +199,8 @@ static int cmd_x(char *args){
             }*/
         }
     }
-    /*word_t out=paddr_read(0x80000000,4);
-    printf("0x%08lx",out);*/
+    word_t out=paddr_read(80000000,4);
+    printf("0x%08lx",out);
     return 0;
 }
 
