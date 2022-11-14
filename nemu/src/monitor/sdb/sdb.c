@@ -183,10 +183,11 @@ static int cmd_x(char *args){
                 
             }
             printf("%s\n",addr);
-            printf("%ld\n",atoi64_t(addr));
-            uint64_t o=80000000;
+            printf("%c",addr[0]);
+            //printf("%ld\n",atoi64_t(addr[0]));
+            /*uint64_t o=80000000;
             word_t out=paddr_read(o,4);
-            printf("0x%08lx",out);
+            printf("0x%08lx",out);*/
             /*for (int i =0; i<mem_len;i++){
                 word_t out=paddr_read(addr,4);
                 printf("address %ld : ",mem_len);
