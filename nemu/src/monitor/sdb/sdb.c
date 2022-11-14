@@ -200,10 +200,10 @@ static int cmd_x(char *args){
                 return 0;
                 
             }
-            printf("%s\n",addr);
-            uint32_t temp=atoi32_t(addr);
+            //printf("%s\n",addr);
+            uint32_t temp_addr=atoi32_t(addr);
             
-            printf("0x%08x",temp);
+            //printf("0x%08x",temp);
             //char *tem = strtok(NULL,"x");
             //char* tem=addr[2];
             //printf("%s\n",tem);
@@ -212,12 +212,12 @@ static int cmd_x(char *args){
             /*uint64_t o=80000000;
             word_t out=paddr_read(o,4);
             printf("0x%08lx",out);*/
-            /*for (int i =0; i<mem_len;i++){
-                word_t out=paddr_read(addr,4);
+            for (int i =0; i<mem_len;i++){
+                word_t out=paddr_read(temp_addr,4);
                 printf("address %ld : ",mem_len);
                 printf("0x%08lx\n",out);
-                addr++;
-            }*/
+                temp_addr=temp_addr+0x4;
+            }
         }
     }
     /*word_t out=paddr_read(0x80000000,4);
