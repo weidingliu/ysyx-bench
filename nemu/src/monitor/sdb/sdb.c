@@ -183,7 +183,9 @@ static int cmd_x(char *args){
                 
             }
             printf("%s\n",addr);
-            printf("%c",addr[1]);
+            char *tem = strtok(NULL,"0x");
+            printf("%s\n",tem);
+            
             //printf("%ld\n",atoi64_t(addr[0]));
             /*uint64_t o=80000000;
             word_t out=paddr_read(o,4);
