@@ -177,6 +177,11 @@ static int cmd_x(char *args){
         }
         else{
             char *addr = strtok(NULL, " ");
+            if(addr == NULL){
+                printf("Illegal parameter address!\n");
+                return 0;
+                
+            }
             printf("%s\n",addr);
             /*for (int i =0; i<mem_len;i++){
                 word_t out=paddr_read(addr,4);
