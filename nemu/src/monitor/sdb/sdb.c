@@ -103,6 +103,8 @@ static int cmd_info(char *args);
 
 static int cmd_x(char *args);
 
+static int cmd_p(char *args);
+
 static struct {
   const char *name;
   const char *description;
@@ -114,6 +116,7 @@ static struct {
   { "si", "si [N] N step execute", cmd_si },
   { "info", "info SUBCMD display reg state or watchdog info",  cmd_info},
   { "x", "x [N] EXPR ,Hexadecimal output N byte in memory, EXPR is address", cmd_x },
+   { "p", "evaluate regular expressions",  cmd_p},
   /* TODO: Add more commands */
 
 };
@@ -141,6 +144,22 @@ static int cmd_help(char *args) {
     printf("Unknown command '%s'\n", arg);
   }
   return 0;
+}
+
+static int cmd_p(char *args){
+    char *arg=strtok(NULL, " ");
+    if(arg == NULL ){
+        printf("need parameter!\n");
+	return 0;
+    }
+    else{
+        bool *success=false;
+        word_t out;
+        out=expr(arg,success);
+        printf("%ld",out);
+    }
+    return 0;
+
 }
 
 static int cmd_si(char *args){
