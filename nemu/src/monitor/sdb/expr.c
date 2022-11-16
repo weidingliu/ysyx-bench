@@ -80,7 +80,8 @@ static bool make_token(char *e) {
   regmatch_t pmatch;
 
   nr_token = 0;
-
+  
+  
   while (e[position] != '\0') {
     /* Try all rules one by one. */
     for (i = 0; i < NR_REGEX; i ++) {
@@ -99,6 +100,14 @@ static bool make_token(char *e) {
          */
 
         switch (rules[i].token_type) {
+          case TK_NOTYPE:  break;
+          case '+':{
+              tokens[nr_token].str[0] = '+';
+              tokens[nr_token++].type=rules[i].token_type;
+              
+              break;
+              }
+          
           default: TODO();
         }
 
@@ -123,7 +132,7 @@ word_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  //TODO();
+  TODO();
 
   return 0;
 }
