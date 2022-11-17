@@ -21,7 +21,7 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ,//'+','-','/','(',')',
+  TK_NOTYPE = 256, TK_EQ,NUMB,//'+','-','/','(',')',
 
   /* TODO: Add more token types */
 
@@ -44,6 +44,7 @@ static struct rule {
   {"\\(", '('},
   {"\\)", ')'},
   {"\\*", '*'},
+  {"[0-9]+", NUMB},
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -138,6 +139,16 @@ static bool make_token(char *e) {
               }
           case '*':{
               strcpy(tokens[nr_token].str,"*");
+              tokens[nr_token++].type=rules[i].token_type;
+              
+              break;
+              }
+          case NUMB:{
+              if(substr_len>32){
+                  printf("parameter is too long!!");
+                  return 0;
+              }
+              strcpy(tokens[nr_token].str,"0");
               tokens[nr_token++].type=rules[i].token_type;
               
               break;
