@@ -147,8 +147,12 @@ static int cmd_help(char *args) {
 }
 
 static int cmd_p(char *args){
-    char *arg=strtok(NULL, " ");
-    if(arg == NULL ){
+     bool *success=false;
+        word_t out;
+        out=expr(args,success);
+        printf("%ld\n",out);
+    //char *arg=strtok(NULL, " ");
+    /*if(arg == NULL ){
         printf("need parameter!\n");
 	return 0;
     }
@@ -157,7 +161,7 @@ static int cmd_p(char *args){
         word_t out;
         out=expr(args,success);
         printf("%ld\n",out);
-    }
+    }*/
     return 0;
 
 }
