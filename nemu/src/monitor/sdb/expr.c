@@ -148,6 +148,7 @@ static bool make_token(char *e) {
                   printf("parameter is too long!!");
                   return 0;
               }
+              strcpy(tokens[nr_token].str,"");
               strncpy(tokens[nr_token].str,substr_start,substr_len);
               tokens[nr_token++].type=rules[i].token_type;
               break;
