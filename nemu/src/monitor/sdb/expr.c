@@ -107,24 +107,28 @@ static bool make_token(char *e) {
               break;
           }
           case '+':{
+              memset(tokens[nr_token].str,0x00,32);//initialize
               strcpy(tokens[nr_token].str,"+");
               tokens[nr_token++].type=rules[i].token_type;
               
               break;
               }
           case '-':{
+              memset(tokens[nr_token].str,0x00,32);//initialize
               strcpy(tokens[nr_token].str,"-");
               tokens[nr_token++].type=rules[i].token_type;
               
               break;
               }
           case '/':{
+              memset(tokens[nr_token].str,0x00,32);//initialize
               strcpy(tokens[nr_token].str,"/");
               tokens[nr_token++].type=rules[i].token_type;
               
               break;
               }
           case '(':{
+              memset(tokens[nr_token].str,0x00,32);//initialize
               strcpy(tokens[nr_token].str,"(");
               tokens[nr_token++].type=rules[i].token_type;
               
@@ -132,12 +136,14 @@ static bool make_token(char *e) {
               }
               
           case ')':{
+              memset(tokens[nr_token].str,0x00,32);//initialize
               strcpy(tokens[nr_token].str,")");
               tokens[nr_token++].type=rules[i].token_type;
               
               break;
               }
           case '*':{
+              memset(tokens[nr_token].str,0x00,32);//initialize
               strcpy(tokens[nr_token].str,"*");
               tokens[nr_token++].type=rules[i].token_type;
               
@@ -145,13 +151,16 @@ static bool make_token(char *e) {
               }
           case NUMB:{
               if(substr_len>32){
-                  printf("parameter is too long!!");
-                  return 0;
+                  printf("expression is too long!!");
+                  return false;
               }
-              memset(tokens[nr_token].str,0x00,32);//initialize
-              strncpy(tokens[nr_token].str,substr_start,substr_len);
-              tokens[nr_token++].type=rules[i].token_type;
-              break;
+              else {
+                  memset(tokens[nr_token].str,0x00,32);//initialize
+                  strncpy(tokens[nr_token].str,substr_start,substr_len);
+                  tokens[nr_token++].type=rules[i].token_type;
+                  break;
+              }
+              
               }
           
           default: TODO();
