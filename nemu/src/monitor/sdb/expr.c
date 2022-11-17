@@ -36,7 +36,7 @@ static struct rule {
    * Pay attention to the precedence level of different rules.
    */
 
-  {"\x20+", TK_NOTYPE},    // spaces
+  {" +", TK_NOTYPE},    // spaces
   {"\\+", '+'},         // plus
   {"==", TK_EQ},        // equal
   {"\\-", '-'},
@@ -100,7 +100,10 @@ static bool make_token(char *e) {
          */
 
         switch (rules[i].token_type) {
-          case TK_NOTYPE:  break;
+          case TK_NOTYPE:{  
+          
+              break;
+          }
           case '+':{
               strcpy(tokens[nr_token].str,"+");
               tokens[nr_token++].type=rules[i].token_type;
@@ -136,7 +139,7 @@ static bool make_token(char *e) {
           default: TODO();
         }
 
-        //break;
+        break;
       }
     }
 
