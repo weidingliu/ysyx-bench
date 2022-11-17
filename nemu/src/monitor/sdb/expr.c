@@ -21,7 +21,7 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ,
+  TK_NOTYPE = 256, TK_EQ,//'+','-','/','(',')',
 
   /* TODO: Add more token types */
 
@@ -103,6 +103,31 @@ static bool make_token(char *e) {
           case TK_NOTYPE:  break;
           case '+':{
               strcpy(tokens[nr_token].str,"+");
+              tokens[nr_token++].type=rules[i].token_type;
+              
+              break;
+              }
+          case '-':{
+              strcpy(tokens[nr_token].str,"-");
+              tokens[nr_token++].type=rules[i].token_type;
+              
+              break;
+              }
+          case '/':{
+              strcpy(tokens[nr_token].str,"/");
+              tokens[nr_token++].type=rules[i].token_type;
+              
+              break;
+              }
+          case '(':{
+              strcpy(tokens[nr_token].str,"(");
+              tokens[nr_token++].type=rules[i].token_type;
+              
+              break;
+              }
+              
+          case ')':{
+              strcpy(tokens[nr_token].str,")");
               tokens[nr_token++].type=rules[i].token_type;
               
               break;
