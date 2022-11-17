@@ -102,7 +102,7 @@ static bool make_token(char *e) {
         switch (rules[i].token_type) {
           case TK_NOTYPE:  break;
           case '+':{
-              tokens[nr_token].str[0] = '+';
+              strcpy(tokens[nr_token].str,rules[i].regex);
               tokens[nr_token++].type=rules[i].token_type;
               
               break;
@@ -132,7 +132,7 @@ word_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  TODO();
-
+  //TODO();
+  
   return 0;
 }
