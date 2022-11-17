@@ -155,7 +155,7 @@ static int cmd_p(char *args){
     else{
         bool *success=false;
         word_t out;
-        out=expr(arg,success);
+        out=expr(args,success);
         printf("%ld\n",out);
     }
     return 0;
