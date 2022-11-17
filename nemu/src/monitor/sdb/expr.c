@@ -43,6 +43,7 @@ static struct rule {
   {"\\/", '/'},
   {"\\(", '('},
   {"\\)", ')'},
+  {"\\*", '*'},
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -131,6 +132,12 @@ static bool make_token(char *e) {
               
           case ')':{
               strcpy(tokens[nr_token].str,")");
+              tokens[nr_token++].type=rules[i].token_type;
+              
+              break;
+              }
+          case '*':{
+              strcpy(tokens[nr_token].str,"*");
               tokens[nr_token++].type=rules[i].token_type;
               
               break;
