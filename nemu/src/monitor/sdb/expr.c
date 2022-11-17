@@ -100,10 +100,13 @@ static bool make_token(char *e) {
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
          */
-
+        if(substr_len>32){
+                  printf("expression is too long!!");
+                  return false;
+         }
+        
         switch (rules[i].token_type) {
           case TK_NOTYPE:{  
-          
               break;
           }
           case '+':{
@@ -150,16 +153,11 @@ static bool make_token(char *e) {
               break;
               }
           case NUMB:{
-              if(substr_len>32){
-                  printf("expression is too long!!");
-                  return false;
-              }
-              else {
-                  memset(tokens[nr_token].str,0x00,32);//initialize
-                  strncpy(tokens[nr_token].str,substr_start,substr_len);
-                  tokens[nr_token++].type=rules[i].token_type;
-                  break;
-              }
+              memset(tokens[nr_token].str,0x00,32);//initialize
+              strncpy(tokens[nr_token].str,substr_start,substr_len);
+              tokens[nr_token++].type=rules[i].token_type;
+              break;
+              
               
               }
           
