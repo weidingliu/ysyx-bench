@@ -199,7 +199,7 @@ bool check_parentheses(int p,int q){
         }
         q--;
     }
-    if(pointer>=0){
+    if(pointer>0){
         printf("fasle\n");
         return false;
     }
