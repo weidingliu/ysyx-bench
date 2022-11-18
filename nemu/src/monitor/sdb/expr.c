@@ -199,7 +199,7 @@ bool check_parentheses(int p,int q){
         }
         q--;
     }
-    printf("%s",stack);
+    printf("%s\n",stack);
 return true;
 }
 
