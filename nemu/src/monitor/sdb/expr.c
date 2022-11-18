@@ -179,8 +179,8 @@ static bool make_token(char *e) {
 
 word_t evaluate(int p,int q){
     if(p>q){
-        printf("Bad expression!");
-        assert(0);
+        printf("Bad expression!\n");
+        return 0;
     }
 
 return 0;
