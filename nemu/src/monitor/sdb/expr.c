@@ -199,6 +199,13 @@ bool check_parentheses(int p,int q){
         }
         q--;
     }
+    if(pointer>=0){
+        printf("fasle\n");
+        return false;
+    }
+    else {
+        printf("true\n");
+    }
     printf("%s\n",stack);
 return true;
 }
