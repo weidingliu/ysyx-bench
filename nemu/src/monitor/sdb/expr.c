@@ -190,7 +190,7 @@ bool check_parentheses(int p,int q){
     stack[pointer]=tokens[q].str[0];
     printf("%s",stack);
     while (q>=p){
-        
+        q--;
         
         
     }
