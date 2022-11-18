@@ -177,6 +177,14 @@ static bool make_token(char *e) {
   return true;
 }
 
+word_t evaluate(int p,int q){
+    if(p>q){
+        printf("Bad expression!");
+        assert(0);
+    }
+
+return 0;
+}
 
 word_t expr(char *e, bool *success) {
   if (!make_token(e)) {
@@ -186,6 +194,7 @@ word_t expr(char *e, bool *success) {
 
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
+  evaluate(1,0);
   for (int i=0;i<nr_token;i++){
       printf("%s ",tokens[i].str);
   }
