@@ -176,11 +176,54 @@ static bool make_token(char *e) {
 
   return true;
 }
+bool check_parentheses(int p,int q){
+    char stack[32];
+    int pointer=0;
+    if((!strcmp(tokens[p].str,"(") && strcmp(tokens[q].str,")"))||(strcmp(tokens[p].str,"(") && !strcmp(tokens[q].str,")"))){
+            printf("Bad expression!\n");
+            assert(0);
+            return false;
+        }
+    if(strcmp(tokens[p].str,"(") && strcmp(tokens[q].str,")")){
+        return false;
+    }
+    stack[pointer]=tokens[q].str[0];
+    printf("%s",stack);
+    while (q>=p){
+        
+        
+        
+    }
+return true;
+}
 
 word_t evaluate(int p,int q){
     if(p>q){
         printf("Bad expression!\n");
         return 0;
+    }
+    else if(p==q){
+        
+        return 0;
+    }
+    else if(check_parentheses(p, q) == true){
+        /* The expression is surrounded by a matched pair of parentheses.
+         * If that is the case, just throw away the parentheses.
+         */
+        return evaluate(p + 1, q - 1);
+    }
+    else {
+  /*  //op = the position of 主运算符 in the token expression;
+    op=1;
+    word_t val1 = evaluate(p, op - 1);
+    word_t val2 = evaluate(op + 1, q);
+
+    switch (op_type) {
+      case '+': return val1 + val2;
+      case '-': return val1 - val2;
+      case '*': return val1 * val2;
+      case '/': return val1 / val2;
+      default: assert(0);*/
     }
 
 return 0;
