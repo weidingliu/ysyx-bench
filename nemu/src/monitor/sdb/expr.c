@@ -200,7 +200,7 @@ bool check_parentheses(int p,int q){
             pointer--;
         }
         q--;
-        if(pointer==0){
+        if(pointer==0 && q!=p){
             flag=false;
         }
     }
