@@ -187,7 +187,7 @@ bool check_parentheses(int p,int q){
             flag=false;
     }
     
-    while(strcmp(tokens[q].str,")")){
+    while(q>=p&&strcmp(tokens[q].str,")")){
         
         /*if(q<=0)
         {
@@ -201,6 +201,10 @@ bool check_parentheses(int p,int q){
             return false;
         }
         q--;
+    }
+    if(p>q){
+        printf("false/n");
+        return false;
     }
     stack[pointer++]=tokens[q].str[0];
     q--;
