@@ -189,10 +189,16 @@ bool check_parentheses(int p,int q){
     
     while(strcmp(tokens[q].str,")")){
         q--;
+        if(q<=0)
+        {
+            printf("Bad expression!\n");
+            assert(0);
+            return false;
+        }
     }
     stack[pointer++]=tokens[q].str[0];
     q--;
-    printf("%d\n",flag);
+    
     while (q>=p){
         if(!strcmp(tokens[q].str,")")){
            stack[pointer++]=tokens[q].str[0];
@@ -200,10 +206,10 @@ bool check_parentheses(int p,int q){
         if(!strcmp(tokens[q].str,"(")){
             pointer--;
         }
-        q--;
         if(pointer==0 && q!=p){
             flag=false;
         }
+        q--;
     }
     printf("%s %d\n",stack,pointer);
     if(pointer==0){
