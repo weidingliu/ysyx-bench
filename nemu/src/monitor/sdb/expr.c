@@ -364,11 +364,12 @@ word_t expr(char *e, bool *success) {
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
   word_t out=evaluate(0,nr_token-1);
-  printf("%ld\n",out);
+  
   //check_parentheses(0,nr_token-1);
-  for (int i=0;i<nr_token;i++){
+  /*for (int i=0;i<nr_token;i++){
       printf("%s ",tokens[i].str);
   }
-  printf("\n");
-  return 0;
+  printf("\n");*/
+  *success = true;
+  return out;
 }
