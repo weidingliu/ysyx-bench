@@ -203,7 +203,7 @@ bool check_parentheses(int p,int q){
         q--;
     }
     if(p>q){
-        printf("false/n");
+        printf("false\n");
         return false;
     }
     stack[pointer++]=tokens[q].str[0];
