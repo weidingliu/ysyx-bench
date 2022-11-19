@@ -204,7 +204,7 @@ bool check_parentheses(int p,int q){
             flag=false;
         }
     }
-    printf("%s\n",stack);
+    printf("%s %d\n",stack,pointer);
     if(pointer==0){
         if(flag){
             printf("true\n");
