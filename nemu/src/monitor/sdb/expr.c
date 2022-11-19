@@ -220,11 +220,11 @@ bool check_parentheses(int p,int q){
     printf("%s %d\n",stack,pointer);
     if(pointer==0){
         if(flag){
-            //printf("true\n");
+            printf("true\n");
             return true;
         }
         else{
-            //printf("false\n");
+            printf("false\n");
             return false;
         }
         
