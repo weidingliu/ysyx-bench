@@ -179,12 +179,31 @@ static bool make_token(char *e) {
 bool check_parentheses(int p,int q){
     char stack[32];
     int pointer=0;
+    bool flag=true;//
     if((!strcmp(tokens[p].str,"(") && strcmp(tokens[q].str,")"))||(strcmp(tokens[p].str,"(") && !strcmp(tokens[q].str,")"))){//have problem
+            flag=false;
+        }
+    if(strcmp(tokens[p].str,"(") && strcmp(tokens[q].str,")")){
+            flag=false;
+    }
+    
+    while(q>=p&&strcmp(tokens[q].str,")")){
+        
+        /*if(q<=0)
+        {
             printf("Bad expression!\n");
             assert(0);
             return false;
+        }*/
+        if(!strcmp(tokens[q].str,"(")){
+            printf("Bad expression1!\n");
+            assert(0);
+            return false;
         }
-    if(strcmp(tokens[p].str,"(") && strcmp(tokens[q].str,")")){
+        q--;
+    }
+    if(p>q){
+        //printf("false\n");
         return false;
     }
     stack[pointer++]=tokens[q].str[0];
@@ -197,18 +216,107 @@ bool check_parentheses(int p,int q){
         if(!strcmp(tokens[q].str,"(")){
             pointer--;
         }
+        if(pointer==0 && q!=p){
+            flag=false;
+        }
+        if(pointer<0){
+            printf("Bad expression2!\n");
+            assert(0);
+            return false;
+        }
         q--;
     }
-    printf("%s\n",stack);
+    printf("%s %d\n",stack,pointer);
     if(pointer==0){
-        printf("true\n");
-        return true;
+        if(flag){
+            //printf("true\n");
+            return true;
+        }
+        else{
+            //printf("false\n");
+            return false;
+        }
+        
     }
     else {
-        printf("false\n");
+        printf("Bad expression3!\n");
+        assert(0);
         return false;
     }
 return true;
+}
+int find_op(int p,int q){
+    int pos=-1;
+    int op_type=0;
+    bool flag=true;
+    while(q>=p){
+        if(!strcmp(tokens[q].str,")")){
+            flag=false;
+            q--;
+            continue;
+        }
+        if(!strcmp(tokens[q].str,"(")){
+            flag=true;
+            q--;
+            continue;
+        }
+        if(tokens[q].type==NUMB){
+            q--;
+            continue;
+        }
+        if(flag==false){
+            q--;
+            continue;
+        }
+        switch(tokens[q].type){
+            case '+':{
+                
+                if(pos==-1){
+                    pos=q;
+                    op_type='+';
+                }
+                if(op_type=='*'||op_type=='/'){
+                    pos=q;
+                    op_type='+';
+                }
+                break;
+                
+            }
+            case '-':{
+                if(pos==-1){
+                    pos=q;
+                    op_type='-';
+                }
+                if(op_type=='*' || op_type=='/'){
+                    pos=q;
+                    op_type='-';
+                }
+                break;
+            }
+            case '*':{
+                if(pos==-1){
+                    pos=q;
+                    op_type='*';
+                }
+                break;
+            }
+            case '/':{
+                if(pos==-1){
+                    pos=q;
+                    op_type='/';
+                }
+                break;
+            }
+            default:assert(0);
+        
+        }
+        q--;
+    }
+    if(pos==-1){
+        assert(0);
+        return 0;
+    }
+    return pos;
 }
 
 word_t evaluate(int p,int q){
@@ -217,8 +325,11 @@ word_t evaluate(int p,int q){
         return 0;
     }
     else if(p==q){
-        
-        return 0;
+        word_t out=0;
+        for(int i=0;i<strlen(tokens[q].str);i++){
+            out=out*10+tokens[q].str[i]-'0';
+        }
+        return out;
     }
     else if(check_parentheses(p, q) == true){
         /* The expression is surrounded by a matched pair of parentheses.
@@ -227,17 +338,18 @@ word_t evaluate(int p,int q){
         return evaluate(p + 1, q - 1);
     }
     else {
-  /*  //op = the position of 主运算符 in the token expression;
-    op=1;
+    word_t op=find_op(p,q);
+ 
     word_t val1 = evaluate(p, op - 1);
     word_t val2 = evaluate(op + 1, q);
 
-    switch (op_type) {
+    switch (tokens[op].type) {
       case '+': return val1 + val2;
       case '-': return val1 - val2;
       case '*': return val1 * val2;
       case '/': return val1 / val2;
-      default: assert(0);*/
+      default: assert(0);
+    }
     }
 
 return 0;
@@ -251,11 +363,13 @@ word_t expr(char *e, bool *success) {
 
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
-  //evaluate(1,0);
-  check_parentheses(0,nr_token-1);
-  for (int i=0;i<nr_token;i++){
+  word_t out=evaluate(0,nr_token-1);
+  
+  //check_parentheses(0,nr_token-1);
+  /*for (int i=0;i<nr_token;i++){
       printf("%s ",tokens[i].str);
   }
-  printf("\n");
-  return 0;
+  printf("\n");*/
+  *success = true;
+  return out;
 }
