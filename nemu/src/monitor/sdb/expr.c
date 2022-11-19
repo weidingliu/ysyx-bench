@@ -179,16 +179,18 @@ static bool make_token(char *e) {
 bool check_parentheses(int p,int q){
     char stack[32];
     int pointer=0;
-    if((!strcmp(tokens[p].str,"(") && strcmp(tokens[q].str,")"))||(strcmp(tokens[p].str,"(") && !strcmp(tokens[q].str,")"))){
-            printf("Bad expression!\n");
-            assert(0);
-            return false;
+    bool flag=true;//
+    if((!strcmp(tokens[p].str,"(") && strcmp(tokens[q].str,")"))||(strcmp(tokens[p].str,"(") && !strcmp(tokens[q].str,")"))){//have problem
+            flag=false;
         }
     if(strcmp(tokens[p].str,"(") && strcmp(tokens[q].str,")")){
-        return false;
+            flag=false;
+    }
+    
+    while(strcmp(tokens[q].str,")")){
+        q--;
     }
     stack[pointer++]=tokens[q].str[0];
-    q--;
     
     while (q>=p){
         if(!strcmp(tokens[q].str,")")){
@@ -198,14 +200,24 @@ bool check_parentheses(int p,int q){
             pointer--;
         }
         q--;
+        if(pointer==0){
+            flag=false;
+        }
     }
     printf("%s\n",stack);
     if(pointer==0){
-        printf("true\n");
-        return true;
+        if(flag){
+            printf("true\n");
+            return true;
+        }
+        else{
+            return false;
+        }
+        
     }
     else {
-        printf("false\n");
+        printf("Bad expression!\n");
+        assert(0);
         return false;
     }
 return true;
