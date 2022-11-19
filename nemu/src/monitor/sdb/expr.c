@@ -196,7 +196,7 @@ bool check_parentheses(int p,int q){
             return false;
         }*/
         if(strcmp(tokens[q].str,"(")){
-            printf("Bad expression!\n");
+            printf("Bad expression1!\n");
             assert(0);
             return false;
         }
@@ -220,7 +220,7 @@ bool check_parentheses(int p,int q){
             flag=false;
         }
         if(pointer<0){
-            printf("Bad expression!\n");
+            printf("Bad expression2!\n");
             assert(0);
             return false;
         }
