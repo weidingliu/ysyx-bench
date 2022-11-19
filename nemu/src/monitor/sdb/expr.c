@@ -192,6 +192,7 @@ bool check_parentheses(int p,int q){
     }
     stack[pointer++]=tokens[q].str[0];
     q--;
+    printf("%d\n",flag);
     while (q>=p){
         if(!strcmp(tokens[q].str,")")){
            stack[pointer++]=tokens[q].str[0];
