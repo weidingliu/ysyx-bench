@@ -320,7 +320,7 @@ int find_op(int p,int q){
 }
 
 word_t evaluate(int p,int q){
-    
+    printf("%d %d %d\n",nr_token,p,q);
     if(p>q){
         printf("Bad expression!\n");
         return 0;
@@ -347,7 +347,7 @@ word_t evaluate(int p,int q){
     //printf("%ld %ld\n",val1,val2);
     
     switch (tokens[op].type) {
-      case '+': printf("%d %d %d\n",nr_token,p,q);return val1 + val2;
+      case '+': return val1 + val2;
       case '-': return val1 - val2;
       case '*': return val1 * val2;
       case '/': return val1 / val2;
