@@ -364,7 +364,7 @@ word_t expr(char *e, bool *success) {
 
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
-  word_t out=evaluate(0,nr_token-1);
+  word_t out=evaluate(0,2);
   printf("%ld",out);
   //check_parentheses(0,nr_token-1);
   /*for (int i=0;i<nr_token;i++){
