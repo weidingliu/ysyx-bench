@@ -320,12 +320,13 @@ int find_op(int p,int q){
 }
 
 word_t evaluate(int p,int q){
+    word_t out=0;
     if(p>q){
         printf("Bad expression!\n");
         return 0;
     }
     else if(p==q){
-        word_t out=0;
+        
         for(int i=0;i<strlen(tokens[q].str);i++){
             out=out*10+tokens[q].str[i]-'0';
         }
