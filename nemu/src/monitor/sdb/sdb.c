@@ -151,10 +151,10 @@ static int cmd_p(char *args){
      word_t out=-1;
      out=expr(args,success);
      printf("%ld\n",out);
-     if(success==false){
+     /*if(success==false){
          printf("expr fail!!");
          return 0;
-     }
+     }*/
      printf("%ld\n",out);
     //char *arg=strtok(NULL, " ");
     /*if(arg == NULL ){
