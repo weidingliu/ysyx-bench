@@ -347,7 +347,7 @@ word_t evaluate(int p,int q){
     //printf("%ld %ld\n",val1,val2);
     
     switch (tokens[op].type) {
-      case '+': printf("%ld\n",val1 + val2);return val1 + val2;
+      case '+': word_t result =val1+val2;printf("%ld\n",result);return result;
       case '-': return val1 - val2;
       case '*': return val1 * val2;
       case '/': return val1 / val2;
@@ -358,11 +358,10 @@ word_t evaluate(int p,int q){
 }
 
 word_t expr(char *e, bool *success) {
-  /*if (!make_token(e)) {
+  if (!make_token(e)) {
     *success = false;
     return 0;
-  }*/
-  make_token(e);
+  }
 
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
