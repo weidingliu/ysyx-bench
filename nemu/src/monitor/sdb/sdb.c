@@ -148,7 +148,7 @@ static int cmd_help(char *args) {
 
 static int cmd_p(char *args){
      bool *success= false;
-     word_t out;
+     word_t out=-1;
      out=expr(args,success);
      printf("%ld\n",out);
      if(success==false){

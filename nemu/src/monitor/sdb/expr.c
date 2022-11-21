@@ -340,10 +340,10 @@ word_t evaluate(int p,int q){
     else {
     word_t op=find_op(p,q);
     
-    printf("%ld\n",op);
+    //printf("%ld\n",op);
     word_t val1 = evaluate(p, op - 1);
     word_t val2 = evaluate(op + 1, q);
-    printf("%ld %ld\n",val1,val2);
+    //printf("%ld %ld\n",val1,val2);
     switch (tokens[op].type) {
       case '+': return val1 + val2;
       case '-': return val1 - val2;
@@ -371,7 +371,7 @@ word_t expr(char *e, bool *success) {
       printf("%s ",tokens[i].str);
   }
   printf("\n");*/
-  printf("%ld\n",out);
+  //printf("%ld\n",out);
   *success = true;
   return out;
 }
