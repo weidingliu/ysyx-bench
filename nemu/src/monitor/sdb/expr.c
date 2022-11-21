@@ -371,6 +371,7 @@ word_t expr(char *e, bool *success) {
       printf("%s ",tokens[i].str);
   }
   printf("\n");*/
+  printf("%ld\n",out);
   *success = true;
   return out;
 }
