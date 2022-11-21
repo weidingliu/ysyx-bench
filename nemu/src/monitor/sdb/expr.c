@@ -345,7 +345,7 @@ word_t evaluate(int p,int q){
     word_t val2 = evaluate(op + 1, q);
     printf("%ld %ld\n",val1,val2);
     switch (tokens[op].type) {
-      case '+': return val1 + val2;
+      case '+': printf("4555555\n");return val1 + val2;
       case '-': return val1 - val2;
       case '*': return val1 * val2;
       case '/': return val1 / val2;
