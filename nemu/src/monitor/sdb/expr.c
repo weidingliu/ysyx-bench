@@ -353,7 +353,6 @@ word_t evaluate(int p,int q){
     }
     }
 
-return 0;
 }
 
 word_t expr(char *e, bool *success) {
