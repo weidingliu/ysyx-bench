@@ -373,5 +373,6 @@ word_t expr(char *e, bool *success) {
   printf("\n");*/
   //printf("%ld\n",out);
   *success = true;
+  printf("%ld",out);
   return out;
 }

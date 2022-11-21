@@ -148,14 +148,14 @@ static int cmd_help(char *args) {
 
 static int cmd_p(char *args){
      bool *success= false;
-     word_t resu;
-     resu=expr(args,success);
+     //word_t resu;
+     expr(args,success);
      //printf("%ld\n",out);
      if(success==false){
          printf("expr fail!!");
          return 0;
      }
-     printf("%ld\n",resu);
+     //printf("%ld\n",resu);
     //char *arg=strtok(NULL, " ");
     /*if(arg == NULL ){
         printf("need parameter!\n");
