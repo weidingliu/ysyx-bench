@@ -308,12 +308,22 @@ int find_op(int p,int q){
                     pos=q;
                     op_type='*';
                 }
+                if(pre_isop){
+                    pos=q;
+                    op_type='*';
+                    pre_isop=false;
+                }
                 break;
             }
             case '/':{
                 if(pos==-1){
                     pos=q;
                     op_type='/';
+                }
+                if(pre_isop){
+                    pos=q;
+                    op_type='/';
+                    pre_isop=false;
                 }
                 break;
             }
