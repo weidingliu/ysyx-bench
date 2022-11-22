@@ -320,7 +320,7 @@ int find_op(int p,int q){
 }
 
 word_t eval(int p,int q){
-    printf("%d %d %d\n",nr_token,p,q);
+    //printf("%d %d %d\n",nr_token,p,q);
     if(p>q){
         printf("Bad expression!\n");
         return 0;
