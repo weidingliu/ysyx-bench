@@ -331,7 +331,7 @@ word_t evaluate(int p,int q){
         for(int i=0;i<strlen(tokens[p].str);i++){
             out=out*10+tokens[p].str[i]-'0';
         }
-        printf("%ld",out);
+        printf("%ld\n",out);
         return out;
     }
     else if(check_parentheses(p, q) == true){
