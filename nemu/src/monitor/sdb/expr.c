@@ -249,6 +249,7 @@ int find_op(int p,int q){
     int pos=-1;
     int op_type=0;
     bool flag=true;
+    bool pre_isop=false;
     while(q>=p){
         if(!strcmp(tokens[q].str,")")){
             flag=false;
@@ -262,6 +263,9 @@ int find_op(int p,int q){
         }
         if(tokens[q].type==NUMB){
             q--;
+            if(pre_isop){
+                pre_isop=false;
+            }
             continue;
         }
         if(flag==false){
@@ -279,6 +283,11 @@ int find_op(int p,int q){
                     pos=q;
                     op_type='+';
                 }
+                if(pre_isop){
+                    pos=q;
+                    op_type='+';
+                    pre_isop=false;
+                }
                 break;
                 
             }
@@ -291,6 +300,7 @@ int find_op(int p,int q){
                     pos=q;
                     op_type='-';
                 }
+                pre_isop=true;
                 break;
             }
             case '*':{
