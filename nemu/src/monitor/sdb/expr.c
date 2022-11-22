@@ -342,21 +342,21 @@ word_t eval(int p,int q){
     }
     else {
     word_t op=find_op(p,q);
-    
+    printf("%ld",op);
     //printf("%ld\n",op);
-    word_t val1 = eval(p, op - 1);
-    word_t val2 = eval(op + 1, q);
+    /*word_t val1 = eval(p, op - 1);
+    word_t val2 = eval(op + 1, q);*/
     //printf("%ld %ld\n",val1,val2);
-    
+    /*
     switch (tokens[op].type) {
       case '+': return val1 + val2;
       case '-': return val1 - val2;
       case '*': return val1 * val2;
       case '/': return val1 / val2;
       default: assert(0);
-    }
+    }*/
    }
-
+   return 0;
 }
 
 word_t expr(char *e, bool *success) {
