@@ -319,7 +319,7 @@ int find_op(int p,int q){
     return pos;
 }
 
-word_t evaluate(int p,int q){
+word_t eval(int p,int q){
     printf("%d %d %d\n",nr_token,p,q);
     if(p>q){
         printf("Bad expression!\n");
@@ -327,25 +327,25 @@ word_t evaluate(int p,int q){
     }
     else if(p==q){
         word_t out=0;
-        printf("%ld\n",strlen(tokens[p].str));
+        //printf("%ld\n",strlen(tokens[p].str));
         for(int i=0;i<strlen(tokens[p].str);i++){
             out=out*10+tokens[p].str[i]-'0';
         }
-        printf("%ld\n",out);
+        //printf("%ld\n",out);
         return out;
     }
     else if(check_parentheses(p, q) == true){
         /* The expression is surrounded by a matched pair of parentheses.
          * If that is the case, just throw away the parentheses.
          */
-        return evaluate(p + 1, q - 1);
+        return eval(p + 1, q - 1);
     }
     else {
     word_t op=find_op(p,q);
     
     //printf("%ld\n",op);
-    word_t val1 = evaluate(p, op - 1);
-    word_t val2 = evaluate(op + 1, q);
+    word_t val1 = eval(p, op - 1);
+    word_t val2 = eval(op + 1, q);
     //printf("%ld %ld\n",val1,val2);
     
     switch (tokens[op].type) {
@@ -369,7 +369,7 @@ word_t expr(char *e, bool *success) {
   //TODO();
   
   //printf("%d\n",check_parentheses(0,nr_token-1));
-  word_t out=evaluate(0,nr_token-1);
+  word_t out=eval(0,nr_token-1);
   printf("%ld",out);
   //check_parentheses(0,nr_token-1);
   /*for (int i=0;i<nr_token;i++){
