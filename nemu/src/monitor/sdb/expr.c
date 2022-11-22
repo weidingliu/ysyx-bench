@@ -355,8 +355,9 @@ word_t eval(int p,int q){
       case '/': return val1 / val2;
       default: assert(0);
     }*/
+    return 1;
    }
-   return 0;
+   
 }
 
 word_t expr(char *e, bool *success) {
