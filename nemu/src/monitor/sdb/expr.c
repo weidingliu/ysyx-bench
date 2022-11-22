@@ -327,8 +327,9 @@ word_t evaluate(int p,int q){
     }
     else if(p==q){
         word_t out=0;
-        for(int i=0;i<strlen(tokens[q].str);i++){
-            out=out*10+tokens[q].str[i]-'0';
+        printf("%ld",strlen(tokens[p].str));
+        for(int i=0;i<strlen(tokens[p].str);i++){
+            out=out*10+tokens[p].str[i]-'0';
         }
         return out;
     }
@@ -351,11 +352,10 @@ word_t evaluate(int p,int q){
       case '-': return val1 - val2;
       case '*': return val1 * val2;
       case '/': return val1 / val2;
-      default: //assert(0);
+      default: assert(0);
     }
    }
-   assert(0);
-   return 0;
+
 }
 
 word_t expr(char *e, bool *success) {
