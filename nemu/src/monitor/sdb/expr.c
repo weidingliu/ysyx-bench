@@ -327,7 +327,7 @@ word_t evaluate(int p,int q){
     }
     else if(p==q){
         word_t out=0;
-        printf("%ld",strlen(tokens[p].str));
+        printf("%ld\n",strlen(tokens[p].str));
         for(int i=0;i<strlen(tokens[p].str);i++){
             out=out*10+tokens[p].str[i]-'0';
         }
