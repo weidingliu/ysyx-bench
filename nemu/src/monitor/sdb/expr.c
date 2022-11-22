@@ -346,8 +346,8 @@ word_t eval(int p,int q){
     }
     else if(p+1==q){
         word_t out=0;
-        for(int i=0;i<strlen(tokens[p].str);i++){
-            out=out*10+tokens[p].str[i]-'0';
+        for(int i=0;i<strlen(tokens[q].str);i++){
+            out=out*10+tokens[q].str[i]-'0';
         }
         return -out;
     }
