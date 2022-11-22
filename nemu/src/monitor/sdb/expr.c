@@ -342,22 +342,21 @@ word_t eval(int p,int q){
     }
     else {
     word_t op=find_op(p,q);
-    printf("%ld\n",op);
+    
     //printf("%ld\n",op);
-    /*word_t val1 = eval(p, op - 1);
-    word_t val2 = eval(op + 1, q);*/
+    word_t val1 = eval(p, op - 1);
+    word_t val2 = eval(op + 1, q);
     //printf("%ld %ld\n",val1,val2);
-    /*
+    
     switch (tokens[op].type) {
       case '+': return val1 + val2;
       case '-': return val1 - val2;
       case '*': return val1 * val2;
       case '/': return val1 / val2;
       default: assert(0);
-    }*/
-    return 1;
+    }
    }
-   
+
 }
 
 word_t expr(char *e, bool *success) {
@@ -365,20 +364,23 @@ word_t expr(char *e, bool *success) {
     *success = false;
     return 0;
   }
+  else{
+      *success = true;
+  }
 
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
   
   //printf("%d\n",check_parentheses(0,nr_token-1));
   word_t out=eval(0,nr_token-1);
-  printf("%ld",out);
+  
   //check_parentheses(0,nr_token-1);
   /*for (int i=0;i<nr_token;i++){
       printf("%s ",tokens[i].str);
   }
   printf("\n");*/
   //printf("%ld\n",out);
-  *success = true;
+  
   
   return out;
 }
