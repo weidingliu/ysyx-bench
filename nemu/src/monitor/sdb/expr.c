@@ -351,10 +351,11 @@ word_t evaluate(int p,int q){
       case '-': return val1 - val2;
       case '*': return val1 * val2;
       case '/': return val1 / val2;
-      default: assert(0);
+      default: //assert(0);
     }
    }
-
+   assert(0);
+   return 0;
 }
 
 word_t expr(char *e, bool *success) {
@@ -366,7 +367,7 @@ word_t expr(char *e, bool *success) {
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
   
-  printf("%d\n",check_parentheses(0,nr_token-1));
+  //printf("%d\n",check_parentheses(0,nr_token-1));
   word_t out=evaluate(0,nr_token-1);
   printf("%ld",out);
   //check_parentheses(0,nr_token-1);
