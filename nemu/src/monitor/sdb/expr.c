@@ -344,6 +344,13 @@ word_t eval(int p,int q){
         //printf("%ld\n",out);
         return out;
     }
+    else if(p+1==q){
+        word_t out=0;
+        for(int i=0;i<strlen(tokens[p].str);i++){
+            out=out*10+tokens[p].str[i]-'0';
+        }
+        return -out;
+    }
     else if(check_parentheses(p, q) == true){
         /* The expression is surrounded by a matched pair of parentheses.
          * If that is the case, just throw away the parentheses.
