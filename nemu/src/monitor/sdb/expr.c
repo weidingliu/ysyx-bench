@@ -342,7 +342,7 @@ word_t eval(int p,int q){
     }
     else {
     word_t op=find_op(p,q);
-    printf("%ld",op);
+    printf("%ld\n",op);
     //printf("%ld\n",op);
     /*word_t val1 = eval(p, op - 1);
     word_t val2 = eval(op + 1, q);*/
