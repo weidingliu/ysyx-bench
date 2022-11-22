@@ -249,6 +249,7 @@ int find_op(int p,int q){
     int pos=-1;
     int op_type=0;
     bool flag=true;
+    bool pre_isop=false;
     while(q>=p){
         if(!strcmp(tokens[q].str,")")){
             flag=false;
@@ -262,6 +263,9 @@ int find_op(int p,int q){
         }
         if(tokens[q].type==NUMB){
             q--;
+            if(pre_isop){
+                pre_isop=false;
+            }
             continue;
         }
         if(flag==false){
@@ -279,6 +283,11 @@ int find_op(int p,int q){
                     pos=q;
                     op_type='+';
                 }
+                if(pre_isop){
+                    pos=q;
+                    op_type='+';
+                    pre_isop=false;
+                }
                 break;
                 
             }
@@ -291,6 +300,7 @@ int find_op(int p,int q){
                     pos=q;
                     op_type='-';
                 }
+                pre_isop=true;
                 break;
             }
             case '*':{
@@ -333,6 +343,13 @@ word_t eval(int p,int q){
         }
         //printf("%ld\n",out);
         return out;
+    }
+    else if(p+1==q){
+        word_t out=0;
+        for(int i=0;i<strlen(tokens[q].str);i++){
+            out=out*10+tokens[q].str[i]-'0';
+        }
+        return -out;
     }
     else if(check_parentheses(p, q) == true){
         /* The expression is surrounded by a matched pair of parentheses.
