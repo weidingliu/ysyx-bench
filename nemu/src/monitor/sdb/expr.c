@@ -272,6 +272,9 @@ int find_op(int p,int q){
             q--;
             continue;
         }
+        if(){
+        
+        }
         switch(tokens[q].type){
             case '+':{
                 
@@ -308,12 +311,22 @@ int find_op(int p,int q){
                     pos=q;
                     op_type='*';
                 }
+                if(pre_isop){
+                    pos=q;
+                    op_type='*';
+                    pre_isop=false;
+                }
                 break;
             }
             case '/':{
                 if(pos==-1){
                     pos=q;
                     op_type='/';
+                }
+                if(pre_isop){
+                    pos=q;
+                    op_type='/';
+                    pre_isop=false;
                 }
                 break;
             }
@@ -363,7 +376,7 @@ word_t eval(int p,int q){
     //printf("%ld\n",op);
     word_t val1 = eval(p, op - 1);
     word_t val2 = eval(op + 1, q);
-    //printf("%ld %ld\n",val1,val2);
+    printf("%ld %ld\n",val1,val2);
     
     switch (tokens[op].type) {
       case '+': return val1 + val2;

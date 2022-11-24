@@ -32,7 +32,9 @@ static char *code_format =
 "}";
 
 static void gen_rand_expr() {
-  buf[0] = '\0';
+  buf[0] = '5';
+  buf[1] = '+';
+  buf[2] = '3';
 }
 
 int main(int argc, char *argv[]) {
@@ -60,7 +62,8 @@ int main(int argc, char *argv[]) {
     assert(fp != NULL);
 
     int result;
-    fscanf(fp, "%d", &result);
+    int o=fscanf(fp, "%d", &result);
+    printf("%d\n",o);
     pclose(fp);
 
     printf("%u %s\n", result, buf);
