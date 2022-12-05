@@ -30,6 +30,7 @@ int main(int argc, char *argv[]) {
 
   /* Start engine. */
   engine_start();
-
+  FILE *fp = fopen("/home/liuweiding/ysyx-workbench/nemu/tools/gen-expr/build/input", "r");
+  
   return is_exit_status_bad();
 }
