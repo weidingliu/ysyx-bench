@@ -215,6 +215,7 @@ bool check_parentheses(int p,int q){
            stack[pointer++]=tokens[q].str[0];
         }
         if(!strcmp(tokens[q].str,"(")){
+            stack[pointer]=0x00;
             pointer--;
         }
         if(pointer==0 && q!=p){
