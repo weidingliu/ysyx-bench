@@ -32,10 +32,10 @@ int main(int argc, char *argv[]) {
   engine_start();
   FILE *fp = fopen("/home/liuweiding/ysyx-workbench/nemu/tools/gen-expr/build/input", "r");
   if(fp==NULL) printf("error\n");
-  int x;
+  char x[100];
   char a[1000];
-  int c=fscanf(fp,"%d %s",&x,a);
+  int c=fscanf(fp,"%s %s",x,a);
   c=c;
-  printf("%d %s\n",x,a);
+  printf("%s %s\n",x,a);
   return is_exit_status_bad();
 }
