@@ -36,6 +36,6 @@ int main(int argc, char *argv[]) {
   char a[1000];
   int c=fscanf(fp,"%d %s",&x,a);
   c=c;
-  printf("%s\n",a);
+  printf("%d %s\n",x,a);
   return is_exit_status_bad();
 }
