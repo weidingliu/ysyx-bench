@@ -188,10 +188,10 @@ bool check_parentheses(int p,int q){
             flag=false;
     }
     
-    int tq=q;
-    tq=tq;
-    while(tq>=p){
-        printf("%s",tokens[tq--].str);
+    int tp=p;
+    tp=tp;
+    while(tp<=q){
+        printf("%s",tokens[tp++].str);
     }
     printf("\n");
     
