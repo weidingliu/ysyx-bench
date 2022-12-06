@@ -230,7 +230,16 @@ static int cmd_x(char *args){
                 
             }
             //printf("%s\n",addr);
-            uint32_t temp_addr=atoi32_t(addr);
+            
+            bool *success;
+            bool x=true;
+            success=&x;
+            word_t temp_addr=expr(args,success);
+     //printf("%ld\n",out);
+            if(success==false){
+                printf("expr fail!!");
+                return 0;
+            }
             
             //printf("0x%08x",temp);
             //char *tem = strtok(NULL,"x");
@@ -243,7 +252,7 @@ static int cmd_x(char *args){
             printf("0x%08lx",out);*/
             for (int i =0; i<mem_len;i++){
                 word_t out=paddr_read(temp_addr,4);
-                printf("address %08x : ",temp_addr);
+                printf("address %08lx : ",temp_addr);
                 printf("0x%08lx\n",out);
                 temp_addr=temp_addr+0x4;
             }
