@@ -14,7 +14,7 @@
 ***************************************************************************************/
 
 #include <common.h>
-
+#include "/home/liuweiding/ysyx-workbench/nemu/src/monitor/sdb/sdb.h"
 void init_monitor(int, char *[]);
 void am_init_monitor();
 void engine_start();
@@ -34,12 +34,13 @@ int main(int argc, char *argv[]) {
   if(fp==NULL) printf("error\n");
   char x[100];
   char a[1000];
-  int c=fscanf(fp,"%s %s",x,a);
-  c=c;
-  printf("%s %s\n",x,a);
-  
-  c=fscanf(fp,"%s %s",x,a);
-  c=c;
-  printf("%s %s\n",x,a);
+  while(fscanf(fp,"%s %s",x,a)!=0){
+     bool *success;
+     bool t=true;
+     success=&t;
+     word_t out=expr(a,success);
+     printf("%ld",out);
+  }
+
   return is_exit_status_bad();
 }
