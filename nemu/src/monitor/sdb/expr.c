@@ -226,6 +226,7 @@ bool check_parentheses(int p,int q){
             return false;
         }
         q--;
+        printf("%d\n",pointer);
     }
     printf("%s %d\n",stack,pointer);
     if(pointer==0){
