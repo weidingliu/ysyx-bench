@@ -37,5 +37,9 @@ int main(int argc, char *argv[]) {
   int c=fscanf(fp,"%s %s",x,a);
   c=c;
   printf("%s %s\n",x,a);
+  
+  c=fscanf(fp,"%s %s",x,a);
+  c=c;
+  printf("%s %s\n",x,a);
   return is_exit_status_bad();
 }
