@@ -221,15 +221,16 @@ bool check_parentheses(int p,int q){
         if(pointer==0 && q!=p){
             flag=false;
         }
+        printf("%s %d\n",stack,pointer);
         if(pointer<0){
             printf("Bad expression2!\n");
             assert(0);
             return false;
         }
         q--;
-        printf("%d\n",pointer);
+        
     }
-    printf("%s %d\n",stack,pointer);
+    
     if(pointer==0){
         if(flag){
             //printf("true\n");
