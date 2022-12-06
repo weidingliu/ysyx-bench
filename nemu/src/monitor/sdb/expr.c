@@ -178,9 +178,10 @@ static bool make_token(char *e) {
 }
 bool check_parentheses(int p,int q){
     char stack[1000];
+    memset(stack,0x00,1000);//initialize
     int pointer=0;
     bool flag=true;//
-    if((!strcmp(tokens[p].str,"(") && strcmp(tokens[q].str,")"))||(strcmp(tokens[p].str,"(") && !strcmp(tokens[q].str,")"))){//have problem
+    if((!strcmp(tokens[p].str,"(") && strcmp(tokens[q].str,")"))||(strcmp(tokens[p].str,"(") && !strcmp(tokens[q].str,")"))){
             flag=false;
         }
     if(strcmp(tokens[p].str,"(") && strcmp(tokens[q].str,")")){
