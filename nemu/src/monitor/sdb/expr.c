@@ -177,7 +177,7 @@ static bool make_token(char *e) {
   return true;
 }
 bool check_parentheses(int p,int q){
-    char stack[32];
+    char stack[1000];
     int pointer=0;
     bool flag=true;//
     if((!strcmp(tokens[p].str,"(") && strcmp(tokens[q].str,")"))||(strcmp(tokens[p].str,"(") && !strcmp(tokens[q].str,")"))){//have problem
