@@ -32,9 +32,9 @@ int main(int argc, char *argv[]) {
   engine_start();
   FILE *fp = fopen("/home/liuweiding/ysyx-workbench/nemu/tools/gen-expr/build/input", "r");
   if(fp==NULL) printf("error\n");
-  char x[100];
-  char a[1000];
-  while(fscanf(fp,"%s %s",x,a)!=0){
+  char a[100];
+  int x;
+  while(fscanf(fp,"%d %s",&x,a)!=0){
      bool *success;
      bool t=true;
      success=&t;
