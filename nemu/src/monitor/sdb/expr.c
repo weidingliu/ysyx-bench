@@ -188,6 +188,13 @@ bool check_parentheses(int p,int q){
             flag=false;
     }
     
+    int tq=q;
+    tq=tq;
+    while(tq>=p){
+        printf("%s",tokens[tq--].str);
+    }
+    printf("\n");
+    
     while(q>=p&&strcmp(tokens[q].str,")")){
         
         /*if(q<=0)
@@ -223,7 +230,7 @@ bool check_parentheses(int p,int q){
         }
         printf("%s %d\n",stack,pointer);
         if(pointer<0){
-            printf("%d %d\n",q,p);
+            
             printf("Bad expression2!\n");
             assert(0);
             return false;
@@ -255,6 +262,7 @@ int find_op(int p,int q){
     int op_type=0;
     bool flag=true;
     bool pre_isop=false;
+    
     while(q>=p){
         if(!strcmp(tokens[q].str,")")){
             flag=false;
