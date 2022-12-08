@@ -398,10 +398,11 @@ word_t eval(int p,int q){
       case '-': return val1 - val2;
       case '*': return val1 * val2;
       case '/': {
-          printf("%ld %ld",val1,val2);
+          
           if(val2==0){
               printf("div 0!!");
-              assert(0);
+              printf("%ld %ld",val1,val2);
+              //assert(0);
           }
           return val1 / val2;
       
