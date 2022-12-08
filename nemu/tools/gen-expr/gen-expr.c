@@ -19,7 +19,7 @@
 #include <time.h>
 #include <assert.h>
 #include <string.h>
-
+#include <signal.h>
 
 
 // this should be enough
@@ -128,6 +128,7 @@ int main(int argc, char *argv[]) {
     
     pclose(fp);
     o=o;
+    signal(SIGFPE,SIG_IGN);
     printf("%u %s\n", result, buf);
   }
   
