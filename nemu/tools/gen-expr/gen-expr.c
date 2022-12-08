@@ -39,7 +39,7 @@ return rand()%n;
 }
 
 static void gen_num(){
-    uint32_t num=rand()%1000;
+    uint32_t num=rand()%100;
     
     char temp[10]={};
     int i=0;

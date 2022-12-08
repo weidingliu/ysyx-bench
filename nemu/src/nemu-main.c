@@ -34,6 +34,7 @@ int main(int argc, char *argv[]) {
   if(fp==NULL) printf("error\n");
   char a[100];
   int x;
+
   while(fscanf(fp,"%d %s",&x,a)!=0){
      bool *success;
      bool t=true;
