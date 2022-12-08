@@ -391,18 +391,17 @@ word_t eval(int p,int q){
     word_t val2 = eval(op + 1, q);
     val1=val1;
     val2=val2;
-    //printf("%ld %ld\n",val1,val2);
+    printf("%ld %ld\n",val1,val2);
     
     switch (tokens[op].type) {
       case '+': return val1 + val2;
       case '-': return val1 - val2;
       case '*': return val1 * val2;
       case '/': {
-          
+          //printf("%ld %ld",val1,val2);
           if(val2==0){
               printf("div 0!!");
-              printf("%ld %ld",val1,val2);
-              //assert(0);
+              assert(0);
           }
           return val1 / val2;
       
