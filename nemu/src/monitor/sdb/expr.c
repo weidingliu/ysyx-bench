@@ -260,17 +260,17 @@ return true;
 int find_op(int p,int q){
     int pos=-1;
     int op_type=0;
-    bool flag=true;
+    int flag=0;
     bool pre_isop=false;
     
     while(q>=p){
         if(!strcmp(tokens[q].str,")")){
-            flag=false;
+            flag++;
             q--;
             continue;
         }
         if(!strcmp(tokens[q].str,"(")){
-            flag=true;
+            flag--;
             q--;
             continue;
         }
@@ -281,7 +281,7 @@ int find_op(int p,int q){
             }
             continue;
         }
-        if(flag==false){
+        if(flag>0){
             q--;
             continue;
         }
