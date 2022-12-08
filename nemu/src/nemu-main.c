@@ -41,6 +41,7 @@ int main(int argc, char *argv[]) {
      success=&t;
      word_t out=expr(a,success);
      printf("*******************result %d %ld\n",x,out);
+     if(x!=out) assert(0);
   }
 
   return is_exit_status_bad();
