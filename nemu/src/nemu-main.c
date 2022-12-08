@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
   char a[100];
   int x;
 
-  while(fscanf(fp,"%d %s",&x,a)!=0){
+  while(fscanf(fp,"%d %s",&x,a)!=EOF){
      bool *success;
      bool t=true;
      success=&t;
