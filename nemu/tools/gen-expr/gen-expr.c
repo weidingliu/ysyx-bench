@@ -19,7 +19,7 @@
 #include <time.h>
 #include <assert.h>
 #include <string.h>
-
+#include <signal.h>
 
 
 // this should be enough
@@ -39,7 +39,7 @@ return rand()%n;
 }
 
 static void gen_num(){
-    uint32_t num=rand()%1000;
+    uint32_t num=rand()%100;
     
     char temp[10]={};
     int i=0;
@@ -128,6 +128,7 @@ int main(int argc, char *argv[]) {
     
     pclose(fp);
     o=o;
+    signal(SIGFPE,SIG_IGN);
     printf("%u %s\n", result, buf);
   }
   

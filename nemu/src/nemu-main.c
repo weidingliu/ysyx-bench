@@ -34,12 +34,14 @@ int main(int argc, char *argv[]) {
   if(fp==NULL) printf("error\n");
   char a[100];
   int x;
-  while(fscanf(fp,"%d %s",&x,a)!=0){
+
+  while(fscanf(fp,"%d %s",&x,a)!=EOF){
      bool *success;
      bool t=true;
      success=&t;
      word_t out=expr(a,success);
-     printf("%ld\n",out);
+     printf("*******************result %d %ld\n",x,out);
+     if(x!=out) assert(0);
   }
 
   return is_exit_status_bad();

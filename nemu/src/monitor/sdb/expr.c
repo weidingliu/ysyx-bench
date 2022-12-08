@@ -177,9 +177,9 @@ static bool make_token(char *e) {
   return true;
 }
 bool check_parentheses(int p,int q){
-    char stack[1000];
+    char stack[1000] __attribute__((unused));
     memset(stack,0x00,1000);//initialize
-    int pointer=0;
+    int pointer __attribute__((unused)) =0;
     bool flag=true;//
     if((!strcmp(tokens[p].str,"(") && strcmp(tokens[q].str,")"))||(strcmp(tokens[p].str,"(") && !strcmp(tokens[q].str,")"))){
             flag=false;
@@ -188,12 +188,12 @@ bool check_parentheses(int p,int q){
             flag=false;
     }
     
-    int tp=p;
+    /*int tp=p;
     tp=tp;
     while(tp<=q){
         printf("%s",tokens[tp++].str);
     }
-    printf("\n");
+    printf("\n");*/
     
     while(q>=p&&strcmp(tokens[q].str,")")){
         
@@ -228,7 +228,7 @@ bool check_parentheses(int p,int q){
         if(pointer==0 && q!=p){
             flag=false;
         }
-        printf("%s %d\n",stack,pointer);
+        //printf("%s %d\n",stack,pointer);
         if(pointer<0){
             
             printf("Bad expression2!\n");
@@ -260,17 +260,17 @@ return true;
 int find_op(int p,int q){
     int pos=-1;
     int op_type=0;
-    bool flag=true;
+    int flag=0;
     bool pre_isop=false;
     
     while(q>=p){
         if(!strcmp(tokens[q].str,")")){
-            flag=false;
+            flag++;
             q--;
             continue;
         }
         if(!strcmp(tokens[q].str,"(")){
-            flag=true;
+            flag--;
             q--;
             continue;
         }
@@ -281,7 +281,7 @@ int find_op(int p,int q){
             }
             continue;
         }
-        if(flag==false){
+        if(flag>0){
             q--;
             continue;
         }
@@ -386,19 +386,19 @@ word_t eval(int p,int q){
     else {
     word_t op=find_op(p,q);
     
-    //printf("%ld\n",op);
+    
     word_t val1 = eval(p, op - 1);
     word_t val2 = eval(op + 1, q);
     val1=val1;
     val2=val2;
-    //printf("%ld %ld\n",val1,val2);
-    
+    printf("%ld %ld\n",val1,val2);
+    printf("%ld\n",op);
     switch (tokens[op].type) {
       case '+': return val1 + val2;
       case '-': return val1 - val2;
       case '*': return val1 * val2;
       case '/': {
-      
+          //printf("%ld %ld",val1,val2);
           if(val2==0){
               printf("div 0!!");
               assert(0);
