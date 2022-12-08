@@ -177,15 +177,23 @@ static bool make_token(char *e) {
   return true;
 }
 bool check_parentheses(int p,int q){
-    char stack[32];
+    char stack[1000];
+    memset(stack,0x00,1000);//initialize
     int pointer=0;
     bool flag=true;//
-    if((!strcmp(tokens[p].str,"(") && strcmp(tokens[q].str,")"))||(strcmp(tokens[p].str,"(") && !strcmp(tokens[q].str,")"))){//have problem
+    if((!strcmp(tokens[p].str,"(") && strcmp(tokens[q].str,")"))||(strcmp(tokens[p].str,"(") && !strcmp(tokens[q].str,")"))){
             flag=false;
         }
     if(strcmp(tokens[p].str,"(") && strcmp(tokens[q].str,")")){
             flag=false;
     }
+    
+    int tp=p;
+    tp=tp;
+    while(tp<=q){
+        printf("%s",tokens[tp++].str);
+    }
+    printf("\n");
     
     while(q>=p&&strcmp(tokens[q].str,")")){
         
@@ -214,19 +222,23 @@ bool check_parentheses(int p,int q){
            stack[pointer++]=tokens[q].str[0];
         }
         if(!strcmp(tokens[q].str,"(")){
+            //stack[pointer]=0x00;
             pointer--;
         }
         if(pointer==0 && q!=p){
             flag=false;
         }
+        printf("%s %d\n",stack,pointer);
         if(pointer<0){
+            
             printf("Bad expression2!\n");
             assert(0);
             return false;
         }
         q--;
+        
     }
-    printf("%s %d\n",stack,pointer);
+    
     if(pointer==0){
         if(flag){
             //printf("true\n");
@@ -250,6 +262,7 @@ int find_op(int p,int q){
     int op_type=0;
     bool flag=true;
     bool pre_isop=false;
+    
     while(q>=p){
         if(!strcmp(tokens[q].str,")")){
             flag=false;
@@ -376,7 +389,9 @@ word_t eval(int p,int q){
     //printf("%ld\n",op);
     word_t val1 = eval(p, op - 1);
     word_t val2 = eval(op + 1, q);
-    printf("%ld %ld\n",val1,val2);
+    val1=val1;
+    val2=val2;
+    //printf("%ld %ld\n",val1,val2);
     
     switch (tokens[op].type) {
       case '+': return val1 + val2;

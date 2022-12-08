@@ -14,7 +14,7 @@
 ***************************************************************************************/
 
 #include <common.h>
-
+#include "/home/liuweiding/ysyx-workbench/nemu/src/monitor/sdb/sdb.h"
 void init_monitor(int, char *[]);
 void am_init_monitor();
 void engine_start();
@@ -31,6 +31,16 @@ int main(int argc, char *argv[]) {
   /* Start engine. */
   engine_start();
   FILE *fp = fopen("/home/liuweiding/ysyx-workbench/nemu/tools/gen-expr/build/input", "r");
-  
+  if(fp==NULL) printf("error\n");
+  char a[100];
+  int x;
+  while(fscanf(fp,"%d %s",&x,a)!=0){
+     bool *success;
+     bool t=true;
+     success=&t;
+     word_t out=expr(a,success);
+     printf("%ld\n",out);
+  }
+
   return is_exit_status_bad();
 }
