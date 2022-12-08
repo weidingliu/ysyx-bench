@@ -39,7 +39,7 @@ int main(int argc, char *argv[]) {
      bool t=true;
      success=&t;
      word_t out=expr(a,success);
-     printf("%ld\n",out);
+     printf("*******************result %d %ld\n",x,out);
   }
 
   return is_exit_status_bad();
