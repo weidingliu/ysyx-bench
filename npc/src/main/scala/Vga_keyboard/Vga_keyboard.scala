@@ -38,7 +38,7 @@ class vga_ctrl extends BlackBox{
 //  })
 //}
 
-class vgam extends Module{
+class vgam extends BlackBox {
   val io = IO(new Bundle() {
     val clk = Input(Clock())
     val vga_data = Output(UInt(24.W))
