@@ -21,7 +21,7 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ,NUMB,//'+','-','/','(',')',
+  TK_NOTYPE = 256, TK_EQ,NUMB,HEXNUB,REGF,//'+','-','/','(',')',
 
   /* TODO: Add more token types */
 
@@ -44,7 +44,10 @@ static struct rule {
   {"\\(", '('},
   {"\\)", ')'},
   {"\\*", '*'},
+  {"0x[0-9]+",HEXNUB},
   {"[0-9]+", NUMB},
+  {"\\$[a-z][0-9]+", REGF},
+  
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -158,9 +161,19 @@ static bool make_token(char *e) {
               tokens[nr_token++].type=rules[i].token_type;
               break;
               
-              
               }
-          
+          case REGF:{
+              memset(tokens[nr_token].str,0x00,32);//initialize
+              strncpy(tokens[nr_token].str,substr_start,substr_len);
+              tokens[nr_token++].type=rules[i].token_type;
+              break;
+          }
+          case HEXNUB:{
+              memset(tokens[nr_token].str,0x00,32);//initialize
+              strncpy(tokens[nr_token].str,substr_start,substr_len);
+              tokens[nr_token++].type=rules[i].token_type;
+              break;
+          }
           default: TODO();
         }
         //printf("%d\n",nr_token);
