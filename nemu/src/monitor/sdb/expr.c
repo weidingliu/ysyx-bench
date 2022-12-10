@@ -21,7 +21,7 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ,NUMB,HEXNUB,//'+','-','/','(',')',
+  TK_NOTYPE = 256, TK_EQ,NUMB,HEXNUB,REGF,//'+','-','/','(',')',
 
   /* TODO: Add more token types */
 
@@ -46,6 +46,7 @@ static struct rule {
   {"\\*", '*'},
   {"0x[0-9]+",HEXNUB},
   {"[0-9]+", NUMB},
+  {"$[a-z][0-9]+", REGF},
   
 };
 
