@@ -41,6 +41,7 @@ class vga_ctrl extends BlackBox{
 class vgam extends BlackBox {
   val io = IO(new Bundle() {
     val clk = Input(Clock())
+    val reset =Input(Reset())
     val vga_data = Output(UInt(24.W))
     val h_addr = Input(UInt(10.W))
     val v_addr = Input(UInt(9.W))
@@ -86,6 +87,7 @@ class Vga_keyboard extends Module {
   vgam.io.clk := clock
   vgam.io.data_in := ascii
   vgam.io.we := temp_we
+  vgam.io.reset := reset
 
   vga_ctrl.io.pclk := clock
   vga_ctrl.io.reset := reset
