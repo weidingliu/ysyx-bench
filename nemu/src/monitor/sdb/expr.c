@@ -44,8 +44,9 @@ static struct rule {
   {"\\(", '('},
   {"\\)", ')'},
   {"\\*", '*'},
-  {"[0-9]+", NUMB},
   {"0x[0-9]+",HEXNUB},
+  {"[0-9]+", NUMB},
+  
 };
 
 #define NR_REGEX ARRLEN(rules)
