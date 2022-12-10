@@ -161,9 +161,19 @@ static bool make_token(char *e) {
               tokens[nr_token++].type=rules[i].token_type;
               break;
               
-              
               }
-          
+          case REGF:{
+              memset(tokens[nr_token].str,0x00,32);//initialize
+              strncpy(tokens[nr_token].str,substr_start,substr_len);
+              tokens[nr_token++].type=rules[i].token_type;
+              break;
+          }
+          case HEXNUB:{
+              memset(tokens[nr_token].str,0x00,32);//initialize
+              strncpy(tokens[nr_token].str,substr_start,substr_len);
+              tokens[nr_token++].type=rules[i].token_type;
+              break;
+          }
           default: TODO();
         }
         //printf("%d\n",nr_token);
