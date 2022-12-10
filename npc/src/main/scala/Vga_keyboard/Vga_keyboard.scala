@@ -52,7 +52,7 @@ class vgam extends Module{
 
 
 
-class top extends Module {
+class Vga_keyboard extends Module {
     val io= IO(new Bundle() {
       val ps2_clk = Input(UInt(1.W))
       val ps2_data = Input(UInt(1.W))
@@ -351,5 +351,5 @@ class top extends Module {
 import chisel3.stage._
 
 object Spec extends App{
-  (new ChiselStage).emitVerilog(new top(),Array("--target-dir", "build"))
+  (new ChiselStage).emitVerilog(new Vga_keyboard(),Array("--target-dir", "build"))
 }
