@@ -31,25 +31,29 @@ class vga_ctrl extends BlackBox{
     val vga_b = Output(UInt(8.W))
   })
 }
-class asciim extends BlackBox{  //字符矩阵
-  val io = IO(new Bundle() {
-    val vga_data = Output(UInt(12.W))
-    val addr = Input(UInt(12.W))
-  })
-}
+//class asciim extends BlackBox{  //字符矩阵
+//  val io = IO(new Bundle() {
+//    val vga_data = Output(UInt(12.W))
+//    val addr = Input(UInt(12.W))
+//  })
+//}
 
-class vgam extends Module{
+class vgam extends BlackBox {
   val io = IO(new Bundle() {
+    val clk = Input(Clock())
+    val reset =Input(Reset())
     val vga_data = Output(UInt(24.W))
     val h_addr = Input(UInt(10.W))
     val v_addr = Input(UInt(9.W))
+    val data_in = Input(UInt(8.W))
+    val we=Input(UInt(1.W))
   })
 
 }
 
 
 
-class top extends Module {
+class Vga_keyboard extends Module {
     val io= IO(new Bundle() {
       val ps2_clk = Input(UInt(1.W))
       val ps2_data = Input(UInt(1.W))
@@ -74,10 +78,16 @@ class top extends Module {
   val statereg = RegInit(iDLE)
   val temp = RegInit(0.U(8.W))
   val ascii = WireDefault(0.U(8.W))
+  val temp_we=WireDefault(0.U(1.W))
   ps2key.io.clk := clock
   ps2key.io.clrn := reset //~reset
   ps2key.io.ps2_clk := io.ps2_clk
   ps2key.io.ps2_data := io.ps2_data
+
+  vgam.io.clk := clock
+  vgam.io.data_in := ascii
+  vgam.io.we := temp_we
+  vgam.io.reset := reset
 
   vga_ctrl.io.pclk := clock
   vga_ctrl.io.reset := reset
@@ -109,8 +119,10 @@ class top extends Module {
 
       when(temp === "hf0".U) {
         temp := 0.U
+        temp_we := 0.U
       } otherwise {
         temp := ps2key.io.data
+        temp_we := 1.U
       }
     }
     is(eND) {
@@ -336,4 +348,10 @@ class top extends Module {
 
   }
 
+}
+
+import chisel3.stage._
+
+object Spec extends App{
+  (new ChiselStage).emitVerilog(new Vga_keyboard(),Array("--target-dir", "build"))
 }
