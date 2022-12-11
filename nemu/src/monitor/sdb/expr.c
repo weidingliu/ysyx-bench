@@ -287,7 +287,7 @@ int find_op(int p,int q){
             q--;
             continue;
         }
-        if(tokens[q].type==NUMB){
+        if(tokens[q].type==NUMB || tokens[q].type==HEXNUB || tokens[q].type==REGF){
             q--;
             if(pre_isop){
                 pre_isop=false;
@@ -376,10 +376,36 @@ word_t eval(int p,int q){
     }
     else if(p==q){
         word_t out=0;
+        //const char reg[10];
+        bool *success;
+        bool x=true;
+        success=&x;
         //printf("%ld\n",strlen(tokens[p].str));
-        for(int i=0;i<strlen(tokens[p].str);i++){
-            out=out*10+tokens[p].str[i]-'0';
+        
+        switch(tokens[p].type){
+            case(NUMB):{
+                for(int i=0;i<strlen(tokens[p].str);i++){
+                    out=out*10+tokens[p].str[i]-'0';
+                }
+                break;
+            }
+            case(HEXNUB):{
+                
+                break;
+            }
+            case(REGF):{
+                
+                out=isa_reg_str2val(tokens[p].str,success);
+                if(!success){
+                    printf("bad reg name!!\n");
+                    assert(0);
+                }
+                break;
+            }
+            default: assert(0);
+        
         }
+        
         //printf("%ld\n",out);
         return out;
     }
