@@ -110,7 +110,7 @@ static bool make_token(char *e) {
                   printf("expression is too long!!");
                   return false;
          }
-        printf("%d %d",rules[i].token_type,EQUAL);
+        printf("%d %d\n",rules[i].token_type,EQUAL);
         switch (rules[i].token_type) {
           case TK_NOTYPE:{  
               break;
