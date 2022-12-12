@@ -21,7 +21,7 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ,NUMB,HEXNUB,REGF,NOEQUAL, EQUAL, AND,//'+','-','/','(',')',
+  TK_NOTYPE = 256, TK_EQ,NUMB,HEXNUB,REGF,NOEQUAL, AND,//'+','-','/','(',')',
 
   /* TODO: Add more token types */
 
@@ -48,7 +48,7 @@ static struct rule {
   {"[0-9]+", NUMB},
   {"\\$[a-z0-9]+", REGF},
   {"\\!\\=", NOEQUAL},
-  {"\\=\\=", EQUAL},
+
   {"\\&\\&", AND},
   
 };
@@ -110,7 +110,7 @@ static bool make_token(char *e) {
                   printf("expression is too long!!");
                   return false;
          }
-        printf("%d %d\n",rules[i].token_type,EQUAL);
+        //printf("%d %d\n",rules[i].token_type,EQUAL);
         switch (rules[i].token_type) {
           case TK_NOTYPE:{  
               break;
@@ -183,7 +183,7 @@ static bool make_token(char *e) {
               tokens[nr_token++].type=rules[i].token_type;
               break;
           }
-          case EQUAL:{
+          case TK_EQ:{
               memset(tokens[nr_token].str,0x00,32);//initialize
               strncpy(tokens[nr_token].str,substr_start,substr_len);
               tokens[nr_token++].type=rules[i].token_type;
@@ -390,14 +390,14 @@ int find_op(int p,int q){
                 }
                 break;
             }
-            case EQUAL:{
+            case TK_EQ:{
                 if(pos==-1){
                     pos=q;
-                    op_type=EQUAL;
+                    op_type=TK_EQ;
                 }
                 if(pre_isop){
                     pos=q;
-                    op_type=EQUAL;
+                    op_type=TK_EQ;
                     pre_isop=false;
                 }
                 break;
@@ -510,7 +510,7 @@ word_t eval(int p,int q){
       
       }
       case NOEQUAL: return (val1!=val2)? 1:0;
-      case EQUAL: return (val1==val2)? 1:0;
+      case TK_EQ: return (val1==val2)? 1:0;
       case AND: return val1 && val2;
       default: assert(0);
     }
