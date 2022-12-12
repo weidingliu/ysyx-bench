@@ -197,7 +197,7 @@ static bool make_token(char *e) {
           }
           default: TODO();
         }
-        //printf("%d\n",nr_token);
+        printf("%d\n",nr_token);
         break;
       }
     }
