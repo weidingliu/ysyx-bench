@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
 
   /* Start engine. */
   engine_start();
-  FILE *fp = fopen("/home/liuweiding/ysyx-workbench/nemu/tools/gen-expr/build/input", "r");
+  /*FILE *fp = fopen("/home/liuweiding/ysyx-workbench/nemu/tools/gen-expr/build/input", "r");
   if(fp==NULL) printf("error\n");
   char a[100];
   int x;
@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
      word_t out=expr(a,success);
      printf("*******************result %d %ld\n",x,out);
      if(x!=out) assert(0);
-  }
+  }*/
 
   return is_exit_status_bad();
 }
