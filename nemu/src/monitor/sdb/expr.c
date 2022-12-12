@@ -400,7 +400,7 @@ word_t eval(int p,int q){
                 
                 out=isa_reg_str2val(regname,success);
                 printf("%d\n",*success);
-                if(!success){
+                if(! *success){
                     printf("bad reg name!!\n");
                     assert(0);
                 }
