@@ -390,7 +390,9 @@ word_t eval(int p,int q){
                 break;
             }
             case(HEXNUB):{
-                
+                for(int i=0;i<strlen(tokens[p].str);i++){
+                    out=out*16+tokens[p].str[i]-'0';
+                }
                 break;
             }
             case(REGF):{
@@ -399,7 +401,7 @@ word_t eval(int p,int q){
                 strncpy(regname,tokens[p].str+1,strlen(tokens[p].str)-1);
                 
                 out=isa_reg_str2val(regname,success);
-                printf("%d\n",*success);
+                //printf("%d\n",*success);
                 if(! *success){
                     printf("bad reg name!!\n");
                     assert(0);
