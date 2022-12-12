@@ -12,7 +12,7 @@
 *
 * See the Mulan PSL v2 for more details.
 ***************************************************************************************/
-
+#include <memory/paddr.h>//////
 #include <isa.h>
 
 /* We use the POSIX regex functions to process regular expressions.
@@ -21,7 +21,7 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ,NUMB,HEXNUB,REGF,//'+','-','/','(',')',
+  TK_NOTYPE = 256, TK_EQ,NUMB,HEXNUB,REGF,NOEQUAL, AND, DEREF,//'+','-','/','(',')',//DEREF single op
 
   /* TODO: Add more token types */
 
@@ -46,7 +46,10 @@ static struct rule {
   {"\\*", '*'},
   {"0x[0-9]+",HEXNUB},
   {"[0-9]+", NUMB},
-  {"\\$[a-z][0-9]+", REGF},
+  {"\\$[a-z0-9]+", REGF},
+  {"\\!\\=", NOEQUAL},
+
+  {"\\&\\&", AND},
   
 };
 
@@ -107,7 +110,7 @@ static bool make_token(char *e) {
                   printf("expression is too long!!");
                   return false;
          }
-        
+        //printf("%d %d\n",rules[i].token_type,EQUAL);
         switch (rules[i].token_type) {
           case TK_NOTYPE:{  
               break;
@@ -169,6 +172,25 @@ static bool make_token(char *e) {
               break;
           }
           case HEXNUB:{
+              memset(tokens[nr_token].str,0x00,32);//initialize
+              strncpy(tokens[nr_token].str,substr_start,substr_len);
+              tokens[nr_token++].type=rules[i].token_type;
+              break;
+          }
+          case NOEQUAL:{
+              memset(tokens[nr_token].str,0x00,32);//initialize
+              strncpy(tokens[nr_token].str,substr_start,substr_len);
+              tokens[nr_token++].type=rules[i].token_type;
+              break;
+          }
+          case TK_EQ:{
+              memset(tokens[nr_token].str,0x00,32);//initialize
+              strncpy(tokens[nr_token].str,substr_start,substr_len);
+              tokens[nr_token++].type=rules[i].token_type;
+              //printf("sdaaa\n");
+              break;
+          }
+          case AND:{
               memset(tokens[nr_token].str,0x00,32);//initialize
               strncpy(tokens[nr_token].str,substr_start,substr_len);
               tokens[nr_token++].type=rules[i].token_type;
@@ -287,7 +309,7 @@ int find_op(int p,int q){
             q--;
             continue;
         }
-        if(tokens[q].type==NUMB){
+        if(tokens[q].type==NUMB || tokens[q].type==HEXNUB || tokens[q].type==REGF){
             q--;
             if(pre_isop){
                 pre_isop=false;
@@ -356,6 +378,42 @@ int find_op(int p,int q){
                 }
                 break;
             }
+            case NOEQUAL:{
+                if(pos==-1){
+                    pos=q;
+                    op_type=NOEQUAL;
+                }
+                if(pre_isop){
+                    pos=q;
+                    op_type=NOEQUAL;
+                    pre_isop=false;
+                }
+                break;
+            }
+            case TK_EQ:{
+                if(pos==-1){
+                    pos=q;
+                    op_type=TK_EQ;
+                }
+                if(pre_isop){
+                    pos=q;
+                    op_type=TK_EQ;
+                    pre_isop=false;
+                }
+                break;
+            }
+            case AND:{
+                if(pos==-1){
+                    pos=q;
+                    op_type=AND;
+                }
+                if(pre_isop){
+                    pos=q;
+                    op_type=AND;
+                    pre_isop=false;
+                }
+                break;
+            }
             default:assert(0);
         
         }
@@ -376,19 +434,63 @@ word_t eval(int p,int q){
     }
     else if(p==q){
         word_t out=0;
+        //const char reg[10];
+        bool *success;
+        bool x=true;
+        success=&x;
         //printf("%ld\n",strlen(tokens[p].str));
-        for(int i=0;i<strlen(tokens[p].str);i++){
-            out=out*10+tokens[p].str[i]-'0';
+        
+        switch(tokens[p].type){
+            case(NUMB):{
+                for(int i=0;i<strlen(tokens[p].str);i++){
+                    out=out*10+tokens[p].str[i]-'0';
+                }
+                break;
+            }
+            case(HEXNUB):{
+                for(int i=2;i<strlen(tokens[p].str);i++){
+                    out=out*16+tokens[p].str[i]-'0';
+                }
+                break;
+            }
+            case(REGF):{
+                char regname[10] __attribute__((unused));
+                
+                strncpy(regname,tokens[p].str+1,strlen(tokens[p].str)-1);
+                
+                out=isa_reg_str2val(regname,success);
+                //printf("%d\n",*success);
+                if(! *success){
+                    printf("bad reg name!!\n");
+                    assert(0);
+                }
+                break;
+            }
+            default: assert(0);
+        
         }
+        
         //printf("%ld\n",out);
         return out;
     }
     else if(p+1==q){
         word_t out=0;
-        for(int i=0;i<strlen(tokens[q].str);i++){
-            out=out*10+tokens[q].str[i]-'0';
+        if(tokens[p].type==DEREF){
+            word_t addr=0;
+            for(int i=0;i<strlen(tokens[q].str);i++){
+                addr=addr*10+tokens[q].str[i]-'0';
+            }
+            out=paddr_read(addr,4);
+            return out;
         }
-        return -out;
+        else {
+            
+            for(int i=0;i<strlen(tokens[q].str);i++){
+                out=out*10+tokens[q].str[i]-'0';
+            }
+            return -out;
+        }
+        
     }
     else if(check_parentheses(p, q) == true){
         /* The expression is surrounded by a matched pair of parentheses.
@@ -404,8 +506,8 @@ word_t eval(int p,int q){
     word_t val2 = eval(op + 1, q);
     val1=val1;
     val2=val2;
-    printf("%ld %ld\n",val1,val2);
-    printf("%ld\n",op);
+    //printf("%ld %ld\n",val1,val2);
+    //printf("%ld\n",op);
     switch (tokens[op].type) {
       case '+': return val1 + val2;
       case '-': return val1 - val2;
@@ -419,24 +521,33 @@ word_t eval(int p,int q){
           return val1 / val2;
       
       }
+      case NOEQUAL: return (val1!=val2)? 1:0;
+      case TK_EQ: return (val1==val2)? 1:0;
+      case AND: return val1 && val2;
       default: assert(0);
     }
    }
 
 }
 
-word_t expr(char *e, bool *success) {
+uint64_t expr(char *e, bool *success) {
   if (!make_token(e)) {
     *success = false;
     return 0;
   }
 
-
+  for (int i = 0; i < nr_token; i ++) {
+  if (tokens[i].type == '*' && (i == 0 || tokens[i - 1].type == '+' || tokens[i - 1].type == '-' || tokens[i - 1].type == '*' || tokens[i - 1].type == '/' || 
+      tokens[i - 1].type == NOEQUAL || tokens[i - 1].type == TK_EQ || tokens[i - 1].type == AND 
+      ) ) {
+    tokens[i].type = DEREF;
+  }
+  }
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
   
   //printf("%d\n",check_parentheses(0,nr_token-1));
-  word_t out=eval(0,nr_token-1);
+  uint64_t out=eval(0,nr_token-1);
   
   //check_parentheses(0,nr_token-1);
   /*for (int i=0;i<nr_token;i++){
