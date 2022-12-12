@@ -394,8 +394,11 @@ word_t eval(int p,int q){
                 break;
             }
             case(REGF):{
+                char regname[10] __attribute__((unused));
                 
-                out=isa_reg_str2val(tokens[p].str,success);
+                strncpy(regname,tokens[p].str+1,strlen(tokens[p].str)-1);
+                
+                out=isa_reg_str2val(regname,success);
                 if(!success){
                     printf("bad reg name!!\n");
                     assert(0);
