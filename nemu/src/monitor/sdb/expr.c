@@ -390,7 +390,7 @@ word_t eval(int p,int q){
                 break;
             }
             case(HEXNUB):{
-                for(int i=0;i<strlen(tokens[p].str);i++){
+                for(int i=2;i<strlen(tokens[p].str);i++){
                     out=out*16+tokens[p].str[i]-'0';
                 }
                 break;
