@@ -399,6 +399,7 @@ word_t eval(int p,int q){
                 strncpy(regname,tokens[p].str+1,strlen(tokens[p].str)-1);
                 
                 out=isa_reg_str2val(regname,success);
+                printf("%ld\n",out);
                 if(!success){
                     printf("bad reg name!!\n");
                     assert(0);
