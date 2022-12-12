@@ -12,7 +12,7 @@
 *
 * See the Mulan PSL v2 for more details.
 ***************************************************************************************/
-
+#include <memory/paddr.h>//////
 #include <isa.h>
 
 /* We use the POSIX regex functions to process regular expressions.
@@ -21,7 +21,7 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ,NUMB,HEXNUB,REGF,NOEQUAL, AND,//'+','-','/','(',')',
+  TK_NOTYPE = 256, TK_EQ,NUMB,HEXNUB,REGF,NOEQUAL, AND, DEREF,//'+','-','/','(',')',//DEREF single op
 
   /* TODO: Add more token types */
 
@@ -475,10 +475,22 @@ word_t eval(int p,int q){
     }
     else if(p+1==q){
         word_t out=0;
-        for(int i=0;i<strlen(tokens[q].str);i++){
-            out=out*10+tokens[q].str[i]-'0';
+        if(tokens[p].type==DEREF){
+            word_t addr=0;
+            for(int i=0;i<strlen(tokens[q].str);i++){
+                addr=addr*10+tokens[q].str[i]-'0';
+            }
+            out=paddr_read(addr,4);
+            return out;
         }
-        return -out;
+        else {
+            
+            for(int i=0;i<strlen(tokens[q].str);i++){
+                out=out*10+tokens[q].str[i]-'0';
+            }
+            return -out;
+        }
+        
     }
     else if(check_parentheses(p, q) == true){
         /* The expression is surrounded by a matched pair of parentheses.
@@ -524,7 +536,13 @@ word_t expr(char *e, bool *success) {
     return 0;
   }
 
-
+  for (int i = 0; i < nr_token; i ++) {
+  if (tokens[i].type == '*' && (i == 0 || tokens[i - 1].type == '+' || tokens[i - 1].type == '-' || tokens[i - 1].type == '*' || tokens[i - 1].type == '/' || 
+      tokens[i - 1].type == NOEQUAL || tokens[i - 1].type == TK_EQ || tokens[i - 1].type == AND 
+      ) ) {
+    tokens[i].type = DEREF;
+  }
+  }
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
   
