@@ -187,6 +187,7 @@ static bool make_token(char *e) {
               memset(tokens[nr_token].str,0x00,32);//initialize
               strncpy(tokens[nr_token].str,substr_start,substr_len);
               tokens[nr_token++].type=rules[i].token_type;
+              printf("sdaaa\n");
               break;
           }
           case AND:{
