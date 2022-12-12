@@ -21,7 +21,7 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ,NUMB,HEXNUB,REGF,NOEQUAL,EQUAL,AND,//'+','-','/','(',')',
+  TK_NOTYPE = 256, TK_EQ,NUMB,HEXNUB,REGF,NOEQUAL, EQUAL, AND,//'+','-','/','(',')',
 
   /* TODO: Add more token types */
 
@@ -110,7 +110,7 @@ static bool make_token(char *e) {
                   printf("expression is too long!!");
                   return false;
          }
-        
+        printf("%d %d",rules[i].token_type,EQUAL);
         switch (rules[i].token_type) {
           case TK_NOTYPE:{  
               break;
@@ -187,7 +187,7 @@ static bool make_token(char *e) {
               memset(tokens[nr_token].str,0x00,32);//initialize
               strncpy(tokens[nr_token].str,substr_start,substr_len);
               tokens[nr_token++].type=rules[i].token_type;
-              printf("sdaaa\n");
+              //printf("sdaaa\n");
               break;
           }
           case AND:{
