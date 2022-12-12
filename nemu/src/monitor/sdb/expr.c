@@ -21,7 +21,7 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ,NUMB,HEXNUB,REGF,//'+','-','/','(',')',
+  TK_NOTYPE = 256, TK_EQ,NUMB,HEXNUB,REGF,NOEQUAL,EQUAL,AND,//'+','-','/','(',')',
 
   /* TODO: Add more token types */
 
@@ -47,8 +47,9 @@ static struct rule {
   {"0x[0-9]+",HEXNUB},
   {"[0-9]+", NUMB},
   {"\\$[a-z0-9]+", REGF},
-  {"\\!\\=", REGF},
-  {"\\=\\=", REGF},
+  {"\\!\\=", NOEQUAL},
+  {"\\=\\=", EQUAL},
+  {"\\&\\&", AND},
   
 };
 
@@ -171,6 +172,24 @@ static bool make_token(char *e) {
               break;
           }
           case HEXNUB:{
+              memset(tokens[nr_token].str,0x00,32);//initialize
+              strncpy(tokens[nr_token].str,substr_start,substr_len);
+              tokens[nr_token++].type=rules[i].token_type;
+              break;
+          }
+          case NOEQUAL:{
+              memset(tokens[nr_token].str,0x00,32);//initialize
+              strncpy(tokens[nr_token].str,substr_start,substr_len);
+              tokens[nr_token++].type=rules[i].token_type;
+              break;
+          }
+          case EQUAL:{
+              memset(tokens[nr_token].str,0x00,32);//initialize
+              strncpy(tokens[nr_token].str,substr_start,substr_len);
+              tokens[nr_token++].type=rules[i].token_type;
+              break;
+          }
+          case AND:{
               memset(tokens[nr_token].str,0x00,32);//initialize
               strncpy(tokens[nr_token].str,substr_start,substr_len);
               tokens[nr_token++].type=rules[i].token_type;
@@ -358,6 +377,42 @@ int find_op(int p,int q){
                 }
                 break;
             }
+            case NOEQUAL:{
+                if(pos==-1){
+                    pos=q;
+                    op_type=NOEQUAL;
+                }
+                if(pre_isop){
+                    pos=q;
+                    op_type=NOEQUAL;
+                    pre_isop=false;
+                }
+                break;
+            }
+            case EQUAL:{
+                if(pos==-1){
+                    pos=q;
+                    op_type=EQUAL;
+                }
+                if(pre_isop){
+                    pos=q;
+                    op_type=EQUAL;
+                    pre_isop=false;
+                }
+                break;
+            }
+            case AND:{
+                if(pos==-1){
+                    pos=q;
+                    op_type=AND;
+                }
+                if(pre_isop){
+                    pos=q;
+                    op_type=AND;
+                    pre_isop=false;
+                }
+                break;
+            }
             default:assert(0);
         
         }
@@ -453,6 +508,9 @@ word_t eval(int p,int q){
           return val1 / val2;
       
       }
+      case NOEQUAL: return (val1!=val2)? 1:0;
+      case EQUAL: return (val1==val2)? 1:0;
+      case AND: return val1 && val2;
       default: assert(0);
     }
    }
