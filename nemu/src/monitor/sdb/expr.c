@@ -47,6 +47,8 @@ static struct rule {
   {"0x[0-9]+",HEXNUB},
   {"[0-9]+", NUMB},
   {"\\$[a-z0-9]+", REGF},
+  {"\\!\\=", REGF},
+  {"\\=\\=", REGF},
   
 };
 
