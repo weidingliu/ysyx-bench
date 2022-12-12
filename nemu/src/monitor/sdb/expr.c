@@ -547,7 +547,7 @@ word_t expr(char *e, bool *success) {
   //TODO();
   
   //printf("%d\n",check_parentheses(0,nr_token-1));
-  word_t out=eval(0,nr_token-1);
+  uint64_t out=eval(0,nr_token-1);
   
   //check_parentheses(0,nr_token-1);
   /*for (int i=0;i<nr_token;i++){
