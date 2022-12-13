@@ -94,7 +94,7 @@ bool check_watchpoint(){
         }
         q=q->next;
     }
-    printf("%d\n",success);
+    //printf("%d\n",success);
     return success;
 }
 
