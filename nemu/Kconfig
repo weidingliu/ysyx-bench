@@ -114,7 +114,7 @@ config CC_DEBUG
   bool "Enable debug information"
   default n
 
-config CONFIG_WATCHPOINT
+config WATCHPOINT
   bool "Enable Watchpoint"
   default n
 
