@@ -119,7 +119,7 @@ static struct {
   { "info", "info SUBCMD display reg state or watchdog info",  cmd_info},
   { "x", "x [N] EXPR ,Hexadecimal output N byte in memory, EXPR is address", cmd_x },
    { "p", "evaluate regular expressions",  cmd_p},
-   { "watch", "set a watchpoint regular expressions",  cmd_watch},
+   { "w", "set a watchpoint regular expressions",  cmd_watch},
   /* TODO: Add more commands */
 
 };
