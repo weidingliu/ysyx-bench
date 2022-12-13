@@ -74,6 +74,7 @@ config CC_GPP
 config CC_CLANG
   depends on !TARGET_AM
   bool "clang"
+  
 endchoice
 
 config CC
@@ -113,6 +114,10 @@ config CC_DEBUG
   bool "Enable debug information"
   default n
 
+config WATCHPOINT
+  bool "Enable Watchpoint"
+  default n
+
 config CC_ASAN
   depends on MODE_SYSTEM
   bool "Enable address sanitizer"
@@ -125,6 +130,7 @@ menu "Testing and Debugging"
 config TRACE
   bool "Enable tracer"
   default y
+
 
 config TRACE_START
   depends on TRACE

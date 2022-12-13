@@ -105,6 +105,8 @@ static int cmd_x(char *args);
 
 static int cmd_p(char *args);
 
+static int cmd_watch(char *args);
+
 static struct {
   const char *name;
   const char *description;
@@ -117,6 +119,7 @@ static struct {
   { "info", "info SUBCMD display reg state or watchdog info",  cmd_info},
   { "x", "x [N] EXPR ,Hexadecimal output N byte in memory, EXPR is address", cmd_x },
    { "p", "evaluate regular expressions",  cmd_p},
+   { "w", "set a watchpoint regular expressions",  cmd_watch},
   /* TODO: Add more commands */
 
 };
@@ -200,7 +203,7 @@ static int cmd_info(char *args){
 	    return 0;
 	}
 	else if(strcmp(arg, "w")==0){
-	     printf("Not accomplish!\n");
+	     display_watchpoint();
 	     return 0;
 	}
 	else{
@@ -260,6 +263,26 @@ static int cmd_x(char *args){
     }
     /*word_t out=paddr_read(0x80000000,4);
     printf("0x%08lx",out);*/
+    return 0;
+}
+
+static int cmd_watch(char *args){
+    char *arg = strtok(NULL, " ");
+    if(arg == NULL ){
+        printf("Illegal parameter!\n");
+        return 0;
+    }
+    else{
+         bool *success;
+         bool x=true;
+         success=&x;
+         word_t out=expr(args,success);
+         if(success==false){
+             printf("expr fail!!");
+             return 0;
+         }
+         new_wp(out,arg);
+    }
     return 0;
 }
 

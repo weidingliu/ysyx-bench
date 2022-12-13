@@ -16,16 +16,16 @@
 #include "sdb.h"
 
 #define NR_WP 32
-
+/*
 typedef struct watchpoint {
   int NO;
   struct watchpoint *next;
 
-  /* TODO: Add more members if necessary */
-  int value;
   
+  int value;
+  char exp[100];
 
-} WP;
+} WP;*/
 
 static WP wp_pool[NR_WP] = {};
 static WP *head = NULL, *free_ = NULL;
@@ -43,7 +43,7 @@ void init_wp_pool() {
 }
 
 /* TODO: Implement the functionality of watchpoint */
-WP* new_wp(){
+void new_wp(word_t value,char *argv){
     WP *temp;
     if(free_==NULL){
         printf("Don't have free watchpoint!!");
@@ -52,9 +52,14 @@ WP* new_wp(){
     else{
         temp=free_;
         free_=free_->next;
-        temp->next=NULL;
+        
+        temp->next=head;
+        head=temp;
+        
+        head->value=value;
+        strncpy(head->exp,argv,strlen(argv));
     }
-    return temp;
+    return;
 }
 
 void free_wp(WP *wp){
@@ -65,6 +70,7 @@ void free_wp(WP *wp){
             p->next=q->next;
             wp->next=free_;
             wp->value=0;
+            memset(wp->exp,0x00,strlen(wp->exp));
             free_=wp;
             return;
         }
@@ -72,6 +78,36 @@ void free_wp(WP *wp){
         q=q->next;
     }
     
+}
+
+bool check_watchpoint(){
+    bool success=true;
+    WP *q=head;
+    bool *s;
+    bool x=true;
+    s=&x;
+    while(q!=NULL){
+        word_t out=expr(q->exp,s);
+        if(out!= q->value){
+            success=false;
+            printf("watchpoint change from %ld to %ld\n",q->value,out);
+        }
+        q=q->next;
+    }
+    //printf("%d\n",success);
+    return success;
+}
+
+void display_watchpoint(){
+    WP *q=head;
+    if(q==NULL){
+        printf("Don't have watchpoint!\n");
+        return;
+    }
+    while(q!=NULL){
+        printf("NO:%d  value: %ld  expression: %s\n",q->NO,q->value,q->exp);
+        q=q->next;
+    }
 }
 
 
