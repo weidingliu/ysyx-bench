@@ -80,5 +80,21 @@ void free_wp(WP *wp){
     
 }
 
+bool check_watchpoint(){
+    bool success=true;
+    WP *q=head;
+    bool *s;
+    bool x=true;
+    s=&x;
+    while(q!=NULL){
+        word_t out=expr(q->exp,s);
+        if(out!= q->value){
+            success=false;
+            printf("watchpoint change from %d to %ld\n",q->value,out);
+        }
+    }
+    return success;
+}
+
 
 
