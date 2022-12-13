@@ -93,8 +93,11 @@ bool check_watchpoint(){
             printf("watchpoint change from %d to %ld\n",q->value,out);
         }
     }
+    printf("%d\n",success);
     return success;
 }
+
+
 
 
 
