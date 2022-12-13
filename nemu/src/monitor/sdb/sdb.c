@@ -203,7 +203,7 @@ static int cmd_info(char *args){
 	    return 0;
 	}
 	else if(strcmp(arg, "w")==0){
-	     printf("Not accomplish!\n");
+	     display_watchpoint();
 	     return 0;
 	}
 	else{
