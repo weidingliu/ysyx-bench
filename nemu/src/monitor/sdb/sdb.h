@@ -23,7 +23,7 @@ typedef struct watchpoint {
   struct watchpoint *next;
 
   /* TODO: Add more members if necessary */
-  int value;
+  word_t value;
   char exp[100];
 
 } WP;
@@ -32,7 +32,7 @@ word_t expr(char *e, bool *success);
 void new_wp(word_t value,char *argv);
 void free_wp(WP *wp);
 bool check_watchpoint();
-
+void display_watchpoint();
 
 
 #endif

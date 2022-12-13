@@ -90,14 +90,25 @@ bool check_watchpoint(){
         word_t out=expr(q->exp,s);
         if(out!= q->value){
             success=false;
-            printf("watchpoint change from %d to %ld\n",q->value,out);
+            printf("watchpoint change from %ld to %ld\n",q->value,out);
         }
+        q=q->next;
     }
     printf("%d\n",success);
     return success;
 }
 
-
+void display_watchpoint(){
+    WP *q=head;
+    if(q==NULL){
+        printf("Don't have watchpoint!\n");
+        return;
+    }
+    while(q!=NULL){
+        printf("NO:%d  value: %ld  expression: %s\n",q->NO,q->value,q->exp);
+        q=q->next;
+    }
+}
 
 
 
