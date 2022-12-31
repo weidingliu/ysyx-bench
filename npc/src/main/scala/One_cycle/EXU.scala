@@ -38,12 +38,15 @@ class EXU extends Module with paramete with InstrType {
     BitPat(SRCType.R) -> List(io1.REG2),
     BitPat(SRCType.imm) -> List(io.Imm)
   ))
+  val alu_result = WireDefault(0.U(xlen.W))
 
   switch(io.aluoptype){
     is(ALUOPType.add){
-      io1.result := src1 + src2
+     alu_result := src1 + src2
     }
+
   }
+  io1.result := alu_result
 
 
 }

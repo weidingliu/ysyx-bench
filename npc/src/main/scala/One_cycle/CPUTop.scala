@@ -5,6 +5,7 @@ class CPUTop extends Module with paramete{
   val io = IO(new Bundle() {
     val pc=Output(UInt(xlen.W))
     val inst=Input(UInt(instlen.W))
+    val result=Output(UInt(xlen.W))
   })
   val IF=Module(new IFU)
 
@@ -12,7 +13,7 @@ class CPUTop extends Module with paramete{
 
   val EX = Module(new EXU)
 
-  val Reg = Module(new RF)
+  val Reg = new RF
 
   io.pc := IF.io.pc
 
@@ -20,10 +21,16 @@ class CPUTop extends Module with paramete{
 
   ID.io.ctrlIO <> EX.io
 
-  EX.io1.REG1 := Reg.read(ID.io.ctrlIO.src1)
-  EX.io1.REG2 := Reg.read(ID.io.ctrlIO.src2)
+  val src1add = Wire(UInt(5.W))
+  val src2add = Wire(UInt(5.W))
+  EX.io1.REG1 := Reg.read(src1add)
+  EX.io1.REG2 := Reg.read(src2add)
 
+  src1add:= ID.io.ctrlIO.src1
+  src2add:= ID.io.ctrlIO.src2
   Reg.write(ID.io.ctrlIO.rd,EX.io1.result)
+
+  io.result := EX.io1.result
 }
 
 import chisel3.stage._
