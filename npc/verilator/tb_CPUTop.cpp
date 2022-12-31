@@ -4,6 +4,7 @@
 #include <verilated_vcd_c.h>
 #include "VCPUTop.h"
 #include "VCPUTop___024root.h"
+#include <svdpi.h>
 
 #define MAX_SIM_TIME 20
 vluint64_t sim_time=0;

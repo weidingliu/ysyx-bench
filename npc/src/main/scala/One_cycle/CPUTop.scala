@@ -1,6 +1,12 @@
 package One_cycle
 import chisel3._
 import chisel3.util._
+
+class DIP_model extends BlackBox{
+  val io = IO(new Bundle() {
+    val is_break = Input(Bool())
+  })
+}
 class CPUTop extends Module with paramete{
   val io = IO(new Bundle() {
     val pc=Output(UInt(xlen.W))
@@ -12,6 +18,8 @@ class CPUTop extends Module with paramete{
   val ID = Module(new IDU)
 
   val EX = Module(new EXU)
+
+  val DIP = Module(new DIP_model)
 
   val Reg = new RF
 
@@ -31,6 +39,8 @@ class CPUTop extends Module with paramete{
   Reg.write(ID.io.ctrlIO.rd,EX.io1.result)
 
   io.result := EX.io1.result
+
+  DIP.io.is_break := EX.io1.is_break
 }
 
 import chisel3.stage._

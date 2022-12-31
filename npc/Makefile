@@ -1,5 +1,5 @@
 BUILD_DIR = ./build
-
+SIM_DIR = ./verilator
 test:
 	mill -i __.test
 
@@ -29,8 +29,8 @@ clean:
 .PHONY: test verilog help compile bsp reformat checkformat clean
 
 sim:
-	cd ./verilator
-	sudo verilator --trace -cc CPUTop.v --exe tb_CPUTop.cpp
+	
+	sudo verilator --trace -cc $(SIM_DIR)/CPUTop.v --exe $(SIM_DIR)/tb_CPUTop.cpp
 	make -C obj_dir -f VCPUTop.mk VCPUTop
 	./obj_dir/VCPUTop
 	gtkwave waveform.vcd

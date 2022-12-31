@@ -50,6 +50,7 @@ class IDU extends Module with InstrType with paramete{
   val srctype_list = Array(
     BitPat(InstrI) -> List(SRCType.R,SRCType.imm),
     BitPat(InstrR) -> List(SRCType.R,SRCType.R),
+    BitPat(InstrN) -> List(SRCType.R,SRCType.R),
 
   )
   val srctype1 :: srctype2 :: Nil = ListLookup(instrtype,List(SRCType.R,SRCType.R),srctype_list)
