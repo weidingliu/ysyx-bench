@@ -4,13 +4,17 @@
 #include <verilated_vcd_c.h>
 #include "VCPUTop.h"
 #include "VCPUTop___024root.h"
+#include <svdpi.h>
 
 #define MAX_SIM_TIME 20
 vluint64_t sim_time=0;
+void ebreak() {dut->final();m_trace->close(); delete dut; exit(EXIT_SUCCESS);}
 uint32_t pem_read(uint64_t pc){
     uint32_t mem[20];
-    mem[0]=0b00000000000100000000000000010011;
-    return mem[0];
+    mem[0]=0b00000000000100000000000100010011;
+    mem[1]=0b00000000000100010000000100010011;
+    mem[2]=0b00000000000100010000000100010011;
+    return mem[(pc-0x80000000)/4];
 } 
 
 int main(int argc, char** argv) {
