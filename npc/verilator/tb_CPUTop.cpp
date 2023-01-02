@@ -5,27 +5,31 @@
 #include "VCPUTop.h"
 #include "VCPUTop___024root.h"
 #include <svdpi.h>
+#include "VCPUTop__Dpi.h"
 
 #define MAX_SIM_TIME 20
 vluint64_t sim_time=0;
 
 VCPUTop *dut = new VCPUTop;
-Verilated::traceEverOn(true);
-VerilatedVcdC *m_trace = new VerilatedVcdC;
-dut->trace(m_trace,5);
-m_trace->open("waveform.vcd");
 
-void ebreak() {dut->final();m_trace->close(); delete dut; exit(EXIT_SUCCESS);}
+void ebreak() {dut->final();return;}
 uint32_t pem_read(uint64_t pc){
     uint32_t mem[20];
     mem[0]=0b00000000000100000000000100010011;
     mem[1]=0b00000000000100010000000100010011;
     mem[2]=0b00000000000100010000000100010011;
+    mem[3]=0b00000000000100000000000001110011;
     return mem[(pc-0x80000000)/4];
 } 
 
 int main(int argc, char** argv) {
 
+
+
+Verilated::traceEverOn(true);
+VerilatedVcdC *m_trace = new VerilatedVcdC;
+dut->trace(m_trace,5);
+m_trace->open("waveform.vcd");
 
 while(sim_time<MAX_SIM_TIME){
     dut->clock ^= 1;
