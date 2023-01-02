@@ -3,7 +3,6 @@
 // See VCPUTop.h for the primary calling header
 
 #include "verilated.h"
-#include "verilated_dpi.h"
 
 #include "VCPUTop__Syms.h"
 #include "VCPUTop___024root.h"

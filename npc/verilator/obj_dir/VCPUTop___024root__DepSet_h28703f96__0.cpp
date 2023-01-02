@@ -3,9 +3,39 @@
 // See VCPUTop.h for the primary calling header
 
 #include "verilated.h"
-#include "verilated_dpi.h"
 
 #include "VCPUTop___024root.h"
+
+VL_INLINE_OPT void VCPUTop___024root___combo__TOP__0(VCPUTop___024root* vlSelf) {
+    if (false && vlSelf) {}  // Prevent unused
+    VCPUTop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VCPUTop___024root___combo__TOP__0\n"); );
+    // Body
+    if (VL_UNLIKELY((0x42U == ((0x13U == (0x707fU & vlSelf->io_inst))
+                                ? 0x40U : ((0x1013U 
+                                            == (0xfc00707fU 
+                                                & vlSelf->io_inst))
+                                            ? 0x41U
+                                            : ((0x100073U 
+                                                == vlSelf->io_inst)
+                                                ? 0x42U
+                                                : 0U)))))) {
+        VL_FINISH_MT("DIP_model.v", 7, "");
+    }
+    vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0 = (
+                                                   (0x13U 
+                                                    == 
+                                                    (0x707fU 
+                                                     & vlSelf->io_inst))
+                                                    ? 0U
+                                                    : 
+                                                   ((0x1013U 
+                                                     == 
+                                                     (0xfc00707fU 
+                                                      & vlSelf->io_inst))
+                                                     ? 0U
+                                                     : 2U));
+}
 
 VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
@@ -103,8 +133,6 @@ VL_INLINE_OPT void VCPUTop___024root___combo__TOP__1(VCPUTop___024root* vlSelf) 
                                            : 0ULL);
     vlSelf->io_result = vlSelf->CPUTop__DOT__EX_io1_result;
 }
-
-void VCPUTop___024root___combo__TOP__0(VCPUTop___024root* vlSelf);
 
 void VCPUTop___024root___eval(VCPUTop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused

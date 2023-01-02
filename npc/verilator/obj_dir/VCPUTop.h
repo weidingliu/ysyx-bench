@@ -9,13 +9,10 @@
 #define VERILATED_VCPUTOP_H_  // guard
 
 #include "verilated.h"
-#include "svdpi.h"
 
 class VCPUTop__Syms;
 class VCPUTop___024root;
 class VerilatedVcdC;
-class VCPUTop___024unit;
-
 
 // This class is the main interface to the Verilated model
 class VCPUTop VL_NOT_FINAL : public VerilatedModel {
@@ -37,7 +34,6 @@ class VCPUTop VL_NOT_FINAL : public VerilatedModel {
     // CELLS
     // Public to allow access to /* verilator public */ items.
     // Otherwise the application code can consider these internals.
-    VCPUTop___024unit* const __PVT____024unit;
 
     // Root instance pointer to allow access to model internals,
     // including inlined /* verilator public_flat_* */ items.

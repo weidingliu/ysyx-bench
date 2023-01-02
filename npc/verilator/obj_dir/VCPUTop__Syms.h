@@ -15,9 +15,6 @@
 
 // INCLUDE MODULE CLASSES
 #include "VCPUTop___024root.h"
-#include "VCPUTop___024unit.h"
-
-// DPI TYPES for DPI Export callbacks (Internal use)
 
 // SYMS CLASS (contains all model state)
 class VCPUTop__Syms final : public VerilatedSyms {
@@ -30,7 +27,6 @@ class VCPUTop__Syms final : public VerilatedSyms {
 
     // MODULE INSTANCE STATE
     VCPUTop___024root              TOP;
-    VCPUTop___024unit              TOP____024unit;
 
     // CONSTRUCTORS
     VCPUTop__Syms(VerilatedContext* contextp, const char* namep, VCPUTop* modelp);

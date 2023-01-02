@@ -8,13 +8,9 @@
 #include "verilated.h"
 
 class VCPUTop__Syms;
-class VCPUTop___024unit;
-
 
 class VCPUTop___024root final : public VerilatedModule {
   public:
-    // CELLS
-    VCPUTop___024unit* __PVT____024unit;
 
     // DESIGN SPECIFIC STATE
     VL_IN8(clock,0,0);
