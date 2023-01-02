@@ -32,8 +32,8 @@ clean:
 sim:
 	cd verilator;sudo verilator --trace -cc CPUTop.v --exe tb_CPUTop.cpp; \
 	make -C obj_dir -f VCPUTop.mk VCPUTop; \
-	#./obj_dir/VCPUTop; \
-	#gtkwave waveform.vcd
+	./obj_dir/VCPUTop; \
+	gtkwave waveform.vcd
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 	@echo "Write this Makefile by yourself."
 
