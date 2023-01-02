@@ -27,14 +27,20 @@ checkformat:
 clean:
 	-rm -rf $(BUILD_DIR)
 
-.PHONY: test verilog help compile bsp reformat checkformat clean
+.PHONY: test verilog help compile bsp reformat checkformat clean wave
 
 sim:
-	cd verilator;sudo verilator -Wno-fatal --trace -cc CPUTop.v --exe tb_CPUTop.cpp; \
-	make -C obj_dir -f VCPUTop.mk VCPUTop; \
-	./obj_dir/VCPUTop; \
-	gtkwave waveform.vcd
+	cd verilator;\
+	sudo verilator -Wno-fatal --trace -cc CPUTop.v --exe tb_CPUTop.cpp; \
+	make -C obj_dir -f VCPUTop.mk VCPUTop; 
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 	@echo "Write this Makefile by yourself."
+
+wave:
+	cd verilator;\
+	./obj_dir/VCPUTop; \
+	gtkwave waveform.vcd
+
+
 
 include ../Makefile
