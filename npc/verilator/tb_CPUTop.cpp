@@ -8,6 +8,13 @@
 
 #define MAX_SIM_TIME 20
 vluint64_t sim_time=0;
+
+VCPUTop *dut = new VCPUTop;
+Verilated::traceEverOn(true);
+VerilatedVcdC *m_trace = new VerilatedVcdC;
+dut->trace(m_trace,5);
+m_trace->open("waveform.vcd");
+
 void ebreak() {dut->final();m_trace->close(); delete dut; exit(EXIT_SUCCESS);}
 uint32_t pem_read(uint64_t pc){
     uint32_t mem[20];
@@ -19,12 +26,7 @@ uint32_t pem_read(uint64_t pc){
 
 int main(int argc, char** argv) {
 
-VCPUTop *dut = new VCPUTop;
 
-Verilated::traceEverOn(true);
-VerilatedVcdC *m_trace = new VerilatedVcdC;
-dut->trace(m_trace,5);
-m_trace->open("waveform.vcd");
 while(sim_time<MAX_SIM_TIME){
     dut->clock ^= 1;
     dut->reset = 1;
