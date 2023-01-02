@@ -45,6 +45,7 @@ while(sim_time<MAX_SIM_TIME && (!contextp->gotFinish())){
     m_trace->dump(sim_time);
     sim_time++;
 }
+printf("Final PC is : %ld\n",dut->io_pc);
 m_trace->close();
 delete dut;
 delete contextp;
