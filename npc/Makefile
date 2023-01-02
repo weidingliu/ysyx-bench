@@ -1,5 +1,6 @@
 BUILD_DIR = ./build
-SIM_DIR = ./verilator
+#VPATH = ./verilator
+vpath %.v ./verilator
 test:
 	mill -i __.test
 
@@ -26,15 +27,20 @@ checkformat:
 clean:
 	-rm -rf $(BUILD_DIR)
 
-.PHONY: test verilog help compile bsp reformat checkformat clean
+.PHONY: test verilog help compile bsp reformat checkformat clean wave
 
 sim:
-	
-	sudo verilator --trace -cc $(SIM_DIR)/CPUTop.v --exe $(SIM_DIR)/tb_CPUTop.cpp
-	make -C obj_dir -f VCPUTop.mk VCPUTop
-	./obj_dir/VCPUTop
-	gtkwave waveform.vcd
+	cd verilator;\
+	sudo verilator -Wno-fatal --trace -cc CPUTop.v --exe tb_CPUTop.cpp; \
+	make -C obj_dir -f VCPUTop.mk VCPUTop; \
+	./obj_dir/VCPUTop; 
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 	@echo "Write this Makefile by yourself."
+
+wave:
+	cd verilator;\
+	gtkwave waveform.vcd
+
+
 
 include ../Makefile
