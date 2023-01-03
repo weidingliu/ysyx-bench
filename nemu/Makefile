@@ -54,7 +54,10 @@ include $(NEMU_HOME)/scripts/config.mk
 
 ifdef CONFIG_TARGET_AM
 include $(AM_HOME)/Makefile
+##ifeq($(wildcard $(ARCHIVES)),)
 LINKAGE += $(ARCHIVES)
+##endif
+
 else
 # Include rules to build NEMU
 include $(NEMU_HOME)/scripts/native.mk
