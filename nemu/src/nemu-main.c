@@ -25,6 +25,7 @@ int main(int argc, char *argv[]) {
 #ifdef CONFIG_TARGET_AM
   am_init_monitor();
 #else
+  printf("is init montitor\n");
   init_monitor(argc, argv);
 #endif
    printf("is main\n");
