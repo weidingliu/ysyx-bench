@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
 #else
   init_monitor(argc, argv);
 #endif
-
+   printf("is main\n");
   /* Start engine. */
   engine_start();
   /*FILE *fp = fopen("/home/liuweiding/ysyx-workbench/nemu/tools/gen-expr/build/input", "r");
