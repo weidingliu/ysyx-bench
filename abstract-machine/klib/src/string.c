@@ -5,27 +5,69 @@
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
 size_t strlen(const char *s) {
-  panic("Not implemented");
+  if(s == NULL) assert(0);
+  size_t num=0;
+  const char *p=s;
+  while( *p != '\0'){
+      num++;
+      p++;
+  }
+  return num;
+  //panic("Not implemented");
 }
 
 char *strcpy(char *dst, const char *src) {
-  panic("Not implemented");
+  if(dst==NULL || src == NULL) assert(0);
+  char* ret = dst;
+  while(*src!='\0'){
+      *dst++ =*src++;
+  }
+  *dst = *src;
+  
+  return ret;
 }
 
 char *strncpy(char *dst, const char *src, size_t n) {
-  panic("Not implemented");
+  size_t i;
+  for(i=0;i<n && src[i] != '\0';i++){
+      dst[i]=src[i];
+  }
+  for(; i<n;i++){
+      dst[i]='\0';
+  }
+  return dst;
 }
 
 char *strcat(char *dst, const char *src) {
-  panic("Not implemented");
+  size_t dst_len=strlen(dst);
+  int i;
+  for(i=0;src[i]!='\0';i++){
+      dst[i+dst_len]=src[i];
+  }
+  dst[i+dst_len]='\0';
+  
+  return dst;
 }
 
 int strcmp(const char *s1, const char *s2) {
-  panic("Not implemented");
+  while(*s1==*s2){
+      if(*s1=='\0' && *s2=='\0'){return 0;}
+  }
+  return (*(unsigned char*)s1 - *(unsigned char*)s2);
 }
 
 int strncmp(const char *s1, const char *s2, size_t n) {
-  panic("Not implemented");
+  if(n==0){
+      return 0;
+  }
+  char* src1;
+  char* src2;
+  while(n!=0 &&(*s1==*s2)){
+      n--;
+      *src1++ = *s1++;
+      *src2++ = *s2++;
+  }
+  return (*(unsigned char*)src1 - *(unsigned char*)src2);
 }
 
 void *memset(void *s, int c, size_t n) {
