@@ -24,7 +24,6 @@ class EXU extends Module with paramete with InstrType {
     val Imm = Input(UInt(xlen.W))
 
 
-
   })
   val io1 = IO(new Bundle() {
     val REG1 = Input(UInt(xlen.W))
