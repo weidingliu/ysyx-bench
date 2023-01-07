@@ -75,13 +75,14 @@ int strncmp(const char *s1, const char *s2, size_t n) {
 void *memset(void *s, int c, size_t n) {
  
   if(n<=0)  return 0;
+  char *temp=(char *)s;
   while(n!=0){                                          
-      *(char *)s = c; 
-      s= (char *)s +1;
+      *temp = c; 
+      temp++;
       n--;
   }
   
- return 0;
+ return s;
 }
 
 void *memmove(void *dst, const void *src, size_t n) {
