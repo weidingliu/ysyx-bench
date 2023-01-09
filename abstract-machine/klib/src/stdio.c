@@ -25,7 +25,7 @@ int sprintf(char *out, const char *fmt, ...) {
           case 'd':{
               int temp= va_arg(ap,int);
               do{
-                  *out = (char) (temp%10);
+                  *out = (char) (temp%10 + '0');
                   ret++;
                   out++;
                   temp/=10;
