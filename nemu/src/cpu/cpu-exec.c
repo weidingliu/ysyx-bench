@@ -66,7 +66,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   int i;
   uint8_t *inst = (uint8_t *)&s->isa.inst.val;
   
-  //printf("%08x\n", s->isa.inst.val);
+  printf("%08x\n", s->isa.inst.val);
   ibuf[irbuf_point].inst=(uint8_t *)&s->isa.inst.val;
   ibuf[irbuf_point].pc=pc;
   irbuf_point=(irbuf_point+1)%IRTRACE;
