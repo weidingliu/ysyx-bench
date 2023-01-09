@@ -101,4 +101,5 @@ printf("is here !\n");
   const char *p = s.c_str() + skip;
   assert((int)s.length() - skip < size);
   strcpy(str, p);
+  printf("is herew !\n");
 }
