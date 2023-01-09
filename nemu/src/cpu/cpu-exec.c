@@ -68,13 +68,11 @@ static void exec_once(Decode *s, vaddr_t pc) {
   //printf("%08x\n", s->isa.inst.val);
   ibuf[irbuf_point].inst=(uint8_t *)&s->isa.inst.val;
   ibuf[irbuf_point].pc=pc;
-  
+  irbuf_point=(irbuf_point+1)%IRTRACE;
   for (i = ilen - 1; i >= 0; i --) {
     p += snprintf(p, 4, " %02x", inst[i]);
   }
-  for (i = ilen - 1; i >= 0; i --) {
-    p += snprintf(p, 4, " %02x", ibuf[irbuf_point].inst[i]);
-  }
+
   int ilen_max = MUXDEF(CONFIG_ISA_x86, 8, 4);
   int space_len = ilen_max - ilen;
   if (space_len < 0) space_len = 0;
@@ -83,6 +81,8 @@ static void exec_once(Decode *s, vaddr_t pc) {
   p += space_len;
 
   void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
+  disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
+      MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);
   disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);
   
