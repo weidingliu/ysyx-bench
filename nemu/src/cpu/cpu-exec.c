@@ -33,7 +33,7 @@ static bool g_print_step = false;
 
 #ifdef CONFIG_ITRACE
 irbuf ibuf[IRTRACE];
-uint32_t irbuf_point=0;
+static uint32_t irbuf_point=0;
 #endif
 void device_update();
 
