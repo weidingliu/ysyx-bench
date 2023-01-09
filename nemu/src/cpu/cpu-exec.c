@@ -43,6 +43,12 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #endif
   if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(_this->logbuf)); }
   printf("is here\n");
+  ibuf[irbuf_point].ch_inst=_this->logbuf;
+  //ibuf[irbuf_point].inst=(uint8_t *)&s->isa.inst.val;
+  //ibuf[irbuf_point].pc=pc;
+  irbuf_point=(irbuf_point+1)%IRTRACE;
+  puts(ibuf[irbuf_point].ch_inst);
+  
   IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
  #ifdef CONFIG_WATCHPOINT
       bool flag=true;
@@ -87,10 +93,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   
   //ibuf[irbuf_point].ch_inst=p;
   //strcpy(ibuf[irbuf_point].ch_inst,q);
-  ibuf[irbuf_point].inst=(uint8_t *)&s->isa.inst.val;
-  ibuf[irbuf_point].pc=pc;
-  irbuf_point=(irbuf_point+1)%IRTRACE;
-  puts(p);
+  
 #endif
 }
 
