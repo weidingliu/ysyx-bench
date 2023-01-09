@@ -70,7 +70,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   ibuf[irbuf_point].inst=(uint8_t *)&s->isa.inst.val;
   ibuf[irbuf_point].pc=pc;
   irbuf_point=(irbuf_point+1)%IRTRACE;
-  
+  printf("sadfasfas\n");
   for (i = ilen - 1; i >= 0; i --) {
     p += snprintf(p, 4, " %02x", inst[i]);
   }
@@ -85,7 +85,8 @@ static void exec_once(Decode *s, vaddr_t pc) {
   void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
   disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);
-
+  disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
+      ibuf[irbuf_point].pc, ibuf[irbuf_point].inst, 4);
   
 #endif
 }
