@@ -70,7 +70,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   ibuf[irbuf_point].inst=(uint8_t *)&s->isa.inst.val;
   ibuf[irbuf_point].pc=pc;
   irbuf_point=(irbuf_point+1)%IRTRACE;
-  printf("sadfasfas\n");
+  
   for (i = ilen - 1; i >= 0; i --) {
     p += snprintf(p, 4, " %02x", inst[i]);
   }
