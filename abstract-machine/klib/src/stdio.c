@@ -23,6 +23,8 @@ int sprintf(char *out, const char *fmt, ...) {
       if(*fmt == '%'){
           switch(*(fmt+1)){
           case 'd':{
+              char strnum[32];
+              int j=31;
               int tempd= va_arg(ap,int);
               if(tempd<0) 
               {
@@ -32,11 +34,14 @@ int sprintf(char *out, const char *fmt, ...) {
               }
               tempd=-tempd;
               do{
-                  *out =((tempd%10) + '0');
+                  strnum[j--] =((tempd%10) + '0');
                   ret++;
-                  out++;
                   tempd/=10;
               }while(tempd!=0);
+              
+              while(j<=31){
+                  *out=strnum[j++];
+              }
               fmt+=2;
               break;
           }
