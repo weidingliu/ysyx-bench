@@ -32,7 +32,7 @@ int sprintf(char *out, const char *fmt, ...) {
               }
               temp=-temp;
               do{
-                  *out =(temp%10 + '0');
+                  *out =((temp%10) + '0');
                   ret++;
                   out++;
                   temp/=10;
@@ -56,6 +56,7 @@ int sprintf(char *out, const char *fmt, ...) {
               out++;
               fmt++;
               ret++;
+              break;
           }
           }
       }
@@ -68,6 +69,7 @@ int sprintf(char *out, const char *fmt, ...) {
       
   
   }
+  *out='\0';
   va_end(ap);
   return ret;
 }
