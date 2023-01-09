@@ -24,8 +24,15 @@ int sprintf(char *out, const char *fmt, ...) {
           switch(*(fmt+1)){
           case 'd':{
               int temp= va_arg(ap,int);
+              if(temp<0) 
+              {
+                  *out='-';
+                  ret++;
+                  out++;
+              }
+              temp=-temp;
               do{
-                  *out = (char)(temp%10 + '0');
+                  *out =(temp%10 + '0');
                   ret++;
                   out++;
                   temp/=10;
