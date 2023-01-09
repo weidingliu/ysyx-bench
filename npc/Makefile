@@ -37,10 +37,11 @@ sim:
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 	@echo "Write this Makefile by yourself."
 
-wave:
+wave: sim
 	cd verilator;\
 	gtkwave waveform.vcd
 
-
+count:
+	find . -not -path "./out/*" -not -path "./target/*" -name "*.scala" -or -name "*.[c]" -or -name "tb_CPUTop.cpp"  | xargs wc -l
 
 include ../Makefile
