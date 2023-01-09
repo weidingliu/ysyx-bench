@@ -41,6 +41,7 @@ int sprintf(char *out, const char *fmt, ...) {
               
               while(j<=31){
                   *out=strnum[j++];
+                  out++;
               }
               fmt+=2;
               break;
