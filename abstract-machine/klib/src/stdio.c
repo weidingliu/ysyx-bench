@@ -18,7 +18,7 @@ int sprintf(char *out, const char *fmt, ...) {
   va_start(ap, fmt);
   //size_t num=0;//how many veriable argument
   size_t ret=0;
-  for (int i=0;i<strlen(fmt);i++)
+  while (*fmt != '\0')
   {
       if(*fmt == '%'){
           switch(*(fmt+1)){
