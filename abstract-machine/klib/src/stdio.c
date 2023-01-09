@@ -23,30 +23,30 @@ int sprintf(char *out, const char *fmt, ...) {
       if(*fmt == '%'){
           switch(*(fmt+1)){
           case 'd':{
-              int temp= va_arg(ap,int);
-              if(temp<0) 
+              int tempd= va_arg(ap,int);
+              if(tempd<0) 
               {
                   *out='-';
                   ret++;
                   out++;
               }
-              temp=-temp;
+              tempd=-tempd;
               do{
-                  *out =((temp%10) + '0');
+                  *out =((tempd%10) + '0');
                   ret++;
                   out++;
-                  temp/=10;
-              }while(temp!=0);
+                  tempd/=10;
+              }while(tempd!=0);
               fmt+=2;
               break;
           }
           case 's':{
-              char *temp = va_arg(ap,char*);
-              while(*temp!='\0'){
-                  *out=*temp;
+              char *temps = va_arg(ap,char*);
+              while(*temps!='\0'){
+                  *out=*temps;
                   ret++;
                   out++;
-                  temp++;
+                  temps++;
               }
               fmt+=2;
               break;
