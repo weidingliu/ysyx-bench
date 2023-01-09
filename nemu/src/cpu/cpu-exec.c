@@ -85,10 +85,10 @@ static void exec_once(Decode *s, vaddr_t pc) {
   disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);
   
-  //strcpy(ibuf[irbuf_point].info,p);
+  strcpy(ibuf[irbuf_point].ch_inst,p);
+  ibuf[irbuf_point].inst=(uint8_t *)&s->isa.inst.val;
   ibuf[irbuf_point].pc=pc;
   irbuf_point=(irbuf_point+1)%IRTRACE;
-  puts(p);
 #endif
 }
 
