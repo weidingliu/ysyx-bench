@@ -31,8 +31,8 @@ int sprintf(char *out, const char *fmt, ...) {
                   *out='-';
                   ret++;
                   out++;
+                  tempd=-tempd;
               }
-              tempd=-tempd;
               do{
                   strnum[j--] =((tempd%10) + '0');
                   ret++;
