@@ -38,7 +38,7 @@ int sprintf(char *out, const char *fmt, ...) {
                   ret++;
                   tempd/=10;
               }while(tempd!=0);
-              
+              j++;
               while(j<=31){
                   *out=strnum[j++];
                   out++;
