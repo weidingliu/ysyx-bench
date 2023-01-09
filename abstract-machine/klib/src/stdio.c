@@ -23,19 +23,39 @@ int sprintf(char *out, const char *fmt, ...) {
       if(*fmt == '%'){
           switch(*(fmt+1)){
           case 'd':{
-              
+              int temp= va_arg(ap,int);
+              do{
+                  *out = (char) (temp%10);
+                  ret++;
+                  out++;
+                  temp/=10;
+              }while(temp!=0);
               fmt+=2;
               break;
           }
           case 's':{
-              
+              char *temp = va_arg(ap,char*);
+              while(*temp!='\0'){
+                  *out=*temp;
+                  ret++;
+                  out++;
+                  temp++;
+              }
               fmt+=2;
               break;
+          }
+          default:{
+              *out=*fmt;
+              out++;
+              fmt++;
+              ret++;
           }
           }
       }
       else{
-          *out++=*fmt++;
+          *out=*fmt;
+          out++;
+          fmt++;
           ret++;
       }
       
