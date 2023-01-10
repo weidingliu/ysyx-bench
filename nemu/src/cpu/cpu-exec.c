@@ -47,6 +47,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
   //memset(ibuf[irbuf_point].ch_inst,'\0',sizeof(ibuf[irbuf_point].ch_inst));
   //strcpy(te, _this->logbuf);
   char *te=_this->logbuf;
+  vaddr_t te_pc=_this->pc;
   for(int i=0;te[i]!='\0';i++){
       ibuf[irbuf_point].ch_inst[i]=te[i];
   }
@@ -54,7 +55,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
   //ibuf[irbuf_point].inst=(uint8_t *)&s->isa.inst.val;
   ibuf[irbuf_point].pc= _this->pc;
   irbuf_point=(irbuf_point+1)%IRTRACE;
-  printf("%lx\n",_this->pc);
+  printf("%lx\n",te_pc);
   
   IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
  #ifdef CONFIG_WATCHPOINT
