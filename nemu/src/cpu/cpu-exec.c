@@ -17,7 +17,7 @@
 #include <cpu/decode.h>
 #include <cpu/difftest.h>
 #include <locale.h>
-#include <trace.h>
+
 #include </home/liuweiding/ysyx-workbench/nemu/src/monitor/sdb/sdb.h>
 /* The assembly code of instructions executed is only output to the screen
  * when the number of instructions executed is less than this value.
@@ -25,6 +25,7 @@
  * You can modify this value as you want.
  */
 #define MAX_INST_TO_PRINT 10
+#define IRTRACE 32 
 
 CPU_state cpu = {};
 uint64_t g_nr_guest_inst = 0;
@@ -32,7 +33,7 @@ static uint64_t g_timer = 0; // unit: us
 static bool g_print_step = false;
 
 #ifdef CONFIG_ITRACE
-ibuffer ibuf;
+char ibuf[IRTRACE][128];
 static uint32_t irbuf_point=0;
 #endif
 void device_update();
@@ -49,13 +50,13 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
   char *te=_this->logbuf;
   //vaddr_t te_pc=_this->pc;
   for(int i=0;te[i]!='\0';i++){
-      ibuf[irbuf_point].ch_inst[i]=te[i];
+      ibuf[irbuf_point][i]=te[i];
   }
   //strcpy(ibuf[irbuf_point].ch_inst,te);
   //ibuf[irbuf_point].inst=(uint8_t *)&s->isa.inst.val;
   //ibuf[irbuf_point].pc= te_pc;
   irbuf_point=(irbuf_point+1)%IRTRACE;
-  printf("%s\n%s\n%s\n",ibuf[irbuf_point].ch_inst,te,_this->logbuf);
+  printf("%s\n%s\n%s\n",ibuf[irbuf_point],te,_this->logbuf);
   
   IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
  #ifdef CONFIG_WATCHPOINT
