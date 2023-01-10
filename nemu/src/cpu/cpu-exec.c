@@ -17,7 +17,7 @@
 #include <cpu/decode.h>
 #include <cpu/difftest.h>
 #include <locale.h>
-#include <trace.h>
+
 #include </home/liuweiding/ysyx-workbench/nemu/src/monitor/sdb/sdb.h>
 /* The assembly code of instructions executed is only output to the screen
  * when the number of instructions executed is less than this value.
@@ -25,23 +25,41 @@
  * You can modify this value as you want.
  */
 #define MAX_INST_TO_PRINT 10
+#define IRTRACE 32 
 
 CPU_state cpu = {};
 uint64_t g_nr_guest_inst = 0;
 static uint64_t g_timer = 0; // unit: us
 static bool g_print_step = false;
 
-#ifdef CONFIG_ITRACE
-irbuf ibuf[IRTRACE];
-static uint32_t irbuf_point=0;
-#endif
 void device_update();
+
+#ifdef CONFIG_ITRACE
+char ibuf[IRTRACE][128];
+static uint32_t irbuf_point=0;
+
+static void display_iringbuf(){
+    int i=0;
+    for(;i<IRTRACE;i++){
+        if(i==(irbuf_point+31)%32) printf("-->");
+        else printf("   ");
+        puts(ibuf[i]);
+    }
+}
+#endif
 
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_ITRACE_COND
   if (ITRACE_COND) { log_write("%s\n", _this->logbuf); }
 #endif
   if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(_this->logbuf)); }
+  //printf("is here\n");
+  
+  IFDEF(CONFIG_ITRACE,strcpy(ibuf[irbuf_point],_this->logbuf));
+  //puts(ibuf[irbuf_point]);
+  IFDEF(CONFIG_ITRACE,irbuf_point=(irbuf_point+1)%IRTRACE);
+
+  
   IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
  #ifdef CONFIG_WATCHPOINT
       bool flag=true;
@@ -67,9 +85,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   uint8_t *inst = (uint8_t *)&s->isa.inst.val;
   
   //printf("%08x\n", s->isa.inst.val);
-  ibuf[irbuf_point].inst=(uint8_t *)&s->isa.inst.val;
-  ibuf[irbuf_point].pc=pc;
-  irbuf_point=(irbuf_point+1)%IRTRACE;
+  
   
   for (i = ilen - 1; i >= 0; i --) {
     p += snprintf(p, 4, " %02x", inst[i]);
@@ -85,7 +101,9 @@ static void exec_once(Decode *s, vaddr_t pc) {
   void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
   disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);
-
+  
+  //ibuf[irbuf_point].ch_inst=p;
+  //strcpy(ibuf[irbuf_point].ch_inst,q);
   
 #endif
 }
@@ -138,11 +156,13 @@ void cpu_exec(uint64_t n) {
     case NEMU_STOP: break;
     case NEMU_END: case NEMU_ABORT:
       Log("nemu: %s at pc = " FMT_WORD,
-          (nemu_state.state == NEMU_ABORT ? ANSI_FMT("ABORT", ANSI_FG_RED) :
+          (nemu_state.state == NEMU_ABORT ? ANSI_FMT("ABORT", ANSI_FG_RED):
            (nemu_state.halt_ret == 0 ? ANSI_FMT("HIT GOOD TRAP", ANSI_FG_GREEN) :
             ANSI_FMT("HIT BAD TRAP", ANSI_FG_RED))),
           nemu_state.halt_pc);
+          if(nemu_state.state == NEMU_ABORT || nemu_state.halt_ret != 0) display_iringbuf();
       // fall through
+      
     case NEMU_QUIT: statistic();
   }
 }
