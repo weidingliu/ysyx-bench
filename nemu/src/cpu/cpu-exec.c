@@ -53,7 +53,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
   if (ITRACE_COND) { log_write("%s\n", _this->logbuf); }
 #endif
   if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(_this->logbuf)); }
-  printf("is here\n");
+  //printf("is here\n");
   
   IFDEF(CONFIG_ITRACE,strcpy(ibuf[irbuf_point],_this->logbuf));
   //puts(ibuf[irbuf_point]);
@@ -160,7 +160,7 @@ void cpu_exec(uint64_t n) {
            (nemu_state.halt_ret == 0 ? ANSI_FMT("HIT GOOD TRAP", ANSI_FG_GREEN) :
             ANSI_FMT("HIT BAD TRAP", ANSI_FG_RED))),
           nemu_state.halt_pc);
-          if(nemu_state.state == NEMU_ABORT || nemu_state.halt_ret != 0) display_iringbuf();
+          if(nemu_state.state == NEMU_ABORT || nemu_state.halt_ret == 0) display_iringbuf();
       // fall through
       
     case NEMU_QUIT: statistic();
