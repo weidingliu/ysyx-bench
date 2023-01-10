@@ -1,9 +1,14 @@
 
 #ifdef CONFIG_ITRACE
 #define IRTRACE 32 //iringbuf size
-typedef struct {
-    uint8_t *inst;
+typedef struct ibuffer{
+    //uint8_t *inst;
     char ch_inst[128];
     vaddr_t pc;
-}irbuf[IRTRACE];
+    
+    /*ibuffer(){
+       memset(ch_inst,'\0',sizeof(ch_inst));
+       pc=0;
+    }*/
+}ibuffer[IRTRACE];
 #endif

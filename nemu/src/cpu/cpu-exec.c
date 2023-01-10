@@ -32,7 +32,7 @@ static uint64_t g_timer = 0; // unit: us
 static bool g_print_step = false;
 
 #ifdef CONFIG_ITRACE
-irbuf ibuf;
+ibuffer ibuf;
 static uint32_t irbuf_point=0;
 #endif
 void device_update();
@@ -44,6 +44,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
   if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(_this->logbuf)); }
   printf("is here\n");
  // char te[128];
+ memset(ibuf[irbuf_point].ch_inst,'\0',sizeof(ibuf[irbuf_point].ch_inst));
   strcpy(ibuf[irbuf_point].ch_inst , _this->logbuf);
 
   //ibuf[irbuf_point].inst=(uint8_t *)&s->isa.inst.val;
