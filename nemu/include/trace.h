@@ -4,7 +4,7 @@
 typedef struct ibuffer{
     //uint8_t *inst;
     char ch_inst[128];
-    vaddr_t pc;
+    //vaddr_t pc;
     
     /*ibuffer(){
        memset(ch_inst,'\0',sizeof(ch_inst));
