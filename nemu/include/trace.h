@@ -6,10 +6,15 @@
     char ch_inst[128];
     //vaddr_t pc;
     
-    /*ibuffer(){
+    ibuffer(){
        memset(ch_inst,'\0',sizeof(ch_inst));
        pc=0;
     }
 }ibuffer[IRTRACE];*/
+
+#endif
+
+#ifdef CONFIG_MTRACE
+  
 
 #endif
