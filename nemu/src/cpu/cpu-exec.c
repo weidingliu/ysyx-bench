@@ -32,7 +32,7 @@ static uint64_t g_timer = 0; // unit: us
 static bool g_print_step = false;
 
 #ifdef CONFIG_ITRACE
-irbuf ibuf[IRTRACE];
+irbuf ibuf;
 static uint32_t irbuf_point=0;
 #endif
 void device_update();
