@@ -43,6 +43,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #endif
   if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(_this->logbuf)); }
   printf("is here\n");
+  printf("%s\n",_this->logbuf);
   strncpy(ibuf[irbuf_point].ch_inst,_this->logbuf,32);
 
   //ibuf[irbuf_point].inst=(uint8_t *)&s->isa.inst.val;
