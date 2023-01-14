@@ -18,3 +18,14 @@
   
 
 #endif
+
+typedef struct ftrace_buffer{
+    char fun_name[48];
+    paddr_t start;
+    size_t size;
+}ftrace;
+
+ftrace funcINFO[512];
+size_t ftrace_point=0;
+
+

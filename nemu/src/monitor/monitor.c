@@ -15,6 +15,9 @@
 
 #include <isa.h>
 #include <memory/paddr.h>
+#include <trace.h>
+
+
 
 void init_rand();
 void init_log(const char *log_file);
@@ -46,12 +49,34 @@ static char *diff_so_file = NULL;
 static char *img_file = NULL;
 static int difftest_port = 1234;
 
+static void init_ftrace(char *img_file){
+    if(img_file == NULL){
+        printf("ftrace close!\n");
+        return;
+    } 
+    char elf_path[360];
+    strcpy(elf_path,img_file);
+    elf_path[strlen(img_file)-1]='f';
+    elf_path[strlen(img_file)-2]='l';
+    elf_path[strlen(img_file)-3]='e';
+    
+    FILE *fp = fopen(img_file, "rb");
+    Assert(fp, "Can not open '%s'", img_file);
+
+    fseek(fp, 0, SEEK_SET);
+    
+    strcpy(funcINFO[ftrace_point].fun_name,"hello");
+    funcINFO[ftrace_point].start=0x80000000;
+    
+
+}
+
 static long load_img() {
   if (img_file == NULL) {
     Log("No image is given. Use the default build-in image.");
     return 4096; // built-in image size
   }
-
+  //printf("%s\n",img_file);
   FILE *fp = fopen(img_file, "rb");
   Assert(fp, "Can not open '%s'", img_file);
 
@@ -81,13 +106,13 @@ static int parse_args(int argc, char *argv[]) {
   //printf("is parse_args\n");
   
   while ( (o = getopt_long(argc, argv, "-bhl:d:p:", table, NULL)) != -1) {
-    //printf("%d  %d\n",o,'l');
+    //printf("%d  \n",o);
     switch (o) {
       case 'b': sdb_set_batch_mode(); break;
       case 'p': sscanf(optarg, "%d", &difftest_port); break;
       case 'l': log_file = optarg; break;
       case 'd': diff_so_file = optarg; break;
-      case 1: img_file = optarg; return 0;
+      case 1: {img_file = optarg; init_ftrace(); return 0;}
       default:
         printf("Usage: %s [OPTION...] IMAGE [args]\n\n", argv[0]);
         printf("\t-b,--batch              run with batch mode\n");
@@ -98,6 +123,7 @@ static int parse_args(int argc, char *argv[]) {
         exit(0);
     }
   }
+  
   return 0;
 }
 
