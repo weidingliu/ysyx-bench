@@ -15,6 +15,10 @@
 
 #include <isa.h>
 #include <memory/paddr.h>
+#include <trace.h>
+
+//static ftrace funcINFO[512];
+//static ftrace_point=0;
 
 void init_rand();
 void init_log(const char *log_file);
@@ -46,12 +50,22 @@ static char *diff_so_file = NULL;
 static char *img_file = NULL;
 static int difftest_port = 1234;
 
+static void init_ftrace(){
+    if(img_file == NULL){
+        printf("ftrace close!\n");
+        return;
+    } 
+    int elf_path=sizeof(img_file);
+    printf("%d\n",elf_path);
+
+}
+
 static long load_img() {
   if (img_file == NULL) {
     Log("No image is given. Use the default build-in image.");
     return 4096; // built-in image size
   }
-  printf("%s\n",img_file);
+  //printf("%s\n",img_file);
   FILE *fp = fopen(img_file, "rb");
   Assert(fp, "Can not open '%s'", img_file);
 
@@ -98,6 +112,7 @@ static int parse_args(int argc, char *argv[]) {
         exit(0);
     }
   }
+  init_ftrace();
   return 0;
 }
 
