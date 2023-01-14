@@ -60,6 +60,7 @@ static void init_ftrace(){
     elf_path[strlen(img_file)-2]='l';
     elf_path[strlen(img_file)-3]='e';
     printf("-----------------%s\n",elf_path);
+    printf("-----------------%s\n",img_file);
 
 }
 
