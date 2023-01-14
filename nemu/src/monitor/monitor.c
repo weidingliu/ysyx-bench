@@ -55,7 +55,8 @@ static void init_ftrace(){
         printf("ftrace close!\n");
         return;
     } 
-    char *elf_path=img_file;
+    char elf_path[360];
+    strcpy(elf_path,img_file);
     elf_path[strlen(img_file)-1]='f';
     elf_path[strlen(img_file)-2]='l';
     elf_path[strlen(img_file)-3]='e';
