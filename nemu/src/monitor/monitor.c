@@ -17,8 +17,7 @@
 #include <memory/paddr.h>
 #include <trace.h>
 
-//static ftrace funcINFO[512];
-//static ftrace_point=0;
+
 
 void init_rand();
 void init_log(const char *log_file);
@@ -60,8 +59,15 @@ static void init_ftrace(){
     elf_path[strlen(img_file)-1]='f';
     elf_path[strlen(img_file)-2]='l';
     elf_path[strlen(img_file)-3]='e';
-    printf("-----------------%s\n",elf_path);
-    printf("-----------------%s\n",img_file);
+    
+    FILE *fp = fopen(img_file, "rb");
+    Assert(fp, "Can not open '%s'", img_file);
+
+    fseek(fp, 0, SEEK_SET);
+    
+    strcpy(funcINFO[ftrace_point].fun_name,"hello");
+    funcINFO[ftrace_point].start=0x80000000;
+    
 
 }
 

@@ -17,6 +17,7 @@
 #include <cpu/decode.h>
 #include <cpu/difftest.h>
 #include <locale.h>
+#include <trace.h>
 
 #include </home/liuweiding/ysyx-workbench/nemu/src/monitor/sdb/sdb.h>
 /* The assembly code of instructions executed is only output to the screen
@@ -114,6 +115,7 @@ static void execute(uint64_t n) {
     exec_once(&s, cpu.pc);
     g_nr_guest_inst ++;
     trace_and_difftest(&s, cpu.pc);
+    if(funcINFO[ftrace_point].start == 0x80000000) printf("%s\n",funcINFO[ftrace_point].fun_name);
     if (nemu_state.state != NEMU_RUNNING) break;
     IFDEF(CONFIG_DEVICE, device_update());
   }
