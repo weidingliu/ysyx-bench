@@ -55,7 +55,7 @@ static void init_ftrace(){
         printf("ftrace close!\n");
         return;
     } 
-    int elf_path=sizeof(img_file);
+    int elf_path=strlen(img_file);
     printf("-----------------%d\n",elf_path);
 
 }
