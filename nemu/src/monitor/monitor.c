@@ -102,7 +102,7 @@ void init_ftrace(){
     Assert(o,"sectiontab fail!");
     
     for (int i=0;i<elf_head.e_shnum;i++){
-        printf("----------%d\n",(char)elf_section_head[i].sh_name);
+        printf("----------%s\n",sectiontab+elf_section_head[i].sh_name);
     }
     
     strcpy(funcINFO[ftrace_point].fun_name,"hello");
