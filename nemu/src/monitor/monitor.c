@@ -129,7 +129,17 @@ void init_ftrace(){
     fseek(fp,symtab_offset,SEEK_SET);
     o=fread(symtab,symtab_size,1,fp);
     Assert(o,"symtab fail!");
-    printf("%lx\n",symtab[1].st_value);
+    //printf("%lx\n",symtab[1].st_value);
+    for(int i=0;i<symtab_size/sym_size;i++){
+        if(symtab[i].st_info==2){
+            funcINFO[ftrace_point].start=symtab[i].st_value;
+            funcINFO[ftrace_point].size=symtab[i].st_size;
+            strcpy(funcINFO[ftrace_point].fun_name,strtab+symtab[i].st_name);
+            printf("%s  %x  %ld",funcINFO[ftrace_point].fun_name,funcINFO[ftrace_point].start,funcINFO[ftrace_point].size);
+        }
+        else continue;
+        
+    }
     
     strcpy(funcINFO[ftrace_point].fun_name,"hello");
     funcINFO[ftrace_point].start=0x80000004;
