@@ -122,7 +122,7 @@ void init_ftrace(){
     fseek(fp,strtab_offset,SEEK_SET);
     o=fread(strtab,strtab_size,1,fp);
     Assert(o,"sectiontab fail!");
-    printf("%s\n",strtab);
+    printf("%c\n",strtab[2]);
     
     strcpy(funcINFO[ftrace_point].fun_name,"hello");
     funcINFO[ftrace_point].start=0x80000004;
