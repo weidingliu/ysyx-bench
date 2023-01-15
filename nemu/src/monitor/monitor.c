@@ -140,7 +140,7 @@ void init_ftrace(){
         else continue;
         
     }
-    
+    ftrace_point++;
     strcpy(funcINFO[ftrace_point].fun_name,"hello");
     funcINFO[ftrace_point].start=0x80000004;
     
