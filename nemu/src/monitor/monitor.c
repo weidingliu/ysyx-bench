@@ -15,7 +15,7 @@
 
 #include <isa.h>
 #include <memory/paddr.h>
-#include "trace.h"
+#include <trace.h>
 
 
 
@@ -54,7 +54,8 @@ void init_ftrace(){
         printf("ftrace close!\n");
         return;
     } 
-    ftrace_point=0;
+    int ftrace_point=0;
+    ftrace funcINFO[512];
     char elf_path[360];
     strcpy(elf_path,img_file);
     elf_path[strlen(img_file)-1]='f';

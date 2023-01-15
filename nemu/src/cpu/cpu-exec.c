@@ -17,7 +17,7 @@
 #include <cpu/decode.h>
 #include <cpu/difftest.h>
 #include <locale.h>
-#include "trace.h"
+#include <trace.h>
 
 #include </home/liuweiding/ysyx-workbench/nemu/src/monitor/sdb/sdb.h>
 /* The assembly code of instructions executed is only output to the screen
