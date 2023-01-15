@@ -137,17 +137,17 @@ void init_ftrace(){
             funcINFO[ftrace_point].start=symtab[i].st_value;
             funcINFO[ftrace_point].size=symtab[i].st_size;
             strcpy(funcINFO[ftrace_point].fun_name,strtab+symtab[i].st_name);
-            printf("%s\n",funcINFO[ftrace_point].fun_name);
-            //,funcINFO[ftrace_point].start,funcINFO[ftrace_point].size    %x  %ld
-            
+            ftrace_point++;
         }
         else continue;
         
     }
-    ftrace_point++;
-    strcpy(funcINFO[ftrace_point].fun_name,"hello");
-    funcINFO[ftrace_point].start=0x80000004;
     
+    //strcpy(funcINFO[ftrace_point].fun_name,"hello");
+    //funcINFO[ftrace_point].start=0x80000004;
+    for(int i=0;i<ftrace_point;i++){
+        printf("%s    %x   %ld\n",funcINFO[i].fun_name,funcINFO[i].start,funcINFO[i].size);
+    }
     
     printf("\033[40;34mftrace: \033[0m \033[40;32mON\033[0m\n");
     fclose(fp);
