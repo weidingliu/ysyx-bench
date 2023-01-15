@@ -79,6 +79,7 @@ void init_ftrace(){
     Assert(elf_head.e_shoff,"ELF Don't have section header!");
     
     Elf64_Shdr *elf_section_head=(Elf64_Shdr*)malloc(sizeof(Elf64_Shdr) * elf_head.e_shnum);//loader section header
+    Assert(elf_section_head,"memory allocation fail!");
     fseek(fp, elf_head.e_shoff, SEEK_SET);
     
     Assert(fp,"Can't find section head");
@@ -90,10 +91,19 @@ void init_ftrace(){
     
     Assert(o,"ELF section head fail!");
     //Assert(elf_section_head.sh_type,"ELF section fail!");
-    printf("%ld",elf_section_head[elf_head.e_shstrndx].sh_offset);
+    //printf("%ld",elf_section_head[elf_head.e_shstrndx].sh_offset);
     //Elf64_Sym sym_table;
+    rewind(fp);
+    fseek(fp,elf_section_head[elf_head.e_shstrndx].sh_offset, SEEK_SET);
     
+    char sectiontab[elf_section_head[elf_head.e_shstrndx].sh_size];
     
+    o=fread(sectiontab,elf_section_head[elf_head.e_shstrndx].sh_size,1,fp);
+    Assert(o,"sectiontab fail!");
+    
+    for (int i=0;i<elf_head.e_shnum;i++){
+        printf("----------%d\n",(char)elf_section_head[i].sh_name);
+    }
     
     strcpy(funcINFO[ftrace_point].fun_name,"hello");
     funcINFO[ftrace_point].start=0x80000004;
