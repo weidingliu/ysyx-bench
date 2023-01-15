@@ -65,15 +65,15 @@ void init_ftrace(){
     elf_path[strlen(img_file)-2]='l';
     elf_path[strlen(img_file)-3]='e';
     
-    FILE *fp = fopen(img_file, "rb");
-    Assert(fp, "Can not open '%s'", img_file);
+    FILE *fp = fopen(elf_path, "rb");
+    Assert(fp, "Can not open '%s'", elf_path);
     
     fseek(fp, 0, SEEK_SET);//set start of ELF
     Elf64_Ehdr elf_head;
     
     o=fread(&elf_head,sizeof(Elf64_Ehdr),1,fp);//loader elf head
-    printf("%ld\n",o);
-    //Assert(o,"ELF head fail!");
+    printf("%ld  \n",o);
+    Assert(o,"ELF head fail!");
     Assert(elf_head.e_shoff,"ELF Don't have section header!");
     
     Elf64_Shdr elf_section_head;
