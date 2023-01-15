@@ -128,6 +128,7 @@ void init_ftrace(){
     
     printf("\033[40;34mftrace: \033[0m \033[40;32mON\033[0m\n");
     fclose(fp);
+    free(strtab);
     free(elf_section_head);
     return;
 
