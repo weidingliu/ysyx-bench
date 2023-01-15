@@ -119,7 +119,7 @@ void init_ftrace(){
     
     char strtab[strtab_size];
     Elf64_Sym symtab[symtab_size/sym_size];
-   
+    printf("%ld\n",symtab_size/sym_size);
     rewind(fp);//read strtab
     fseek(fp,strtab_offset,SEEK_SET);
     o=fread(strtab,strtab_size,1,fp);
