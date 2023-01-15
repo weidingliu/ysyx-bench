@@ -82,7 +82,7 @@ void init_ftrace(){
     fseek(fp, elf_head.e_shoff, SEEK_SET);
     Assert(fp,"Can't find section head");
     printf("-------------%d\n",elf_head.e_shnum);
-    o=fread(&elf_section_head,elf_head.e_shentsize,1,fp);
+    o=fread(&elf_section_head,elf_head.e_shentsize * elf_head.e_shnum,1,fp);
     printf("--------------%d\n",elf_section_head.sh_name);
     Assert(o,"ELF section head fail!");
     Assert(elf_section_head.sh_type,"ELF section fail!");
