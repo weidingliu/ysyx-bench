@@ -90,7 +90,7 @@ void init_ftrace(){
     
     Assert(o,"ELF section head fail!");
     //Assert(elf_section_head.sh_type,"ELF section fail!");
-    //printf("%ld",elf_section_head.sh_offset);
+    printf("%ld",elf_section_head[elf_head.e_shstrndx].sh_offset);
     //Elf64_Sym sym_table;
     
     
