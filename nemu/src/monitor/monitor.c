@@ -73,15 +73,15 @@ void init_ftrace(){
     //printf("-------------%s\n",fp->_ptr);
     
     o=fread(&elf_head,sizeof(Elf64_Ehdr),1,fp);//loader elf head
-    printf("--------------%ld\n",(long) elf_head.e_shoff);
-    printf("%d\n",elf_head.e_shentsize);
+    //printf("--------------%ld\n",(long) elf_head.e_shoff);
+    //printf("%d\n",elf_head.e_shentsize);
     Assert(o,"ELF head fail!");
     Assert(elf_head.e_shoff,"ELF Don't have section header!");
     
     Elf64_Shdr elf_section_head;//loader section header
     fseek(fp, elf_head.e_shoff, SEEK_SET);
     Assert(fp,"Can't find section head");
-    //printf("-------------%s\n",fp->_ptr);
+    printf("-------------%d\n",elf_head.e_shnum);
     o=fread(&elf_section_head,elf_head.e_shentsize,1,fp);
     printf("--------------%d\n",elf_section_head.sh_name);
     Assert(o,"ELF section head fail!");
