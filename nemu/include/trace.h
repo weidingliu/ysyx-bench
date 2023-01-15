@@ -25,8 +25,8 @@ typedef struct ftrace_buffer{
     size_t size;
 }ftrace;
 
-#ifndef __TRACE_H
-#define __TRACE_H
+#ifndef __TRACE_H__
+#define __TRACE_H__
 extern ftrace funcINFO[512];
 extern size_t ftrace_point;
 #endif
