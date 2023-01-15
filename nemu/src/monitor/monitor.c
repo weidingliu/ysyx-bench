@@ -114,8 +114,10 @@ void init_ftrace(){
         }
         //printf("----------%s\n",sectiontab+elf_section_head[i].sh_name);
     }
-    char *strtab;
+    
+    char strtab[strtab_size];
    // Elf64_Sym symtab;
+   
     rewind(fp);//read strtab
     fseek(fp,strtab_offset,SEEK_SET);
     o=fread(strtab,strtab_size,1,fp);
@@ -128,7 +130,6 @@ void init_ftrace(){
     
     printf("\033[40;34mftrace: \033[0m \033[40;32mON\033[0m\n");
     fclose(fp);
-    free(strtab);
     free(elf_section_head);
     return;
 
