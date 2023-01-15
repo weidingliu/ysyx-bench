@@ -101,9 +101,26 @@ void init_ftrace(){
     o=fread(sectiontab,elf_section_head[elf_head.e_shstrndx].sh_size,1,fp);
     Assert(o,"sectiontab fail!");
     
+    size_t symtab_offset __attribute__((unused)) ,symtab_size __attribute__((unused)) ,strtab_offset,strtab_size;
+    
     for (int i=0;i<elf_head.e_shnum;i++){
-        printf("----------%s\n",sectiontab+elf_section_head[i].sh_name);
+        if(strcmp(sectiontab+elf_section_head[i].sh_name,".strtab")==0){
+            strtab_offset=elf_section_head[i].sh_offset;
+            strtab_size=elf_section_head[i].sh_size;
+        }
+        if(strcmp(sectiontab+elf_section_head[i].sh_name,".symtab")==0){
+            symtab_offset=elf_section_head[i].sh_offset;
+            symtab_size=elf_section_head[i].sh_size;
+        }
+        //printf("----------%s\n",sectiontab+elf_section_head[i].sh_name);
     }
+    char strtab[1024];
+   // Elf64_Sym symtab;
+    rewind(fp);//read strtab
+    fseek(fp,strtab_offset,SEEK_SET);
+    o=fread(strtab,strtab_size,1,fp);
+    Assert(o,"sectiontab fail!");
+    printf("%s\n",strtab);
     
     strcpy(funcINFO[ftrace_point].fun_name,"hello");
     funcINFO[ftrace_point].start=0x80000004;
