@@ -25,9 +25,15 @@ typedef struct ftrace_buffer{
     size_t size;
 }ftrace;
 
-ftrace funcINFO[512];
-size_t ftrace_point=0;
+#ifndef __TRACE_H
+#define __TRACE_H
+extern ftrace funcINFO[512];
+extern size_t ftrace_point;
+#endif
 
-void init_ftrace(char *img_file);
+//extern void init_ftrace(char *img_file);
+
+
+
 
 

@@ -49,7 +49,29 @@ static char *diff_so_file = NULL;
 static char *img_file = NULL;
 static int difftest_port = 1234;
 
+void init_ftrace(){
+    if(img_file == NULL){
+        printf("ftrace close!\n");
+        return;
+    } 
+    ftrace_point=0;
+    char elf_path[360];
+    strcpy(elf_path,img_file);
+    elf_path[strlen(img_file)-1]='f';
+    elf_path[strlen(img_file)-2]='l';
+    elf_path[strlen(img_file)-3]='e';
+    
+    FILE *fp = fopen(img_file, "rb");
+    Assert(fp, "Can not open '%s'", img_file);
 
+    fseek(fp, 0, SEEK_SET);
+    
+    strcpy(funcINFO[ftrace_point].fun_name,"hello");
+    funcINFO[ftrace_point].start=0x80000000;
+    
+    return;
+
+}
 
 static long load_img() {
   if (img_file == NULL) {

@@ -49,28 +49,6 @@ static void display_iringbuf(){
 }
 #endif
 
-void init_ftrace(char *img_file){
-    if(img_file == NULL){
-        printf("ftrace close!\n");
-        return;
-    } 
-    char elf_path[360];
-    strcpy(elf_path,img_file);
-    elf_path[strlen(img_file)-1]='f';
-    elf_path[strlen(img_file)-2]='l';
-    elf_path[strlen(img_file)-3]='e';
-    
-    FILE *fp = fopen(img_file, "rb");
-    Assert(fp, "Can not open '%s'", img_file);
-
-    fseek(fp, 0, SEEK_SET);
-    
-    strcpy(funcINFO[ftrace_point].fun_name,"hello");
-    funcINFO[ftrace_point].start=0x80000000;
-    
-    return;
-
-}
 
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_ITRACE_COND
