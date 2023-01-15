@@ -81,7 +81,7 @@ void init_ftrace(){
     Assert(o,"ELF section head fail!");
     
     //Elf64_Sym sym_table;
-    printf("%d\n",elf_section_head.sh_type);
+    printf("--------------%d\n",elf_section_head.sh_type);
     
     
     strcpy(funcINFO[ftrace_point].fun_name,"hello");
