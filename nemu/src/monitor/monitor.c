@@ -70,7 +70,7 @@ void init_ftrace(){
     fseek(fp, 0, SEEK_SET);
     
     strcpy(funcINFO[ftrace_point].fun_name,"hello");
-    funcINFO[ftrace_point].start=0x80000000;
+    funcINFO[ftrace_point].start=0x0000000080000000;
     
     
     printf("\033[40;34mftrace: \033[0m \033[40;32mON\033[0m\n");
