@@ -129,7 +129,7 @@ void init_ftrace(){
     fseek(fp,symtab_offset,SEEK_SET);
     o=fread(symtab,symtab_size,1,fp);
     Assert(o,"symtab fail!");
-    printf("%ld\n",symtab[0].st_value);
+    printf("%lx\n",symtab[1].st_value);
     
     strcpy(funcINFO[ftrace_point].fun_name,"hello");
     funcINFO[ftrace_point].start=0x80000004;
