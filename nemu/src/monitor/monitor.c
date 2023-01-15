@@ -15,7 +15,7 @@
 
 #include <isa.h>
 #include <memory/paddr.h>
-#include <trace.h>
+#include "trace.h"
 
 
 
