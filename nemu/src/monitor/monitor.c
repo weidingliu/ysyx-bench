@@ -73,7 +73,7 @@ void init_ftrace(){
     funcINFO[ftrace_point].start=0x80000000;
     
     
-    printf("\033[47;31mftrace ON\033[5m\n");
+    printf("\033[;44mftrace ON\033\n");
     return;
 
 }
