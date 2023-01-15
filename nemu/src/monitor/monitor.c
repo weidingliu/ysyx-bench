@@ -137,7 +137,7 @@ void init_ftrace(){
             funcINFO[ftrace_point].start=symtab[i].st_value;
             funcINFO[ftrace_point].size=symtab[i].st_size;
             strcpy(funcINFO[ftrace_point].fun_name,strtab+symtab[i].st_name);
-            printf("%x\n",funcINFO[ftrace_point].start);
+            printf("%s\n",funcINFO[ftrace_point].fun_name);
             //,funcINFO[ftrace_point].start,funcINFO[ftrace_point].size    %x  %ld
             
         }
