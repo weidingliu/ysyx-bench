@@ -72,14 +72,16 @@ void init_ftrace(){
     Elf64_Ehdr elf_head;
     
     o=fread(&elf_head,sizeof(Elf64_Ehdr),1,fp);//loader elf head
-    printf("%ld  \n",o);
     Assert(o,"ELF head fail!");
     Assert(elf_head.e_shoff,"ELF Don't have section header!");
     
-    Elf64_Shdr elf_section_head;
+    Elf64_Shdr elf_section_head;//loader section header
     fseek(fp, elf_head.e_shoff, SEEK_SET);
     o=fread(&elf_section_head,elf_head.e_shentsize,1,fp);
     Assert(o,"ELF section head fail!");
+    
+    //Elf64_Sym sym_table;
+    printf("%d\n",elf_section_head.sh_type);
     
     
     strcpy(funcINFO[ftrace_point].fun_name,"hello");
