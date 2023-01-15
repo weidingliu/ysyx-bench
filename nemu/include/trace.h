@@ -27,3 +27,7 @@ typedef struct ftrace_buffer{
 
 ftrace funcINFO[512];
 size_t ftrace_point=0;
+
+void init_ftrace(char *img_file);
+
+
