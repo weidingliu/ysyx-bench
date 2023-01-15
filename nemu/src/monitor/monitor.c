@@ -131,7 +131,8 @@ void init_ftrace(){
     Assert(o,"symtab fail!");
     //printf("%lx\n",symtab[1].st_value);
     for(int i=0;i<symtab_size/sym_size;i++){
-    printf("%lx\n",symtab[i].st_value);
+    //printf("%lx\n",symtab[i].st_value);
+    printf("%d\n",symtab[i].st_info==STT_FUNC);
         if(symtab[i].st_info==STT_FUNC){
             funcINFO[ftrace_point].start=symtab[i].st_value;
             funcINFO[ftrace_point].size=symtab[i].st_size;
