@@ -79,7 +79,8 @@ void init_ftrace(){
     Assert(elf_head.e_shoff,"ELF Don't have section header!");
     
     Elf64_Shdr *elf_section_head=(Elf64_Shdr*)malloc(sizeof(Elf64_Shdr) * elf_head.e_shnum);;//loader section header
-    fseek(fp, elf_head.e_shoff, SEEK_SET);
+    o=fseek(fp, elf_head.e_shoff, SEEK_SET);
+    Assert(o,"ELF section head find fail!");
     Assert(fp,"Can't find section head");
     printf("-------------%d\n",elf_head.e_shnum);
     o=fread(elf_section_head,sizeof(Elf64_Shdr) * elf_head.e_shnum,1,fp);
