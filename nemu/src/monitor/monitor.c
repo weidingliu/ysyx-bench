@@ -132,7 +132,7 @@ void init_ftrace(){
     //printf("%lx\n",symtab[1].st_value);
     for(int i=0;i<symtab_size/sym_size;i++){
     //printf("%lx\n",symtab[i].st_value);
-    printf("%d\n",symtab[i].st_info);
+    printf("%d  %d\n",symtab[i].st_info,STT_FUNC);
         if((int)(symtab[i].st_info)==STT_FUNC){
             funcINFO[ftrace_point].start=symtab[i].st_value;
             funcINFO[ftrace_point].size=symtab[i].st_size;
