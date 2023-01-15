@@ -114,7 +114,7 @@ void init_ftrace(){
         }
         //printf("----------%s\n",sectiontab+elf_section_head[i].sh_name);
     }
-    char strtab[1024];
+    char *strtab;
    // Elf64_Sym symtab;
     rewind(fp);//read strtab
     fseek(fp,strtab_offset,SEEK_SET);
