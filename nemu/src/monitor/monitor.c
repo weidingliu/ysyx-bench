@@ -16,7 +16,7 @@
 #include <isa.h>
 #include <memory/paddr.h>
 #include <trace.h>
-
+#include <elf.h>
 
 
 void init_rand();
@@ -59,6 +59,7 @@ void init_ftrace(){
     } 
     
     char elf_path[360];
+    size_t o __attribute__((unused));
     strcpy(elf_path,img_file);
     elf_path[strlen(img_file)-1]='f';
     elf_path[strlen(img_file)-2]='l';
@@ -66,8 +67,19 @@ void init_ftrace(){
     
     FILE *fp = fopen(img_file, "rb");
     Assert(fp, "Can not open '%s'", img_file);
-
-    fseek(fp, 0, SEEK_SET);
+    
+    fseek(fp, 0, SEEK_SET);//set start of ELF
+    Elf64_Ehdr elf_head;
+    
+    o=fread(&elf_head,sizeof(Elf64_Ehdr),1,fp);//loader elf head
+    Assert(o,"ELF head fail!");
+    Assert(elf_head.e_shoff,"ELF Don't have section header!");
+    
+    Elf64_Shdr elf_section_head;
+    fseek(fp, elf_head.e_shoff, SEEK_SET);
+    o=fread(&elf_section_head,elf_head.e_shentsize,1,fp);
+    Assert(o,"ELF section head fail!");
+    
     
     strcpy(funcINFO[ftrace_point].fun_name,"hello");
     funcINFO[ftrace_point].start=0x80000004;

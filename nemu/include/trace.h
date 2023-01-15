@@ -19,16 +19,24 @@
 
 #endif
 
+#define FUN_NAME_LEN 48
+#define FUN_BUFF_SIZE 512
 typedef struct ftrace_buffer{
-    char fun_name[48];
+    char fun_name[FUN_NAME_LEN];
     paddr_t start;
     size_t size;
 }ftrace;
 
 
-extern ftrace funcINFO[512];
+extern ftrace funcINFO[FUN_BUFF_SIZE];
 extern size_t ftrace_point;
 
+typedef struct ftrace_link{
+    paddr_t inst_addr;
+    ftrace *dst;
+    int type;
+    struct ftrace_link* next;
+}f_link;
 
 //extern void init_ftrace(char *img_file);
 
