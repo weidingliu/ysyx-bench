@@ -16,7 +16,7 @@
 #include <isa.h>
 #include <memory/paddr.h>
 #include <trace.h>
-
+#include <elf.h>
 
 
 void init_rand();
@@ -49,25 +49,109 @@ static char *diff_so_file = NULL;
 static char *img_file = NULL;
 static int difftest_port = 1234;
 
-static void init_ftrace(char *img_file){
+size_t ftrace_point=0;
+ftrace funcINFO[512];
+
+void init_ftrace(){
     if(img_file == NULL){
         printf("ftrace close!\n");
         return;
     } 
+    
     char elf_path[360];
+    size_t o __attribute__((unused));
     strcpy(elf_path,img_file);
     elf_path[strlen(img_file)-1]='f';
     elf_path[strlen(img_file)-2]='l';
     elf_path[strlen(img_file)-3]='e';
     
-    FILE *fp = fopen(img_file, "rb");
-    Assert(fp, "Can not open '%s'", img_file);
-
-    fseek(fp, 0, SEEK_SET);
+    FILE *fp = fopen(elf_path, "rb");
+    Assert(fp, "Can not open '%s'", elf_path);
     
-    strcpy(funcINFO[ftrace_point].fun_name,"hello");
-    funcINFO[ftrace_point].start=0x80000000;
+    fseek(fp, 0, SEEK_SET);//set start of ELF
+    Elf64_Ehdr elf_head;
+    //printf("-------------%s\n",fp->_ptr);
     
+    o=fread(&elf_head,sizeof(Elf64_Ehdr),1,fp);//loader elf head
+    //printf("--------------%ld\n",(long) elf_head.e_shoff);
+    //printf("%d\n",elf_head.e_shentsize);
+    Assert(o,"ELF head fail!");
+    Assert(elf_head.e_shoff,"ELF Don't have section header!");
+    
+    Elf64_Shdr *elf_section_head=(Elf64_Shdr*)malloc(sizeof(Elf64_Shdr) * elf_head.e_shnum);//loader section header
+    Assert(elf_section_head,"memory allocation fail!");
+    fseek(fp, elf_head.e_shoff, SEEK_SET);
+    
+    Assert(fp,"Can't find section head");
+    
+    //printf("-------------%d\n",elf_head.e_shnum);
+    
+    o=fread(elf_section_head,sizeof(Elf64_Shdr) * elf_head.e_shnum,1,fp);
+    //printf("--------------%d\n",elf_section_head->sh_name);
+    
+    Assert(o,"ELF section head fail!");
+    //Assert(elf_section_head.sh_type,"ELF section fail!");
+    //printf("%ld",elf_section_head[elf_head.e_shstrndx].sh_offset);
+    //Elf64_Sym sym_table;
+    rewind(fp);
+    fseek(fp,elf_section_head[elf_head.e_shstrndx].sh_offset, SEEK_SET);
+    
+    char sectiontab[elf_section_head[elf_head.e_shstrndx].sh_size];
+    
+    o=fread(sectiontab,elf_section_head[elf_head.e_shstrndx].sh_size,1,fp);
+    Assert(o,"sectiontab fail!");
+    
+    size_t symtab_offset ,symtab_size ,strtab_offset,strtab_size,sym_size;
+    
+    for (int i=0;i<elf_head.e_shnum;i++){
+        if(strcmp(sectiontab+elf_section_head[i].sh_name,".strtab")==0){
+            strtab_offset=elf_section_head[i].sh_offset;
+            strtab_size=elf_section_head[i].sh_size;
+            
+        }
+        if(strcmp(sectiontab+elf_section_head[i].sh_name,".symtab")==0){
+            symtab_offset=elf_section_head[i].sh_offset;
+            symtab_size=elf_section_head[i].sh_size;
+            sym_size=elf_section_head[i].sh_entsize;
+        }
+        //printf("----------%s\n",sectiontab+elf_section_head[i].sh_name);
+    }
+    
+    char strtab[strtab_size];
+    Elf64_Sym symtab[symtab_size/sym_size];
+    //printf("%ld\n",symtab_size/sym_size);
+    rewind(fp);//read strtab
+    fseek(fp,strtab_offset,SEEK_SET);
+    o=fread(strtab,strtab_size,1,fp);
+    Assert(o,"strtab fail!");
+    
+    rewind(fp);//read strtab
+    fseek(fp,symtab_offset,SEEK_SET);
+    o=fread(symtab,symtab_size,1,fp);
+    Assert(o,"symtab fail!");
+    
+    //initial funcINFO
+    for(int i=0;i<symtab_size/sym_size;i++){
+    //printf("%lx\n",symtab[i].st_value);
+    //printf("%d  %d\n",,STT_FUNC);
+        if(ELF64_ST_TYPE(symtab[i].st_info)==STT_FUNC){
+            funcINFO[ftrace_point].start=symtab[i].st_value;
+            funcINFO[ftrace_point].size=symtab[i].st_size;
+            strcpy(funcINFO[ftrace_point].fun_name,strtab+symtab[i].st_name);
+            ftrace_point++;
+        }
+        else continue;
+        
+    }
+    
+    /*for(int i=0;i<ftrace_point;i++){
+        printf("%s    %x   %ld\n",funcINFO[i].fun_name,funcINFO[i].start,funcINFO[i].size);
+    }*/
+    
+    printf("\033[40;34mftrace: \033[0m \033[40;32mON\033[0m\n");
+    fclose(fp);
+    free(elf_section_head);
+    return;
 
 }
 
@@ -112,7 +196,7 @@ static int parse_args(int argc, char *argv[]) {
       case 'p': sscanf(optarg, "%d", &difftest_port); break;
       case 'l': log_file = optarg; break;
       case 'd': diff_so_file = optarg; break;
-      case 1: {img_file = optarg; init_ftrace(); return 0;}
+      case 1: {img_file = optarg; init_ftrace(img_file); return 0;}
       default:
         printf("Usage: %s [OPTION...] IMAGE [args]\n\n", argv[0]);
         printf("\t-b,--batch              run with batch mode\n");
