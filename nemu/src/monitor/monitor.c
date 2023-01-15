@@ -49,13 +49,15 @@ static char *diff_so_file = NULL;
 static char *img_file = NULL;
 static int difftest_port = 1234;
 
+size_t ftrace_point=0;
+ftrace funcINFO[512];
+
 void init_ftrace(){
     if(img_file == NULL){
         printf("ftrace close!\n");
         return;
     } 
-    int ftrace_point=0;
-    ftrace funcINFO[512];
+    
     char elf_path[360];
     strcpy(elf_path,img_file);
     elf_path[strlen(img_file)-1]='f';
@@ -70,6 +72,8 @@ void init_ftrace(){
     strcpy(funcINFO[ftrace_point].fun_name,"hello");
     funcINFO[ftrace_point].start=0x80000000;
     
+    
+    Log("ftrace ON\n");
     return;
 
 }
