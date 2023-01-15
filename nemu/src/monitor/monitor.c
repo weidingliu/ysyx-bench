@@ -72,6 +72,7 @@ void init_ftrace(){
     Elf64_Ehdr elf_head;
     
     o=fread(&elf_head,sizeof(Elf64_Ehdr),1,fp);//loader elf head
+    printf("%ld\n",o);
     Assert(o,"ELF head fail!");
     Assert(elf_head.e_shoff,"ELF Don't have section header!");
     
