@@ -131,12 +131,13 @@ void init_ftrace(){
     Assert(o,"symtab fail!");
     //printf("%lx\n",symtab[1].st_value);
     for(int i=0;i<symtab_size/sym_size;i++){
-        if(symtab[i].st_info==2){
+        if(symtab[i].st_info==STT_FUNC){
             funcINFO[ftrace_point].start=symtab[i].st_value;
             funcINFO[ftrace_point].size=symtab[i].st_size;
             strcpy(funcINFO[ftrace_point].fun_name,strtab+symtab[i].st_name);
             printf("%s\n",funcINFO[ftrace_point].fun_name);
             //,funcINFO[ftrace_point].start,funcINFO[ftrace_point].size    %x  %ld
+            
         }
         else continue;
         
