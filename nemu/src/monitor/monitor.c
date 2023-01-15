@@ -129,7 +129,8 @@ void init_ftrace(){
     fseek(fp,symtab_offset,SEEK_SET);
     o=fread(symtab,symtab_size,1,fp);
     Assert(o,"symtab fail!");
-    //printf("%lx\n",symtab[1].st_value);
+    
+    //initial funcINFO
     for(int i=0;i<symtab_size/sym_size;i++){
     //printf("%lx\n",symtab[i].st_value);
     //printf("%d  %d\n",,STT_FUNC);
@@ -143,11 +144,9 @@ void init_ftrace(){
         
     }
     
-    //strcpy(funcINFO[ftrace_point].fun_name,"hello");
-    //funcINFO[ftrace_point].start=0x80000004;
-    for(int i=0;i<ftrace_point;i++){
+    /*for(int i=0;i<ftrace_point;i++){
         printf("%s    %x   %ld\n",funcINFO[i].fun_name,funcINFO[i].start,funcINFO[i].size);
-    }
+    }*/
     
     printf("\033[40;34mftrace: \033[0m \033[40;32mON\033[0m\n");
     fclose(fp);
