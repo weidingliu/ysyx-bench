@@ -71,7 +71,7 @@ static void func_trace(paddr_t pc,Decode *s){//head insert
             tail->next=temp;
             tail=tail->next;
             
-            printf("%d\n",tail==ftr);
+            //printf("%d\n",tail==ftr);
             if((t & 0b1101111) ==0b1101111 ) {temp->type=0;return;}
             if((t & 0b111000000000000)==0) {temp->type=1;return;}
             Assert(0,"bad ftrace!");    
@@ -83,7 +83,7 @@ static void display_ftrace(){
     f_link *p=ftr;
     ftr=ftr->next;
     free(p);
-    if(ftr==NULL){ printf("Don't have ftrace!\n");return;}
+    //if(ftr==NULL){ printf("Don't have ftrace!\n");return;}
     int blank_space=0;
     
     while(ftr != NULL){
