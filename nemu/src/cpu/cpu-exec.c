@@ -51,8 +51,11 @@ static void display_iringbuf(){
 #endif
 
 static void func_trace(paddr_t pc,Decode *s){//head insert
-
+    uint32_t t __attribute__((unused)) =s->isa.inst.val;
+    if((t & 0b1101111) !=0) return;
     for(int i=0;i<ftrace_point;i++){
+        
+        
         if(pc>=funcINFO[i].start && pc<=funcINFO[i].start+funcINFO[i].size){
             f_link *temp=(f_link*)malloc(sizeof(f_link));
             
@@ -60,15 +63,12 @@ static void func_trace(paddr_t pc,Decode *s){//head insert
             temp->dst=&funcINFO[i];
             temp->next=ftr;
             ftr=temp;
-            uint32_t t __attribute__((unused)) =s->isa.inst.val;
+            
             printf("%d\n",t);
-            if(t % 0b1101111==0){
-                if((t >> 12)%8==0) ftr->type=1;
-                else ftr->type=0;
-            }
-            else{
-                Assert(0,"invaild trace!");
-            }
+            
+            if((t & 0b111000000000000)==0) ftr->type=1;
+            else ftr->type=0;
+            
                  
         }
     }
