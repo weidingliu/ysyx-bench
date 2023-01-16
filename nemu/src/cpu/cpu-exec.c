@@ -35,6 +35,9 @@ static bool g_print_step = false;
 
 void device_update();
 
+static f_link *ftr;
+static f_link *tail;
+
 #ifdef CONFIG_ITRACE
 char ibuf[IRTRACE][128];
 static uint32_t irbuf_point=0;
@@ -44,11 +47,81 @@ static void display_iringbuf(){
     for(;i<IRTRACE;i++){
         if(i==(irbuf_point+31)%32) printf("-->");
         else printf("   ");
+#endif
         puts(ibuf[i]);
     }
 }
-#endif
 
+static void func_trace(paddr_t pc,Decode *s){//head insert
+    uint32_t t __attribute__((unused)) =s->isa.inst.val;
+    //printf("%d   %08x  %08x\n",(t & 0b1101111),pc,t);
+    
+    if((t & 0b1101111) !=0b1101111 && (t & 0b111000001100111)!=0b1100111) return;
+    for(int i=0;i<ftrace_point;i++){
+        
+        //printf("%s\n",funcINFO[i].fun_name);
+        if(pc>=funcINFO[i].start && pc<funcINFO[i].start+funcINFO[i].size){
+            f_link *temp=(f_link*)malloc(sizeof(f_link));
+            
+            temp->inst_addr=s->pc;
+            temp->dst=&funcINFO[i];
+            temp->next=NULL;
+            if(ftr==NULL){
+                ftr=temp;
+                tail=ftr;
+            }
+            else{
+                tail->next=temp;
+                tail=tail->next;
+            }
+            
+            //printf("%d\n",tail==ftr);
+            //printf("---%08x   %s\n",pc,funcINFO[i].fun_name);
+            if((t & 0b1101111) ==0b1101111 ) {temp->type=0;return;}
+            if((t & 0b111000000000000)==0) {temp->type=1;return;}
+            Assert(0,"bad ftrace!");    
+        }
+    }
+    printf("%s  %x\n",ftr->dst->fun_name,ftr->inst_addr);
+}
+static void display_ftrace(){
+
+    if(ftr==NULL){ printf("Don't have ftrace!\n");return;}
+    int blank_space=0;
+    
+    while(ftr != NULL){
+        printf("0x%x: ",ftr->inst_addr);
+        
+        if(ftr->type==0){
+            int i=blank_space;
+            while(i>0){
+                 printf(" ");
+                 i--;
+            }
+            
+            printf("call ");
+            blank_space+=2;
+            printf("[%s@0x%x]\n",ftr->dst->fun_name,ftr->dst->start);
+        }
+        else{
+            blank_space-=2;
+            if(blank_space<0) blank_space=0;
+            int i=blank_space;
+            while(i>0){
+                 printf(" ");
+                 i--;
+            }
+            printf("ret ");
+            
+            printf("[%s]\n",ftr->dst->fun_name);
+        }
+        
+        f_link *temp=ftr;
+        ftr=ftr->next;
+        free(temp);
+    }    
+    return;
+}
 
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_ITRACE_COND
@@ -60,7 +133,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
   IFDEF(CONFIG_ITRACE,strcpy(ibuf[irbuf_point],_this->logbuf));
   //puts(ibuf[irbuf_point]);
   IFDEF(CONFIG_ITRACE,irbuf_point=(irbuf_point+1)%IRTRACE);
-
+  //printf("-------------%08x\n",_this->isa.inst.val);
   
   IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
  #ifdef CONFIG_WATCHPOINT
@@ -116,6 +189,8 @@ static void execute(uint64_t n) {
     exec_once(&s, cpu.pc);
     g_nr_guest_inst ++;
     trace_and_difftest(&s, cpu.pc);
+
+    func_trace(cpu.pc,&s);
     //if(funcINFO[2].start == cpu.pc) printf("%s\n",funcINFO[2].fun_name);
     if (nemu_state.state != NEMU_RUNNING) break;
     IFDEF(CONFIG_DEVICE, device_update());
@@ -164,6 +239,8 @@ void cpu_exec(uint64_t n) {
             ANSI_FMT("HIT BAD TRAP", ANSI_FG_RED))),
           nemu_state.halt_pc);
           if(nemu_state.state == NEMU_ABORT || nemu_state.halt_ret != 0) display_iringbuf();
+          display_ftrace();
+          
       // fall through
       
     case NEMU_QUIT: statistic();
