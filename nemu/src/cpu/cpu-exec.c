@@ -71,7 +71,7 @@ static void func_trace(paddr_t pc,Decode *s){//head insert
             tail->next=temp;
             tail=tail->next;
             
-            //printf("%d\n",t);
+            printf("%d\n",tail==ftr);
             if((t & 0b1101111) ==0b1101111 ) {temp->type=0;return;}
             if((t & 0b111000000000000)==0) {temp->type=1;return;}
             Assert(0,"bad ftrace!");    
