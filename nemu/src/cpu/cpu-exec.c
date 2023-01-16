@@ -52,8 +52,11 @@ static void display_iringbuf(){
 
 static void func_trace(paddr_t pc,Decode *s){//head insert
     uint32_t t __attribute__((unused)) =s->isa.inst.val;
-    printf("%d   %08x  %08x\n",(t & 0b1101111),pc,t);
-    if((t & 0b1101111) !=0b1101111) return;
+    //printf("%d   %08x  %08x\n",(t & 0b1101111),pc,t);
+    f_link *tail=ftr;
+    ftr=(f_link*)malloc(sizeof(f_link));
+    ftr->next=NULL;
+    if((t & 0b1101111) !=0b1101111 && (t & 0b111000001100111)!=0b1100111) return;
     for(int i=0;i<ftrace_point;i++){
         
         //printf("%s\n",funcINFO[i].fun_name);
@@ -62,22 +65,28 @@ static void func_trace(paddr_t pc,Decode *s){//head insert
             
             temp->inst_addr=s->pc;
             temp->dst=&funcINFO[i];
-            temp->next=ftr;
-            ftr=temp;
+            temp->next=NULL;
+            
+            tail->next=temp;
+            tail=tail->next;
+            
             
             //printf("%d\n",t);
-            
-            if((t & 0b111000000000000)==0) ftr->type=1;
-            else ftr->type=0;
-            
+            if((t & 0b1101111) !=0b1101111 ) temp->type=0;
+            else Assert(0,"bad ftrace");
+            if((t & 0b111000000000000)==0) temp->type=1;
+            else Assert(0,"bad ftrace");
                  
         }
     }
     printf("%s  %x\n",ftr->dst->fun_name,ftr->inst_addr);
 }
 static void display_ftrace(){
-    if(ftr==NULL){ printf("Don't have ftrace!\n");return;}
+    if(ftr->next==NULL){ printf("Don't have ftrace!\n");return;}
     int blank_space=0;
+    f_link *p=ftr;
+    ftr=ftr->next;
+    free(p);
     while(ftr != NULL){
         printf("0x%x: ",ftr->inst_addr);
         
