@@ -52,7 +52,7 @@ static void display_iringbuf(){
 
 static void func_trace(paddr_t pc,Decode *s){//head insert
     uint32_t t __attribute__((unused)) =s->isa.inst.val;
-    printf("%d   %08x\n",(t & 0b1101111),pc);
+    printf("%d   %08x  %08x\n",(t & 0b1101111),pc,t);
     if((t & 0b1101111) !=0b1101111) return;
     for(int i=0;i<ftrace_point;i++){
         
