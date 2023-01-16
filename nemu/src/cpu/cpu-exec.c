@@ -72,11 +72,9 @@ static void func_trace(paddr_t pc,Decode *s){//head insert
             
             
             //printf("%d\n",t);
-            if((t & 0b1101111) !=0b1101111 ) temp->type=0;
-            else Assert(0,"bad ftrace1");
-            if((t & 0b111000000000000)==0) temp->type=1;
-            else Assert(0,"bad ftrace2");
-                 
+            if((t & 0b1101111) !=0b1101111 ) {temp->type=0;return;}
+            if((t & 0b111000000000000)==0) {temp->type=1;return;}
+            Assert(0,"bad ftrace!");    
         }
     }
     printf("%s  %x\n",ftr->dst->fun_name,ftr->inst_addr);
