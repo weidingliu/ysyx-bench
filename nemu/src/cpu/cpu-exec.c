@@ -66,7 +66,7 @@ static void display_ftrace(){
     if(ftr==NULL){ printf("Don't have ftrace!\n");return;}
     int blank_space=0;
     while(ftr != NULL){
-        //printf("0x%x:    %s\n",ftr->inst_addr,ftr->dst->fun_name);
+        printf("0x%x:",ftr->inst_addr);
         
         if(ftr->type==0){
             int i=blank_space;
