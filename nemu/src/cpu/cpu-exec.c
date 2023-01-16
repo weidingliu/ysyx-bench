@@ -53,9 +53,10 @@ static void display_iringbuf(){
 static void func_trace(paddr_t pc,Decode *s){//head insert
     uint32_t t __attribute__((unused)) =s->isa.inst.val;
     //printf("%d   %08x  %08x\n",(t & 0b1101111),pc,t);
-    f_link *tail=ftr;
+    
     ftr=(f_link*)malloc(sizeof(f_link));
     ftr->next=NULL;
+    f_link *tail=ftr;
     if((t & 0b1101111) !=0b1101111 && (t & 0b111000001100111)!=0b1100111) return;
     for(int i=0;i<ftrace_point;i++){
         
@@ -70,7 +71,6 @@ static void func_trace(paddr_t pc,Decode *s){//head insert
             tail->next=temp;
             tail=tail->next;
             
-            printf("hello\n");
             //printf("%d\n",t);
             if((t & 0b1101111) ==0b1101111 ) {temp->type=0;return;}
             if((t & 0b111000000000000)==0) {temp->type=1;return;}
