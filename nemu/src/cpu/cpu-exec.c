@@ -61,6 +61,7 @@ static void func_trace(paddr_t pc,Decode *s){//head insert
             temp->next=ftr;
             ftr=temp;
             uint32_t t __attribute__((unused)) =s->isa.inst.val;
+            printf("%d\n",t);
             if(t % 0b1101111==0){
                 if((t >> 12)%8==0) ftr->type=1;
                 else ftr->type=0;
