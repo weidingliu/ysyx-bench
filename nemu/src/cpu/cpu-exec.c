@@ -34,6 +34,7 @@ static uint64_t g_timer = 0; // unit: us
 static bool g_print_step = false;
 
 void device_update();
+static f_link *ftr;
 
 #ifdef CONFIG_ITRACE
 char ibuf[IRTRACE][128];
@@ -49,6 +50,21 @@ static void display_iringbuf(){
 }
 #endif
 
+static void func_trace(paddr_t pc){
+    for(int i=0;i<ftrace_point;i++){
+        if(pc>=funcINFO[i].start && pc<=funcINFO[i].start+funcINFO[i].size){
+            
+        }
+    }
+}
+static void display_ftrace(){
+    if(ftr==NULL){ printf("Don't have ftrace!\n");return;}
+    while(ftr != NULL){
+        printf("------%x    %s\n",ftr->inst_addr,ftr->dst->fun_name);
+        ftr=ftr->next;
+    }    
+    return;
+}
 
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_ITRACE_COND
@@ -116,6 +132,7 @@ static void execute(uint64_t n) {
     exec_once(&s, cpu.pc);
     g_nr_guest_inst ++;
     trace_and_difftest(&s, cpu.pc);
+    func_trace(cpu.pc);
     //if(funcINFO[2].start == cpu.pc) printf("%s\n",funcINFO[2].fun_name);
     if (nemu_state.state != NEMU_RUNNING) break;
     IFDEF(CONFIG_DEVICE, device_update());
@@ -164,6 +181,7 @@ void cpu_exec(uint64_t n) {
             ANSI_FMT("HIT BAD TRAP", ANSI_FG_RED))),
           nemu_state.halt_pc);
           if(nemu_state.state == NEMU_ABORT || nemu_state.halt_ret != 0) display_iringbuf();
+          display_ftrace();
       // fall through
       
     case NEMU_QUIT: statistic();
