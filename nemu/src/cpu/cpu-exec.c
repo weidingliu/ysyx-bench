@@ -54,11 +54,14 @@ static void func_trace(paddr_t pc){//head insert
     for(int i=0;i<ftrace_point;i++){
         if(pc>=funcINFO[i].start && pc<=funcINFO[i].start+funcINFO[i].size){
             f_link *temp=(f_link*)malloc(sizeof(f_link));
+            
             temp->inst_addr=pc;
             temp->dst=&funcINFO[i];
-            temp->type=0;
             temp->next=ftr;
             ftr=temp;
+            
+            
+            
         }
     }
 }
@@ -66,7 +69,7 @@ static void display_ftrace(){
     if(ftr==NULL){ printf("Don't have ftrace!\n");return;}
     int blank_space=0;
     while(ftr != NULL){
-        printf("0x%x:",ftr->inst_addr);
+        printf("0x%x: ",ftr->inst_addr);
         
         if(ftr->type==0){
             int i=blank_space;
@@ -88,7 +91,7 @@ static void display_ftrace(){
             }
             printf("ret ");
             
-            printf("[%s@0x%x]\n",ftr->dst->fun_name,ftr->dst->start);
+            printf("[%s]\n",ftr->dst->fun_name);
         }
         
         f_link *temp=ftr;
@@ -108,7 +111,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
   IFDEF(CONFIG_ITRACE,strcpy(ibuf[irbuf_point],_this->logbuf));
   //puts(ibuf[irbuf_point]);
   IFDEF(CONFIG_ITRACE,irbuf_point=(irbuf_point+1)%IRTRACE);
-
+  printf("-------------%d\n",_this->isa.inst.val);
   
   IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
  #ifdef CONFIG_WATCHPOINT
