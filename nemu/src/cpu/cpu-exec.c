@@ -59,7 +59,7 @@ static void func_trace(paddr_t pc){//head insert
             temp->dst=&funcINFO[i];
             temp->next=ftr;
             ftr=temp;
-            
+            ftr->type=0;
             
             
         }
