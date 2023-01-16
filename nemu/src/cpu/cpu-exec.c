@@ -80,11 +80,12 @@ static void func_trace(paddr_t pc,Decode *s){//head insert
     printf("%s  %x\n",ftr->dst->fun_name,ftr->inst_addr);
 }
 static void display_ftrace(){
-    if(ftr->next==NULL){ printf("Don't have ftrace!\n");return;}
-    int blank_space=0;
     f_link *p=ftr;
     ftr=ftr->next;
     free(p);
+    if(ftr->next==NULL){ printf("Don't have ftrace!\n");return;}
+    int blank_space=0;
+    
     while(ftr != NULL){
         printf("0x%x: ",ftr->inst_addr);
         
