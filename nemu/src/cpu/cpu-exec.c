@@ -83,7 +83,7 @@ static void display_ftrace(){
     f_link *p=ftr;
     ftr=ftr->next;
     free(p);
-    if(ftr->next==NULL){ printf("Don't have ftrace!\n");return;}
+    if(ftr==NULL){ printf("Don't have ftrace!\n");return;}
     int blank_space=0;
     
     while(ftr != NULL){
