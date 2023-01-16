@@ -56,7 +56,7 @@ static void func_trace(paddr_t pc){//head insert
             f_link *temp=(f_link*)malloc(sizeof(f_link));
             temp->inst_addr=pc;
             temp->dst=&funcINFO[i];
-            temp->type=1;
+            temp->type=0;
             temp->next=ftr;
             ftr=temp;
         }
