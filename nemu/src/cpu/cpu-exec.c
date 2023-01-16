@@ -73,7 +73,7 @@ static void func_trace(paddr_t pc,Decode *s){//head insert
                  
         }
     }
-    printf("%s\n",ftr->dst->fun_name);
+    printf("%s  %x\n",ftr->dst->fun_name,ftr->inst_addr);
 }
 static void display_ftrace(){
     if(ftr==NULL){ printf("Don't have ftrace!\n");return;}
