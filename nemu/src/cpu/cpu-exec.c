@@ -66,7 +66,9 @@ static void display_ftrace(){
     if(ftr==NULL){ printf("Don't have ftrace!\n");return;}
     while(ftr != NULL){
         printf("------%x    %s\n",ftr->inst_addr,ftr->dst->fun_name);
+        f_link *temp=ftr;
         ftr=ftr->next;
+        free(temp);
     }    
     return;
 }
@@ -187,6 +189,7 @@ void cpu_exec(uint64_t n) {
           nemu_state.halt_pc);
           if(nemu_state.state == NEMU_ABORT || nemu_state.halt_ret != 0) display_iringbuf();
           display_ftrace();
+          
       // fall through
       
     case NEMU_QUIT: statistic();
