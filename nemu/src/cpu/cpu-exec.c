@@ -51,11 +51,7 @@ static void display_iringbuf(){
 #endif
 
 static void func_trace(paddr_t pc,Decode *s){//head insert
-    #define INSTPAT_INST(s) ((s)->isa.inst.val)
-#define INSTPAT_MATCH(s, name, ... /* execute body */ ) { \
-   \
-  __VA_ARGS__ ; \
-}
+
     for(int i=0;i<ftrace_point;i++){
         if(pc>=funcINFO[i].start && pc<=funcINFO[i].start+funcINFO[i].size){
             f_link *temp=(f_link*)malloc(sizeof(f_link));
@@ -64,14 +60,15 @@ static void func_trace(paddr_t pc,Decode *s){//head insert
             temp->dst=&funcINFO[i];
             temp->next=ftr;
             ftr=temp;
-            
-            INSTPAT_START();
-            
-            INSTPAT("??????? ????? ????? ??? ????? 11011 11", jal     ,  ftr->type=0);
-            INSTPAT("??????? ????? ????? 000 ????? 11001 11", jalr     ,  ftr->type=1);  
-            INSTPAT_END();
-            
-            
+            uint32_t t __attribute__((unused)) =s->isa.inst.val;
+            if(t % 0b1101111==0){
+                if((t >> 12)%8==0) ftr->type=1;
+                else ftr->type=0;
+            }
+            else{
+                Assert(0,"invaild trace!");
+            }
+                 
         }
     }
 }
