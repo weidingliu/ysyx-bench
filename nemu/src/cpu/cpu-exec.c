@@ -45,13 +45,14 @@ static void display_iringbuf(){
     for(;i<IRTRACE;i++){
         if(i==(irbuf_point+31)%32) printf("-->");
         else printf("   ");
+#endif
         puts(ibuf[i]);
     }
 }
-#endif
 
 static void func_trace(paddr_t pc,Decode *s){//head insert
     uint32_t t __attribute__((unused)) =s->isa.inst.val;
+    printf("%d\n",(t & 0b1101111));
     if((t & 0b1101111) !=0) return;
     for(int i=0;i<ftrace_point;i++){
         
