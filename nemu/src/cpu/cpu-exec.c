@@ -56,7 +56,6 @@ static void func_trace(paddr_t pc,Decode *s){//head insert
     uint32_t t __attribute__((unused)) =s->isa.inst.val;
     //printf("%d   %08x  %08x\n",(t & 0b1101111),pc,t);
     
-    
     if((t & 0b1101111) !=0b1101111 && (t & 0b111000001100111)!=0b1100111) return;
     for(int i=0;i<ftrace_point;i++){
         
@@ -189,6 +188,9 @@ static void execute(uint64_t n) {
     exec_once(&s, cpu.pc);
     g_nr_guest_inst ++;
     trace_and_difftest(&s, cpu.pc);
+    for(int i=0;i<ftrace_point;i++){
+        printf("%s   %08x  %ld",funcINFO[i].fun_name,funcINFO[i].start,funcINFO[i].size);
+    }
     func_trace(cpu.pc,&s);
     //if(funcINFO[2].start == cpu.pc) printf("%s\n",funcINFO[2].fun_name);
     if (nemu_state.state != NEMU_RUNNING) break;
