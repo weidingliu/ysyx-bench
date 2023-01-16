@@ -82,7 +82,7 @@ static void display_ftrace(){
         
         if(ftr->type==0){
             int i=blank_space;
-            while(i!=0){
+            while(i>0){
                  printf(" ");
                  i--;
             }
@@ -94,7 +94,7 @@ static void display_ftrace(){
         else{
             blank_space-=2;
             int i=blank_space;
-            while(i!=0){
+            while(i>0){
                  printf(" ");
                  i--;
             }
