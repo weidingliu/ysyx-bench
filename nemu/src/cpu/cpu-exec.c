@@ -50,7 +50,12 @@ static void display_iringbuf(){
 }
 #endif
 
-static void func_trace(paddr_t pc){//head insert
+static void func_trace(paddr_t pc,Decode *s){//head insert
+    #define INSTPAT_INST(s) ((s)->isa.inst.val)
+#define INSTPAT_MATCH(s, name, ... /* execute body */ ) { \
+   \
+  __VA_ARGS__ ; \
+}
     for(int i=0;i<ftrace_point;i++){
         if(pc>=funcINFO[i].start && pc<=funcINFO[i].start+funcINFO[i].size){
             f_link *temp=(f_link*)malloc(sizeof(f_link));
@@ -59,7 +64,12 @@ static void func_trace(paddr_t pc){//head insert
             temp->dst=&funcINFO[i];
             temp->next=ftr;
             ftr=temp;
-            ftr->type=0;
+            
+            INSTPAT_START();
+            
+            INSTPAT("??????? ????? ????? ??? ????? 11011 11", jal     ,  ftr->type=0);
+            INSTPAT("??????? ????? ????? 000 ????? 11001 11", jalr     ,  ftr->type=1);  
+            INSTPAT_END();
             
             
         }
@@ -111,7 +121,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
   IFDEF(CONFIG_ITRACE,strcpy(ibuf[irbuf_point],_this->logbuf));
   //puts(ibuf[irbuf_point]);
   IFDEF(CONFIG_ITRACE,irbuf_point=(irbuf_point+1)%IRTRACE);
-  printf("-------------%08x\n",_this->isa.inst.val);
+  //printf("-------------%08x\n",_this->isa.inst.val);
   
   IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
  #ifdef CONFIG_WATCHPOINT
@@ -167,7 +177,7 @@ static void execute(uint64_t n) {
     exec_once(&s, cpu.pc);
     g_nr_guest_inst ++;
     trace_and_difftest(&s, cpu.pc);
-    func_trace(cpu.pc);
+    func_trace(cpu.pc,&s);
     //if(funcINFO[2].start == cpu.pc) printf("%s\n",funcINFO[2].fun_name);
     if (nemu_state.state != NEMU_RUNNING) break;
     IFDEF(CONFIG_DEVICE, device_update());
