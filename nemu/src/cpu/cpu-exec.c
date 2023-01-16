@@ -50,7 +50,7 @@ static void display_iringbuf(){
 }
 #endif
 
-static void func_trace(paddr_t pc){
+static void func_trace(paddr_t pc){//head insert
     for(int i=0;i<ftrace_point;i++){
         if(pc>=funcINFO[i].start && pc<=funcINFO[i].start+funcINFO[i].size){
             f_link *temp=(f_link*)malloc(sizeof(f_link));
@@ -64,8 +64,33 @@ static void func_trace(paddr_t pc){
 }
 static void display_ftrace(){
     if(ftr==NULL){ printf("Don't have ftrace!\n");return;}
+    int blank_space=0;
     while(ftr != NULL){
-        printf("------%x    %s\n",ftr->inst_addr,ftr->dst->fun_name);
+        //printf("0x%x:    %s\n",ftr->inst_addr,ftr->dst->fun_name);
+        
+        if(ftr->type==0){
+            int i=blank_space;
+            while(i!=0){
+                 printf(" ");
+                 i--;
+            }
+            
+            printf("call ");
+            blank_space+=2;
+            printf("[%s@0x%x]\n",ftr->dst->fun_name,ftr->dst->start);
+        }
+        else{
+            blank_space-=2;
+            int i=blank_space;
+            while(i!=0){
+                 printf(" ");
+                 i--;
+            }
+            printf("ret ");
+            
+            printf("[%s@0x%x]\n",ftr->dst->fun_name,ftr->dst->start);
+        }
+        
         f_link *temp=ftr;
         ftr=ftr->next;
         free(temp);
