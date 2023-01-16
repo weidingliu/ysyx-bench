@@ -53,7 +53,12 @@ static void display_iringbuf(){
 static void func_trace(paddr_t pc){
     for(int i=0;i<ftrace_point;i++){
         if(pc>=funcINFO[i].start && pc<=funcINFO[i].start+funcINFO[i].size){
-            
+            f_link *temp=(f_link*)malloc(sizeof(f_link));
+            temp->inst_addr=pc;
+            temp->dst=&funcINFO[i];
+            temp->type=1;
+            temp->next=ftr;
+            ftr=temp;
         }
     }
 }
