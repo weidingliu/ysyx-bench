@@ -60,7 +60,7 @@ static void func_trace(paddr_t pc,Decode *s){//head insert
     for(int i=0;i<ftrace_point;i++){
         
         //printf("%s\n",funcINFO[i].fun_name);
-        if(pc>=funcINFO[i].start && pc<=funcINFO[i].start+funcINFO[i].size){
+        if(pc>=funcINFO[i].start && pc<funcINFO[i].start+funcINFO[i].size){
             f_link *temp=(f_link*)malloc(sizeof(f_link));
             
             temp->inst_addr=s->pc;
@@ -188,9 +188,7 @@ static void execute(uint64_t n) {
     exec_once(&s, cpu.pc);
     g_nr_guest_inst ++;
     trace_and_difftest(&s, cpu.pc);
-    for(int i=0;i<ftrace_point;i++){
-        printf("%s   %08x  %ld\n",funcINFO[i].fun_name,funcINFO[i].start,funcINFO[i].size);
-    }
+
     func_trace(cpu.pc,&s);
     //if(funcINFO[2].start == cpu.pc) printf("%s\n",funcINFO[2].fun_name);
     if (nemu_state.state != NEMU_RUNNING) break;
