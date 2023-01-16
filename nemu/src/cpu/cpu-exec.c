@@ -116,7 +116,7 @@ static void execute(uint64_t n) {
     exec_once(&s, cpu.pc);
     g_nr_guest_inst ++;
     trace_and_difftest(&s, cpu.pc);
-    if(funcINFO[2].start == cpu.pc) printf("%s\n",funcINFO[2].fun_name);
+    //if(funcINFO[2].start == cpu.pc) printf("%s\n",funcINFO[2].fun_name);
     if (nemu_state.state != NEMU_RUNNING) break;
     IFDEF(CONFIG_DEVICE, device_update());
   }
