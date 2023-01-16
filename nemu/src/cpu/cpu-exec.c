@@ -70,7 +70,7 @@ static void func_trace(paddr_t pc,Decode *s){//head insert
             tail->next=temp;
             tail=tail->next;
             
-            
+            printf("hello\n");
             //printf("%d\n",t);
             if((t & 0b1101111) ==0b1101111 ) {temp->type=0;return;}
             if((t & 0b111000000000000)==0) {temp->type=1;return;}
