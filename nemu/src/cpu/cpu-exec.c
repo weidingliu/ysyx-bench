@@ -34,7 +34,9 @@ static uint64_t g_timer = 0; // unit: us
 static bool g_print_step = false;
 
 void device_update();
+
 static f_link *ftr;
+static f_link *tail;
 
 #ifdef CONFIG_ITRACE
 char ibuf[IRTRACE][128];
@@ -54,9 +56,7 @@ static void func_trace(paddr_t pc,Decode *s){//head insert
     uint32_t t __attribute__((unused)) =s->isa.inst.val;
     //printf("%d   %08x  %08x\n",(t & 0b1101111),pc,t);
     
-    ftr=(f_link*)malloc(sizeof(f_link));
-    ftr->next=NULL;
-    f_link *tail=ftr;
+    
     if((t & 0b1101111) !=0b1101111 && (t & 0b111000001100111)!=0b1100111) return;
     for(int i=0;i<ftrace_point;i++){
         
@@ -67,9 +67,14 @@ static void func_trace(paddr_t pc,Decode *s){//head insert
             temp->inst_addr=s->pc;
             temp->dst=&funcINFO[i];
             temp->next=NULL;
-            
-            tail->next=temp;
-            tail=tail->next;
+            if(ftr==NULL){
+                ftr=temp;
+                tail=ftr;
+            }
+            else{
+                tail->next=temp;
+                tail=tail->next;
+            }
             
             //printf("%d\n",tail==ftr);
             if((t & 0b1101111) ==0b1101111 ) {temp->type=0;return;}
@@ -80,10 +85,8 @@ static void func_trace(paddr_t pc,Decode *s){//head insert
     printf("%s  %x\n",ftr->dst->fun_name,ftr->inst_addr);
 }
 static void display_ftrace(){
-    f_link *p=ftr;
-    ftr=ftr->next;
-    free(p);
-    //if(ftr==NULL){ printf("Don't have ftrace!\n");return;}
+
+    if(ftr==NULL){ printf("Don't have ftrace!\n");return;}
     int blank_space=0;
     
     while(ftr != NULL){
