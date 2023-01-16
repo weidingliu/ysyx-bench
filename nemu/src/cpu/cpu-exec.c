@@ -56,7 +56,7 @@ static void func_trace(paddr_t pc,Decode *s){//head insert
     if((t & 0b1101111) !=0b1101111) return;
     for(int i=0;i<ftrace_point;i++){
         
-        
+        printf("%s\n",funcINFO[i].fun_name);
         if(pc>=funcINFO[i].start && pc<=funcINFO[i].start+funcINFO[i].size){
             f_link *temp=(f_link*)malloc(sizeof(f_link));
             
