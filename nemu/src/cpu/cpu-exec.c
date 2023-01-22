@@ -47,11 +47,13 @@ static void display_iringbuf(){
     for(;i<IRTRACE;i++){
         if(i==(irbuf_point+31)%32) printf("-->");
         else printf("   ");
-#endif
+
         puts(ibuf[i]);
     }
 }
+#endif
 
+#ifdef CONFIG_TRACE
 static void func_trace(paddr_t pc,Decode *s){//head insert
     uint32_t t __attribute__((unused)) =s->isa.inst.val;
     //printf("%d   %08x  %08x\n",(t & 0b1101111),pc,t);
@@ -123,6 +125,7 @@ static void display_ftrace(){
     return;
 }
 
+#endif
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_ITRACE_COND
   if (ITRACE_COND) { log_write("%s\n", _this->logbuf); }
@@ -239,7 +242,9 @@ void cpu_exec(uint64_t n) {
             ANSI_FMT("HIT BAD TRAP", ANSI_FG_RED))),
           nemu_state.halt_pc);
           if(nemu_state.state == NEMU_ABORT || nemu_state.halt_ret != 0) display_iringbuf();
+          #ifdef CONFIG_TRACE
           display_ftrace();
+          #endif
           
       // fall through
       
