@@ -21,6 +21,8 @@
 
 #define FUN_NAME_LEN 48
 #define FUN_BUFF_SIZE 512
+
+#ifdef CONFIG_TRACE
 typedef struct ftrace_buffer{
     char fun_name[FUN_NAME_LEN];
     paddr_t start;
@@ -37,7 +39,7 @@ typedef struct ftrace_link{
     int type;
     struct ftrace_link* next;
 }f_link;
-
+#endif
 //extern void init_ftrace(char *img_file);
 
 

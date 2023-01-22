@@ -48,6 +48,7 @@ static char *log_file = NULL;
 static char *diff_so_file = NULL;
 static char *img_file = NULL;
 static int difftest_port = 1234;
+#ifdef CONFIG_TRACE
 
 size_t ftrace_point=0;
 ftrace funcINFO[512];
@@ -154,6 +155,7 @@ void init_ftrace(){
     return;
 
 }
+#endif
 
 static long load_img() {
   if (img_file == NULL) {
@@ -196,7 +198,7 @@ static int parse_args(int argc, char *argv[]) {
       case 'p': sscanf(optarg, "%d", &difftest_port); break;
       case 'l': log_file = optarg; break;
       case 'd': diff_so_file = optarg; break;
-      case 1: {img_file = optarg; init_ftrace(img_file); return 0;}
+      case 1: {img_file = optarg; IFDEF(CONFIG_TRACE,init_ftrace(img_file)); return 0;}
       default:
         printf("Usage: %s [OPTION...] IMAGE [args]\n\n", argv[0]);
         printf("\t-b,--batch              run with batch mode\n");

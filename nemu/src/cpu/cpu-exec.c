@@ -34,10 +34,10 @@ static uint64_t g_timer = 0; // unit: us
 static bool g_print_step = false;
 
 void device_update();
-
+#ifdef CONFIG_TRACE
 static f_link *ftr;
 static f_link *tail;
-
+#endif
 #ifdef CONFIG_ITRACE
 char ibuf[IRTRACE][128];
 static uint32_t irbuf_point=0;
@@ -47,11 +47,13 @@ static void display_iringbuf(){
     for(;i<IRTRACE;i++){
         if(i==(irbuf_point+31)%32) printf("-->");
         else printf("   ");
-#endif
+
         puts(ibuf[i]);
     }
 }
+#endif
 
+#ifdef CONFIG_TRACE
 static void func_trace(paddr_t pc,Decode *s){//head insert
     uint32_t t __attribute__((unused)) =s->isa.inst.val;
     //printf("%d   %08x  %08x\n",(t & 0b1101111),pc,t);
@@ -123,6 +125,7 @@ static void display_ftrace(){
     return;
 }
 
+#endif
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_ITRACE_COND
   if (ITRACE_COND) { log_write("%s\n", _this->logbuf); }
@@ -189,8 +192,8 @@ static void execute(uint64_t n) {
     exec_once(&s, cpu.pc);
     g_nr_guest_inst ++;
     trace_and_difftest(&s, cpu.pc);
-
-    func_trace(cpu.pc,&s);
+    
+    IFDEF(CONFIG_TRACE,func_trace(cpu.pc,&s));
     //if(funcINFO[2].start == cpu.pc) printf("%s\n",funcINFO[2].fun_name);
     if (nemu_state.state != NEMU_RUNNING) break;
     IFDEF(CONFIG_DEVICE, device_update());
@@ -238,8 +241,12 @@ void cpu_exec(uint64_t n) {
            (nemu_state.halt_ret == 0 ? ANSI_FMT("HIT GOOD TRAP", ANSI_FG_GREEN) :
             ANSI_FMT("HIT BAD TRAP", ANSI_FG_RED))),
           nemu_state.halt_pc);
+          #ifdef CONFIG_ITRACE
           if(nemu_state.state == NEMU_ABORT || nemu_state.halt_ret != 0) display_iringbuf();
+          #endif
+          #ifdef CONFIG_TRACE
           display_ftrace();
+          #endif
           
       // fall through
       
