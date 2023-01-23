@@ -18,12 +18,12 @@
 #include "../local-include/reg.h"
 
 bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
-  printf("%lx  %lx\n",ref_r->pc,cpu.pc);
+  //printf("%lx  %lx\n",ref_r->pc,cpu.pc);
   if(cpu.pc != ref_r->pc ) return false;
   for(int i=0;i<32;i++){
       if(ref_r->gpr[i]!=cpu.gpr[i]) return false;
   }
-  printf("hello\n");
+  //printf("hello\n");
   /*for(int i=0;i<32;i++){
       printf("%lx  %lx\n",ref_r->gpr[i],cpu.gpr[i]);
   }*/
