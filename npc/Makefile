@@ -29,14 +29,13 @@ clean:
 	-rm -rf $(BUILD_DIR) 
 	-rm -rf $(verilator_build_dir)
 
-.PHONY: test verilog help compile bsp reformat checkformat clean wave count npc-img
+.PHONY: test verilog help compile bsp reformat checkformat clean wave count 
 
-npc-img:
 
-sim:
+sim: 
 	cd verilator;\
 	verilator -Wno-fatal --trace -cc CPUTop.v --exe tb_CPUTop.cpp; \
-	make -C obj_dir -f VCPUTop.mk VCPUTop; \
+	$(MAKE) -C obj_dir -f VCPUTop.mk VCPUTop; \
 	./obj_dir/VCPUTop; 
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 	@echo "Write this Makefile by yourself."
@@ -49,3 +48,4 @@ count:
 	find . -not -path "./out/*" -not -path "./target/*" -name "*.scala" -or -name "*.[c]" -or -name "tb_CPUTop.cpp"  | xargs wc -l
 
 include ../Makefile
+##include ../am-kernels/tests/cpu-tests/Makefile

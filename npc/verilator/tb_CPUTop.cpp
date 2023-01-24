@@ -9,11 +9,15 @@
 
 #define MAX_SIM_TIME 20
 vluint64_t sim_time=0;
+uint32_t mem[20];
 
+void init_mem(char file_path){
+
+}
 
 //void ebreak() {dut->final();return;}
 uint32_t pem_read(uint64_t pc){
-    uint32_t mem[20];
+    
     mem[0]=0b00000000000100000000000100010011;
     mem[1]=0b00000000000100010000000100010011;
     mem[2]=0b00000000000100010000000100010011;
