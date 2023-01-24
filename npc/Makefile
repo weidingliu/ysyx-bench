@@ -42,7 +42,7 @@ sim:
 wave: sim
 	cd verilator;\
 	gtkwave waveform.vcd
-all: all sim
+all: wave
 	
 
 count:
