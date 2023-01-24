@@ -11,9 +11,17 @@
 vluint64_t sim_time=0;
 uint32_t mem[20];
 
-/*void init_mem(char file_path){
+void init_mem(char *file_path){
+    FILE *fp;
     
-}*/
+    if((fp=fopen(file_path,"rb"))==NULL){
+        printf("load mem fail!\n");
+        exit(-1);
+    }
+    fseek(fp,0,SEEK_END);
+    int size=ftell(fp);
+    printf("----------%d\n",size);
+}
 
 //void ebreak() {dut->final();return;}
 uint32_t pem_read(uint64_t pc){
@@ -27,7 +35,7 @@ uint32_t pem_read(uint64_t pc){
 } 
 
 int main(int argc, char** argv) {
-printf("--------------------%s   %d\n",argv[1],argc);
+//printf("--------------------%s   %d\n",argv[1],argc);
 VerilatedContext* contextp = new VerilatedContext;
 contextp->commandArgs(argc, argv);
 VCPUTop *dut = new VCPUTop;
