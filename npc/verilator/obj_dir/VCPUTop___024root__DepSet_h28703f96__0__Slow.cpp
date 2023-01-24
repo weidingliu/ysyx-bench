@@ -16,10 +16,7 @@ VL_ATTR_COLD void VCPUTop___024root___settle__TOP__0(VCPUTop___024root* vlSelf) 
                                             == (0xfc00707fU 
                                                 & vlSelf->io_inst))
                                             ? 0x41U
-                                            : ((0x100073U 
-                                                == vlSelf->io_inst)
-                                                ? 0x42U
-                                                : 0U)))))) {
+                                            : 0x42U))))) {
         VL_FINISH_MT("DIP_model.v", 7, "");
     }
     vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0 = (
@@ -48,11 +45,7 @@ VL_ATTR_COLD void VCPUTop___024root___settle__TOP__0(VCPUTop___024root* vlSelf) 
                                                  (0xfc00707fU 
                                                   & vlSelf->io_inst))
                                                  ? 0x41U
-                                                 : 
-                                                ((0x100073U 
-                                                  == vlSelf->io_inst)
-                                                  ? 0x42U
-                                                  : 0U))))
+                                                 : 0x42U)))
                                            ? (((0U 
                                                 == 
                                                 (0x1fU 

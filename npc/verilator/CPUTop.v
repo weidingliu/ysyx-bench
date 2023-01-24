@@ -75,11 +75,9 @@ module IDU(
   wire  _Inst_decode_T_1 = 32'h13 == _Inst_decode_T; // @[Lookup.scala 31:38]
   wire [31:0] _Inst_decode_T_2 = io_inst & 32'hfc00707f; // @[Lookup.scala 31:38]
   wire  _Inst_decode_T_3 = 32'h1013 == _Inst_decode_T_2; // @[Lookup.scala 31:38]
-  wire  _Inst_decode_T_5 = 32'h100073 == io_inst; // @[Lookup.scala 31:38]
   wire [1:0] _Inst_decode_T_7 = _Inst_decode_T_3 ? 2'h0 : 2'h2; // @[Lookup.scala 34:39]
   wire [1:0] Inst_decode_0 = _Inst_decode_T_1 ? 2'h0 : _Inst_decode_T_7; // @[Lookup.scala 34:39]
-  wire [6:0] _Inst_decode_T_10 = _Inst_decode_T_5 ? 7'h42 : 7'h0; // @[Lookup.scala 34:39]
-  wire [6:0] _Inst_decode_T_11 = _Inst_decode_T_3 ? 7'h41 : _Inst_decode_T_10; // @[Lookup.scala 34:39]
+  wire [6:0] _Inst_decode_T_11 = _Inst_decode_T_3 ? 7'h41 : 7'h42; // @[Lookup.scala 34:39]
   wire [1:0] _T = Inst_decode_0 & 2'h1; // @[Lookup.scala 31:38]
   wire  srctype2 = 2'h0 == _T; // @[Lookup.scala 31:38]
   wire  sign = io_inst[31]; // @[util.scala 9:19]
@@ -106,9 +104,9 @@ module EXU(
   wire  _src2_T_3 = 3'h1 == _src2_T; // @[Lookup.scala 31:38]
   wire [63:0] _src2_T_4 = _src2_T_3 ? io_Imm : 64'h0; // @[Lookup.scala 34:39]
   wire [63:0] src2 = _src2_T_1 ? io1_REG2 : _src2_T_4; // @[Lookup.scala 34:39]
-  wire [63:0] _alu_result_T_1 = io1_REG1 + src2; // @[EXU.scala 48:25]
-  assign io1_result = 7'h40 == io_aluoptype ? _alu_result_T_1 : 64'h0; // @[EXU.scala 46:23 48:17]
-  assign io1_is_break = io_aluoptype == 7'h42; // @[EXU.scala 45:35]
+  wire [63:0] _alu_result_T_1 = io1_REG1 + src2; // @[EXU.scala 47:25]
+  assign io1_result = 7'h40 == io_aluoptype ? _alu_result_T_1 : 64'h0; // @[EXU.scala 45:23 47:17]
+  assign io1_is_break = io_aluoptype == 7'h42; // @[EXU.scala 44:35]
 endmodule
 module CPUTop(
   input         clock,
