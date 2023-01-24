@@ -33,7 +33,7 @@ clean:
 
 
 sim: 
-	$(MAKE) -C $(BPATH) ARCH=riscv64-npc ALL=dummy
+	$(MAKE) -C $(BPATH) ARCH=riscv64-npc 
 	$(MAKE) -C ./verilator
 	 
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
