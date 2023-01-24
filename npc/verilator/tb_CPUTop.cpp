@@ -33,21 +33,17 @@ void init_mem(char *file_path){
         exit(-1);
     }
     
-    for(int i=0;i<size;i++){
+    /*for(int i=0;i<size;i++){
         
         printf("%08x\n",mem[i]);
-    }
+    }*/
     
 }
 
 //void ebreak() {dut->final();return;}
 uint32_t pem_read(uint64_t pc){
     
-    mem[0]=0b00000000000100000000000100010011;
-    mem[1]=0b00000000000100010000000100010011;
-    mem[2]=0b00000000000100010000000100010011;
-    mem[3]=0b00000000000100000000000001110011;
-    mem[4]=0b00000000000100010000000100010011;
+
     return mem[(pc-0x80000000)/4];
 } 
 
