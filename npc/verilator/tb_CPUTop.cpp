@@ -25,7 +25,7 @@ void init_mem(char *file_path){
         printf("fail load mem file size:%d\n",size);
         exit(-1);
     } 
-    printf("----------%d\n",size);
+    //printf("----------%d\n",size);
     rewind(fp);
     size_t o=fread(mem,sizeof(uint32_t),size,fp);
     if(o==0){
