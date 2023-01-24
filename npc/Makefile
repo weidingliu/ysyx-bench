@@ -29,7 +29,7 @@ clean:
 	-rm -rf $(BUILD_DIR) 
 	-rm -rf $(verilator_build_dir)
 
-.PHONY: test verilog help compile bsp reformat checkformat clean wave count 
+.PHONY: test verilog help compile bsp reformat checkformat clean wave count all
 
 
 sim: 
@@ -42,6 +42,8 @@ sim:
 wave: sim
 	cd verilator;\
 	gtkwave waveform.vcd
+all: all sim
+	
 
 count:
 	find . -not -path "./out/*" -not -path "./target/*" -name "*.scala" -or -name "*.[c]" -or -name "tb_CPUTop.cpp"  | xargs wc -l
