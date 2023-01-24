@@ -8,19 +8,36 @@
 //#include "VCPUTop__Dpi.h"
 
 #define MAX_SIM_TIME 20
+#define MAX_MEM 480
 vluint64_t sim_time=0;
-uint32_t mem[20];
+uint32_t mem[MAX_MEM];
 
 void init_mem(char *file_path){
     FILE *fp;
     
-    if((fp=fopen(file_path,"rb"))==NULL){
+    if((fp=fopen(file_path,"r"))==NULL){
         printf("load mem fail!\n");
         exit(-1);
     }
     fseek(fp,0,SEEK_END);
     int size=ftell(fp);
+    if(size/4>MAX_MEM){
+        printf("fail load mem file size:%d\n",size);
+        exit(-1);
+    } 
     printf("----------%d\n",size);
+    rewind(fp);
+    size_t o=fread(mem,sizeof(uint32_t),size,fp);
+    if(o==0){
+        printf("fail load mem file \n");
+        exit(-1);
+    }
+    
+    for(int i=0;i<size;i++){
+        
+        printf("%08x\n",mem[i]);
+    }
+    
 }
 
 //void ebreak() {dut->final();return;}
