@@ -27,7 +27,7 @@ uint32_t pem_read(uint64_t pc){
 } 
 
 int main(int argc, char** argv) {
-printf("--------------------%s\n",*argv);
+printf("--------------------%s   %d\n",*argv,argc);
 VerilatedContext* contextp = new VerilatedContext;
 contextp->commandArgs(argc, argv);
 VCPUTop *dut = new VCPUTop;
