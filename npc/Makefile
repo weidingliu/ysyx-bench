@@ -1,6 +1,6 @@
 BUILD_DIR = ./build
 verilator_build_dir=./verilator/obj_dir
-#VPATH = ./verilator
+BPATH ?= ../am-kernels/tests/cpu-tests/
 
 test:
 	mill -i __.test
@@ -33,10 +33,9 @@ clean:
 
 
 sim: 
-	cd verilator;\
-	verilator -Wno-fatal --trace -cc CPUTop.v --exe tb_CPUTop.cpp; \
-	$(MAKE) -C obj_dir -f VCPUTop.mk VCPUTop; \
-	./obj_dir/VCPUTop; 
+	$(MAKE) -C $(BPATH) ARCH=riscv64-npc ALL=dummy
+	$(MAKE) -C ./verilator
+	 
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 	@echo "Write this Makefile by yourself."
 

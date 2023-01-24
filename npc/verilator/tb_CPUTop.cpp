@@ -11,9 +11,9 @@
 vluint64_t sim_time=0;
 uint32_t mem[20];
 
-void init_mem(char file_path){
-
-}
+/*void init_mem(char file_path){
+    
+}*/
 
 //void ebreak() {dut->final();return;}
 uint32_t pem_read(uint64_t pc){
