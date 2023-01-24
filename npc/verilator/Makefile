@@ -1,4 +1,4 @@
-bin_path ?= ../$(NEMU_HOME)
+bin_path = $(NEMU_HOME)/..
 
 vcd:	
 	verilator -Wno-fatal --trace -cc CPUTop.v --exe tb_CPUTop.cpp; 
