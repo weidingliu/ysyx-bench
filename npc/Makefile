@@ -1,6 +1,7 @@
 BUILD_DIR = ./build
+verilator_build_dir=./verilator/obj_dir
 #VPATH = ./verilator
-vpath %.v ./verilator
+
 test:
 	mill -i __.test
 
@@ -25,13 +26,16 @@ checkformat:
 	mill -i __.checkFormat
 
 clean:
-	-rm -rf $(BUILD_DIR)
+	-rm -rf $(BUILD_DIR) 
+	-rm -rf $(verilator_build_dir)
 
-.PHONY: test verilog help compile bsp reformat checkformat clean wave
+.PHONY: test verilog help compile bsp reformat checkformat clean wave count npc-img
+
+npc-img:
 
 sim:
 	cd verilator;\
-	sudo verilator -Wno-fatal --trace -cc CPUTop.v --exe tb_CPUTop.cpp; \
+	verilator -Wno-fatal --trace -cc CPUTop.v --exe tb_CPUTop.cpp; \
 	make -C obj_dir -f VCPUTop.mk VCPUTop; \
 	./obj_dir/VCPUTop; 
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
