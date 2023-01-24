@@ -36,6 +36,7 @@ uint32_t pem_read(uint64_t pc){
 
 int main(int argc, char** argv) {
 //printf("--------------------%s   %d\n",argv[1],argc);
+init_mem(argv[1]);
 VerilatedContext* contextp = new VerilatedContext;
 contextp->commandArgs(argc, argv);
 VCPUTop *dut = new VCPUTop;
