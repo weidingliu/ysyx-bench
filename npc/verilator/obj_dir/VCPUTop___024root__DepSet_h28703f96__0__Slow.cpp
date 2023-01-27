@@ -63,20 +63,14 @@ VL_ATTR_COLD void VCPUTop___024root___settle__TOP__0(VCPUTop___024root* vlSelf) 
                                                   ((3U 
                                                     == (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0))
                                                     ? 2U
-                                                    : 
-                                                   (2U 
-                                                    == (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0)))));
+                                                    : 1U)));
     vlSelf->CPUTop__DOT__ID__DOT__srctype2 = ((0U == 
                                                (1U 
                                                 & (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0))) 
-                                              | ((1U 
-                                                  != 
-                                                  (1U 
-                                                   & (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0))) 
-                                                 & ((3U 
-                                                     == (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0)) 
-                                                    | (2U 
-                                                       == (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0)))));
+                                              | (1U 
+                                                 != 
+                                                 (1U 
+                                                  & (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0))));
     vlSelf->CPUTop__DOT__EX_io1_result = ((0x40U == 
                                            ((0x13U 
                                              == (0x707fU 
