@@ -10,7 +10,7 @@ object RVI_ALU extends InstrType with paramete{
   val table =Array(
       ADDI -> List(InstrI,FUType.alu,ALUOPType.add),
       SLLI -> List(InstrI, FUType.alu, ALUOPType.sll),
-      AUIPC -> List(InstrU,FUType.alu,ALUOPType.auipc),
+      AUIPC -> List(InstrU,FUType.alu,ALUOPType.add),
       Ebreak -> List(InstrN,FUType.alu,ALUOPType.ebreak),
   )
 }
