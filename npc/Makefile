@@ -33,7 +33,7 @@ clean:
 
 
 sim: 
-	$(MAKE) -C $(BPATH) 
+	#$(MAKE) -C $(BPATH) 
 	$(MAKE) -C ./verilator
 	 
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
