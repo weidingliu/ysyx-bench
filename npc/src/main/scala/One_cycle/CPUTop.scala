@@ -28,6 +28,7 @@ class CPUTop extends Module with paramete{
   ID.io.inst := io.inst
 
   ID.io.ctrlIO <> EX.io
+  EX.io1.PC := IF.io.pc
 
   val src1add = Wire(UInt(5.W))
   val src2add = Wire(UInt(5.W))

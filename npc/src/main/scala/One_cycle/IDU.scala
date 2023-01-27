@@ -7,6 +7,8 @@ trait InstrType{
   def InstrR = "b0001".U
   def InstrN = "b0010".U
 
+  def InstrU = "b0011".U
+
 }
 
 object FUType{
@@ -19,6 +21,7 @@ object FUType{
 object SRCType{
   def R = "b000".U
   def imm = "b001".U
+  def PC = "b010".U
   def apply() = UInt(3.W)
 }
 
@@ -51,6 +54,7 @@ class IDU extends Module with InstrType with paramete{
     BitPat(InstrI) -> List(SRCType.R,SRCType.imm),
     BitPat(InstrR) -> List(SRCType.R,SRCType.R),
     BitPat(InstrN) -> List(SRCType.R,SRCType.R),
+    BitPat(InstrU) -> List(SRCType.PC,SRCType.imm),
 
   )
   val srctype1 :: srctype2 :: Nil = ListLookup(instrtype,List(SRCType.R,SRCType.R),srctype_list)
@@ -64,6 +68,7 @@ class IDU extends Module with InstrType with paramete{
 
   val immtable = Array(
     BitPat(InstrI) -> List(SIgEXtend(io.inst(31, 20), xlen)),
+    BitPat(InstrU) -> List(SIgEXtend(io.inst(31,12), xlen)),
   )
   val imm :: Nil= ListLookup(instrtype,List(0.U(xlen.W)),immtable)
   io.ctrlIO.Imm := imm

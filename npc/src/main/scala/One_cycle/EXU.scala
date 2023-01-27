@@ -7,6 +7,7 @@ object ALUOPType{
   def add = "b1000000".U
   def sll = "b1000001".U
   def ebreak = "b1000010".U
+  def auipc ="b1000011".U
   def apply() = UInt(7.W)
 }
 
@@ -28,22 +29,26 @@ class EXU extends Module with paramete with InstrType {
   val io1 = IO(new Bundle() {
     val REG1 = Input(UInt(xlen.W))
     val REG2 = Input(UInt(xlen.W))
+    val PC = Input(UInt(xlen.W))
     val result = Output(UInt(xlen.W))
     val is_break = Output(Bool())
+
   })
   val src1 :: Nil= ListLookup(io.src1type,List(0.U(xlen.W)),Array(
     BitPat(SRCType.R) -> List(io1.REG1),
+    BitPat(SRCType.PC) -> List(io1.PC),
 
   ))
   val src2 :: Nil= ListLookup(io.src2type, List(0.U(xlen.W)), Array(
     BitPat(SRCType.R) -> List(io1.REG2),
-    BitPat(SRCType.imm) -> List(io.Imm)
+    BitPat(SRCType.imm) -> List(io.Imm),
+
   ))
   val alu_result = WireDefault(0.U(xlen.W))
 
   io1.is_break := Mux(io.aluoptype===ALUOPType.ebreak,1.U,0.U)
   switch(io.aluoptype){
-    is(ALUOPType.add){
+    is(ALUOPType.add | ALUOPType.auipc){
      alu_result := src1 + src2
     }
 
