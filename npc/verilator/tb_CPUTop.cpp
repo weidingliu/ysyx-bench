@@ -69,7 +69,7 @@ while(sim_time<MAX_SIM_TIME && (!contextp->gotFinish())){
     
     dut->reset = 1;
     dut->io_inst=0; 
-    if(sim_time>=20){
+    if(sim_time>=15){
         dut->reset = 0;
         dut->io_inst = pem_read(dut->io_pc);
     }
