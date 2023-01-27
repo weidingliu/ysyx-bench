@@ -7,7 +7,7 @@
 #include <svdpi.h>
 //#include "VCPUTop__Dpi.h"
 
-#define MAX_SIM_TIME 300
+#define MAX_SIM_TIME 1000
 #define MAX_MEM 480
 vluint64_t sim_time=0;
 uint32_t mem[MAX_MEM];
@@ -64,12 +64,11 @@ dut->trace(m_trace,5);
 m_trace->open("waveform.vcd");
 
 while(sim_time<MAX_SIM_TIME && (!contextp->gotFinish())){
-    if(sim_time%10==0)dut->clock = 1;
-    if(sim_time%10==5)dut->clock = 0;
+    if(sim_time%40==0) dut->clock ^= 1;
     
     dut->reset = 1;
     dut->io_inst=0; 
-    if(sim_time>=15){
+    if(sim_time>=85){
         dut->reset = 0;
         dut->io_inst = pem_read(dut->io_pc);
     }
