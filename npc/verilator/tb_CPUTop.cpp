@@ -64,7 +64,9 @@ dut->trace(m_trace,5);
 m_trace->open("waveform.vcd");
 
 while(sim_time<MAX_SIM_TIME && (!contextp->gotFinish())){
-    dut->clock ^= 1;
+    if(sim_time%2==0)dut->clock = 1;
+    if(sim_time%2==1)dut->clock = 0;
+    
     dut->reset = 1;
     dut->io_inst=0; 
     if(sim_time>=5){
