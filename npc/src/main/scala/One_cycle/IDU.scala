@@ -52,10 +52,10 @@ class IDU extends Module with InstrType with paramete{
 
   val srctype_list = Array(
     BitPat(InstrI) -> List(SRCType.R,SRCType.imm),
-    BitPat(InstrR) -> List(SRCType.R,SRCType.R),
+    BitPat(InstrR) -> List(SRCType.PC,SRCType.R),
     BitPat(InstrU) -> List(SRCType.PC,SRCType.imm),
 
-    BitPat(InstrN) -> List(SRCType.R,SRCType.R),
+    BitPat(InstrN) -> List(SRCType.PC,SRCType.R),
 
 
   )

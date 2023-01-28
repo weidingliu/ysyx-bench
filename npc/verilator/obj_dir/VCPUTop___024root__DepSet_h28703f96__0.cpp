@@ -55,19 +55,25 @@ VL_INLINE_OPT void VCPUTop___024root___combo__TOP__0(VCPUTop___024root* vlSelf) 
                                                    == 
                                                    (1U 
                                                     & (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0)))
-                                                   ? 0U
+                                                   ? 2U
                                                    : 
                                                   ((3U 
                                                     == (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0))
                                                     ? 2U
-                                                    : 1U)));
+                                                    : 
+                                                   ((2U 
+                                                     == (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0))
+                                                     ? 2U
+                                                     : 0U))));
     vlSelf->CPUTop__DOT__ID__DOT__srctype2 = ((0U == 
                                                (1U 
                                                 & (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0))) 
-                                              | (1U 
-                                                 != 
-                                                 (1U 
-                                                  & (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0))));
+                                              | ((1U 
+                                                  != 
+                                                  (1U 
+                                                   & (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0))) 
+                                                 & (3U 
+                                                    == (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0))));
 }
 
 VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf) {
