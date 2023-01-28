@@ -15,6 +15,7 @@ class VCPUTop___024root final : public VerilatedModule {
     // DESIGN SPECIFIC STATE
     VL_IN8(clock,0,0);
     VL_IN8(reset,0,0);
+    CData/*6:0*/ CPUTop__DOT__ID_io_ctrlIO_aluoptype;
     CData/*1:0*/ CPUTop__DOT__ID__DOT__Inst_decode_0;
     CData/*0:0*/ CPUTop__DOT__ID__DOT__srctype2;
     CData/*1:0*/ CPUTop__DOT__ID__DOT___io_ctrlIO_src1type_T_2;
@@ -25,6 +26,8 @@ class VCPUTop___024root final : public VerilatedModule {
     QData/*63:0*/ CPUTop__DOT__EX_io1_result;
     QData/*63:0*/ CPUTop__DOT__IF__DOT__temp;
     QData/*63:0*/ CPUTop__DOT__IF__DOT___temp_T_1;
+    QData/*63:0*/ CPUTop__DOT__EX__DOT__src1;
+    QData/*63:0*/ CPUTop__DOT__EX__DOT__src2;
     VlUnpacked<QData/*63:0*/, 32> CPUTop__DOT__rf;
     VlUnpacked<CData/*0:0*/, 3> __Vm_traceActivity;
 

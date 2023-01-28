@@ -8,7 +8,7 @@ object ALUOPType{
   def sll = "b1000001".U
   def ebreak = "b1000010".U
   def auipc ="b1000011".U
-  def lui = "b1000100".U
+  def or = "b1000100".U
   def apply() = UInt(7.W)
 }
 
@@ -72,6 +72,9 @@ class EXU extends Module with paramete {
   switch(io.aluoptype){
     is(ALUOPType.add){
      alu_result := src1 + src2
+    }
+    is(ALUOPType.or){
+      alu_result := src1 | src2
     }
 
 
