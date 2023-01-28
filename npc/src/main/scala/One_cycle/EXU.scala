@@ -34,16 +34,34 @@ class EXU extends Module with paramete {
     val is_break = Output(Bool())
 
   })
-  val src1 :: Nil= ListLookup(io.src1type,List(0.U(xlen.W)),Array(
-    BitPat(SRCType.R) -> List(io1.REG1),
-    BitPat(SRCType.PC) -> List(io1.PC),
-
-  ))
-  val src2 :: Nil= ListLookup(io.src2type, List(0.U(xlen.W)), Array(
-    BitPat(SRCType.R) -> List(io1.REG2),
-    BitPat(SRCType.imm) -> List(io.Imm),
-
-  ))
+  val src1=WireDefault(0.U(xlen.W))
+  val src2=WireDefault(0.U(xlen.W))
+  switch(io.src1type){
+    is(SRCType.R){
+      src1 := io1.REG1
+    }
+    is(SRCType.PC){
+      src1 := io1.PC
+    }
+  }
+  switch(io.src2type){
+    is(SRCType.R){
+      src2:=io1.REG2
+    }
+    is(SRCType.imm){
+      src2 := io.Imm
+    }
+  }
+//  val src1 :: Nil= ListLookup(io.src1type,List(0.U(xlen.W)),Array(
+//    BitPat(SRCType.R) -> List(io1.REG1),
+//    BitPat(SRCType.PC) -> List(io1.PC),
+//
+//  ))
+//  val src2 :: Nil= ListLookup(io.src2type, List(0.U(xlen.W)), Array(
+//    BitPat(SRCType.R) -> List(io1.REG2),
+//    BitPat(SRCType.imm) -> List(io.Imm),
+//
+//  ))
   val alu_result = WireDefault(0.U(xlen.W))
 
   io1.is_break := Mux(io.aluoptype===ALUOPType.ebreak,1.U,0.U)

@@ -118,20 +118,13 @@ module EXU(
   output [63:0] io1_result,
   output        io1_is_break
 );
-  wire [2:0] _src1_T = io_src1type & 3'h1; // @[Lookup.scala 31:38]
-  wire  _src1_T_1 = 3'h0 == _src1_T; // @[Lookup.scala 31:38]
-  wire [2:0] _src1_T_2 = io_src1type & 3'h3; // @[Lookup.scala 31:38]
-  wire  _src1_T_3 = 3'h2 == _src1_T_2; // @[Lookup.scala 31:38]
-  wire [63:0] _src1_T_4 = _src1_T_3 ? io1_PC : 64'h0; // @[Lookup.scala 34:39]
-  wire [63:0] src1 = _src1_T_1 ? io1_REG1 : _src1_T_4; // @[Lookup.scala 34:39]
-  wire [2:0] _src2_T = io_src2type & 3'h1; // @[Lookup.scala 31:38]
-  wire  _src2_T_1 = 3'h0 == _src2_T; // @[Lookup.scala 31:38]
-  wire  _src2_T_3 = 3'h1 == _src2_T; // @[Lookup.scala 31:38]
-  wire [63:0] _src2_T_4 = _src2_T_3 ? io_Imm : 64'h0; // @[Lookup.scala 34:39]
-  wire [63:0] src2 = _src2_T_1 ? io1_REG2 : _src2_T_4; // @[Lookup.scala 34:39]
-  wire [63:0] _alu_result_T_1 = src1 + src2; // @[EXU.scala 52:25]
-  assign io1_result = 7'h40 == io_aluoptype ? _alu_result_T_1 : 64'h0; // @[EXU.scala 50:23 52:17]
-  assign io1_is_break = io_aluoptype == 7'h42; // @[EXU.scala 49:35]
+  wire [63:0] _GEN_0 = 3'h2 == io_src1type ? io1_PC : 64'h0; // @[EXU.scala 39:22 44:12]
+  wire [63:0] src1 = 3'h0 == io_src1type ? io1_REG1 : _GEN_0; // @[EXU.scala 39:22 41:12]
+  wire [63:0] _GEN_2 = 3'h1 == io_src2type ? io_Imm : 64'h0; // @[EXU.scala 47:22 52:12]
+  wire [63:0] src2 = 3'h0 == io_src2type ? io1_REG2 : _GEN_2; // @[EXU.scala 47:22 49:11]
+  wire [63:0] _alu_result_T_1 = src1 + src2; // @[EXU.scala 70:25]
+  assign io1_result = 7'h40 == io_aluoptype ? _alu_result_T_1 : 64'h0; // @[EXU.scala 68:23 70:17]
+  assign io1_is_break = io_aluoptype == 7'h42; // @[EXU.scala 67:35]
 endmodule
 module CPUTop(
   input         clock,
