@@ -8,6 +8,7 @@ object ALUOPType{
   def sll = "b1000001".U
   def ebreak = "b1000010".U
   def auipc ="b1000011".U
+  def lui = "b1000100".U
   def apply() = UInt(7.W)
 }
 
@@ -42,6 +43,9 @@ class EXU extends Module with paramete {
     }
     is(SRCType.PC){
       src1 := io1.PC
+    }
+    is(SRCType.DONT_Care){
+      src1 :=0.U(xlen.W)
     }
   }
   switch(io.src2type){

@@ -22,6 +22,7 @@ object SRCType{
   def R = "b000".U
   def imm = "b001".U
   def PC = "b010".U
+  def DONT_Care = "b011".U
   def apply() = UInt(3.W)
 }
 
@@ -65,7 +66,7 @@ class IDU extends Module with paramete{
   io.ctrlIO.src2 := rt
   io.ctrlIO.rd := rd
 
-  io.ctrlIO.src1type := srctype1
+  io.ctrlIO.src1type := Mux(io.inst(6,0) ==="b0110111".U,SRCType.DONT_Care,srctype1)
   io.ctrlIO.src2type := srctype2
 
   val immtable = Array(
