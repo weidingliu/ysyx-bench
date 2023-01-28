@@ -2,7 +2,7 @@ package One_cycle
 import chisel3._
 import chisel3.util._
 import chisel3.util.experimental._
-trait InstrType{
+object InstrType{
   def InstrI = "b0000".U
   def InstrR = "b0001".U
   def InstrN = "b0010".U
@@ -36,7 +36,7 @@ class IDUIO extends Bundle with paramete{
   val Imm = Output(UInt(xlen.W))
 }
 
-class IDU extends Module with InstrType with paramete{
+class IDU extends Module with paramete{
     val io = IO(new Bundle() {
       val inst = Input(UInt(instlen.W))
       val ctrlIO= new IDUIO()
@@ -51,11 +51,11 @@ class IDU extends Module with InstrType with paramete{
     io.ctrlIO.aluoptype := aluoptype
 
   val srctype_list = Array(
-    BitPat(InstrI) -> List(SRCType.R,SRCType.imm),
-//    BitPat(InstrR) -> List(SRCType.R,SRCType.R),
-    BitPat(InstrU) -> List(SRCType.PC,SRCType.imm),
-
-    BitPat(InstrN) -> List(SRCType.PC,SRCType.R),
+    BitPat(InstrType.InstrI) -> List(SRCType.R,SRCType.imm),
+//
+    BitPat(InstrType.InstrU) -> List(SRCType.PC,SRCType.imm),
+    BitPat(InstrType.InstrR) -> List(SRCType.R,SRCType.R),
+    BitPat(InstrType.InstrN) -> List(SRCType.R,SRCType.R),
 
 
   )
@@ -69,8 +69,8 @@ class IDU extends Module with InstrType with paramete{
   io.ctrlIO.src2type := srctype2
 
   val immtable = Array(
-    BitPat(InstrI) -> List(SIgEXtend(io.inst(31, 20), xlen)),
-    BitPat(InstrU) -> List(SIgEXtend(Cat(io.inst(31,12),Fill(12,0.U)), xlen)),
+    BitPat(InstrType.InstrI) -> List(SIgEXtend(io.inst(31, 20), xlen)),
+    BitPat(InstrType.InstrU) -> List(SIgEXtend(Cat(io.inst(31,12),Fill(12,0.U)), xlen)),
   )
   val imm :: Nil= ListLookup(instrtype,List(0.U(xlen.W)),immtable)
   io.ctrlIO.Imm := imm

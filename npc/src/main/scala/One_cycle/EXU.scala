@@ -11,7 +11,7 @@ object ALUOPType{
   def apply() = UInt(7.W)
 }
 
-class EXU extends Module with paramete with InstrType {
+class EXU extends Module with paramete {
   val io = IO(new Bundle() {
 //    val ctrlIO = new IDUIO
     val src1type = Input(SRCType())
