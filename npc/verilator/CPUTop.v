@@ -122,8 +122,8 @@ module IDU(
   wire  sign_2 = _T_13[19]; // @[util.scala 9:19]
   wire [43:0] _T_15 = sign_2 ? 44'hfffffffffff : 44'h0; // @[Bitwise.scala 77:12]
   wire [63:0] _T_16 = {_T_15,io_inst[19:12],io_inst[20],io_inst[30:21],1'h0}; // @[Cat.scala 33:92]
-  wire [63:0] _imm_T_6 = _srctype_T_3 ? _T_16 : 64'h0; // @[Lookup.scala 34:39]
-  wire [63:0] _imm_T_7 = _srctype_T_5 ? _T_9 : _imm_T_6; // @[Lookup.scala 34:39]
+  wire [63:0] _imm_list_T_6 = _srctype_T_3 ? _T_16 : 64'h0; // @[Lookup.scala 34:39]
+  wire [63:0] _imm_list_T_7 = _srctype_T_5 ? _T_9 : _imm_list_T_6; // @[Lookup.scala 34:39]
   assign io_ctrlIO_src1type = {{1'd0}, _io_ctrlIO_src1type_T_2}; // @[IDU.scala 72:22]
   assign io_ctrlIO_src2type = {{2'd0}, srctype_1}; // @[IDU.scala 73:22]
   assign io_ctrlIO_src1 = io_inst[19:15]; // @[IDU.scala 48:30]
@@ -131,7 +131,7 @@ module IDU(
   assign io_ctrlIO_rd = io_inst[11:7]; // @[IDU.scala 48:64]
   assign io_ctrlIO_futype = {{1'd0}, Inst_decode_1}; // @[IDU.scala 53:22]
   assign io_ctrlIO_aluoptype = _Inst_decode_T_1 ? 7'h40 : _Inst_decode_T_31; // @[Lookup.scala 34:39]
-  assign io_ctrlIO_Imm = _srctype_T_1 ? _T_3 : _imm_T_7; // @[Lookup.scala 34:39]
+  assign io_ctrlIO_Imm = _srctype_T_1 ? _T_3 : _imm_list_T_7; // @[Lookup.scala 34:39]
 endmodule
 module EXU(
   input  [2:0]  io_src1type,

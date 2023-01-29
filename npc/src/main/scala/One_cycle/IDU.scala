@@ -77,7 +77,8 @@ class IDU extends Module with paramete{
     BitPat(InstrType.InstrU) -> List(SIgEXtend(Cat(io.inst(31,12),Fill(12,0.U)), xlen)),
     BitPat(InstrType.InstrJ) -> List(SIgEXtend(Cat(io.inst(19,12),io.inst(20),io.inst(30,21),Fill(1,0.U)), xlen)),
   )
-  val imm :: Nil= ListLookup(instrtype,List(0.U(xlen.W)),immtable)
+  val imm_list = ListLookup(instrtype,List(0.U(xlen.W)),immtable)
+  val imm :: Nil =imm_list
   io.ctrlIO.Imm := imm
 
 
