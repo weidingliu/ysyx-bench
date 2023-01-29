@@ -35,7 +35,7 @@ VL_ATTR_COLD void VCPUTop___024root___settle__TOP__0(VCPUTop___024root* vlSelf) 
         vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0 = 7U;
         vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_1 = 3U;
         vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype = 0x19U;
-    } else if ((0x2067U == (0x707fU & vlSelf->io_inst))) {
+    } else if ((0x67U == (0x707fU & vlSelf->io_inst))) {
         vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0 = 8U;
         vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_1 = 3U;
         vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype = 0x48U;

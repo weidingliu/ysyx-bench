@@ -86,7 +86,7 @@ module IDU(
   wire  _Inst_decode_T_7 = 32'h37 == _Inst_decode_T_4; // @[Lookup.scala 31:38]
   wire  _Inst_decode_T_9 = 32'h6013 == _Inst_decode_T; // @[Lookup.scala 31:38]
   wire  _Inst_decode_T_11 = 32'h6f == _Inst_decode_T_4; // @[Lookup.scala 31:38]
-  wire  _Inst_decode_T_13 = 32'h2067 == _Inst_decode_T; // @[Lookup.scala 31:38]
+  wire  _Inst_decode_T_13 = 32'h67 == _Inst_decode_T; // @[Lookup.scala 31:38]
   wire  _Inst_decode_T_15 = 32'h100073 == io_inst; // @[Lookup.scala 31:38]
   wire [3:0] _Inst_decode_T_17 = _Inst_decode_T_13 ? 4'h8 : 4'h0; // @[Lookup.scala 34:39]
   wire [3:0] _Inst_decode_T_18 = _Inst_decode_T_11 ? 4'h7 : _Inst_decode_T_17; // @[Lookup.scala 34:39]
