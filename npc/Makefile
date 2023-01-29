@@ -1,6 +1,7 @@
 BUILD_DIR = ./build
-#VPATH = ./verilator
-vpath %.v ./verilator
+verilator_build_dir=./verilator/obj_dir
+BPATH ?= ../am-kernels/tests/cpu-tests/
+
 test:
 	mill -i __.test
 
@@ -25,23 +26,27 @@ checkformat:
 	mill -i __.checkFormat
 
 clean:
-	-rm -rf $(BUILD_DIR)
+	-rm -rf $(BUILD_DIR) 
+	-rm -rf $(verilator_build_dir)
 
-.PHONY: test verilog help compile bsp reformat checkformat clean wave
+.PHONY: test verilog help compile bsp reformat checkformat clean wave count all
 
-sim:
-	cd verilator;\
-	sudo verilator -Wno-fatal --trace -cc CPUTop.v --exe tb_CPUTop.cpp; \
-	make -C obj_dir -f VCPUTop.mk VCPUTop; \
-	./obj_dir/VCPUTop; 
+
+sim: 
+	#$(MAKE) -C $(BPATH) 
+	$(MAKE) -C ./verilator
+	 
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 	@echo "Write this Makefile by yourself."
 
-wave: sim
+wave: 
 	cd verilator;\
 	gtkwave waveform.vcd
+all: wave
+	
 
 count:
 	find . -not -path "./out/*" -not -path "./target/*" -name "*.scala" -or -name "*.[c]" -or -name "tb_CPUTop.cpp"  | xargs wc -l
 
 include ../Makefile
+##include ../am-kernels/tests/cpu-tests/Makefile

@@ -28,11 +28,16 @@ class CPUTop extends Module with paramete{
   ID.io.inst := io.inst
 
   ID.io.ctrlIO <> EX.io
+  EX.io1.PC := IF.io.pc
 
   val src1add = Wire(UInt(5.W))
   val src2add = Wire(UInt(5.W))
   EX.io1.REG1 := Reg.read(src1add)
   EX.io1.REG2 := Reg.read(src2add)
+
+  IF.io.dnpc := EX.io1.dnpc
+  IF.io.is_jump := EX.io1.is_jump
+  IF.io.is_branch := EX.io1.is_branch
 
   src1add:= ID.io.ctrlIO.src1
   src2add:= ID.io.ctrlIO.src2
