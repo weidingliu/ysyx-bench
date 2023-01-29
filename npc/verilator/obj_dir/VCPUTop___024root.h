@@ -18,7 +18,7 @@ class VCPUTop___024root final : public VerilatedModule {
     CData/*6:0*/ CPUTop__DOT__ID_io_ctrlIO_aluoptype;
     CData/*2:0*/ CPUTop__DOT__ID__DOT__Inst_decode_0;
     CData/*1:0*/ CPUTop__DOT__ID__DOT__Inst_decode_1;
-    CData/*0:0*/ CPUTop__DOT__ID__DOT__srctype2;
+    CData/*0:0*/ CPUTop__DOT__ID__DOT__srctype_1;
     CData/*1:0*/ CPUTop__DOT__ID__DOT___io_ctrlIO_src1type_T_2;
     CData/*0:0*/ __Vclklast__TOP__clock;
     VL_IN(io_inst,31,0);

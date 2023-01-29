@@ -91,8 +91,8 @@ VL_ATTR_COLD void VCPUTop___024root__trace_init_sub__TOP__0(VCPUTop___024root* v
     tracep->declQuad(c+94,"io_ctrlIO_Imm", false,-1, 63,0);
     tracep->declBus(c+14,"Inst_decode_0", false,-1, 2,0);
     tracep->declBus(c+15,"Inst_decode_1", false,-1, 1,0);
-    tracep->declBus(c+16,"srctype1", false,-1, 1,0);
-    tracep->declBit(c+17,"srctype2", false,-1);
+    tracep->declBus(c+16,"srctype_0", false,-1, 1,0);
+    tracep->declBit(c+17,"srctype_1", false,-1);
     tracep->declBit(c+106,"sign", false,-1);
     tracep->declBit(c+107,"sign_1", false,-1);
     tracep->declBit(c+106,"sign_2", false,-1);
@@ -146,7 +146,7 @@ VL_ATTR_COLD void VCPUTop___024root__trace_full_sub_0(VCPUTop___024root* vlSelf,
     uint32_t* const oldp VL_ATTR_UNUSED = bufp->oldp(vlSymsp->__Vm_baseCode);
     // Body
     bufp->fullCData(oldp+1,(vlSelf->CPUTop__DOT__ID__DOT___io_ctrlIO_src1type_T_2),3);
-    bufp->fullCData(oldp+2,(vlSelf->CPUTop__DOT__ID__DOT__srctype2),3);
+    bufp->fullCData(oldp+2,(vlSelf->CPUTop__DOT__ID__DOT__srctype_1),3);
     bufp->fullCData(oldp+3,(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_1),3);
     bufp->fullCData(oldp+4,(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype),7);
     bufp->fullQData(oldp+5,(vlSelf->CPUTop__DOT__EX_io1_result),64);
@@ -170,7 +170,7 @@ VL_ATTR_COLD void VCPUTop___024root__trace_full_sub_0(VCPUTop___024root* vlSelf,
                                                   & (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0)))
                                                  ? 2U
                                                  : 0U)))),2);
-    bufp->fullBit(oldp+17,(vlSelf->CPUTop__DOT__ID__DOT__srctype2));
+    bufp->fullBit(oldp+17,(vlSelf->CPUTop__DOT__ID__DOT__srctype_1));
     bufp->fullQData(oldp+18,(vlSelf->CPUTop__DOT__IF__DOT__temp),64);
     bufp->fullQData(oldp+20,(vlSelf->CPUTop__DOT__rf[0]),64);
     bufp->fullQData(oldp+22,(vlSelf->CPUTop__DOT__rf[1]),64);

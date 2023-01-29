@@ -62,7 +62,8 @@ class IDU extends Module with paramete{
 
 
   )
-  val srctype1 :: srctype2 :: Nil = ListLookup(instrtype,List(SRCType.R,SRCType.R),srctype_list)
+  val srctype= ListLookup(instrtype,List(SRCType.R,SRCType.R),srctype_list)
+  val srctype1 :: srctype2 :: Nil =  srctype
 
   io.ctrlIO.src1 := rs
   io.ctrlIO.src2 := rt

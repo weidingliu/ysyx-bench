@@ -25,7 +25,7 @@ void VCPUTop___024root__trace_chg_sub_0(VCPUTop___024root* vlSelf, VerilatedVcd:
     // Body
     if (VL_UNLIKELY(vlSelf->__Vm_traceActivity[1U])) {
         bufp->chgCData(oldp+0,(vlSelf->CPUTop__DOT__ID__DOT___io_ctrlIO_src1type_T_2),3);
-        bufp->chgCData(oldp+1,(vlSelf->CPUTop__DOT__ID__DOT__srctype2),3);
+        bufp->chgCData(oldp+1,(vlSelf->CPUTop__DOT__ID__DOT__srctype_1),3);
         bufp->chgCData(oldp+2,(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_1),3);
         bufp->chgCData(oldp+3,(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype),7);
         bufp->chgQData(oldp+4,(vlSelf->CPUTop__DOT__EX_io1_result),64);
@@ -50,7 +50,7 @@ void VCPUTop___024root__trace_chg_sub_0(VCPUTop___024root* vlSelf, VerilatedVcd:
                                                      & (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0)))
                                                     ? 2U
                                                     : 0U)))),2);
-        bufp->chgBit(oldp+16,(vlSelf->CPUTop__DOT__ID__DOT__srctype2));
+        bufp->chgBit(oldp+16,(vlSelf->CPUTop__DOT__ID__DOT__srctype_1));
     }
     if (VL_UNLIKELY(vlSelf->__Vm_traceActivity[2U])) {
         bufp->chgQData(oldp+17,(vlSelf->CPUTop__DOT__IF__DOT__temp),64);
