@@ -12,38 +12,6 @@ VL_ATTR_COLD void VCPUTop___024root___settle__TOP__0(VCPUTop___024root* vlSelf) 
     VCPUTop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    VCPUTop___024root___settle__TOP__0\n"); );
     // Body
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0U] = 0U;
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[1U] = 0U;
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[2U] = 0U;
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[3U] = 0U;
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[4U] = 0U;
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[5U] = 0U;
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[6U] = 0U;
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[7U] = 0U;
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[8U] = 0U;
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[9U] = 0U;
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0xaU] = 0U;
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0xbU] = 0U;
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0xcU] = 0U;
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0xdU] = 0U;
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0xeU] = 0U;
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0xfU] = 0U;
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x10U] = 0U;
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x11U] = 0U;
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x12U] = 0U;
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x13U] = 0U;
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x14U] = 0U;
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x15U] = 0U;
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x16U] = 0U;
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x17U] = 0U;
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x18U] = 0U;
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x19U] = 0U;
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x1aU] = 0U;
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x1bU] = 0U;
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x1cU] = 0U;
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x1dU] = 0U;
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x1eU] = 0U;
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x1fU] = 0U;
     if ((0x13U == (0x707fU & vlSelf->io_inst))) {
         vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0 = 8U;
         vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_1 = 0U;
@@ -82,6 +50,70 @@ VL_ATTR_COLD void VCPUTop___024root___settle__TOP__0(VCPUTop___024root* vlSelf) 
     vlSelf->io_pc = vlSelf->CPUTop__DOT__IF__DOT__temp;
     vlSelf->CPUTop__DOT__IF__DOT___temp_T_2 = (4ULL 
                                                + vlSelf->CPUTop__DOT__IF__DOT__temp);
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0U] = vlSelf->CPUTop__DOT__rf
+        [0U];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[1U] = vlSelf->CPUTop__DOT__rf
+        [1U];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[2U] = vlSelf->CPUTop__DOT__rf
+        [2U];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[3U] = vlSelf->CPUTop__DOT__rf
+        [3U];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[4U] = vlSelf->CPUTop__DOT__rf
+        [4U];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[5U] = vlSelf->CPUTop__DOT__rf
+        [5U];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[6U] = vlSelf->CPUTop__DOT__rf
+        [6U];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[7U] = vlSelf->CPUTop__DOT__rf
+        [7U];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[8U] = vlSelf->CPUTop__DOT__rf
+        [8U];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[9U] = vlSelf->CPUTop__DOT__rf
+        [9U];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0xaU] = vlSelf->CPUTop__DOT__rf
+        [0xaU];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0xbU] = vlSelf->CPUTop__DOT__rf
+        [0xbU];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0xcU] = vlSelf->CPUTop__DOT__rf
+        [0xcU];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0xdU] = vlSelf->CPUTop__DOT__rf
+        [0xdU];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0xeU] = vlSelf->CPUTop__DOT__rf
+        [0xeU];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0xfU] = vlSelf->CPUTop__DOT__rf
+        [0xfU];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x10U] = vlSelf->CPUTop__DOT__rf
+        [0x10U];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x11U] = vlSelf->CPUTop__DOT__rf
+        [0x11U];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x12U] = vlSelf->CPUTop__DOT__rf
+        [0x12U];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x13U] = vlSelf->CPUTop__DOT__rf
+        [0x13U];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x14U] = vlSelf->CPUTop__DOT__rf
+        [0x14U];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x15U] = vlSelf->CPUTop__DOT__rf
+        [0x15U];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x16U] = vlSelf->CPUTop__DOT__rf
+        [0x16U];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x17U] = vlSelf->CPUTop__DOT__rf
+        [0x17U];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x18U] = vlSelf->CPUTop__DOT__rf
+        [0x18U];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x19U] = vlSelf->CPUTop__DOT__rf
+        [0x19U];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x1aU] = vlSelf->CPUTop__DOT__rf
+        [0x1aU];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x1bU] = vlSelf->CPUTop__DOT__rf
+        [0x1bU];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x1cU] = vlSelf->CPUTop__DOT__rf
+        [0x1cU];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x1dU] = vlSelf->CPUTop__DOT__rf
+        [0x1dU];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x1eU] = vlSelf->CPUTop__DOT__rf
+        [0x1eU];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x1fU] = vlSelf->CPUTop__DOT__rf
+        [0x1fU];
     vlSelf->CPUTop__DOT__ID__DOT__srctype_1 = ((8U 
                                                 == (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0)) 
                                                | ((7U 
@@ -99,7 +131,7 @@ VL_ATTR_COLD void VCPUTop___024root___settle__TOP__0(VCPUTop___024root* vlSelf) 
                          ? 2U : ((3U == (3U & (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0)))
                                   ? 2U : 0U))));
     if (VL_UNLIKELY((0x42U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)))) {
-        VL_FINISH_MT("DIP_model.v", 45, "");
+        VL_FINISH_MT("DIP_model.v", 46, "");
     }
     vlSelf->CPUTop__DOT__EX__DOT__src2 = ((IData)(vlSelf->CPUTop__DOT__ID__DOT__srctype_1)
                                            ? ((IData)(vlSelf->CPUTop__DOT__ID__DOT__srctype_1)
@@ -248,8 +280,8 @@ VL_ATTR_COLD void VCPUTop___024root___ctor_var_reset(VCPUTop___024root* vlSelf) 
     vlSelf->CPUTop__DOT__EX__DOT__src1 = VL_RAND_RESET_Q(64);
     vlSelf->CPUTop__DOT__EX__DOT__src2 = VL_RAND_RESET_Q(64);
     vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_1 = VL_RAND_RESET_Q(64);
-    for (int __Vi0=0; __Vi0<64; ++__Vi0) {
-        vlSelf->CPUTop__DOT__DIP__DOT__rf[__Vi0] = VL_RAND_RESET_I(32);
+    for (int __Vi0=0; __Vi0<32; ++__Vi0) {
+        vlSelf->CPUTop__DOT__DIP__DOT__rf[__Vi0] = VL_RAND_RESET_Q(64);
     }
     for (int __Vi0=0; __Vi0<3; ++__Vi0) {
         vlSelf->__Vm_traceActivity[__Vi0] = VL_RAND_RESET_I(1);

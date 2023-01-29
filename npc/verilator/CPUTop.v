@@ -183,65 +183,66 @@ module CPUTop(
 `ifdef RANDOMIZE_MEM_INIT
   reg [63:0] _RAND_0;
 `endif // RANDOMIZE_MEM_INIT
-  wire  IF_clock; // @[CPUTop.scala 17:16]
-  wire  IF_reset; // @[CPUTop.scala 17:16]
-  wire [63:0] IF_io_dnpc; // @[CPUTop.scala 17:16]
-  wire  IF_io_is_jump; // @[CPUTop.scala 17:16]
-  wire [63:0] IF_io_pc; // @[CPUTop.scala 17:16]
-  wire [31:0] ID_io_inst; // @[CPUTop.scala 19:18]
-  wire [2:0] ID_io_ctrlIO_src1type; // @[CPUTop.scala 19:18]
-  wire [2:0] ID_io_ctrlIO_src2type; // @[CPUTop.scala 19:18]
-  wire [4:0] ID_io_ctrlIO_src1; // @[CPUTop.scala 19:18]
-  wire [4:0] ID_io_ctrlIO_src2; // @[CPUTop.scala 19:18]
-  wire [4:0] ID_io_ctrlIO_rd; // @[CPUTop.scala 19:18]
-  wire [2:0] ID_io_ctrlIO_futype; // @[CPUTop.scala 19:18]
-  wire [6:0] ID_io_ctrlIO_aluoptype; // @[CPUTop.scala 19:18]
-  wire [63:0] ID_io_ctrlIO_Imm; // @[CPUTop.scala 19:18]
-  wire [2:0] EX_io_src1type; // @[CPUTop.scala 21:18]
-  wire [2:0] EX_io_src2type; // @[CPUTop.scala 21:18]
-  wire [2:0] EX_io_futype; // @[CPUTop.scala 21:18]
-  wire [6:0] EX_io_aluoptype; // @[CPUTop.scala 21:18]
-  wire [63:0] EX_io_Imm; // @[CPUTop.scala 21:18]
-  wire [63:0] EX_io1_REG1; // @[CPUTop.scala 21:18]
-  wire [63:0] EX_io1_REG2; // @[CPUTop.scala 21:18]
-  wire [63:0] EX_io1_PC; // @[CPUTop.scala 21:18]
-  wire [63:0] EX_io1_result; // @[CPUTop.scala 21:18]
-  wire  EX_io1_is_break; // @[CPUTop.scala 21:18]
-  wire  EX_io1_is_jump; // @[CPUTop.scala 21:18]
-  wire [63:0] EX_io1_dnpc; // @[CPUTop.scala 21:18]
-  wire  DIP_is_break; // @[CPUTop.scala 23:19]
-  wire [63:0] DIP_rf_0; // @[CPUTop.scala 23:19]
-  wire [63:0] DIP_rf_1; // @[CPUTop.scala 23:19]
-  wire [63:0] DIP_rf_2; // @[CPUTop.scala 23:19]
-  wire [63:0] DIP_rf_3; // @[CPUTop.scala 23:19]
-  wire [63:0] DIP_rf_4; // @[CPUTop.scala 23:19]
-  wire [63:0] DIP_rf_5; // @[CPUTop.scala 23:19]
-  wire [63:0] DIP_rf_6; // @[CPUTop.scala 23:19]
-  wire [63:0] DIP_rf_7; // @[CPUTop.scala 23:19]
-  wire [63:0] DIP_rf_8; // @[CPUTop.scala 23:19]
-  wire [63:0] DIP_rf_9; // @[CPUTop.scala 23:19]
-  wire [63:0] DIP_rf_10; // @[CPUTop.scala 23:19]
-  wire [63:0] DIP_rf_11; // @[CPUTop.scala 23:19]
-  wire [63:0] DIP_rf_12; // @[CPUTop.scala 23:19]
-  wire [63:0] DIP_rf_13; // @[CPUTop.scala 23:19]
-  wire [63:0] DIP_rf_14; // @[CPUTop.scala 23:19]
-  wire [63:0] DIP_rf_15; // @[CPUTop.scala 23:19]
-  wire [63:0] DIP_rf_16; // @[CPUTop.scala 23:19]
-  wire [63:0] DIP_rf_17; // @[CPUTop.scala 23:19]
-  wire [63:0] DIP_rf_18; // @[CPUTop.scala 23:19]
-  wire [63:0] DIP_rf_19; // @[CPUTop.scala 23:19]
-  wire [63:0] DIP_rf_20; // @[CPUTop.scala 23:19]
-  wire [63:0] DIP_rf_21; // @[CPUTop.scala 23:19]
-  wire [63:0] DIP_rf_22; // @[CPUTop.scala 23:19]
-  wire [63:0] DIP_rf_23; // @[CPUTop.scala 23:19]
-  wire [63:0] DIP_rf_24; // @[CPUTop.scala 23:19]
-  wire [63:0] DIP_rf_25; // @[CPUTop.scala 23:19]
-  wire [63:0] DIP_rf_26; // @[CPUTop.scala 23:19]
-  wire [63:0] DIP_rf_27; // @[CPUTop.scala 23:19]
-  wire [63:0] DIP_rf_28; // @[CPUTop.scala 23:19]
-  wire [63:0] DIP_rf_29; // @[CPUTop.scala 23:19]
-  wire [63:0] DIP_rf_30; // @[CPUTop.scala 23:19]
-  wire [63:0] DIP_rf_31; // @[CPUTop.scala 23:19]
+  wire  IF_clock; // @[CPUTop.scala 18:16]
+  wire  IF_reset; // @[CPUTop.scala 18:16]
+  wire [63:0] IF_io_dnpc; // @[CPUTop.scala 18:16]
+  wire  IF_io_is_jump; // @[CPUTop.scala 18:16]
+  wire [63:0] IF_io_pc; // @[CPUTop.scala 18:16]
+  wire [31:0] ID_io_inst; // @[CPUTop.scala 20:18]
+  wire [2:0] ID_io_ctrlIO_src1type; // @[CPUTop.scala 20:18]
+  wire [2:0] ID_io_ctrlIO_src2type; // @[CPUTop.scala 20:18]
+  wire [4:0] ID_io_ctrlIO_src1; // @[CPUTop.scala 20:18]
+  wire [4:0] ID_io_ctrlIO_src2; // @[CPUTop.scala 20:18]
+  wire [4:0] ID_io_ctrlIO_rd; // @[CPUTop.scala 20:18]
+  wire [2:0] ID_io_ctrlIO_futype; // @[CPUTop.scala 20:18]
+  wire [6:0] ID_io_ctrlIO_aluoptype; // @[CPUTop.scala 20:18]
+  wire [63:0] ID_io_ctrlIO_Imm; // @[CPUTop.scala 20:18]
+  wire [2:0] EX_io_src1type; // @[CPUTop.scala 22:18]
+  wire [2:0] EX_io_src2type; // @[CPUTop.scala 22:18]
+  wire [2:0] EX_io_futype; // @[CPUTop.scala 22:18]
+  wire [6:0] EX_io_aluoptype; // @[CPUTop.scala 22:18]
+  wire [63:0] EX_io_Imm; // @[CPUTop.scala 22:18]
+  wire [63:0] EX_io1_REG1; // @[CPUTop.scala 22:18]
+  wire [63:0] EX_io1_REG2; // @[CPUTop.scala 22:18]
+  wire [63:0] EX_io1_PC; // @[CPUTop.scala 22:18]
+  wire [63:0] EX_io1_result; // @[CPUTop.scala 22:18]
+  wire  EX_io1_is_break; // @[CPUTop.scala 22:18]
+  wire  EX_io1_is_jump; // @[CPUTop.scala 22:18]
+  wire [63:0] EX_io1_dnpc; // @[CPUTop.scala 22:18]
+  wire  DIP_is_break; // @[CPUTop.scala 24:19]
+  wire [63:0] DIP_rf_0; // @[CPUTop.scala 24:19]
+  wire [63:0] DIP_rf_1; // @[CPUTop.scala 24:19]
+  wire [63:0] DIP_rf_2; // @[CPUTop.scala 24:19]
+  wire [63:0] DIP_rf_3; // @[CPUTop.scala 24:19]
+  wire [63:0] DIP_rf_4; // @[CPUTop.scala 24:19]
+  wire [63:0] DIP_rf_5; // @[CPUTop.scala 24:19]
+  wire [63:0] DIP_rf_6; // @[CPUTop.scala 24:19]
+  wire [63:0] DIP_rf_7; // @[CPUTop.scala 24:19]
+  wire [63:0] DIP_rf_8; // @[CPUTop.scala 24:19]
+  wire [63:0] DIP_rf_9; // @[CPUTop.scala 24:19]
+  wire [63:0] DIP_rf_10; // @[CPUTop.scala 24:19]
+  wire [63:0] DIP_rf_11; // @[CPUTop.scala 24:19]
+  wire [63:0] DIP_rf_12; // @[CPUTop.scala 24:19]
+  wire [63:0] DIP_rf_13; // @[CPUTop.scala 24:19]
+  wire [63:0] DIP_rf_14; // @[CPUTop.scala 24:19]
+  wire [63:0] DIP_rf_15; // @[CPUTop.scala 24:19]
+  wire [63:0] DIP_rf_16; // @[CPUTop.scala 24:19]
+  wire [63:0] DIP_rf_17; // @[CPUTop.scala 24:19]
+  wire [63:0] DIP_rf_18; // @[CPUTop.scala 24:19]
+  wire [63:0] DIP_rf_19; // @[CPUTop.scala 24:19]
+  wire [63:0] DIP_rf_20; // @[CPUTop.scala 24:19]
+  wire [63:0] DIP_rf_21; // @[CPUTop.scala 24:19]
+  wire [63:0] DIP_rf_22; // @[CPUTop.scala 24:19]
+  wire [63:0] DIP_rf_23; // @[CPUTop.scala 24:19]
+  wire [63:0] DIP_rf_24; // @[CPUTop.scala 24:19]
+  wire [63:0] DIP_rf_25; // @[CPUTop.scala 24:19]
+  wire [63:0] DIP_rf_26; // @[CPUTop.scala 24:19]
+  wire [63:0] DIP_rf_27; // @[CPUTop.scala 24:19]
+  wire [63:0] DIP_rf_28; // @[CPUTop.scala 24:19]
+  wire [63:0] DIP_rf_29; // @[CPUTop.scala 24:19]
+  wire [63:0] DIP_rf_30; // @[CPUTop.scala 24:19]
+  wire [63:0] DIP_rf_31; // @[CPUTop.scala 24:19]
+  wire [63:0] DIP_pc; // @[CPUTop.scala 24:19]
   reg [63:0] rf [0:31]; // @[RF.scala 6:17]
   wire  rf_EX_io1_REG1_MPORT_en; // @[RF.scala 6:17]
   wire [4:0] rf_EX_io1_REG1_MPORT_addr; // @[RF.scala 6:17]
@@ -249,20 +250,116 @@ module CPUTop(
   wire  rf_EX_io1_REG2_MPORT_en; // @[RF.scala 6:17]
   wire [4:0] rf_EX_io1_REG2_MPORT_addr; // @[RF.scala 6:17]
   wire [63:0] rf_EX_io1_REG2_MPORT_data; // @[RF.scala 6:17]
+  wire  rf_DIP_io_rf_0_MPORT_en; // @[RF.scala 6:17]
+  wire [4:0] rf_DIP_io_rf_0_MPORT_addr; // @[RF.scala 6:17]
+  wire [63:0] rf_DIP_io_rf_0_MPORT_data; // @[RF.scala 6:17]
+  wire  rf_DIP_io_rf_1_MPORT_en; // @[RF.scala 6:17]
+  wire [4:0] rf_DIP_io_rf_1_MPORT_addr; // @[RF.scala 6:17]
+  wire [63:0] rf_DIP_io_rf_1_MPORT_data; // @[RF.scala 6:17]
+  wire  rf_DIP_io_rf_2_MPORT_en; // @[RF.scala 6:17]
+  wire [4:0] rf_DIP_io_rf_2_MPORT_addr; // @[RF.scala 6:17]
+  wire [63:0] rf_DIP_io_rf_2_MPORT_data; // @[RF.scala 6:17]
+  wire  rf_DIP_io_rf_3_MPORT_en; // @[RF.scala 6:17]
+  wire [4:0] rf_DIP_io_rf_3_MPORT_addr; // @[RF.scala 6:17]
+  wire [63:0] rf_DIP_io_rf_3_MPORT_data; // @[RF.scala 6:17]
+  wire  rf_DIP_io_rf_4_MPORT_en; // @[RF.scala 6:17]
+  wire [4:0] rf_DIP_io_rf_4_MPORT_addr; // @[RF.scala 6:17]
+  wire [63:0] rf_DIP_io_rf_4_MPORT_data; // @[RF.scala 6:17]
+  wire  rf_DIP_io_rf_5_MPORT_en; // @[RF.scala 6:17]
+  wire [4:0] rf_DIP_io_rf_5_MPORT_addr; // @[RF.scala 6:17]
+  wire [63:0] rf_DIP_io_rf_5_MPORT_data; // @[RF.scala 6:17]
+  wire  rf_DIP_io_rf_6_MPORT_en; // @[RF.scala 6:17]
+  wire [4:0] rf_DIP_io_rf_6_MPORT_addr; // @[RF.scala 6:17]
+  wire [63:0] rf_DIP_io_rf_6_MPORT_data; // @[RF.scala 6:17]
+  wire  rf_DIP_io_rf_7_MPORT_en; // @[RF.scala 6:17]
+  wire [4:0] rf_DIP_io_rf_7_MPORT_addr; // @[RF.scala 6:17]
+  wire [63:0] rf_DIP_io_rf_7_MPORT_data; // @[RF.scala 6:17]
+  wire  rf_DIP_io_rf_8_MPORT_en; // @[RF.scala 6:17]
+  wire [4:0] rf_DIP_io_rf_8_MPORT_addr; // @[RF.scala 6:17]
+  wire [63:0] rf_DIP_io_rf_8_MPORT_data; // @[RF.scala 6:17]
+  wire  rf_DIP_io_rf_9_MPORT_en; // @[RF.scala 6:17]
+  wire [4:0] rf_DIP_io_rf_9_MPORT_addr; // @[RF.scala 6:17]
+  wire [63:0] rf_DIP_io_rf_9_MPORT_data; // @[RF.scala 6:17]
+  wire  rf_DIP_io_rf_10_MPORT_en; // @[RF.scala 6:17]
+  wire [4:0] rf_DIP_io_rf_10_MPORT_addr; // @[RF.scala 6:17]
+  wire [63:0] rf_DIP_io_rf_10_MPORT_data; // @[RF.scala 6:17]
+  wire  rf_DIP_io_rf_11_MPORT_en; // @[RF.scala 6:17]
+  wire [4:0] rf_DIP_io_rf_11_MPORT_addr; // @[RF.scala 6:17]
+  wire [63:0] rf_DIP_io_rf_11_MPORT_data; // @[RF.scala 6:17]
+  wire  rf_DIP_io_rf_12_MPORT_en; // @[RF.scala 6:17]
+  wire [4:0] rf_DIP_io_rf_12_MPORT_addr; // @[RF.scala 6:17]
+  wire [63:0] rf_DIP_io_rf_12_MPORT_data; // @[RF.scala 6:17]
+  wire  rf_DIP_io_rf_13_MPORT_en; // @[RF.scala 6:17]
+  wire [4:0] rf_DIP_io_rf_13_MPORT_addr; // @[RF.scala 6:17]
+  wire [63:0] rf_DIP_io_rf_13_MPORT_data; // @[RF.scala 6:17]
+  wire  rf_DIP_io_rf_14_MPORT_en; // @[RF.scala 6:17]
+  wire [4:0] rf_DIP_io_rf_14_MPORT_addr; // @[RF.scala 6:17]
+  wire [63:0] rf_DIP_io_rf_14_MPORT_data; // @[RF.scala 6:17]
+  wire  rf_DIP_io_rf_15_MPORT_en; // @[RF.scala 6:17]
+  wire [4:0] rf_DIP_io_rf_15_MPORT_addr; // @[RF.scala 6:17]
+  wire [63:0] rf_DIP_io_rf_15_MPORT_data; // @[RF.scala 6:17]
+  wire  rf_DIP_io_rf_16_MPORT_en; // @[RF.scala 6:17]
+  wire [4:0] rf_DIP_io_rf_16_MPORT_addr; // @[RF.scala 6:17]
+  wire [63:0] rf_DIP_io_rf_16_MPORT_data; // @[RF.scala 6:17]
+  wire  rf_DIP_io_rf_17_MPORT_en; // @[RF.scala 6:17]
+  wire [4:0] rf_DIP_io_rf_17_MPORT_addr; // @[RF.scala 6:17]
+  wire [63:0] rf_DIP_io_rf_17_MPORT_data; // @[RF.scala 6:17]
+  wire  rf_DIP_io_rf_18_MPORT_en; // @[RF.scala 6:17]
+  wire [4:0] rf_DIP_io_rf_18_MPORT_addr; // @[RF.scala 6:17]
+  wire [63:0] rf_DIP_io_rf_18_MPORT_data; // @[RF.scala 6:17]
+  wire  rf_DIP_io_rf_19_MPORT_en; // @[RF.scala 6:17]
+  wire [4:0] rf_DIP_io_rf_19_MPORT_addr; // @[RF.scala 6:17]
+  wire [63:0] rf_DIP_io_rf_19_MPORT_data; // @[RF.scala 6:17]
+  wire  rf_DIP_io_rf_20_MPORT_en; // @[RF.scala 6:17]
+  wire [4:0] rf_DIP_io_rf_20_MPORT_addr; // @[RF.scala 6:17]
+  wire [63:0] rf_DIP_io_rf_20_MPORT_data; // @[RF.scala 6:17]
+  wire  rf_DIP_io_rf_21_MPORT_en; // @[RF.scala 6:17]
+  wire [4:0] rf_DIP_io_rf_21_MPORT_addr; // @[RF.scala 6:17]
+  wire [63:0] rf_DIP_io_rf_21_MPORT_data; // @[RF.scala 6:17]
+  wire  rf_DIP_io_rf_22_MPORT_en; // @[RF.scala 6:17]
+  wire [4:0] rf_DIP_io_rf_22_MPORT_addr; // @[RF.scala 6:17]
+  wire [63:0] rf_DIP_io_rf_22_MPORT_data; // @[RF.scala 6:17]
+  wire  rf_DIP_io_rf_23_MPORT_en; // @[RF.scala 6:17]
+  wire [4:0] rf_DIP_io_rf_23_MPORT_addr; // @[RF.scala 6:17]
+  wire [63:0] rf_DIP_io_rf_23_MPORT_data; // @[RF.scala 6:17]
+  wire  rf_DIP_io_rf_24_MPORT_en; // @[RF.scala 6:17]
+  wire [4:0] rf_DIP_io_rf_24_MPORT_addr; // @[RF.scala 6:17]
+  wire [63:0] rf_DIP_io_rf_24_MPORT_data; // @[RF.scala 6:17]
+  wire  rf_DIP_io_rf_25_MPORT_en; // @[RF.scala 6:17]
+  wire [4:0] rf_DIP_io_rf_25_MPORT_addr; // @[RF.scala 6:17]
+  wire [63:0] rf_DIP_io_rf_25_MPORT_data; // @[RF.scala 6:17]
+  wire  rf_DIP_io_rf_26_MPORT_en; // @[RF.scala 6:17]
+  wire [4:0] rf_DIP_io_rf_26_MPORT_addr; // @[RF.scala 6:17]
+  wire [63:0] rf_DIP_io_rf_26_MPORT_data; // @[RF.scala 6:17]
+  wire  rf_DIP_io_rf_27_MPORT_en; // @[RF.scala 6:17]
+  wire [4:0] rf_DIP_io_rf_27_MPORT_addr; // @[RF.scala 6:17]
+  wire [63:0] rf_DIP_io_rf_27_MPORT_data; // @[RF.scala 6:17]
+  wire  rf_DIP_io_rf_28_MPORT_en; // @[RF.scala 6:17]
+  wire [4:0] rf_DIP_io_rf_28_MPORT_addr; // @[RF.scala 6:17]
+  wire [63:0] rf_DIP_io_rf_28_MPORT_data; // @[RF.scala 6:17]
+  wire  rf_DIP_io_rf_29_MPORT_en; // @[RF.scala 6:17]
+  wire [4:0] rf_DIP_io_rf_29_MPORT_addr; // @[RF.scala 6:17]
+  wire [63:0] rf_DIP_io_rf_29_MPORT_data; // @[RF.scala 6:17]
+  wire  rf_DIP_io_rf_30_MPORT_en; // @[RF.scala 6:17]
+  wire [4:0] rf_DIP_io_rf_30_MPORT_addr; // @[RF.scala 6:17]
+  wire [63:0] rf_DIP_io_rf_30_MPORT_data; // @[RF.scala 6:17]
+  wire  rf_DIP_io_rf_31_MPORT_en; // @[RF.scala 6:17]
+  wire [4:0] rf_DIP_io_rf_31_MPORT_addr; // @[RF.scala 6:17]
+  wire [63:0] rf_DIP_io_rf_31_MPORT_data; // @[RF.scala 6:17]
   wire [63:0] rf_MPORT_data; // @[RF.scala 6:17]
   wire [4:0] rf_MPORT_addr; // @[RF.scala 6:17]
   wire  rf_MPORT_mask; // @[RF.scala 6:17]
   wire  rf_MPORT_en; // @[RF.scala 6:17]
-  wire [4:0] src1add = ID_io_ctrlIO_src1; // @[CPUTop.scala 34:21 43:10]
-  wire [4:0] src2add = ID_io_ctrlIO_src2; // @[CPUTop.scala 35:21 44:10]
-  IFU IF ( // @[CPUTop.scala 17:16]
+  wire [4:0] src1add = ID_io_ctrlIO_src1; // @[CPUTop.scala 35:21 44:10]
+  wire [4:0] src2add = ID_io_ctrlIO_src2; // @[CPUTop.scala 36:21 45:10]
+  IFU IF ( // @[CPUTop.scala 18:16]
     .clock(IF_clock),
     .reset(IF_reset),
     .io_dnpc(IF_io_dnpc),
     .io_is_jump(IF_io_is_jump),
     .io_pc(IF_io_pc)
   );
-  IDU ID ( // @[CPUTop.scala 19:18]
+  IDU ID ( // @[CPUTop.scala 20:18]
     .io_inst(ID_io_inst),
     .io_ctrlIO_src1type(ID_io_ctrlIO_src1type),
     .io_ctrlIO_src2type(ID_io_ctrlIO_src2type),
@@ -273,7 +370,7 @@ module CPUTop(
     .io_ctrlIO_aluoptype(ID_io_ctrlIO_aluoptype),
     .io_ctrlIO_Imm(ID_io_ctrlIO_Imm)
   );
-  EXU EX ( // @[CPUTop.scala 21:18]
+  EXU EX ( // @[CPUTop.scala 22:18]
     .io_src1type(EX_io_src1type),
     .io_src2type(EX_io_src2type),
     .io_futype(EX_io_futype),
@@ -287,7 +384,7 @@ module CPUTop(
     .io1_is_jump(EX_io1_is_jump),
     .io1_dnpc(EX_io1_dnpc)
   );
-  DIP_model DIP ( // @[CPUTop.scala 23:19]
+  DIP_model DIP ( // @[CPUTop.scala 24:19]
     .is_break(DIP_is_break),
     .rf_0(DIP_rf_0),
     .rf_1(DIP_rf_1),
@@ -320,7 +417,8 @@ module CPUTop(
     .rf_28(DIP_rf_28),
     .rf_29(DIP_rf_29),
     .rf_30(DIP_rf_30),
-    .rf_31(DIP_rf_31)
+    .rf_31(DIP_rf_31),
+    .pc(DIP_pc)
   );
   assign rf_EX_io1_REG1_MPORT_en = 1'h1;
   assign rf_EX_io1_REG1_MPORT_addr = ID_io_ctrlIO_src1;
@@ -328,58 +426,155 @@ module CPUTop(
   assign rf_EX_io1_REG2_MPORT_en = 1'h1;
   assign rf_EX_io1_REG2_MPORT_addr = ID_io_ctrlIO_src2;
   assign rf_EX_io1_REG2_MPORT_data = rf[rf_EX_io1_REG2_MPORT_addr]; // @[RF.scala 6:17]
+  assign rf_DIP_io_rf_0_MPORT_en = 1'h1;
+  assign rf_DIP_io_rf_0_MPORT_addr = 5'h0;
+  assign rf_DIP_io_rf_0_MPORT_data = rf[rf_DIP_io_rf_0_MPORT_addr]; // @[RF.scala 6:17]
+  assign rf_DIP_io_rf_1_MPORT_en = 1'h1;
+  assign rf_DIP_io_rf_1_MPORT_addr = 5'h1;
+  assign rf_DIP_io_rf_1_MPORT_data = rf[rf_DIP_io_rf_1_MPORT_addr]; // @[RF.scala 6:17]
+  assign rf_DIP_io_rf_2_MPORT_en = 1'h1;
+  assign rf_DIP_io_rf_2_MPORT_addr = 5'h2;
+  assign rf_DIP_io_rf_2_MPORT_data = rf[rf_DIP_io_rf_2_MPORT_addr]; // @[RF.scala 6:17]
+  assign rf_DIP_io_rf_3_MPORT_en = 1'h1;
+  assign rf_DIP_io_rf_3_MPORT_addr = 5'h3;
+  assign rf_DIP_io_rf_3_MPORT_data = rf[rf_DIP_io_rf_3_MPORT_addr]; // @[RF.scala 6:17]
+  assign rf_DIP_io_rf_4_MPORT_en = 1'h1;
+  assign rf_DIP_io_rf_4_MPORT_addr = 5'h4;
+  assign rf_DIP_io_rf_4_MPORT_data = rf[rf_DIP_io_rf_4_MPORT_addr]; // @[RF.scala 6:17]
+  assign rf_DIP_io_rf_5_MPORT_en = 1'h1;
+  assign rf_DIP_io_rf_5_MPORT_addr = 5'h5;
+  assign rf_DIP_io_rf_5_MPORT_data = rf[rf_DIP_io_rf_5_MPORT_addr]; // @[RF.scala 6:17]
+  assign rf_DIP_io_rf_6_MPORT_en = 1'h1;
+  assign rf_DIP_io_rf_6_MPORT_addr = 5'h6;
+  assign rf_DIP_io_rf_6_MPORT_data = rf[rf_DIP_io_rf_6_MPORT_addr]; // @[RF.scala 6:17]
+  assign rf_DIP_io_rf_7_MPORT_en = 1'h1;
+  assign rf_DIP_io_rf_7_MPORT_addr = 5'h7;
+  assign rf_DIP_io_rf_7_MPORT_data = rf[rf_DIP_io_rf_7_MPORT_addr]; // @[RF.scala 6:17]
+  assign rf_DIP_io_rf_8_MPORT_en = 1'h1;
+  assign rf_DIP_io_rf_8_MPORT_addr = 5'h8;
+  assign rf_DIP_io_rf_8_MPORT_data = rf[rf_DIP_io_rf_8_MPORT_addr]; // @[RF.scala 6:17]
+  assign rf_DIP_io_rf_9_MPORT_en = 1'h1;
+  assign rf_DIP_io_rf_9_MPORT_addr = 5'h9;
+  assign rf_DIP_io_rf_9_MPORT_data = rf[rf_DIP_io_rf_9_MPORT_addr]; // @[RF.scala 6:17]
+  assign rf_DIP_io_rf_10_MPORT_en = 1'h1;
+  assign rf_DIP_io_rf_10_MPORT_addr = 5'ha;
+  assign rf_DIP_io_rf_10_MPORT_data = rf[rf_DIP_io_rf_10_MPORT_addr]; // @[RF.scala 6:17]
+  assign rf_DIP_io_rf_11_MPORT_en = 1'h1;
+  assign rf_DIP_io_rf_11_MPORT_addr = 5'hb;
+  assign rf_DIP_io_rf_11_MPORT_data = rf[rf_DIP_io_rf_11_MPORT_addr]; // @[RF.scala 6:17]
+  assign rf_DIP_io_rf_12_MPORT_en = 1'h1;
+  assign rf_DIP_io_rf_12_MPORT_addr = 5'hc;
+  assign rf_DIP_io_rf_12_MPORT_data = rf[rf_DIP_io_rf_12_MPORT_addr]; // @[RF.scala 6:17]
+  assign rf_DIP_io_rf_13_MPORT_en = 1'h1;
+  assign rf_DIP_io_rf_13_MPORT_addr = 5'hd;
+  assign rf_DIP_io_rf_13_MPORT_data = rf[rf_DIP_io_rf_13_MPORT_addr]; // @[RF.scala 6:17]
+  assign rf_DIP_io_rf_14_MPORT_en = 1'h1;
+  assign rf_DIP_io_rf_14_MPORT_addr = 5'he;
+  assign rf_DIP_io_rf_14_MPORT_data = rf[rf_DIP_io_rf_14_MPORT_addr]; // @[RF.scala 6:17]
+  assign rf_DIP_io_rf_15_MPORT_en = 1'h1;
+  assign rf_DIP_io_rf_15_MPORT_addr = 5'hf;
+  assign rf_DIP_io_rf_15_MPORT_data = rf[rf_DIP_io_rf_15_MPORT_addr]; // @[RF.scala 6:17]
+  assign rf_DIP_io_rf_16_MPORT_en = 1'h1;
+  assign rf_DIP_io_rf_16_MPORT_addr = 5'h10;
+  assign rf_DIP_io_rf_16_MPORT_data = rf[rf_DIP_io_rf_16_MPORT_addr]; // @[RF.scala 6:17]
+  assign rf_DIP_io_rf_17_MPORT_en = 1'h1;
+  assign rf_DIP_io_rf_17_MPORT_addr = 5'h11;
+  assign rf_DIP_io_rf_17_MPORT_data = rf[rf_DIP_io_rf_17_MPORT_addr]; // @[RF.scala 6:17]
+  assign rf_DIP_io_rf_18_MPORT_en = 1'h1;
+  assign rf_DIP_io_rf_18_MPORT_addr = 5'h12;
+  assign rf_DIP_io_rf_18_MPORT_data = rf[rf_DIP_io_rf_18_MPORT_addr]; // @[RF.scala 6:17]
+  assign rf_DIP_io_rf_19_MPORT_en = 1'h1;
+  assign rf_DIP_io_rf_19_MPORT_addr = 5'h13;
+  assign rf_DIP_io_rf_19_MPORT_data = rf[rf_DIP_io_rf_19_MPORT_addr]; // @[RF.scala 6:17]
+  assign rf_DIP_io_rf_20_MPORT_en = 1'h1;
+  assign rf_DIP_io_rf_20_MPORT_addr = 5'h14;
+  assign rf_DIP_io_rf_20_MPORT_data = rf[rf_DIP_io_rf_20_MPORT_addr]; // @[RF.scala 6:17]
+  assign rf_DIP_io_rf_21_MPORT_en = 1'h1;
+  assign rf_DIP_io_rf_21_MPORT_addr = 5'h15;
+  assign rf_DIP_io_rf_21_MPORT_data = rf[rf_DIP_io_rf_21_MPORT_addr]; // @[RF.scala 6:17]
+  assign rf_DIP_io_rf_22_MPORT_en = 1'h1;
+  assign rf_DIP_io_rf_22_MPORT_addr = 5'h16;
+  assign rf_DIP_io_rf_22_MPORT_data = rf[rf_DIP_io_rf_22_MPORT_addr]; // @[RF.scala 6:17]
+  assign rf_DIP_io_rf_23_MPORT_en = 1'h1;
+  assign rf_DIP_io_rf_23_MPORT_addr = 5'h17;
+  assign rf_DIP_io_rf_23_MPORT_data = rf[rf_DIP_io_rf_23_MPORT_addr]; // @[RF.scala 6:17]
+  assign rf_DIP_io_rf_24_MPORT_en = 1'h1;
+  assign rf_DIP_io_rf_24_MPORT_addr = 5'h18;
+  assign rf_DIP_io_rf_24_MPORT_data = rf[rf_DIP_io_rf_24_MPORT_addr]; // @[RF.scala 6:17]
+  assign rf_DIP_io_rf_25_MPORT_en = 1'h1;
+  assign rf_DIP_io_rf_25_MPORT_addr = 5'h19;
+  assign rf_DIP_io_rf_25_MPORT_data = rf[rf_DIP_io_rf_25_MPORT_addr]; // @[RF.scala 6:17]
+  assign rf_DIP_io_rf_26_MPORT_en = 1'h1;
+  assign rf_DIP_io_rf_26_MPORT_addr = 5'h1a;
+  assign rf_DIP_io_rf_26_MPORT_data = rf[rf_DIP_io_rf_26_MPORT_addr]; // @[RF.scala 6:17]
+  assign rf_DIP_io_rf_27_MPORT_en = 1'h1;
+  assign rf_DIP_io_rf_27_MPORT_addr = 5'h1b;
+  assign rf_DIP_io_rf_27_MPORT_data = rf[rf_DIP_io_rf_27_MPORT_addr]; // @[RF.scala 6:17]
+  assign rf_DIP_io_rf_28_MPORT_en = 1'h1;
+  assign rf_DIP_io_rf_28_MPORT_addr = 5'h1c;
+  assign rf_DIP_io_rf_28_MPORT_data = rf[rf_DIP_io_rf_28_MPORT_addr]; // @[RF.scala 6:17]
+  assign rf_DIP_io_rf_29_MPORT_en = 1'h1;
+  assign rf_DIP_io_rf_29_MPORT_addr = 5'h1d;
+  assign rf_DIP_io_rf_29_MPORT_data = rf[rf_DIP_io_rf_29_MPORT_addr]; // @[RF.scala 6:17]
+  assign rf_DIP_io_rf_30_MPORT_en = 1'h1;
+  assign rf_DIP_io_rf_30_MPORT_addr = 5'h1e;
+  assign rf_DIP_io_rf_30_MPORT_data = rf[rf_DIP_io_rf_30_MPORT_addr]; // @[RF.scala 6:17]
+  assign rf_DIP_io_rf_31_MPORT_en = 1'h1;
+  assign rf_DIP_io_rf_31_MPORT_addr = 5'h1f;
+  assign rf_DIP_io_rf_31_MPORT_data = rf[rf_DIP_io_rf_31_MPORT_addr]; // @[RF.scala 6:17]
   assign rf_MPORT_data = EX_io1_result;
   assign rf_MPORT_addr = ID_io_ctrlIO_rd;
   assign rf_MPORT_mask = 1'h1;
   assign rf_MPORT_en = 1'h1;
-  assign io_pc = IF_io_pc; // @[CPUTop.scala 27:9]
-  assign io_result = EX_io1_result; // @[CPUTop.scala 47:13]
+  assign io_pc = IF_io_pc; // @[CPUTop.scala 28:9]
+  assign io_result = EX_io1_result; // @[CPUTop.scala 48:13]
   assign IF_clock = clock;
   assign IF_reset = reset;
-  assign IF_io_dnpc = EX_io1_dnpc; // @[CPUTop.scala 39:14]
-  assign IF_io_is_jump = EX_io1_is_jump; // @[CPUTop.scala 40:17]
-  assign ID_io_inst = io_inst; // @[CPUTop.scala 29:14]
-  assign EX_io_src1type = ID_io_ctrlIO_src1type; // @[CPUTop.scala 31:16]
-  assign EX_io_src2type = ID_io_ctrlIO_src2type; // @[CPUTop.scala 31:16]
-  assign EX_io_futype = ID_io_ctrlIO_futype; // @[CPUTop.scala 31:16]
-  assign EX_io_aluoptype = ID_io_ctrlIO_aluoptype; // @[CPUTop.scala 31:16]
-  assign EX_io_Imm = ID_io_ctrlIO_Imm; // @[CPUTop.scala 31:16]
+  assign IF_io_dnpc = EX_io1_dnpc; // @[CPUTop.scala 40:14]
+  assign IF_io_is_jump = EX_io1_is_jump; // @[CPUTop.scala 41:17]
+  assign ID_io_inst = io_inst; // @[CPUTop.scala 30:14]
+  assign EX_io_src1type = ID_io_ctrlIO_src1type; // @[CPUTop.scala 32:16]
+  assign EX_io_src2type = ID_io_ctrlIO_src2type; // @[CPUTop.scala 32:16]
+  assign EX_io_futype = ID_io_ctrlIO_futype; // @[CPUTop.scala 32:16]
+  assign EX_io_aluoptype = ID_io_ctrlIO_aluoptype; // @[CPUTop.scala 32:16]
+  assign EX_io_Imm = ID_io_ctrlIO_Imm; // @[CPUTop.scala 32:16]
   assign EX_io1_REG1 = src1add == 5'h0 ? 64'h0 : rf_EX_io1_REG1_MPORT_data; // @[RF.scala 7:37]
   assign EX_io1_REG2 = src2add == 5'h0 ? 64'h0 : rf_EX_io1_REG2_MPORT_data; // @[RF.scala 7:37]
-  assign EX_io1_PC = IF_io_pc; // @[CPUTop.scala 32:13]
-  assign DIP_is_break = EX_io1_is_break; // @[CPUTop.scala 49:19]
-  assign DIP_rf_0 = 64'h0;
-  assign DIP_rf_1 = 64'h0;
-  assign DIP_rf_2 = 64'h0;
-  assign DIP_rf_3 = 64'h0;
-  assign DIP_rf_4 = 64'h0;
-  assign DIP_rf_5 = 64'h0;
-  assign DIP_rf_6 = 64'h0;
-  assign DIP_rf_7 = 64'h0;
-  assign DIP_rf_8 = 64'h0;
-  assign DIP_rf_9 = 64'h0;
-  assign DIP_rf_10 = 64'h0;
-  assign DIP_rf_11 = 64'h0;
-  assign DIP_rf_12 = 64'h0;
-  assign DIP_rf_13 = 64'h0;
-  assign DIP_rf_14 = 64'h0;
-  assign DIP_rf_15 = 64'h0;
-  assign DIP_rf_16 = 64'h0;
-  assign DIP_rf_17 = 64'h0;
-  assign DIP_rf_18 = 64'h0;
-  assign DIP_rf_19 = 64'h0;
-  assign DIP_rf_20 = 64'h0;
-  assign DIP_rf_21 = 64'h0;
-  assign DIP_rf_22 = 64'h0;
-  assign DIP_rf_23 = 64'h0;
-  assign DIP_rf_24 = 64'h0;
-  assign DIP_rf_25 = 64'h0;
-  assign DIP_rf_26 = 64'h0;
-  assign DIP_rf_27 = 64'h0;
-  assign DIP_rf_28 = 64'h0;
-  assign DIP_rf_29 = 64'h0;
-  assign DIP_rf_30 = 64'h0;
-  assign DIP_rf_31 = 64'h0;
+  assign EX_io1_PC = IF_io_pc; // @[CPUTop.scala 33:13]
+  assign DIP_is_break = EX_io1_is_break; // @[CPUTop.scala 50:19]
+  assign DIP_rf_0 = rf_DIP_io_rf_0_MPORT_data; // @[CPUTop.scala 52:18]
+  assign DIP_rf_1 = rf_DIP_io_rf_1_MPORT_data; // @[CPUTop.scala 52:18]
+  assign DIP_rf_2 = rf_DIP_io_rf_2_MPORT_data; // @[CPUTop.scala 52:18]
+  assign DIP_rf_3 = rf_DIP_io_rf_3_MPORT_data; // @[CPUTop.scala 52:18]
+  assign DIP_rf_4 = rf_DIP_io_rf_4_MPORT_data; // @[CPUTop.scala 52:18]
+  assign DIP_rf_5 = rf_DIP_io_rf_5_MPORT_data; // @[CPUTop.scala 52:18]
+  assign DIP_rf_6 = rf_DIP_io_rf_6_MPORT_data; // @[CPUTop.scala 52:18]
+  assign DIP_rf_7 = rf_DIP_io_rf_7_MPORT_data; // @[CPUTop.scala 52:18]
+  assign DIP_rf_8 = rf_DIP_io_rf_8_MPORT_data; // @[CPUTop.scala 52:18]
+  assign DIP_rf_9 = rf_DIP_io_rf_9_MPORT_data; // @[CPUTop.scala 52:18]
+  assign DIP_rf_10 = rf_DIP_io_rf_10_MPORT_data; // @[CPUTop.scala 52:18]
+  assign DIP_rf_11 = rf_DIP_io_rf_11_MPORT_data; // @[CPUTop.scala 52:18]
+  assign DIP_rf_12 = rf_DIP_io_rf_12_MPORT_data; // @[CPUTop.scala 52:18]
+  assign DIP_rf_13 = rf_DIP_io_rf_13_MPORT_data; // @[CPUTop.scala 52:18]
+  assign DIP_rf_14 = rf_DIP_io_rf_14_MPORT_data; // @[CPUTop.scala 52:18]
+  assign DIP_rf_15 = rf_DIP_io_rf_15_MPORT_data; // @[CPUTop.scala 52:18]
+  assign DIP_rf_16 = rf_DIP_io_rf_16_MPORT_data; // @[CPUTop.scala 52:18]
+  assign DIP_rf_17 = rf_DIP_io_rf_17_MPORT_data; // @[CPUTop.scala 52:18]
+  assign DIP_rf_18 = rf_DIP_io_rf_18_MPORT_data; // @[CPUTop.scala 52:18]
+  assign DIP_rf_19 = rf_DIP_io_rf_19_MPORT_data; // @[CPUTop.scala 52:18]
+  assign DIP_rf_20 = rf_DIP_io_rf_20_MPORT_data; // @[CPUTop.scala 52:18]
+  assign DIP_rf_21 = rf_DIP_io_rf_21_MPORT_data; // @[CPUTop.scala 52:18]
+  assign DIP_rf_22 = rf_DIP_io_rf_22_MPORT_data; // @[CPUTop.scala 52:18]
+  assign DIP_rf_23 = rf_DIP_io_rf_23_MPORT_data; // @[CPUTop.scala 52:18]
+  assign DIP_rf_24 = rf_DIP_io_rf_24_MPORT_data; // @[CPUTop.scala 52:18]
+  assign DIP_rf_25 = rf_DIP_io_rf_25_MPORT_data; // @[CPUTop.scala 52:18]
+  assign DIP_rf_26 = rf_DIP_io_rf_26_MPORT_data; // @[CPUTop.scala 52:18]
+  assign DIP_rf_27 = rf_DIP_io_rf_27_MPORT_data; // @[CPUTop.scala 52:18]
+  assign DIP_rf_28 = rf_DIP_io_rf_28_MPORT_data; // @[CPUTop.scala 52:18]
+  assign DIP_rf_29 = rf_DIP_io_rf_29_MPORT_data; // @[CPUTop.scala 52:18]
+  assign DIP_rf_30 = rf_DIP_io_rf_30_MPORT_data; // @[CPUTop.scala 52:18]
+  assign DIP_rf_31 = rf_DIP_io_rf_31_MPORT_data; // @[CPUTop.scala 52:18]
+  assign DIP_pc = IF_io_pc; // @[CPUTop.scala 54:13]
   always @(posedge clock) begin
     if (rf_MPORT_en & rf_MPORT_mask) begin
       rf[rf_MPORT_addr] <= rf_MPORT_data; // @[RF.scala 6:17]

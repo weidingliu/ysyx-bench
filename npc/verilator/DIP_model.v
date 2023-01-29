@@ -1,9 +1,10 @@
 //import "DPI-C" function void ebreak();
 
 import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
-
+import "DPI-C" function void set_pc(input bit [63:0]addr);
 
 module DIP_model(input wire is_break,
+input wire [63:0] pc,
 input wire [63:0]rf_0,
 input wire [63:0]rf_1,
 input wire [63:0]rf_2,
@@ -46,7 +47,7 @@ always @(*) begin
     end
 
 end
-wire [31:0]rf[63:0];
+wire [63:0]rf[31:0];
 
 assign rf[0]=rf_0;
 assign rf[1]=rf_1;
@@ -82,7 +83,7 @@ assign rf[30]=rf_30;
 assign rf[31]=rf_31;
 
 initial begin 
-
+set_pc(pc);
 set_gpr_ptr(rf);  // rf为通用寄存器的二维数组变量
 
 end

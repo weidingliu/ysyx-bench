@@ -6,6 +6,7 @@ class DIP_model extends BlackBox{
   val io = IO(new Bundle() {
     val is_break = Input(Bool())
     val rf=Input(Vec(32,UInt(64.W)))
+    val pc=Input(UInt(64.W))
   })
 }
 class CPUTop extends Module with paramete{
@@ -50,6 +51,7 @@ class CPUTop extends Module with paramete{
   for (i <- 0 until NReg){
     DIP.io.rf(i) := Reg.rf(i)
   }
+  DIP.io.pc := IF.io.pc
 
 }
 
