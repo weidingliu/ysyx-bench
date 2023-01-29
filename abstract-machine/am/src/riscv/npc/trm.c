@@ -18,6 +18,10 @@ void putch(char ch) {
 }
 
 void halt(int code) {
+  
+  asm volatile("mv a0, %0; ebreak" : :"r"(code));
+  //asm volatile("0000000 00001 00000 000 00000 11100 11");
+  
   while (1);
 }
 
