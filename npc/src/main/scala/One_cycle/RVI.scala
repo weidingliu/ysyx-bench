@@ -16,7 +16,7 @@ object RVI_ALU extends paramete{
       AUIPC -> List(InstrType.InstrU,FUType.alu,ALUOPType.add),
       LUI -> List(InstrType.InstrU,FUType.alu,ALUOPType.add),
       ORI -> List(InstrType.InstrI,FUType.alu,ALUOPType.or),
-      JAL -> List(InstrType.InstrJ,FUType.jump,ALUOPType.NOP),
+      JAL -> List(InstrType.InstrJ,FUType.jump,ALUOPType.jal),
       Ebreak -> List(InstrType.InstrN,FUType.alu,ALUOPType.ebreak),
   )
 }

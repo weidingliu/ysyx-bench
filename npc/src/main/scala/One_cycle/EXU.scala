@@ -8,7 +8,7 @@ object ALUOPType{
   def sll = "b1000001".U
   def ebreak = "b1000010".U
   def auipc ="b1000011".U
-  def jal = "b1010001".U
+  def jal = "b0011001".U
   def or = "b1000100".U
   def apply() = UInt(7.W)
 }
@@ -105,7 +105,7 @@ class EXU extends Module with paramete {
   }
   io1.result:= result_tem
 
-  io1.is_jump := Mux(io.futype===FUType.jump,0.U,0.U)
+  io1.is_jump := Mux(io.futype===FUType.jump,1.U,0.U)
 //  io1.is_jump := Mux(io.futype===FUType.branch,1.U,0.U)
 
   switch(io.aluoptype){
