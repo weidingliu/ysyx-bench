@@ -22,8 +22,8 @@ extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
   cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
 }
 void set_pc(const svBitVecVal *pc){
-    printf("%d\n",*pc);
-    //PC=(uint64_t) pc;
+    //printf("%d\n",*pc);
+    PC=(uint64_t *)pc;
 }
 
 // 一个输出RTL中通用寄存器的值的示例
@@ -105,7 +105,7 @@ while(sim_time<MAX_SIM_TIME && (!contextp->gotFinish())){
     m_trace->dump(sim_time);
     
     sim_time++;
-    //printf("%ln\n",PC);
+    printf("%lx\n",*PC);
     //if() break;
     //printf("%ld\n",sim_time);
 }
