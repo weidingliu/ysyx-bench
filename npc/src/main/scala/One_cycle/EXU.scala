@@ -9,6 +9,7 @@ object ALUOPType{
   def ebreak = "b1000010".U
   def auipc ="b1000011".U
   def jal = "b0011001".U
+  def jalr ="b1001000".U
   def or = "b1000100".U
   def apply() = UInt(7.W)
 }
@@ -111,6 +112,9 @@ class EXU extends Module with paramete {
   switch(io.aluoptype){
     is(ALUOPType.jal) {
       dnpc := src1 + src2
+    }
+    is(ALUOPType.jalr){
+      dnpc := Cat((src1+src2)(xlen-1,1),0.U)
     }
   }
 
