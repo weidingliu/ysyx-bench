@@ -7,7 +7,7 @@
 #include <svdpi.h>
 //#include "VCPUTop__Dpi.h"
 
-#define MAX_SIM_TIME 1000
+#define MAX_SIM_TIME 2000
 #define MAX_MEM 480
 vluint64_t sim_time=0;
 uint32_t mem[MAX_MEM];
