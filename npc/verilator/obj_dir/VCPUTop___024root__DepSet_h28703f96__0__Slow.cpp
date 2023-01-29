@@ -12,38 +12,37 @@ VL_ATTR_COLD void VCPUTop___024root___settle__TOP__0(VCPUTop___024root* vlSelf) 
     VL_DEBUG_IF(VL_DBG_MSGF("+    VCPUTop___024root___settle__TOP__0\n"); );
     // Body
     if ((0x13U == (0x707fU & vlSelf->io_inst))) {
+        vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_1 = 0U;
         vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype = 0x40U;
         vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0 = 0U;
-        vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_1 = 0U;
     } else if ((0x1013U == (0xfc00707fU & vlSelf->io_inst))) {
+        vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_1 = 0U;
         vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype = 0x41U;
         vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0 = 0U;
-        vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_1 = 0U;
     } else if ((0x17U == (0x7fU & vlSelf->io_inst))) {
+        vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_1 = 0U;
         vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype = 0x40U;
         vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0 = 3U;
-        vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_1 = 0U;
     } else if ((0x37U == (0x7fU & vlSelf->io_inst))) {
+        vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_1 = 0U;
         vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype = 0x40U;
         vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0 = 3U;
-        vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_1 = 0U;
     } else if ((0x6013U == (0x707fU & vlSelf->io_inst))) {
+        vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_1 = 0U;
         vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype = 0x44U;
         vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0 = 0U;
-        vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_1 = 0U;
     } else if ((0x6fU == (0x7fU & vlSelf->io_inst))) {
+        vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_1 = 3U;
         vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype = 0U;
         vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0 = 4U;
-        vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_1 = 3U;
     } else {
+        vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_1 = 0U;
         vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype 
             = ((0x100073U == vlSelf->io_inst) ? 0x42U
                 : 0U);
         vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0 = 2U;
-        vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_1 = 0U;
     }
     vlSelf->io_pc = vlSelf->CPUTop__DOT__IF__DOT__temp;
-    vlSelf->CPUTop__DOT__EX_io1_PC = vlSelf->CPUTop__DOT__IF__DOT__temp;
     vlSelf->CPUTop__DOT__IF__DOT___temp_T_2 = (4ULL 
                                                + vlSelf->CPUTop__DOT__IF__DOT__temp);
     if (VL_UNLIKELY((0x42U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)))) {
@@ -197,7 +196,6 @@ VL_ATTR_COLD void VCPUTop___024root___ctor_var_reset(VCPUTop___024root* vlSelf) 
     vlSelf->io_inst = VL_RAND_RESET_I(32);
     vlSelf->io_result = VL_RAND_RESET_Q(64);
     vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype = VL_RAND_RESET_I(7);
-    vlSelf->CPUTop__DOT__EX_io1_PC = VL_RAND_RESET_Q(64);
     vlSelf->CPUTop__DOT__EX_io1_result = VL_RAND_RESET_Q(64);
     for (int __Vi0=0; __Vi0<32; ++__Vi0) {
         vlSelf->CPUTop__DOT__rf[__Vi0] = VL_RAND_RESET_Q(64);

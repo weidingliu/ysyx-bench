@@ -24,7 +24,6 @@ class VCPUTop___024root final : public VerilatedModule {
     VL_IN(io_inst,31,0);
     VL_OUT64(io_pc,63,0);
     VL_OUT64(io_result,63,0);
-    QData/*63:0*/ CPUTop__DOT__EX_io1_PC;
     QData/*63:0*/ CPUTop__DOT__EX_io1_result;
     QData/*63:0*/ CPUTop__DOT__IF__DOT__temp;
     QData/*63:0*/ CPUTop__DOT__IF__DOT___temp_T_2;

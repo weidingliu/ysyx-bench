@@ -1,8 +1,6 @@
 module IFU(
   input         clock,
   input         reset,
-  input  [63:0] io_dnpc,
-  input         io_is_jump,
   output [63:0] io_pc
 );
 `ifdef RANDOMIZE_REG_INIT
@@ -14,10 +12,8 @@ module IFU(
   always @(posedge clock) begin
     if (reset) begin // @[IFU.scala 13:19]
       temp <= 64'h80000000; // @[IFU.scala 13:19]
-    end else if (io_is_jump) begin // @[IFU.scala 14:14]
-      temp <= io_dnpc;
     end else begin
-      temp <= _temp_T_2;
+      temp <= _temp_T_2; // @[IFU.scala 14:8]
     end
   end
 // Register and memory initialization
@@ -147,9 +143,7 @@ module EXU(
   input  [63:0] io1_REG2,
   input  [63:0] io1_PC,
   output [63:0] io1_result,
-  output        io1_is_break,
-  output        io1_is_jump,
-  output [63:0] io1_dnpc
+  output        io1_is_break
 );
   wire [63:0] _GEN_1 = 3'h2 == io_src1type ? io1_PC : 64'h0; // @[EXU.scala 45:22 50:12]
   wire [63:0] src1 = 3'h0 == io_src1type ? io1_REG1 : _GEN_1; // @[EXU.scala 45:22 47:12]
@@ -164,8 +158,6 @@ module EXU(
   wire [63:0] _GEN_9 = 3'h3 == io_futype ? jump_result : 64'h0; // @[EXU.scala 92:20 97:18]
   assign io1_result = 3'h0 == io_futype ? alu_result : _GEN_9; // @[EXU.scala 92:20 94:18]
   assign io1_is_break = io_aluoptype == 7'h42; // @[EXU.scala 76:35]
-  assign io1_is_jump = io_futype == 3'h3; // @[EXU.scala 108:31]
-  assign io1_dnpc = io1_PC; // @[EXU.scala 118:12]
 endmodule
 module CPUTop(
   input         clock,
@@ -179,8 +171,6 @@ module CPUTop(
 `endif // RANDOMIZE_MEM_INIT
   wire  IF_clock; // @[CPUTop.scala 16:16]
   wire  IF_reset; // @[CPUTop.scala 16:16]
-  wire [63:0] IF_io_dnpc; // @[CPUTop.scala 16:16]
-  wire  IF_io_is_jump; // @[CPUTop.scala 16:16]
   wire [63:0] IF_io_pc; // @[CPUTop.scala 16:16]
   wire [31:0] ID_io_inst; // @[CPUTop.scala 18:18]
   wire [2:0] ID_io_ctrlIO_src1type; // @[CPUTop.scala 18:18]
@@ -201,8 +191,6 @@ module CPUTop(
   wire [63:0] EX_io1_PC; // @[CPUTop.scala 20:18]
   wire [63:0] EX_io1_result; // @[CPUTop.scala 20:18]
   wire  EX_io1_is_break; // @[CPUTop.scala 20:18]
-  wire  EX_io1_is_jump; // @[CPUTop.scala 20:18]
-  wire [63:0] EX_io1_dnpc; // @[CPUTop.scala 20:18]
   wire  DIP_is_break; // @[CPUTop.scala 22:19]
   reg [63:0] rf [0:31]; // @[RF.scala 6:17]
   wire  rf_EX_io1_REG1_MPORT_en; // @[RF.scala 6:17]
@@ -220,8 +208,6 @@ module CPUTop(
   IFU IF ( // @[CPUTop.scala 16:16]
     .clock(IF_clock),
     .reset(IF_reset),
-    .io_dnpc(IF_io_dnpc),
-    .io_is_jump(IF_io_is_jump),
     .io_pc(IF_io_pc)
   );
   IDU ID ( // @[CPUTop.scala 18:18]
@@ -245,9 +231,7 @@ module CPUTop(
     .io1_REG2(EX_io1_REG2),
     .io1_PC(EX_io1_PC),
     .io1_result(EX_io1_result),
-    .io1_is_break(EX_io1_is_break),
-    .io1_is_jump(EX_io1_is_jump),
-    .io1_dnpc(EX_io1_dnpc)
+    .io1_is_break(EX_io1_is_break)
   );
   DIP_model DIP ( // @[CPUTop.scala 22:19]
     .is_break(DIP_is_break)
@@ -266,8 +250,6 @@ module CPUTop(
   assign io_result = EX_io1_result; // @[CPUTop.scala 46:13]
   assign IF_clock = clock;
   assign IF_reset = reset;
-  assign IF_io_dnpc = EX_io1_dnpc; // @[CPUTop.scala 38:14]
-  assign IF_io_is_jump = EX_io1_is_jump; // @[CPUTop.scala 39:17]
   assign ID_io_inst = io_inst; // @[CPUTop.scala 28:14]
   assign EX_io_src1type = ID_io_ctrlIO_src1type; // @[CPUTop.scala 30:16]
   assign EX_io_src2type = ID_io_ctrlIO_src2type; // @[CPUTop.scala 30:16]

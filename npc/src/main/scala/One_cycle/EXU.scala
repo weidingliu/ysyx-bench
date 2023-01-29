@@ -105,7 +105,7 @@ class EXU extends Module with paramete {
   }
   io1.result:= result_tem
 
-  io1.is_jump := Mux(io.futype===FUType.jump,1.U,0.U)
+  io1.is_jump := Mux(io.futype===FUType.jump,0.U,0.U)
 //  io1.is_jump := Mux(io.futype===FUType.branch,1.U,0.U)
 
   switch(io.aluoptype){
@@ -115,7 +115,7 @@ class EXU extends Module with paramete {
   }
 
 
-  io1.dnpc := io1.PC
+  io1.dnpc := dnpc
   io1.is_branch := 0.U
 
 }
