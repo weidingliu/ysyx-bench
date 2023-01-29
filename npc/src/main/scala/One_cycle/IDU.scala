@@ -8,6 +8,7 @@ object InstrType{
   def InstrN = "b0010".U
 
   def InstrU = "b0011".U
+  def InstrJ = "b0100".U
 
 }
 
@@ -15,6 +16,7 @@ object FUType{
   def alu = "b000".U
   def shift = "b001".U
   def branch = "b010".U
+  def jump ="b011".U
   def apply() = UInt(3.W)
 }
 
@@ -53,7 +55,7 @@ class IDU extends Module with paramete{
 
   val srctype_list = Array(
     BitPat(InstrType.InstrI) -> List(SRCType.R,SRCType.imm),
-//
+    BitPat(InstrType.InstrJ) -> List(SRCType.PC,SRCType.imm),
     BitPat(InstrType.InstrU) -> List(SRCType.PC,SRCType.imm),
     BitPat(InstrType.InstrR) -> List(SRCType.R,SRCType.R),
     BitPat(InstrType.InstrN) -> List(SRCType.R,SRCType.R),
@@ -72,6 +74,7 @@ class IDU extends Module with paramete{
   val immtable = Array(
     BitPat(InstrType.InstrI) -> List(SIgEXtend(io.inst(31, 20), xlen)),
     BitPat(InstrType.InstrU) -> List(SIgEXtend(Cat(io.inst(31,12),Fill(12,0.U)), xlen)),
+    BitPat(InstrType.InstrJ) -> List(SIgEXtend(Cat(io.inst(31),io.inst(19,12),io.inst(20),io.inst(30,21),Fill(1,0.U)), xlen)),
   )
   val imm :: Nil= ListLookup(instrtype,List(0.U(xlen.W)),immtable)
   io.ctrlIO.Imm := imm

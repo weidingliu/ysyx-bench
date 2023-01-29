@@ -35,6 +35,10 @@ class CPUTop extends Module with paramete{
   EX.io1.REG1 := Reg.read(src1add)
   EX.io1.REG2 := Reg.read(src2add)
 
+  IF.io.dnpc := EX.io1.dnpc
+  IF.io.is_jump := EX.io1.is_jump
+  IF.io.is_branch := EX.io1.is_branch
+
   src1add:= ID.io.ctrlIO.src1
   src2add:= ID.io.ctrlIO.src2
   Reg.write(ID.io.ctrlIO.rd,EX.io1.result)

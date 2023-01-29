@@ -8,6 +8,7 @@ object ALUOPType{
   def sll = "b1000001".U
   def ebreak = "b1000010".U
   def auipc ="b1000011".U
+  def jal = "b1000101".U
   def or = "b1000100".U
   def apply() = UInt(7.W)
 }
@@ -33,6 +34,10 @@ class EXU extends Module with paramete {
     val PC = Input(UInt(xlen.W))
     val result = Output(UInt(xlen.W))
     val is_break = Output(Bool())
+
+    val is_jump=Output(Bool())
+    val is_branch=Output(Bool())
+    val dnpc=Output(UInt(xlen.W))
 
   })
   val src1=WireDefault(0.U(xlen.W))
@@ -67,7 +72,7 @@ class EXU extends Module with paramete {
 //
 //  ))
   val alu_result = WireDefault(0.U(xlen.W))
-
+  val dnpc=WireDefault(0.U(xlen.W))
   io1.is_break := Mux(io.aluoptype===ALUOPType.ebreak,1.U,0.U)
   switch(io.aluoptype){
     is(ALUOPType.add){
@@ -79,7 +84,38 @@ class EXU extends Module with paramete {
 
 
   }
-  io1.result := alu_result
 
+  val jump_result=WireDefault(0.U(xlen.W))
+  jump_result := Mux(io.futype===FUType.jump,io1.PC+4.U(xlen.W),0.U(xlen.W))
+
+  val result_tem=WireDefault(0.U(xlen.W))
+  switch(io.futype){
+    is(FUType.alu){
+      result_tem := alu_result
+    }
+    is(FUType.jump){
+      result_tem := jump_result
+    }
+    is(FUType.branch){
+      result_tem := 0.U(xlen.W)
+    }
+    is(FUType.shift){
+      result_tem:= 0.U(xlen.W)
+    }
+  }
+  io1.result:= result_tem
+
+  io1.is_jump := Mux(io.futype===FUType.jump,1.U,0.U)
+//  io1.is_jump := Mux(io.futype===FUType.branch,1.U,0.U)
+
+  switch(io.aluoptype){
+    is(ALUOPType.jal) {
+      dnpc := src1 + src2
+    }
+  }
+
+
+  io1.dnpc := io1.PC
+  io1.is_branch := 0.U
 
 }
