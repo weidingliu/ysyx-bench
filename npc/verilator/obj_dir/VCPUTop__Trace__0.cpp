@@ -42,7 +42,7 @@ void VCPUTop___024root__trace_chg_sub_0(VCPUTop___024root* vlSelf, VerilatedVcd:
         bufp->chgCData(oldp+13,(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0),4);
         bufp->chgCData(oldp+14,(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_1),2);
         bufp->chgCData(oldp+15,(((8U == (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0))
-                                  ? 0U : ((4U == (7U 
+                                  ? 0U : ((7U == (7U 
                                                   & (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0)))
                                            ? 2U : (
                                                    (3U 
@@ -115,7 +115,7 @@ void VCPUTop___024root__trace_chg_sub_0(VCPUTop___024root* vlSelf, VerilatedVcd:
                                       << 0x20U) | (QData)((IData)(
                                                                   (0xfffff000U 
                                                                    & vlSelf->io_inst))))
-                                  : ((4U == (7U & (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0)))
+                                  : ((7U == (7U & (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0)))
                                       ? ((((vlSelf->io_inst 
                                             >> 0x1fU)
                                             ? 0x7ffffffffffULL

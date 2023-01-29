@@ -4,11 +4,11 @@ import chisel3.util._
 import chisel3.util.experimental._
 object InstrType{
   def InstrI = "b1000".U
-  def InstrR = "b1001".U
-  def InstrN = "b0010".U
+  def InstrR = "b0101".U
+  def InstrN = "b0000".U
 
   def InstrU = "b0011".U
-  def InstrJ = "b0100".U
+  def InstrJ = "b0111".U
 
 }
 

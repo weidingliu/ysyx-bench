@@ -163,7 +163,7 @@ VL_ATTR_COLD void VCPUTop___024root__trace_full_sub_0(VCPUTop___024root* vlSelf,
     bufp->fullCData(oldp+14,(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0),4);
     bufp->fullCData(oldp+15,(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_1),2);
     bufp->fullCData(oldp+16,(((8U == (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0))
-                               ? 0U : ((4U == (7U & (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0)))
+                               ? 0U : ((7U == (7U & (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0)))
                                         ? 2U : ((3U 
                                                  == 
                                                  (3U 
@@ -231,7 +231,7 @@ VL_ATTR_COLD void VCPUTop___024root__trace_full_sub_0(VCPUTop___024root* vlSelf,
                                        << 0x20U) | (QData)((IData)(
                                                                    (0xfffff000U 
                                                                     & vlSelf->io_inst))))
-                                   : ((4U == (7U & (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0)))
+                                   : ((7U == (7U & (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0)))
                                        ? ((((vlSelf->io_inst 
                                              >> 0x1fU)
                                              ? 0x7ffffffffffULL

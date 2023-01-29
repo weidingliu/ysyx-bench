@@ -8,7 +8,7 @@ object ALUOPType{
   def sll = "b1000001".U
   def ebreak = "b1000010".U
   def auipc ="b1000011".U
-  def jal = "b1000101".U
+  def jal = "b1010001".U
   def or = "b1000100".U
   def apply() = UInt(7.W)
 }
