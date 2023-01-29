@@ -17,14 +17,14 @@ uint32_t mem[MAX_MEM];
 uint32_t mem_size;
 
 uint64_t *cpu_gpr = NULL;
-uint64_t PC;
+long long int PC;
 extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
   cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
 }
 
 extern "C" void set_pc( long long int pc){
-    printf("%lld\n",pc);
-    //PC=pc->bval;
+    //printf("%lld\n",pc);
+    PC=pc;
     
 }
 
@@ -107,7 +107,7 @@ while(sim_time<MAX_SIM_TIME && (!contextp->gotFinish())){
     m_trace->dump(sim_time);
     
     sim_time++;
-    printf("%lx\n",PC);
+    printf("%llx\n",PC);
     //if() break;
     //printf("%ld\n",sim_time);
 }
