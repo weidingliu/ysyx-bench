@@ -24,7 +24,7 @@ extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
 
 extern "C" void set_pc( long long int pc){
     //printf("%lld\n",pc);
-    PC=pc;
+    //PC=pc;
     
 }
 
@@ -107,7 +107,7 @@ while(sim_time<MAX_SIM_TIME && (!contextp->gotFinish())){
     m_trace->dump(sim_time);
     
     sim_time++;
-    printf("%llx\n",PC);
+    //printf("%llx\n",*PC);
     //if() break;
     //printf("%ld\n",sim_time);
 }
