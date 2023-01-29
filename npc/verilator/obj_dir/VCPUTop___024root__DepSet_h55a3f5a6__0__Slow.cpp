@@ -8,7 +8,7 @@
 #include "VCPUTop__Syms.h"
 #include "VCPUTop___024root.h"
 
-void VCPUTop___024unit____Vdpiimwrap_set_pc_TOP____024unit(QData/*63:0*/ addr);
+void VCPUTop___024unit____Vdpiimwrap_set_pc_TOP____024unit(QData/*63:0*/ pc);
 void VCPUTop___024unit____Vdpiimwrap_set_gpr_ptr__Vdpioc2_TOP____024unit(const VlUnpacked<QData/*63:0*/, 32> &a);
 
 VL_ATTR_COLD void VCPUTop___024root___initial__TOP__0(VCPUTop___024root* vlSelf) {

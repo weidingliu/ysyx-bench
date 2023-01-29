@@ -19,12 +19,12 @@ VL_INLINE_OPT void VCPUTop___024unit____Vdpiimwrap_set_gpr_ptr__Vdpioc2_TOP____0
     set_gpr_ptr(&a__Vopenarray);
 }
 
-extern "C" void set_pc(const svBitVecVal* addr);
+extern "C" void set_pc(long long pc);
 
-VL_INLINE_OPT void VCPUTop___024unit____Vdpiimwrap_set_pc_TOP____024unit(QData/*63:0*/ addr) {
+VL_INLINE_OPT void VCPUTop___024unit____Vdpiimwrap_set_pc_TOP____024unit(QData/*63:0*/ pc) {
     VL_DEBUG_IF(VL_DBG_MSGF("+        VCPUTop___024unit____Vdpiimwrap_set_pc_TOP____024unit\n"); );
     // Body
-    svBitVecVal addr__Vcvt[2];
-    for (size_t addr__Vidx = 0; addr__Vidx < 1; ++addr__Vidx) VL_SET_SVBV_Q(64, addr__Vcvt + 2 * addr__Vidx, addr);
-    set_pc(addr__Vcvt);
+    long long pc__Vcvt;
+    for (size_t pc__Vidx = 0; pc__Vidx < 1; ++pc__Vidx) pc__Vcvt = pc;
+    set_pc(pc__Vcvt);
 }

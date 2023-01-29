@@ -160,7 +160,7 @@ VL_INLINE_OPT void VCPUTop___024root___combo__TOP__0(VCPUTop___024root* vlSelf) 
                          ? 2U : ((3U == (3U & (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0)))
                                   ? 2U : 0U))));
     if (VL_UNLIKELY((0x42U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)))) {
-        VL_FINISH_MT("DIP_model.v", 46, "");
+        VL_FINISH_MT("DIP_model.v", 47, "");
     }
     vlSelf->CPUTop__DOT__EX__DOT__src2 = ((IData)(vlSelf->CPUTop__DOT__ID__DOT__srctype_1)
                                            ? ((IData)(vlSelf->CPUTop__DOT__ID__DOT__srctype_1)

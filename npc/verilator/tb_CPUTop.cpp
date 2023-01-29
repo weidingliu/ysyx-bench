@@ -17,13 +17,15 @@ uint32_t mem[MAX_MEM];
 uint32_t mem_size;
 
 uint64_t *cpu_gpr = NULL;
-uint64_t *PC;
+uint64_t PC;
 extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
   cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
 }
-void set_pc(const svBitVecVal *pc){
-    //printf("%d\n",*pc);
-    PC=(uint64_t *)pc;
+
+extern "C" void set_pc( long long int pc){
+    printf("%lld\n",pc);
+    //PC=pc->bval;
+    
 }
 
 // 一个输出RTL中通用寄存器的值的示例
@@ -105,7 +107,7 @@ while(sim_time<MAX_SIM_TIME && (!contextp->gotFinish())){
     m_trace->dump(sim_time);
     
     sim_time++;
-    printf("%lx\n",*PC);
+    printf("%lx\n",PC);
     //if() break;
     //printf("%ld\n",sim_time);
 }

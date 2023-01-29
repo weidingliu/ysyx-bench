@@ -1,7 +1,8 @@
 //import "DPI-C" function void ebreak();
 
 import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
-import "DPI-C" function void set_pc(input bit [63:0]addr);
+
+import "DPI-C" function void set_pc(input longint pc);
 
 module DIP_model(input wire is_break,
 input wire [63:0] pc,
