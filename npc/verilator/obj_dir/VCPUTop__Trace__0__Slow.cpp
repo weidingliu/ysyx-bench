@@ -48,16 +48,16 @@ VL_ATTR_COLD void VCPUTop___024root__trace_init_sub__TOP__0(VCPUTop___024root* v
     for (int i = 0; i < 32; ++i) {
         tracep->declQuad(c+20+i*2,"rf", true,(i+0), 63,0);
     }
-    tracep->declBit(c+108,"rf_EX_io1_REG1_MPORT_en", false,-1);
+    tracep->declBit(c+109,"rf_EX_io1_REG1_MPORT_en", false,-1);
     tracep->declBus(c+91,"rf_EX_io1_REG1_MPORT_addr", false,-1, 4,0);
     tracep->declQuad(c+100,"rf_EX_io1_REG1_MPORT_data", false,-1, 63,0);
-    tracep->declBit(c+108,"rf_EX_io1_REG2_MPORT_en", false,-1);
+    tracep->declBit(c+109,"rf_EX_io1_REG2_MPORT_en", false,-1);
     tracep->declBus(c+92,"rf_EX_io1_REG2_MPORT_addr", false,-1, 4,0);
     tracep->declQuad(c+102,"rf_EX_io1_REG2_MPORT_data", false,-1, 63,0);
     tracep->declQuad(c+5,"rf_MPORT_data", false,-1, 63,0);
     tracep->declBus(c+93,"rf_MPORT_addr", false,-1, 4,0);
-    tracep->declBit(c+108,"rf_MPORT_mask", false,-1);
-    tracep->declBit(c+108,"rf_MPORT_en", false,-1);
+    tracep->declBit(c+109,"rf_MPORT_mask", false,-1);
+    tracep->declBit(c+109,"rf_MPORT_en", false,-1);
     tracep->declBus(c+91,"src1add", false,-1, 4,0);
     tracep->declBus(c+92,"src2add", false,-1, 4,0);
     tracep->pushNamePrefix("DIP ");
@@ -95,7 +95,7 @@ VL_ATTR_COLD void VCPUTop___024root__trace_init_sub__TOP__0(VCPUTop___024root* v
     tracep->declBit(c+17,"srctype_1", false,-1);
     tracep->declBit(c+106,"sign", false,-1);
     tracep->declBit(c+107,"sign_1", false,-1);
-    tracep->declBit(c+106,"sign_2", false,-1);
+    tracep->declBit(c+108,"sign_2", false,-1);
     tracep->popNamePrefix(1);
     tracep->pushNamePrefix("IF ");
     tracep->declBit(c+84,"clock", false,-1);
@@ -232,23 +232,20 @@ VL_ATTR_COLD void VCPUTop___024root__trace_full_sub_0(VCPUTop___024root* vlSelf,
                                                                    (0xfffff000U 
                                                                     & vlSelf->io_inst))))
                                    : ((7U == (7U & (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0)))
-                                       ? ((((vlSelf->io_inst 
-                                             >> 0x1fU)
-                                             ? 0x7ffffffffffULL
+                                       ? ((((0x80000U 
+                                             & vlSelf->io_inst)
+                                             ? 0xfffffffffffULL
                                              : 0ULL) 
-                                           << 0x15U) 
+                                           << 0x14U) 
                                           | (QData)((IData)(
-                                                            ((0x100000U 
-                                                              & (vlSelf->io_inst 
-                                                                 >> 0xbU)) 
-                                                             | ((0xff000U 
-                                                                 & vlSelf->io_inst) 
-                                                                | ((0x800U 
-                                                                    & (vlSelf->io_inst 
-                                                                       >> 9U)) 
-                                                                   | (0x7feU 
-                                                                      & (vlSelf->io_inst 
-                                                                         >> 0x14U))))))))
+                                                            ((0xff000U 
+                                                              & vlSelf->io_inst) 
+                                                             | ((0x800U 
+                                                                 & (vlSelf->io_inst 
+                                                                    >> 9U)) 
+                                                                | (0x7feU 
+                                                                   & (vlSelf->io_inst 
+                                                                      >> 0x14U)))))))
                                        : 0ULL)))),64);
     bufp->fullQData(oldp+96,(((0U == (0x1fU & (vlSelf->io_inst 
                                                >> 0xfU)))
@@ -271,5 +268,7 @@ VL_ATTR_COLD void VCPUTop___024root__trace_full_sub_0(VCPUTop___024root* vlSelf,
                                 : 0ULL)),64);
     bufp->fullBit(oldp+106,((vlSelf->io_inst >> 0x1fU)));
     bufp->fullBit(oldp+107,((vlSelf->io_inst >> 0x1fU)));
-    bufp->fullBit(oldp+108,(1U));
+    bufp->fullBit(oldp+108,((1U & (vlSelf->io_inst 
+                                   >> 0x13U))));
+    bufp->fullBit(oldp+109,(1U));
 }
