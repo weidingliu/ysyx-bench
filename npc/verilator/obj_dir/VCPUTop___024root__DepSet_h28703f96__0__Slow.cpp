@@ -78,40 +78,40 @@ VL_ATTR_COLD void VCPUTop___024root___settle__TOP__0(VCPUTop___024root* vlSelf) 
                                                                      (vlSelf->io_inst 
                                                                       >> 0x14U))))
                                                    : 
-                                                  ((3U 
+                                                  ((7U 
                                                     == 
-                                                    (3U 
+                                                    (7U 
                                                      & (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0)))
                                                     ? 
-                                                   (((QData)((IData)(
-                                                                     ((vlSelf->io_inst 
-                                                                       >> 0x1fU)
-                                                                       ? 0xffffffffU
-                                                                       : 0U))) 
-                                                     << 0x20U) 
+                                                   ((((0x80000U 
+                                                       & vlSelf->io_inst)
+                                                       ? 0xfffffffffffULL
+                                                       : 0ULL) 
+                                                     << 0x14U) 
                                                     | (QData)((IData)(
-                                                                      (0xfffff000U 
-                                                                       & vlSelf->io_inst))))
+                                                                      ((0xff000U 
+                                                                        & vlSelf->io_inst) 
+                                                                       | ((0x800U 
+                                                                           & (vlSelf->io_inst 
+                                                                              >> 9U)) 
+                                                                          | (0x7feU 
+                                                                             & (vlSelf->io_inst 
+                                                                                >> 0x14U)))))))
                                                     : 
-                                                   ((7U 
+                                                   ((3U 
                                                      == 
-                                                     (7U 
+                                                     (3U 
                                                       & (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0)))
                                                      ? 
-                                                    ((((0x80000U 
-                                                        & vlSelf->io_inst)
-                                                        ? 0xfffffffffffULL
-                                                        : 0ULL) 
-                                                      << 0x14U) 
+                                                    (((QData)((IData)(
+                                                                      ((vlSelf->io_inst 
+                                                                        >> 0x1fU)
+                                                                        ? 0xffffffffU
+                                                                        : 0U))) 
+                                                      << 0x20U) 
                                                      | (QData)((IData)(
-                                                                       ((0xff000U 
-                                                                         & vlSelf->io_inst) 
-                                                                        | ((0x800U 
-                                                                            & (vlSelf->io_inst 
-                                                                               >> 9U)) 
-                                                                           | (0x7feU 
-                                                                              & (vlSelf->io_inst 
-                                                                                >> 0x14U)))))))
+                                                                       (0xfffff000U 
+                                                                        & vlSelf->io_inst))))
                                                      : 0ULL)))
                                                : 0ULL)
                                            : ((0U == 

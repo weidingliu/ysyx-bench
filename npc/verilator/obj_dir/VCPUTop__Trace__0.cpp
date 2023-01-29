@@ -106,30 +106,29 @@ void VCPUTop___024root__trace_chg_sub_0(VCPUTop___024root* vlSelf, VerilatedVcd:
                                  | (QData)((IData)(
                                                    (vlSelf->io_inst 
                                                     >> 0x14U))))
-                              : ((3U == (3U & (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0)))
-                                  ? (((QData)((IData)(
-                                                      ((vlSelf->io_inst 
-                                                        >> 0x1fU)
-                                                        ? 0xffffffffU
-                                                        : 0U))) 
-                                      << 0x20U) | (QData)((IData)(
-                                                                  (0xfffff000U 
-                                                                   & vlSelf->io_inst))))
-                                  : ((7U == (7U & (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0)))
-                                      ? ((((0x80000U 
-                                            & vlSelf->io_inst)
-                                            ? 0xfffffffffffULL
-                                            : 0ULL) 
-                                          << 0x14U) 
+                              : ((7U == (7U & (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0)))
+                                  ? ((((0x80000U & vlSelf->io_inst)
+                                        ? 0xfffffffffffULL
+                                        : 0ULL) << 0x14U) 
+                                     | (QData)((IData)(
+                                                       ((0xff000U 
+                                                         & vlSelf->io_inst) 
+                                                        | ((0x800U 
+                                                            & (vlSelf->io_inst 
+                                                               >> 9U)) 
+                                                           | (0x7feU 
+                                                              & (vlSelf->io_inst 
+                                                                 >> 0x14U)))))))
+                                  : ((3U == (3U & (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0)))
+                                      ? (((QData)((IData)(
+                                                          ((vlSelf->io_inst 
+                                                            >> 0x1fU)
+                                                            ? 0xffffffffU
+                                                            : 0U))) 
+                                          << 0x20U) 
                                          | (QData)((IData)(
-                                                           ((0xff000U 
-                                                             & vlSelf->io_inst) 
-                                                            | ((0x800U 
-                                                                & (vlSelf->io_inst 
-                                                                   >> 9U)) 
-                                                               | (0x7feU 
-                                                                  & (vlSelf->io_inst 
-                                                                     >> 0x14U)))))))
+                                                           (0xfffff000U 
+                                                            & vlSelf->io_inst))))
                                       : 0ULL)))),64);
     bufp->chgQData(oldp+95,(((0U == (0x1fU & (vlSelf->io_inst 
                                               >> 0xfU)))
@@ -151,8 +150,8 @@ void VCPUTop___024root__trace_chg_sub_0(VCPUTop___024root* vlSelf, VerilatedVcd:
                                ? (4ULL + vlSelf->CPUTop__DOT__IF__DOT__temp)
                                : 0ULL)),64);
     bufp->chgBit(oldp+105,((vlSelf->io_inst >> 0x1fU)));
-    bufp->chgBit(oldp+106,((vlSelf->io_inst >> 0x1fU)));
-    bufp->chgBit(oldp+107,((1U & (vlSelf->io_inst >> 0x13U))));
+    bufp->chgBit(oldp+106,((1U & (vlSelf->io_inst >> 0x13U))));
+    bufp->chgBit(oldp+107,((vlSelf->io_inst >> 0x1fU)));
 }
 
 void VCPUTop___024root__trace_cleanup(void* voidSelf, VerilatedVcd* /*unused*/) {
