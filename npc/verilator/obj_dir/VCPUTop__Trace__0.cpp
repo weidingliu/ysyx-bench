@@ -39,10 +39,11 @@ void VCPUTop___024root__trace_chg_sub_0(VCPUTop___024root* vlSelf, VerilatedVcd:
                                       ? (vlSelf->CPUTop__DOT__EX__DOT__src1 
                                          | vlSelf->CPUTop__DOT__EX__DOT__src2)
                                       : 0ULL))),64);
-        bufp->chgCData(oldp+13,(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0),3);
+        bufp->chgCData(oldp+13,(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0),4);
         bufp->chgCData(oldp+14,(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_1),2);
-        bufp->chgCData(oldp+15,(((0U == (1U & (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0)))
-                                  ? 0U : ((4U == (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0))
+        bufp->chgCData(oldp+15,(((8U == (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0))
+                                  ? 0U : ((4U == (7U 
+                                                  & (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0)))
                                            ? 2U : (
                                                    (3U 
                                                     == 
@@ -98,7 +99,7 @@ void VCPUTop___024root__trace_chg_sub_0(VCPUTop___024root* vlSelf, VerilatedVcd:
                                       >> 0x14U))),5);
     bufp->chgCData(oldp+92,((0x1fU & (vlSelf->io_inst 
                                       >> 7U))),5);
-    bufp->chgQData(oldp+93,(((0U == (1U & (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0)))
+    bufp->chgQData(oldp+93,(((8U == (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0))
                               ? ((((vlSelf->io_inst 
                                     >> 0x1fU) ? 0xfffffffffffffULL
                                     : 0ULL) << 0xcU) 
@@ -114,7 +115,7 @@ void VCPUTop___024root__trace_chg_sub_0(VCPUTop___024root* vlSelf, VerilatedVcd:
                                       << 0x20U) | (QData)((IData)(
                                                                   (0xfffff000U 
                                                                    & vlSelf->io_inst))))
-                                  : ((4U == (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0))
+                                  : ((4U == (7U & (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0)))
                                       ? ((((vlSelf->io_inst 
                                             >> 0x1fU)
                                             ? 0x7ffffffffffULL

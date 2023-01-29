@@ -89,7 +89,7 @@ VL_ATTR_COLD void VCPUTop___024root__trace_init_sub__TOP__0(VCPUTop___024root* v
     tracep->declBus(c+3,"io_ctrlIO_futype", false,-1, 2,0);
     tracep->declBus(c+4,"io_ctrlIO_aluoptype", false,-1, 6,0);
     tracep->declQuad(c+94,"io_ctrlIO_Imm", false,-1, 63,0);
-    tracep->declBus(c+14,"Inst_decode_0", false,-1, 2,0);
+    tracep->declBus(c+14,"Inst_decode_0", false,-1, 3,0);
     tracep->declBus(c+15,"Inst_decode_1", false,-1, 1,0);
     tracep->declBus(c+16,"srctype_0", false,-1, 1,0);
     tracep->declBit(c+17,"srctype_1", false,-1);
@@ -160,10 +160,10 @@ VL_ATTR_COLD void VCPUTop___024root__trace_full_sub_0(VCPUTop___024root* vlSelf,
                                    ? (vlSelf->CPUTop__DOT__EX__DOT__src1 
                                       | vlSelf->CPUTop__DOT__EX__DOT__src2)
                                    : 0ULL))),64);
-    bufp->fullCData(oldp+14,(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0),3);
+    bufp->fullCData(oldp+14,(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0),4);
     bufp->fullCData(oldp+15,(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_1),2);
-    bufp->fullCData(oldp+16,(((0U == (1U & (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0)))
-                               ? 0U : ((4U == (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0))
+    bufp->fullCData(oldp+16,(((8U == (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0))
+                               ? 0U : ((4U == (7U & (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0)))
                                         ? 2U : ((3U 
                                                  == 
                                                  (3U 
@@ -215,7 +215,7 @@ VL_ATTR_COLD void VCPUTop___024root__trace_full_sub_0(VCPUTop___024root* vlSelf,
                                        >> 0x14U))),5);
     bufp->fullCData(oldp+93,((0x1fU & (vlSelf->io_inst 
                                        >> 7U))),5);
-    bufp->fullQData(oldp+94,(((0U == (1U & (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0)))
+    bufp->fullQData(oldp+94,(((8U == (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0))
                                ? ((((vlSelf->io_inst 
                                      >> 0x1fU) ? 0xfffffffffffffULL
                                      : 0ULL) << 0xcU) 
@@ -231,7 +231,7 @@ VL_ATTR_COLD void VCPUTop___024root__trace_full_sub_0(VCPUTop___024root* vlSelf,
                                        << 0x20U) | (QData)((IData)(
                                                                    (0xfffff000U 
                                                                     & vlSelf->io_inst))))
-                                   : ((4U == (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0))
+                                   : ((4U == (7U & (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0)))
                                        ? ((((vlSelf->io_inst 
                                              >> 0x1fU)
                                              ? 0x7ffffffffffULL
