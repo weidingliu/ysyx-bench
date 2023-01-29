@@ -25,14 +25,19 @@ VM_TRACE_FST = 0
 VM_CLASSES_FAST += \
 	VCPUTop \
 	VCPUTop___024root__DepSet_h28703f96__0 \
+	VCPUTop___024unit__DepSet_h489ddb80__0 \
 
 # Generated module classes, non-fast-path, compile with low/medium optimization
 VM_CLASSES_SLOW += \
 	VCPUTop___024root__Slow \
+	VCPUTop___024root__DepSet_h55a3f5a6__0__Slow \
 	VCPUTop___024root__DepSet_h28703f96__0__Slow \
+	VCPUTop___024unit__Slow \
+	VCPUTop___024unit__DepSet_h2d3e2d70__0__Slow \
 
 # Generated support classes, fast-path, compile with highest optimization
 VM_SUPPORT_FAST += \
+	VCPUTop__Dpi \
 	VCPUTop__Trace__0 \
 
 # Generated support classes, non-fast-path, compile with low/medium optimization
@@ -43,6 +48,7 @@ VM_SUPPORT_SLOW += \
 # Global classes, need linked once per executable, fast-path, compile with highest optimization
 VM_GLOBAL_FAST += \
 	verilated \
+	verilated_dpi \
 	verilated_vcd_c \
 
 # Global classes, need linked once per executable, non-fast-path, compile with low/medium optimization

@@ -183,33 +183,65 @@ module CPUTop(
 `ifdef RANDOMIZE_MEM_INIT
   reg [63:0] _RAND_0;
 `endif // RANDOMIZE_MEM_INIT
-  wire  IF_clock; // @[CPUTop.scala 16:16]
-  wire  IF_reset; // @[CPUTop.scala 16:16]
-  wire [63:0] IF_io_dnpc; // @[CPUTop.scala 16:16]
-  wire  IF_io_is_jump; // @[CPUTop.scala 16:16]
-  wire [63:0] IF_io_pc; // @[CPUTop.scala 16:16]
-  wire [31:0] ID_io_inst; // @[CPUTop.scala 18:18]
-  wire [2:0] ID_io_ctrlIO_src1type; // @[CPUTop.scala 18:18]
-  wire [2:0] ID_io_ctrlIO_src2type; // @[CPUTop.scala 18:18]
-  wire [4:0] ID_io_ctrlIO_src1; // @[CPUTop.scala 18:18]
-  wire [4:0] ID_io_ctrlIO_src2; // @[CPUTop.scala 18:18]
-  wire [4:0] ID_io_ctrlIO_rd; // @[CPUTop.scala 18:18]
-  wire [2:0] ID_io_ctrlIO_futype; // @[CPUTop.scala 18:18]
-  wire [6:0] ID_io_ctrlIO_aluoptype; // @[CPUTop.scala 18:18]
-  wire [63:0] ID_io_ctrlIO_Imm; // @[CPUTop.scala 18:18]
-  wire [2:0] EX_io_src1type; // @[CPUTop.scala 20:18]
-  wire [2:0] EX_io_src2type; // @[CPUTop.scala 20:18]
-  wire [2:0] EX_io_futype; // @[CPUTop.scala 20:18]
-  wire [6:0] EX_io_aluoptype; // @[CPUTop.scala 20:18]
-  wire [63:0] EX_io_Imm; // @[CPUTop.scala 20:18]
-  wire [63:0] EX_io1_REG1; // @[CPUTop.scala 20:18]
-  wire [63:0] EX_io1_REG2; // @[CPUTop.scala 20:18]
-  wire [63:0] EX_io1_PC; // @[CPUTop.scala 20:18]
-  wire [63:0] EX_io1_result; // @[CPUTop.scala 20:18]
-  wire  EX_io1_is_break; // @[CPUTop.scala 20:18]
-  wire  EX_io1_is_jump; // @[CPUTop.scala 20:18]
-  wire [63:0] EX_io1_dnpc; // @[CPUTop.scala 20:18]
-  wire  DIP_is_break; // @[CPUTop.scala 22:19]
+  wire  IF_clock; // @[CPUTop.scala 17:16]
+  wire  IF_reset; // @[CPUTop.scala 17:16]
+  wire [63:0] IF_io_dnpc; // @[CPUTop.scala 17:16]
+  wire  IF_io_is_jump; // @[CPUTop.scala 17:16]
+  wire [63:0] IF_io_pc; // @[CPUTop.scala 17:16]
+  wire [31:0] ID_io_inst; // @[CPUTop.scala 19:18]
+  wire [2:0] ID_io_ctrlIO_src1type; // @[CPUTop.scala 19:18]
+  wire [2:0] ID_io_ctrlIO_src2type; // @[CPUTop.scala 19:18]
+  wire [4:0] ID_io_ctrlIO_src1; // @[CPUTop.scala 19:18]
+  wire [4:0] ID_io_ctrlIO_src2; // @[CPUTop.scala 19:18]
+  wire [4:0] ID_io_ctrlIO_rd; // @[CPUTop.scala 19:18]
+  wire [2:0] ID_io_ctrlIO_futype; // @[CPUTop.scala 19:18]
+  wire [6:0] ID_io_ctrlIO_aluoptype; // @[CPUTop.scala 19:18]
+  wire [63:0] ID_io_ctrlIO_Imm; // @[CPUTop.scala 19:18]
+  wire [2:0] EX_io_src1type; // @[CPUTop.scala 21:18]
+  wire [2:0] EX_io_src2type; // @[CPUTop.scala 21:18]
+  wire [2:0] EX_io_futype; // @[CPUTop.scala 21:18]
+  wire [6:0] EX_io_aluoptype; // @[CPUTop.scala 21:18]
+  wire [63:0] EX_io_Imm; // @[CPUTop.scala 21:18]
+  wire [63:0] EX_io1_REG1; // @[CPUTop.scala 21:18]
+  wire [63:0] EX_io1_REG2; // @[CPUTop.scala 21:18]
+  wire [63:0] EX_io1_PC; // @[CPUTop.scala 21:18]
+  wire [63:0] EX_io1_result; // @[CPUTop.scala 21:18]
+  wire  EX_io1_is_break; // @[CPUTop.scala 21:18]
+  wire  EX_io1_is_jump; // @[CPUTop.scala 21:18]
+  wire [63:0] EX_io1_dnpc; // @[CPUTop.scala 21:18]
+  wire  DIP_is_break; // @[CPUTop.scala 23:19]
+  wire [63:0] DIP_rf_0; // @[CPUTop.scala 23:19]
+  wire [63:0] DIP_rf_1; // @[CPUTop.scala 23:19]
+  wire [63:0] DIP_rf_2; // @[CPUTop.scala 23:19]
+  wire [63:0] DIP_rf_3; // @[CPUTop.scala 23:19]
+  wire [63:0] DIP_rf_4; // @[CPUTop.scala 23:19]
+  wire [63:0] DIP_rf_5; // @[CPUTop.scala 23:19]
+  wire [63:0] DIP_rf_6; // @[CPUTop.scala 23:19]
+  wire [63:0] DIP_rf_7; // @[CPUTop.scala 23:19]
+  wire [63:0] DIP_rf_8; // @[CPUTop.scala 23:19]
+  wire [63:0] DIP_rf_9; // @[CPUTop.scala 23:19]
+  wire [63:0] DIP_rf_10; // @[CPUTop.scala 23:19]
+  wire [63:0] DIP_rf_11; // @[CPUTop.scala 23:19]
+  wire [63:0] DIP_rf_12; // @[CPUTop.scala 23:19]
+  wire [63:0] DIP_rf_13; // @[CPUTop.scala 23:19]
+  wire [63:0] DIP_rf_14; // @[CPUTop.scala 23:19]
+  wire [63:0] DIP_rf_15; // @[CPUTop.scala 23:19]
+  wire [63:0] DIP_rf_16; // @[CPUTop.scala 23:19]
+  wire [63:0] DIP_rf_17; // @[CPUTop.scala 23:19]
+  wire [63:0] DIP_rf_18; // @[CPUTop.scala 23:19]
+  wire [63:0] DIP_rf_19; // @[CPUTop.scala 23:19]
+  wire [63:0] DIP_rf_20; // @[CPUTop.scala 23:19]
+  wire [63:0] DIP_rf_21; // @[CPUTop.scala 23:19]
+  wire [63:0] DIP_rf_22; // @[CPUTop.scala 23:19]
+  wire [63:0] DIP_rf_23; // @[CPUTop.scala 23:19]
+  wire [63:0] DIP_rf_24; // @[CPUTop.scala 23:19]
+  wire [63:0] DIP_rf_25; // @[CPUTop.scala 23:19]
+  wire [63:0] DIP_rf_26; // @[CPUTop.scala 23:19]
+  wire [63:0] DIP_rf_27; // @[CPUTop.scala 23:19]
+  wire [63:0] DIP_rf_28; // @[CPUTop.scala 23:19]
+  wire [63:0] DIP_rf_29; // @[CPUTop.scala 23:19]
+  wire [63:0] DIP_rf_30; // @[CPUTop.scala 23:19]
+  wire [63:0] DIP_rf_31; // @[CPUTop.scala 23:19]
   reg [63:0] rf [0:31]; // @[RF.scala 6:17]
   wire  rf_EX_io1_REG1_MPORT_en; // @[RF.scala 6:17]
   wire [4:0] rf_EX_io1_REG1_MPORT_addr; // @[RF.scala 6:17]
@@ -221,16 +253,16 @@ module CPUTop(
   wire [4:0] rf_MPORT_addr; // @[RF.scala 6:17]
   wire  rf_MPORT_mask; // @[RF.scala 6:17]
   wire  rf_MPORT_en; // @[RF.scala 6:17]
-  wire [4:0] src1add = ID_io_ctrlIO_src1; // @[CPUTop.scala 33:21 42:10]
-  wire [4:0] src2add = ID_io_ctrlIO_src2; // @[CPUTop.scala 34:21 43:10]
-  IFU IF ( // @[CPUTop.scala 16:16]
+  wire [4:0] src1add = ID_io_ctrlIO_src1; // @[CPUTop.scala 34:21 43:10]
+  wire [4:0] src2add = ID_io_ctrlIO_src2; // @[CPUTop.scala 35:21 44:10]
+  IFU IF ( // @[CPUTop.scala 17:16]
     .clock(IF_clock),
     .reset(IF_reset),
     .io_dnpc(IF_io_dnpc),
     .io_is_jump(IF_io_is_jump),
     .io_pc(IF_io_pc)
   );
-  IDU ID ( // @[CPUTop.scala 18:18]
+  IDU ID ( // @[CPUTop.scala 19:18]
     .io_inst(ID_io_inst),
     .io_ctrlIO_src1type(ID_io_ctrlIO_src1type),
     .io_ctrlIO_src2type(ID_io_ctrlIO_src2type),
@@ -241,7 +273,7 @@ module CPUTop(
     .io_ctrlIO_aluoptype(ID_io_ctrlIO_aluoptype),
     .io_ctrlIO_Imm(ID_io_ctrlIO_Imm)
   );
-  EXU EX ( // @[CPUTop.scala 20:18]
+  EXU EX ( // @[CPUTop.scala 21:18]
     .io_src1type(EX_io_src1type),
     .io_src2type(EX_io_src2type),
     .io_futype(EX_io_futype),
@@ -255,8 +287,40 @@ module CPUTop(
     .io1_is_jump(EX_io1_is_jump),
     .io1_dnpc(EX_io1_dnpc)
   );
-  DIP_model DIP ( // @[CPUTop.scala 22:19]
-    .is_break(DIP_is_break)
+  DIP_model DIP ( // @[CPUTop.scala 23:19]
+    .is_break(DIP_is_break),
+    .rf_0(DIP_rf_0),
+    .rf_1(DIP_rf_1),
+    .rf_2(DIP_rf_2),
+    .rf_3(DIP_rf_3),
+    .rf_4(DIP_rf_4),
+    .rf_5(DIP_rf_5),
+    .rf_6(DIP_rf_6),
+    .rf_7(DIP_rf_7),
+    .rf_8(DIP_rf_8),
+    .rf_9(DIP_rf_9),
+    .rf_10(DIP_rf_10),
+    .rf_11(DIP_rf_11),
+    .rf_12(DIP_rf_12),
+    .rf_13(DIP_rf_13),
+    .rf_14(DIP_rf_14),
+    .rf_15(DIP_rf_15),
+    .rf_16(DIP_rf_16),
+    .rf_17(DIP_rf_17),
+    .rf_18(DIP_rf_18),
+    .rf_19(DIP_rf_19),
+    .rf_20(DIP_rf_20),
+    .rf_21(DIP_rf_21),
+    .rf_22(DIP_rf_22),
+    .rf_23(DIP_rf_23),
+    .rf_24(DIP_rf_24),
+    .rf_25(DIP_rf_25),
+    .rf_26(DIP_rf_26),
+    .rf_27(DIP_rf_27),
+    .rf_28(DIP_rf_28),
+    .rf_29(DIP_rf_29),
+    .rf_30(DIP_rf_30),
+    .rf_31(DIP_rf_31)
   );
   assign rf_EX_io1_REG1_MPORT_en = 1'h1;
   assign rf_EX_io1_REG1_MPORT_addr = ID_io_ctrlIO_src1;
@@ -268,22 +332,54 @@ module CPUTop(
   assign rf_MPORT_addr = ID_io_ctrlIO_rd;
   assign rf_MPORT_mask = 1'h1;
   assign rf_MPORT_en = 1'h1;
-  assign io_pc = IF_io_pc; // @[CPUTop.scala 26:9]
-  assign io_result = EX_io1_result; // @[CPUTop.scala 46:13]
+  assign io_pc = IF_io_pc; // @[CPUTop.scala 27:9]
+  assign io_result = EX_io1_result; // @[CPUTop.scala 47:13]
   assign IF_clock = clock;
   assign IF_reset = reset;
-  assign IF_io_dnpc = EX_io1_dnpc; // @[CPUTop.scala 38:14]
-  assign IF_io_is_jump = EX_io1_is_jump; // @[CPUTop.scala 39:17]
-  assign ID_io_inst = io_inst; // @[CPUTop.scala 28:14]
-  assign EX_io_src1type = ID_io_ctrlIO_src1type; // @[CPUTop.scala 30:16]
-  assign EX_io_src2type = ID_io_ctrlIO_src2type; // @[CPUTop.scala 30:16]
-  assign EX_io_futype = ID_io_ctrlIO_futype; // @[CPUTop.scala 30:16]
-  assign EX_io_aluoptype = ID_io_ctrlIO_aluoptype; // @[CPUTop.scala 30:16]
-  assign EX_io_Imm = ID_io_ctrlIO_Imm; // @[CPUTop.scala 30:16]
+  assign IF_io_dnpc = EX_io1_dnpc; // @[CPUTop.scala 39:14]
+  assign IF_io_is_jump = EX_io1_is_jump; // @[CPUTop.scala 40:17]
+  assign ID_io_inst = io_inst; // @[CPUTop.scala 29:14]
+  assign EX_io_src1type = ID_io_ctrlIO_src1type; // @[CPUTop.scala 31:16]
+  assign EX_io_src2type = ID_io_ctrlIO_src2type; // @[CPUTop.scala 31:16]
+  assign EX_io_futype = ID_io_ctrlIO_futype; // @[CPUTop.scala 31:16]
+  assign EX_io_aluoptype = ID_io_ctrlIO_aluoptype; // @[CPUTop.scala 31:16]
+  assign EX_io_Imm = ID_io_ctrlIO_Imm; // @[CPUTop.scala 31:16]
   assign EX_io1_REG1 = src1add == 5'h0 ? 64'h0 : rf_EX_io1_REG1_MPORT_data; // @[RF.scala 7:37]
   assign EX_io1_REG2 = src2add == 5'h0 ? 64'h0 : rf_EX_io1_REG2_MPORT_data; // @[RF.scala 7:37]
-  assign EX_io1_PC = IF_io_pc; // @[CPUTop.scala 31:13]
-  assign DIP_is_break = EX_io1_is_break; // @[CPUTop.scala 48:19]
+  assign EX_io1_PC = IF_io_pc; // @[CPUTop.scala 32:13]
+  assign DIP_is_break = EX_io1_is_break; // @[CPUTop.scala 49:19]
+  assign DIP_rf_0 = 64'h0;
+  assign DIP_rf_1 = 64'h0;
+  assign DIP_rf_2 = 64'h0;
+  assign DIP_rf_3 = 64'h0;
+  assign DIP_rf_4 = 64'h0;
+  assign DIP_rf_5 = 64'h0;
+  assign DIP_rf_6 = 64'h0;
+  assign DIP_rf_7 = 64'h0;
+  assign DIP_rf_8 = 64'h0;
+  assign DIP_rf_9 = 64'h0;
+  assign DIP_rf_10 = 64'h0;
+  assign DIP_rf_11 = 64'h0;
+  assign DIP_rf_12 = 64'h0;
+  assign DIP_rf_13 = 64'h0;
+  assign DIP_rf_14 = 64'h0;
+  assign DIP_rf_15 = 64'h0;
+  assign DIP_rf_16 = 64'h0;
+  assign DIP_rf_17 = 64'h0;
+  assign DIP_rf_18 = 64'h0;
+  assign DIP_rf_19 = 64'h0;
+  assign DIP_rf_20 = 64'h0;
+  assign DIP_rf_21 = 64'h0;
+  assign DIP_rf_22 = 64'h0;
+  assign DIP_rf_23 = 64'h0;
+  assign DIP_rf_24 = 64'h0;
+  assign DIP_rf_25 = 64'h0;
+  assign DIP_rf_26 = 64'h0;
+  assign DIP_rf_27 = 64'h0;
+  assign DIP_rf_28 = 64'h0;
+  assign DIP_rf_29 = 64'h0;
+  assign DIP_rf_30 = 64'h0;
+  assign DIP_rf_31 = 64'h0;
   always @(posedge clock) begin
     if (rf_MPORT_en & rf_MPORT_mask) begin
       rf[rf_MPORT_addr] <= rf_MPORT_data; // @[RF.scala 6:17]

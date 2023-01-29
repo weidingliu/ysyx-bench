@@ -5,13 +5,29 @@
 #include "VCPUTop.h"
 #include "VCPUTop___024root.h"
 #include <svdpi.h>
-//#include "VCPUTop__Dpi.h"
+#include "VCPUTop__Dpi.h"
+#include "verilated_dpi.h"
 
 #define MAX_SIM_TIME 2000
 #define MAX_MEM 480
+
+
 vluint64_t sim_time=0;
 uint32_t mem[MAX_MEM];
 uint32_t mem_size;
+
+uint64_t *cpu_gpr = NULL;
+extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
+  cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
+}
+
+// 一个输出RTL中通用寄存器的值的示例
+void dump_gpr() {
+  int i;
+  for (i = 0; i < 32; i++) {
+    printf("gpr[%d] = 0x%lx\n", i, cpu_gpr[i]);
+  }
+}
 
 void init_mem(char *file_path){
     FILE *fp;
@@ -56,6 +72,7 @@ uint32_t pem_read(uint64_t pc){
 
 int main(int argc, char** argv) {
 //printf("--------------------%s   %d\n",argv[1],argc);
+
 init_mem(argv[1]);
 VerilatedContext* contextp = new VerilatedContext;
 contextp->commandArgs(argc, argv);
@@ -87,6 +104,7 @@ while(sim_time<MAX_SIM_TIME && (!contextp->gotFinish())){
     //printf("%ld\n",sim_time);
 }
 printf("Final PC is : 0x%lx\n",dut->io_pc);
+dump_gpr();
 m_trace->close();
 delete dut;
 delete contextp;
