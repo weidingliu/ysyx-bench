@@ -19,7 +19,7 @@ extern "C" {
     // DPI import at DIP_model.v:3:30
     extern void set_gpr_ptr(const svOpenArrayHandle a);
     // DPI import at DIP_model.v:5:30
-    extern void set_pc(const svOpenArrayHandle inst);
+    extern void set_pc(const svBitVecVal* inst);
 
 #ifdef __cplusplus
 }

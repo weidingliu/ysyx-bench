@@ -17,16 +17,17 @@ uint32_t mem[MAX_MEM];
 uint32_t mem_size;
 
 uint64_t *cpu_gpr = NULL;
-uint64_t *Inst;
+int Inst;
 extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
   cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
 }
 
-extern "C" void set_pc( const svScope inst){
+extern "C" void set_pc( const svBitVecVal *inst){
     //printf("%lld\n",pc);
     //PC=pc;
-    Inst=(uint64_t *)(((VerilatedDpiOpenVar*)inst)->datap());
-    
+    //Inst=(uint64_t *)(((VerilatedDpiOpenVar*)inst)->datap());
+    //Inst=inst;
+    printf("%d\n", inst[0]);
     
 }
 
@@ -110,7 +111,7 @@ while(sim_time<MAX_SIM_TIME && (!contextp->gotFinish())){
     
     sim_time++;
     //printf("%lx\n",PC);
-    if(sim_time%40==0 && dut->clock==1 && dut->reset==0)printf("%08lx\n",Inst[0]);
+    if(sim_time%40==0 && dut->clock==1 && dut->reset==0)printf("%08x\n",Inst);
     //if() break;
     //printf("%ld\n",sim_time);
 }
