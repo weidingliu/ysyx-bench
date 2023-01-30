@@ -25,7 +25,7 @@ extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
 extern "C" void set_pc( const svLogicVecVal* inst){
     //printf("%lld\n",pc);
     //PC=pc;
-    for(int i=0;i<64;i++){
+    for(int i=0;i<32;i++){
         //PC=(uint64_t *)();
         PC+=svGetBitselLogic(inst,i);
         printf("%x",svGetBitselLogic(inst,i));
@@ -114,7 +114,7 @@ while(sim_time<MAX_SIM_TIME && (!contextp->gotFinish())){
     m_trace->dump(sim_time);
     
     sim_time++;
-    printf("%lx\n",PC);
+    //printf("%lx\n",PC);
     //if() break;
     //printf("%ld\n",sim_time);
 }
