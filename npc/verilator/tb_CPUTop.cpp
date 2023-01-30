@@ -17,14 +17,20 @@ uint32_t mem[MAX_MEM];
 uint32_t mem_size;
 
 uint64_t *cpu_gpr = NULL;
-long long int PC;
+uint64_t PC;
 extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
   cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
 }
 
-extern "C" void set_pc( long long int pc){
+extern "C" void set_pc( const svBitVecVal* pc){
     //printf("%lld\n",pc);
     //PC=pc;
+    for(int i=0;i<64;i++){
+        //PC=(uint64_t *)();
+        printf("%d",svGetBitselBit(pc,i));
+    }
+    printf("\n");
+    
     
 }
 
