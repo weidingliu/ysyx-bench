@@ -27,7 +27,7 @@ extern "C" void set_pc( const svBitVecVal *inst){
     //PC=pc;
     //Inst=(uint64_t *)(((VerilatedDpiOpenVar*)inst)->datap());
     //Inst=inst;
-    printf("%d\n", inst[0]);
+    printf("%d\n", inst[2]);
     
 }
 
