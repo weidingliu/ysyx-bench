@@ -27,10 +27,8 @@ extern "C" void set_pc( const svBitVecVal *inst){
     //PC=pc;
     //Inst=(uint64_t *)(((VerilatedDpiOpenVar*)inst)->datap());
     //Inst=inst;
-    Inst=svGetBitselBit(inst,0);
-    for(int i=1;i<32;i++){
-        Inst=Inst+svGetBitselBit(inst,i)*(2^i);
-    }
+    Inst=inst[0];
+    
     printf("%x\n", inst[0]);
     
 }
