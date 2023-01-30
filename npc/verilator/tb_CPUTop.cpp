@@ -31,7 +31,7 @@ extern "C" void set_pc( const svBitVecVal *inst){
     for(int i=1;i<32;i++){
         Inst=Inst+svGetBitselBit(inst,i)*(2^i);
     }
-    printf("%x\n", Inst);
+    printf("%x\n", inst[0]);
     
 }
 
