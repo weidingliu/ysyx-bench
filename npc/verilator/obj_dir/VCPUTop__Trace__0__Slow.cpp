@@ -81,7 +81,7 @@ VL_ATTR_COLD void VCPUTop___024root__trace_init_sub__TOP__0(VCPUTop___024root* v
     tracep->declQuad(c+61,"DIP_rf_29", false,-1, 63,0);
     tracep->declQuad(c+63,"DIP_rf_30", false,-1, 63,0);
     tracep->declQuad(c+65,"DIP_rf_31", false,-1, 63,0);
-    tracep->declQuad(c+1,"DIP_pc", false,-1, 63,0);
+    tracep->declBus(c+219,"DIP_inst", false,-1, 31,0);
     for (int i = 0; i < 32; ++i) {
         tracep->declQuad(c+67+i*2,"rf", true,(i+0), 63,0);
     }
@@ -195,7 +195,7 @@ VL_ATTR_COLD void VCPUTop___024root__trace_init_sub__TOP__0(VCPUTop___024root* v
     tracep->declBus(c+223,"src2add", false,-1, 4,0);
     tracep->pushNamePrefix("DIP ");
     tracep->declBit(c+204,"is_break", false,-1);
-    tracep->declQuad(c+1,"pc", false,-1, 63,0);
+    tracep->declBus(c+219,"inst", false,-1, 31,0);
     tracep->declQuad(c+3,"rf_0", false,-1, 63,0);
     tracep->declQuad(c+5,"rf_1", false,-1, 63,0);
     tracep->declQuad(c+7,"rf_2", false,-1, 63,0);

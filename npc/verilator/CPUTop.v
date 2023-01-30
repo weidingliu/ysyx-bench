@@ -242,7 +242,7 @@ module CPUTop(
   wire [63:0] DIP_rf_29; // @[CPUTop.scala 24:19]
   wire [63:0] DIP_rf_30; // @[CPUTop.scala 24:19]
   wire [63:0] DIP_rf_31; // @[CPUTop.scala 24:19]
-  wire [63:0] DIP_pc; // @[CPUTop.scala 24:19]
+  wire [31:0] DIP_inst; // @[CPUTop.scala 24:19]
   reg [63:0] rf [0:31]; // @[RF.scala 6:17]
   wire  rf_EX_io1_REG1_MPORT_en; // @[RF.scala 6:17]
   wire [4:0] rf_EX_io1_REG1_MPORT_addr; // @[RF.scala 6:17]
@@ -418,7 +418,7 @@ module CPUTop(
     .rf_29(DIP_rf_29),
     .rf_30(DIP_rf_30),
     .rf_31(DIP_rf_31),
-    .pc(DIP_pc)
+    .inst(DIP_inst)
   );
   assign rf_EX_io1_REG1_MPORT_en = 1'h1;
   assign rf_EX_io1_REG1_MPORT_addr = ID_io_ctrlIO_src1;
@@ -574,7 +574,7 @@ module CPUTop(
   assign DIP_rf_29 = rf_DIP_io_rf_29_MPORT_data; // @[CPUTop.scala 52:18]
   assign DIP_rf_30 = rf_DIP_io_rf_30_MPORT_data; // @[CPUTop.scala 52:18]
   assign DIP_rf_31 = rf_DIP_io_rf_31_MPORT_data; // @[CPUTop.scala 52:18]
-  assign DIP_pc = IF_io_pc; // @[CPUTop.scala 54:13]
+  assign DIP_inst = io_inst; // @[CPUTop.scala 54:15]
   always @(posedge clock) begin
     if (rf_MPORT_en & rf_MPORT_mask) begin
       rf[rf_MPORT_addr] <= rf_MPORT_data; // @[RF.scala 6:17]

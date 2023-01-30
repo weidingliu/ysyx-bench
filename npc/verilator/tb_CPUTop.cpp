@@ -22,13 +22,13 @@ extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
   cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
 }
 
-extern "C" void set_pc( const svLogicVecVal* pc){
+extern "C" void set_pc( const svLogicVecVal* inst){
     //printf("%lld\n",pc);
     //PC=pc;
     for(int i=0;i<64;i++){
         //PC=(uint64_t *)();
-        PC+=svGetBitselLogic(pc,i);
-        printf("%d",svGetBitselLogic(pc,i));
+        PC+=svGetBitselLogic(inst,i);
+        printf("%x",svGetBitselLogic(inst,i));
     }
     printf("\n");
     
@@ -120,6 +120,7 @@ while(sim_time<MAX_SIM_TIME && (!contextp->gotFinish())){
 }
 printf("Final PC is : 0x%lx\n",dut->io_pc);
 dump_gpr();
+printf("%lx\n",PC);
 m_trace->close();
 delete dut;
 delete contextp;
