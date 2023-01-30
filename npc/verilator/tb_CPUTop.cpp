@@ -110,12 +110,13 @@ while(sim_time<MAX_SIM_TIME && (!contextp->gotFinish())){
     
     sim_time++;
     //printf("%lx\n",PC);
+    printf("%lx\n",Inst[0]);
     //if() break;
     //printf("%ld\n",sim_time);
 }
 printf("Final PC is : 0x%lx\n",dut->io_pc);
 dump_gpr();
-printf("%lx\n",Inst[0]);
+
 m_trace->close();
 delete dut;
 delete contextp;
