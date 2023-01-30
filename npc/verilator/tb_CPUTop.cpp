@@ -22,7 +22,7 @@ extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
   cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
 }
 
-extern "C" void set_pc( const svOpenArrayHandle inst){
+extern "C" void set_pc( const svScope inst){
     //printf("%lld\n",pc);
     //PC=pc;
     Inst=(uint64_t *)(((VerilatedDpiOpenVar*)inst)->datap());
@@ -110,7 +110,7 @@ while(sim_time<MAX_SIM_TIME && (!contextp->gotFinish())){
     
     sim_time++;
     //printf("%lx\n",PC);
-    if(sim_time%40==0 && dut->clock==1)printf("%08lx\n",Inst[0]);
+    if(sim_time%40==0 && dut->clock==1 && dut->reset==0)printf("%08lx\n",Inst[0]);
     //if() break;
     //printf("%ld\n",sim_time);
 }
