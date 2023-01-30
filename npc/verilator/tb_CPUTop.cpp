@@ -22,13 +22,13 @@ extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
   cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
 }
 
-extern "C" void set_pc( const svBitVecVal* pc){
+extern "C" void set_pc( const svLogicVecVal* pc){
     //printf("%lld\n",pc);
     //PC=pc;
     for(int i=0;i<64;i++){
         //PC=(uint64_t *)();
-        PC+=svGetBitselBit(pc,i);
-        printf("%d",svGetBitselBit(pc,i));
+        PC+=svGetBitselLogic(pc,i);
+        printf("%d",svGetBitselLogic(pc,i));
     }
     printf("\n");
     
