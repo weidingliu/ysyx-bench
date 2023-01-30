@@ -2,7 +2,7 @@
 
 import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
 
-import "DPI-C" function void set_pc(input logic [31:0] inst);
+import "DPI-C" function void set_pc(input logic [31:0] inst[]);
 
 module DIP_model(input wire is_break,
 input wire [31:0] inst,

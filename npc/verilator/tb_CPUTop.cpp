@@ -17,20 +17,15 @@ uint32_t mem[MAX_MEM];
 uint32_t mem_size;
 
 uint64_t *cpu_gpr = NULL;
-uint64_t PC;
+uint64_t *Inst;
 extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
   cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
 }
 
-extern "C" void set_pc( const svLogicVecVal* inst){
+extern "C" void set_pc( const svOpenArrayHandle inst){
     //printf("%lld\n",pc);
     //PC=pc;
-    for(int i=0;i<32;i++){
-        //PC=(uint64_t *)();
-        PC+=svGetBitselLogic(inst,i);
-        printf("%x",svGetBitselLogic(inst,i));
-    }
-    printf("\n");
+    Inst=(uint64_t *)(((VerilatedDpiOpenVar*)inst)->datap());
     
     
 }
@@ -120,7 +115,7 @@ while(sim_time<MAX_SIM_TIME && (!contextp->gotFinish())){
 }
 printf("Final PC is : 0x%lx\n",dut->io_pc);
 dump_gpr();
-printf("%lx\n",PC);
+printf("%lx\n",Inst[0]);
 m_trace->close();
 delete dut;
 delete contextp;
