@@ -4,6 +4,7 @@
 #include "VCPUTop.h"
 #include "VCPUTop__Syms.h"
 #include "verilated_vcd_c.h"
+#include "verilated_dpi.h"
 
 //============================================================
 // Constructors
@@ -16,6 +17,7 @@ VCPUTop::VCPUTop(VerilatedContext* _vcontextp__, const char* _vcname__)
     , io_inst{vlSymsp->TOP.io_inst}
     , io_pc{vlSymsp->TOP.io_pc}
     , io_result{vlSymsp->TOP.io_result}
+    , __PVT____024unit{vlSymsp->TOP.__PVT____024unit}
     , rootp{&(vlSymsp->TOP)}
 {
     // Register model with the context

@@ -5,6 +5,8 @@ import chisel3.util._
 class DIP_model extends BlackBox{
   val io = IO(new Bundle() {
     val is_break = Input(Bool())
+    val rf=Input(Vec(32,UInt(64.W)))
+    val inst=Input(UInt(32.W))
   })
 }
 class CPUTop extends Module with paramete{
@@ -46,6 +48,11 @@ class CPUTop extends Module with paramete{
   io.result := EX.io1.result
 
   DIP.io.is_break := EX.io1.is_break
+  for (i <- 0 until NReg){
+    DIP.io.rf(i) := Reg.rf(i)
+  }
+  DIP.io.inst := io.inst
+
 }
 
 import chisel3.stage._

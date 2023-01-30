@@ -5,13 +5,41 @@
 #include "VCPUTop.h"
 #include "VCPUTop___024root.h"
 #include <svdpi.h>
-//#include "VCPUTop__Dpi.h"
+#include "VCPUTop__Dpi.h"
+#include "verilated_dpi.h"
 
 #define MAX_SIM_TIME 2000
 #define MAX_MEM 480
+
+
 vluint64_t sim_time=0;
 uint32_t mem[MAX_MEM];
 uint32_t mem_size;
+
+uint64_t *cpu_gpr = NULL;
+uint32_t *Inst;
+extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
+  cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
+}
+
+extern "C" void set_pc( const svOpenArrayHandle inst){
+    //printf("%lld\n",pc);
+    //PC=pc;
+    Inst=(uint32_t *)(((VerilatedDpiOpenVar*)inst)->datap());
+    //Inst=inst;
+    /*Inst=inst[0];
+    
+    printf("%x\n", inst[0]);*/
+    
+}
+
+// 一个输出RTL中通用寄存器的值的示例
+void dump_gpr() {
+  int i;
+  for (i = 0; i < 32; i++) {
+    printf("gpr[%d] = 0x%lx\n", i, cpu_gpr[i]);
+  }
+}
 
 void init_mem(char *file_path){
     FILE *fp;
@@ -50,12 +78,13 @@ uint32_t pem_read(uint64_t pc){
     mem[2]=0b00000000000100010000000100010011;
     mem[3]=0b00000000000100000000000001110011;
     mem[4]=0b00000000000100010000000100010011;*/
-    printf("%lx  %ld\n",pc,(pc-0x80000000)/4);
+    //printf("%lx  %ld\n",pc,(pc-0x80000000)/4);
     return mem[(pc-0x80000000)/4];
 } 
 
 int main(int argc, char** argv) {
 //printf("--------------------%s   %d\n",argv[1],argc);
+
 init_mem(argv[1]);
 VerilatedContext* contextp = new VerilatedContext;
 contextp->commandArgs(argc, argv);
@@ -83,10 +112,14 @@ while(sim_time<MAX_SIM_TIME && (!contextp->gotFinish())){
     m_trace->dump(sim_time);
     
     sim_time++;
+    //printf("%lx\n",PC);
+    if(sim_time%40==0 && dut->clock==1 && dut->reset==0)printf("%08x\n",Inst[0]);
     //if() break;
     //printf("%ld\n",sim_time);
 }
 printf("Final PC is : 0x%lx\n",dut->io_pc);
+dump_gpr();
+
 m_trace->close();
 delete dut;
 delete contextp;
