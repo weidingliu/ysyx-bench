@@ -110,7 +110,7 @@ while(sim_time<MAX_SIM_TIME && (!contextp->gotFinish())){
     
     sim_time++;
     //printf("%lx\n",PC);
-    printf("%lx\n",Inst[0]);
+    if(sim_time%40==0 && dut->clock==1)printf("%08lx\n",Inst[0]);
     //if() break;
     //printf("%ld\n",sim_time);
 }
