@@ -27,6 +27,7 @@ extern "C" void set_pc( const svBitVecVal* pc){
     //PC=pc;
     for(int i=0;i<64;i++){
         //PC=(uint64_t *)();
+        PC+=svGetBitselBit(pc,i);
         printf("%d",svGetBitselBit(pc,i));
     }
     printf("\n");
@@ -113,7 +114,7 @@ while(sim_time<MAX_SIM_TIME && (!contextp->gotFinish())){
     m_trace->dump(sim_time);
     
     sim_time++;
-    //printf("%llx\n",*PC);
+    printf("%lx\n",PC);
     //if() break;
     //printf("%ld\n",sim_time);
 }
