@@ -19,12 +19,12 @@ VL_INLINE_OPT void VCPUTop___024unit____Vdpiimwrap_set_gpr_ptr__Vdpioc2_TOP____0
     set_gpr_ptr(&a__Vopenarray);
 }
 
-extern "C" void set_pc(const svBitVecVal* inst);
+extern "C" void set_pc(const svOpenArrayHandle inst);
 
-VL_INLINE_OPT void VCPUTop___024unit____Vdpiimwrap_set_pc_TOP____024unit(IData/*31:0*/ inst) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+        VCPUTop___024unit____Vdpiimwrap_set_pc_TOP____024unit\n"); );
+VL_INLINE_OPT void VCPUTop___024unit____Vdpiimwrap_set_pc__Vdpioc2_TOP____024unit(const IData/*31:0*/ &inst) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+        VCPUTop___024unit____Vdpiimwrap_set_pc__Vdpioc2_TOP____024unit\n"); );
     // Body
-    svBitVecVal inst__Vcvt[1];
-    for (size_t inst__Vidx = 0; inst__Vidx < 1; ++inst__Vidx) VL_SET_SVBV_I(32, inst__Vcvt + 1 * inst__Vidx, inst);
-    set_pc(inst__Vcvt);
+    static const VerilatedVarProps inst__Vopenprops(VLVT_UINT32, VLVD_IN, VerilatedVarProps::Packed(), 31, 0);
+    VerilatedDpiOpenVar inst__Vopenarray (&inst__Vopenprops, &inst);
+    set_pc(&inst__Vopenarray);
 }
