@@ -107,7 +107,7 @@ Verilated::traceEverOn(true);
 VerilatedVcdC *m_trace = new VerilatedVcdC;
 dut->trace(m_trace,8);
 m_trace->open("waveform.vcd");
-exe_once(dut,sim_time,contextp);
+exe_once(dut,contextp);
 
 while(sim_time<MAX_SIM_TIME && (!contextp->gotFinish())){
     dut->clock ^= 1;
