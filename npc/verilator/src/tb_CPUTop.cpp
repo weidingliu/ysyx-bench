@@ -85,6 +85,16 @@ uint32_t pem_read(uint64_t pc){
     return mem[(pc-0x80000000)/4];
 } 
 
+void exe_once(VCPUTop &s,vluint64_t *sim_time,VerilatedContext* contextp){
+    for(int i=0;i<2 && (!contextp->gotFinish())){
+        s->clock ^=1;
+        s->reset = 0;
+        if(sim_time%1==0) dut->io_inst = pem_read(dut->io_pc);
+        sim_time++;
+    }
+    if(dut->reset==0)printf("----------%08x\n",Inst[0]);
+}
+
 int main(int argc, char** argv) {
 //printf("--------------------%s   %d\n",argv[1],argc);
 
@@ -97,18 +107,16 @@ Verilated::traceEverOn(true);
 VerilatedVcdC *m_trace = new VerilatedVcdC;
 dut->trace(m_trace,8);
 m_trace->open("waveform.vcd");
-
+exe_once(dut,sim_time,contextp);
 
 while(sim_time<MAX_SIM_TIME && (!contextp->gotFinish())){
     dut->clock ^= 1;
     
     dut->reset = 1;
     dut->io_inst=0; 
-    if(sim_time>=3){
-
+    if(sim_time%1==0 &&sim_time>=3){
         dut->reset = 0;
         dut->io_inst = pem_read(dut->io_pc);
-
     }
     
     dut->eval();
