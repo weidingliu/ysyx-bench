@@ -116,7 +116,7 @@ void Reset(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
         sim_time++;
     }
 
-{
+}
 
 int main(int argc, char** argv) {
 //printf("--------------------%s   %d\n",argv[1],argc);
