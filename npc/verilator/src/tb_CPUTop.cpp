@@ -113,7 +113,7 @@ Verilated::traceEverOn(true);
 VerilatedVcdC *m_trace = new VerilatedVcdC;
 dut->trace(m_trace,8);
 m_trace->open("waveform.vcd");
-while (sim_time<5){
+/*while (sim_time<5){
     dut->clock ^= 1;
     dut->io_inst=0; 
     dut->reset = 1;
@@ -121,8 +121,8 @@ while (sim_time<5){
 }
 printf("%ld\n",sim_time);
 printf("%lx\n",dut->io_pc);
-exe_once(dut,contextp);
-/*
+exe_once(dut,contextp);*/
+
 while(sim_time<MAX_SIM_TIME && (!contextp->gotFinish())){
     dut->clock ^= 1;
     
@@ -138,10 +138,10 @@ while(sim_time<MAX_SIM_TIME && (!contextp->gotFinish())){
     m_trace->dump(sim_time);
     
     sim_time++;
-
+    printf("%lx\n",dut->io_pc);
     if(dut->reset==0)printf("%08x\n",Inst[0]);
 
-}*/
+}
 printf("Final PC is : 0x%lx\n",dut->io_pc);
 
 if(cpu_gpr[10] !=0) {dump_gpr(); printf("\033[40;31mHIT BAD TRAP at pc = \033[0m \033[40;31m0x%lx\033[0m\n",dut->io_pc);}
