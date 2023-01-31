@@ -86,7 +86,7 @@ uint32_t pem_read(uint64_t pc){
 } 
 
 void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
-    for(int i=0;i<1 && (! contextp->gotFinish());i++){
+    for(int i=0;i<2 && (! contextp->gotFinish());i++){
         s->clock ^=1;
         
         s->reset = 0;
