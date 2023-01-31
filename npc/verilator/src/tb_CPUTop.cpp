@@ -10,11 +10,11 @@
 
 #define MAX_SIM_TIME 2000
 #define MAX_MEM 480
-
+/*
 #define clk 100 //set clock  MHZ
 
 #define div_clock(c) ((((10^9)/(c*10^6))*10^3)/2)
-
+*/
 vluint64_t sim_time=0;
 uint32_t mem[MAX_MEM];
 uint32_t mem_size;
@@ -85,7 +85,7 @@ uint32_t pem_read(uint64_t pc){
     return mem[(pc-0x80000000)/4];
 } 
 
-void exe_once(VCPUTop *s,VerilatedContext* contextp){
+void exe_once(VCPUTop &s,VerilatedContext &contextp){
     for(int i=0;i<2 && (!contextp->gotFinish());i++){
         s->clock ^=1;
         s->reset = 0;
