@@ -11,6 +11,9 @@
 #define MAX_SIM_TIME 2000
 #define MAX_MEM 480
 
+#define clock 100 //set clock  MHZ
+
+#define div_clock(c) ((((10^9)/(c*10^6))*10^3)/2)
 
 vluint64_t sim_time=0;
 uint32_t mem[MAX_MEM];
@@ -95,12 +98,14 @@ VerilatedVcdC *m_trace = new VerilatedVcdC;
 dut->trace(m_trace,8);
 m_trace->open("waveform.vcd");
 
+int div_clk=div_clock(clock)
+
 while(sim_time<MAX_SIM_TIME && (!contextp->gotFinish())){
-    if(sim_time%40==0) dut->clock ^= 1;
+    if(sim_time%div_clk==0) dut->clock ^= 1;
     
     dut->reset = 1;
     dut->io_inst=0; 
-    if(sim_time>=85){
+    if(sim_time>=3*div_clk){
 
         dut->reset = 0;
         dut->io_inst = pem_read(dut->io_pc);
@@ -112,10 +117,9 @@ while(sim_time<MAX_SIM_TIME && (!contextp->gotFinish())){
     m_trace->dump(sim_time);
     
     sim_time++;
-    //printf("%lx\n",PC);
-    if(sim_time%40==0 && dut->clock==1 && dut->reset==0)printf("%08x\n",Inst[0]);
-    //if() break;
-    //printf("%ld\n",sim_time);
+
+    if(sim_time%div_clk==0 && dut->clock==1 && dut->reset==0)printf("%08x\n",Inst[0]);
+
 }
 printf("Final PC is : 0x%lx\n",dut->io_pc);
 
