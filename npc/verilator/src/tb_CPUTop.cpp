@@ -118,9 +118,10 @@ while (sim_time<5){
     dut->io_inst=0; 
     dut->reset = 1;
     sim_time++;
+    printf("%ld\n",sim_time);
+    printf("%lx\n",dut->io_pc);
 }
-printf("%ld\n",sim_time);
-printf("%lx\n",dut->io_pc);
+
 //exe_once(dut,contextp);
 /*
 while(sim_time<MAX_SIM_TIME && (!contextp->gotFinish())){
