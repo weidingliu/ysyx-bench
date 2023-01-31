@@ -120,7 +120,7 @@ while (sim_time<5){
     sim_time++;
     printf("%ld\n",sim_time);
     printf("%lx\n",dut->io_pc);
-    printf("%d",dut->clock);
+    printf("%d\n",dut->clock);
 }
 dut->reset = 0;
 dut->clock ^= 1;
