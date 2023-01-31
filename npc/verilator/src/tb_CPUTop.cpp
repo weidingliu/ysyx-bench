@@ -98,7 +98,7 @@ VerilatedVcdC *m_trace = new VerilatedVcdC;
 dut->trace(m_trace,8);
 m_trace->open("waveform.vcd");
 
-int div_clk=div_clock(clock)
+int div_clk=div_clock(clock);
 
 while(sim_time<MAX_SIM_TIME && (!contextp->gotFinish())){
     if(sim_time%div_clk==0) dut->clock ^= 1;
