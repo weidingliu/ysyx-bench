@@ -119,7 +119,7 @@ while (sim_time<3){
     dut->reset = 1;
     sim_time++;
 }
-printf("%d\n",sim_time);
+printf("%ld\n",sim_time);
 exe_once(dut,contextp);
 /*
 while(sim_time<MAX_SIM_TIME && (!contextp->gotFinish())){
