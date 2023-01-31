@@ -89,10 +89,10 @@ void exe_once(VCPUTop &s,vluint64_t *sim_time,VerilatedContext* contextp){
     for(int i=0;i<2 && (!contextp->gotFinish())){
         s->clock ^=1;
         s->reset = 0;
-        if(sim_time%1==0) dut->io_inst = pem_read(dut->io_pc);
+        if(sim_time%1==0) s->io_inst = pem_read(s->io_pc);
         sim_time++;
     }
-    if(dut->reset==0)printf("----------%08x\n",Inst[0]);
+    if(s->reset==0)printf("----------%08x\n",Inst[0]);
 }
 
 int main(int argc, char** argv) {
