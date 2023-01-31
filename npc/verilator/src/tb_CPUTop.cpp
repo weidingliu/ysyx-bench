@@ -120,7 +120,7 @@ while(sim_time<MAX_SIM_TIME && (!contextp->gotFinish())){
 printf("Final PC is : 0x%lx\n",dut->io_pc);
 dump_gpr();
 if(cpu_gpr[10] !=0) printf("\033[40;34mftrace: \033[0m \033[40;32mON\033[0m\n");
-else printf("\033[40;34mHIT GOOD: \033[0m \033[40;32m0x%lx\033[0m\n",dut->io_pc);
+else printf("\033[40;32mHIT GOOD: \033[0m \033[40;32m0x%lx\033[0m\n",dut->io_pc);
 m_trace->close();
 delete dut;
 delete contextp;
