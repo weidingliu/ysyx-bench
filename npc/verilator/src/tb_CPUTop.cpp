@@ -94,7 +94,7 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
         
         if(sim_time % 1==0) s->io_inst = pem_read(s->io_pc);
         
-        dut->eval();
+        s->eval();
    
         m_trace->dump(sim_time);
         sim_time++;
