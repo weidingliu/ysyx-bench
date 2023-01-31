@@ -142,7 +142,7 @@ init_mem(argv[1]);
 //reset rtl
 Reset(dut,contextp,m_trace);//reset rtl
 //execute 
-execute(dut,contextp,m_trace);
+execute(dut,contextp,m_trace,10);
 
 
 printf("Final PC is : 0x%lx\n",dut->io_pc);
