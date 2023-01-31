@@ -93,6 +93,7 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp){
         s->reset = 0;
         printf("here3\n");
         if(sim_time % 1==0) s->io_inst = pem_read(s->io_pc);
+        printf("here4\n");
         sim_time++;
         printf("here2\n");
     }
