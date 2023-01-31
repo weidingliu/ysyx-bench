@@ -85,7 +85,7 @@ uint32_t pem_read(uint64_t pc){
     return mem[(pc-0x80000000)/4];
 } 
 
-void exe_once(VCPUTop &s,vluint64_t *sim_time,VerilatedContext* contextp){
+void exe_once(VCPUTop *s,vluint64_t *sim_time,VerilatedContext* contextp){
     for(int i=0;i<2 && (!contextp->gotFinish())){
         s->clock ^=1;
         s->reset = 0;
