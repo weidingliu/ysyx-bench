@@ -86,11 +86,13 @@ uint32_t pem_read(uint64_t pc){
 } 
 
 void exe_once(VCPUTop *s,VerilatedContext* contextp){
+    printf("here\n");
     for(int i=0;i<2 && (! contextp->gotFinish());i++){
         s->clock ^=1;
         s->reset = 0;
         if(sim_time % 1==0) s->io_inst = pem_read(s->io_pc);
         sim_time++;
+        printf("here2\n");
     }
     if(s->reset==0)printf("----------%08x\n",Inst[0]);
 }
@@ -114,7 +116,7 @@ while (sim_time<3){
     sim_time++;
 }
 
-exe_once(*dut,*contextp);
+exe_once(dut,contextp);
 /*
 while(sim_time<MAX_SIM_TIME && (!contextp->gotFinish())){
     dut->clock ^= 1;
