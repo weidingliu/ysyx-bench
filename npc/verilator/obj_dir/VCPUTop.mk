@@ -35,7 +35,6 @@ VM_PREFIX = VCPUTop
 VM_MODPREFIX = VCPUTop
 # User CFLAGS (from -CFLAGS on Verilator command line)
 VM_USER_CFLAGS = \
-	include \
 
 # User LDLIBS (from -LDFLAGS on Verilator command line)
 VM_USER_LDLIBS = \
