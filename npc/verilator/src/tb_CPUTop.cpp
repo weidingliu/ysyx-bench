@@ -117,7 +117,7 @@ while(sim_time<MAX_SIM_TIME && (!contextp->gotFinish())){
     
     sim_time++;
 
-    if(&& dut->reset==0)printf("%08x\n",Inst[0]);
+    if(dut->reset==0)printf("%08x\n",Inst[0]);
 
 }
 printf("Final PC is : 0x%lx\n",dut->io_pc);
