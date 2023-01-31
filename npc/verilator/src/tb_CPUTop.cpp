@@ -109,7 +109,7 @@ void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,int 
 }
 
 void Reset(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
-    while(sim_time<5){
+    while(sim_time<3){
         dut->clock ^= 1;
         dut->io_inst=0; 
         dut->reset = 1;
