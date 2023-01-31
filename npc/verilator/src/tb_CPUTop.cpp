@@ -85,18 +85,20 @@ uint32_t pem_read(uint64_t pc){
     return mem[(pc-0x80000000)/4];
 } 
 
-void exe_once(VCPUTop *s,VerilatedContext* contextp){
+void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     printf("here\n");
     for(int i=0;i<2 && (! contextp->gotFinish());i++){
         s->clock ^=1;
-        printf("here1\n");
+        
         s->reset = 0;
-        printf("here3\n");
-        printf("%016lx\n",s->io_pc);
+        
         if(sim_time % 1==0) s->io_inst = pem_read(s->io_pc);
-        printf("here4\n");
+        
+        dut->eval();
+   
+        m_trace->dump(sim_time);
         sim_time++;
-        printf("here2\n");
+        
     }
     if(s->reset==0)printf("----------%08x\n",Inst[0]);
 }
@@ -113,19 +115,24 @@ Verilated::traceEverOn(true);
 VerilatedVcdC *m_trace = new VerilatedVcdC;
 dut->trace(m_trace,5);
 m_trace->open("waveform.vcd");
+
 while (sim_time<5){
     dut->clock ^= 1;
     dut->io_inst=0; 
     dut->reset = 1;
+    
+    
+    dut->eval();
+   
+    m_trace->dump(sim_time);
+    
     sim_time++;
-    printf("%ld\n",sim_time);
-    printf("%lx\n",dut->io_pc);
-    printf("%d\n",dut->clock);
+
 }
 dut->reset = 0;
 dut->clock ^= 1;
 printf("%lx\n",dut->io_pc);
-//exe_once(dut,contextp);
+exe_once(dut,contextp,m_trace);
 /*
 while(sim_time<MAX_SIM_TIME && (!contextp->gotFinish())){
     dut->clock ^= 1;
