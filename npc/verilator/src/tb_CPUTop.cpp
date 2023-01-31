@@ -113,7 +113,8 @@ while (sim_time<3){
     dut->reset = 1;
     sim_time++;
 }
-exe_once(dut,contextp);
+
+//exe_once(dut,contextp);
 /*
 while(sim_time<MAX_SIM_TIME && (!contextp->gotFinish())){
     dut->clock ^= 1;
