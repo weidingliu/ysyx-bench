@@ -34,6 +34,7 @@ clean:
 
 sim: 
 	#$(MAKE) -C $(BPATH) 
+	cp -f ./build/CPUTop.v ./verilator/vsrc
 	$(MAKE) -C ./verilator
 	 
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
