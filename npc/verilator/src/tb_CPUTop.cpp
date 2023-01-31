@@ -121,7 +121,7 @@ void Reset(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
 int main(int argc, char** argv) {
 //printf("--------------------%s   %d\n",argv[1],argc);
 
-init_mem(argv[1]);
+
 VerilatedContext* contextp = new VerilatedContext;
 contextp->commandArgs(argc, argv);
 VCPUTop *dut = new VCPUTop;
@@ -131,10 +131,15 @@ VerilatedVcdC *m_trace = new VerilatedVcdC;
 dut->trace(m_trace,5);
 m_trace->open("waveform.vcd");
 
-Reset();//reset rtl
+// init inst memory
+init_mem(argv[1]);
+//reset rtl
+Reset(dut,contextp,m_trace);//reset rtl
+//execute once
+while (!contextp->gotFinish()){
+    exe_once(dut,contextp,m_trace);
+}
 
-
-exe_once(dut,contextp,m_trace);
 /*
 while(sim_time<MAX_SIM_TIME && (!contextp->gotFinish())){
     dut->clock ^= 1;
