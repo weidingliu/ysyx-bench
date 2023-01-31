@@ -108,6 +108,8 @@ void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,int 
     }
 }
 
+
+
 void Reset(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     while(sim_time<3){
         dut->clock ^= 1;
@@ -142,7 +144,7 @@ init_mem(argv[1]);
 //reset rtl
 Reset(dut,contextp,m_trace);//reset rtl
 //execute 
-execute(dut,contextp,m_trace,1);
+execute(dut,contextp,m_trace,-1);
 
 
 printf("Final PC is : 0x%lx\n",dut->io_pc);
