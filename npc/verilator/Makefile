@@ -4,7 +4,7 @@ vpath %.v vsrc
 vpath %.c %.cpp src
 
 VSRC :=$(wildcard vsrc/*.v)
-##CFLAGS := include
+CFLAGS := include
 CSRC :=$(wildcard src/*.cpp)
 
 vcd:	
