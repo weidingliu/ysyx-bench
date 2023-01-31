@@ -86,7 +86,6 @@ uint32_t pem_read(uint64_t pc){
 } 
 
 void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
-    printf("here\n");
     for(int i=0;i<2 && (! contextp->gotFinish());i++){
         s->clock ^=1;
         
@@ -103,6 +102,22 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     if(s->reset==0)printf("----------%08x\n",Inst[0]);
 }
 
+void Reset(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
+    while(sim_time<5){
+        dut->clock ^= 1;
+        dut->io_inst=0; 
+        dut->reset = 1;
+    
+    
+        dut->eval();
+   
+        m_trace->dump(sim_time);
+    
+        sim_time++;
+    }
+
+{
+
 int main(int argc, char** argv) {
 //printf("--------------------%s   %d\n",argv[1],argc);
 
@@ -116,22 +131,9 @@ VerilatedVcdC *m_trace = new VerilatedVcdC;
 dut->trace(m_trace,5);
 m_trace->open("waveform.vcd");
 
-while (sim_time<5){
-    dut->clock ^= 1;
-    dut->io_inst=0; 
-    dut->reset = 1;
-    
-    
-    dut->eval();
-   
-    m_trace->dump(sim_time);
-    
-    sim_time++;
+Reset();//reset rtl
 
-}
-dut->reset = 0;
-dut->clock ^= 1;
-printf("%lx\n",dut->io_pc);
+
 exe_once(dut,contextp,m_trace);
 /*
 while(sim_time<MAX_SIM_TIME && (!contextp->gotFinish())){
