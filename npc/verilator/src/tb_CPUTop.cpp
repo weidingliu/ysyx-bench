@@ -131,6 +131,7 @@ while(sim_time<MAX_SIM_TIME && (!contextp->gotFinish())){
     if(sim_time%1==0 &&sim_time>=3){
         dut->reset = 0;
         dut->io_inst = pem_read(dut->io_pc);
+        printf("%lx\n",dut->io_pc);
     }
     
     dut->eval();
@@ -138,7 +139,7 @@ while(sim_time<MAX_SIM_TIME && (!contextp->gotFinish())){
     m_trace->dump(sim_time);
     
     sim_time++;
-    printf("%lx\n",dut->io_pc);
+    
     if(dut->reset==0)printf("%08x\n",Inst[0]);
 
 }
