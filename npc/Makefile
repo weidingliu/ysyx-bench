@@ -1,11 +1,12 @@
 BUILD_DIR = ./build
 verilator_build_dir=./verilator/obj_dir
 BPATH ?= ../am-kernels/tests/cpu-tests/
-
+SCALAPATH := ./src/main/scala/One_cycle
+SCSRC := $(wildcard $(SCALAPATH)/*.scala)
 test:
 	mill -i __.test
 
-verilog:
+verilog: $(SCSRC)
 	$(call git_commit, "generate verilog")
 	mkdir -p $(BUILD_DIR)
 	mill -i __.test.runMain One_cycle.Spec -td $(BUILD_DIR)
