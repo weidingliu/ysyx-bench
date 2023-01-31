@@ -8,7 +8,7 @@ test:
 verilog:
 	$(call git_commit, "generate verilog")
 	mkdir -p $(BUILD_DIR)
-	mill -i __.test.runMain Vga_keyboard.Spec -td $(BUILD_DIR)
+	mill -i __.test.runMain CPUTop.Spec -td $(BUILD_DIR)
 
 help:
 	mill -i __.test.runMain Elaborate --help
@@ -32,7 +32,7 @@ clean:
 .PHONY: test verilog help compile bsp reformat checkformat clean wave count all
 
 
-sim: 
+sim: verilog
 	#$(MAKE) -C $(BPATH) 
 	cp -f ./build/CPUTop.v ./verilator/vsrc
 	$(MAKE) -C ./verilator
