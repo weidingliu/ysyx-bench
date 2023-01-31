@@ -111,7 +111,7 @@ VCPUTop *dut = new VCPUTop;
 
 Verilated::traceEverOn(true);
 VerilatedVcdC *m_trace = new VerilatedVcdC;
-dut->trace(m_trace,8);
+dut->trace(m_trace,5);
 m_trace->open("waveform.vcd");
 while (sim_time<5){
     dut->clock ^= 1;
@@ -120,8 +120,11 @@ while (sim_time<5){
     sim_time++;
     printf("%ld\n",sim_time);
     printf("%lx\n",dut->io_pc);
+    printf("%d",dut->clock);
 }
-
+dut->reset = 0;
+dut->clock ^= 1;
+printf("%lx\n",dut->io_pc);
 //exe_once(dut,contextp);
 /*
 while(sim_time<MAX_SIM_TIME && (!contextp->gotFinish())){
