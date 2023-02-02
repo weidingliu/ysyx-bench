@@ -8,6 +8,7 @@
 #include "VCPUTop__Dpi.h"
 #include "verilated_dpi.h"
 
+using namespace std;
 
 #include <stdlib.h>
 
