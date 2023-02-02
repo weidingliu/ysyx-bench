@@ -8,8 +8,7 @@
 #include "VCPUTop__Dpi.h"
 #include "verilated_dpi.h"
 
-#include <readline/readline.h>
-#include <readline/history.h>
+
 #include <stdlib.h>
 
 #define MAX_SIM_TIME 2000
@@ -139,11 +138,8 @@ static char* rl_gets() {
   }
   cout<< "(npc)";
   cin.getline(line_read,'\n');
-  while(line_read!='\n'){
-      printf("%c",line_read);
-      line_read++;
-  }
-  printf("\n");
+  
+  printf("%s\n",line_read);
   return line_read;
 }
 
