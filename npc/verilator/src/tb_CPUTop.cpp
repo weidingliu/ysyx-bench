@@ -131,7 +131,7 @@ void Reset(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
 }
 
 static char* rl_gets() {
-  static char *line_read = NULL;
+  /*static char *line_read = NULL;
 
   if (line_read) {
     free(line_read);
@@ -139,8 +139,20 @@ static char* rl_gets() {
   }
   
   cout<< "(npc)";
-  //cin.getline(line_read,'\n');
-  cin>>line_read;
+  cin.getline(line_read,'\n');*/
+  //cin>>line_read;
+  
+  if (line_read) {
+    free(line_read);
+    line_read = NULL;
+  }
+
+  line_read = readline("(nemu) ");
+
+  if (line_read && *line_read) {
+    add_history(line_read);
+  }
+
   
   return line_read;
 }
