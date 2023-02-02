@@ -158,6 +158,15 @@ static char* rl_gets() {
   return line_read;
 }
 
+void sdb_main_loop(){
+    for (char *str; (str = rl_gets()) != NULL; ) {
+    char *str_end = str + strlen(str);
+    printf("%s\n",str);
+}
+
+
+}
+
 int main(int argc, char** argv) {
 //printf("--------------------%s   %d\n",argv[1],argc);
 
@@ -177,10 +186,7 @@ init_mem(argv[1]);
 Reset(dut,contextp,m_trace);//reset rtl
 //execute 
 execute(dut,contextp,m_trace,-1);
-for (char *str; (str = rl_gets()) != NULL; ) {
-    char *str_end = str + strlen(str);
-    printf("%s\n",str);
-}
+sdb_main_loop();
 
 printf("Final PC is : 0x%lx\n",dut->io_pc);
 
