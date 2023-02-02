@@ -138,7 +138,7 @@ static char* rl_gets() {
     line_read = NULL;
   }
   cout<< "(npc)";
-  getline(cin,line_read,'\n');
+  cin.getline(line_read,'\n');
   
   printf("%s\n",line_read);
   return line_read;
