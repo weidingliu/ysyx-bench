@@ -166,7 +166,10 @@ init_mem(argv[1]);
 Reset(dut,contextp,m_trace);//reset rtl
 //execute 
 execute(dut,contextp,m_trace,-1);
-
+for (char *str; (str = rl_gets()) != NULL; ) {
+    char *str_end = str + strlen(str);
+    printf("%s\n",str);
+}
 
 printf("Final PC is : 0x%lx\n",dut->io_pc);
 
