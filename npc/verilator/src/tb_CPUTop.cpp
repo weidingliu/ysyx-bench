@@ -131,8 +131,8 @@ void Reset(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
 }
 
 static char* rl_gets() {
-  /*static char *line_read = NULL;
-
+  static char *line_read = NULL;
+/*
   if (line_read) {
     free(line_read);
     line_read = NULL;
