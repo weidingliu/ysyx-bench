@@ -8,6 +8,10 @@
 #include "VCPUTop__Dpi.h"
 #include "verilated_dpi.h"
 
+#include <readline/readline.h>
+#include <readline/history.h>
+#include <stdlib.h>
+
 #define MAX_SIM_TIME 2000
 #define MAX_MEM 480
 /*
@@ -124,6 +128,23 @@ void Reset(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
         sim_time++;
     }
 
+}
+
+static char* rl_gets() {
+  static char *line_read = NULL;
+
+  if (line_read) {
+    free(line_read);
+    line_read = NULL;
+  }
+
+  line_read = readline("(npc) ");
+
+  if (line_read && *line_read) {
+    add_history(line_read);
+  }
+
+  return line_read;
 }
 
 int main(int argc, char** argv) {
