@@ -137,10 +137,11 @@ static char* rl_gets() {
     free(line_read);
     line_read = NULL;
   }
-  cout<< "(npc)";
-  cin.getline(line_read,'\n');
+  printf("(npc)");
+  scanf("%s",line_read);
+  //cin.getline(line_read,'\n');
   
-  strncat(line_read,'\n',1);
+  
   return line_read;
 }
 
