@@ -140,7 +140,7 @@ static char* rl_gets() {
   cout<< "(npc)";
   cin.getline(line_read,'\n');
   
-  strncat(line_char,'\n',1);
+  strncat(line_read,'\n',1);
   return line_read;
 }
 
