@@ -8,8 +8,8 @@ CFLAGS := include
 CSRC :=$(wildcard src/*.cpp)
 
 vcd:	
-	verilator -Wno-fatal --trace -cc  $(VSRC) --top-module CPUTop   --exe $(CSRC) ##-CFLAGS $(CFLAGS)
-	$(MAKE) -C scripts -f my.mk VCPUTop 
+	verilator -Wno-fatal --trace --build -lreadline -cc  $(VSRC) --top-module CPUTop   --exe $(CSRC) ##-CFLAGS $(CFLAGS)
+	$(MAKE) -C obj_dir -f VCPUTop.mk VCPUTop 
 	./obj_dir/VCPUTop $(bin_path)$(ALL)-$(ARCH).bin
 
 .PHONY: vcd
