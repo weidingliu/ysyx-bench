@@ -24,8 +24,10 @@ vluint64_t sim_time=0;
 uint32_t mem[MAX_MEM];
 uint32_t mem_size;
 
+
 uint64_t *cpu_gpr = NULL;
 uint32_t *Inst;
+
 extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
   cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
 }
@@ -148,7 +150,7 @@ static char* rl_gets() {
     line_read = NULL;
   }
 
-  line_read = readline("(nemu) ");
+  line_read = readline("(npc) ");
 
   if (line_read && *line_read) {
     add_history(line_read);
@@ -161,7 +163,18 @@ static char* rl_gets() {
 void sdb_main_loop(){
     for (char *str; (str = rl_gets()) != NULL; ) {
     char *str_end = str + strlen(str);
-    printf("%s\n",str);
+     /* extract the first token as the command */
+    char *cmd = strtok(str, " ");
+    if (cmd == NULL) { continue; }
+
+    /* treat the remaining string as the arguments,
+     * which may need further parsing
+     */
+    char *args = cmd + strlen(cmd) + 1;
+    if (args >= str_end) {
+      args = NULL;
+    }
+    
 }
 
 
