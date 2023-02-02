@@ -131,14 +131,14 @@ void Reset(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
 }
 
 static char* rl_gets() {
-  static char *line_read = NULL;
+  static char *line_read __attribute__((unused))= NULL;
 
   if (line_read) {
     free(line_read);
     line_read = NULL;
   }
   printf("(npc)");
-  scanf("%s",line_read);
+  int o __attribute__((unused))=scanf("%s",line_read);
   //cin.getline(line_read,'\n');
   
   
