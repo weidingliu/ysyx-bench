@@ -9,7 +9,7 @@ CSRC :=$(wildcard src/*.cpp)
 
 vcd:	
 	verilator -Wno-fatal --trace -cc  $(VSRC) --top-module CPUTop   --exe $(CSRC) ##-CFLAGS $(CFLAGS)
-	$(MAKE) -lreadline -C obj_dir -f VCPUTop.mk VCPUTop 
+	$(MAKE) -C scripts -f my.mk VCPUTop 
 	./obj_dir/VCPUTop $(bin_path)$(ALL)-$(ARCH).bin
 
 .PHONY: vcd
