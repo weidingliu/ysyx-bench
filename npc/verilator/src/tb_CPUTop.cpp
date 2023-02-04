@@ -43,6 +43,56 @@ extern "C" void set_pc( const svOpenArrayHandle inst){
     
 }
 
+// 一个输出RTL中通用寄存器的值的示例
+void dump_gpr() {
+  int i;
+  for (i = 0; i < 32; i++) {
+    printf("gpr[%d] = 0x%lx\n", i, cpu_gpr[i]);
+  }
+}
+
+void init_mem(char *file_path){
+    FILE *fp;
+    
+    if((fp=fopen(file_path,"r"))==NULL){
+        printf("load mem fail!\n");
+        exit(-1);
+    }
+    fseek(fp,0,SEEK_END);
+    int size=ftell(fp);
+    mem_size=size;
+    if(size/4>MAX_MEM){
+        printf("fail load mem file size:%d\n",size);
+        exit(-1);
+    } 
+    //printf("----------%d\n",size);
+    rewind(fp);
+    size_t o=fread(mem,sizeof(uint32_t),size,fp);
+    if(o==0){
+        printf("fail load mem file \n");
+        exit(-1);
+    }
+    
+   /* for(int i=0;i<size;i++){
+        
+        printf("%08x\n",mem[i]);
+    }*/
+    printf("load mem finish!\n");
+}
+
+//void ebreak() {dut->final();return;}
+uint32_t pem_read(uint64_t pc){
+    
+    /*mem[0]=0b00000000000100000000000100010011;
+    mem[1]=0b00000000000100010000000100010011;
+    mem[2]=0b00000000000100010000000100010011;
+    mem[3]=0b00000000000100000000000001110011;
+    mem[4]=0b00000000000100010000000100010011;*/
+    //printf("%lx  %ld\n",pc,(pc-0x80000000)/4);
+    return mem[(pc-0x80000000)/4];
+} 
+
+
 void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     for(int i=0;i<2 && (! contextp->gotFinish());i++){
         s->clock ^=1;
@@ -180,54 +230,6 @@ static int cmd_si(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC
     return 0;
 }
 
-// 一个输出RTL中通用寄存器的值的示例
-void dump_gpr() {
-  int i;
-  for (i = 0; i < 32; i++) {
-    printf("gpr[%d] = 0x%lx\n", i, cpu_gpr[i]);
-  }
-}
-
-void init_mem(char *file_path){
-    FILE *fp;
-    
-    if((fp=fopen(file_path,"r"))==NULL){
-        printf("load mem fail!\n");
-        exit(-1);
-    }
-    fseek(fp,0,SEEK_END);
-    int size=ftell(fp);
-    mem_size=size;
-    if(size/4>MAX_MEM){
-        printf("fail load mem file size:%d\n",size);
-        exit(-1);
-    } 
-    //printf("----------%d\n",size);
-    rewind(fp);
-    size_t o=fread(mem,sizeof(uint32_t),size,fp);
-    if(o==0){
-        printf("fail load mem file \n");
-        exit(-1);
-    }
-    
-   /* for(int i=0;i<size;i++){
-        
-        printf("%08x\n",mem[i]);
-    }*/
-    printf("load mem finish!\n");
-}
-
-//void ebreak() {dut->final();return;}
-uint32_t pem_read(uint64_t pc){
-    
-    /*mem[0]=0b00000000000100000000000100010011;
-    mem[1]=0b00000000000100010000000100010011;
-    mem[2]=0b00000000000100010000000100010011;
-    mem[3]=0b00000000000100000000000001110011;
-    mem[4]=0b00000000000100010000000100010011;*/
-    //printf("%lx  %ld\n",pc,(pc-0x80000000)/4);
-    return mem[(pc-0x80000000)/4];
-} 
 
 
 
