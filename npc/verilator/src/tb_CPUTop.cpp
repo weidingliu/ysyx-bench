@@ -15,6 +15,8 @@
 
 #define MAX_SIM_TIME 2000
 #define MAX_MEM 480
+
+#define is_batch_mode fasle
 /*
 #define clk 100 //set clock  MHZ
 
@@ -273,7 +275,7 @@ static char* rl_gets() {
 
 void sdb_main_loop(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     if (is_batch_mode) {
-    cmd_c(s,contextp,m_trace,NULL);
+    cmd_c(NULL,s,contextp,m_trace);
     return;
   }
     
