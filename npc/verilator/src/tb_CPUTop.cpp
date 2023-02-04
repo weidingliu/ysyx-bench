@@ -120,7 +120,7 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
 }
 
 void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,int n){
-    printf("----------%08lx\n",dut->io_pc);
+    
     while(n--!=0 &&((!contextp->gotFinish()))){
         exe_once(dut,contextp,m_trace);
     }
