@@ -111,7 +111,7 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     }
     char *p;
     void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
-    disassemble(p,0,s->io->pc,(uint8_t *)&s->io_inst,4);
+    disassemble(p,0,s->io_pc,(uint8_t *)&s->io_inst,4);
     /*disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);*/
       
