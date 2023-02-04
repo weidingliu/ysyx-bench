@@ -110,7 +110,7 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
         
     }
     char *p=NULL;
-    printf(" %08x   %hhn\n",s->io_inst,(uint8_t *)s->io_inst);
+    printf(" %08x   %hhn\n",s->io_inst,(uint8_t *)&s->io_inst);
     void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
     disassemble(p,96,s->io_pc,(uint8_t *)&s->io_inst,4);
     /*disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
