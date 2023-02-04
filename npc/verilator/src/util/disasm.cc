@@ -92,7 +92,7 @@ void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte) {
   MCInst inst;
   llvm::ArrayRef<uint8_t> arr(code, nbyte);
   uint64_t dummy_size = 0;
-  printf("%d\n",code);
+  printf("%hhu\n",code);
   //printf("%08lx   %x\n",pc,&code);
   printf("here2\n");
   
