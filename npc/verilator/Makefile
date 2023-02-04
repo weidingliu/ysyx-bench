@@ -8,7 +8,7 @@ vpath %.c %.cpp src
 VSRC :=$(wildcard vsrc/*.v)
 ##CFLAGS := include
 CSRC :=$(wildcard src/*.cpp src/util/*.cc)
-LDFLAGS=-LDFLAGS "$(shell llvm-config --libs) -ldl" -lreadline
+LDFLAGS=-LDFLAGS -lreadline "$(shell llvm-config --libs) -ldl" 
 CFLAGS=-CFLAGS "fpermissive -I $$NPC_HOME/verilator/src/include -I /usr/lib/llvm-13/include"
 vcd:	
 	verilator -Wno-fatal --trace -cc  $(VSRC) --top-module CPUTop   --exe $(CSRC) $(LDFLAGS) $(CFLAGS)
