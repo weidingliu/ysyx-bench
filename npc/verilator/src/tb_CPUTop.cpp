@@ -188,7 +188,7 @@ static struct {
 
 };
 
-#define NR_CMD 5
+#define NR_CMD 3
 
 static int cmd_help(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace) {
   /* extract the first argument */
