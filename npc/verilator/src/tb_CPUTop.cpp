@@ -295,7 +295,7 @@ void sdb_main_loop(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace)
     }
     
      int i;
-     printf("----------%d\n",s->io_pc);
+     printf("----------%08lx\n",s->io_pc);
     for (i = 0; i < NR_CMD; i ++) {
       if (strcmp(cmd, cmd_table[i].name) == 0) {
         if (cmd_table[i].handler(args,s,contextp,m_trace) < 0) { return; }
