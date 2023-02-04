@@ -43,6 +43,47 @@ extern "C" void set_pc( const svOpenArrayHandle inst){
     
 }
 
+void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
+    for(int i=0;i<2 && (! contextp->gotFinish());i++){
+        s->clock ^=1;
+        
+        s->reset = 0;
+        
+        if(sim_time % 1==0) s->io_inst = pem_read(s->io_pc);
+        
+        s->eval();
+   
+        m_trace->dump(sim_time);
+        sim_time++;
+        
+    }
+    if(s->reset==0)printf("----------%08x\n",Inst[0]);
+}
+
+void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,int n){
+    while(n--!=0 &&((!contextp->gotFinish()))){
+        exe_once(dut,contextp,m_trace);
+    }
+}
+
+
+
+void Reset(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
+    while(sim_time<3){
+        dut->clock ^= 1;
+        dut->io_inst=0; 
+        dut->reset = 1;
+    
+    
+        dut->eval();
+   
+        m_trace->dump(sim_time);
+    
+        sim_time++;
+    }
+
+}
+
 uint64_t atoi64_t(char *arrTmp)
 {
 int len =0;
@@ -188,46 +229,7 @@ uint32_t pem_read(uint64_t pc){
     return mem[(pc-0x80000000)/4];
 } 
 
-void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
-    for(int i=0;i<2 && (! contextp->gotFinish());i++){
-        s->clock ^=1;
-        
-        s->reset = 0;
-        
-        if(sim_time % 1==0) s->io_inst = pem_read(s->io_pc);
-        
-        s->eval();
-   
-        m_trace->dump(sim_time);
-        sim_time++;
-        
-    }
-    if(s->reset==0)printf("----------%08x\n",Inst[0]);
-}
 
-void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,int n){
-    while(n--!=0 &&((!contextp->gotFinish()))){
-        exe_once(dut,contextp,m_trace);
-    }
-}
-
-
-
-void Reset(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
-    while(sim_time<3){
-        dut->clock ^= 1;
-        dut->io_inst=0; 
-        dut->reset = 1;
-    
-    
-        dut->eval();
-   
-        m_trace->dump(sim_time);
-    
-        sim_time++;
-    }
-
-}
 
 static char* rl_gets() {
   static char *line_read = NULL;
