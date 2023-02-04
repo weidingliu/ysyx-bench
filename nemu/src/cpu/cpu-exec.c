@@ -177,7 +177,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   p += space_len;
 
   void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
-  printf("-----------%d\n",s->logbuf + sizeof(s->logbuf) - p);
+  printf("-----------%ld\n",s->logbuf + sizeof(s->logbuf) - p);
   disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);
   
