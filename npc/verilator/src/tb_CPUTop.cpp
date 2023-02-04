@@ -107,6 +107,12 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
         sim_time++;
         
     }
+    char *p;
+    void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
+    disassemble(p,0,s->io->pc,(uint8_t *)&s->io_inst,4);
+    /*disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
+      MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);*/
+      
     if(s->reset==0)printf("----------%08x\n",Inst[0]);
 }
 
@@ -164,6 +170,7 @@ static int cmd_c(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC 
   return 0;
 }
 static int cmd_q(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace) {
+  
   return -1;
 }
 
@@ -265,6 +272,11 @@ static char* rl_gets() {
 }
 
 void sdb_main_loop(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
+    if (is_batch_mode) {
+    cmd_c(s,contextp,m_trace,NULL);
+    return;
+  }
+    
     for (char *str; (str = rl_gets()) != NULL; ) {
     char *str_end = str + strlen(str);
      /* extract the first token as the command */
