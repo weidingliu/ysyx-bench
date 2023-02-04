@@ -168,9 +168,9 @@ static int cmd_help(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVc
 
 static int cmd_si(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace);
 
-static int cmd_info(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace);
+//static int cmd_info(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace);
 
-static int cmd_x(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace);
+//static int cmd_x(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace);
 
 
 static struct {
@@ -181,8 +181,8 @@ static struct {
   { "help", "Display information about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "si", "si [N] N step execute", cmd_si },
-  { "info", "info SUBCMD display reg state or watchdog info",  cmd_info},
-  { "x", "x [N] EXPR ,Hexadecimal output N byte in memory, EXPR is address", cmd_x },
+  /*{ "info", "info SUBCMD display reg state or watchdog info",  cmd_info},
+  { "x", "x [N] EXPR ,Hexadecimal output N byte in memory, EXPR is address", cmd_x },*/
 
   /* TODO: Add more commands */
 
