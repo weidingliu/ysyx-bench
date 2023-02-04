@@ -190,7 +190,7 @@ static struct {
 
 #define NR_CMD 5
 
-static int cmd_help(char *args) {
+static int cmd_help(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace) {
   /* extract the first argument */
   char *arg = strtok(NULL, " ");
   int i;
@@ -222,7 +222,7 @@ static int cmd_si(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC
     }
     else {
     	uint64_t si_step=atoi64_t(arg);
-    	exe_once(s,contextp,m_trace,si_step);
+    	execute(s,contextp,m_trace,si_step);
     	//printf("%lu\n",si_step);
         //printf("%s\n",arg);
     }
