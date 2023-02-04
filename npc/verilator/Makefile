@@ -6,7 +6,7 @@ vpath %.c %.cpp src
 VSRC :=$(wildcard vsrc/*.v)
 ##CFLAGS := include
 CSRC :=$(wildcard src/*.cpp)
-
+CSRC+=/home/liuweiding/ysyx-workbench/nemu/src/utils/disasm.cc
 vcd:	
 	
 	verilator -Wno-fatal --trace -cc  $(VSRC) --top-module CPUTop   --exe $(CSRC) -LDFLAGS -lreadline
