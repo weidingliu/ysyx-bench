@@ -42,10 +42,12 @@ VM_USER_LDLIBS = \
 
 # User .cpp files (from .cpp's on Verilator command line)
 VM_USER_CLASSES = \
+	disasm \
 	tb_CPUTop \
 
 # User .cpp directories (from .cpp's on Verilator command line)
 VM_USER_DIR = \
+	/home/liuweiding/ysyx-workbench/nemu/src/utils \
 	src \
 
 
@@ -58,6 +60,8 @@ include $(VERILATOR_ROOT)/include/verilated.mk
 ### Executable rules... (from --exe)
 VPATH += $(VM_USER_DIR)
 
+disasm.o: /home/liuweiding/ysyx-workbench/nemu/src/utils/disasm.cc
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 tb_CPUTop.o: src/tb_CPUTop.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 
