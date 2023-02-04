@@ -93,7 +93,7 @@ uint32_t pem_read(uint64_t pc){
     //printf("%lx  %ld\n",pc,(pc-0x80000000)/4);
     return mem[(pc-0x80000000)/4];
 } 
-extern "C" void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
+//extern "C" void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
 
 void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     for(int i=0;i<2 && (! contextp->gotFinish());i++){
@@ -111,6 +111,7 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     }
     char *p;
     printf("12\n");
+    void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
     disassemble(p,96,s->io_pc,(uint8_t *)&s->io_inst,4);
     /*disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);*/
