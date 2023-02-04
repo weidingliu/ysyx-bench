@@ -163,6 +163,9 @@ static int cmd_c(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC 
   execute(s,contextp,m_trace,-1);
   return 0;
 }
+static int cmd_q(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace) {
+  return -1;
+}
 
 static int cmd_help(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace);
 
@@ -181,6 +184,7 @@ static struct {
   { "help", "Display information about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "si", "si [N] N step execute", cmd_si },
+  { "q", "Exit NPC", cmd_q },
   /*{ "info", "info SUBCMD display reg state or watchdog info",  cmd_info},
   { "x", "x [N] EXPR ,Hexadecimal output N byte in memory, EXPR is address", cmd_x },*/
 
