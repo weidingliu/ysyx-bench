@@ -1,8 +1,19 @@
 bin_path = $(subst nemu,am-kernels/tests/cpu-tests/build/,$(NEMU_HOME))
 
+NPC_HOME = $(subst nemu,npc,$(NEMU_HOME))
+
+vpath %.v vsrc
+vpath %.c %.cpp src
+
+VSRC :=$(wildcard vsrc/*.v)
+##CFLAGS := include
+CSRC :=$(wildcard src/*.cpp src/util/*.cc)
+LDFLAGS=-LDFLAGS "$(shell llvm-config-13 --libs) -ldl" -LDFLAGS -lreadline
+CFLAGS=-CFLAGS "-I $$NPC_HOME/verilator/src/include -I /usr/lib/llvm-13/include"
+
 vcd:	
-	verilator -Wno-fatal --trace -cc CPUTop.v --exe tb_CPUTop.cpp; 
-	$(MAKE) -C obj_dir -f VCPUTop.mk VCPUTop; 
+	verilator -Wno-fatal --trace -cc  $(VSRC) --top-module CPUTop   --exe $(CSRC) $(LDFLAGS) $(CFLAGS)
+	$(MAKE) -C obj_dir -f VCPUTop.mk VCPUTop 
 	./obj_dir/VCPUTop $(bin_path)$(ALL)-$(ARCH).bin
 
 .PHONY: vcd

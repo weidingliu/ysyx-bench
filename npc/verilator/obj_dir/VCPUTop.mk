@@ -35,17 +35,22 @@ VM_PREFIX = VCPUTop
 VM_MODPREFIX = VCPUTop
 # User CFLAGS (from -CFLAGS on Verilator command line)
 VM_USER_CFLAGS = \
+	-I /home/liuweiding/ysyx-workbench/npc/verilator/src/include -I /usr/lib/llvm-13/include \
 
 # User LDLIBS (from -LDFLAGS on Verilator command line)
 VM_USER_LDLIBS = \
+	-lLLVM-13 -ldl \
+	-lreadline \
 
 # User .cpp files (from .cpp's on Verilator command line)
 VM_USER_CLASSES = \
 	tb_CPUTop \
+	disasm \
 
 # User .cpp directories (from .cpp's on Verilator command line)
 VM_USER_DIR = \
-	. \
+	src \
+	src/util \
 
 
 ### Default rules...
@@ -57,7 +62,9 @@ include $(VERILATOR_ROOT)/include/verilated.mk
 ### Executable rules... (from --exe)
 VPATH += $(VM_USER_DIR)
 
-tb_CPUTop.o: tb_CPUTop.cpp
+tb_CPUTop.o: src/tb_CPUTop.cpp
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+disasm.o: src/util/disasm.cc
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 
 ### Link rules... (from --exe)
