@@ -188,7 +188,7 @@ static struct {
 
 };
 
-#define NR_CMD ARRLEN(cmd_table)
+#define NR_CMD 5
 
 static int cmd_help(char *args) {
   /* extract the first argument */
