@@ -260,7 +260,7 @@ static char* rl_gets() {
   return line_read;
 }
 
-void sdb_main_loop(){
+void sdb_main_loop(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     for (char *str; (str = rl_gets()) != NULL; ) {
     char *str_end = str + strlen(str);
      /* extract the first token as the command */
@@ -278,7 +278,7 @@ void sdb_main_loop(){
      int i;
     for (i = 0; i < NR_CMD; i ++) {
       if (strcmp(cmd, cmd_table[i].name) == 0) {
-        if (cmd_table[i].handler(args) < 0) { return; }
+        if (cmd_table[i].handler(args,s,contextp,m_trace) < 0) { return; }
         break;
       }
     }
@@ -309,7 +309,7 @@ init_mem(argv[1]);
 Reset(dut,contextp,m_trace);//reset rtl
 //execute 
 //execute(dut,contextp,m_trace,-1);
-sdb_main_loop();
+sdb_main_loop(dut,contextp,m_trace);
 
 printf("Final PC is : 0x%lx\n",dut->io_pc);
 
