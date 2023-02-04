@@ -16,7 +16,7 @@
 #define MAX_SIM_TIME 2000
 #define MAX_MEM 480
 
-#define is_batch_mode fasle
+#define is_batch_mode 0
 /*
 #define clk 100 //set clock  MHZ
 
