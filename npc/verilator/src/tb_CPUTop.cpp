@@ -164,13 +164,13 @@ static int cmd_c(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC 
   return 0;
 }
 
-static int cmd_help(char *args);
+static int cmd_help(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace);
 
 static int cmd_si(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace);
 
-static int cmd_info(char *args);
+static int cmd_info(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace);
 
-static int cmd_x(char *args);
+static int cmd_x(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace);
 
 
 static struct {
