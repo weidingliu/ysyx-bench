@@ -229,6 +229,7 @@ static int cmd_help(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVc
 
 static int cmd_si(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     //cpu_exec(n);
+    printf("----------%08lx\n",s->io_pc);
     char *arg = strtok(NULL, " ");
     if (arg == NULL){
         execute(s,contextp,m_trace,1);
@@ -295,7 +296,7 @@ void sdb_main_loop(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace)
     }
     
      int i;
-     printf("----------%08lx\n",s->io_pc);
+     
     for (i = 0; i < NR_CMD; i ++) {
       if (strcmp(cmd, cmd_table[i].name) == 0) {
         if (cmd_table[i].handler(args,s,contextp,m_trace) < 0) { return; }
