@@ -120,6 +120,7 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
 }
 
 void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,int n){
+    printf("----------%08lx\n",dut->io_pc);
     while(n--!=0 &&((!contextp->gotFinish()))){
         exe_once(dut,contextp,m_trace);
     }
@@ -229,7 +230,7 @@ static int cmd_help(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVc
 
 static int cmd_si(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     //cpu_exec(n);
-    printf("----------%08lx\n",s->io_pc);
+    
     char *arg = strtok(NULL, " ");
     if (arg == NULL){
         execute(s,contextp,m_trace,1);
