@@ -43,6 +43,102 @@ extern "C" void set_pc( const svOpenArrayHandle inst){
     
 }
 
+uint64_t atoi64_t(char *arrTmp)
+{
+int len =0;
+int i=0;
+int j =0;
+uint64_t nTmpRes =0;
+uint64_t ntmp10=1;
+if (arrTmp == NULL)
+{
+	return 0;
+}
+len=strlen(arrTmp);
+ 
+for (i =len-1 ; i >=0;i--)
+{
+	ntmp10 =1;
+	for (j=1;j<(len -i); j++)
+	{
+		ntmp10 = ntmp10*10;
+	}
+	nTmpRes = nTmpRes+(arrTmp[i]-48)*ntmp10;
+}
+return nTmpRes;
+}
+
+static int cmd_c(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace) {
+  execute(s,contextp,m_trace,-1);
+  return 0;
+}
+
+static int cmd_help(char *args);
+
+static int cmd_si(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace);
+
+static int cmd_info(char *args);
+
+static int cmd_x(char *args);
+
+
+static struct {
+  const char *name;
+  const char *description;
+  int (*handler) (char *,VCPUTop *,VerilatedContext* ,VerilatedVcdC *);
+} cmd_table [] = {
+  { "help", "Display information about all supported commands", cmd_help },
+  { "c", "Continue the execution of the program", cmd_c },
+  { "si", "si [N] N step execute", cmd_si },
+  { "info", "info SUBCMD display reg state or watchdog info",  cmd_info},
+  { "x", "x [N] EXPR ,Hexadecimal output N byte in memory, EXPR is address", cmd_x },
+
+  /* TODO: Add more commands */
+
+};
+
+#define NR_CMD ARRLEN(cmd_table)
+
+static int cmd_help(char *args) {
+  /* extract the first argument */
+  char *arg = strtok(NULL, " ");
+  int i;
+
+  if (arg == NULL) {
+    /* no argument given */
+    for (i = 0; i < NR_CMD; i ++) {
+      printf("%s - %s\n", cmd_table[i].name, cmd_table[i].description);
+    }
+  }
+  else {
+    for (i = 0; i < NR_CMD; i ++) {
+      if (strcmp(arg, cmd_table[i].name) == 0) {
+        printf("%s - %s\n", cmd_table[i].name, cmd_table[i].description);
+        return 0;
+      }
+    }
+    printf("Unknown command '%s'\n", arg);
+  }
+  return 0;
+}
+
+static int cmd_si(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
+    //cpu_exec(n);
+    char *arg = strtok(NULL, " ");
+    if (arg == NULL){
+        execute(s,contextp,m_trace,1);
+        //printf("1\n");
+    }
+    else {
+    	uint64_t si_step=atoi64_t(arg);
+    	exe_once(s,contextp,m_trace,si_step);
+    	//printf("%lu\n",si_step);
+        //printf("%s\n",arg);
+    }
+    
+    return 0;
+}
+
 // 一个输出RTL中通用寄存器的值的示例
 void dump_gpr() {
   int i;
@@ -175,6 +271,16 @@ void sdb_main_loop(){
       args = NULL;
     }
     
+     int i;
+    for (i = 0; i < NR_CMD; i ++) {
+      if (strcmp(cmd, cmd_table[i].name) == 0) {
+        if (cmd_table[i].handler(args) < 0) { return; }
+        break;
+      }
+    }
+
+    if (i == NR_CMD) { printf("Unknown command '%s'\n", cmd); }
+    
 }
 
 
@@ -198,7 +304,7 @@ init_mem(argv[1]);
 //reset rtl
 Reset(dut,contextp,m_trace);//reset rtl
 //execute 
-execute(dut,contextp,m_trace,-1);
+//execute(dut,contextp,m_trace,-1);
 sdb_main_loop();
 
 printf("Final PC is : 0x%lx\n",dut->io_pc);
