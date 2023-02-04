@@ -94,7 +94,7 @@ void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte) {
   uint64_t dummy_size = 0;
   printf("here2\n");
   gDisassembler->getInstruction(inst, dummy_size, arr, pc, llvm::nulls());
-
+printf("here4\n");
   std::string s;
   raw_string_ostream os(s);
   gIP->printInst(&inst, pc, "", *gSTI, os);
