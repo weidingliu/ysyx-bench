@@ -96,7 +96,7 @@ void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte) {
   //printf("%08lx   %x\n",pc,&code);
   //printf("here2\n");
   
-  gDisassembler->getInstruction(inst, dummy_size, arr, pc, llvm::nulls());
+  gDisassembler->getInstruction(inst, dummy_size, arr, pc-4, llvm::nulls());
 //printf("here4\n");
   std::string s;
   raw_string_ostream os(s);
