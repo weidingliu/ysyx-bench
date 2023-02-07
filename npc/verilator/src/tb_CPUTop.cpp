@@ -15,6 +15,7 @@
 
 #define MAX_SIM_TIME 2000
 #define MAX_MEM 480
+#define MAX_PRINT_STEP 10
 
 #define is_batch_mode 0
 /*
@@ -22,6 +23,7 @@
 
 #define div_clock(c) ((((10^9)/(c*10^6))*10^3)/2)
 */
+static bool step_print_inst = false;
 vluint64_t sim_time=0;
 uint32_t mem[MAX_MEM];
 uint32_t mem_size;
@@ -118,11 +120,11 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     /*disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);*/
       
-    if(s->reset==0)printf("Addr: %08lx\t Inst: %s\t%08x\t\n",s->io_pc-4,p,Inst[0]);
+    if(s->reset==0 && step_print_inst)printf("Addr: %08lx\t Inst: %s\t%08x\t\n",s->io_pc-4,p,Inst[0]);
 }
 
 void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,int n){
-    
+    step_print_inst = (n<MAX_PRINT_STEP);
     while(n--!=0 &&((!contextp->gotFinish()))){
         exe_once(dut,contextp,m_trace);
     }
