@@ -93,20 +93,20 @@ void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte) {
   llvm::ArrayRef<uint8_t> arr(code, nbyte);
   uint64_t dummy_size = 0;
   //printf("%hhn\n",code);
-  printf("%08lx   %hhn\n",pc,code);
-  printf("here2\n");
+  //printf("%08lx   %hhn\n",pc,code);
+  //printf("here2\n");
   //printf("%d\n",);
   
   gDisassembler->getInstruction(inst, dummy_size, arr, pc, llvm::nulls());
-printf("here4\n");
+//printf("here4\n");
   std::string s;
   raw_string_ostream os(s);
   gIP->printInst(&inst, pc, "", *gSTI, os);
-  printf("here1\n");
+  //printf("here1\n");
   int skip = s.find_first_not_of('\t');
   const char *p = s.c_str() + skip;
   assert((int)s.length() - skip < size);
-  printf("here\n");
+  //printf("here\n");
   strcpy(str, p);
   printf("%s\n",p);
 }
