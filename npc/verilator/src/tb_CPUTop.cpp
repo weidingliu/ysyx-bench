@@ -17,17 +17,22 @@
 #define MAX_MEM 480
 #define MAX_PRINT_STEP 10
 
+#define IRTRACE 32 
+
 #define is_batch_mode 0
 /*
 #define clk 100 //set clock  MHZ
 
 #define div_clock(c) ((((10^9)/(c*10^6))*10^3)/2)
 */
+//irbuf
+char ibuf[IRTRACE][128];
+static uint32_t irbuf_point=0;
+
 static bool step_print_inst = false;
 vluint64_t sim_time=0;
 uint32_t mem[MAX_MEM];
 uint32_t mem_size;
-
 
 uint64_t *cpu_gpr = NULL;
 uint32_t *Inst;
@@ -46,7 +51,19 @@ extern "C" void set_pc( const svOpenArrayHandle inst){
     printf("%x\n", inst[0]);*/
     
 }
+
+
 void init_disasm(const char *triple); 
+
+static void display_iringbuf(){
+    int i=0;
+    for(;i<IRTRACE;i++){
+        if(i==(irbuf_point+31)%32) printf("-->");
+        else printf("   ");
+
+        printf("%s\n",ibuf[i]);
+    }
+}
 
 // 一个输出RTL中通用寄存器的值的示例
 void dump_gpr() {
@@ -112,6 +129,8 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
         sim_time++;
         
     }
+    
+    
     char p[128];
     //printf(" %08x   %08lx\n",s->io_inst,s->io_pc-4);
     
@@ -121,6 +140,10 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);*/
       
     if(s->reset==0 && step_print_inst)printf("Addr: %08lx\t Inst: %-16s\t%08x\t\n",s->io_pc-4,p,Inst[0]);
+    sprintf(ibuf[irbuf_point],"Addr: %08lx\t Inst: %-16s\t\n",s->io_pc-4,p);
+    
+    printf("%s\n",ibuf[irbuf_point]);
+    irbuf_point=(irbuf_point+1)%IRTRACE;
 }
 
 void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uint64_t n){
