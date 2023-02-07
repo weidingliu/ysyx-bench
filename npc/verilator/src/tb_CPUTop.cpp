@@ -118,7 +118,7 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     /*disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);*/
       
-    if(s->reset==0)printf("Addr: %08lx Inst: %s    %08x\n",s->io_pc-4,p,Inst[0]);
+    if(s->reset==0)printf("Addr: %08lx\t Inst: %s\t%08x\t\n",s->io_pc-4,p,Inst[0]);
 }
 
 void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,int n){
