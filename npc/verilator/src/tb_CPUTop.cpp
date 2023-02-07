@@ -111,7 +111,7 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
         
     }
     char p[128];
-    printf(" %08x   %08lx\n",s->io_inst,s->io_pc-4);
+    //printf(" %08x   %08lx\n",s->io_inst,s->io_pc-4);
     
     void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
     disassemble(p,96,s->io_pc-4,(uint8_t *)&s->io_inst,4);
