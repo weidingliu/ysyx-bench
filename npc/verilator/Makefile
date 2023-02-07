@@ -9,7 +9,7 @@ VSRC :=$(wildcard vsrc/*.v)
 ##CFLAGS := include
 CSRC :=$(wildcard src/*.cpp src/util/*.cc)
 LDFLAGS=-LDFLAGS "$(shell llvm-config-13 --libs) -ldl" -LDFLAGS -lreadline
-CFLAGS=-CFLAGS "-I $$NPC_HOME/verilator/src/include -I /usr/lib/llvm-13/include"  -CFLAGS $(shell llvm-config-13 --cxxflags) -fPIE
+CFLAGS=-CFLAGS "-I $$NPC_HOME/verilator/src/include -I /usr/lib/llvm-13/include"  -CFLAGS $(shell llvm-config-13) -fPIE
 
 vcd:	
 	verilator -Wno-fatal --trace -cc  $(VSRC) --top-module CPUTop   --exe $(CSRC) $(LDFLAGS) $(CFLAGS)
