@@ -8,7 +8,7 @@ vpath %.c %.cpp src
 VSRC :=$(wildcard vsrc/*.v)
 ##CFLAGS := include
 CSRC :=$(wildcard src/*.cpp src/util/*.cc)
-LDFLAGS=-LDFLAGS "$(shell llvm-config --libs) -ldl" -LDFLAGS -lreadline
+LDFLAGS=-LDFLAGS "$(shell llvm-config-11 --libs) -ldl" -LDFLAGS -lreadline
 CFLAGS=-CFLAGS "-I $$NPC_HOME/verilator/src/include -I /usr/lib/llvm-11/include"
 
 vcd:	
