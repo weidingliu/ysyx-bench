@@ -95,7 +95,7 @@ void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte) {
   //printf("%hhn\n",code);
   printf("%08lx   %hhn\n",pc,code);
   printf("here2\n");
-  printf("%d\n",);
+  //printf("%d\n",);
   
   switch(gDisassembler->DecodeStatus){
       case 0: printf("0\n");
