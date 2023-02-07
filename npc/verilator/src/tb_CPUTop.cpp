@@ -110,7 +110,7 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
         sim_time++;
         
     }
-    char *p;
+    char p[128];
     printf(" %08x   %08lx\n",s->io_inst,s->io_pc-4);
     
     void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
