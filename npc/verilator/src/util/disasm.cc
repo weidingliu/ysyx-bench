@@ -97,13 +97,7 @@ void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte) {
   printf("here2\n");
   //printf("%d\n",);
   
-  switch(gDisassembler->DecodeStatus){
-      case 0: printf("0\n");
-      case 1: printf("1\n");
-      case 3: printf("3\n");
-      default: printf("6\n");
-  }
-  
+
   gDisassembler->getInstruction(inst, dummy_size, arr, pc, llvm::nulls());
 printf("here4\n");
   std::string s;
