@@ -44,7 +44,7 @@ extern "C" void set_pc( const svOpenArrayHandle inst){
     printf("%x\n", inst[0]);*/
     
 }
-
+void init_disasm(const char *triple) 
 // 一个输出RTL中通用寄存器的值的示例
 void dump_gpr() {
   int i;
@@ -328,6 +328,8 @@ m_trace->open("waveform.vcd");
 
 // init inst memory
 init_mem(argv[1]);
+
+init_disasm("riscv64");
 //reset rtl
 Reset(dut,contextp,m_trace);//reset rtl
 //execute 
