@@ -107,7 +107,8 @@ void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte) {
   const char *p = s.c_str() + skip;
   assert((int)s.length() - skip < size);
   //printf("here\n");
-  printf("%s\n",str);
+  printf("str: %s\n",str);
+  
   strcpy(str, p);
   printf("%s\n",p);
 }
