@@ -250,7 +250,7 @@ static int cmd_si(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC
     return 0;
 }
 
-static int cmd_info(char *args){
+static int cmd_info(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
 	char *arg = strtok(NULL, " ");
 	if(arg == NULL){
 	    printf("need parameter!\n");
