@@ -14,7 +14,7 @@ CFLAGS+=-CFLAGS $(shell llvm-config-13 --cxxflags) -fPIE
 
 vcd:	
 	
-	@echo verilator -Wno-fatal --trace -cc  $(VSRC) --top-module CPUTop   --exe $(CSRC) $(LDFLAGS) $(CFLAGS)
+	verilator -Wno-fatal --trace -cc  $(VSRC) --top-module CPUTop   --exe $(CSRC) $(LDFLAGS) $(CFLAGS)
 	$(MAKE) -C obj_dir -f VCPUTop.mk VCPUTop 
 	./obj_dir/VCPUTop $(bin_path)$(ALL)-$(ARCH).bin
 
