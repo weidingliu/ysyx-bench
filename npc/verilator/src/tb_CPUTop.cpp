@@ -186,7 +186,7 @@ static int cmd_help(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVc
 
 static int cmd_si(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace);
 
-//static int cmd_info(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace);
+static int cmd_info(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace);
 
 //static int cmd_x(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace);
 
@@ -200,14 +200,14 @@ static struct {
   { "c", "Continue the execution of the program", cmd_c },
   { "si", "si [N] N step execute", cmd_si },
   { "q", "Exit NPC", cmd_q },
-  /*{ "info", "info SUBCMD display reg state or watchdog info",  cmd_info},
-  { "x", "x [N] EXPR ,Hexadecimal output N byte in memory, EXPR is address", cmd_x },*/
+  { "info", "info SUBCMD display reg state or watchdog info",  cmd_info},
+  /*{ "x", "x [N] EXPR ,Hexadecimal output N byte in memory, EXPR is address", cmd_x },*/
 
   /* TODO: Add more commands */
 
 };
 
-#define NR_CMD 4
+#define NR_CMD 5
 
 static int cmd_help(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace) {
   /* extract the first argument */
@@ -250,6 +250,27 @@ static int cmd_si(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC
     return 0;
 }
 
+static int cmd_info(char *args){
+	char *arg = strtok(NULL, " ");
+	if(arg == NULL){
+	    printf("need parameter!\n");
+	    return 0;
+	}
+	else if(strcmp(arg, "r")==0){
+	    dump_gpr();
+	    return 0;
+	}
+	else if(strcmp(arg, "w")==0){
+	     printf("Don't complit yet!\n");
+	     //display_watchpoint();
+	     return 0;
+	}
+	else{
+	    printf("Illegal parameter!\n");
+	    return 0;
+	}
+	return 0;
+}
 
 
 
