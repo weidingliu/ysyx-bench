@@ -386,7 +386,11 @@ sdb_main_loop(dut,contextp,m_trace);
 
 printf("Final PC is : 0x%lx\n",dut->io_pc);
 
-if(cpu_gpr[10] !=0) {dump_gpr(); printf("\033[40;31mHIT BAD TRAP at pc = \033[0m \033[40;31m0x%lx\033[0m\n",dut->io_pc);}
+if(cpu_gpr[10] !=0) {
+    dump_gpr(); 
+    display_iringbuf();
+    printf("\033[40;31mHIT BAD TRAP at pc = \033[0m \033[40;31m0x%lx\033[0m\n",dut->io_pc);
+}
 else printf("\033[40;32mHIT GOOD TRAP at pc = \033[0m \033[40;32m0x%lx\033[0m\n",dut->io_pc);
 
 m_trace->close();
