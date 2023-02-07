@@ -44,7 +44,8 @@ extern "C" void set_pc( const svOpenArrayHandle inst){
     printf("%x\n", inst[0]);*/
     
 }
-void init_disasm(const char *triple) 
+void init_disasm(const char *triple); 
+
 // 一个输出RTL中通用寄存器的值的示例
 void dump_gpr() {
   int i;
