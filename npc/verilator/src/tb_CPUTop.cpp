@@ -123,7 +123,7 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     if(s->reset==0 && step_print_inst)printf("Addr: %08lx\t Inst: %s\t%08x\t\n",s->io_pc-4,p,Inst[0]);
 }
 
-void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,int n){
+void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uint64_t n){
     step_print_inst = (n<MAX_PRINT_STEP);
     while(n--!=0 &&((!contextp->gotFinish()))){
         exe_once(dut,contextp,m_trace);
