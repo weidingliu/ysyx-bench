@@ -108,5 +108,5 @@ printf("here4\n");
   assert((int)s.length() - skip < size);
   printf("here\n");
   strcpy(str, p);
-  
+  printf("%s\n",p);
 }
