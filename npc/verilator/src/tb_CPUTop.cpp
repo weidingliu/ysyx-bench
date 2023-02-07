@@ -330,7 +330,7 @@ m_trace->open("waveform.vcd");
 // init inst memory
 init_mem(argv[1]);
 
-init_disasm("riscv64");
+init_disasm("riscv64" "-pc-linux-gnu");
 //reset rtl
 Reset(dut,contextp,m_trace);//reset rtl
 //execute 
