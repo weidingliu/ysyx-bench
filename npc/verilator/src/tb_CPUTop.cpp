@@ -388,6 +388,7 @@ printf("Final PC is : 0x%lx\n",dut->io_pc);
 
 if(cpu_gpr[10] !=0) {
     dump_gpr(); 
+    printf("\n");
     display_iringbuf();
     printf("\033[40;31mHIT BAD TRAP at pc = \033[0m \033[40;31m0x%lx\033[0m\n",dut->io_pc);
 }
