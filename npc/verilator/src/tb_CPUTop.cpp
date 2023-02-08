@@ -15,6 +15,9 @@
 
 #define MAX_SIM_TIME 2000
 #define MAX_MEM 480
+#define MAX_PRINT_STEP 10
+
+#define IRTRACE 32 
 
 #define is_batch_mode 0
 /*
@@ -22,10 +25,14 @@
 
 #define div_clock(c) ((((10^9)/(c*10^6))*10^3)/2)
 */
+//irbuf
+char ibuf[IRTRACE][128];
+static uint32_t irbuf_point=0;
+
+static bool step_print_inst = false;
 vluint64_t sim_time=0;
 uint32_t mem[MAX_MEM];
 uint32_t mem_size;
-
 
 uint64_t *cpu_gpr = NULL;
 uint32_t *Inst;
@@ -43,6 +50,19 @@ extern "C" void set_pc( const svOpenArrayHandle inst){
     
     printf("%x\n", inst[0]);*/
     
+}
+
+
+void init_disasm(const char *triple); 
+
+static void display_iringbuf(){
+    int i=0;
+    for(;i<IRTRACE;i++){
+        if(i==(irbuf_point+31)%32) printf("-->");
+        else printf("   ");
+
+        printf("%s\n",ibuf[i]);
+    }
 }
 
 // 一个输出RTL中通用寄存器的值的示例
@@ -109,18 +129,25 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
         sim_time++;
         
     }
-    char *p=NULL;
-    printf(" %08x   %hhn\n",s->io_inst,(uint8_t *)&s->io_inst);
+    
+    
+    char p[128];
+    //printf(" %08x   %08lx\n",s->io_inst,s->io_pc-4);
+    
     void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
-    disassemble(p,96,s->io_pc,(uint8_t *)&s->io_inst,4);
+    disassemble(p,96,s->io_pc-4,(uint8_t *)&s->io_inst,4);
     /*disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);*/
       
-    if(s->reset==0)printf("----------%08x\n",Inst[0]);
+    if(s->reset==0 && step_print_inst)printf("Addr: %08lx\t Inst: %-16s\t%08x\t\n",s->io_pc-4,p,Inst[0]);
+    sprintf(ibuf[irbuf_point],"Addr: %08lx\t Inst: %-16s\t\n",s->io_pc-4,p);
+    
+    //printf("%s\n",ibuf[irbuf_point]);
+    irbuf_point=(irbuf_point+1)%IRTRACE;
 }
 
-void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,int n){
-    
+void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uint64_t n){
+    step_print_inst = (n<MAX_PRINT_STEP);
     while(n--!=0 &&((!contextp->gotFinish()))){
         exe_once(dut,contextp,m_trace);
     }
@@ -182,7 +209,7 @@ static int cmd_help(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVc
 
 static int cmd_si(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace);
 
-//static int cmd_info(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace);
+static int cmd_info(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace);
 
 //static int cmd_x(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace);
 
@@ -196,14 +223,14 @@ static struct {
   { "c", "Continue the execution of the program", cmd_c },
   { "si", "si [N] N step execute", cmd_si },
   { "q", "Exit NPC", cmd_q },
-  /*{ "info", "info SUBCMD display reg state or watchdog info",  cmd_info},
-  { "x", "x [N] EXPR ,Hexadecimal output N byte in memory, EXPR is address", cmd_x },*/
+  { "info", "info SUBCMD display reg state or watchdog info",  cmd_info},
+  /*{ "x", "x [N] EXPR ,Hexadecimal output N byte in memory, EXPR is address", cmd_x },*/
 
   /* TODO: Add more commands */
 
 };
 
-#define NR_CMD 4
+#define NR_CMD 5
 
 static int cmd_help(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace) {
   /* extract the first argument */
@@ -246,6 +273,27 @@ static int cmd_si(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC
     return 0;
 }
 
+static int cmd_info(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
+	char *arg = strtok(NULL, " ");
+	if(arg == NULL){
+	    printf("need parameter!\n");
+	    return 0;
+	}
+	else if(strcmp(arg, "r")==0){
+	    dump_gpr();
+	    return 0;
+	}
+	else if(strcmp(arg, "w")==0){
+	     printf("Don't complit yet!\n");
+	     //display_watchpoint();
+	     return 0;
+	}
+	else{
+	    printf("Illegal parameter!\n");
+	    return 0;
+	}
+	return 0;
+}
 
 
 
@@ -327,6 +375,8 @@ m_trace->open("waveform.vcd");
 
 // init inst memory
 init_mem(argv[1]);
+
+init_disasm("riscv64" "-pc-linux-gnu");
 //reset rtl
 Reset(dut,contextp,m_trace);//reset rtl
 //execute 
@@ -336,7 +386,12 @@ sdb_main_loop(dut,contextp,m_trace);
 
 printf("Final PC is : 0x%lx\n",dut->io_pc);
 
-if(cpu_gpr[10] !=0) {dump_gpr(); printf("\033[40;31mHIT BAD TRAP at pc = \033[0m \033[40;31m0x%lx\033[0m\n",dut->io_pc);}
+if(cpu_gpr[10] !=0) {
+    dump_gpr(); 
+    printf("\n");
+    display_iringbuf();
+    printf("\033[40;31mHIT BAD TRAP at pc = \033[0m \033[40;31m0x%lx\033[0m\n",dut->io_pc);
+}
 else printf("\033[40;32mHIT GOOD TRAP at pc = \033[0m \033[40;32m0x%lx\033[0m\n",dut->io_pc);
 
 m_trace->close();
