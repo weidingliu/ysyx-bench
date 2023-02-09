@@ -13,6 +13,8 @@
 
 #include <stdlib.h>
 
+#include <tb.h>
+
 #define MAX_SIM_TIME 2000
 #define MAX_MEM 480
 #define MAX_PRINT_STEP 10
@@ -31,11 +33,7 @@ static uint32_t irbuf_point=0;
 
 static bool step_print_inst = false;
 vluint64_t sim_time=0;
-uint32_t mem[MAX_MEM];
-uint32_t mem_size;
 
-uint64_t *cpu_gpr = NULL;
-uint32_t *Inst;
 
 extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
   cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
@@ -54,6 +52,8 @@ extern "C" void set_pc( const svOpenArrayHandle inst){
 
 
 void init_disasm(const char *triple); 
+
+
 
 static void display_iringbuf(){
     int i=0;
