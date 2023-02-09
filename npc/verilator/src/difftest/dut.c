@@ -1,6 +1,7 @@
 #include <dlfcn.h>
 #include <stdlib.h>
 #include <iostream>
+#include <assert.h>
 
 #include <tb.h>
 
