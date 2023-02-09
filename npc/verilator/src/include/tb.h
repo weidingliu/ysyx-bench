@@ -18,5 +18,5 @@ uint64_t *cpu_gpr = NULL;
 uint32_t *Inst;
 
 
-void init_disasm(const char *triple); 
+
 

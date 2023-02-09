@@ -28,6 +28,7 @@ static uint32_t irbuf_point=0;
 static bool step_print_inst = false;
 vluint64_t sim_time=0;
 
+void init_disasm(const char *triple); 
 
 extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
   cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
