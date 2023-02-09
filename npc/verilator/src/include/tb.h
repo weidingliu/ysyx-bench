@@ -9,6 +9,8 @@
 
 #define IRTRACE 32 
 
+enum { DIFFTEST_TO_DUT, DIFFTEST_TO_REF };
+
 uint32_t mem[MAX_MEM];
 uint32_t mem_size;
 
