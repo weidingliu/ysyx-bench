@@ -15,11 +15,6 @@
 
 #include <tb.h>
 
-#define MAX_SIM_TIME 2000
-
-#define MAX_PRINT_STEP 10
-
-#define IRTRACE 32 
 
 /*
 #define clk 100 //set clock  MHZ
@@ -48,9 +43,6 @@ extern "C" void set_pc( const svOpenArrayHandle inst){
     printf("%x\n", inst[0]);*/
     
 }
-
-
-void init_disasm(const char *triple); 
 
 
 
