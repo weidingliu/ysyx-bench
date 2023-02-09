@@ -1,6 +1,6 @@
 
 #include <tb.h>
-
+#include <dlfcn.h>
 
 
 void init_difftest(char *ref_so_file, uint32_t img_size, int port){
