@@ -19,7 +19,7 @@
 
 #define IRTRACE 32 
 
-#define is_batch_mode 1
+#define is_batch_mode 0
 /*
 #define clk 100 //set clock  MHZ
 
