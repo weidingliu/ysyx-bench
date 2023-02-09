@@ -44,12 +44,14 @@ VM_USER_LDLIBS = \
 
 # User .cpp files (from .cpp's on Verilator command line)
 VM_USER_CLASSES = \
+	dut \
 	tb_CPUTop \
 	disasm \
 
 # User .cpp directories (from .cpp's on Verilator command line)
 VM_USER_DIR = \
 	src \
+	src/difftest \
 	src/util \
 
 
@@ -62,6 +64,8 @@ include $(VERILATOR_ROOT)/include/verilated.mk
 ### Executable rules... (from --exe)
 VPATH += $(VM_USER_DIR)
 
+dut.o: src/difftest/dut.c
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 tb_CPUTop.o: src/tb_CPUTop.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 disasm.o: src/util/disasm.cc
