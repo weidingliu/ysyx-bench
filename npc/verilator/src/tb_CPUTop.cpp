@@ -16,12 +16,11 @@
 #include <tb.h>
 
 #define MAX_SIM_TIME 2000
-#define MAX_MEM 480
+
 #define MAX_PRINT_STEP 10
 
 #define IRTRACE 32 
 
-#define is_batch_mode 0
 /*
 #define clk 100 //set clock  MHZ
 
