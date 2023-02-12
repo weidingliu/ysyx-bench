@@ -63,21 +63,23 @@ void difftest_memcpy(paddr_t addr, void *buf, size_t n, bool direction) {
 
 void difftest_regcpy(void *dut, bool direction) {
   //uint32_t temp[32];
-  ref_state cpu_state;
-  dut=&cpu_state;
+  ref_state *cpu_state;
+  ref_state temp;
+  cpu_state=&temp;
+  dut=cpu_state;
   
   //printf("--------------%08lx\n",cpu.pc);
   if(direction==DIFFTEST_TO_DUT){
-      cpu_state.pc=cpu.pc-4;
-      printf("--------------%016lx     %016lx\n",cpu.pc,cpu_state.pc);
+      cpu_state->pc=cpu.pc-4;
+      printf("--------------%016lx     %016lx\n",cpu_state->pc,(*(ref_state *)dut).pc);
       for(int i=0;i<32;i++){
-          cpu_state.reg[i]=cpu.gpr[i];
+          cpu_state->reg[i]=cpu.gpr[i];
       }
       return;
   }
   if(direction==DIFFTEST_TO_REF){
       for(int i=0;i<32;i++){
-          cpu.gpr[i]=cpu_state.reg[i];
+          cpu.gpr[i]=cpu_state->reg[i];
       }
       return;
   }
