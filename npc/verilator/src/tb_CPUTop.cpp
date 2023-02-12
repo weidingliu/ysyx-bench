@@ -15,7 +15,7 @@
 
 #include <tb.h>
 
-char ref_so_file="/home/liuweiding/ysyx-workbench/nemu/build/riscv64-nemu-interpreter-so";
+char *ref_so_file="/home/liuweiding/ysyx-workbench/nemu/build/riscv64-nemu-interpreter-so";
 
 /*
 #define clk 100 //set clock  MHZ
