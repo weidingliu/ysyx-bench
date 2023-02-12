@@ -1,4 +1,5 @@
 bin_path = $(subst nemu,am-kernels/tests/cpu-tests/build/,$(NEMU_HOME))
+SO_PATH = $(NEMU_HOME)/build/riscv64-nemu-interpreter-so
 
 NPC_HOME = $(subst nemu,npc,$(NEMU_HOME))
 
@@ -16,7 +17,7 @@ vcd:
 	
 	verilator -Wno-fatal --trace -cc  $(VSRC) --top-module CPUTop   --exe $(CSRC) $(LDFLAGS) $(CFLAGS)
 	$(MAKE) -C obj_dir -f VCPUTop.mk VCPUTop 
-	./obj_dir/VCPUTop $(bin_path)$(ALL)-$(ARCH).bin hello
+	./obj_dir/VCPUTop $(bin_path)$(ALL)-$(ARCH).bin $(SO_PATH)
 
 .PHONY: vcd
 
