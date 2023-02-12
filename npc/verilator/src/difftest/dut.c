@@ -36,7 +36,7 @@ void init_difftest(char *ref_so_file, uint32_t img_size, int port){
   ref_difftest_raise_intr = (Ref_difftest_raise_intr)dlsym(handle, "difftest_raise_intr");
   assert(ref_difftest_raise_intr);
 
-  ref_difftest_init = ()dlsym(handle, "difftest_init");
+  ref_difftest_init = (Ref_difftest_init)dlsym(handle, "difftest_init");
   assert(ref_difftest_init);
   
   ref_difftest_init(port);
