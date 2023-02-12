@@ -14,9 +14,9 @@
 typedef struct reg_cpu{
     uint32_t reg[32];
     uint64_t pc;
-}reg_cpu;
+}cpu_state;
 
-extern reg_cpu ref_cpu;
+extern cpu_state ref_cpu;
 
 enum { DIFFTEST_TO_DUT, DIFFTEST_TO_REF };
 

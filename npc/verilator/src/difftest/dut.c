@@ -51,7 +51,7 @@ void difftest_step(){
     
 }
 
-bool check_reg(reg_cpu ref_cpu,uint64_t pc){
+bool check_reg(cpu_state ref_cpu,uint64_t pc){
 
     return true;
 }
