@@ -1,7 +1,7 @@
 
 
 void init_difftest(char *ref_so_file, uint32_t img_size, int port, uint32_t *mem);
-bool difftest_step();
+bool difftest_step(uint64_t pc);
 //bool check_reg(cpu_state ref_cpu,uint64_t pc);
 
 typedef void (*Ref_difftest_memcpy)(uint64_t addr, void *buf, size_t n, bool direction);
