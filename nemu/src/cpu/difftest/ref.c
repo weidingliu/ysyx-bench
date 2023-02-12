@@ -42,6 +42,7 @@ void difftest_memcpy(paddr_t addr, void *buf, size_t n, bool direction) {
           }
           if(direction==DIFFTEST_TO_REF){
               paddr_write(addr,n,temp);
+              printf("%08lx\n",temp);
               return;
           }
           buf++;
