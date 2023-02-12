@@ -20,18 +20,22 @@
 
 void difftest_memcpy(paddr_t addr, void *buf, size_t n, bool direction) {
   word_t temp;
-  buf=&temp;
+  
   if(n<=4){
       if(direction==DIFFTEST_TO_DUT){
           temp=paddr_read(addr,n);
+          buf=&temp;
           return;
       }
       if(direction==DIFFTEST_TO_REF){
-          paddr_write(addr,n,temp);
+          
+          paddr_write(addr,n,*(word_t *)buf);
          return;
       }
   }
   else {
+      
+      word_t temp= *(word_t *)buf;
       while(n>4){
           if(direction==DIFFTEST_TO_DUT){
               assert(0);
