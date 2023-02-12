@@ -43,4 +43,6 @@ void init_difftest(char *ref_so_file, uint32_t img_size, int port, uint32_t *mem
   
   ref_difftest_memcpy(RESET_VECTOR, mem, img_size, DIFFTEST_TO_REF);
   ref_difftest_regcpy(&cpu_gpr, DIFFTEST_TO_REF);
+  
+  printf("difftest \033[40;32mON\033[0m\n");
 }

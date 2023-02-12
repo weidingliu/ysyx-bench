@@ -11,6 +11,8 @@
 
 #define RESET_VECTOR 0x80000000
 
+void init_difftest(char *ref_so_file, uint32_t img_size, int port, uint32_t *mem);
+
 enum { DIFFTEST_TO_DUT, DIFFTEST_TO_REF };
 
 extern uint32_t mem[MAX_MEM];
