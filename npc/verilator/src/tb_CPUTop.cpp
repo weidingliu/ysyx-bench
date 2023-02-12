@@ -14,7 +14,7 @@
 #include <stdlib.h>
 
 #include <tb.h>
-
+#include <difftest.h>
 //char ref_so_file="/home/liuweiding/ysyx-workbench/nemu/build/riscv64-nemu-interpreter-so";
 
 /*

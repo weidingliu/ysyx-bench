@@ -4,6 +4,7 @@
 #include <assert.h>
 
 #include <tb.h>
+#include<difftest.h>
 
 typedef void (*Ref_difftest_memcpy)(uint64_t addr, void *buf, size_t n, bool direction);
 typedef void (*Ref_difftest_regcpy)(void *dut, bool direction);
