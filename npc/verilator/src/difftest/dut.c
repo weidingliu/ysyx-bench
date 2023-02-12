@@ -8,7 +8,7 @@
 
 
 
- ref_difftest_memcpy=NULL;
+Ref_difftest_memcpy ref_difftest_memcpy=NULL;
 Ref_difftest_regcpy ref_difftest_regcpy=NULL;
 Ref_difftest_exec ref_difftest_exec=NULL;
 Ref_difftest_raise_intr ref_difftest_raise_intr=NULL;
