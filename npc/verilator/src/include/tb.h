@@ -11,11 +11,11 @@
 
 enum { DIFFTEST_TO_DUT, DIFFTEST_TO_REF };
 
-uint32_t mem[MAX_MEM];
-uint32_t mem_size;
+extern uint32_t mem[MAX_MEM];
+extern uint32_t mem_size;
 
-uint64_t *cpu_gpr = NULL;
-uint32_t *Inst;
+extern uint64_t *cpu_gpr = NULL;
+extern uint32_t *Inst;
 
 
 
