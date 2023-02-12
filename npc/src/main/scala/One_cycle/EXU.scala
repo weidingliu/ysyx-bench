@@ -77,7 +77,7 @@ class EXU extends Module with paramete {
   io1.is_break := Mux(io.aluoptype===ALUOPType.ebreak,1.U,0.U)
   switch(io.aluoptype){
     is(ALUOPType.add){
-     alu_result := src1 + src2
+     alu_result := src1 + src2+1.U
     }
     is(ALUOPType.or){
       alu_result := src1 | src2
