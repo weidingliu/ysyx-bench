@@ -34,6 +34,8 @@ uint32_t mem[MAX_MEM];
 uint32_t mem_size;
 uint32_t *Inst;
 
+uint32_t state=RUN;
+
 void init_disasm(const char *triple); 
 
 extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
