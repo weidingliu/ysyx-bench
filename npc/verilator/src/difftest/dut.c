@@ -51,4 +51,11 @@ void difftest_step(){
     
 }
 
+bool check_reg(reg_cpu ref_cpu,uint64_t pc){
+
+    return true;
+}
+
+
+
 
