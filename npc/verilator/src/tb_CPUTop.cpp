@@ -153,7 +153,7 @@ void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uint
         
         bool flag=difftest_step(dut->io_pc);
         
-        if(!flag) {state=ABORT; printf("dasf\n");break;}
+        if(!flag) {state=ABORT; break;}
         
     }
    
