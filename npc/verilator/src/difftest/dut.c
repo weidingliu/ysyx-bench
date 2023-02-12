@@ -64,7 +64,7 @@ bool difftest_step(uint64_t pc){
     ref_difftest_exec(1);
     ref_difftest_regcpy(&ref_cpu, DIFFTEST_TO_DUT);
     //printf("%016lx\n",ref_cpu.pc);
-    printf("%016lx\n",pc);
+    //printf("%016lx\n",pc);
     bool ret=check_reg(&ref_cpu,pc);
     return ret;
 }
@@ -73,7 +73,7 @@ void difftest_print(){
     cpu_state ref_cpu;
     ref_difftest_regcpy(&ref_cpu, DIFFTEST_TO_DUT);
     
-    printf("======ref PC is %016lx\n",ref_cpu.pc);
+    printf("======ref PC is %016lx\n",ref_cpu.pc-4);
     for(int i=0;i<32;i++){
         printf("gpr[%d]: %016lx\n",i,ref_cpu.reg[i]);
     }

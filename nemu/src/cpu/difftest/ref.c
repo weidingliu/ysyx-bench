@@ -70,7 +70,7 @@ void difftest_regcpy(ref_state *dut, bool direction) {
   
   //printf("--------------%08lx\n",cpu.pc);
   if(direction==DIFFTEST_TO_DUT){
-      dut->pc=cpu.pc-4;
+      dut->pc=cpu.pc;
       //printf("--------------%016lx     %016lx\n",cpu.pc,dut->pc);
       for(int i=0;i<32;i++){
           dut->reg[i]=cpu.gpr[i];

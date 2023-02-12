@@ -413,7 +413,7 @@ else if(state==ABORT){
     printf("\033[40;31Program execution has ended. To restart the program, exit NEMU and run again.\033[0m\n");
     difftest_print();
     
-    printf("\033[40;31mABORT at pc = \033[0m \033[40;31m0x%lx\033[0m\n",dut->io_pc);
+    printf("\033[40;31mABORT at pc = \033[0m \033[40;31m0x%lx\033[0m\n",dut->io_pc-4);
 }
 else printf("\033[40;32mHIT GOOD TRAP at pc = \033[0m \033[40;32m0x%lx\033[0m\n",dut->io_pc);
 
