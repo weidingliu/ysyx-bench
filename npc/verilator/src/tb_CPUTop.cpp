@@ -148,7 +148,13 @@ void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uint
     step_print_inst = (n<MAX_PRINT_STEP);
     while(n--!=0 &&((!contextp->gotFinish()))){
         exe_once(dut,contextp,m_trace);
-        difftest_step(dut);
+        bool flag=difftest_step(dut->io-pc);
+        if(!flag) {state=ABORT; break;}
+    }
+    switch(state){
+        case(ABORT): return;
+        case(RUN):
+        case(EDN): return;
     }
 }
 
@@ -393,6 +399,12 @@ if(cpu_gpr[10] !=0) {
     printf("\n");
     display_iringbuf();
     printf("\033[40;31mHIT BAD TRAP at pc = \033[0m \033[40;31m0x%lx\033[0m\n",dut->io_pc);
+}
+else if(state==ABORT){
+    dump_gpr(); 
+    printf("\n");
+    display_iringbuf();
+    printf("\033[40;31mABORT at pc = \033[0m \033[40;31m0x%lx\033[0m\n",dut->io_pc);
 }
 else printf("\033[40;32mHIT GOOD TRAP at pc = \033[0m \033[40;32m0x%lx\033[0m\n",dut->io_pc);
 
