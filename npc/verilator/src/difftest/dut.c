@@ -6,13 +6,9 @@
 #include <tb.h>
 #include<difftest.h>
 
-typedef void (*Ref_difftest_memcpy)(uint64_t addr, void *buf, size_t n, bool direction);
-typedef void (*Ref_difftest_regcpy)(void *dut, bool direction);
-typedef void (*Ref_difftest_exec)(uint64_t n);
-typedef void (*Ref_difftest_raise_intr)(uint64_t NO);
-typedef void (*Ref_difftest_init)(int port);
 
-Ref_difftest_memcpy ref_difftest_memcpy=NULL;
+
+ ref_difftest_memcpy=NULL;
 Ref_difftest_regcpy ref_difftest_regcpy=NULL;
 Ref_difftest_exec ref_difftest_exec=NULL;
 Ref_difftest_raise_intr ref_difftest_raise_intr=NULL;
