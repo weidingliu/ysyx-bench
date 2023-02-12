@@ -14,7 +14,7 @@
 typedef struct reg_cpu{
     uint32_t reg[32];
     uint64_t pc;
-}
+}reg_cpu;
 
 extern reg_cpu ref_cpu;
 
