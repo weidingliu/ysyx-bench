@@ -14,7 +14,7 @@ enum { DIFFTEST_TO_DUT, DIFFTEST_TO_REF };
 extern uint32_t mem[MAX_MEM];
 extern uint32_t mem_size;
 
-extern uint64_t *cpu_gpr = NULL;
+extern uint64_t *cpu_gpr;
 extern uint32_t *Inst;
 
 
