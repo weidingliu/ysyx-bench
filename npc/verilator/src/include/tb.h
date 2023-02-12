@@ -16,7 +16,7 @@ typedef struct reg_cpu{
     uint64_t pc;
 }cpu_state;
 
-extern cpu_state ref_cpu;
+extern cpu_state* ref_cpu;
 
 enum { DIFFTEST_TO_DUT, DIFFTEST_TO_REF };
 
