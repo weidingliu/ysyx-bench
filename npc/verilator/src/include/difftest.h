@@ -1,7 +1,8 @@
-
+#include<tb.h>
 
 void init_difftest(char *ref_so_file, uint32_t img_size, int port, uint32_t *mem);
-
+void difftest_step();
+bool check_reg(cpu_state ref_cpu,uint64_t pc);
 
 typedef void (*Ref_difftest_memcpy)(uint64_t addr, void *buf, size_t n, bool direction);
 typedef void (*Ref_difftest_regcpy)(void *dut, bool direction);
