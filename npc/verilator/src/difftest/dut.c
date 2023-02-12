@@ -49,7 +49,7 @@ void difftest_step(){
     cpu_state ref_cpu;
     ref_difftest_exec(1);
     ref_difftest_regcpy(&ref_cpu, DIFFTEST_TO_DUT);
-    printf("%016lx\n",ref_cpu.pc);
+    //printf("%016lx\n",ref_cpu.pc);
 }
 
 bool check_reg(cpu_state ref_cpu,uint64_t pc){
