@@ -5,7 +5,7 @@
 
 #include <tb.h>
 
-typedef (*ref_difftest_memcpy)(uint64_t addr, void *buf, size_t n, bool direction);
+typedef void (*ref_difftest_memcpy)(uint64_t addr, void *buf, size_t n, bool direction);
 typedef (*ref_difftest_regcpy)(void *dut, bool direction);
 typedef (*ref_difftest_exec)(uint64_t n);
 typedef (*ref_difftest_raise_intr)(uint64_t NO);
