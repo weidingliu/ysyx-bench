@@ -40,7 +40,7 @@ void init_difftest(char *ref_so_file, uint32_t img_size, int port, uint32_t *mem
   assert(ref_difftest_init);
   
   ref_difftest_init(port);
-  
+  printf("here6\n");
   ref_difftest_memcpy(RESET_VECTOR, mem, img_size, DIFFTEST_TO_REF);
   printf("here5\n");
   ref_difftest_regcpy(&cpu_gpr, DIFFTEST_TO_REF);
