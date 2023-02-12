@@ -5,11 +5,12 @@
 
 #include <tb.h>
 
-void (*ref_difftest_memcpy)(uint64_t addr, void *buf, size_t n, bool direction) = NULL;
-void (*ref_difftest_regcpy)(void *dut, bool direction) = NULL;
-void (*ref_difftest_exec)(uint64_t n) = NULL;
-void (*ref_difftest_raise_intr)(uint64_t NO) = NULL;
+typedef (*ref_difftest_memcpy)(uint64_t addr, void *buf, size_t n, bool direction);
+typedef (*ref_difftest_regcpy)(void *dut, bool direction);
+typedef (*ref_difftest_exec)(uint64_t n);
+typedef (*ref_difftest_raise_intr)(uint64_t NO);
 
+ref_difftest_memcpy ref_difftest_memcpy=NULL;
 
 void init_difftest(char *ref_so_file, uint32_t img_size, int port){
   assert(ref_so_file != NULL);
@@ -18,7 +19,7 @@ void init_difftest(char *ref_so_file, uint32_t img_size, int port){
   handle = dlopen(ref_so_file, RTLD_LAZY);
   assert(handle);
 
-  ref_difftest_memcpy = (void *)dlsym(handle, "difftest_memcpy");
+  ref_difftest_memcpy = (ref_difftest_memcpy)dlsym(handle, "difftest_memcpy");
   assert(ref_difftest_memcpy);
 
   ref_difftest_regcpy = dlsym(handle, "difftest_regcpy");
