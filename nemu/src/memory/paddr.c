@@ -42,7 +42,7 @@ static word_t pmem_read(paddr_t addr, int len) {
 
 static void pmem_write(paddr_t addr, int len, word_t data) {
   host_write(guest_to_host(addr), len, data);
-  printf("%08x\n",*(uint32_t *)guest_to_host(addr));
+  printf("%08x    %08x\n",*(uint32_t *)guest_to_host(addr),addr);
   #ifdef CONFIG_MTRACE
     printf("-->WRITE  Address: 0x%016x  Len: %d  DATA: 0x%lx\n", addr, len, data);
   #endif
