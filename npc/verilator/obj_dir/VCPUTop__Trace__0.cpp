@@ -171,7 +171,7 @@ void VCPUTop___024root__trace_chg_sub_0(VCPUTop___024root* vlSelf, VerilatedVcd:
         bufp->chgQData(oldp+204,(vlSelf->CPUTop__DOT__EX__DOT__src1),64);
         bufp->chgQData(oldp+206,(vlSelf->CPUTop__DOT__EX__DOT__src2),64);
         bufp->chgQData(oldp+208,(((0x40U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
-                                   ? (1ULL + vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_1)
+                                   ? vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_1
                                    : ((0x44U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                        ? (vlSelf->CPUTop__DOT__EX__DOT__src1 
                                           | vlSelf->CPUTop__DOT__EX__DOT__src2)
