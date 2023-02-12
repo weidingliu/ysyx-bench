@@ -35,16 +35,16 @@ void difftest_memcpy(paddr_t addr, void *buf, size_t n, bool direction) {
   }
   else {
       
-      printf("%08x\n",*(uint32_t *)buf);
+      printf("%08x    %ld\n",*(uint32_t *)buf,n);
       while(n>4){
-          word_t temp= *(word_t *)buf;
+          uint32_t temp= *(uint32_t *)buf;
           if(direction==DIFFTEST_TO_DUT){
               assert(0);
           }
           if(direction==DIFFTEST_TO_REF){
               //memcpy(guest_to_host(RESET_VECTOR), *(word_t *)buf, sizeof(word_t));
               paddr_write(addr,4,temp);
-              printf("%08lx\n",temp);
+              printf("%08x\n",temp);
               return;
           }
           buf++;
