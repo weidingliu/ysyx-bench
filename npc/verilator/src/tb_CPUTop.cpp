@@ -15,7 +15,7 @@
 
 #include <tb.h>
 
-char *ref_so_file="/home/liuweiding/ysyx-workbench/nemu/build/riscv64-nemu-interpreter-so";
+//char ref_so_file="/home/liuweiding/ysyx-workbench/nemu/build/riscv64-nemu-interpreter-so";
 
 /*
 #define clk 100 //set clock  MHZ
@@ -373,6 +373,7 @@ m_trace->open("waveform.vcd");
 
 // init inst memory
 init_mem(argv[1]);
+printf("%s\n",argv[2]);
 
 init_difftest(ref_so_file,mem_size,1,mem);
 
