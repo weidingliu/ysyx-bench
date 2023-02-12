@@ -150,7 +150,9 @@ void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uint
     step_print_inst = (n<MAX_PRINT_STEP);
     while(n--!=0 &&((!contextp->gotFinish()))){
         exe_once(dut,contextp,m_trace);
+        printf("here1\n");
         bool flag=difftest_step(dut->io_pc);
+        printf("here2\n");
         if(!flag) {state=ABORT; break;}
         
     }
