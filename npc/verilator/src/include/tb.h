@@ -12,7 +12,7 @@
 #define RESET_VECTOR 0x80000000
 
 typedef struct reg_cpu{
-    uint32_t reg[32];
+    uint64_t reg[32];
     uint64_t pc;
 }cpu_state;
 
