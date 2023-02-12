@@ -44,3 +44,11 @@ void init_difftest(char *ref_so_file, uint32_t img_size, int port, uint32_t *mem
   
   printf("difftest \033[40;32mON\033[0m\n");
 }
+
+void difftest_step(){
+    ref_difftest_exec(1);
+    ref_difftest_regcpy(&ref_cpu, DIFFTEST_TO_DUT);
+    
+}
+
+

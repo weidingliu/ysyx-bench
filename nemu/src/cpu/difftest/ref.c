@@ -18,6 +18,11 @@
 #include <difftest-def.h>
 #include <memory/paddr.h>
 
+typedef struct reg_cpu{
+    uint32_t reg[32];
+    uint64_t pc;
+}ref_state;
+
 void difftest_memcpy(paddr_t addr, void *buf, size_t n, bool direction) {
   word_t temp;
   
@@ -56,17 +61,21 @@ void difftest_memcpy(paddr_t addr, void *buf, size_t n, bool direction) {
 }
 
 void difftest_regcpy(void *dut, bool direction) {
-  uint32_t temp[32];
-  dut=temp;
+  //uint32_t temp[32];
+  ref_state cpu_state;
+  dut=&cpu_state;
+  
+  printf("%08lx\n",cpu.pc);
   if(direction==DIFFTEST_TO_DUT){
+      cpu_state.pc=cpu.pc;
       for(int i=0;i<32;i++){
-          temp[i]=cpu.gpr[i];
+          cpu_state.reg[i]=cpu.gpr[i];
       }
       return;
   }
   if(direction==DIFFTEST_TO_REF){
       for(int i=0;i<32;i++){
-          cpu.gpr[i]=temp[i];
+          cpu.gpr[i]=cpu_state.reg[i];
       }
       return;
   }

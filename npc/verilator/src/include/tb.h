@@ -11,7 +11,12 @@
 
 #define RESET_VECTOR 0x80000000
 
+typedef struct reg_cpu{
+    uint32_t reg[32];
+    uint64_t pc;
+}
 
+extern reg_cpu ref_cpu;
 
 enum { DIFFTEST_TO_DUT, DIFFTEST_TO_REF };
 
