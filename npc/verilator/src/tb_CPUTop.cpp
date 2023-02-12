@@ -154,7 +154,7 @@ void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uint
     switch(state){
         case(ABORT): return;
         case(RUN):
-        case(EDN): return;
+        case(END): return;
     }
 }
 
