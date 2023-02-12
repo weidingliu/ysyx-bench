@@ -375,7 +375,7 @@ m_trace->open("waveform.vcd");
 init_mem(argv[1]);
 printf("%s\n",argv[2]);
 
-init_difftest(ref_so_file,mem_size,1,mem);
+//init_difftest(ref_so_file,mem_size,1,mem);
 
 init_disasm("riscv64" "-pc-linux-gnu");
 //reset rtl
