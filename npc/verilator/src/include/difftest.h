@@ -1,4 +1,4 @@
-#include<tb.h>
+
 
 void init_difftest(char *ref_so_file, uint32_t img_size, int port, uint32_t *mem);
 void difftest_step();
