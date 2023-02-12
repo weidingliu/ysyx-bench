@@ -155,8 +155,9 @@ void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uint
         
         if(!flag) {state=ABORT; break;}
         
+        
     }
-   
+    if(contextp->gotFinish()) state=END;
     switch(state){
         case(ABORT): return;
         case(RUN): return;
