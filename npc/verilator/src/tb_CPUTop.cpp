@@ -28,7 +28,10 @@ static uint32_t irbuf_point=0;
 static bool step_print_inst = false;
 vluint64_t sim_time=0;
 
-*cpu_gpr=NULL;
+uint64_t *cpu_gpr=NULL;
+uint32_t mem[MAX_MEM];
+uint32_t mem_size;
+uint32_t *Inst;
 
 void init_disasm(const char *triple); 
 
