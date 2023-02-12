@@ -38,7 +38,7 @@ void init_difftest(char *ref_so_file, uint32_t img_size, int port, uint32_t *mem
   printf("here4\n");
   ref_difftest_init = (Ref_difftest_init)dlsym(handle, "difftest_init");
   assert(ref_difftest_init);
-  
+  printf("here7\n");
   ref_difftest_init(port);
   printf("here6\n");
   ref_difftest_memcpy(RESET_VECTOR, mem, img_size, DIFFTEST_TO_REF);
