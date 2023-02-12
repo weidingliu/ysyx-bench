@@ -47,11 +47,12 @@ void init_difftest(char *ref_so_file, uint32_t img_size, int port, uint32_t *mem
 
 static bool check_reg(cpu_state *ref_cpu,uint64_t pc){
     if(pc != ref_cpu->pc){
-        printf("her\n");
+        //printf("her\n");
         return false;
     }
     for(int i=0;i<32;i++){
-        if(ref_cpu->reg[i]!=cpu_gpr[i]) return false;
+    printf("%016lx   %016lx",ref_cpu->reg[i],cpu_gpr[i]);
+        if(ref_cpu->reg[i] != cpu_gpr[i]) return false;
         printf("her1\n");
     }
     
@@ -63,7 +64,7 @@ bool difftest_step(uint64_t pc){
     ref_difftest_exec(1);
     ref_difftest_regcpy(&ref_cpu, DIFFTEST_TO_DUT);
     //printf("%016lx\n",ref_cpu.pc);
-    printf("step\n");
+    
     bool ret=check_reg(&ref_cpu,pc);
     return ret;
 }
