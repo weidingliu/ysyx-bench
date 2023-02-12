@@ -152,11 +152,11 @@ void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uint
         exe_once(dut,contextp,m_trace);
         bool flag=difftest_step(dut->io_pc);
         if(!flag) {state=ABORT; break;}
-        state=RUN;
+        
     }
     switch(state){
         case(ABORT): return;
-        case(RUN):
+        case(RUN): return;
         case(END): return;
     }
 }
