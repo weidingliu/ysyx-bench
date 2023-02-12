@@ -44,7 +44,7 @@ void difftest_memcpy(paddr_t addr, void *buf, size_t n, bool direction) {
               paddr_write(addr,n,temp);
               return;
           }
-          temp++;
+          buf++;
           n-=4;
           
       }
