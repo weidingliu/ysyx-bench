@@ -14,7 +14,8 @@
 #include <stdlib.h>
 
 #include <tb.h>
-
+#include <difftest.h>
+//char ref_so_file="/home/liuweiding/ysyx-workbench/nemu/build/riscv64-nemu-interpreter-so";
 
 /*
 #define clk 100 //set clock  MHZ
@@ -27,6 +28,13 @@ static uint32_t irbuf_point=0;
 
 static bool step_print_inst = false;
 vluint64_t sim_time=0;
+
+uint64_t *cpu_gpr=NULL;
+uint32_t mem[MAX_MEM];
+uint32_t mem_size;
+uint32_t *Inst;
+
+uint32_t state=RUN;
 
 void init_disasm(const char *triple); 
 
@@ -142,6 +150,18 @@ void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uint
     step_print_inst = (n<MAX_PRINT_STEP);
     while(n--!=0 &&((!contextp->gotFinish()))){
         exe_once(dut,contextp,m_trace);
+        
+        bool flag=difftest_step(dut->io_pc);
+        
+        if(!flag) {state=ABORT; break;}
+        
+        
+    }
+    if(contextp->gotFinish()) state=END;
+    switch(state){
+        case(ABORT): return;
+        case(RUN): return;
+        case(END): return;
     }
 }
 
@@ -323,6 +343,7 @@ void sdb_main_loop(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace)
   }
     
     for (char *str; (str = rl_gets()) != NULL; ) {
+    
     char *str_end = str + strlen(str);
      /* extract the first token as the command */
     char *cmd = strtok(str, " ");
@@ -344,7 +365,7 @@ void sdb_main_loop(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace)
         break;
       }
     }
-
+    if(state==ABORT) return;
     if (i == NR_CMD) { printf("Unknown command '%s'\n", cmd); }
     
 }
@@ -367,6 +388,9 @@ m_trace->open("waveform.vcd");
 
 // init inst memory
 init_mem(argv[1]);
+//printf("%s\n",argv[2]);
+
+init_difftest(argv[2],mem_size,1,mem);
 
 init_disasm("riscv64" "-pc-linux-gnu");
 //reset rtl
@@ -383,6 +407,16 @@ if(cpu_gpr[10] !=0) {
     printf("\n");
     display_iringbuf();
     printf("\033[40;31mHIT BAD TRAP at pc = \033[0m \033[40;31m0x%lx\033[0m\n",dut->io_pc);
+}
+else if(state==ABORT){
+    dump_gpr(); 
+    printf("\n");
+    display_iringbuf();
+    printf("\033[40;31Program execution has ended. To restart the program, exit NEMU and run again.\033[0m");
+    printf("\n");
+    difftest_print();
+    
+    printf("\033[40;31mABORT at pc = \033[0m \033[40;31m0x%lx\033[0m\n",dut->io_pc-4);
 }
 else printf("\033[40;32mHIT GOOD TRAP at pc = \033[0m \033[40;32m0x%lx\033[0m\n",dut->io_pc);
 

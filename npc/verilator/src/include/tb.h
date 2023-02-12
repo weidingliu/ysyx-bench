@@ -9,14 +9,25 @@
 
 #define IRTRACE 32 
 
+#define RESET_VECTOR 0x80000000
+
+typedef struct reg_cpu{
+    uint64_t reg[32];
+    uint64_t pc;
+}cpu_state;
+
+
+
 enum { DIFFTEST_TO_DUT, DIFFTEST_TO_REF };
+enum {RUN,ABORT,END};
 
-uint32_t mem[MAX_MEM];
-uint32_t mem_size;
+extern uint32_t mem[MAX_MEM];
+extern uint32_t mem_size;
 
-uint64_t *cpu_gpr = NULL;
-uint32_t *Inst;
+extern uint64_t *cpu_gpr;
+extern uint32_t *Inst;
 
+extern uint32_t state;
 
 
 

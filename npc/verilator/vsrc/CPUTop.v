@@ -352,6 +352,8 @@ module CPUTop(
   wire  rf_MPORT_en; // @[RF.scala 6:17]
   wire [4:0] src1add = ID_io_ctrlIO_src1; // @[CPUTop.scala 35:21 44:10]
   wire [4:0] src2add = ID_io_ctrlIO_src2; // @[CPUTop.scala 36:21 45:10]
+  wire  _T = ID_io_ctrlIO_rd == 5'h0; // @[RF.scala 8:61]
+  wire [63:0] _T_1 = EX_io1_result; // @[RF.scala 8:78]
   IFU IF ( // @[CPUTop.scala 18:16]
     .clock(IF_clock),
     .reset(IF_reset),
@@ -522,7 +524,7 @@ module CPUTop(
   assign rf_DIP_io_rf_31_MPORT_en = 1'h1;
   assign rf_DIP_io_rf_31_MPORT_addr = 5'h1f;
   assign rf_DIP_io_rf_31_MPORT_data = rf[rf_DIP_io_rf_31_MPORT_addr]; // @[RF.scala 6:17]
-  assign rf_MPORT_data = EX_io1_result;
+  assign rf_MPORT_data = _T ? 64'h0 : _T_1;
   assign rf_MPORT_addr = ID_io_ctrlIO_rd;
   assign rf_MPORT_mask = 1'h1;
   assign rf_MPORT_en = 1'h1;
