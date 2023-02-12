@@ -88,6 +88,7 @@ void difftest_regcpy(ref_state *dut, bool direction) {
 
 void difftest_exec(uint64_t n) {
   cpu_exec(n);
+
 }
 
 void difftest_raise_intr(word_t NO) {
