@@ -17,7 +17,7 @@ Ref_difftest_exec ref_difftest_exec=NULL;
 Ref_difftest_raise_intr ref_difftest_raise_intr=NULL;
 Ref_difftest_init ref_difftest_init=NULL;
 
-void init_difftest(char *ref_so_file, uint32_t img_size, int port){
+void init_difftest(char *ref_so_file, uint32_t img_size, int port, uint32_t *mem){
   assert(ref_so_file != NULL);
 
   void *handle;
@@ -40,6 +40,7 @@ void init_difftest(char *ref_so_file, uint32_t img_size, int port){
   assert(ref_difftest_init);
   
   ref_difftest_init(port);
-  //ref_difftest_memcpy(RESET_VECTOR, guest_to_host(RESET_VECTOR), img_size, DIFFTEST_TO_REF);
+  
+  ref_difftest_memcpy(RESET_VECTOR, mem, img_size, DIFFTEST_TO_REF);
   ref_difftest_regcpy(&cpu_gpr, DIFFTEST_TO_REF);
 }

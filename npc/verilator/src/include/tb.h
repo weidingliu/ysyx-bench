@@ -9,6 +9,8 @@
 
 #define IRTRACE 32 
 
+#define RESET_VECTOR 0x80000000
+
 enum { DIFFTEST_TO_DUT, DIFFTEST_TO_REF };
 
 extern uint32_t mem[MAX_MEM];

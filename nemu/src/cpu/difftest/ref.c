@@ -21,14 +21,32 @@
 void difftest_memcpy(paddr_t addr, void *buf, size_t n, bool direction) {
   word_t temp;
   buf=&temp;
-  if(direction==DIFFTEST_TO_DUT){
-      temp=paddr_read(addr,n);
-      return;
+  if(n<=4){
+      if(direction==DIFFTEST_TO_DUT){
+          temp=paddr_read(addr,n);
+          return;
+      }
+      if(direction==DIFFTEST_TO_REF){
+          paddr_write(addr,n,temp);
+         return;
+      }
   }
-  if(direction==DIFFTEST_TO_REF){
-      paddr_write(addr,n,temp);
-     return;
+  else {
+      while(n>4){
+          if(direction==DIFFTEST_TO_DUT){
+              temp=paddr_read(addr,n);
+              return;
+          }
+          if(direction==DIFFTEST_TO_REF){
+              paddr_write(addr,n,temp);
+              return;
+          }
+          temp++;
+          n-=4;
+          
+      }
   }
+  
 }
 
 void difftest_regcpy(void *dut, bool direction) {
