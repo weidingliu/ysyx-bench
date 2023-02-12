@@ -70,7 +70,7 @@ void difftest_print(){
     
     printf("======ref PC is %016lx",ref_cpu.pc);
     for(int i=0;i<32;i++){
-        printf("gpr\[%d\]: %016lx",i,ref_cpu.reg[i]);
+        printf("gpr\[%d\]: %016x",i,ref_cpu.reg[i]);
     }
 }
 

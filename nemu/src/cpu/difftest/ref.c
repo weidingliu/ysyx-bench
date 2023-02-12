@@ -19,7 +19,7 @@
 #include <memory/paddr.h>
 
 typedef struct reg_cpu{
-    uint32_t reg[32];
+    uint64_t reg[32];
     uint64_t pc;
 }ref_state;
 
