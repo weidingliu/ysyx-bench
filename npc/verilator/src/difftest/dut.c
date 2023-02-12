@@ -54,7 +54,7 @@ static bool check_reg(cpu_state *ref_cpu,uint64_t pc){
     }
     for(int i=0;i<32;i++){
     
-        if(ref_cpu->reg[i] != cpu_gpr[i]) {printf("%d\n",i);return false;}
+        if(ref_cpu->reg[i] != cpu_gpr[i]) {return false;}
         
     }
     

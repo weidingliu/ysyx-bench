@@ -343,6 +343,7 @@ void sdb_main_loop(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace)
   }
     
     for (char *str; (str = rl_gets()) != NULL; ) {
+    if(state==ABORT) return;
     char *str_end = str + strlen(str);
      /* extract the first token as the command */
     char *cmd = strtok(str, " ");
