@@ -18,19 +18,19 @@ void init_difftest(char *ref_so_file, uint32_t img_size, int port){
   handle = dlopen(ref_so_file, RTLD_LAZY);
   assert(handle);
 
-  ref_difftest_memcpy = (void(*)())dlsym(handle, "difftest_memcpy");
+  ref_difftest_memcpy = (void *)dlsym(handle, "difftest_memcpy");
   assert(ref_difftest_memcpy);
 
-  ref_difftest_regcpy = (void(*)())dlsym(handle, "difftest_regcpy");
+  ref_difftest_regcpy = dlsym(handle, "difftest_regcpy");
   assert(ref_difftest_regcpy);
 
-  ref_difftest_exec = (void(*)())dlsym(handle, "difftest_exec");
+  ref_difftest_exec = dlsym(handle, "difftest_exec");
   assert(ref_difftest_exec);
 
-  ref_difftest_raise_intr = (void(*)())dlsym(handle, "difftest_raise_intr");
+  ref_difftest_raise_intr = dlsym(handle, "difftest_raise_intr");
   assert(ref_difftest_raise_intr);
 
-  void (*ref_difftest_init)(int) = (void(*)())dlsym(handle, "difftest_init");
+  void (*ref_difftest_init)(int) = dlsym(handle, "difftest_init");
   assert(ref_difftest_init);
   
   ref_difftest_init(port);
