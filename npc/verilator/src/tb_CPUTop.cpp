@@ -406,7 +406,7 @@ if(cpu_gpr[10] !=0) {
     dump_gpr(); 
     printf("\n");
     display_iringbuf();
-    printf("\033[40;31mHIT BAD TRAP at pc = \033[0m \033[40;31m0x%lx\033[0m\n",dut->io_pc);
+    printf("\033[40;31mHIT BAD TRAP at pc = \033[0m \033[40;31m0x%016lx\033[0m\n",dut->io_pc);
 }
 else if(state==ABORT){
     dump_gpr(); 
@@ -416,9 +416,9 @@ else if(state==ABORT){
     printf("\n");
     difftest_print();
     
-    printf("\033[40;31mABORT at pc = \033[0m \033[40;31m0x%lx\033[0m\n",dut->io_pc-4);
+    printf("\033[40;31mABORT at pc = \033[0m \033[40;31m0x%016lx\033[0m\n",dut->io_pc-4);
 }
-else printf("\033[40;32mHIT GOOD TRAP at pc = \033[0m \033[40;32m0x%lx\033[0m\n",dut->io_pc);
+else printf("\033[40;32mHIT GOOD TRAP at pc = \033[0m \033[40;32m0x%016lx\033[0m\n",dut->io_pc);
 
 m_trace->close();
 delete dut;
