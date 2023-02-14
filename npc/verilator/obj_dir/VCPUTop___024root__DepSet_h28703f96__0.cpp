@@ -60,7 +60,10 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
                                                                      == 
                                                                      (0x707fU 
                                                                       & vlSelf->io_inst)))))))))) {
-        __Vdlyvval__CPUTop__DOT__rf__v0 = vlSelf->CPUTop__DOT__EX_io1_result;
+        __Vdlyvval__CPUTop__DOT__rf__v0 = ((0U == (0x1fU 
+                                                   & (vlSelf->io_inst 
+                                                      >> 7U)))
+                                            ? 0ULL : vlSelf->CPUTop__DOT__EX_io1_result);
         __Vdlyvset__CPUTop__DOT__rf__v0 = 1U;
         __Vdlyvdim0__CPUTop__DOT__rf__v0 = (0x1fU & 
                                             (vlSelf->io_inst 
