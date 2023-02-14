@@ -45,7 +45,10 @@ class CPUTop extends Module with paramete{
 
   src1add:= ID.io.ctrlIO.src1
   src2add:= ID.io.ctrlIO.src2
-  Reg.write(ID.io.ctrlIO.rd,EX.io1.result)
+  when((ID.io.rd_en === RD.write)){
+    Reg.write(ID.io.ctrlIO.rd,EX.io1.result)
+  }
+
 
   io.result := EX.io1.result
 

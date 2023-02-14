@@ -14,6 +14,13 @@ object ALUOPType{
   def ld =  "b1000101".U
   def apply() = UInt(7.W)
 }
+object RD{
+  def write="b1".U
+  //def read = "b10".U
+  def NOP = "b0".U
+  def apply() =UInt(1.W)
+}
+
 
 class EXU extends Module with paramete {
   val io = IO(new Bundle() {
