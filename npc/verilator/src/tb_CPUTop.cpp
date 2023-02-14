@@ -133,7 +133,7 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
                 disassemble(p,96,s->io_pc,(uint8_t *)&s->io_inst,4);
       
                 if(s->reset==0 && step_print_inst)printf("Addr: %08lx\t Inst: %-16s\t%08x\t\n",s->io_pc,p,Inst[0]);
-                sprintf(ibuf[irbuf_point],"Addr: %08lx\t Inst: %-16s\t  %-8x\t\n",s->io_pc,p,s->io_inst);
+                sprintf(ibuf[irbuf_point],"Addr: %08lx\t Inst: %-16s\t  %8x\t\n",s->io_pc,p,s->io_inst);
     
     
                 irbuf_point=(irbuf_point+1)%IRTRACE;
