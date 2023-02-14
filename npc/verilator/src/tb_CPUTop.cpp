@@ -129,13 +129,16 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
         if(sim_time % 1==0) {
         
             s->io_inst = pem_read(s->io_pc);
-            disassemble(p,96,s->io_pc,(uint8_t *)&s->io_inst,4);
+            if(i==0){
+                disassemble(p,96,s->io_pc,(uint8_t *)&s->io_inst,4);
       
-            if(s->reset==0 && step_print_inst)printf("Addr: %08lx\t Inst: %-16s\t%08x\t\n",s->io_pc,p,Inst[0]);
-            sprintf(ibuf[irbuf_point],"Addr: %08lx\t Inst: %-16s\t\n",s->io_pc,p);
+                if(s->reset==0 && step_print_inst)printf("Addr: %08lx\t Inst: %-16s\t%08x\t\n",s->io_pc,p,Inst[0]);
+                sprintf(ibuf[irbuf_point],"Addr: %08lx\t Inst: %-16s\t\n",s->io_pc,p);
     
     
-            irbuf_point=(irbuf_point+1)%IRTRACE;
+                irbuf_point=(irbuf_point+1)%IRTRACE;
+            }
+            
         }
         
         s->eval();
