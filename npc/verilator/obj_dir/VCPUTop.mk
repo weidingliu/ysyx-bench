@@ -45,6 +45,7 @@ VM_USER_LDLIBS = \
 # User .cpp files (from .cpp's on Verilator command line)
 VM_USER_CLASSES = \
 	dut \
+	pmem \
 	tb_CPUTop \
 	disasm \
 
@@ -52,6 +53,7 @@ VM_USER_CLASSES = \
 VM_USER_DIR = \
 	src \
 	src/difftest \
+	src/memory \
 	src/util \
 
 
@@ -65,6 +67,8 @@ include $(VERILATOR_ROOT)/include/verilated.mk
 VPATH += $(VM_USER_DIR)
 
 dut.o: src/difftest/dut.c
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+pmem.o: src/memory/pmem.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 tb_CPUTop.o: src/tb_CPUTop.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<

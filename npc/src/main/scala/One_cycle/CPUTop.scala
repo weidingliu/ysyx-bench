@@ -9,6 +9,8 @@ class DIP_model extends BlackBox{
     val inst=Input(UInt(32.W))
   })
 }
+
+
 class CPUTop extends Module with paramete{
   val io = IO(new Bundle() {
     val pc=Output(UInt(xlen.W))
