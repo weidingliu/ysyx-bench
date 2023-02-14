@@ -11,6 +11,7 @@ object ALUOPType{
   def jal = "b0011001".U
   def jalr ="b1001000".U
   def or = "b1000100".U
+  def ld =  "b1000101".U
   def apply() = UInt(7.W)
 }
 

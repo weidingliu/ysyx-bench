@@ -400,7 +400,7 @@ Reset(dut,contextp,m_trace);//reset rtl
 
 sdb_main_loop(dut,contextp,m_trace);
 
-printf("Final PC is : 0x%lx\n",dut->io_pc);
+//printf("Final PC is : 0x%lx\n",dut->io_pc);
 
 if(cpu_gpr[10] !=0) {
     dump_gpr(); 
