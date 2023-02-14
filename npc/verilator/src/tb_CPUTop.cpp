@@ -38,6 +38,9 @@ uint32_t state=RUN;
 
 void init_disasm(const char *triple); 
 
+extern "C" void pmem_read(long long addr, long long *rdata);
+extern "C" void pmem_write(long long addr, long long wdata, char wmask);
+
 extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
   cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
 }
