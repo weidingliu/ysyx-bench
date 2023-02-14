@@ -119,6 +119,20 @@ uint32_t pem_read(uint64_t pc){
 //extern "C" void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
 
 void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
+    char p[128];
+    //printf(" %08x   %08lx\n",s->io_inst,s->io_pc-4);
+    
+    void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
+    disassemble(p,96,s->io_pc-4,(uint8_t *)&s->io_inst,4);
+    /*disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
+      MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);*/
+      
+    if(s->reset==0 && step_print_inst)printf("Addr: %08lx\t Inst: %-16s\t%08x\t\n",s->io_pc-4,p,Inst[0]);
+    sprintf(ibuf[irbuf_point],"Addr: %08lx\t Inst: %-16s\t\n",s->io_pc,p);
+    
+    //printf("%s\n",ibuf[irbuf_point]);
+    irbuf_point=(irbuf_point+1)%IRTRACE;
+    
     for(int i=0;i<2 && (! contextp->gotFinish());i++){
         s->clock ^=1;
         
@@ -134,19 +148,7 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     }
     
     
-    char p[128];
-    //printf(" %08x   %08lx\n",s->io_inst,s->io_pc-4);
     
-    void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
-    disassemble(p,96,s->io_pc-4,(uint8_t *)&s->io_inst,4);
-    /*disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
-      MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);*/
-      
-    if(s->reset==0 && step_print_inst)printf("Addr: %08lx\t Inst: %-16s\t%08x\t\n",s->io_pc-4,p,Inst[0]);
-    sprintf(ibuf[irbuf_point],"Addr: %08lx\t Inst: %-16s\t\n",s->io_pc-4,p);
-    
-    //printf("%s\n",ibuf[irbuf_point]);
-    irbuf_point=(irbuf_point+1)%IRTRACE;
 }
 
 void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uint64_t n){
