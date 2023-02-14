@@ -3,7 +3,7 @@ import "DPI-C" function void pmem_read(
 import "DPI-C" function void pmem_write(
   input longint waddr, input longint wdata, input byte wmask);
 
-module DIP_model(
+module MEM(
     input wire [63:0] addr,
     input wire we,
     input wire ce,
