@@ -17,6 +17,7 @@ object FUType{
   def shift = "b001".U
   def branch = "b010".U
   def jump ="b011".U
+  def mem="b100".U
   def apply() = UInt(3.W)
 }
 
@@ -43,12 +44,13 @@ class IDU extends Module with paramete{
     val io = IO(new Bundle() {
       val inst = Input(UInt(instlen.W))
       val ctrlIO= new IDUIO()
+      val rd_en=Output(RD())
     })
 
     val (rs,rt,rd) = (io.inst(19, 15), io.inst(24, 20), io.inst(11, 7))
     val Inst_decode = ListLookup(io.inst,Instruction.Decoderfault,Instruction.Decodertable)
 //  println(Inst_decode)
-    val instrtype :: futype :: aluoptype :: Nil =Inst_decode
+    val instrtype :: futype :: aluoptype :: en :: Nil =Inst_decode
 
     io.ctrlIO.futype := futype
     io.ctrlIO.aluoptype := aluoptype
@@ -80,7 +82,7 @@ class IDU extends Module with paramete{
   val imm_list = ListLookup(instrtype,List(0.U(xlen.W)),immtable)
   val imm :: Nil =imm_list
   io.ctrlIO.Imm := imm
-
+  io.rd_en := en
 
 }
 //import chisel3.stage._

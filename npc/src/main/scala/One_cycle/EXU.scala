@@ -11,8 +11,16 @@ object ALUOPType{
   def jal = "b0011001".U
   def jalr ="b1001000".U
   def or = "b1000100".U
+  def ld =  "b1000101".U
   def apply() = UInt(7.W)
 }
+object RD{
+  def write="b1".U
+  //def read = "b10".U
+  def NOP = "b0".U
+  def apply() =UInt(1.W)
+}
+
 
 class EXU extends Module with paramete {
   val io = IO(new Bundle() {
@@ -39,6 +47,11 @@ class EXU extends Module with paramete {
     val is_jump=Output(Bool())
     val is_branch=Output(Bool())
     val dnpc=Output(UInt(xlen.W))
+
+    val addr=Output(UInt(xlen.W))
+    val rdata=Input(UInt(xlen.W))
+    val wdata=Output(UInt(xlen.W))
+    val wmask=Output(UInt(masklen.W))
 
   })
   val src1=WireDefault(0.U(xlen.W))

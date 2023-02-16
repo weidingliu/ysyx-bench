@@ -9,6 +9,20 @@ class DIP_model extends BlackBox{
     val inst=Input(UInt(32.W))
   })
 }
+
+class MEM extends BlackBox{
+  val io=IO(new Bundle() {
+    val addr=Input(UInt(64.W))
+    val we=Input(Bool())
+    val ce=Input(Bool())
+    val wdata=Input(UInt(64.W))
+    val rdata=Output(UInt(64.W))
+    val wmask=Input(UInt(8.W))
+
+  })
+
+}
+
 class CPUTop extends Module with paramete{
   val io = IO(new Bundle() {
     val pc=Output(UInt(xlen.W))
@@ -43,7 +57,10 @@ class CPUTop extends Module with paramete{
 
   src1add:= ID.io.ctrlIO.src1
   src2add:= ID.io.ctrlIO.src2
-  Reg.write(ID.io.ctrlIO.rd,EX.io1.result)
+  when((ID.io.rd_en === RD.write)){
+    Reg.write(ID.io.ctrlIO.rd,EX.io1.result)
+  }
+
 
   io.result := EX.io1.result
 

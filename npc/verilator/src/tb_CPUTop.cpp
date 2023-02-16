@@ -38,6 +38,9 @@ uint32_t state=RUN;
 
 void init_disasm(const char *triple); 
 
+extern "C" void pmem_read(long long addr, long long *rdata);
+extern "C" void pmem_write(long long addr, long long wdata, char wmask);
+
 extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
   cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
 }
@@ -116,12 +119,29 @@ uint32_t pem_read(uint64_t pc){
 //extern "C" void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
 
 void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
+    char p[128];
+    void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
     for(int i=0;i<2 && (! contextp->gotFinish());i++){
         s->clock ^=1;
         
         s->reset = 0;
         
-        if(sim_time % 1==0) s->io_inst = pem_read(s->io_pc);
+        if(sim_time % 1==0) {
+        
+            s->io_inst = pem_read(s->io_pc);
+            if(i==0){
+                disassemble(p,96,s->io_pc,(uint8_t *)&s->io_inst,4);
+      
+                if(s->reset==0 && step_print_inst){
+                    printf("Addr: %08lx\t %08x\t Inst: %-16s\t\n",s->io_pc,Inst[0],p);
+                }
+                sprintf(ibuf[irbuf_point],"Addr: %08lx\t  %08x\t Inst: %-16s\t\n",s->io_pc,s->io_inst,p);
+    
+    
+                irbuf_point=(irbuf_point+1)%IRTRACE;
+            }
+            
+        }
         
         s->eval();
    
@@ -131,19 +151,7 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     }
     
     
-    char p[128];
-    //printf(" %08x   %08lx\n",s->io_inst,s->io_pc-4);
     
-    void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
-    disassemble(p,96,s->io_pc-4,(uint8_t *)&s->io_inst,4);
-    /*disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
-      MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);*/
-      
-    if(s->reset==0 && step_print_inst)printf("Addr: %08lx\t Inst: %-16s\t%08x\t\n",s->io_pc-4,p,Inst[0]);
-    sprintf(ibuf[irbuf_point],"Addr: %08lx\t Inst: %-16s\t\n",s->io_pc-4,p);
-    
-    //printf("%s\n",ibuf[irbuf_point]);
-    irbuf_point=(irbuf_point+1)%IRTRACE;
 }
 
 void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uint64_t n){
@@ -400,13 +408,13 @@ Reset(dut,contextp,m_trace);//reset rtl
 
 sdb_main_loop(dut,contextp,m_trace);
 
-printf("Final PC is : 0x%lx\n",dut->io_pc);
+//printf("Final PC is : 0x%lx\n",dut->io_pc);
 
 if(cpu_gpr[10] !=0) {
     dump_gpr(); 
     printf("\n");
     display_iringbuf();
-    printf("\033[40;31mHIT BAD TRAP at pc = \033[0m \033[40;31m0x%lx\033[0m\n",dut->io_pc);
+    printf("\033[40;31mHIT BAD TRAP at pc = \033[0m \033[40;31m0x%016lx\033[0m\n",dut->io_pc);
 }
 else if(state==ABORT){
     dump_gpr(); 
@@ -416,9 +424,9 @@ else if(state==ABORT){
     printf("\n");
     difftest_print();
     
-    printf("\033[40;31mABORT at pc = \033[0m \033[40;31m0x%lx\033[0m\n",dut->io_pc-4);
+    printf("\033[40;31mABORT at pc = \033[0m \033[40;31m0x%016lx\033[0m\n",dut->io_pc-4);
 }
-else printf("\033[40;32mHIT GOOD TRAP at pc = \033[0m \033[40;32m0x%lx\033[0m\n",dut->io_pc);
+else printf("\033[40;32mHIT GOOD TRAP at pc = \033[0m \033[40;32m0x%016lx\033[0m\n",dut->io_pc);
 
 m_trace->close();
 delete dut;
