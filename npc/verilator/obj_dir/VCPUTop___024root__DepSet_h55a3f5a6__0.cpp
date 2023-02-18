@@ -140,6 +140,8 @@ VL_INLINE_OPT void VCPUTop___024root___combo__TOP__1(VCPUTop___024root* vlSelf) 
                                                                        : 0ULL), vlSelf->__Vtask_pmem_read__3__rdata);
             vlSelf->CPUTop__DOT__mem_rdata = vlSelf->__Vtask_pmem_read__3__rdata;
         }
+    } else {
+        vlSelf->CPUTop__DOT__mem_rdata = 0ULL;
     }
     vlSelf->CPUTop__DOT__EX_io1_result = ((0U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype))
                                            ? ((0x40U 
