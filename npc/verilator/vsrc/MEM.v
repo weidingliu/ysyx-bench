@@ -23,6 +23,9 @@ always @(*) begin
         
         
     end
+    else begin 
+        rdata=64'h0;
+    end
 
 end
 
