@@ -72,10 +72,10 @@ class CPUTop extends Module with paramete{
   }
   DIP.io.inst := io.inst
 
-  EX.io1.addr := mem.io.addr
+  mem.io.addr:= EX.io1.addr
   EX.io1.rdata := mem.io.rdata
-  EX.io1.wdata := mem.io.wdata
-  EX.io1.wmask := mem.io.wmask
+  mem.io.wdata := EX.io1.wdata
+  mem.io.wmask := EX.io1.wmask
   mem.io.ce := Mux((ID.io.ctrlIO.futype === FUType.mem),1.U,0.U)
   mem.io.we := ID.io.mem_we
 }
