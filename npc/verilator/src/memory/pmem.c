@@ -26,7 +26,7 @@ extern "C" void pmem_write(long long addr, long long wdata, char wmask) {
       }
       temp++;
       i++;
-      wmask>>1;
+      wmask=wmask>>1;
   }
   
   
