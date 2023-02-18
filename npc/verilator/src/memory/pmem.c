@@ -18,7 +18,7 @@ extern "C" void pmem_write(long long addr, long long wdata, char wmask) {
   // `wmask`中每比特表示`wdata`中1个字节的掩码,
   // 如`wmask = 0x3`代表只写入最低2个字节, 内存中的其它字节保持不变
   long long *p=&wdata;
-  uint8_t temp=(uint8_t *)p;
+  uint8_t *temp=(uint8_t *)p;
   int i=0
   while(wmask!=0){
       if(wmask & ~1){
