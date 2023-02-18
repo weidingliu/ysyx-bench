@@ -1,5 +1,5 @@
 
-#define MAX_MEM 480
+#define MAX_MEM 1024
 
 #define is_batch_mode 1
 
