@@ -1,7 +1,7 @@
 
 #define MAX_MEM 480
 
-#define is_batch_mode 0
+#define is_batch_mode 1
 
 #define MAX_SIM_TIME 2000
 
