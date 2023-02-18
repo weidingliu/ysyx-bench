@@ -1,4 +1,4 @@
-
+#include <cstdio>
 #include <cstdint>
 #include <cstring>
 #define MAX_MEM 1024
