@@ -8,7 +8,7 @@ module MEM(
     input wire we,
     input wire ce,
     input wire [63:0] wdata,
-    output wire [63:0] rdata,
+    output reg [63:0] rdata,
     input wire [7:0]wmask
 );
 
