@@ -45,6 +45,7 @@ class IDU extends Module with paramete{
       val inst = Input(UInt(instlen.W))
       val ctrlIO= new IDUIO()
       val rd_en=Output(RD())
+      val mem_we=Output(Bool())
     })
 
     val (rs,rt,rd) = (io.inst(19, 15), io.inst(24, 20), io.inst(11, 7))
@@ -83,6 +84,7 @@ class IDU extends Module with paramete{
   val imm :: Nil =imm_list
   io.ctrlIO.Imm := imm
   io.rd_en := en
+  io.mem_we := Mux(aluoptype=== ALUOPType.ld,0.U,1.U)
 
 }
 //import chisel3.stage._

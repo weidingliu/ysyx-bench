@@ -75,7 +75,25 @@ class EXU extends Module with paramete {
       src2 := io.Imm
     }
   }
-//  val src1 :: Nil= ListLookup(io.src1type,List(0.U(xlen.W)),Array(
+  val wmask_temp=WireDefault(0.U(masklen.W))
+  val wdata_temp=WireDefault(0.U(xlen.W))
+  val addr_temp=WireDefault(0.U(xlen.W))
+  switch(io.aluoptype){
+    is(ALUOPType.ld){
+      wmask_temp := 0.U(masklen.W)
+      wdata_temp:= 0.U(xlen.W)
+    }
+  }
+  switch(io.aluoptype){
+    is(ALUOPType.ld){
+      addr_temp := src1 + src2
+    }
+  }
+
+  io1.wmask := wmask_temp
+  io1.wdata:=wdata_temp
+  io1.addr:=addr_temp
+  //  val src1 :: Nil= ListLookup(io.src1type,List(0.U(xlen.W)),Array(
 //    BitPat(SRCType.R) -> List(io1.REG1),
 //    BitPat(SRCType.PC) -> List(io1.PC),
 //
@@ -115,6 +133,9 @@ class EXU extends Module with paramete {
     }
     is(FUType.shift){
       result_tem:= 0.U(xlen.W)
+    }
+    is(FUType.mem){
+      result_tem := io1.rdata
     }
   }
   io1.result:= result_tem
