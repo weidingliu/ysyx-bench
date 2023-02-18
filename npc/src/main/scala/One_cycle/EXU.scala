@@ -48,6 +48,11 @@ class EXU extends Module with paramete {
     val is_branch=Output(Bool())
     val dnpc=Output(UInt(xlen.W))
 
+    val addr=Output(UInt(xlen.W))
+    val rdata=Input(UInt(xlen.W))
+    val wdata=Output(UInt(xlen.W))
+    val wmask=Output(UInt(masklen.W))
+
   })
   val src1=WireDefault(0.U(xlen.W))
   val src2=WireDefault(0.U(xlen.W))

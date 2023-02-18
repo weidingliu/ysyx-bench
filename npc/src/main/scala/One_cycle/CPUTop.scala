@@ -10,6 +10,18 @@ class DIP_model extends BlackBox{
   })
 }
 
+class MEM extends BlackBox{
+  val io=IO(new Bundle() {
+    val addr=Input(UInt(64.W))
+    val we=Input(Bool())
+    val ce=Input(Bool())
+    val wdata=Input(UInt(64.W))
+    val rdata=Output(UInt(64.W))
+    val wmask=Input(UInt(8.W))
+
+  })
+
+}
 
 class CPUTop extends Module with paramete{
   val io = IO(new Bundle() {
@@ -26,6 +38,8 @@ class CPUTop extends Module with paramete{
   val DIP = Module(new DIP_model)
 
   val Reg = new RF
+
+  val mem = Module(new MEM)
 
   io.pc := IF.io.pc
 
@@ -58,6 +72,12 @@ class CPUTop extends Module with paramete{
   }
   DIP.io.inst := io.inst
 
+  EX.io1.addr := mem.io.addr
+  EX.io1.rdata := mem.io.rdata
+  EX.io1.wdata := mem.io.wdata
+  EX.io1.wmask := mem.io.wmask
+  mem.io.ce := Mux((ID.io.ctrlIO.futype === FUType.mem),1.U,0.U)
+  mem.io.we := ID.io.mem_we
 }
 
 import chisel3.stage._
