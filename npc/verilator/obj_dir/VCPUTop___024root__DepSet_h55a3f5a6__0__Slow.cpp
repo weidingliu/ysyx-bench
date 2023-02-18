@@ -250,6 +250,7 @@ VL_ATTR_COLD void VCPUTop___024root___settle__TOP__0(VCPUTop___024root* vlSelf) 
                                                                         == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                                                         ? vlSelf->CPUTop__DOT__EX__DOT___addr_temp_T_1
                                                                         : 0ULL), 0ULL, 0U);
+            vlSelf->CPUTop__DOT__mem_rdata = 0ULL;
         } else {
             VCPUTop___024unit____Vdpiimwrap_pmem_read_TOP____024unit(
                                                                      ((0x45U 

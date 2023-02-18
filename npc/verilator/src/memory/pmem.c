@@ -12,6 +12,7 @@ extern "C" void pmem_read(long long addr, __attribute__((unused)) long long *rda
   long long temp;
   memcpy(&temp,(pmem+(addr & ~0x7)),sizeof(temp));
   rdata=&temp;
+  printf("------%llx\n",addr);
 }
 extern "C" void pmem_write(long long addr, long long wdata, char wmask) {
   // 总是往地址为`waddr & ~0x7ull`的8字节按写掩码`wmask`写入`wdata`
