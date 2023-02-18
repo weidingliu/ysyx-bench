@@ -24,6 +24,7 @@ VM_TRACE_FST = 0
 # Generated module classes, fast-path, compile with highest optimization
 VM_CLASSES_FAST += \
 	VCPUTop \
+	VCPUTop___024root__DepSet_h55a3f5a6__0 \
 	VCPUTop___024root__DepSet_h28703f96__0 \
 	VCPUTop___024unit__DepSet_h489ddb80__0 \
 

@@ -1,4 +1,9 @@
+
+#include <cstdint>
+#include <cstring>
 #define MAX_MEM 1024
+
+
 
 uint8_t pmem[MAX_MEM];
 
