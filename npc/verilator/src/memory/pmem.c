@@ -28,6 +28,7 @@ extern "C" void pmem_write(long long addr, long long wdata, char wmask) {
   while(loop!=0){
       if(wmask & 1){
       //printf("here%x\n",loop);
+          if(((addr & ~0x7)-0x80000000+i)>MAX_MEM) assert(0);
           memcpy(pmem+(addr & ~0x7)-0x80000000+i,temp,sizeof(uint8_t));
       }
       temp++;
