@@ -428,7 +428,7 @@ VL_ATTR_COLD void VCPUTop___024root__trace_full_sub_0(VCPUTop___024root* vlSelf,
                                    : 0ULL))),64);
     bufp->fullQData(oldp+29,(((0x6aU == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                ? ((vlSelf->CPUTop__DOT__EX__DOT__src1 
-                                   < vlSelf->CPUTop__DOT__EX__DOT__src2)
+                                   > vlSelf->CPUTop__DOT__EX__DOT__src2)
                                    ? 1ULL : 0ULL) : 0ULL)),64);
     bufp->fullCData(oldp+31,(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0),4);
     bufp->fullCData(oldp+32,(((8U == (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0))

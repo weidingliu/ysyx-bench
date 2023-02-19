@@ -241,7 +241,7 @@ module EXU(
   wire [63:0] _mem_result_T_3 = {_mem_result_T_2,io1_rdata[31:0]}; // @[Cat.scala 31:58]
   wire [63:0] _GEN_18 = _T_6 ? _mem_result_T_3 : 64'h0; // @[EXU.scala 144:23 149:18]
   wire [63:0] mem_result = _T_5 ? io1_rdata : _GEN_18; // @[EXU.scala 144:23 146:18]
-  wire [63:0] _compar_result_T_1 = src1 < src2 ? 64'h1 : 64'h0; // @[EXU.scala 156:27]
+  wire [63:0] _compar_result_T_1 = src1 > src2 ? 64'h1 : 64'h0; // @[EXU.scala 156:27]
   wire [63:0] compar_result = 7'h6a == io_aluoptype ? _compar_result_T_1 : 64'h0; // @[EXU.scala 154:23 156:21]
   wire [63:0] _jump_result_T_2 = io1_PC + 64'h4; // @[EXU.scala 161:52]
   wire [63:0] jump_result = io_futype == 3'h3 ? _jump_result_T_2 : 64'h0; // @[EXU.scala 161:21]

@@ -273,7 +273,7 @@ VL_INLINE_OPT void VCPUTop___024root___combo__TOP__1(VCPUTop___024root* vlSelf) 
                                                        == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                                        ? 
                                                       ((vlSelf->CPUTop__DOT__EX__DOT__src1 
-                                                        < vlSelf->CPUTop__DOT__EX__DOT__src2)
+                                                        > vlSelf->CPUTop__DOT__EX__DOT__src2)
                                                         ? 1ULL
                                                         : 0ULL)
                                                        : 0ULL)
