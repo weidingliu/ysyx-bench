@@ -23,14 +23,15 @@ extern "C" void pmem_write(long long addr, long long wdata, char wmask) {
   long long *p=&wdata;
   uint8_t *temp=(uint8_t *)p;
   int i=0;
-  while(wmask!=0){
+  unsigned int loop= (unsigned int) wmask;
+  while(loop!=0){
       if(wmask & 1){
-      printf("here%x\n",wmask);
+      printf("here%x\n",loop);
           memcpy(pmem+(addr & ~0x7)-0x80000000+i,temp,sizeof(uint8_t));
       }
       temp++;
       i++;
-      wmask=wmask>>1;
+      loop=loop>>1;
   }
   
   
