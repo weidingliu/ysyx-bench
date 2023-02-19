@@ -8,7 +8,9 @@ object InstrType{
   def InstrN = "b0000".U
 
   def InstrU = "b0011".U
+  def InstrB = "b1011".U
   def InstrJ = "b0111".U
+  def InstrS = "b1001".U
 
 }
 
@@ -18,6 +20,7 @@ object FUType{
   def branch = "b010".U
   def jump ="b011".U
   def mem="b100".U
+  def compar="b101".U
   def apply() = UInt(3.W)
 }
 
@@ -61,6 +64,8 @@ class IDU extends Module with paramete{
     BitPat(InstrType.InstrJ) -> List(SRCType.PC,SRCType.imm),
     BitPat(InstrType.InstrU) -> List(SRCType.PC,SRCType.imm),
     BitPat(InstrType.InstrR) -> List(SRCType.R,SRCType.R),
+    BitPat(InstrType.InstrS) -> List(SRCType.R,SRCType.R),
+    BitPat(InstrType.InstrB) -> List(SRCType.R,SRCType.R),
     BitPat(InstrType.InstrN) -> List(SRCType.R,SRCType.R),
 
 
@@ -79,6 +84,8 @@ class IDU extends Module with paramete{
     BitPat(InstrType.InstrI) -> List(SIgEXtend(io.inst(31, 20), xlen)),
     BitPat(InstrType.InstrJ) -> List(SIgEXtend(Cat(io.inst(19,12),io.inst(20),io.inst(30,21),Fill(1,0.U)), xlen)),
     BitPat(InstrType.InstrU) -> List(SIgEXtend(Cat(io.inst(31,12),Fill(12,0.U)), xlen)),
+    BitPat(InstrType.InstrS) -> List(SIgEXtend(Cat(io.inst(31,25),io.inst(11,7)), xlen)),
+    BitPat(InstrType.InstrB) -> List(SIgEXtend(Cat(io.inst(31,31),io.inst(7,7),io.inst(30,25),io.inst(11,8),Fill(1,0.U)), xlen)),
   )
   val imm_list = ListLookup(instrtype,List(0.U(xlen.W)),immtable)
   val imm :: Nil =imm_list

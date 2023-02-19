@@ -12,6 +12,12 @@ object ALUOPType{
   def jalr ="b1001000".U
   def or = "b1000100".U
   def ld =  "b1000101".U
+  def sd ="b1000110".U
+  def lw = "b1000111".U
+  def addw = "b1101000".U
+  def sub = "b1101001".U
+  def sltiu ="b1101010".U
+  def beq ="b1101011".U
   def apply() = UInt(7.W)
 }
 object RD{
@@ -83,10 +89,24 @@ class EXU extends Module with paramete {
       wmask_temp := 0.U(masklen.W)
       wdata_temp:= 0.U(xlen.W)
     }
+    is(ALUOPType.lw) {
+      wmask_temp := 0.U(masklen.W)
+      wdata_temp := 0.U(xlen.W)
+    }
+    is(ALUOPType.sd){
+      wmask_temp := "b11111111".U
+      wdata_temp:= src2
+    }
   }
   switch(io.aluoptype){
     is(ALUOPType.ld){
       addr_temp := src1 + src2
+    }
+    is(ALUOPType.sd){
+      addr_temp := src1+io.Imm
+    }
+    is(ALUOPType.lw) {
+      addr_temp := src1+io.Imm
     }
   }
 
@@ -110,11 +130,31 @@ class EXU extends Module with paramete {
     is(ALUOPType.add){
      alu_result := src1 + src2
     }
+    is(ALUOPType.addw) {
+      alu_result := SIgEXtend((src1 + src2)(31,0),xlen)
+    }
     is(ALUOPType.or){
       alu_result := src1 | src2
     }
+    is(ALUOPType.sub){
+      alu_result := src1 - src2
+    }
+  }
+  val mem_result=WireDefault(0.U(xlen.W))
+  switch(io.aluoptype){
+    is(ALUOPType.ld){
+      mem_result := io1.rdata
+    }
+    is(ALUOPType.lw) {
+      mem_result := SIgEXtend(io1.rdata(31,0),xlen)
+    }
+  }
 
-
+  val compar_result=WireDefault(0.U(xlen.W))
+  switch(io.aluoptype){
+    is(ALUOPType.sltiu){
+      compar_result := Mux((src1<src2),1.U(xlen.W),0.U(xlen.W))
+    }
   }
 
   val jump_result=WireDefault(0.U(xlen.W))
@@ -135,13 +175,25 @@ class EXU extends Module with paramete {
       result_tem:= 0.U(xlen.W)
     }
     is(FUType.mem){
-      result_tem := io1.rdata
+      result_tem := mem_result
+    }
+    is(FUType.compar){
+      result_tem:= compar_result
     }
   }
   io1.result:= result_tem
 
   io1.is_jump := Mux(io.futype===FUType.jump,1.U,0.U)
 //  io1.is_jump := Mux(io.futype===FUType.branch,1.U,0.U)
+  val branch_result=WireDefault(0.U(xlen.W))
+  val branch_flag=WireDefault(0.U(1.W))
+    switch(io.aluoptype){
+      is(ALUOPType.beq) {
+        branch_result := io1.PC +io.Imm
+        branch_flag := Mux(io.src1 === io.src2 ,1.U,0.U)
+      }
+    }
+
 
   switch(io.aluoptype){
     is(ALUOPType.jal) {
@@ -150,10 +202,15 @@ class EXU extends Module with paramete {
     is(ALUOPType.jalr){
       dnpc := Cat((src1+src2)(xlen-1,1),0.U)
     }
+    is(ALUOPType.beq){
+      dnpc := Mux(branch_flag===1.U,branch_result,io1.PC+4.U(xlen.W))
+
+    }
+
   }
 
 
   io1.dnpc := dnpc
-  io1.is_branch := 0.U
+  io1.is_branch := branch_flag
 
 }
