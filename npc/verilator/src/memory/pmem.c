@@ -25,7 +25,7 @@ extern "C" void pmem_write(long long addr, long long wdata, char wmask) {
   int i=0;
   while(wmask!=0){
       if(wmask & 1){
-      printf("here\n");
+      printf("here%x\n",wmask);
           memcpy(pmem+(addr & ~0x7)-0x80000000+i,temp,sizeof(uint8_t));
       }
       temp++;
