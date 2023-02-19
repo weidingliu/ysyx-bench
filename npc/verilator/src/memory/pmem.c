@@ -2,7 +2,7 @@
 #include <cstdint>
 #include <cstring>
 #include <cassert>
-#define MAX_MEM 480
+#define MAX_MEM 0x2000000
 
 
 
@@ -29,7 +29,7 @@ extern "C" void pmem_write(long long addr, long long wdata, char wmask) {
   while(loop!=0){
       if(wmask & 1){
       //printf("here%x\n",loop);
-          if(((addr & ~0x7)-0x80000000+i)>MAX_MEM) assert(0);
+          if((((addr & ~0x7)-0x80000000+i)>MAX_MEM) ||(((addr & ~0x7)-0x80000000+i)<0) ) assert(0);
           memcpy(pmem+(addr & ~0x7)-0x80000000+i,temp,sizeof(uint8_t));
       }
       temp++;
