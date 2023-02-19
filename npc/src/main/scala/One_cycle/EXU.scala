@@ -153,7 +153,7 @@ class EXU extends Module with paramete {
   val compar_result=WireDefault(0.U(xlen.W))
   switch(io.aluoptype){
     is(ALUOPType.sltiu){
-      compar_result := Mux((src1<src2),1.U(xlen.W),0.U(xlen.W))
+      compar_result := Mux((src1>src2),1.U(xlen.W),0.U(xlen.W))
     }
   }
 
