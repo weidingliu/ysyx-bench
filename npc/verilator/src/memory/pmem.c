@@ -34,7 +34,7 @@ extern "C" void pmem_write(long long addr, long long wdata, char wmask) {
       i++;
       loop=loop>>1;
   }
-  printf("%lx\n",(uint64_t *)(pmem+(addr & ~0x7)-0x80000000));
+  printf("%llx\n",(long long *)(pmem+(addr & ~0x7)-0x80000000));
   
 }
 
