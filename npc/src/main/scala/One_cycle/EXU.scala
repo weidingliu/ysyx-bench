@@ -14,6 +14,9 @@ object ALUOPType{
   def ld =  "b1000101".U
   def sd ="b1000110".U
   def lw = "b1000111".U
+  def addw = "b1101000".U
+  def sub = "b1101001".U
+  def sltiu ="b1101010".U
   def apply() = UInt(7.W)
 }
 object RD{
@@ -126,8 +129,14 @@ class EXU extends Module with paramete {
     is(ALUOPType.add){
      alu_result := src1 + src2
     }
+    is(ALUOPType.addw) {
+      alu_result := SIgEXtend((src1 + src2)(31,0),xlen)
+    }
     is(ALUOPType.or){
       alu_result := src1 | src2
+    }
+    is(ALUOPType.sub){
+      alu_result := src1 - src2
     }
   }
   val mem_result=WireDefault(0.U(xlen.W))
@@ -137,6 +146,13 @@ class EXU extends Module with paramete {
     }
     is(ALUOPType.lw) {
       mem_result := SIgEXtend(io1.rdata(31,0),xlen)
+    }
+  }
+
+  val compar_result=WireDefault(0.U(xlen.W))
+  switch(io.aluoptype){
+    is(ALUOPType.sltiu){
+      compar_result := Mux((src1<src2),1.U(xlen.W),0.U(xlen.W))
     }
   }
 
@@ -159,6 +175,9 @@ class EXU extends Module with paramete {
     }
     is(FUType.mem){
       result_tem := mem_result
+    }
+    is(FUType.compar){
+      result_tem:= compar_result
     }
   }
   io1.result:= result_tem

@@ -19,6 +19,7 @@ object FUType{
   def branch = "b010".U
   def jump ="b011".U
   def mem="b100".U
+  def compar="b101".U
   def apply() = UInt(3.W)
 }
 
