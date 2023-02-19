@@ -153,7 +153,7 @@ class EXU extends Module with paramete {
   val compar_result=WireDefault(0.U(xlen.W))
   switch(io.aluoptype){
     is(ALUOPType.sltiu){
-      compar_result := Mux((src1>src2),1.U(xlen.W),0.U(xlen.W))
+      compar_result := Mux((src1<src2),1.U(xlen.W),0.U(xlen.W))
     }
   }
 
@@ -203,9 +203,8 @@ class EXU extends Module with paramete {
       dnpc := Cat((src1+src2)(xlen-1,1),0.U)
     }
     is(ALUOPType.beq){
-      when(branch_flag ===1.U){
-        dnpc := branch_result
-      }
+      dnpc := Mux(branch_flag===1.U,branch_result,io1.PC+4.U(xlen.W))
+
     }
 
   }
