@@ -86,7 +86,7 @@ class EXU extends Module with paramete {
     }
     is(ALUOPType.sd){
       wmask_temp := "b11111111".U
-      wdata_temp:= src1+io.Imm
+      wdata_temp:= src2
     }
   }
   switch(io.aluoptype){
@@ -94,7 +94,7 @@ class EXU extends Module with paramete {
       addr_temp := src1 + src2
     }
     is(ALUOPType.sd){
-      addr_temp := src2
+      addr_temp := src1+io.Imm
     }
   }
 
