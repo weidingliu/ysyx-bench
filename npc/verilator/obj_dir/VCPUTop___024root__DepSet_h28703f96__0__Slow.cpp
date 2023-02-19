@@ -66,7 +66,7 @@ VL_ATTR_COLD void VCPUTop___024root___ctor_var_reset(VCPUTop___024root* vlSelf) 
     vlSelf->CPUTop__DOT__EX__DOT__src2 = VL_RAND_RESET_Q(64);
     vlSelf->CPUTop__DOT__EX__DOT___addr_temp_T_1 = VL_RAND_RESET_Q(64);
     vlSelf->CPUTop__DOT__EX__DOT___addr_temp_T_3 = VL_RAND_RESET_Q(64);
-    vlSelf->CPUTop__DOT__EX__DOT___GEN_31 = VL_RAND_RESET_Q(64);
+    vlSelf->CPUTop__DOT__EX__DOT___GEN_30 = VL_RAND_RESET_Q(64);
     for (int __Vi0=0; __Vi0<32; ++__Vi0) {
         vlSelf->CPUTop__DOT__DIP__DOT__rf[__Vi0] = VL_RAND_RESET_Q(64);
     }

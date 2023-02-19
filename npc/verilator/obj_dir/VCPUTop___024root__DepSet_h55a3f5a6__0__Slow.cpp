@@ -306,7 +306,7 @@ VL_ATTR_COLD void VCPUTop___024root___settle__TOP__0(VCPUTop___024root* vlSelf) 
         (vlSelf->CPUTop__DOT__EX__DOT__src1 + vlSelf->CPUTop__DOT__ID_io_ctrlIO_Imm);
     vlSelf->CPUTop__DOT__EX__DOT___addr_temp_T_1 = 
         (vlSelf->CPUTop__DOT__EX__DOT__src1 + vlSelf->CPUTop__DOT__EX__DOT__src2);
-    vlSelf->CPUTop__DOT__EX__DOT___GEN_31 = ((0x48U 
+    vlSelf->CPUTop__DOT__EX__DOT___GEN_30 = ((0x48U 
                                               == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                               ? (0xfffffffffffffffeULL 
                                                  & vlSelf->CPUTop__DOT__EX__DOT___addr_temp_T_1)
@@ -329,7 +329,9 @@ VL_ATTR_COLD void VCPUTop___024root___settle__TOP__0(VCPUTop___024root* vlSelf) 
                                                    (vlSelf->CPUTop__DOT__IF__DOT__temp 
                                                     + vlSelf->CPUTop__DOT__ID_io_ctrlIO_Imm)
                                                     : 0ULL)
-                                                   : 0ULL)
+                                                   : 
+                                                  (4ULL 
+                                                   + vlSelf->CPUTop__DOT__IF__DOT__temp))
                                                   : 0ULL));
     if ((4U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype))) {
         if ((0x45U != ((0x13U == (0x707fU & vlSelf->io_inst))
@@ -463,7 +465,7 @@ VL_ATTR_COLD void VCPUTop___024root___settle__TOP__0(VCPUTop___024root* vlSelf) 
                                                        == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                                        ? 
                                                       ((vlSelf->CPUTop__DOT__EX__DOT__src1 
-                                                        > vlSelf->CPUTop__DOT__EX__DOT__src2)
+                                                        < vlSelf->CPUTop__DOT__EX__DOT__src2)
                                                         ? 1ULL
                                                         : 0ULL)
                                                        : 0ULL)
