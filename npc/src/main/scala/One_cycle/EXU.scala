@@ -12,6 +12,7 @@ object ALUOPType{
   def jalr ="b1001000".U
   def or = "b1000100".U
   def ld =  "b1000101".U
+  def sd ="b1000110".U
   def apply() = UInt(7.W)
 }
 object RD{
@@ -83,10 +84,17 @@ class EXU extends Module with paramete {
       wmask_temp := 0.U(masklen.W)
       wdata_temp:= 0.U(xlen.W)
     }
+    is(ALUOPType.sd){
+      wmask_temp := "b11111111".U
+      wdata_temp:= src1+io.Imm
+    }
   }
   switch(io.aluoptype){
     is(ALUOPType.ld){
       addr_temp := src1 + src2
+    }
+    is(ALUOPType.sd){
+      addr_temp := src2
     }
   }
 

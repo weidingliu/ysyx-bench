@@ -12,6 +12,7 @@ object RVI_ALU extends paramete{
   def JALR = BitPat("b????????????_?????_000_?????_1100111")
 
   def LD = BitPat("b???????_?????_?????_011_?????_0000011")
+  def SD = BitPat("b???????_?????_?????_011_?????_0100011")
   def Ebreak = BitPat("b0000000_00001_00000_000_00000_1110011")
 
   val table =Array(
@@ -23,6 +24,7 @@ object RVI_ALU extends paramete{
       JAL -> List(InstrType.InstrJ,FUType.jump,ALUOPType.jal,RD.write),
       JALR -> List(InstrType.InstrI,FUType.jump,ALUOPType.jalr,RD.write),
       LD -> List(InstrType.InstrI,FUType.mem,ALUOPType.ld,RD.write),
+      SD -> List(InstrType.InstrS,FUType.mem,ALUOPType.sd,RD.NOP),
       Ebreak -> List(InstrType.InstrN,FUType.alu,ALUOPType.ebreak,RD.NOP),
   )
 }
