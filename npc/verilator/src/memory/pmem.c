@@ -20,20 +20,21 @@ extern "C" void pmem_write(long long addr, long long wdata, char wmask) {
   // `wmask`中每比特表示`wdata`中1个字节的掩码,
   // 如`wmask = 0x3`代表只写入最低2个字节, 内存中的其它字节保持不变
   printf("------%llx,%llx,%x\n",(addr & ~0x7)-0x80000000,wdata,wmask);
+  
   long long *p=&wdata;
   uint8_t *temp=(uint8_t *)p;
   int i=0;
   unsigned int loop= (unsigned int) wmask;
   while(loop!=0){
       if(wmask & 1){
-      printf("here%x\n",loop);
+      //printf("here%x\n",loop);
           memcpy(pmem+(addr & ~0x7)-0x80000000+i,temp,sizeof(uint8_t));
       }
       temp++;
       i++;
       loop=loop>>1;
   }
-  
+  printf("%lx\n",pmem+(addr & ~0x7)-0x80000000);
   
 }
 
