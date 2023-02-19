@@ -363,13 +363,13 @@ VL_ATTR_COLD void VCPUTop___024root__trace_full_sub_0(VCPUTop___024root* vlSelf,
     bufp->fullQData(oldp+13,(((0x45U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                ? vlSelf->CPUTop__DOT__EX__DOT___addr_temp_T_1
                                : ((0x46U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
-                                   ? vlSelf->CPUTop__DOT__EX__DOT__src2
+                                   ? (vlSelf->CPUTop__DOT__EX__DOT__src1 
+                                      + vlSelf->CPUTop__DOT__ID_io_ctrlIO_Imm)
                                    : 0ULL))),64);
     bufp->fullQData(oldp+15,(vlSelf->CPUTop__DOT__mem_rdata),64);
     bufp->fullQData(oldp+17,(((0x45U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                ? 0ULL : ((0x46U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
-                                          ? (vlSelf->CPUTop__DOT__EX__DOT__src1 
-                                             + vlSelf->CPUTop__DOT__ID_io_ctrlIO_Imm)
+                                          ? vlSelf->CPUTop__DOT__EX__DOT__src2
                                           : 0ULL))),64);
     bufp->fullCData(oldp+19,(((0x45U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                ? 0U : ((0x46U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
