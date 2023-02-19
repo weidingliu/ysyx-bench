@@ -22,13 +22,14 @@ class VCPUTop___024root final : public VerilatedModule {
     CData/*2:0*/ CPUTop__DOT__ID_io_ctrlIO_futype;
     CData/*6:0*/ CPUTop__DOT__ID_io_ctrlIO_aluoptype;
     CData/*3:0*/ CPUTop__DOT__ID__DOT__Inst_decode_0;
-    CData/*6:0*/ CPUTop__DOT__ID__DOT___Inst_decode_T_41;
+    CData/*6:0*/ CPUTop__DOT__ID__DOT___Inst_decode_T_46;
     CData/*0:0*/ CPUTop__DOT__ID__DOT__srctype_1;
     CData/*1:0*/ CPUTop__DOT__ID__DOT___io_ctrlIO_src1type_T_2;
     CData/*0:0*/ __Vclklast__TOP__clock;
     VL_IN(io_inst,31,0);
     VL_OUT64(io_pc,63,0);
     VL_OUT64(io_result,63,0);
+    QData/*63:0*/ CPUTop__DOT__ID_io_ctrlIO_Imm;
     QData/*63:0*/ CPUTop__DOT__EX_io1_result;
     QData/*63:0*/ CPUTop__DOT__mem_rdata;
     QData/*63:0*/ CPUTop__DOT__IF__DOT__temp;
