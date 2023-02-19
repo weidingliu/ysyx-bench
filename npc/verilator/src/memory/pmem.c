@@ -1,6 +1,7 @@
 #include <cstdio>
 #include <cstdint>
 #include <cstring>
+#include <cassert>
 #define MAX_MEM 480
 
 
