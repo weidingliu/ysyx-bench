@@ -13,6 +13,7 @@ object ALUOPType{
   def or = "b1000100".U
   def ld =  "b1000101".U
   def sd ="b1000110".U
+  def lw = "b1000111".U
   def apply() = UInt(7.W)
 }
 object RD{
@@ -84,6 +85,10 @@ class EXU extends Module with paramete {
       wmask_temp := 0.U(masklen.W)
       wdata_temp:= 0.U(xlen.W)
     }
+    is(ALUOPType.lw) {
+      wmask_temp := 0.U(masklen.W)
+      wdata_temp := 0.U(xlen.W)
+    }
     is(ALUOPType.sd){
       wmask_temp := "b11111111".U
       wdata_temp:= src2
@@ -94,6 +99,9 @@ class EXU extends Module with paramete {
       addr_temp := src1 + src2
     }
     is(ALUOPType.sd){
+      addr_temp := src1+io.Imm
+    }
+    is(ALUOPType.lw) {
       addr_temp := src1+io.Imm
     }
   }
@@ -121,8 +129,15 @@ class EXU extends Module with paramete {
     is(ALUOPType.or){
       alu_result := src1 | src2
     }
-
-
+  }
+  val mem_result=WireDefault(0.U(xlen.W))
+  switch(io.aluoptype){
+    is(ALUOPType.ld){
+      mem_result := io1.rdata
+    }
+    is(ALUOPType.lw) {
+      mem_result := SIgEXtend(io1.rdata(31,0),xlen)
+    }
   }
 
   val jump_result=WireDefault(0.U(xlen.W))
@@ -143,7 +158,7 @@ class EXU extends Module with paramete {
       result_tem:= 0.U(xlen.W)
     }
     is(FUType.mem){
-      result_tem := io1.rdata
+      result_tem := mem_result
     }
   }
   io1.result:= result_tem
