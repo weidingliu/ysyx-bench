@@ -210,20 +210,20 @@ VL_INLINE_OPT void VCPUTop___024root___combo__TOP__0(VCPUTop___024root* vlSelf) 
                                                                   >> 7U))))))
                   : ((0xbU == (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0))
                       ? ((((vlSelf->io_inst >> 0x1fU)
-                            ? 0xfffffffffffffULL : 0ULL) 
-                          << 0xcU) | (QData)((IData)(
-                                                     ((0x800U 
+                            ? 0x7ffffffffffffULL : 0ULL) 
+                          << 0xdU) | (QData)((IData)(
+                                                     ((0x1000U 
                                                        & (vlSelf->io_inst 
-                                                          >> 0x14U)) 
-                                                      | ((0x400U 
+                                                          >> 0x13U)) 
+                                                      | ((0x800U 
                                                           & (vlSelf->io_inst 
-                                                             << 3U)) 
-                                                         | ((0x3f0U 
+                                                             << 4U)) 
+                                                         | ((0x7e0U 
                                                              & (vlSelf->io_inst 
-                                                                >> 0x15U)) 
-                                                            | (0xfU 
+                                                                >> 0x14U)) 
+                                                            | (0x1eU 
                                                                & (vlSelf->io_inst 
-                                                                  >> 8U))))))))
+                                                                  >> 7U))))))))
                       : 0ULL))));
     vlSelf->CPUTop__DOT__ID_io_ctrlIO_Imm = ((8U == (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0))
                                               ? (((
