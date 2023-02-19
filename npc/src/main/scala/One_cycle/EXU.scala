@@ -17,6 +17,7 @@ object ALUOPType{
   def addw = "b1101000".U
   def sub = "b1101001".U
   def sltiu ="b1101010".U
+  def beq ="b1101011".U
   def apply() = UInt(7.W)
 }
 object RD{
@@ -184,6 +185,15 @@ class EXU extends Module with paramete {
 
   io1.is_jump := Mux(io.futype===FUType.jump,1.U,0.U)
 //  io1.is_jump := Mux(io.futype===FUType.branch,1.U,0.U)
+  val branch_result=WireDefault(0.U(xlen.W))
+  val branch_flag=WireDefault(0.U(1.W))
+    switch(io.aluoptype){
+      is(ALUOPType.beq) {
+        branch_result := io1.PC +io.Imm
+        branch_flag := Mux(io.src1 === io.src2 ,1.U,0.U)
+      }
+    }
+
 
   switch(io.aluoptype){
     is(ALUOPType.jal) {
@@ -192,10 +202,16 @@ class EXU extends Module with paramete {
     is(ALUOPType.jalr){
       dnpc := Cat((src1+src2)(xlen-1,1),0.U)
     }
+    is(ALUOPType.beq){
+      when(branch_flag ===1.U){
+        dnpc := branch_result
+      }
+    }
+
   }
 
 
   io1.dnpc := dnpc
-  io1.is_branch := 0.U
+  io1.is_branch := branch_flag
 
 }
