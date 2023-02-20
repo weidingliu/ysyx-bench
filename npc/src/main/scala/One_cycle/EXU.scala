@@ -211,6 +211,9 @@ class EXU extends Module with paramete {
       dnpc := Mux(branch_flag===1.U,branch_result,io1.PC+4.U(xlen.W))
 
     }
+    is(ALUOPType.bne){
+      dnpc := Mux(branch_flag===1.U,branch_result,io1.PC+4.U(xlen.W))
+    }
 
   }
 
