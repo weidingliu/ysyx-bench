@@ -2,17 +2,18 @@
 #include <cstdint>
 #include <cstring>
 #include <cassert>
-#define MAX_MEM 0x2000000
+#include <tb.h>
+/*#define MAX_MEM 0x2000000
 
 
 
 uint8_t pmem[MAX_MEM];
-
+*/
 extern "C" void pmem_read(long long addr, __attribute__((unused)) long long *rdata) {
   // 总是读取地址为`raddr & ~0x7ull`的8字节返回给`rdata`
   //printf("------%llx\n",addr);
   long long temp;
-  memcpy(&temp,(pmem+(addr & ~0x7)),sizeof(temp));
+  memcpy(&temp,(mem+(addr & ~0x7)),sizeof(temp));
   rdata=&temp;
   
 }
@@ -26,12 +27,12 @@ extern "C" void pmem_write(long long addr, long long wdata, char wmask) {
   uint8_t *temp=(uint8_t *)p;
   int i=0;
   unsigned int loop= (unsigned int) wmask;
-  printf("%llx\n",*(long long *)(pmem+(addr & ~0x7)-0x80000000));
+  printf("%llx\n",*(long long *)(mem+(addr & ~0x7)-0x80000000));
   while(loop!=0){
       if(wmask & 1){
       //printf("here%x\n",loop);
           if((((addr & ~0x7)-0x80000000+i)>MAX_MEM) ||(((addr & ~0x7)-0x80000000+i)<0) ) assert(0);
-          memcpy(pmem+(addr & ~0x7)-0x80000000+i,temp,sizeof(uint8_t));
+          memcpy(mem+(addr & ~0x7)-0x80000000+i,temp,sizeof(uint8_t));
       }
       temp++;
       i++;
