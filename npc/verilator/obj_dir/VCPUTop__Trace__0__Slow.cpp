@@ -644,14 +644,10 @@ VL_ATTR_COLD void VCPUTop___024root__trace_full_sub_0(VCPUTop___024root* vlSelf,
                                                                == 
                                                                (0xfe00707fU 
                                                                 & vlSelf->io_inst)) 
-                                                              | ((0x3013U 
-                                                                  == 
-                                                                  (0x707fU 
-                                                                   & vlSelf->io_inst)) 
-                                                                 | (0x63U 
-                                                                    == 
-                                                                    (0x707fU 
-                                                                     & vlSelf->io_inst)))))))))))))))));
+                                                              | (0x3013U 
+                                                                 == 
+                                                                 (0x707fU 
+                                                                  & vlSelf->io_inst))))))))))))))));
     bufp->fullBit(oldp+242,((0x45U != ((0x13U == (0x707fU 
                                                   & vlSelf->io_inst))
                                         ? 0x40U : (IData)(vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_71)))));
