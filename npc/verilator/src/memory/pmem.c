@@ -13,7 +13,7 @@ extern "C" void pmem_read(long long addr, __attribute__((unused)) long long *rda
   // 总是读取地址为`raddr & ~0x7ull`的8字节返回给`rdata`
   //printf("------%llx\n",addr);
   long long temp;
-  memcpy(&temp,(mem+(addr & ~0x7)-0x80000000),sizeof(temp));
+  memcpy(&temp,(mem+(addr & ~0x7)-RESET_VECTOR),sizeof(temp));
   rdata=&temp;
   
 }
@@ -31,8 +31,8 @@ extern "C" void pmem_write(long long addr, long long wdata, char wmask) {
   while(loop!=0){
       if(wmask & 1){
       //printf("here%x\n",loop);
-          if((((addr & ~0x7)-0x80000000+i)>MAX_MEM) ||(((addr & ~0x7)-0x80000000+i)<0) ) assert(0);
-          memcpy(mem+(addr & ~0x7)-0x80000000+i,temp,sizeof(uint8_t));
+          if((((addr & ~0x7)-RESET_VECTOR+i)>MAX_MEM) ||(((addr & ~0x7)-0x80000000+i)<0) ) assert(0);
+          memcpy(mem+(addr & ~0x7)-RESET_VECTOR+i,temp,sizeof(uint8_t));
       }
       temp++;
       i++;
