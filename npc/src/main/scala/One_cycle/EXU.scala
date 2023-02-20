@@ -18,6 +18,7 @@ object ALUOPType{
   def sub = "b1101001".U
   def sltiu ="b1101010".U
   def beq ="b1101011".U
+  def bne ="b1101100".U
   def apply() = UInt(7.W)
 }
 object RD{
@@ -192,6 +193,10 @@ class EXU extends Module with paramete {
         branch_result := io1.PC +io.Imm
         branch_flag := Mux(io.src1 === io.src2 ,1.U,0.U)
       }
+      is(ALUOPType.bne) {
+        branch_result := io1.PC + io.Imm
+        branch_flag := Mux(io.src1 =/= io.src2, 1.U, 0.U)
+      }
     }
 
 
@@ -205,6 +210,9 @@ class EXU extends Module with paramete {
     is(ALUOPType.beq){
       dnpc := Mux(branch_flag===1.U,branch_result,io1.PC+4.U(xlen.W))
 
+    }
+    is(ALUOPType.bne){
+      dnpc := Mux(branch_flag===1.U,branch_result,io1.PC+4.U(xlen.W))
     }
 
   }

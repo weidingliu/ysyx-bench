@@ -24,3 +24,8 @@ object ZeroEXtend{
   }
 
 }
+
+object LookupTree{
+  def apply[T <: Data] (addr: UInt, mapping:Iterable[(UInt,T)] ): T=
+    Mux1H(mapping.map(m=>(m._1 ===addr,m._2)))
+}
