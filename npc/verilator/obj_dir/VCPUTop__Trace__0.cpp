@@ -37,7 +37,7 @@ void VCPUTop___024root__trace_chg_sub_0(VCPUTop___024root* vlSelf, VerilatedVcd:
                                              : 0ULL))))),64);
         bufp->chgBit(oldp+2,((3U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype))));
         bufp->chgCData(oldp+3,(vlSelf->CPUTop__DOT__ID__DOT___io_ctrlIO_src1type_T_2),3);
-        bufp->chgCData(oldp+4,(vlSelf->CPUTop__DOT__ID__DOT__srctype_1),3);
+        bufp->chgCData(oldp+4,(vlSelf->CPUTop__DOT__ID__DOT__srctype2),3);
         bufp->chgCData(oldp+5,(vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype),3);
         bufp->chgCData(oldp+6,(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype),7);
         bufp->chgQData(oldp+7,(vlSelf->CPUTop__DOT__ID_io_ctrlIO_Imm),64);
@@ -117,17 +117,12 @@ void VCPUTop___024root__trace_chg_sub_0(VCPUTop___024root* vlSelf, VerilatedVcd:
                                       ? vlSelf->CPUTop__DOT__EX__DOT___branch_result_T_1
                                       : 0ULL))),64);
         bufp->chgCData(oldp+34,(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0),4);
-        bufp->chgCData(oldp+35,(((8U == (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0))
-                                  ? 0U : ((7U == (7U 
-                                                  & (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0)))
-                                           ? 2U : (
-                                                   (3U 
-                                                    == 
-                                                    (3U 
-                                                     & (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0)))
-                                                    ? 2U
-                                                    : 0U)))),2);
-        bufp->chgBit(oldp+36,(vlSelf->CPUTop__DOT__ID__DOT__srctype_1));
+        bufp->chgCData(oldp+35,((((7U == (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0))
+                                   ? 2U : 0U) | ((3U 
+                                                  == (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0))
+                                                  ? 2U
+                                                  : 0U))),2);
+        bufp->chgBit(oldp+36,(vlSelf->CPUTop__DOT__ID__DOT__srctype2));
     }
     if (VL_UNLIKELY(vlSelf->__Vm_traceActivity[2U])) {
         bufp->chgQData(oldp+37,(vlSelf->CPUTop__DOT__IF__DOT__temp),64);

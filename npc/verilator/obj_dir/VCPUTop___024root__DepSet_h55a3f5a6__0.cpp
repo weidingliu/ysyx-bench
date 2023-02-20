@@ -91,8 +91,8 @@ VL_INLINE_OPT void VCPUTop___024root___combo__TOP__1(VCPUTop___024root* vlSelf) 
     }
     vlSelf->CPUTop__DOT__EX__DOT___branch_result_T_1 
         = (vlSelf->CPUTop__DOT__IF__DOT__temp + vlSelf->CPUTop__DOT__ID_io_ctrlIO_Imm);
-    vlSelf->CPUTop__DOT__EX__DOT__src2 = ((IData)(vlSelf->CPUTop__DOT__ID__DOT__srctype_1)
-                                           ? ((IData)(vlSelf->CPUTop__DOT__ID__DOT__srctype_1)
+    vlSelf->CPUTop__DOT__EX__DOT__src2 = ((IData)(vlSelf->CPUTop__DOT__ID__DOT__srctype2)
+                                           ? ((IData)(vlSelf->CPUTop__DOT__ID__DOT__srctype2)
                                                ? vlSelf->CPUTop__DOT__ID_io_ctrlIO_Imm
                                                : 0ULL)
                                            : ((0U == 
