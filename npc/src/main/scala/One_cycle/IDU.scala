@@ -59,19 +59,22 @@ class IDU extends Module with paramete{
     io.ctrlIO.futype := futype
     io.ctrlIO.aluoptype := aluoptype
 
-  val srctype_list = Array(
-    BitPat(InstrType.InstrI) -> List(SRCType.R,SRCType.imm),
-    BitPat(InstrType.InstrJ) -> List(SRCType.PC,SRCType.imm),
-    BitPat(InstrType.InstrU) -> List(SRCType.PC,SRCType.imm),
-    BitPat(InstrType.InstrR) -> List(SRCType.R,SRCType.R),
-    BitPat(InstrType.InstrS) -> List(SRCType.R,SRCType.R),
-    BitPat(InstrType.InstrB) -> List(SRCType.R,SRCType.R),
-    BitPat(InstrType.InstrN) -> List(SRCType.R,SRCType.R),
+  val srctype_list = List(
+    (InstrType.InstrI) -> (SRCType.R,SRCType.imm),
+    (InstrType.InstrR) -> (SRCType.R, SRCType.R),
+    (InstrType.InstrS) -> (SRCType.R, SRCType.R),
+    (InstrType.InstrB) -> (SRCType.R, SRCType.R),
+    (InstrType.InstrJ) -> (SRCType.PC,SRCType.imm),
+    (InstrType.InstrU) -> (SRCType.PC,SRCType.imm),
+
+    (InstrType.InstrN) -> (SRCType.R,SRCType.R),
 
 
   )
-  val srctype= ListLookup(instrtype,List(SRCType.R,SRCType.R),srctype_list)
-  val srctype1 :: srctype2 :: Nil =  srctype
+  //val srctype= LookupTree(instrtype,List(SRCType.R,SRCType.R),srctype_list)
+  //val srctype1 :: srctype2 :: Nil =  srctype
+  val srctype1 = LookupTree(instrtype,srctype_list.map(p=>(p._1,p._2._1)))
+  val srctype2 = LookupTree(instrtype,srctype_list.map(p=>(p._1,p._2._2)))
 
   io.ctrlIO.src1 := rs
   io.ctrlIO.src2 := rt
@@ -80,15 +83,15 @@ class IDU extends Module with paramete{
   io.ctrlIO.src1type := Mux(io.inst(6,0) ==="b0110111".U,SRCType.DONT_Care,srctype1)
   io.ctrlIO.src2type := srctype2
 
-  val immtable = Array(
-    BitPat(InstrType.InstrI) -> List(SIgEXtend(io.inst(31, 20), xlen)),
-    BitPat(InstrType.InstrJ) -> List(SIgEXtend(Cat(io.inst(19,12),io.inst(20),io.inst(30,21),Fill(1,0.U)), xlen)),
-    BitPat(InstrType.InstrU) -> List(SIgEXtend(Cat(io.inst(31,12),Fill(12,0.U)), xlen)),
-    BitPat(InstrType.InstrS) -> List(SIgEXtend(Cat(io.inst(31,25),io.inst(11,7)), xlen)),
-    BitPat(InstrType.InstrB) -> List(SIgEXtend(Cat(io.inst(31,31),io.inst(7,7),io.inst(30,25),io.inst(11,8),Fill(1,0.U)), xlen)),
+  val immtable = List(
+    InstrType.InstrI -> (SIgEXtend(io.inst(31, 20), xlen)),
+    InstrType.InstrJ -> (SIgEXtend(Cat(io.inst(19,12),io.inst(20),io.inst(30,21),Fill(1,0.U)), xlen)),
+    InstrType.InstrU -> (SIgEXtend(Cat(io.inst(31,12),Fill(12,0.U)), xlen)),
+    InstrType.InstrS -> (SIgEXtend(Cat(io.inst(31,25),io.inst(11,7)), xlen)),
+    InstrType.InstrB -> (SIgEXtend(Cat(io.inst(31,31),io.inst(7,7),io.inst(30,25),io.inst(11,8),Fill(1,0.U)), xlen)),
   )
-  val imm_list = ListLookup(instrtype,List(0.U(xlen.W)),immtable)
-  val imm :: Nil =imm_list
+  val imm = LookupTree(instrtype,immtable.map(p=>(p._1,p._2)))
+  //val imm :: Nil =imm_list
   io.ctrlIO.Imm := imm
   io.rd_en := en
   io.mem_we := Mux(aluoptype=== ALUOPType.ld,0.U,1.U)
