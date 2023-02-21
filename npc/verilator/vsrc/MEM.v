@@ -13,8 +13,11 @@ module MEM(
 );
 
 always @(*) begin 
-    pmem_write(addr, wdata, wmask);
-    pmem_read(addr, rdata);
+    if(ce ==1'b1) begin 
+        pmem_write(addr, wdata, wmask);
+        pmem_read(addr, rdata);
+    
+    end
     /*if(ce==1'b1) begin 
         if(we==1'b1) begin 
             pmem_write(addr, wdata, wmask);
