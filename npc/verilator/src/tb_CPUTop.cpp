@@ -30,7 +30,8 @@ static bool step_print_inst = false;
 vluint64_t sim_time=0;
 
 uint64_t *cpu_gpr=NULL;
-uint8_t mem[MAX_MEM] PG_ALIGN ={};
+uint8_t mem[MAX_MEM];
+memset(mem,0,sizeof(uint8_t) * MAX_MEM);
 uint32_t mem_size;
 uint32_t *Inst;
 
