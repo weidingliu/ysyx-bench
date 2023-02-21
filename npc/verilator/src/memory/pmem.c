@@ -32,7 +32,7 @@ extern "C" void pmem_write(long long addr, long long wdata, char wmask) {
   while(loop!=0){
       if(wmask & 1){
       //printf("here%x\n",loop);
-          if((((addr & ~0x7ull)-RESET_VECTOR+i)>MAX_MEM) ||(((addr & ~0x7ull)-0x80000000+i)<0) ) assert(0);
+          if((((addr & ~0x7ull)-RESET_VECTOR+i)>MAX_MEM) ) assert(0);
           memcpy(mem+(addr& ~0x7ull)-RESET_VECTOR+i,temp,sizeof(uint8_t));
       }
       temp++;
