@@ -9,7 +9,7 @@
 
 uint8_t pmem[MAX_MEM];
 */
-extern "C" void pmem_read(long long addr, __attribute__((unused)) long long *rdata) {
+extern "C" void pmem_read(long long addr, long long *rdata) {
   // 总是读取地址为`raddr & ~0x7ull`的8字节返回给`rdata`
   
   long long temp;
