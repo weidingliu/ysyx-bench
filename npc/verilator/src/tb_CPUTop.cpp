@@ -79,7 +79,7 @@ void dump_gpr() {
 
 void init_mem(char *file_path){
     FILE *fp;
-    printf("%x\n",*(uint32_t *)(mem+0x24c));
+    //printf("%x\n",*(uint32_t *)(mem+0x24c));
     if((fp=fopen(file_path,"r"))==NULL){
         printf("load mem fail!\n");
         exit(-1);
@@ -87,13 +87,13 @@ void init_mem(char *file_path){
     fseek(fp,0,SEEK_END);
     int size=ftell(fp);
     mem_size=size;
-    if(size/4>MAX_MEM){
+    if(size>MAX_MEM){
         printf("fail load mem file size:%d\n",size);
         exit(-1);
     } 
     //printf("----------%d\n",size);
     rewind(fp);
-    size_t o=fread(mem,sizeof(uint32_t),size,fp);
+    size_t o=fread(mem,sizeof(uint8_t),size,fp);
     if(o==0){
         printf("fail load mem file \n");
         exit(-1);
