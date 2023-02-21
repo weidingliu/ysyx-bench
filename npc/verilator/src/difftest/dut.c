@@ -14,7 +14,7 @@ Ref_difftest_exec ref_difftest_exec=NULL;
 Ref_difftest_raise_intr ref_difftest_raise_intr=NULL;
 Ref_difftest_init ref_difftest_init=NULL;
 
-void init_difftest(char *ref_so_file, uint32_t img_size, int port, uint32_t *mem){
+void init_difftest(char *ref_so_file, uint32_t img_size, int port, uint8_t *mem){
   assert(ref_so_file != NULL);
   
   void *handle;

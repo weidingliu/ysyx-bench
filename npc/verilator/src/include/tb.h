@@ -2,6 +2,7 @@
 #define MAX_MEM 0x2000000
 
 #define is_batch_mode 0
+#define mtrace 1
 
 #define MAX_SIM_TIME 2000
 
@@ -21,7 +22,7 @@ typedef struct reg_cpu{
 enum { DIFFTEST_TO_DUT, DIFFTEST_TO_REF };
 enum {RUN,ABORT,END};
 
-extern uint32_t mem[MAX_MEM];
+extern uint8_t mem[MAX_MEM];
 extern uint32_t mem_size;
 
 extern uint64_t *cpu_gpr;

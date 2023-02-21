@@ -94,7 +94,7 @@ class IDU extends Module with paramete{
   //val imm :: Nil =imm_list
   io.ctrlIO.Imm := imm
   io.rd_en := en
-  io.mem_we := Mux(aluoptype=== ALUOPType.ld,0.U,1.U)
+  io.mem_we := Mux((aluoptype=== ALUOPType.ld || aluoptype === ALUOPType.lw),0.U,1.U)
 
 }
 //import chisel3.stage._

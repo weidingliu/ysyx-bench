@@ -30,7 +30,8 @@ static bool step_print_inst = false;
 vluint64_t sim_time=0;
 
 uint64_t *cpu_gpr=NULL;
-uint32_t mem[MAX_MEM];
+uint8_t mem[MAX_MEM]= {};
+
 uint32_t mem_size;
 uint32_t *Inst;
 
@@ -78,7 +79,7 @@ void dump_gpr() {
 
 void init_mem(char *file_path){
     FILE *fp;
-    
+    //printf("%x\n",*(uint32_t *)(mem+0x24c));
     if((fp=fopen(file_path,"r"))==NULL){
         printf("load mem fail!\n");
         exit(-1);
@@ -86,13 +87,13 @@ void init_mem(char *file_path){
     fseek(fp,0,SEEK_END);
     int size=ftell(fp);
     mem_size=size;
-    if(size/4>MAX_MEM){
+    if(size>MAX_MEM){
         printf("fail load mem file size:%d\n",size);
         exit(-1);
     } 
     //printf("----------%d\n",size);
     rewind(fp);
-    size_t o=fread(mem,sizeof(uint32_t),size,fp);
+    size_t o=fread(mem,sizeof(uint8_t),size,fp);
     if(o==0){
         printf("fail load mem file \n");
         exit(-1);
@@ -103,6 +104,8 @@ void init_mem(char *file_path){
         printf("%08x\n",mem[i]);
     }*/
     printf("load mem finish!\n");
+    //memset(mem+size,0,sizeof(uint8_t) * (MAX_MEM-size));
+    printf("%x\n",*(uint32_t *)(mem+0x24c));
 }
 
 //void ebreak() {dut->final();return;}
@@ -114,7 +117,7 @@ uint32_t pem_read(uint64_t pc){
     mem[3]=0b00000000000100000000000001110011;
     mem[4]=0b00000000000100010000000100010011;*/
     //printf("%lx  %ld\n",pc,(pc-0x80000000)/4);
-    return mem[(pc-0x80000000)/4];
+    return *(uint32_t *)(mem+pc-0x80000000);
 } 
 //extern "C" void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
 
@@ -383,7 +386,7 @@ void sdb_main_loop(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace)
 
 int main(int argc, char** argv) {
 //printf("--------------------%s   %d\n",argv[1],argc);
-
+//
 
 VerilatedContext* contextp = new VerilatedContext;
 contextp->commandArgs(argc, argv);
