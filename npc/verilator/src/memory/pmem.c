@@ -13,9 +13,9 @@ extern "C" void pmem_read(long long addr, __attribute__((unused)) long long *rda
   // 总是读取地址为`raddr & ~0x7ull`的8字节返回给`rdata`
   
   long long temp;
-  memcpy(&temp,(mem+(addr & ~0x7)-RESET_VECTOR),sizeof(temp));
+  memcpy(&temp,(mem+(addr)-RESET_VECTOR),sizeof(temp));
   rdata=&temp;
-  if(mtrace) printf("READ--- ADDR:  %llx  DATA:  %llx \n",(addr & ~0x7)-RESET_VECTOR,temp);
+  if(mtrace) printf("READ--- ADDR:  %016llx  DATA:  %llx \n",(addr),temp);
   
 }
 extern "C" void pmem_write(long long addr, long long wdata, char wmask) {
@@ -33,13 +33,13 @@ extern "C" void pmem_write(long long addr, long long wdata, char wmask) {
       if(wmask & 1){
       //printf("here%x\n",loop);
           if((((addr & ~0x7)-RESET_VECTOR+i)>MAX_MEM) ||(((addr & ~0x7)-0x80000000+i)<0) ) assert(0);
-          memcpy(mem+(addr & ~0x7)-RESET_VECTOR+i,temp,sizeof(uint8_t));
+          memcpy(mem+(addr)-RESET_VECTOR+i,temp,sizeof(uint8_t));
       }
       temp++;
       i++;
       loop=loop>>1;
   }
-  if(mtrace) printf("WRITE--- ADDR:  %llx  DATA:  %llx  MASK:  %x\n",((addr & ~0x7)-0x80000000),wdata,(uint8_t)wmask);
+  if(mtrace) printf("WRITE--- ADDR:  %016llx  DATA:  %llx  MASK:  %x\n",addr,wdata,(uint8_t)wmask);
   
 }
 
