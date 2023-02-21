@@ -104,6 +104,7 @@ void init_mem(char *file_path){
         printf("%08x\n",mem[i]);
     }*/
     printf("load mem finish!\n");
+    memset(mem+size,0,sizeof(uint8_t) * (MAX_MEM-size));
     printf("%x\n",*(uint32_t *)(mem+0x24c));
 }
 
@@ -385,7 +386,7 @@ void sdb_main_loop(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace)
 
 int main(int argc, char** argv) {
 //printf("--------------------%s   %d\n",argv[1],argc);
-//memset(mem,0,sizeof(uint8_t) * MAX_MEM);
+//
 
 VerilatedContext* contextp = new VerilatedContext;
 contextp->commandArgs(argc, argv);
