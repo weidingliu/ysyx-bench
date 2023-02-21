@@ -30,7 +30,7 @@ static bool step_print_inst = false;
 vluint64_t sim_time=0;
 
 uint64_t *cpu_gpr=NULL;
-uint8_t mem[MAX_MEM];
+uint8_t mem[MAX_MEM]={};
 uint32_t mem_size;
 uint32_t *Inst;
 
@@ -103,7 +103,7 @@ void init_mem(char *file_path){
         printf("%08x\n",mem[i]);
     }*/
     printf("load mem finish!\n");
-    printf("%x\n",*(uint32_t *)(mem+234));
+    //printf("%x\n",*(uint32_t *)(mem+234));
 }
 
 //void ebreak() {dut->final();return;}

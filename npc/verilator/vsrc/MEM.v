@@ -26,8 +26,8 @@ always @(*) begin
     else begin 
         rdata=64'h0;
     end
-    $display("-------------ddr---%h",addr);
-    $display("-------------%h",rdata);
+    //$display("-------------ddr---%h",addr);
+    //$display("-------------%h",rdata);
 end
 
 
