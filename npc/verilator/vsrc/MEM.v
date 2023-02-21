@@ -8,7 +8,7 @@ module MEM(
     input wire we,
     input wire ce,
     input wire [63:0] wdata,
-    output wire [63:0] rdata,
+    output reg [63:0] rdata,
     input wire [7:0]wmask
 );
 
@@ -17,6 +17,9 @@ always @(*) begin
         pmem_write(addr, wdata, wmask);
         pmem_read(addr, rdata);
     
+    end
+    else begin 
+        rdata=64'h0;
     end
     /*if(ce==1'b1) begin 
         if(we==1'b1) begin 
