@@ -215,7 +215,14 @@ VL_INLINE_OPT void VCPUTop___024root___combo__TOP__1(VCPUTop___024root* vlSelf) 
     } else {
         vlSelf->CPUTop__DOT__mem_rdata = 0ULL;
     }
-    VL_WRITEF("-------------%x\n",64,vlSelf->CPUTop__DOT__mem_rdata);
+    VL_WRITEF("-------------ddr%x\n-------------%x\n",
+              64,((0x45U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                   ? vlSelf->CPUTop__DOT__EX__DOT___addr_temp_T_1
+                   : ((0x46U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                       ? vlSelf->CPUTop__DOT__EX__DOT___addr_temp_T_3
+                       : ((0x47U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                           ? vlSelf->CPUTop__DOT__EX__DOT___addr_temp_T_3
+                           : 0ULL))),64,vlSelf->CPUTop__DOT__mem_rdata);
     vlSelf->CPUTop__DOT__EX_io1_result = ((0U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype))
                                            ? ((0x40U 
                                                == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
