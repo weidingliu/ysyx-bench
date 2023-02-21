@@ -20,13 +20,13 @@ always @(*) begin
         end
         else begin 
             pmem_read(addr, rdata);
-            $display("-------------%h",rdata);
+            
         end
     end
     else begin 
         rdata=64'h0;
     end
-
+    $display("-------------%h",rdata);
 end
 
 
