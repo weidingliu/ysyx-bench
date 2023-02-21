@@ -31,7 +31,7 @@ vluint64_t sim_time=0;
 
 uint64_t *cpu_gpr=NULL;
 uint8_t mem[MAX_MEM];
-memset(mem,0,sizeof(uint8_t) * MAX_MEM);
+
 uint32_t mem_size;
 uint32_t *Inst;
 
@@ -385,7 +385,7 @@ void sdb_main_loop(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace)
 
 int main(int argc, char** argv) {
 //printf("--------------------%s   %d\n",argv[1],argc);
-
+memset(mem,0,sizeof(uint8_t) * MAX_MEM);
 
 VerilatedContext* contextp = new VerilatedContext;
 contextp->commandArgs(argc, argv);
