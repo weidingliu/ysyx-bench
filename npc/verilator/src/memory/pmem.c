@@ -15,7 +15,7 @@ extern "C" void pmem_read(long long addr, __attribute__((unused)) long long *rda
   long long temp;
   memcpy(&temp,(mem+(addr& ~0x7ull)-RESET_VECTOR),sizeof(temp));
   rdata=&temp;
-  if(mtrace) printf("READ--- ADDR:  %016llx  DATA:  %llx \n",(addr),*rdata);
+  if(mtrace) printf("READ--- ADDR:  %016llx  DATA:  %016llx \n",(addr),*rdata);
   
 }
 extern "C" void pmem_write(long long addr, long long wdata, char wmask) {
@@ -39,7 +39,7 @@ extern "C" void pmem_write(long long addr, long long wdata, char wmask) {
       i++;
       loop=loop>>1;
   }
-  if(mtrace) printf("WRITE--- ADDR:  %016llx  DATA:  %llx  MASK:  %x\n",addr,wdata,(uint8_t)wmask);
+  if(mtrace) printf("WRITE--- ADDR:  %016llx  DATA:  %016llx  MASK:  %x\n",addr,wdata,(uint8_t)wmask);
   
 }
 
