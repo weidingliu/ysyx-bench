@@ -79,7 +79,7 @@ void dump_gpr() {
 
 void init_mem(char *file_path){
     FILE *fp;
-    
+    printf("%x\n",*(uint32_t *)(mem+0x24c));
     if((fp=fopen(file_path,"r"))==NULL){
         printf("load mem fail!\n");
         exit(-1);
@@ -104,7 +104,7 @@ void init_mem(char *file_path){
         printf("%08x\n",mem[i]);
     }*/
     printf("load mem finish!\n");
-    memset(mem+size,0,sizeof(uint8_t) * (MAX_MEM-size));
+    //memset(mem+size,0,sizeof(uint8_t) * (MAX_MEM-size));
     printf("%x\n",*(uint32_t *)(mem+0x24c));
 }
 
