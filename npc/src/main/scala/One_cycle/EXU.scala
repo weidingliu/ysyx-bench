@@ -147,7 +147,7 @@ class EXU extends Module with paramete {
       mem_result := io1.rdata
     }
     is(ALUOPType.lw) {
-      mem_result := SIgEXtend(io1.rdata(31,0),xlen)
+      mem_result := Mux(addr_temp(2,2)===1.U,SIgEXtend(io1.rdata(64,32),xlen),SIgEXtend(io1.rdata(31,0),xlen))
     }
   }
 
