@@ -30,7 +30,7 @@ static bool step_print_inst = false;
 vluint64_t sim_time=0;
 
 uint64_t *cpu_gpr=NULL;
-uint32_t mem[MAX_MEM];
+uint8_t mem[MAX_MEM];
 uint32_t mem_size;
 uint32_t *Inst;
 
@@ -115,7 +115,7 @@ uint32_t pem_read(uint64_t pc){
     mem[3]=0b00000000000100000000000001110011;
     mem[4]=0b00000000000100010000000100010011;*/
     //printf("%lx  %ld\n",pc,(pc-0x80000000)/4);
-    return mem[(pc-0x80000000)/4];
+    return *(uint32_t *)(mem+pc-0x80000000);
 } 
 //extern "C" void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
 
