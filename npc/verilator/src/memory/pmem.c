@@ -39,7 +39,7 @@ extern "C" void pmem_write(long long addr, long long wdata, char wmask) {
       i++;
       loop=loop>>1;
   }
-  printf("WRITE--- ADDR%llx  DATA:%llx  MASK:%x\n",((addr & ~0x7)-0x80000000),wdata,(uint8_t)mask);
+  printf("WRITE--- ADDR%llx  DATA:%llx  MASK:%x\n",((addr & ~0x7)-0x80000000),wdata,(uint8_t)wmask);
   
 }
 
