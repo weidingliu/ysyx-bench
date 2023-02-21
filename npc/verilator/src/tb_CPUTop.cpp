@@ -103,7 +103,7 @@ void init_mem(char *file_path){
         printf("%08x\n",mem[i]);
     }*/
     printf("load mem finish!\n");
-    printf("%x\n",*(uint32_t *)(mem+234));
+    //printf("%x\n",*(uint32_t *)(mem+234));
 }
 
 //void ebreak() {dut->final();return;}
