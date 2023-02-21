@@ -21,8 +21,6 @@ always @(*) begin
         else begin 
             pmem_read(addr, rdata);
         end
-        
-        
     end
     else begin 
         rdata=64'h0;
