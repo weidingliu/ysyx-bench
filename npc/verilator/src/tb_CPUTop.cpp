@@ -93,8 +93,9 @@ void init_mem(char *file_path){
         exit(-1);
     } 
     //printf("----------%d\n",size);
+    uint8_t *temp=mem;
     fseek(fp, 0, SEEK_SET);
-    size_t o=fread(mem,size,1,fp);
+    size_t o=fread(temp,size,1,fp);
     if(o==0){
         printf("fail load mem file \n");
         exit(-1);
