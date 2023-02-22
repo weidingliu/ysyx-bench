@@ -122,13 +122,8 @@ VL_INLINE_OPT void VCPUTop___024root___combo__TOP__1(VCPUTop___024root* vlSelf) 
     }
     vlSelf->CPUTop__DOT__EX__DOT___GEN_28 = ((0x6cU 
                                               == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
-                                             & ((0x1fU 
-                                                 & (vlSelf->io_inst 
-                                                    >> 0xfU)) 
-                                                != 
-                                                (0x1fU 
-                                                 & (vlSelf->io_inst 
-                                                    >> 0x14U))));
+                                             & (vlSelf->CPUTop__DOT__EX__DOT__src1 
+                                                != vlSelf->CPUTop__DOT__EX__DOT__src2));
     vlSelf->CPUTop__DOT__EX__DOT___addr_temp_T_1 = 
         (vlSelf->CPUTop__DOT__EX__DOT__src1 + vlSelf->CPUTop__DOT__EX__DOT__src2);
     vlSelf->CPUTop__DOT__EX__DOT___addr_temp_T_3 = 
@@ -136,13 +131,8 @@ VL_INLINE_OPT void VCPUTop___024root___combo__TOP__1(VCPUTop___024root* vlSelf) 
     vlSelf->CPUTop__DOT__EX__DOT___dnpc_T_9 = (((0x6bU 
                                                  == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                                  ? 
-                                                ((0x1fU 
-                                                  & (vlSelf->io_inst 
-                                                     >> 0xfU)) 
-                                                 == 
-                                                 (0x1fU 
-                                                  & (vlSelf->io_inst 
-                                                     >> 0x14U)))
+                                                (vlSelf->CPUTop__DOT__EX__DOT__src1 
+                                                 == vlSelf->CPUTop__DOT__EX__DOT__src2)
                                                  : (IData)(vlSelf->CPUTop__DOT__EX__DOT___GEN_28))
                                                 ? (
                                                    (0x6bU 

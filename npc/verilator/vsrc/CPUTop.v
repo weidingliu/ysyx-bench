@@ -200,8 +200,6 @@ endmodule
 module EXU(
   input  [2:0]  io_src1type,
   input  [2:0]  io_src2type,
-  input  [4:0]  io_src1,
-  input  [4:0]  io_src2,
   input  [2:0]  io_futype,
   input  [6:0]  io_aluoptype,
   input  [63:0] io_Imm,
@@ -265,9 +263,9 @@ module EXU(
   wire [63:0] _branch_result_T_1 = io1_PC + io_Imm; // @[EXU.scala 193:33]
   wire  _T_25 = 7'h6c == io_aluoptype; // @[EXU.scala 191:25]
   wire [63:0] _GEN_27 = 7'h6c == io_aluoptype ? _branch_result_T_1 : 64'h0; // @[EXU.scala 191:25 197:23]
-  wire  _GEN_28 = 7'h6c == io_aluoptype & io_src1 != io_src2; // @[EXU.scala 191:25 198:21]
+  wire  _GEN_28 = 7'h6c == io_aluoptype & src1 != src2; // @[EXU.scala 191:25 198:21]
   wire [63:0] branch_result = 7'h6b == io_aluoptype ? _branch_result_T_1 : _GEN_27; // @[EXU.scala 191:25 193:23]
-  wire  branch_flag = 7'h6b == io_aluoptype ? io_src1 == io_src2 : _GEN_28; // @[EXU.scala 191:25 194:21]
+  wire  branch_flag = 7'h6b == io_aluoptype ? src1 == src2 : _GEN_28; // @[EXU.scala 191:25 194:21]
   wire [63:0] _dnpc_T_5 = {_addr_temp_T_1[63:1],1'h0}; // @[Cat.scala 31:58]
   wire [63:0] _dnpc_T_9 = branch_flag ? branch_result : _jump_result_T_2; // @[EXU.scala 211:18]
   wire [63:0] _GEN_31 = _T_25 ? _dnpc_T_9 : 64'h0; // @[EXU.scala 203:23 215:12]
@@ -276,7 +274,7 @@ module EXU(
   assign io1_result = 3'h0 == io_futype ? alu_result : _GEN_25; // @[EXU.scala 165:20 167:18]
   assign io1_is_break = io_aluoptype == 7'h42; // @[EXU.scala 129:35]
   assign io1_is_jump = io_futype == 3'h3; // @[EXU.scala 187:31]
-  assign io1_is_branch = 7'h6b == io_aluoptype ? io_src1 == io_src2 : _GEN_28; // @[EXU.scala 191:25 194:21]
+  assign io1_is_branch = 7'h6b == io_aluoptype ? src1 == src2 : _GEN_28; // @[EXU.scala 191:25 194:21]
   assign io1_dnpc = 7'h19 == io_aluoptype ? _addr_temp_T_1 : _GEN_33; // @[EXU.scala 203:23 205:12]
   assign io1_addr = _T_5 ? _addr_temp_T_1 : _GEN_12; // @[EXU.scala 102:23 104:17]
   assign io1_wdata = 7'h45 == io_aluoptype ? 64'h0 : _GEN_8; // @[EXU.scala 88:23 91:17]
@@ -311,8 +309,6 @@ module CPUTop(
   wire  ID_io_mem_we; // @[CPUTop.scala 34:18]
   wire [2:0] EX_io_src1type; // @[CPUTop.scala 36:18]
   wire [2:0] EX_io_src2type; // @[CPUTop.scala 36:18]
-  wire [4:0] EX_io_src1; // @[CPUTop.scala 36:18]
-  wire [4:0] EX_io_src2; // @[CPUTop.scala 36:18]
   wire [2:0] EX_io_futype; // @[CPUTop.scala 36:18]
   wire [6:0] EX_io_aluoptype; // @[CPUTop.scala 36:18]
   wire [63:0] EX_io_Imm; // @[CPUTop.scala 36:18]
@@ -503,8 +499,6 @@ module CPUTop(
   EXU EX ( // @[CPUTop.scala 36:18]
     .io_src1type(EX_io_src1type),
     .io_src2type(EX_io_src2type),
-    .io_src1(EX_io_src1),
-    .io_src2(EX_io_src2),
     .io_futype(EX_io_futype),
     .io_aluoptype(EX_io_aluoptype),
     .io_Imm(EX_io_Imm),
@@ -681,8 +675,6 @@ module CPUTop(
   assign ID_io_inst = io_inst; // @[CPUTop.scala 46:14]
   assign EX_io_src1type = ID_io_ctrlIO_src1type; // @[CPUTop.scala 48:16]
   assign EX_io_src2type = ID_io_ctrlIO_src2type; // @[CPUTop.scala 48:16]
-  assign EX_io_src1 = ID_io_ctrlIO_src1; // @[CPUTop.scala 48:16]
-  assign EX_io_src2 = ID_io_ctrlIO_src2; // @[CPUTop.scala 48:16]
   assign EX_io_futype = ID_io_ctrlIO_futype; // @[CPUTop.scala 48:16]
   assign EX_io_aluoptype = ID_io_ctrlIO_aluoptype; // @[CPUTop.scala 48:16]
   assign EX_io_Imm = ID_io_ctrlIO_Imm; // @[CPUTop.scala 48:16]
