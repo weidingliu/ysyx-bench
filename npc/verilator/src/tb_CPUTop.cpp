@@ -105,7 +105,7 @@ void init_mem(char *file_path){
     }*/
     printf("load mem finish!\n");
     fclose(fp);
-    //memset(mem+size,0,sizeof(uint8_t) * (MAX_MEM-size));
+    memset(mem+size,0,sizeof(uint8_t) * (MAX_MEM-size));
     printf("%x\n",*(uint32_t *)(mem+0x24c));
 }
 
