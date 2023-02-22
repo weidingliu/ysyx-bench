@@ -27,7 +27,7 @@ extern "C" void pmem_write(long long addr, long long wdata, char wmask) {
   long long *p=&wdata;
   uint8_t *temp=(uint8_t *)p;
   int i=0;
-  unsigned int loop= (unsigned int) wmask;
+  unsigned char loop= (unsigned char) wmask;
   //printf("%llx\n",*(long long *)(mem+(addr & ~0x7)-0x80000000));
   while(loop!=0){
       if(wmask & 1){
