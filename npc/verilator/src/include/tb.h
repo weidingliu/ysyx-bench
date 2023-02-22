@@ -22,7 +22,8 @@ typedef struct reg_cpu{
 enum { DIFFTEST_TO_DUT, DIFFTEST_TO_REF };
 enum {RUN,ABORT,END};
 
-extern uint8_t mem[MAX_MEM];
+//extern uint8_t mem[MAX_MEM];
+extern uint8_t *mem = NULL;
 extern uint32_t mem_size;
 
 extern uint64_t *cpu_gpr;
