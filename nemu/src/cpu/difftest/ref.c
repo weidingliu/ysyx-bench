@@ -41,7 +41,7 @@ void difftest_memcpy(paddr_t addr, void *buf, size_t n, bool direction) {
   else {
       
       //printf("%08x    %ld\n",*(uint32_t *)buf,n);
-      while(n>4){
+      while(n>=4){
           uint32_t temp= *(uint32_t *)buf;
           if(direction==DIFFTEST_TO_DUT){
               assert(0);

@@ -30,7 +30,7 @@ static bool step_print_inst = false;
 vluint64_t sim_time=0;
 
 uint64_t *cpu_gpr=NULL;
-uint8_t mem[MAX_MEM]= {};
+uint8_t mem[MAX_MEM] __attribute((aligned(4096))) = {};
 
 uint32_t mem_size;
 uint32_t *Inst;
@@ -80,20 +80,25 @@ void dump_gpr() {
 void init_mem(char *file_path){
     FILE *fp;
     //printf("%x\n",*(uint32_t *)(mem+0x24c));
-    if((fp=fopen(file_path,"r"))==NULL){
+    if((fp=fopen(file_path,"rb"))==NULL){
         printf("load mem fail!\n");
         exit(-1);
     }
     fseek(fp,0,SEEK_END);
     int size=ftell(fp);
     mem_size=size;
+    printf("The image is %s, size = %d\n", file_path, size);
     if(size>MAX_MEM){
         printf("fail load mem file size:%d\n",size);
         exit(-1);
     } 
     //printf("----------%d\n",size);
-    rewind(fp);
-    size_t o=fread(mem,sizeof(uint8_t),size,fp);
+    //uint8_t *temp=mem;
+    fseek(fp, 0, SEEK_SET);
+    //printf("%x\n",*(uint32_t *)(mem+0x24c));
+    size_t o=fread(mem,size,1,fp);
+    printf("%ld\n",o);
+    //printf("%x\n",*(uint32_t *)(mem+0x24c));
     if(o==0){
         printf("fail load mem file \n");
         exit(-1);
@@ -104,8 +109,9 @@ void init_mem(char *file_path){
         printf("%08x\n",mem[i]);
     }*/
     printf("load mem finish!\n");
+    fclose(fp);
     //memset(mem+size,0,sizeof(uint8_t) * (MAX_MEM-size));
-    printf("%x\n",*(uint32_t *)(mem+0x24c));
+    //printf("%x\n",*(uint32_t *)(mem+0x24c));
 }
 
 //void ebreak() {dut->final();return;}
