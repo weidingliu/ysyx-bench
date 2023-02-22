@@ -30,12 +30,9 @@ static bool step_print_inst = false;
 vluint64_t sim_time=0;
 
 uint64_t *cpu_gpr=NULL;
-//uint8_t mem[MAX_MEM] __attribute((aligned(4096))) = {};
+uint8_t mem[MAX_MEM] __attribute((aligned(4096))) = {};
 
-uint8_t* mem=NULL;
 uint32_t mem_size;
-
-
 uint32_t *Inst;
 
 uint32_t state=RUN;
@@ -82,7 +79,6 @@ void dump_gpr() {
 
 void init_mem(char *file_path){
     FILE *fp;
-    mem = malloc(mem_size);
     //printf("%x\n",*(uint32_t *)(mem+0x24c));
     if((fp=fopen(file_path,"rb"))==NULL){
         printf("load mem fail!\n");
@@ -100,7 +96,7 @@ void init_mem(char *file_path){
     //uint8_t *temp=mem;
     fseek(fp, 0, SEEK_SET);
     printf("%x\n",*(uint32_t *)(mem+0x24c));
-    size_t o=fread(mem,sizeof(uint8_t),size,fp);
+    size_t o=fread(mem,size,1,fp);
     printf("%ld\n",o);
     printf("%x\n",*(uint32_t *)(mem+0x24c));
     if(o==0){
