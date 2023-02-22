@@ -38,7 +38,7 @@ object RVI_ALU extends paramete{
       SLTIU -> List(InstrType.InstrI,FUType.compar,ALUOPType.sltiu,RD.write),
       BEQ -> List(InstrType.InstrB,FUType.branch,ALUOPType.beq,RD.NOP),
       BNE -> List(InstrType.InstrB,FUType.branch,ALUOPType.bne,RD.NOP),
-      ADDW -> List(InstrType.InstrI,FUType.alu,ALUOPType.addiw,RD.write),
+      ADDIW -> List(InstrType.InstrI,FUType.alu,ALUOPType.addiw,RD.write),
       Ebreak -> List(InstrType.InstrN,FUType.alu,ALUOPType.ebreak,RD.NOP),
   )
 }
