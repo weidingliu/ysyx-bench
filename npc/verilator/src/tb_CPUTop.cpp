@@ -34,7 +34,7 @@ uint64_t *cpu_gpr=NULL;
 
 uint8_t* mem=NULL;
 uint32_t mem_size;
-mem = malloc(mem_size);
+
 
 uint32_t *Inst;
 
@@ -82,6 +82,7 @@ void dump_gpr() {
 
 void init_mem(char *file_path){
     FILE *fp;
+    mem = malloc(mem_size);
     //printf("%x\n",*(uint32_t *)(mem+0x24c));
     if((fp=fopen(file_path,"rb"))==NULL){
         printf("load mem fail!\n");

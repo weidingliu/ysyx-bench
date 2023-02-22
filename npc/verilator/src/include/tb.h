@@ -23,7 +23,7 @@ enum { DIFFTEST_TO_DUT, DIFFTEST_TO_REF };
 enum {RUN,ABORT,END};
 
 //extern uint8_t mem[MAX_MEM];
-uint8_t *mem = NULL;
+extern uint8_t *mem = NULL;
 extern uint32_t mem_size;
 
 extern uint64_t *cpu_gpr;
