@@ -77,9 +77,9 @@ VL_ATTR_COLD void VCPUTop___024root___settle__TOP__0(VCPUTop___024root* vlSelf) 
                                                              & vlSelf->io_inst))
                                                             ? 0x6cU
                                                             : 
-                                                           ((0x3bU 
+                                                           ((0x1bU 
                                                              == 
-                                                             (0xfe00707fU 
+                                                             (0x707fU 
                                                               & vlSelf->io_inst))
                                                              ? 0x6dU
                                                              : 
@@ -153,9 +153,9 @@ VL_ATTR_COLD void VCPUTop___024root___settle__TOP__0(VCPUTop___024root* vlSelf) 
                                                              & vlSelf->io_inst))
                                                             ? 0xbU
                                                             : 
-                                                           ((0x3bU 
+                                                           ((0x1bU 
                                                              == 
-                                                             (0xfe00707fU 
+                                                             (0x707fU 
                                                               & vlSelf->io_inst))
                                                              ? 8U
                                                              : 0U))))))))))))));

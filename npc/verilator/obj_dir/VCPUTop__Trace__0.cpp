@@ -329,9 +329,9 @@ void VCPUTop___024root__trace_chg_sub_0(VCPUTop___024root* vlSelf, VerilatedVcd:
                                                                        != 
                                                                        (0x707fU 
                                                                         & vlSelf->io_inst)) 
-                                                                      & (0x3bU 
+                                                                      & (0x1bU 
                                                                          == 
-                                                                         (0xfe00707fU 
+                                                                         (0x707fU 
                                                                           & vlSelf->io_inst)))))))))))))))))));
     bufp->chgQData(oldp+245,(((0U == (0x1fU & (vlSelf->io_inst 
                                                >> 0xfU)))
