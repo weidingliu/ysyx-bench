@@ -87,7 +87,7 @@ void init_mem(char *file_path){
     fseek(fp,0,SEEK_END);
     int size=ftell(fp);
     mem_size=size;
-    printf("The image is %s, size = %d", file_path, size);
+    printf("The image is %s, size = %d\n", file_path, size);
     if(size>MAX_MEM){
         printf("fail load mem file size:%d\n",size);
         exit(-1);
