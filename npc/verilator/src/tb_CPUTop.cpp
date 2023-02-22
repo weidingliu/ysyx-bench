@@ -106,7 +106,7 @@ void init_mem(char *file_path){
     printf("load mem finish!\n");
     fclose(fp);
     memset(mem+size,0,sizeof(uint8_t) * (MAX_MEM-size));
-    printf("%x\n",*(uint32_t *)(mem+0x24c));
+    printf("%x\n",*(uint32_t *)(mem+0x248));
 }
 
 //void ebreak() {dut->final();return;}
