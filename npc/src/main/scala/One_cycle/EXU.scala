@@ -191,11 +191,11 @@ class EXU extends Module with paramete {
     switch(io.aluoptype){
       is(ALUOPType.beq) {
         branch_result := io1.PC +io.Imm
-        branch_flag := Mux(io.src1 === io.src2 ,1.U,0.U)
+        branch_flag := Mux(src1 === src2 ,1.U,0.U)
       }
       is(ALUOPType.bne) {
         branch_result := io1.PC + io.Imm
-        branch_flag := Mux(io.src1 =/= io.src2, 1.U, 0.U)
+        branch_flag := Mux(src1 =/= src2, 1.U, 0.U)
       }
     }
 
