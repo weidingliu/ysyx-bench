@@ -160,7 +160,7 @@ class EXU extends Module with paramete {
       shift_result := src1 >> io.Imm(4,0)
     }
   }
-  val lb_mem_select=Array(
+  val lb_mem_select=Seq(
     (addr_temp(2,0) ==="b000".U) ->io1.rdata(7,0),
     (addr_temp(2,0) ==="b001".U) ->io1.rdata(15,8),
     (addr_temp(2,0) ==="b010".U) ->io1.rdata(23,16),
