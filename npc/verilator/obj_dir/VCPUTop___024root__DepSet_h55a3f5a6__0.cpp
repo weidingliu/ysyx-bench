@@ -175,6 +175,8 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
     vlSelf->io_pc = vlSelf->CPUTop__DOT__IF__DOT__temp;
     vlSelf->CPUTop__DOT__IF__DOT___temp_T_2 = (4ULL 
                                                + vlSelf->CPUTop__DOT__IF__DOT__temp);
+    VCPUTop___024unit____Vdpiimwrap_pmem_read_TOP____024unit(vlSelf->CPUTop__DOT__IF__DOT__temp, vlSelf->__Vtask_pmem_read__0__rdata);
+    vlSelf->CPUTop__DOT__IFM__DOT__rdata = vlSelf->__Vtask_pmem_read__0__rdata;
     vlSelf->CPUTop__DOT__IFM_inst = ((1U & (IData)(
                                                    (vlSelf->CPUTop__DOT__IF__DOT__temp 
                                                     >> 2U)))
