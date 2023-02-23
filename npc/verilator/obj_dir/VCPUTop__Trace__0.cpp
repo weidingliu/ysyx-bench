@@ -45,8 +45,9 @@ void VCPUTop___024root__trace_chg_sub_0(VCPUTop___024root* vlSelf, VerilatedVcd:
         bufp->chgCData(oldp+6,(vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype),3);
         bufp->chgCData(oldp+7,(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype),7);
         bufp->chgQData(oldp+8,(vlSelf->CPUTop__DOT__ID_io_ctrlIO_Imm),64);
-        bufp->chgBit(oldp+10,((1U & (~ ((0x45U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
-                                        | (0x47U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)))))));
+        bufp->chgBit(oldp+10,((1U & (~ (((0x45U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
+                                         | (0x47U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))) 
+                                        | (0x6fU == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)))))));
         bufp->chgQData(oldp+11,(vlSelf->CPUTop__DOT__EX_io1_result),64);
         bufp->chgBit(oldp+13,((0x42U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))));
         bufp->chgQData(oldp+14,(((0x45U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))

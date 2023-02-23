@@ -214,7 +214,7 @@ module IDU(
   assign io_ctrlIO_Imm = _imm_T_12 | _imm_T_9; // @[Mux.scala 27:73]
   assign io_rd_en = _Inst_decode_T_1 | (_Inst_decode_T_3 | (_Inst_decode_T_5 | (_Inst_decode_T_7 | (_Inst_decode_T_9 | (
     _Inst_decode_T_11 | (_Inst_decode_T_13 | (_Inst_decode_T_15 | _Inst_decode_T_108))))))); // @[Lookup.scala 34:39]
-  assign io_mem_we = Inst_decode_2 == 7'h45 | Inst_decode_2 == 7'h47 ? 1'h0 : 1'h1; // @[IDU.scala 97:19]
+  assign io_mem_we = Inst_decode_2 == 7'h45 | Inst_decode_2 == 7'h47 | Inst_decode_2 == 7'h6f ? 1'h0 : 1'h1; // @[IDU.scala 97:19]
 endmodule
 module EXU(
   input  [2:0]  io_src1type,
