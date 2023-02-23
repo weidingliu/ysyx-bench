@@ -5,7 +5,7 @@
   
   );
   wire [63:0]rdata;
-  always (*) begin 
+  always @(*) begin 
       pmem_read(pc, rdata);
   end
   assign inst=(pc[2]==1'b1)?  rdata[63:32]:rdata[31:0];
