@@ -84,7 +84,7 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
                                                    ? 
                                                   (vlSelf->CPUTop__DOT__EX__DOT__src1 
                                                    == vlSelf->CPUTop__DOT__EX__DOT__src2)
-                                                   : (IData)(vlSelf->CPUTop__DOT__EX__DOT___GEN_37)))
+                                                   : (IData)(vlSelf->CPUTop__DOT__EX__DOT___GEN_45)))
                                                ? ((0x19U 
                                                    == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                                    ? vlSelf->CPUTop__DOT__EX__DOT___addr_temp_T_1
@@ -473,7 +473,7 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
                                            : ((2U == (IData)(vlSelf->CPUTop__DOT__ID__DOT___io_ctrlIO_src1type_T_2))
                                                ? vlSelf->CPUTop__DOT__IF__DOT__temp
                                                : 0ULL));
-    vlSelf->CPUTop__DOT__EX__DOT___GEN_37 = ((0x6cU 
+    vlSelf->CPUTop__DOT__EX__DOT___GEN_45 = ((0x6cU 
                                               == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
                                              & (vlSelf->CPUTop__DOT__EX__DOT__src1 
                                                 != vlSelf->CPUTop__DOT__EX__DOT__src2));
@@ -486,7 +486,7 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
                                                  ? 
                                                 (vlSelf->CPUTop__DOT__EX__DOT__src1 
                                                  == vlSelf->CPUTop__DOT__EX__DOT__src2)
-                                                 : (IData)(vlSelf->CPUTop__DOT__EX__DOT___GEN_37))
+                                                 : (IData)(vlSelf->CPUTop__DOT__EX__DOT___GEN_45))
                                                 ? (
                                                    (0x6bU 
                                                     == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
@@ -503,25 +503,25 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
                                           >> 0x1fU)))
                             ? 0xffffffffU : 0U))) << 0x20U) 
          | (QData)((IData)(vlSelf->CPUTop__DOT__EX__DOT___addr_temp_T_1)));
-    vlSelf->CPUTop__DOT__EX__DOT___GEN_18 = ((0x46U 
-                                              == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
-                                              ? vlSelf->CPUTop__DOT__EX__DOT___addr_temp_T_3
-                                              : ((0x70U 
+    vlSelf->CPUTop__DOT__EX__DOT___GEN_8 = ((0x46U 
+                                             == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                                             ? vlSelf->CPUTop__DOT__EX__DOT___addr_temp_T_3
+                                             : ((0x70U 
+                                                 == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                                                 ? vlSelf->CPUTop__DOT__EX__DOT___addr_temp_T_3
+                                                 : 
+                                                ((0x47U 
                                                   == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                                   ? vlSelf->CPUTop__DOT__EX__DOT___addr_temp_T_3
                                                   : 
-                                                 ((0x47U 
+                                                 ((0x6fU 
                                                    == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                                    ? vlSelf->CPUTop__DOT__EX__DOT___addr_temp_T_3
-                                                   : 
-                                                  ((0x6fU 
-                                                    == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
-                                                    ? vlSelf->CPUTop__DOT__EX__DOT___addr_temp_T_3
-                                                    : 0ULL))));
+                                                   : 0ULL))));
     vlSelf->CPUTop__DOT__EX__DOT__addr_temp = ((0x45U 
                                                 == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                                 ? vlSelf->CPUTop__DOT__EX__DOT___addr_temp_T_1
-                                                : vlSelf->CPUTop__DOT__EX__DOT___GEN_18);
+                                                : vlSelf->CPUTop__DOT__EX__DOT___GEN_8);
     if ((4U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype))) {
         if ((((0x45U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
               | (0x47U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))) 
@@ -530,14 +530,14 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
                                                                      ((0x45U 
                                                                        == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                                                        ? vlSelf->CPUTop__DOT__EX__DOT___addr_temp_T_1
-                                                                       : vlSelf->CPUTop__DOT__EX__DOT___GEN_18), vlSelf->__Vtask_pmem_read__4__rdata);
+                                                                       : vlSelf->CPUTop__DOT__EX__DOT___GEN_8), vlSelf->__Vtask_pmem_read__4__rdata);
             vlSelf->CPUTop__DOT__mem_rdata = vlSelf->__Vtask_pmem_read__4__rdata;
         } else {
             VCPUTop___024unit____Vdpiimwrap_pmem_write_TOP____024unit(
                                                                       ((0x45U 
                                                                         == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                                                         ? vlSelf->CPUTop__DOT__EX__DOT___addr_temp_T_1
-                                                                        : vlSelf->CPUTop__DOT__EX__DOT___GEN_18), 
+                                                                        : vlSelf->CPUTop__DOT__EX__DOT___GEN_8), 
                                                                       ((0x45U 
                                                                         == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                                                         ? 0ULL
@@ -556,7 +556,53 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
                                                                            : 
                                                                           ((0x70U 
                                                                             == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
-                                                                            ? vlSelf->CPUTop__DOT__EX__DOT__src2
+                                                                            ? 
+                                                                           ((0U 
+                                                                             == 
+                                                                             (3U 
+                                                                              & (IData)(
+                                                                                (vlSelf->CPUTop__DOT__EX__DOT__addr_temp 
+                                                                                >> 1U))))
+                                                                             ? (QData)((IData)(
+                                                                                (0xffffU 
+                                                                                & (IData)(vlSelf->CPUTop__DOT__EX__DOT__src2))))
+                                                                             : 
+                                                                            ((1U 
+                                                                              == 
+                                                                              (3U 
+                                                                               & (IData)(
+                                                                                (vlSelf->CPUTop__DOT__EX__DOT__addr_temp 
+                                                                                >> 1U))))
+                                                                              ? 
+                                                                             ((QData)((IData)(
+                                                                                (0xffffU 
+                                                                                & (IData)(vlSelf->CPUTop__DOT__EX__DOT__src2)))) 
+                                                                              << 0x10U)
+                                                                              : 
+                                                                             ((2U 
+                                                                               == 
+                                                                               (3U 
+                                                                                & (IData)(
+                                                                                (vlSelf->CPUTop__DOT__EX__DOT__addr_temp 
+                                                                                >> 1U))))
+                                                                               ? 
+                                                                              ((QData)((IData)(
+                                                                                (0xffffU 
+                                                                                & (IData)(vlSelf->CPUTop__DOT__EX__DOT__src2)))) 
+                                                                               << 0x20U)
+                                                                               : 
+                                                                              ((3U 
+                                                                                == 
+                                                                                (3U 
+                                                                                & (IData)(
+                                                                                (vlSelf->CPUTop__DOT__EX__DOT__addr_temp 
+                                                                                >> 1U))))
+                                                                                ? 
+                                                                               ((QData)((IData)(
+                                                                                (0xffffU 
+                                                                                & (IData)(vlSelf->CPUTop__DOT__EX__DOT__src2)))) 
+                                                                                << 0x30U)
+                                                                                : 0ULL))))
                                                                             : 0ULL))))), 
                                                                       ((0x45U 
                                                                         == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
@@ -576,14 +622,46 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
                                                                            : 
                                                                           ((0x70U 
                                                                             == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
-                                                                            ? 3U
+                                                                            ? 
+                                                                           ((0U 
+                                                                             == 
+                                                                             (3U 
+                                                                              & (IData)(
+                                                                                (vlSelf->CPUTop__DOT__EX__DOT__addr_temp 
+                                                                                >> 1U))))
+                                                                             ? 3U
+                                                                             : 
+                                                                            ((1U 
+                                                                              == 
+                                                                              (3U 
+                                                                               & (IData)(
+                                                                                (vlSelf->CPUTop__DOT__EX__DOT__addr_temp 
+                                                                                >> 1U))))
+                                                                              ? 0xcU
+                                                                              : 
+                                                                             ((2U 
+                                                                               == 
+                                                                               (3U 
+                                                                                & (IData)(
+                                                                                (vlSelf->CPUTop__DOT__EX__DOT__addr_temp 
+                                                                                >> 1U))))
+                                                                               ? 0x30U
+                                                                               : 
+                                                                              ((3U 
+                                                                                == 
+                                                                                (3U 
+                                                                                & (IData)(
+                                                                                (vlSelf->CPUTop__DOT__EX__DOT__addr_temp 
+                                                                                >> 1U))))
+                                                                                ? 0xc0U
+                                                                                : 0U))))
                                                                             : 0U))))));
             vlSelf->CPUTop__DOT__mem_rdata = 0ULL;
         }
     } else {
         vlSelf->CPUTop__DOT__mem_rdata = 0ULL;
     }
-    vlSelf->CPUTop__DOT__EX__DOT___GEN_26 = ((0x6fU 
+    vlSelf->CPUTop__DOT__EX__DOT___GEN_28 = ((0x6fU 
                                               == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                               ? ((0U 
                                                   == 
@@ -747,7 +825,7 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
                                                                            : 0U))) 
                                                          << 0x20U) 
                                                         | (QData)((IData)(vlSelf->CPUTop__DOT__mem_rdata))))
-                                                       : vlSelf->CPUTop__DOT__EX__DOT___GEN_26))
+                                                       : vlSelf->CPUTop__DOT__EX__DOT___GEN_28))
                                                      : 
                                                     ((5U 
                                                       == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype))
