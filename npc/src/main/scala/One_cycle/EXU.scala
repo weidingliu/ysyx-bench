@@ -89,28 +89,7 @@ class EXU extends Module with paramete {
   val wmask_temp=WireDefault(0.U(masklen.W))
   val wdata_temp=WireDefault(0.U(xlen.W))
   val addr_temp=WireDefault(0.U(xlen.W))
-  switch(io.aluoptype){
-    is(ALUOPType.ld){
-      wmask_temp := 0.U(masklen.W)
-      wdata_temp:= 0.U(xlen.W)
-    }
-    is(ALUOPType.lw) {
-      wmask_temp := 0.U(masklen.W)
-      wdata_temp := 0.U(xlen.W)
-    }
-    is(ALUOPType.lbu) {
-      wmask_temp := 0.U(masklen.W)
-      wdata_temp := 0.U(xlen.W)
-    }
-    is(ALUOPType.sd){
-      wmask_temp := "b11111111".U
-      wdata_temp:= src2
-    }
-    is(ALUOPType.sh) {
-      wmask_temp := "b00000011".U
-      wdata_temp := src2
-    }
-  }
+
   switch(io.aluoptype){
     is(ALUOPType.ld){
       addr_temp := src1 + src2
@@ -128,10 +107,71 @@ class EXU extends Module with paramete {
       addr_temp := src1 + io.Imm
     }
   }
+  switch(io.aluoptype) {
+    is(ALUOPType.ld) {
+      wmask_temp := 0.U(masklen.W)
+      wdata_temp := 0.U(xlen.W)
+    }
+    is(ALUOPType.lw) {
+      wmask_temp := 0.U(masklen.W)
+      wdata_temp := 0.U(xlen.W)
+    }
+    is(ALUOPType.lbu) {
+      wmask_temp := 0.U(masklen.W)
+      wdata_temp := 0.U(xlen.W)
+    }
+    is(ALUOPType.sd) {
+      wmask_temp := "b11111111".U
+      wdata_temp := src2
+    }
+    is(ALUOPType.sh) {
+      switch(addr_temp(2,1)){
+        is("b00".U){
+          wmask_temp := "b00000011".U
+          wdata_temp := Cat(Fill(48,0.U),src2(15, 0))
+        }
+        is("b01".U){
+          wmask_temp := "b00001100".U
+          wdata_temp := Cat(Fill(32,0.U),src2(15, 0),Fill(16,0.U))
+        }
+        is("b10".U) {
+          wmask_temp := "b00110000".U
+          wdata_temp := Cat(Fill(16, 0.U), src2(15, 0), Fill(32, 0.U))
+        }
+        is("b11".U) {
+          wmask_temp := "b11000000".U
+          wdata_temp := Cat( src2(15, 0), Fill(48, 0.U))
 
-  io1.wmask := wmask_temp
-  io1.wdata:=wdata_temp
-  io1.addr:=addr_temp
+        }
+      }
+
+    }
+  }
+  val lb_mem_select = Seq(
+    (addr_temp(2, 0) === "b000".U) -> io1.rdata(7, 0),
+    (addr_temp(2, 0) === "b001".U) -> io1.rdata(15, 8),
+    (addr_temp(2, 0) === "b010".U) -> io1.rdata(23, 16),
+    (addr_temp(2, 0) === "b011".U) -> io1.rdata(31, 24),
+    (addr_temp(2, 0) === "b100".U) -> io1.rdata(39, 32),
+    (addr_temp(2, 0) === "b101".U) -> io1.rdata(47, 40),
+    (addr_temp(2, 0) === "b110".U) -> io1.rdata(55, 48),
+    (addr_temp(2, 0) === "b111".U) -> io1.rdata(63, 56)
+  )
+  val mem_result = WireDefault(0.U(xlen.W))
+  switch(io.aluoptype) {
+    is(ALUOPType.ld) {
+      mem_result := io1.rdata
+    }
+    is(ALUOPType.lw) {
+      mem_result := Mux(addr_temp(2, 2) === 1.U, SIgEXtend(io1.rdata(63, 32), xlen), SIgEXtend(io1.rdata(31, 0), xlen))
+    }
+    is(ALUOPType.lbu) {
+      mem_result := ZeroEXtend(MuxCase(0.U(xlen.W), lb_mem_select), xlen)
+    }
+  }
+
+
+
   //  val src1 :: Nil= ListLookup(io.src1type,List(0.U(xlen.W)),Array(
 //    BitPat(SRCType.R) -> List(io1.REG1),
 //    BitPat(SRCType.PC) -> List(io1.PC),
@@ -168,28 +208,7 @@ class EXU extends Module with paramete {
       shift_result := src1 >> io.Imm(4,0)
     }
   }
-  val lb_mem_select=Seq(
-    (addr_temp(2,0) ==="b000".U) ->io1.rdata(7,0),
-    (addr_temp(2,0) ==="b001".U) ->io1.rdata(15,8),
-    (addr_temp(2,0) ==="b010".U) ->io1.rdata(23,16),
-    (addr_temp(2,0) ==="b011".U) ->io1.rdata(31,24),
-    (addr_temp(2,0) ==="b100".U) ->io1.rdata(39,32),
-    (addr_temp(2,0) ==="b101".U) ->io1.rdata(47,40),
-    (addr_temp(2,0) ==="b110".U) ->io1.rdata(55,48),
-    (addr_temp(2,0) ==="b111".U) ->io1.rdata(63,56)
-  )
-  val mem_result=WireDefault(0.U(xlen.W))
-  switch(io.aluoptype){
-    is(ALUOPType.ld){
-      mem_result := io1.rdata
-    }
-    is(ALUOPType.lw) {
-      mem_result := Mux(addr_temp(2,2)===1.U,SIgEXtend(io1.rdata(63,32),xlen),SIgEXtend(io1.rdata(31,0),xlen))
-    }
-    is(ALUOPType.lbu) {
-      mem_result := ZeroEXtend(MuxCase(0.U(xlen.W),lb_mem_select),xlen)
-    }
-  }
+
 
   val compar_result=WireDefault(0.U(xlen.W))
   switch(io.aluoptype){
@@ -260,5 +279,9 @@ class EXU extends Module with paramete {
 
   io1.dnpc := dnpc
   io1.is_branch := branch_flag
+
+  io1.wmask := wmask_temp
+  io1.wdata := wdata_temp
+  io1.addr := addr_temp
 
 }
