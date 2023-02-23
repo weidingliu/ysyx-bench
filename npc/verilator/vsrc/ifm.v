@@ -1,6 +1,4 @@
-import "DPI-C" function void pmem_read(
-  input longint raddr, output longint rdata);
-  
+
   module ifm(
       input wire [63:0] pc,
       output wire [31:0]inst
