@@ -78,9 +78,9 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
                                                                          == 
                                                                          (0xfe00707fU 
                                                                           & vlSelf->CPUTop__DOT__IFM_inst)) 
-                                                                        | (0x7033U 
+                                                                        | (0x4013U 
                                                                            == 
-                                                                           (0xfe00707fU 
+                                                                           (0x707fU 
                                                                             & vlSelf->CPUTop__DOT__IFM_inst))))))))))))))))))))))))) {
         __Vdlyvval__CPUTop__DOT__rf__v0 = ((0U == (0x1fU 
                                                    & (vlSelf->CPUTop__DOT__IFM_inst 
@@ -336,9 +336,9 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
                                                              & vlSelf->CPUTop__DOT__IFM_inst))
                                                             ? 0x6aU
                                                             : 
-                                                           ((0x7033U 
+                                                           ((0x4013U 
                                                              == 
-                                                             (0xfe00707fU 
+                                                             (0x707fU 
                                                               & vlSelf->CPUTop__DOT__IFM_inst))
                                                              ? 0x72U
                                                              : 
@@ -414,9 +414,9 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
                                                              & vlSelf->CPUTop__DOT__IFM_inst))
                                                             ? 5U
                                                             : 
-                                                           ((0x7033U 
+                                                           ((0x4013U 
                                                              == 
-                                                             (0xfe00707fU 
+                                                             (0x707fU 
                                                               & vlSelf->CPUTop__DOT__IFM_inst))
                                                              ? 8U
                                                              : 0U)))))))))))))));
