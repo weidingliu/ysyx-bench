@@ -52,7 +52,7 @@ object RVI_ALU extends paramete{
       SH -> List(InstrType.InstrS,FUType.mem,ALUOPType.sh,RD.NOP),
       AND -> List(InstrType.InstrR,FUType.alu,ALUOPType.and,RD.write),
       SLTU -> List(InstrType.InstrR,FUType.compar,ALUOPType.sltiu,RD.write),//////////////
-      AND -> List(InstrType.InstrI,FUType.alu,ALUOPType.xor,RD.write),
+      XORI -> List(InstrType.InstrI,FUType.alu,ALUOPType.xor,RD.write),
       Ebreak -> List(InstrType.InstrN,FUType.alu,ALUOPType.ebreak,RD.NOP),
   )
 }
