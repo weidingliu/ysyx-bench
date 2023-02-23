@@ -136,7 +136,7 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
         s->reset = 0;
         
         if(sim_time % 1==0) {
-        
+            printf("here1\n");
             s->io_inst = pem_read(s->io_pc);
             if(i==0){
                 disassemble(p,96,s->io_pc,(uint8_t *)&s->io_inst,4);
