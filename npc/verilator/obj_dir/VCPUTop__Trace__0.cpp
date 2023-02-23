@@ -39,7 +39,7 @@ void VCPUTop___024root__trace_chg_sub_0(VCPUTop___024root* vlSelf, VerilatedVcd:
         bufp->chgBit(oldp+3,(((0x6bU == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                ? (vlSelf->CPUTop__DOT__EX__DOT__src1 
                                   == vlSelf->CPUTop__DOT__EX__DOT__src2)
-                               : (IData)(vlSelf->CPUTop__DOT__EX__DOT___GEN_47))));
+                               : (IData)(vlSelf->CPUTop__DOT__EX__DOT___GEN_48))));
         bufp->chgQData(oldp+4,(vlSelf->CPUTop__DOT__IF__DOT__temp),64);
         bufp->chgIData(oldp+6,(vlSelf->CPUTop__DOT__IFM_inst),32);
         bufp->chgCData(oldp+7,(vlSelf->CPUTop__DOT__ID__DOT___io_ctrlIO_src1type_T_2),3);
@@ -130,10 +130,14 @@ void VCPUTop___024root__trace_chg_sub_0(VCPUTop___024root* vlSelf, VerilatedVcd:
                                                                                 == 
                                                                                 (0xfe00707fU 
                                                                                 & vlSelf->CPUTop__DOT__IFM_inst)) 
-                                                                                | (0x4013U 
+                                                                                | ((0x4013U 
                                                                                 == 
                                                                                 (0x707fU 
-                                                                                & vlSelf->CPUTop__DOT__IFM_inst))))))))))))))))))))))))));
+                                                                                & vlSelf->CPUTop__DOT__IFM_inst)) 
+                                                                                | (0x103bU 
+                                                                                == 
+                                                                                (0xfe00707fU 
+                                                                                & vlSelf->CPUTop__DOT__IFM_inst)))))))))))))))))))))))))));
         bufp->chgBit(oldp+17,((1U & (~ (((0x45U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
                                          | (0x47U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))) 
                                         | (0x6fU == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)))))));
@@ -463,43 +467,54 @@ void VCPUTop___024root__trace_chg_sub_0(VCPUTop___024root* vlSelf, VerilatedVcd:
                                                      == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                                      ? vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_7
                                                      : 0ULL)))))))),64);
-        bufp->chgQData(oldp+244,(((0x6eU == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+        bufp->chgBit(oldp+244,((vlSelf->CPUTop__DOT__EX__DOT___shift_result_T_3[0U] 
+                                >> 0x1fU)));
+        bufp->chgQData(oldp+245,(((0x6eU == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                    ? (vlSelf->CPUTop__DOT__EX__DOT__src1 
                                       >> (0x1fU & (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_Imm)))
-                                   : 0ULL)),64);
-        bufp->chgQData(oldp+246,(((0x6aU == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                                   : ((0x73U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                                       ? (((QData)((IData)(
+                                                           ((vlSelf->CPUTop__DOT__EX__DOT___shift_result_T_3[0U] 
+                                                             >> 0x1fU)
+                                                             ? 0xffffffffU
+                                                             : 0U))) 
+                                           << 0x20U) 
+                                          | (QData)((IData)(
+                                                            vlSelf->CPUTop__DOT__EX__DOT___shift_result_T_3[0U])))
+                                       : 0ULL))),64);
+        bufp->chgQData(oldp+247,(((0x6aU == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                    ? ((vlSelf->CPUTop__DOT__EX__DOT__src1 
                                        < vlSelf->CPUTop__DOT__EX__DOT__src2)
                                        ? 1ULL : 0ULL)
                                    : 0ULL)),64);
-        bufp->chgQData(oldp+248,(((3U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype))
+        bufp->chgQData(oldp+249,(((3U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype))
                                    ? (4ULL + vlSelf->CPUTop__DOT__IF__DOT__temp)
                                    : 0ULL)),64);
-        bufp->chgQData(oldp+250,(((0x6bU == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+        bufp->chgQData(oldp+251,(((0x6bU == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                    ? vlSelf->CPUTop__DOT__EX__DOT___branch_result_T_1
                                    : ((0x6cU == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                        ? vlSelf->CPUTop__DOT__EX__DOT___branch_result_T_1
                                        : 0ULL))),64);
-        bufp->chgCData(oldp+252,(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0),4);
-        bufp->chgCData(oldp+253,((((7U == (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0))
+        bufp->chgCData(oldp+253,(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0),4);
+        bufp->chgCData(oldp+254,((((7U == (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0))
                                     ? 2U : 0U) | ((3U 
                                                    == (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0))
                                                    ? 2U
                                                    : 0U))),2);
-        bufp->chgBit(oldp+254,(vlSelf->CPUTop__DOT__ID__DOT__srctype2));
-        bufp->chgBit(oldp+255,((vlSelf->CPUTop__DOT__IFM_inst 
+        bufp->chgBit(oldp+255,(vlSelf->CPUTop__DOT__ID__DOT__srctype2));
+        bufp->chgBit(oldp+256,((vlSelf->CPUTop__DOT__IFM_inst 
                                 >> 0x1fU)));
-        bufp->chgBit(oldp+256,((1U & (vlSelf->CPUTop__DOT__IFM_inst 
+        bufp->chgBit(oldp+257,((1U & (vlSelf->CPUTop__DOT__IFM_inst 
                                       >> 0x13U))));
-        bufp->chgBit(oldp+257,((vlSelf->CPUTop__DOT__IFM_inst 
+        bufp->chgBit(oldp+258,((vlSelf->CPUTop__DOT__IFM_inst 
                                 >> 0x1fU)));
-        bufp->chgQData(oldp+258,(vlSelf->CPUTop__DOT__IFM__DOT__rdata),64);
+        bufp->chgQData(oldp+259,(vlSelf->CPUTop__DOT__IFM__DOT__rdata),64);
     }
-    bufp->chgBit(oldp+260,(vlSelf->clock));
-    bufp->chgBit(oldp+261,(vlSelf->reset));
-    bufp->chgQData(oldp+262,(vlSelf->io_pc),64);
-    bufp->chgIData(oldp+264,(vlSelf->io_inst),32);
-    bufp->chgQData(oldp+265,(vlSelf->io_result),64);
+    bufp->chgBit(oldp+261,(vlSelf->clock));
+    bufp->chgBit(oldp+262,(vlSelf->reset));
+    bufp->chgQData(oldp+263,(vlSelf->io_pc),64);
+    bufp->chgIData(oldp+265,(vlSelf->io_inst),32);
+    bufp->chgQData(oldp+266,(vlSelf->io_result),64);
 }
 
 void VCPUTop___024root__trace_cleanup(void* voidSelf, VerilatedVcd* /*unused*/) {
