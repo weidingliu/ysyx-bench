@@ -21,10 +21,10 @@ class VCPUTop___024root final : public VerilatedModule {
     VL_IN8(reset,0,0);
     CData/*2:0*/ CPUTop__DOT__ID_io_ctrlIO_futype;
     CData/*6:0*/ CPUTop__DOT__ID_io_ctrlIO_aluoptype;
-    CData/*3:0*/ CPUTop__DOT__ID__DOT___Inst_decode_T_49;
+    CData/*3:0*/ CPUTop__DOT__ID__DOT___Inst_decode_T_51;
     CData/*3:0*/ CPUTop__DOT__ID__DOT__Inst_decode_0;
-    CData/*6:0*/ CPUTop__DOT__ID__DOT___Inst_decode_T_80;
-    CData/*6:0*/ CPUTop__DOT__ID__DOT___Inst_decode_T_81;
+    CData/*6:0*/ CPUTop__DOT__ID__DOT___Inst_decode_T_84;
+    CData/*6:0*/ CPUTop__DOT__ID__DOT___Inst_decode_T_86;
     CData/*0:0*/ CPUTop__DOT__ID__DOT__srctype2;
     CData/*1:0*/ CPUTop__DOT__ID__DOT___io_ctrlIO_src1type_T_2;
     CData/*0:0*/ CPUTop__DOT__EX__DOT___GEN_29;

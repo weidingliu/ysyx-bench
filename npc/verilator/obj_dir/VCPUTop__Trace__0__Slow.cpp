@@ -656,10 +656,14 @@ VL_ATTR_COLD void VCPUTop___024root__trace_full_sub_0(VCPUTop___024root* vlSelf,
                                                                         != 
                                                                         (0x707fU 
                                                                          & vlSelf->io_inst)) 
-                                                                       & (0x1bU 
-                                                                          == 
-                                                                          (0x707fU 
-                                                                           & vlSelf->io_inst)))))))))))))))))));
+                                                                       & ((0x1bU 
+                                                                           == 
+                                                                           (0x707fU 
+                                                                            & vlSelf->io_inst)) 
+                                                                          | (0x33U 
+                                                                             == 
+                                                                             (0xfe00707fU 
+                                                                              & vlSelf->io_inst))))))))))))))))))));
     bufp->fullQData(oldp+246,(((0U == (0x1fU & (vlSelf->io_inst 
                                                 >> 0xfU)))
                                 ? 0ULL : vlSelf->CPUTop__DOT__rf
