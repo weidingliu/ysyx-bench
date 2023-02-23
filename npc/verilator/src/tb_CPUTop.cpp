@@ -156,7 +156,7 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
    
         m_trace->dump(sim_time);
         sim_time++;
-        
+        printf("here\n");
     }
     
     
