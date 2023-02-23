@@ -144,7 +144,7 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
                 if(s->reset==0 && step_print_inst){
                     printf("Addr: %08lx\t %08x\t Inst: %-16s\t\n",s->io_pc,Inst[0],p);
                 }
-                printf("here2\n");
+                
                 sprintf(ibuf[irbuf_point],"Addr: %08lx\t  %08x\t Inst: %-16s\t\n",s->io_pc,s->io_inst,p);
     
     
