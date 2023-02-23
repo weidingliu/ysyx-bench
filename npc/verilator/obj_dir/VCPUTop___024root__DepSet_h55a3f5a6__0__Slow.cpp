@@ -849,7 +849,7 @@ VL_ATTR_COLD void VCPUTop___024root___settle__TOP__0(VCPUTop___024root* vlSelf) 
                                                                             & (IData)(
                                                                                 (vlSelf->CPUTop__DOT__mem_rdata 
                                                                                 >> 0x38U)))))
-                                                         : 0ULL))))))))
+                                                         : 2ULL))))))))
                                               : 0ULL);
     vlSelf->CPUTop__DOT__EX__DOT___GEN_45 = ((3U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype))
                                               ? ((3U 

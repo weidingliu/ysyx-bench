@@ -313,7 +313,7 @@ module EXU(
   wire [31:0] _mem_result_T_8 = mem_result_sign_1 ? 32'hffffffff : 32'h0; // @[Bitwise.scala 74:12]
   wire [63:0] _mem_result_T_9 = {_mem_result_T_8,io1_rdata[31:0]}; // @[Cat.scala 31:58]
   wire [63:0] _mem_result_T_10 = addr_temp[2] ? _mem_result_T_5 : _mem_result_T_9; // @[EXU.scala 169:24]
-  wire [63:0] _mem_result_T_11 = _T_42 ? {{56'd0}, io1_rdata[63:56]} : 64'h0; // @[Mux.scala 101:16]
+  wire [63:0] _mem_result_T_11 = _T_42 ? {{56'd0}, io1_rdata[63:56]} : 64'h2; // @[Mux.scala 101:16]
   wire [63:0] _mem_result_T_12 = _T_39 ? {{56'd0}, io1_rdata[55:48]} : _mem_result_T_11; // @[Mux.scala 101:16]
   wire [63:0] _mem_result_T_13 = _T_36 ? {{56'd0}, io1_rdata[47:40]} : _mem_result_T_12; // @[Mux.scala 101:16]
   wire [63:0] _mem_result_T_14 = _T_33 ? {{56'd0}, io1_rdata[39:32]} : _mem_result_T_13; // @[Mux.scala 101:16]
