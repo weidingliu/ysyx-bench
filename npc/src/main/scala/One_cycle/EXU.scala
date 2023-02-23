@@ -23,6 +23,7 @@ object ALUOPType{
   def srai ="b1101110".U
   def lbu ="b1101111".U
   def sh ="b1110000".U
+  def and ="b1110001".U
   def apply() = UInt(7.W)
 }
 object RD{
@@ -197,6 +198,9 @@ class EXU extends Module with paramete {
     }
     is(ALUOPType.sub){
       alu_result := src1 - src2
+    }
+    is(ALUOPType.and){
+      alu_result := src1 & src2
     }
     is(ALUOPType.addiw){
       alu_result := SIgEXtend((src1 + src2)(31,0),xlen)
