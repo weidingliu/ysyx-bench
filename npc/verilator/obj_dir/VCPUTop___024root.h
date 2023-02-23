@@ -31,6 +31,7 @@ class VCPUTop___024root final : public VerilatedModule {
     CData/*0:0*/ CPUTop__DOT__EX__DOT___GEN_37;
     CData/*0:0*/ __Vclklast__TOP__clock;
     VL_IN(io_inst,31,0);
+    IData/*31:0*/ CPUTop__DOT__IFM_inst;
     VL_OUT64(io_pc,63,0);
     VL_OUT64(io_result,63,0);
     QData/*63:0*/ CPUTop__DOT__ID_io_ctrlIO_Imm;
@@ -38,6 +39,7 @@ class VCPUTop___024root final : public VerilatedModule {
     QData/*63:0*/ CPUTop__DOT__mem_rdata;
     QData/*63:0*/ CPUTop__DOT__IF__DOT__temp;
     QData/*63:0*/ CPUTop__DOT__IF__DOT___temp_T_2;
+    QData/*63:0*/ CPUTop__DOT__IFM__DOT__rdata;
     QData/*63:0*/ CPUTop__DOT__EX__DOT__src1;
     QData/*63:0*/ CPUTop__DOT__EX__DOT__src2;
     QData/*63:0*/ CPUTop__DOT__EX__DOT___addr_temp_T_1;
@@ -48,10 +50,10 @@ class VCPUTop___024root final : public VerilatedModule {
     QData/*63:0*/ CPUTop__DOT__EX__DOT___GEN_26;
     QData/*63:0*/ CPUTop__DOT__EX__DOT___branch_result_T_1;
     QData/*63:0*/ CPUTop__DOT__EX__DOT___dnpc_T_9;
-    QData/*63:0*/ __Vtask_pmem_read__3__rdata;
+    QData/*63:0*/ __Vtask_pmem_read__4__rdata;
     VlUnpacked<QData/*63:0*/, 32> CPUTop__DOT__rf;
     VlUnpacked<QData/*63:0*/, 32> CPUTop__DOT__DIP__DOT__rf;
-    VlUnpacked<CData/*0:0*/, 3> __Vm_traceActivity;
+    VlUnpacked<CData/*0:0*/, 2> __Vm_traceActivity;
 
     // INTERNAL VARIABLES
     VCPUTop__Syms* const vlSymsp;

@@ -7,6 +7,80 @@
 
 #include "VCPUTop___024root.h"
 
+VL_ATTR_COLD void VCPUTop___024root___settle__TOP__0(VCPUTop___024root* vlSelf) {
+    if (false && vlSelf) {}  // Prevent unused
+    VCPUTop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VCPUTop___024root___settle__TOP__0\n"); );
+    // Body
+    vlSelf->io_pc = vlSelf->CPUTop__DOT__IF__DOT__temp;
+    vlSelf->CPUTop__DOT__IF__DOT___temp_T_2 = (4ULL 
+                                               + vlSelf->CPUTop__DOT__IF__DOT__temp);
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0U] = vlSelf->CPUTop__DOT__rf
+        [0U];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[1U] = vlSelf->CPUTop__DOT__rf
+        [1U];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[2U] = vlSelf->CPUTop__DOT__rf
+        [2U];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[3U] = vlSelf->CPUTop__DOT__rf
+        [3U];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[4U] = vlSelf->CPUTop__DOT__rf
+        [4U];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[5U] = vlSelf->CPUTop__DOT__rf
+        [5U];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[6U] = vlSelf->CPUTop__DOT__rf
+        [6U];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[7U] = vlSelf->CPUTop__DOT__rf
+        [7U];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[8U] = vlSelf->CPUTop__DOT__rf
+        [8U];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[9U] = vlSelf->CPUTop__DOT__rf
+        [9U];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0xaU] = vlSelf->CPUTop__DOT__rf
+        [0xaU];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0xbU] = vlSelf->CPUTop__DOT__rf
+        [0xbU];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0xcU] = vlSelf->CPUTop__DOT__rf
+        [0xcU];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0xdU] = vlSelf->CPUTop__DOT__rf
+        [0xdU];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0xeU] = vlSelf->CPUTop__DOT__rf
+        [0xeU];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0xfU] = vlSelf->CPUTop__DOT__rf
+        [0xfU];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x10U] = vlSelf->CPUTop__DOT__rf
+        [0x10U];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x11U] = vlSelf->CPUTop__DOT__rf
+        [0x11U];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x12U] = vlSelf->CPUTop__DOT__rf
+        [0x12U];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x13U] = vlSelf->CPUTop__DOT__rf
+        [0x13U];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x14U] = vlSelf->CPUTop__DOT__rf
+        [0x14U];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x15U] = vlSelf->CPUTop__DOT__rf
+        [0x15U];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x16U] = vlSelf->CPUTop__DOT__rf
+        [0x16U];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x17U] = vlSelf->CPUTop__DOT__rf
+        [0x17U];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x18U] = vlSelf->CPUTop__DOT__rf
+        [0x18U];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x19U] = vlSelf->CPUTop__DOT__rf
+        [0x19U];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x1aU] = vlSelf->CPUTop__DOT__rf
+        [0x1aU];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x1bU] = vlSelf->CPUTop__DOT__rf
+        [0x1bU];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x1cU] = vlSelf->CPUTop__DOT__rf
+        [0x1cU];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x1dU] = vlSelf->CPUTop__DOT__rf
+        [0x1dU];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x1eU] = vlSelf->CPUTop__DOT__rf
+        [0x1eU];
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x1fU] = vlSelf->CPUTop__DOT__rf
+        [0x1fU];
+}
+
 VL_ATTR_COLD void VCPUTop___024root___initial__TOP__0(VCPUTop___024root* vlSelf);
 
 VL_ATTR_COLD void VCPUTop___024root___eval_initial(VCPUTop___024root* vlSelf) {
@@ -16,9 +90,11 @@ VL_ATTR_COLD void VCPUTop___024root___eval_initial(VCPUTop___024root* vlSelf) {
     // Body
     vlSelf->__Vclklast__TOP__clock = vlSelf->clock;
     VCPUTop___024root___initial__TOP__0(vlSelf);
+    vlSelf->__Vm_traceActivity[1U] = 1U;
+    vlSelf->__Vm_traceActivity[0U] = 1U;
 }
 
-VL_ATTR_COLD void VCPUTop___024root___settle__TOP__0(VCPUTop___024root* vlSelf);
+VL_ATTR_COLD void VCPUTop___024root___settle__TOP__1(VCPUTop___024root* vlSelf);
 
 VL_ATTR_COLD void VCPUTop___024root___eval_settle(VCPUTop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
@@ -26,9 +102,9 @@ VL_ATTR_COLD void VCPUTop___024root___eval_settle(VCPUTop___024root* vlSelf) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    VCPUTop___024root___eval_settle\n"); );
     // Body
     VCPUTop___024root___settle__TOP__0(vlSelf);
-    vlSelf->__Vm_traceActivity[2U] = 1U;
     vlSelf->__Vm_traceActivity[1U] = 1U;
     vlSelf->__Vm_traceActivity[0U] = 1U;
+    VCPUTop___024root___settle__TOP__1(vlSelf);
 }
 
 VL_ATTR_COLD void VCPUTop___024root___final(VCPUTop___024root* vlSelf) {
@@ -47,6 +123,7 @@ VL_ATTR_COLD void VCPUTop___024root___ctor_var_reset(VCPUTop___024root* vlSelf) 
     vlSelf->io_pc = VL_RAND_RESET_Q(64);
     vlSelf->io_inst = VL_RAND_RESET_I(32);
     vlSelf->io_result = VL_RAND_RESET_Q(64);
+    vlSelf->CPUTop__DOT__IFM_inst = VL_RAND_RESET_I(32);
     vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype = VL_RAND_RESET_I(3);
     vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype = VL_RAND_RESET_I(7);
     vlSelf->CPUTop__DOT__ID_io_ctrlIO_Imm = VL_RAND_RESET_Q(64);
@@ -57,6 +134,7 @@ VL_ATTR_COLD void VCPUTop___024root___ctor_var_reset(VCPUTop___024root* vlSelf) 
     vlSelf->CPUTop__DOT__mem_rdata = VL_RAND_RESET_Q(64);
     vlSelf->CPUTop__DOT__IF__DOT__temp = VL_RAND_RESET_Q(64);
     vlSelf->CPUTop__DOT__IF__DOT___temp_T_2 = VL_RAND_RESET_Q(64);
+    vlSelf->CPUTop__DOT__IFM__DOT__rdata = VL_RAND_RESET_Q(64);
     vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_57 = VL_RAND_RESET_I(4);
     vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0 = VL_RAND_RESET_I(4);
     vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_77 = VL_RAND_RESET_I(3);
@@ -78,8 +156,8 @@ VL_ATTR_COLD void VCPUTop___024root___ctor_var_reset(VCPUTop___024root* vlSelf) 
     for (int __Vi0=0; __Vi0<32; ++__Vi0) {
         vlSelf->CPUTop__DOT__DIP__DOT__rf[__Vi0] = VL_RAND_RESET_Q(64);
     }
-    vlSelf->__Vtask_pmem_read__3__rdata = 0;
-    for (int __Vi0=0; __Vi0<3; ++__Vi0) {
+    vlSelf->__Vtask_pmem_read__4__rdata = 0;
+    for (int __Vi0=0; __Vi0<2; ++__Vi0) {
         vlSelf->__Vm_traceActivity[__Vi0] = VL_RAND_RESET_I(1);
     }
 }
