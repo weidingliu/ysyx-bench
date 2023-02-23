@@ -20,6 +20,7 @@ object ALUOPType{
   def beq ="b1101011".U
   def bne ="b1101100".U
   def addiw ="b1101101".U
+  def srai ="b1101110".U
   def apply() = UInt(7.W)
 }
 object RD{
@@ -145,6 +146,13 @@ class EXU extends Module with paramete {
       alu_result := SIgEXtend((src1 + src2)(31,0),xlen)
     }
   }
+  val shift_result=WireDefault(0.U(xlen.W))
+  switch(io.aluoptype){
+    is(ALUOPType.srai){
+      shift_result := src1 >> io.Imm(4,0)
+    }
+  }
+
   val mem_result=WireDefault(0.U(xlen.W))
   switch(io.aluoptype){
     is(ALUOPType.ld){
@@ -177,7 +185,7 @@ class EXU extends Module with paramete {
       result_tem := 0.U(xlen.W)
     }
     is(FUType.shift){
-      result_tem:= 0.U(xlen.W)
+      result_tem:= shift_result
     }
     is(FUType.mem){
       result_tem := mem_result
