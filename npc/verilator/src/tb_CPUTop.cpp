@@ -130,6 +130,7 @@ uint32_t pem_read(uint64_t pc){
 void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     char p[128];
     void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
+    uint32_t inst;
     for(int i=0;i<2 && (! contextp->gotFinish());i++){
         s->clock ^=1;
         
@@ -137,15 +138,15 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
         
         if(sim_time % 1==0) {
             
-            s->io_inst = pem_read(s->io_pc);
+            inst = pem_read(s->io_pc);
             if(i==0){
-                disassemble(p,96,s->io_pc,(uint8_t *)&s->io_inst,4);
+                disassemble(p,96,s->io_pc,(uint8_t *)&inst,4);
       
                 if(s->reset==0 && step_print_inst){
                     printf("Addr: %08lx\t %08x\t Inst: %-16s\t\n",s->io_pc,Inst[0],p);
                 }
                 
-                sprintf(ibuf[irbuf_point],"Addr: %08lx\t  %08x\t Inst: %-16s\t\n",s->io_pc,s->io_inst,p);
+                sprintf(ibuf[irbuf_point],"Addr: %08lx\t  %08x\t Inst: %-16s\t\n",s->io_pc,inst,p);
     
     
                 irbuf_point=(irbuf_point+1)%IRTRACE;

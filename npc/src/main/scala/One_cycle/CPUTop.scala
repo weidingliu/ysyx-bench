@@ -9,6 +9,12 @@ class DIP_model extends BlackBox{
     val inst=Input(UInt(32.W))
   })
 }
+class ifm extends BlackBox{
+  val io = IO(new Bundle() {
+    val pc = Input(UInt(64.W))
+    val inst = Output(UInt(32.W))
+  })
+}
 
 class MEM extends BlackBox{
   val io=IO(new Bundle() {
@@ -31,6 +37,8 @@ class CPUTop extends Module with paramete{
   })
   val IF=Module(new IFU)
 
+  val IFM =Module(new ifm)
+
   val ID = Module(new IDU)
 
   val EX = Module(new EXU)
@@ -43,7 +51,9 @@ class CPUTop extends Module with paramete{
 
   io.pc := IF.io.pc
 
-  ID.io.inst := io.inst
+  IFM.io.pc := IF.io.pc
+
+  ID.io.inst := IFM.io.inst
 
   ID.io.ctrlIO <> EX.io
   EX.io1.PC := IF.io.pc
