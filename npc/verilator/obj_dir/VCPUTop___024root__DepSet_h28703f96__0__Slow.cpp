@@ -26,7 +26,6 @@ VL_ATTR_COLD void VCPUTop___024root___eval_settle(VCPUTop___024root* vlSelf) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    VCPUTop___024root___eval_settle\n"); );
     // Body
     VCPUTop___024root___settle__TOP__0(vlSelf);
-    vlSelf->__Vm_traceActivity[2U] = 1U;
     vlSelf->__Vm_traceActivity[1U] = 1U;
     vlSelf->__Vm_traceActivity[0U] = 1U;
 }
@@ -47,6 +46,7 @@ VL_ATTR_COLD void VCPUTop___024root___ctor_var_reset(VCPUTop___024root* vlSelf) 
     vlSelf->io_pc = VL_RAND_RESET_Q(64);
     vlSelf->io_inst = VL_RAND_RESET_I(32);
     vlSelf->io_result = VL_RAND_RESET_Q(64);
+    vlSelf->CPUTop__DOT__IFM_inst = VL_RAND_RESET_I(32);
     vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype = VL_RAND_RESET_I(3);
     vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype = VL_RAND_RESET_I(7);
     vlSelf->CPUTop__DOT__ID_io_ctrlIO_Imm = VL_RAND_RESET_Q(64);
@@ -57,26 +57,34 @@ VL_ATTR_COLD void VCPUTop___024root___ctor_var_reset(VCPUTop___024root* vlSelf) 
     vlSelf->CPUTop__DOT__mem_rdata = VL_RAND_RESET_Q(64);
     vlSelf->CPUTop__DOT__IF__DOT__temp = VL_RAND_RESET_Q(64);
     vlSelf->CPUTop__DOT__IF__DOT___temp_T_2 = VL_RAND_RESET_Q(64);
-    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_49 = VL_RAND_RESET_I(4);
+    vlSelf->CPUTop__DOT__IFM__DOT__rdata = VL_RAND_RESET_Q(64);
+    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_69 = VL_RAND_RESET_I(4);
     vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0 = VL_RAND_RESET_I(4);
-    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_80 = VL_RAND_RESET_I(7);
-    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_81 = VL_RAND_RESET_I(7);
+    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_97 = VL_RAND_RESET_I(3);
+    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_120 = VL_RAND_RESET_I(7);
+    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_131 = VL_RAND_RESET_I(7);
+    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_150 = VL_RAND_RESET_I(1);
     vlSelf->CPUTop__DOT__ID__DOT__srctype2 = VL_RAND_RESET_I(1);
     vlSelf->CPUTop__DOT__ID__DOT___io_ctrlIO_src1type_T_2 = VL_RAND_RESET_I(2);
     vlSelf->CPUTop__DOT__EX__DOT__src1 = VL_RAND_RESET_Q(64);
     vlSelf->CPUTop__DOT__EX__DOT__src2 = VL_RAND_RESET_Q(64);
     vlSelf->CPUTop__DOT__EX__DOT___addr_temp_T_1 = VL_RAND_RESET_Q(64);
     vlSelf->CPUTop__DOT__EX__DOT___addr_temp_T_3 = VL_RAND_RESET_Q(64);
-    vlSelf->CPUTop__DOT__EX__DOT___GEN_12 = VL_RAND_RESET_Q(64);
+    vlSelf->CPUTop__DOT__EX__DOT___GEN_8 = VL_RAND_RESET_Q(64);
+    vlSelf->CPUTop__DOT__EX__DOT__addr_temp = VL_RAND_RESET_Q(64);
+    vlSelf->CPUTop__DOT__EX__DOT___GEN_28 = VL_RAND_RESET_Q(64);
     vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_7 = VL_RAND_RESET_Q(64);
+    VL_RAND_RESET_W(95, vlSelf->CPUTop__DOT__EX__DOT___shift_result_T_3);
+    vlSelf->CPUTop__DOT__EX__DOT___GEN_45 = VL_RAND_RESET_Q(64);
     vlSelf->CPUTop__DOT__EX__DOT___branch_result_T_1 = VL_RAND_RESET_Q(64);
-    vlSelf->CPUTop__DOT__EX__DOT___GEN_29 = VL_RAND_RESET_I(1);
+    vlSelf->CPUTop__DOT__EX__DOT___GEN_48 = VL_RAND_RESET_I(1);
     vlSelf->CPUTop__DOT__EX__DOT___dnpc_T_9 = VL_RAND_RESET_Q(64);
     for (int __Vi0=0; __Vi0<32; ++__Vi0) {
         vlSelf->CPUTop__DOT__DIP__DOT__rf[__Vi0] = VL_RAND_RESET_Q(64);
     }
-    vlSelf->__Vtask_pmem_read__3__rdata = 0;
-    for (int __Vi0=0; __Vi0<3; ++__Vi0) {
+    vlSelf->__Vtask_pmem_read__0__rdata = 0;
+    vlSelf->__Vtask_pmem_read__4__rdata = 0;
+    for (int __Vi0=0; __Vi0<2; ++__Vi0) {
         vlSelf->__Vm_traceActivity[__Vi0] = VL_RAND_RESET_I(1);
     }
 }

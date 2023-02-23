@@ -4,7 +4,7 @@
 #define is_batch_mode 0
 #define mtrace 1
 
-#define MAX_SIM_TIME 2000
+#define MAX_SIM_TIME 4000
 
 #define MAX_PRINT_STEP 10
 
@@ -17,6 +17,7 @@ typedef struct reg_cpu{
     uint64_t pc;
 }cpu_state;
 
+extern const char *reg_name[];
 
 
 enum { DIFFTEST_TO_DUT, DIFFTEST_TO_REF };

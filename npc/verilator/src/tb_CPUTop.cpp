@@ -15,6 +15,13 @@
 
 #include <tb.h>
 #include <difftest.h>
+
+const char *reg_name[] = {
+  "$0", "ra", "sp", "gp", "tp", "t0", "t1", "t2",
+  "s0", "s1", "a0", "a1", "a2", "a3", "a4", "a5",
+  "a6", "a7", "s2", "s3", "s4", "s5", "s6", "s7",
+  "s8", "s9", "s10", "s11", "t3", "t4", "t5", "t6"
+};
 //char ref_so_file="/home/liuweiding/ysyx-workbench/nemu/build/riscv64-nemu-interpreter-so";
 
 /*
@@ -73,7 +80,7 @@ static void display_iringbuf(){
 void dump_gpr() {
   int i;
   for (i = 0; i < 32; i++) {
-    printf("gpr[%d] = 0x%lx\n", i, cpu_gpr[i]);
+    printf("%s:  gpr[%d] = 0x%lx\n", reg_name[i],i, cpu_gpr[i]);
   }
 }
 
@@ -130,21 +137,23 @@ uint32_t pem_read(uint64_t pc){
 void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     char p[128];
     void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
+    uint32_t inst;
     for(int i=0;i<2 && (! contextp->gotFinish());i++){
         s->clock ^=1;
         
         s->reset = 0;
         
         if(sim_time % 1==0) {
-        
-            s->io_inst = pem_read(s->io_pc);
+            
+            inst = pem_read(s->io_pc);
             if(i==0){
-                disassemble(p,96,s->io_pc,(uint8_t *)&s->io_inst,4);
+                disassemble(p,96,s->io_pc,(uint8_t *)&inst,4);
       
                 if(s->reset==0 && step_print_inst){
                     printf("Addr: %08lx\t %08x\t Inst: %-16s\t\n",s->io_pc,Inst[0],p);
                 }
-                sprintf(ibuf[irbuf_point],"Addr: %08lx\t  %08x\t Inst: %-16s\t\n",s->io_pc,s->io_inst,p);
+                
+                sprintf(ibuf[irbuf_point],"Addr: %08lx\t  %08x\t Inst: %-16s\t\n",s->io_pc,inst,p);
     
     
                 irbuf_point=(irbuf_point+1)%IRTRACE;
@@ -153,7 +162,6 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
         }
         
         s->eval();
-   
         m_trace->dump(sim_time);
         sim_time++;
         
