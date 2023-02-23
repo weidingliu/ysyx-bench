@@ -22,6 +22,7 @@ object ALUOPType{
   def addiw ="b1101101".U
   def srai ="b1101110".U
   def lbu ="b1101111".U
+  def sh ="b1110000".U
   def apply() = UInt(7.W)
 }
 object RD{
@@ -105,6 +106,10 @@ class EXU extends Module with paramete {
       wmask_temp := "b11111111".U
       wdata_temp:= src2
     }
+    is(ALUOPType.sh) {
+      wmask_temp := "b00000011".U
+      wdata_temp := src2
+    }
   }
   switch(io.aluoptype){
     is(ALUOPType.ld){
@@ -112,6 +117,9 @@ class EXU extends Module with paramete {
     }
     is(ALUOPType.sd){
       addr_temp := src1+io.Imm
+    }
+    is(ALUOPType.sh) {
+      addr_temp := src1 + io.Imm
     }
     is(ALUOPType.lw) {
       addr_temp := src1+io.Imm
