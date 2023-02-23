@@ -73,7 +73,7 @@ static void display_iringbuf(){
 void dump_gpr() {
   int i;
   for (i = 0; i < 32; i++) {
-    printf("%s  gpr[%d] = 0x%lx\n", regs[i],i, cpu_gpr[i]);
+    printf("%s  gpr[%d] = 0x%lx\n", reg_name[i],i, cpu_gpr[i]);
   }
 }
 
