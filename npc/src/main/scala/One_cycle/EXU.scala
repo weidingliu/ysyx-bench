@@ -25,6 +25,7 @@ object ALUOPType{
   def sh ="b1110000".U
   def and ="b1110001".U
   def xor ="b1110010".U
+  def sllw ="b1110011".U
   def apply() = UInt(7.W)
 }
 object RD{
@@ -214,6 +215,10 @@ class EXU extends Module with paramete {
   switch(io.aluoptype){
     is(ALUOPType.srai){
       shift_result := src1 >> io.Imm(4,0)
+    }
+    is(ALUOPType.sllw){
+
+      shift_result :=SIgEXtend((src1 << src2(4,0))(31,0),xlen)
     }
   }
 
