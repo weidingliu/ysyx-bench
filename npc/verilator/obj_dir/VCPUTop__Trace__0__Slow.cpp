@@ -415,74 +415,7 @@ VL_ATTR_COLD void VCPUTop___024root__trace_full_sub_0(VCPUTop___024root* vlSelf,
                                                   == 
                                                   (0x707fU 
                                                    & vlSelf->CPUTop__DOT__IFM_inst)) 
-                                                 | ((0x3023U 
-                                                     != 
-                                                     (0x707fU 
-                                                      & vlSelf->CPUTop__DOT__IFM_inst)) 
-                                                    & ((0x2003U 
-                                                        == 
-                                                        (0x707fU 
-                                                         & vlSelf->CPUTop__DOT__IFM_inst)) 
-                                                       | ((0x3bU 
-                                                           == 
-                                                           (0xfe00707fU 
-                                                            & vlSelf->CPUTop__DOT__IFM_inst)) 
-                                                          | ((0x40000033U 
-                                                              == 
-                                                              (0xfe00707fU 
-                                                               & vlSelf->CPUTop__DOT__IFM_inst)) 
-                                                             | ((0x3013U 
-                                                                 == 
-                                                                 (0x707fU 
-                                                                  & vlSelf->CPUTop__DOT__IFM_inst)) 
-                                                                | ((0x63U 
-                                                                    != 
-                                                                    (0x707fU 
-                                                                     & vlSelf->CPUTop__DOT__IFM_inst)) 
-                                                                   & ((0x1063U 
-                                                                       != 
-                                                                       (0x707fU 
-                                                                        & vlSelf->CPUTop__DOT__IFM_inst)) 
-                                                                      & ((0x1bU 
-                                                                          == 
-                                                                          (0x707fU 
-                                                                           & vlSelf->CPUTop__DOT__IFM_inst)) 
-                                                                         | ((0x33U 
-                                                                             == 
-                                                                             (0xfe00707fU 
-                                                                              & vlSelf->CPUTop__DOT__IFM_inst)) 
-                                                                            | ((0x40005013U 
-                                                                                == 
-                                                                                (0xfc00707fU 
-                                                                                & vlSelf->CPUTop__DOT__IFM_inst)) 
-                                                                               | ((0x4003U 
-                                                                                == 
-                                                                                (0x707fU 
-                                                                                & vlSelf->CPUTop__DOT__IFM_inst)) 
-                                                                                | ((0x1023U 
-                                                                                != 
-                                                                                (0x707fU 
-                                                                                & vlSelf->CPUTop__DOT__IFM_inst)) 
-                                                                                & ((0x7033U 
-                                                                                == 
-                                                                                (0xfe00707fU 
-                                                                                & vlSelf->CPUTop__DOT__IFM_inst)) 
-                                                                                | ((0x3033U 
-                                                                                == 
-                                                                                (0xfe00707fU 
-                                                                                & vlSelf->CPUTop__DOT__IFM_inst)) 
-                                                                                | ((0x4013U 
-                                                                                == 
-                                                                                (0x707fU 
-                                                                                & vlSelf->CPUTop__DOT__IFM_inst)) 
-                                                                                | ((0x103bU 
-                                                                                == 
-                                                                                (0xfe00707fU 
-                                                                                & vlSelf->CPUTop__DOT__IFM_inst)) 
-                                                                                | (0x7013U 
-                                                                                == 
-                                                                                (0x707fU 
-                                                                                & vlSelf->CPUTop__DOT__IFM_inst))))))))))))))))))))))))))));
+                                                 | (IData)(vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_150)))))))))));
     bufp->fullBit(oldp+18,((1U & (~ (((0x45U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
                                       | (0x47U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))) 
                                      | (0x6fU == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)))))));
