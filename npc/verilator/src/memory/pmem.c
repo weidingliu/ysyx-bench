@@ -3,12 +3,7 @@
 #include <cstring>
 #include <cassert>
 #include <tb.h>
-/*#define MAX_MEM 0x2000000
 
-
-
-uint8_t pmem[MAX_MEM];
-*/
 extern "C" void pmem_read(long long addr, long long *rdata) {
   // 总是读取地址为`raddr & ~0x7ull`的8字节返回给`rdata`
   //printf("%016llx  %016llx\n",(addr & ~0x7ull)-RESET_VECTOR,addr);
