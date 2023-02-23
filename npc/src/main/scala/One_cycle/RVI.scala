@@ -20,6 +20,7 @@ object RVI_ALU extends paramete{
   def BEQ = BitPat("b???????_?????_?????_000_?????_1100011")
   def BNE =BitPat("b???????_?????_?????_001_?????_1100011")
   def ADDIW = BitPat("b???????_?????_?????_000_?????_0011011")
+  def ADD = BitPat("b0000000_?????_?????_000_?????_0110011")
   def Ebreak = BitPat("b0000000_00001_00000_000_00000_1110011")
 
   val table =Array(
@@ -39,6 +40,7 @@ object RVI_ALU extends paramete{
       BEQ -> List(InstrType.InstrB,FUType.branch,ALUOPType.beq,RD.NOP),
       BNE -> List(InstrType.InstrB,FUType.branch,ALUOPType.bne,RD.NOP),
       ADDIW -> List(InstrType.InstrI,FUType.alu,ALUOPType.addiw,RD.write),
+      ADD -> List(InstrType.InstrR,FUType.alu,ALUOPType.add,RD.write),
       Ebreak -> List(InstrType.InstrN,FUType.alu,ALUOPType.ebreak,RD.NOP),
   )
 }
