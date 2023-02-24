@@ -30,7 +30,7 @@ class VCPUTop___024root final : public VerilatedModule {
     CData/*0:0*/ CPUTop__DOT__ID__DOT__srctype2;
     CData/*1:0*/ CPUTop__DOT__ID__DOT___io_ctrlIO_src1type_T_2;
     CData/*7:0*/ CPUTop__DOT__EX__DOT___GEN_21;
-    CData/*0:0*/ CPUTop__DOT__EX__DOT___GEN_52;
+    CData/*0:0*/ CPUTop__DOT__EX__DOT___GEN_53;
     CData/*0:0*/ __Vclklast__TOP__clock;
     VL_IN(io_inst,31,0);
     IData/*31:0*/ CPUTop__DOT__IFM_inst;
@@ -52,7 +52,7 @@ class VCPUTop___024root final : public VerilatedModule {
     QData/*63:0*/ CPUTop__DOT__EX__DOT___wdata_temp_T_21;
     QData/*63:0*/ CPUTop__DOT__EX__DOT___GEN_31;
     QData/*63:0*/ CPUTop__DOT__EX__DOT___alu_result_T_7;
-    QData/*63:0*/ CPUTop__DOT__EX__DOT___GEN_47;
+    QData/*63:0*/ CPUTop__DOT__EX__DOT___GEN_48;
     QData/*63:0*/ CPUTop__DOT__EX__DOT___branch_result_T_1;
     QData/*63:0*/ CPUTop__DOT__EX__DOT___dnpc_T_9;
     QData/*63:0*/ __Vtask_pmem_read__0__rdata;
