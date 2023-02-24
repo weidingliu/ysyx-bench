@@ -29,6 +29,7 @@ object ALUOPType{
   def sb ="b1110100".U
   def srli = "b1110101".U
   def bge = "b1110110".U
+  def sw = "b1110111".U
   def apply() = UInt(7.W)
 }
 object RD{
@@ -136,6 +137,9 @@ class EXU extends Module with paramete {
     is(ALUOPType.sb) {
       addr_temp := src1 + io.Imm
     }
+    is(ALUOPType.sw) {
+      addr_temp := src1 + io.Imm
+    }
   }
   switch(io.aluoptype) {
     is(ALUOPType.ld) {
@@ -178,6 +182,10 @@ class EXU extends Module with paramete {
     is(ALUOPType.sb) {
       wmask_temp := MuxCase(0.U(8.W), sb_wmask)
       wdata_temp := MuxCase(0.U(xlen.W), sb_wdata)
+    }
+    is(ALUOPType.sw){
+      wmask_temp := Mux(addr_temp(2,2)===1.U,"b11110000".U,"b00001111".U)
+      wdata_temp := Mux(addr_temp(2,2)===1.U,Cat(src2(31,0),Fill(32,0.U)),Cat(Fill(32,0.U),src2(31,0)))
     }
   }
   val lb_mem_select = Seq(
