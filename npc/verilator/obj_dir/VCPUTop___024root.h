@@ -29,7 +29,8 @@ class VCPUTop___024root final : public VerilatedModule {
     CData/*0:0*/ CPUTop__DOT__ID__DOT___Inst_decode_T_156;
     CData/*0:0*/ CPUTop__DOT__ID__DOT__srctype2;
     CData/*1:0*/ CPUTop__DOT__ID__DOT___io_ctrlIO_src1type_T_2;
-    CData/*0:0*/ CPUTop__DOT__EX__DOT___GEN_48;
+    CData/*7:0*/ CPUTop__DOT__EX__DOT___GEN_21;
+    CData/*0:0*/ CPUTop__DOT__EX__DOT___GEN_51;
     CData/*0:0*/ __Vclklast__TOP__clock;
     VL_IN(io_inst,31,0);
     IData/*31:0*/ CPUTop__DOT__IFM_inst;
@@ -46,11 +47,12 @@ class VCPUTop___024root final : public VerilatedModule {
     QData/*63:0*/ CPUTop__DOT__EX__DOT__src2;
     QData/*63:0*/ CPUTop__DOT__EX__DOT___addr_temp_T_1;
     QData/*63:0*/ CPUTop__DOT__EX__DOT___addr_temp_T_3;
-    QData/*63:0*/ CPUTop__DOT__EX__DOT___GEN_8;
+    QData/*63:0*/ CPUTop__DOT__EX__DOT___GEN_9;
     QData/*63:0*/ CPUTop__DOT__EX__DOT__addr_temp;
-    QData/*63:0*/ CPUTop__DOT__EX__DOT___GEN_28;
+    QData/*63:0*/ CPUTop__DOT__EX__DOT___wdata_temp_T_21;
+    QData/*63:0*/ CPUTop__DOT__EX__DOT___GEN_31;
     QData/*63:0*/ CPUTop__DOT__EX__DOT___alu_result_T_7;
-    QData/*63:0*/ CPUTop__DOT__EX__DOT___GEN_45;
+    QData/*63:0*/ CPUTop__DOT__EX__DOT___GEN_48;
     QData/*63:0*/ CPUTop__DOT__EX__DOT___branch_result_T_1;
     QData/*63:0*/ CPUTop__DOT__EX__DOT___dnpc_T_9;
     QData/*63:0*/ __Vtask_pmem_read__0__rdata;
