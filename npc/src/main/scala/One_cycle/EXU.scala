@@ -150,9 +150,9 @@ class EXU extends Module with paramete {
 
         }
       }
-      is(ALUOPType.sb){
-
-      }
+//      is(ALUOPType.sb){
+//
+//      }
 
     }
   }
