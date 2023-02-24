@@ -104,7 +104,7 @@ void init_mem(char *file_path){
     fseek(fp, 0, SEEK_SET);
     //printf("%x\n",*(uint32_t *)(mem+0x24c));
     size_t o=fread(mem,size,1,fp);
-    printf("%ld\n",o);
+    //printf("%ld\n",o);
     //printf("%x\n",*(uint32_t *)(mem+0x24c));
     if(o==0){
         printf("fail load mem file \n");
