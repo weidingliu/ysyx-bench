@@ -58,12 +58,12 @@ VL_ATTR_COLD void VCPUTop___024root___ctor_var_reset(VCPUTop___024root* vlSelf) 
     vlSelf->CPUTop__DOT__IF__DOT__temp = VL_RAND_RESET_Q(64);
     vlSelf->CPUTop__DOT__IF__DOT___temp_T_2 = VL_RAND_RESET_Q(64);
     vlSelf->CPUTop__DOT__IFM__DOT__rdata = VL_RAND_RESET_Q(64);
-    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_71 = VL_RAND_RESET_I(4);
+    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_73 = VL_RAND_RESET_I(4);
     vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0 = VL_RAND_RESET_I(4);
-    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_98 = VL_RAND_RESET_I(3);
-    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_124 = VL_RAND_RESET_I(7);
-    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_136 = VL_RAND_RESET_I(7);
-    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_156 = VL_RAND_RESET_I(1);
+    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_101 = VL_RAND_RESET_I(3);
+    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_128 = VL_RAND_RESET_I(7);
+    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_141 = VL_RAND_RESET_I(7);
+    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_162 = VL_RAND_RESET_I(1);
     vlSelf->CPUTop__DOT__ID__DOT__srctype2 = VL_RAND_RESET_I(1);
     vlSelf->CPUTop__DOT__ID__DOT___io_ctrlIO_src1type_T_2 = VL_RAND_RESET_I(2);
     vlSelf->CPUTop__DOT__EX__DOT__src1 = VL_RAND_RESET_Q(64);

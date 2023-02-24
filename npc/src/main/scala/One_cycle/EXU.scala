@@ -252,6 +252,9 @@ class EXU extends Module with paramete {
     is(ALUOPType.sll) {
       shift_result := src1 << src2(5, 0).asUInt
     }
+    is(ALUOPType.srli){
+      shift_result :=
+    }
   }
 
 
