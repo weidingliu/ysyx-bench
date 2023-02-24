@@ -30,6 +30,7 @@ object RVI_ALU extends paramete{
   def SLLW = BitPat("b0000000_?????_?????_001_?????_0111011")
   def ANDI = BitPat("b???????_?????_?????_111_?????_0010011")
   def OR =BitPat("b0000000_?????_?????_110_?????_0110011")
+  def SB =BitPat("b??????? ????? ????? 000 ????? 01000 11")
   def Ebreak = BitPat("b0000000_00001_00000_000_00000_1110011")
 
   val table =Array(
@@ -59,6 +60,7 @@ object RVI_ALU extends paramete{
       SLLW -> List(InstrType.InstrR,FUType.shift,ALUOPType.sllw,RD.write),
       ANDI -> List(InstrType.InstrI,FUType.alu,ALUOPType.and,RD.write),
       OR -> List(InstrType.InstrR,FUType.alu,ALUOPType.or,RD.write),
+      SB -> List(InstrType.InstrS,FUType.mem,ALUOPType.sb,RD.NOP),
       Ebreak -> List(InstrType.InstrN,FUType.alu,ALUOPType.ebreak,RD.NOP),
   )
 }

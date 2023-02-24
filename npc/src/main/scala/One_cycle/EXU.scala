@@ -26,6 +26,7 @@ object ALUOPType{
   def and ="b1110001".U
   def xor ="b1110010".U
   def sllw ="b1110011".U
+  def sb ="b1110100".U
   def apply() = UInt(7.W)
 }
 object RD{
@@ -93,6 +94,8 @@ class EXU extends Module with paramete {
   val wdata_temp=WireDefault(0.U(xlen.W))
   val addr_temp=WireDefault(0.U(xlen.W))
 
+  val
+
   switch(io.aluoptype){
     is(ALUOPType.ld){
       addr_temp := src1 + src2
@@ -147,6 +150,9 @@ class EXU extends Module with paramete {
 
         }
       }
+      is(ALUOPType.sb){
+
+      }
 
     }
   }
@@ -169,7 +175,7 @@ class EXU extends Module with paramete {
       mem_result := Mux(addr_temp(2, 2) === 1.U, SIgEXtend(io1.rdata(63, 32), xlen), SIgEXtend(io1.rdata(31, 0), xlen))
     }
     is(ALUOPType.lbu) {
-      mem_result := ZeroEXtend(MuxCase(2.U(xlen.W), lb_mem_select), xlen)
+      mem_result := ZeroEXtend(MuxCase(0.U(xlen.W), lb_mem_select), xlen)
     }
   }
 
