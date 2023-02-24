@@ -28,6 +28,7 @@ object ALUOPType{
   def sllw ="b1110011".U
   def sb ="b1110100".U
   def srli = "b1110101".U
+  def bge = "b1110110".U
   def apply() = UInt(7.W)
 }
 object RD{
@@ -303,6 +304,10 @@ class EXU extends Module with paramete {
       is(ALUOPType.bne) {
         branch_result := io1.PC + io.Imm
         branch_flag := Mux(src1 =/= src2, 1.U, 0.U)
+      }
+      is(ALUOPType.bge){
+        branch_result := io1.PC + io.Imm
+        branch_flag := Mux(src1.asUInt >= src2.asUInt, 1.U, 0.U)
       }
     }
 
