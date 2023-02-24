@@ -94,7 +94,7 @@ class EXU extends Module with paramete {
   val wdata_temp=WireDefault(0.U(xlen.W))
   val addr_temp=WireDefault(0.U(xlen.W))
 
-  val
+  //val
 
   switch(io.aluoptype){
     is(ALUOPType.ld){
