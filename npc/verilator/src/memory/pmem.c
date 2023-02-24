@@ -30,6 +30,7 @@ extern "C" void pmem_write(long long addr, long long wdata, char wmask) {
       //printf("here%x\n",loop);
           if((((addr & ~0x7ull)-RESET_VECTOR+i)>MAX_MEM) ) assert(0);
           memcpy(mem+(addr& ~0x7ull)-RESET_VECTOR+i,temp,sizeof(uint8_t));
+          printf("%x\n",temp);
       }
       //printf("%d  %x  \n",i,loop);
       temp++;
