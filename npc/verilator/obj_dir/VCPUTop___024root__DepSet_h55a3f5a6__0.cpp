@@ -74,7 +74,11 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
                                                     ((0x6cU 
                                                       == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                                       ? vlSelf->CPUTop__DOT__EX__DOT___dnpc_T_9
-                                                      : 0ULL))))
+                                                      : 
+                                                     ((0x76U 
+                                                       == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                                                       ? vlSelf->CPUTop__DOT__EX__DOT___dnpc_T_9
+                                                       : 0ULL)))))
                                                : vlSelf->CPUTop__DOT__IF__DOT___temp_T_2));
     if (__Vdlyvset__CPUTop__DOT__rf__v0) {
         vlSelf->CPUTop__DOT__rf[__Vdlyvdim0__CPUTop__DOT__rf__v0] 
