@@ -1,4 +1,4 @@
-alias make = make -j $(nproc)
+##alias make = make -j $(nproc)
 bin_path = $(subst nemu,am-kernels/tests/cpu-tests/build/,$(NEMU_HOME))
 SO_PATH = $(NEMU_HOME)/build/riscv64-nemu-interpreter-so
 
