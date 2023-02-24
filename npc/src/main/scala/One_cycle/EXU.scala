@@ -249,7 +249,7 @@ class EXU extends Module with paramete {
       shift_result :=SIgEXtend((src1 << src2(4,0))(31,0),xlen)
     }
     is(ALUOPType.sll) {
-      shift_result := src1 << src2(4, 0).asUInt
+      shift_result := src1 << src2(5, 0).asUInt
     }
   }
 
