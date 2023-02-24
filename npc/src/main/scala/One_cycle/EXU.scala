@@ -172,11 +172,10 @@ class EXU extends Module with paramete {
 
         }
       }
-      is(ALUOPType.sb){
-        wmask_temp := MuxCase(0.U(8.W),sb_wmask)
-        wdata_temp := MuxCase(0.U(xlen.W),sb_wdata)
-      }
-
+    }
+    is(ALUOPType.sb) {
+      wmask_temp := MuxCase(0.U(8.W), sb_wmask)
+      wdata_temp := MuxCase(0.U(xlen.W), sb_wdata)
     }
   }
   val lb_mem_select = Seq(
