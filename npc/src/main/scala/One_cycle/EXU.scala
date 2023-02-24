@@ -27,6 +27,7 @@ object ALUOPType{
   def xor ="b1110010".U
   def sllw ="b1110011".U
   def sb ="b1110100".U
+  def srli = "b1110101".U
   def apply() = UInt(7.W)
 }
 object RD{
