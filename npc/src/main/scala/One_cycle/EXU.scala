@@ -94,7 +94,26 @@ class EXU extends Module with paramete {
   val wdata_temp=WireDefault(0.U(xlen.W))
   val addr_temp=WireDefault(0.U(xlen.W))
 
-  //val
+  val sb_wmask=Seq(
+    (addr_temp(2, 0) === "b000".U) -> "b00000001".U,
+    (addr_temp(2, 0) === "b001".U) -> "b00000010".U,
+    (addr_temp(2, 0) === "b010".U) -> "b00000100".U,
+    (addr_temp(2, 0) === "b011".U) -> "b00001000".U,
+    (addr_temp(2, 0) === "b100".U) -> "b00010000".U,
+    (addr_temp(2, 0) === "b101".U) -> "b00100000".U,
+    (addr_temp(2, 0) === "b110".U) -> "b01000000".U,
+    (addr_temp(2, 0) === "b111".U) -> "b10000000".U
+  )
+  val sb_wdata=Seq(
+    (addr_temp(2, 0) === "b000".U) -> Cat(Fill(56, 0.U),src2(7, 0)),
+    (addr_temp(2, 0) === "b001".U) -> Cat(Fill(48, 0.U),src2(7, 0),Fill(8,0.U)),
+    (addr_temp(2, 0) === "b010".U) -> Cat(Fill(40, 0.U),src2(7, 0),Fill(16,0.U)),
+    (addr_temp(2, 0) === "b011".U) -> Cat(Fill(32, 0.U),src2(7, 0),Fill(24,0.U)),
+    (addr_temp(2, 0) === "b100".U) -> Cat(Fill(24, 0.U),src2(7, 0),Fill(32,0.U)),
+    (addr_temp(2, 0) === "b101".U) -> Cat(Fill(16, 0.U),src2(7, 0),Fill(40,0.U)),
+    (addr_temp(2, 0) === "b110".U) -> Cat(Fill(8, 0.U),src2(7, 0),Fill(48,0.U)),
+    (addr_temp(2, 0) === "b111".U) -> Cat(src2(7, 0),Fill(56,0.U))
+  )
 
   switch(io.aluoptype){
     is(ALUOPType.ld){
@@ -110,6 +129,9 @@ class EXU extends Module with paramete {
       addr_temp := src1+io.Imm
     }
     is(ALUOPType.lbu) {
+      addr_temp := src1 + io.Imm
+    }
+    is(ALUOPType.sb) {
       addr_temp := src1 + io.Imm
     }
   }
@@ -150,9 +172,10 @@ class EXU extends Module with paramete {
 
         }
       }
-//      is(ALUOPType.sb){
-//
-//      }
+      is(ALUOPType.sb){
+        wmask_temp := MuxCase(0.U(8.W),sb_wmask)
+        wdata_temp := MuxCase(0.U(xlen.W),sb_wdata)
+      }
 
     }
   }
