@@ -16,7 +16,7 @@ CFLAGS=-CFLAGS "-I $$NPC_HOME/verilator/src/include -I /usr/lib/llvm-13/include"
 
 vcd:	
 	
-	verilator -Wno-fatal --trace -j $(nproc) -cc  $(VSRC) --top-module CPUTop   --exe $(CSRC) $(LDFLAGS) $(CFLAGS)
+	verilator -Wno-fatal --trace -j $(nproc) -compiler "ccache clang" -cc  $(VSRC) --top-module CPUTop   --exe $(CSRC) $(LDFLAGS) $(CFLAGS)
 	$(MAKE) -C obj_dir -f VCPUTop.mk VCPUTop 
 	./obj_dir/VCPUTop $(bin_path)$(ALL)-$(ARCH).bin $(SO_PATH)
 
