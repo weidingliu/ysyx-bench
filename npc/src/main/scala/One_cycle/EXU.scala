@@ -44,6 +44,7 @@ object ALUOPType{
   def srliw = "b0001000".U
   def sraw = "b0001001".U
   def srlw = "b0001010".U
+  def bltu = "b0001011".U
   def apply() = UInt(7.W)
 }
 object RD{
@@ -375,6 +376,10 @@ class EXU extends Module with paramete {
         branch_result := io1.PC + io.Imm
         branch_flag := Mux(src1.asSInt < src2.asSInt, 1.U, 0.U)
       }
+      is(ALUOPType.bltu) {
+        branch_result := io1.PC + io.Imm
+        branch_flag := Mux(src1< src2, 1.U, 0.U)
+      }
     }
 
 
@@ -396,6 +401,9 @@ class EXU extends Module with paramete {
       dnpc := Mux(branch_flag === 1.U, branch_result, io1.PC + 4.U(xlen.W))
     }
     is(ALUOPType.blt) {
+      dnpc := Mux(branch_flag === 1.U, branch_result, io1.PC + 4.U(xlen.W))
+    }
+    is(ALUOPType.bltu) {
       dnpc := Mux(branch_flag === 1.U, branch_result, io1.PC + 4.U(xlen.W))
     }
   }
