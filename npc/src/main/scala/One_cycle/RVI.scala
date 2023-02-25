@@ -38,6 +38,8 @@ object RVI_ALU extends paramete{
   def DIVW = BitPat("b0000001_?????_?????_100_?????_0111011")
   def REMW = BitPat("b0000001_?????_?????_110_?????_0111011")
   def BLT = BitPat("b???????_?????_?????_100_?????_1100011")
+  def SUBW = BitPat("b0100000_?????_?????_000_?????_0111011")
+  def 
   def Ebreak = BitPat("b0000000_00001_00000_000_00000_1110011")
 
   val table =Array(
@@ -75,6 +77,7 @@ object RVI_ALU extends paramete{
       DIVW->List(InstrType.InstrR,FUType.alu,ALUOPType.divw,RD.write),
       REMW->List(InstrType.InstrR,FUType.alu,ALUOPType.remw,RD.write),
       BLT ->List(InstrType.InstrB,FUType.branch,ALUOPType.blt,RD.NOP),
+      SUBW ->List(InstrType.InstrR,FUType.alu,ALUOPType.subw,RD.write),
       Ebreak -> List(InstrType.InstrN,FUType.alu,ALUOPType.ebreak,RD.NOP),
   )
 }
