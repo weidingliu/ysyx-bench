@@ -503,7 +503,7 @@ module EXU(
   wire [63:0] _GEN_58 = 7'h7b == io_aluoptype ? _branch_result_T_1 : 64'h0; // @[EXU.scala 337:25 351:23]
   wire  _GEN_59 = 7'h7b == io_aluoptype & _compar_result_T_4; // @[EXU.scala 337:25 352:21]
   wire [63:0] _GEN_60 = 7'h76 == io_aluoptype ? _branch_result_T_1 : _GEN_58; // @[EXU.scala 337:25 347:23]
-  wire  _GEN_61 = 7'h76 == io_aluoptype ? src1 >= src2 : _GEN_59; // @[EXU.scala 337:25 348:21]
+  wire  _GEN_61 = 7'h76 == io_aluoptype ? $signed(_compar_result_T_2) >= $signed(_compar_result_T_3) : _GEN_59; // @[EXU.scala 337:25 348:21]
   wire [63:0] _GEN_62 = 7'h6c == io_aluoptype ? _branch_result_T_1 : _GEN_60; // @[EXU.scala 337:25 343:23]
   wire  _GEN_63 = 7'h6c == io_aluoptype ? src1 != src2 : _GEN_61; // @[EXU.scala 337:25 344:21]
   wire [63:0] branch_result = 7'h6b == io_aluoptype ? _branch_result_T_1 : _GEN_62; // @[EXU.scala 337:25 339:23]

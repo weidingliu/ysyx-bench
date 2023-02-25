@@ -702,8 +702,7 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
                                               : ((0x76U 
                                                   == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                                   ? 
-                                                 (vlSelf->CPUTop__DOT__EX__DOT___compar_result_T_2 
-                                                  >= vlSelf->CPUTop__DOT__EX__DOT__src2)
+                                                 VL_GTES_IQQ(64, vlSelf->CPUTop__DOT__EX__DOT___compar_result_T_2, vlSelf->CPUTop__DOT__EX__DOT__src2)
                                                   : 
                                                  ((0x7bU 
                                                    == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
