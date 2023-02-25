@@ -40,6 +40,7 @@ object ALUOPType{
   def lhu ="b0000100".U
   def sraiw ="b0000110".U
   def slliw ="b0000101".U
+  def mul ="b0000111".U
   def apply() = UInt(7.W)
 }
 object RD{
@@ -276,6 +277,9 @@ class EXU extends Module with paramete {
     }
     is(ALUOPType.subw){
       alu_result := SIgEXtend((src1 - src2)(31, 0), xlen)
+    }
+    is(ALUOPType.mul){
+      alu_result := (src1 * src2)(63,0)
     }
   }
   val shift_result=WireDefault(0.U(xlen.W))
