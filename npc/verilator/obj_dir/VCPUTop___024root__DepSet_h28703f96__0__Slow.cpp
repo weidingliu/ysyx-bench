@@ -80,7 +80,9 @@ VL_ATTR_COLD void VCPUTop___024root___ctor_var_reset(VCPUTop___024root* vlSelf) 
     vlSelf->CPUTop__DOT__EX__DOT__addr_temp = VL_RAND_RESET_Q(64);
     vlSelf->CPUTop__DOT__EX__DOT___wdata_temp_T_21 = VL_RAND_RESET_Q(64);
     vlSelf->CPUTop__DOT__EX__DOT___GEN_25 = VL_RAND_RESET_I(8);
-    vlSelf->CPUTop__DOT__EX__DOT___GEN_36 = VL_RAND_RESET_Q(64);
+    vlSelf->CPUTop__DOT__EX__DOT___GEN_34 = VL_RAND_RESET_Q(64);
+    vlSelf->CPUTop__DOT__EX__DOT___mem_result_T_24 = VL_RAND_RESET_I(16);
+    vlSelf->CPUTop__DOT__EX__DOT___GEN_38 = VL_RAND_RESET_Q(64);
     vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_7 = VL_RAND_RESET_Q(64);
     vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_10 = VL_RAND_RESET_Q(64);
     VL_RAND_RESET_W(128, vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_19);
@@ -88,9 +90,9 @@ VL_ATTR_COLD void VCPUTop___024root___ctor_var_reset(VCPUTop___024root* vlSelf) 
     vlSelf->CPUTop__DOT__EX__DOT___GEN_4 = VL_RAND_RESET_I(32);
     VL_RAND_RESET_W(95, vlSelf->CPUTop__DOT__EX__DOT___shift_result_T_3);
     vlSelf->CPUTop__DOT__EX__DOT___compar_result_T_2 = VL_RAND_RESET_Q(64);
-    vlSelf->CPUTop__DOT__EX__DOT___GEN_58 = VL_RAND_RESET_Q(64);
+    vlSelf->CPUTop__DOT__EX__DOT___GEN_60 = VL_RAND_RESET_Q(64);
     vlSelf->CPUTop__DOT__EX__DOT___branch_result_T_1 = VL_RAND_RESET_Q(64);
-    vlSelf->CPUTop__DOT__EX__DOT___GEN_67 = VL_RAND_RESET_I(1);
+    vlSelf->CPUTop__DOT__EX__DOT___GEN_69 = VL_RAND_RESET_I(1);
     vlSelf->CPUTop__DOT__EX__DOT___dnpc_T_9 = VL_RAND_RESET_Q(64);
     for (int __Vi0=0; __Vi0<32; ++__Vi0) {
         vlSelf->CPUTop__DOT__DIP__DOT__rf[__Vi0] = VL_RAND_RESET_Q(64);
