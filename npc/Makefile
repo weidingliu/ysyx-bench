@@ -36,7 +36,7 @@ clean:
 sim: verilog
 	#$(MAKE) -C $(BPATH) 
 	cp -f ./build/CPUTop.v ./verilator/vsrc
-	$(info  $(IMAGE))
+	$(info  $(IMG))
 	$(MAKE) -C ./verilator
 	 
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
