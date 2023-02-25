@@ -27,4 +27,4 @@ run: image
 	$(MAKE) -C $(NPC_PATH) sim IMG=$(IMAGE).bin
 	
 runvcd: run
-	$(MAKE) -C $(NPC_PATH) wave
+	$(MAKE) -C $(NPC_PATH) wave IMG=$(IMAGE).bin
