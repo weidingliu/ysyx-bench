@@ -36,6 +36,7 @@ object ALUOPType{
   def blt ="b1111011".U
   def subw = "b0000001".U
   def slt= "b0000010".U
+  def lh= "b0000011".U
   def apply() = UInt(7.W)
 }
 object RD{
@@ -146,6 +147,9 @@ class EXU extends Module with paramete {
     is(ALUOPType.sw) {
       addr_temp := src1 + io.Imm
     }
+    is(ALUOPType.lh) {
+      addr_temp := src1 + io.Imm
+    }
   }
   switch(io.aluoptype) {
     is(ALUOPType.ld) {
@@ -204,6 +208,12 @@ class EXU extends Module with paramete {
     (addr_temp(2, 0) === "b110".U) -> io1.rdata(55, 48),
     (addr_temp(2, 0) === "b111".U) -> io1.rdata(63, 56)
   )
+  val lh_mem_select = Seq(
+    (addr_temp(2,1) === "b00".U) -> io1.rdata(15,0),
+    (addr_temp(2,1) === "b01".U) -> io1.rdata(31,16),
+    (addr_temp(2,1) === "b10".U) -> io1.rdata(47,32),
+    (addr_temp(2,1) === "b11".U) -> io1.rdata(63,48),
+  )
   val mem_result = WireDefault(0.U(xlen.W))
   switch(io.aluoptype) {
     is(ALUOPType.ld) {
@@ -214,6 +224,9 @@ class EXU extends Module with paramete {
     }
     is(ALUOPType.lbu) {
       mem_result := ZeroEXtend(MuxCase(0.U(xlen.W), lb_mem_select), xlen)
+    }
+    is(ALUOPType.lh){
+      mem_result := SIgEXtend(MuxCase(0.U(xlen.W), lh_mem_select), xlen)
     }
   }
 
