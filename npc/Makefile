@@ -37,7 +37,7 @@ sim: verilog
 	#$(MAKE) -C $(BPATH) 
 	cp -f ./build/CPUTop.v ./verilator/vsrc
 	$(info  $(IMG))
-	$(MAKE) -C ./verilator
+	$(MAKE) -C ./verilator IMG=$(IMG)
 	 
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 	@echo "Write this Makefile by yourself."
