@@ -475,9 +475,10 @@ VL_ATTR_COLD void VCPUTop___024root__trace_full_sub_0(VCPUTop___024root* vlSelf,
                                                                                 (0x707fU 
                                                                                 & vlSelf->CPUTop__DOT__IFM_inst)) 
                                                                                 | (IData)(vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_205))))))))))))))))))))));
-    bufp->fullBit(oldp+18,((1U & (~ (((0x45U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
-                                      | (0x47U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))) 
-                                     | (0x6fU == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)))))));
+    bufp->fullBit(oldp+18,((1U & (~ ((((0x45U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
+                                       | (0x47U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))) 
+                                      | (0x6fU == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))) 
+                                     | (3U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)))))));
     bufp->fullQData(oldp+19,(vlSelf->CPUTop__DOT__EX_io1_REG1),64);
     bufp->fullQData(oldp+21,(vlSelf->CPUTop__DOT__EX_io1_REG2),64);
     bufp->fullQData(oldp+23,(vlSelf->CPUTop__DOT__EX_io1_result),64);
