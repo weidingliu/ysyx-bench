@@ -31,6 +31,7 @@ object ALUOPType{
   def bge = "b1110110".U
   def sw = "b1110111".U
   def mulw ="b1111000".U
+  def divw ="b1111001".U
   def apply() = UInt(7.W)
 }
 object RD{
@@ -251,6 +252,9 @@ class EXU extends Module with paramete {
     }
     is(ALUOPType.mulw){
       alu_result := SIgEXtend((src1 * src2)(31,0),xlen)
+    }
+    is(ALUOPType.divw) {
+      alu_result := SIgEXtend((src1(31,0) / src2(31,0)) (31, 0), xlen)
     }
   }
   val shift_result=WireDefault(0.U(xlen.W))
