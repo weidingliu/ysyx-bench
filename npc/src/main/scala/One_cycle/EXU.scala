@@ -151,6 +151,9 @@ class EXU extends Module with paramete {
     is(ALUOPType.lh) {
       addr_temp := src1 + io.Imm
     }
+    is(ALUOPType.lhu) {
+      addr_temp := src1 + io.Imm
+    }
   }
   switch(io.aluoptype) {
 
