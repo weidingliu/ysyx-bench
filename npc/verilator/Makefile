@@ -18,6 +18,7 @@ vcd:
 	
 	verilator -Wno-fatal --trace -j $(nproc) -compiler clang -cc  $(VSRC) --top-module CPUTop   --exe $(CSRC) $(LDFLAGS) $(CFLAGS)
 	$(MAKE) -C obj_dir -f VCPUTop.mk VCPUTop 
+	$(info $(bin_path)$(ALL)-$(ARCH).bin)
 	./obj_dir/VCPUTop $(bin_path)$(ALL)-$(ARCH).bin $(SO_PATH)
 
 .PHONY: vcd
