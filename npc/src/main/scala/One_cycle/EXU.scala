@@ -38,7 +38,7 @@ object ALUOPType{
   def slt= "b0000010".U
   def lh= "b0000011".U
   def lhu ="b0000100".U
-  def sraiw ="b0000101".U
+  def sraiw ="b0000110".U
   def slliw ="b0000101".U
   def apply() = UInt(7.W)
 }
@@ -297,7 +297,7 @@ class EXU extends Module with paramete {
       shift_result := SIgEXtend((src1(31,0) << src2(5,0))(31,0),xlen)
     }
     is(ALUOPType.sraiw) {
-      shift_result := SIgEXtend((src1(31, 0).asSInt >> src2(4, 0)) (31, 0), xlen)
+      shift_result := SIgEXtend((src1(31, 0).asSInt >> src2(4, 0))(31, 0), xlen)
     }
   }
 
