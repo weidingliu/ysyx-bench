@@ -164,6 +164,10 @@ class EXU extends Module with paramete {
       wmask_temp := 0.U(masklen.W)
       wdata_temp := 0.U(xlen.W)
     }
+    is(ALUOPType.lh) {
+      wmask_temp := 0.U(masklen.W)
+      wdata_temp := 0.U(xlen.W)
+    }
     is(ALUOPType.sd) {
       wmask_temp := "b11111111".U
       wdata_temp := src2
@@ -223,10 +227,10 @@ class EXU extends Module with paramete {
       mem_result := Mux(addr_temp(2, 2) === 1.U, SIgEXtend(io1.rdata(63, 32), xlen), SIgEXtend(io1.rdata(31, 0), xlen))
     }
     is(ALUOPType.lbu) {
-      mem_result := ZeroEXtend(MuxCase(0.U(xlen.W), lb_mem_select), xlen)
+      mem_result := ZeroEXtend(MuxCase(0.U(8.W), lb_mem_select), xlen)
     }
     is(ALUOPType.lh){
-      mem_result := SIgEXtend(MuxCase(0.U(xlen.W), lh_mem_select), xlen)
+      mem_result := SIgEXtend(MuxCase(0.U(16.W), lh_mem_select), xlen)
     }
   }
 
