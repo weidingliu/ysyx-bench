@@ -35,6 +35,7 @@ object ALUOPType{
   def remw="b1111010".U
   def blt ="b1111011".U
   def subw = "b0000001".U
+  def slt= "b0000010".U
   def apply() = UInt(7.W)
 }
 object RD{
@@ -288,6 +289,9 @@ class EXU extends Module with paramete {
   switch(io.aluoptype){
     is(ALUOPType.sltiu){
       compar_result := Mux((src1<src2),1.U(xlen.W),0.U(xlen.W))
+    }
+    is(ALUOPType.slt){
+      compar_result := Mux((src1.asSInt < src2.asSInt),1.U(xlen.W),0.U(xlen.W))
     }
   }
 
