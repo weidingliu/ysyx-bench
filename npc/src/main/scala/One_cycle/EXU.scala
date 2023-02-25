@@ -37,6 +37,7 @@ object ALUOPType{
   def subw = "b0000001".U
   def slt= "b0000010".U
   def lh= "b0000011".U
+  def lhu ="b0000100".U
   def apply() = UInt(7.W)
 }
 object RD{
@@ -152,22 +153,7 @@ class EXU extends Module with paramete {
     }
   }
   switch(io.aluoptype) {
-    is(ALUOPType.ld) {
-      wmask_temp := 0.U(masklen.W)
-      wdata_temp := 0.U(xlen.W)
-    }
-    is(ALUOPType.lw) {
-      wmask_temp := 0.U(masklen.W)
-      wdata_temp := 0.U(xlen.W)
-    }
-    is(ALUOPType.lbu) {
-      wmask_temp := 0.U(masklen.W)
-      wdata_temp := 0.U(xlen.W)
-    }
-    is(ALUOPType.lh) {
-      wmask_temp := 0.U(masklen.W)
-      wdata_temp := 0.U(xlen.W)
-    }
+    
     is(ALUOPType.sd) {
       wmask_temp := "b11111111".U
       wdata_temp := src2
@@ -231,6 +217,9 @@ class EXU extends Module with paramete {
     }
     is(ALUOPType.lh){
       mem_result := SIgEXtend(MuxCase(0.U(16.W), lh_mem_select), xlen)
+    }
+    is(ALUOPType.lhu) {
+      mem_result := ZeroEXtend(MuxCase(0.U(16.W), lh_mem_select), xlen)
     }
   }
 
