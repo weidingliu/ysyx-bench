@@ -153,7 +153,7 @@ class EXU extends Module with paramete {
     }
   }
   switch(io.aluoptype) {
-    
+
     is(ALUOPType.sd) {
       wmask_temp := "b11111111".U
       wdata_temp := src2
