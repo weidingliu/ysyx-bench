@@ -345,7 +345,7 @@ class EXU extends Module with paramete {
       }
       is(ALUOPType.bge){
         branch_result := io1.PC + io.Imm
-        branch_flag := Mux(src1.asUInt >= src2.asUInt, 1.U, 0.U)
+        branch_flag := Mux(src1.asSInt >= src2.asSInt, 1.U, 0.U)
       }
       is(ALUOPType.blt) {
         branch_result := io1.PC + io.Imm
