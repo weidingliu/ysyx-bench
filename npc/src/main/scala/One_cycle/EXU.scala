@@ -32,6 +32,8 @@ object ALUOPType{
   def sw = "b1110111".U
   def mulw ="b1111000".U
   def divw ="b1111001".U
+  def remw="b1111010".U
+  def blt ="b1111011".U
   def apply() = UInt(7.W)
 }
 object RD{
@@ -256,6 +258,9 @@ class EXU extends Module with paramete {
     is(ALUOPType.divw) {
       alu_result := SIgEXtend((src1(31,0) / src2(31,0)) (31, 0), xlen)
     }
+    is(ALUOPType.remw){
+      alu_result := SIgEXtend((src1(31,0) % src2(31,0)) (31, 0), xlen)
+    }
   }
   val shift_result=WireDefault(0.U(xlen.W))
   switch(io.aluoptype){
@@ -325,6 +330,10 @@ class EXU extends Module with paramete {
         branch_result := io1.PC + io.Imm
         branch_flag := Mux(src1.asUInt >= src2.asUInt, 1.U, 0.U)
       }
+      is(ALUOPType.blt) {
+        branch_result := io1.PC + io.Imm
+        branch_flag := Mux(src1.asSInt < src2.asSInt, 1.U, 0.U)
+      }
     }
 
 
@@ -345,7 +354,9 @@ class EXU extends Module with paramete {
     is(ALUOPType.bge) {
       dnpc := Mux(branch_flag === 1.U, branch_result, io1.PC + 4.U(xlen.W))
     }
-
+    is(ALUOPType.blt) {
+      dnpc := Mux(branch_flag === 1.U, branch_result, io1.PC + 4.U(xlen.W))
+    }
   }
 
 
