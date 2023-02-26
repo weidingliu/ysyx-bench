@@ -14,6 +14,7 @@ void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
   //uptime->us = seconds * 1000000 + (useconds + 500);
   
   //int t=5;
+  uptime->us=0;
   printf("hello!%d\n",uptime->us);
   
   
