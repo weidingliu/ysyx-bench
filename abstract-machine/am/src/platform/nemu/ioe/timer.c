@@ -7,7 +7,8 @@ void __am_timer_init() {
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
   //uptime->us = 2;
-  printf("hello!%d\n",5);
+  char *t="dsf";
+  printf("hello!%s\n",t);
   
 }
 

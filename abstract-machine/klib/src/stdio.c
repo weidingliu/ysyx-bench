@@ -25,6 +25,12 @@ int printf(const char *fmt, ...) {
                   putstr(strnum);
                   break;
               }
+              case 's':{
+                  char *temps = va_arg(ap,char*);
+                  putstr(temps);
+                  fmt+=2;
+                  break;
+              }
           }
       }
       else{
