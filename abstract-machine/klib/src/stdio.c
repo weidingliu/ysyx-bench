@@ -24,7 +24,7 @@ int printf(const char *fmt, ...) {
                   fmt+=2;
                   j++;
                   while(j!=32){
-                      putch(*strnum+j);
+                      putch(strnum[j]);
                       j++;
                   }
                   //char *p __attribute__((__unused__)) =strnum;
