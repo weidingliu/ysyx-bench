@@ -10,7 +10,7 @@ void __am_timer_init() {
 }
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
-  uptime->us = 2;
+  //uptime->us = 2;
   //uint32_t now=inl(RTC_ADDR );
   //long seconds = now.tv_sec - boot_time.tv_sec;
   //long useconds = now.tv_usec - boot_time.tv_usec;
@@ -18,8 +18,9 @@ void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
   
   //int t=5;
   uint32_t t=inl(RTC_ADDR);
+  uint32_t t2=inl(RTC_ADDR+4);
   //uptime->us=ioe_read(AM_TIMER_UPTIME).us;
-  printf("hello!%d\n",t);
+  printf("hello!%d  %d\n",t,t2);
   
   
 }
