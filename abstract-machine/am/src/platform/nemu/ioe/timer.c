@@ -9,6 +9,7 @@ void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
   //uptime->us = 2;
   int t=5;
   printf("hello!%d\n",t);
+  return;
   
 }
 
