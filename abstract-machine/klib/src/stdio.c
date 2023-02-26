@@ -13,7 +13,17 @@ int printf(const char *fmt, ...) {
       if(*fmt=='%'){
           switch(*(fmt+1)){
               case 'd':{
-                  
+                  char strnum[32];
+                  int j=31;
+                  int tempd = va_arg(ap,int);
+                  do{
+                      strnum[j--] =((tempd%10) + '0');
+                      ret++;
+                      tempd/=10;
+                  }while(tempd!=0);
+                  fmt+=2;
+                  putstr(strnum);
+                  break;
               }
           }
       }
