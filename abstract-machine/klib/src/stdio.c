@@ -28,7 +28,7 @@ int printf(const char *fmt, ...) {
                       j++;
                   }
                   //char *p __attribute__((__unused__)) =strnum;
-                  putstr(p);
+                  //putstr(p);
                   break;
               }
               case 's':{
