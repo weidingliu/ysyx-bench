@@ -26,7 +26,7 @@ void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
   //uint32_t t2=inl(RTC_ADDR+4);
   //uptime->us=ioe_read(AM_TIMER_UPTIME).us;
   printf("%d\n",uptime->us);
-  //printf("hello!%d  %d\n",t,t2);
+  printf("hello!%d  %d\n",t,t2);
   
   
 }
