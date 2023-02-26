@@ -16,6 +16,7 @@ int printf(const char *fmt, ...) {
                   char strnum[32];
                   int j=31;
                   int tempd = va_arg(ap,int);
+                  
                   do{
                       strnum[j--] =((tempd%10) + '0');
                       ret++;
