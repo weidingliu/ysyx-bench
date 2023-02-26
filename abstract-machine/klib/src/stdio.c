@@ -22,7 +22,11 @@ int printf(const char *fmt, ...) {
                       tempd/=10;
                   }while(tempd!=0);
                   fmt+=2;
-                  char *p __attribute__((__unused__))=strnum+j;
+                  j++;
+                  while(j!=32){
+                      putch(*strnum+j);
+                      j++;
+                  }
                   //char *p __attribute__((__unused__)) =strnum;
                   putstr(p);
                   break;
