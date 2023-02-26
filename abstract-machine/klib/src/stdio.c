@@ -22,7 +22,8 @@ int printf(const char *fmt, ...) {
                       tempd/=10;
                   }while(tempd!=0);
                   fmt+=2;
-                  putstr(strnum);
+                  char *p __attribute__((__unused__)) =strnum;
+                  putstr(p);
                   break;
               }
               case 's':{
