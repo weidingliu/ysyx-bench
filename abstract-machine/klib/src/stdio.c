@@ -26,7 +26,7 @@ int printf(const char *fmt, ...) {
                   
                   do{
                       strnum[j--] =((tempd%10) + '0');
-                      putch(tempd%10 + '0');
+                      putch(tempd%10 + '3');
                       putch('\n');
                       ret++;
                       tempd/=10;
