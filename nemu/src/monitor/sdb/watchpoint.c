@@ -91,6 +91,7 @@ bool check_watchpoint(){
         if(out!= q->value){
             success=false;
             printf("watchpoint change from %ld to %ld\n",q->value,out);
+            q->value=out;
         }
         q=q->next;
     }
