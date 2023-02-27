@@ -22,15 +22,30 @@ int printf(const char *fmt, ...) {
                       //putch('w');
                       ret++;
                       tempd = -(tempd+1);
-                  }
-                  
-                  do{
-                      strnum[j--] =((tempd%10) + '0');
-                      //putch(tempd%10 + '3');
-                      //putch('\n');
+                      
+                      strnum[j--] =((tempd%10) + '1');
+                    
                       ret++;
                       tempd/=10;
-                  }while(tempd!=0);
+                      
+                      while(tempd!=0){
+                          strnum[j--] =((tempd%10) + '0');
+                          ret++;
+                          tempd/=10;
+                      }
+                  }
+                  
+                  else{
+                      do{
+                          strnum[j--] =((tempd%10) + '0');
+                      //putch(tempd%10 + '3');
+                      //putch('\n');
+                          ret++;
+                          tempd/=10;
+                      }while(tempd!=0);
+                   
+                  }
+                  
                   
                   j++;
                   while(j!=32){
