@@ -20,7 +20,7 @@
 #endif
 
 #define FUN_NAME_LEN 48
-#define FUN_BUFF_SIZE 2048
+#define FUN_BUFF_SIZE 10000
 
 #ifdef CONFIG_TRACE
 typedef struct ftrace_buffer{
