@@ -21,7 +21,7 @@ int printf(const char *fmt, ...) {
                       putch('-');
                       //putch('w');
                       ret++;
-                      //tempd = -tempd;
+                      tempd = -(tempd+1);
                   }
                   
                   do{
