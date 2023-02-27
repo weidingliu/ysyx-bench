@@ -11,7 +11,17 @@ int printf(const char *fmt, ...) {
   size_t ret=0;
   while(*fmt !='\0'){
       if(*fmt=='%'){
-          switch(*(fmt+1)){
+          fmt++;
+          int width=0;
+          if(*(fmt) == '0'){
+              fmt++;
+              while(*fmt>'0' &&  *fmt<='9'){
+                  width=width*10+ (int)*fmt-'0';
+                  fmt++;
+              }
+          
+          }
+          switch(*(fmt)){
               case 'd':{
                   char strnum[32];
                   int j=31;
@@ -36,6 +46,7 @@ int printf(const char *fmt, ...) {
                   }
                   
                   else{
+                      
                       do{
                           strnum[j--] =((tempd%10) + '0');
                           ret++;
@@ -46,11 +57,17 @@ int printf(const char *fmt, ...) {
                   
                   
                   j++;
+                  if(width>0 && (32-j < width)){
+                      for(int i=0;i<(width-32+j);i++){
+                          putch('0');
+                      }
+                  }
+                  
                   while(j!=32){
                       putch(strnum[j]);
                       j++;
                   }
-                  fmt+=2;
+                  fmt++;
                   //char *p __attribute__((__unused__)) =strnum;
                   //putstr(p);
                   break;
@@ -61,6 +78,7 @@ int printf(const char *fmt, ...) {
                   fmt+=2;
                   break;
               }
+              
               default:{
                   putch(*(fmt+1));
                   panic("Not implemented");
@@ -90,7 +108,9 @@ int sprintf(char *out, const char *fmt, ...) {
   size_t ret=0;
   while (*fmt != '\0')
   {
+      
       if(*fmt == '%'){
+          
           switch(*(fmt+1)){
           case 'd':{
               char strnum[32];
@@ -128,10 +148,8 @@ int sprintf(char *out, const char *fmt, ...) {
               break;
           }
           default:{
-              *out=*fmt;
-              out++;
-              fmt++;
-              ret++;
+              panic("Not implemented");
+              
               break;
           }
           }
