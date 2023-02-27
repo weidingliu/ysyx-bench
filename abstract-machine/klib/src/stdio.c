@@ -19,24 +19,25 @@ int printf(const char *fmt, ...) {
                   if(tempd<0) 
                   {
                       putch('-');
-                      putch('w');
+                      //putch('w');
                       ret++;
                       tempd = -tempd;
                   }
                   
                   do{
                       strnum[j--] =((tempd%10) + '0');
-                      putch(strnum[j+1]);
+                      putch(tempd%10);
                       putch('\n');
                       ret++;
                       tempd/=10;
                   }while(tempd!=0);
-                  fmt+=2;
+                  
                   j++;
                   while(j!=32){
                       putch(strnum[j]);
                       j++;
                   }
+                  fmt+=2;
                   //char *p __attribute__((__unused__)) =strnum;
                   //putstr(p);
                   break;
