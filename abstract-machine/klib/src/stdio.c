@@ -16,6 +16,12 @@ int printf(const char *fmt, ...) {
                   char strnum[32];
                   int j=31;
                   int tempd = va_arg(ap,int);
+                  if(tempd<0) 
+                  {
+                      putch('-');
+                      ret++;
+                      tempd=-tempd;
+                  }
                   
                   do{
                       strnum[j--] =((tempd%10) + '0');
@@ -37,6 +43,10 @@ int printf(const char *fmt, ...) {
                   putstr(temps);
                   fmt+=2;
                   break;
+              }
+              default:{
+                  putch(*(fmt+1));
+                  panic("Not implemented");
               }
           }
       }
