@@ -19,6 +19,7 @@ int printf(const char *fmt, ...) {
                   if(tempd<0) 
                   {
                       putch('-');
+                      putch('w');
                       ret++;
                       tempd = -tempd;
                   }
