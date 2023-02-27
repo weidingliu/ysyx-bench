@@ -51,7 +51,7 @@ static int difftest_port = 1234;
 #ifdef CONFIG_TRACE
 
 size_t ftrace_point=0;
-ftrace funcINFO[512];
+ftrace funcINFO[FUN_BUFF_SIZE];
 
 void init_ftrace(){
     if(img_file == NULL){
