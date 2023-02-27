@@ -19,7 +19,7 @@ int printf(const char *fmt, ...) {
                   if(tempd<0) 
                   {
                       putch('-');
-                      //putch('w');
+                      
                       ret++;
                       tempd = -(tempd+1);
                       
@@ -38,8 +38,6 @@ int printf(const char *fmt, ...) {
                   else{
                       do{
                           strnum[j--] =((tempd%10) + '0');
-                      //putch(tempd%10 + '3');
-                      //putch('\n');
                           ret++;
                           tempd/=10;
                       }while(tempd!=0);
