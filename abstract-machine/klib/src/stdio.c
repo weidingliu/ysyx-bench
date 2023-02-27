@@ -20,11 +20,13 @@ int printf(const char *fmt, ...) {
                   {
                       putch('-');
                       ret++;
-                      tempd=-tempd;
+                      tempd = -tempd;
                   }
                   
                   do{
                       strnum[j--] =((tempd%10) + '0');
+                      putch(strnum[j+1]);
+                      putch('\n');
                       ret++;
                       tempd/=10;
                   }while(tempd!=0);
