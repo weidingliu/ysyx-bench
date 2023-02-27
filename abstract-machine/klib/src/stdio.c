@@ -24,7 +24,6 @@ int printf(const char *fmt, ...) {
                   }
                   
                   do{
-                      
                       strnum[j--] =((tempd%10) + '0');
                       ret++;
                       tempd/=10;
