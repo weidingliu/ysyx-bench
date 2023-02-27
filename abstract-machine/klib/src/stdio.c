@@ -24,8 +24,7 @@ int printf(const char *fmt, ...) {
                   }
                   
                   do{
-                      putch('w');
-                      putch('\n');
+                      
                       strnum[j--] =((tempd%10) + '0');
                       ret++;
                       tempd/=10;
