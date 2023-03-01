@@ -72,6 +72,58 @@ int printf(const char *fmt, ...) {
                   //putstr(p);
                   break;
               }
+              case 'x':{
+                  char strnum[32];
+                  int j=31;
+                  int tempd = va_arg(ap,int);
+                  if(tempd<0) 
+                  {
+                      putch('-');
+                      
+                      ret++;
+                      tempd = -(tempd+1);
+                      
+                      if((tempd%16)<9) strnum[j--] =((tempd%16) + '1');
+                      else strnum[j--] =((tempd%16) - 10 + 'b');
+                      ret++;
+                      tempd/=16;
+                      
+                      while(tempd!=0){
+                          if((tempd%16)<10) strnum[j--] =((tempd%16) + '0');
+                          else strnum[j--] =((tempd%16)-10 + 'a');
+                          ret++;
+                          tempd/=16;
+                      }
+                  }
+                  
+                  else{
+                      
+                      do{
+                          if((tempd%16)<10) strnum[j--] =((tempd%16) + '0');
+                          else strnum[j--] =((tempd%16)-10 + 'a');
+                          ret++;
+                          tempd/=16;
+                      }while(tempd!=0);
+                   
+                  }
+                  
+                  
+                  j++;
+                  if(width>0 && (32-j < width)){
+                      for(int i=0;i<(width-32+j);i++){
+                          putch('0');
+                      }
+                  }
+                  
+                  while(j!=32){
+                      putch(strnum[j]);
+                      j++;
+                  }
+                  fmt++;
+                  //char *p __attribute__((__unused__)) =strnum;
+                  //putstr(p);
+                  break;
+              }
               case 's':{
                   char *temps = va_arg(ap,char*);
                   putstr(temps);
