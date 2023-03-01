@@ -75,7 +75,7 @@ int printf(const char *fmt, ...) {
               case 'x':{
                   char strnum[32];
                   int j=31;
-                  int tempd = va_arg(ap,int);
+                  int tempd = va_arg(ap,uint64_t);
                   if(tempd<0) 
                   {
                       putch('-');
