@@ -40,6 +40,7 @@ class VCPUTop___024root final : public VerilatedModule {
     VL_IN(io_inst,31,0);
     IData/*31:0*/ CPUTop__DOT__IFM_inst;
     VlWide<4>/*127:0*/ CPUTop__DOT__EX__DOT___alu_result_T_19;
+    IData/*31:0*/ CPUTop__DOT__EX__DOT___alu_result_T_29;
     IData/*31:0*/ CPUTop__DOT__EX__DOT___alu_result_T_38;
     VlWide<3>/*94:0*/ CPUTop__DOT__EX__DOT___shift_result_T_3;
     VlWide<3>/*94:0*/ CPUTop__DOT__EX__DOT___shift_result_T_14;
@@ -66,8 +67,7 @@ class VCPUTop___024root final : public VerilatedModule {
     QData/*63:0*/ CPUTop__DOT__EX__DOT___GEN_32;
     QData/*63:0*/ CPUTop__DOT__EX__DOT___alu_result_T_7;
     QData/*63:0*/ CPUTop__DOT__EX__DOT___alu_result_T_10;
-    QData/*32:0*/ CPUTop__DOT__EX__DOT___alu_result_T_28;
-    QData/*63:0*/ CPUTop__DOT__EX__DOT___GEN_44;
+    QData/*63:0*/ CPUTop__DOT__EX__DOT___GEN_45;
     QData/*63:0*/ CPUTop__DOT__EX__DOT___shift_result_T_26;
     QData/*63:0*/ CPUTop__DOT__EX__DOT___shift_result_T_33;
     QData/*63:0*/ CPUTop__DOT__EX__DOT___compar_result_T_2;
