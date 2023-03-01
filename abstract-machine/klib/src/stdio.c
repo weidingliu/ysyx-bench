@@ -80,7 +80,7 @@ int printf(const char *fmt, ...) {
               }
               
               default:{
-                  putch(*(fmt+1));
+                  putch(*(fmt));
                   panic("Not implemented");
                   break;
               }
