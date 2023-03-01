@@ -274,7 +274,7 @@ class EXU extends Module with paramete {
       alu_result := SIgEXtend((src1 * src2)(31,0),xlen)
     }
     is(ALUOPType.divw) {
-      alu_result := SIgEXtend((src1(30,0).asSInt / src2(31,0).asSInt)(31, 0), xlen)
+      alu_result := SIgEXtend((src1(31,0).asSInt / src2(31,0).asSInt)(31, 0), xlen)
     }
     is(ALUOPType.remw){
       alu_result := SIgEXtend((src1(31,0).asSInt % src2(31,0).asSInt)(31, 0), xlen)
