@@ -98,7 +98,7 @@ static void checkregs(CPU_state *ref, vaddr_t pc) {
     nemu_state.halt_pc = pc;
     printf("ref PC is : 0x%016lx nemu PC is : 0x%016lx\n",ref->pc,pc);
     for(int i=0;i<32;i++){
-      printf("0x016%lx\n",ref->gpr[i]);
+      printf("gpr[%d] :0x016%lx\n",i,ref->gpr[i]);
       
     }
     printf("\n");
