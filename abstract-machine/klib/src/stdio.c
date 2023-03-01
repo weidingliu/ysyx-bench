@@ -75,28 +75,10 @@ int printf(const char *fmt, ...) {
               case 'x':{
                   char strnum[32];
                   int j=31;
-                  int tempd = va_arg(ap,uint64_t);
-                  if(tempd<0) 
-                  {
-                      putch('-');
-                      
-                      ret++;
-                      tempd = -(tempd+1);
-                      
-                      if((tempd%16)<9) strnum[j--] =((tempd%16) + '1');
-                      else strnum[j--] =((tempd%16) - 10 + 'b');
-                      ret++;
-                      tempd/=16;
-                      
-                      while(tempd!=0){
-                          if((tempd%16)<10) strnum[j--] =((tempd%16) + '0');
-                          else strnum[j--] =((tempd%16)-10 + 'a');
-                          ret++;
-                          tempd/=16;
-                      }
-                  }
+                  uint64_t tempd = va_arg(ap,uint64_t);
                   
-                  else{
+                  
+                 
                       
                       do{
                           if((tempd%16)<10) strnum[j--] =((tempd%16) + '0');
@@ -105,7 +87,7 @@ int printf(const char *fmt, ...) {
                           tempd/=16;
                       }while(tempd!=0);
                    
-                  }
+                  
                   
                   
                   j++;
