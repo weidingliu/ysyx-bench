@@ -75,7 +75,7 @@ int printf(const char *fmt, ...) {
               case 'x':{
                   char strnum[32];
                   int j=31;
-                  uint64_t tempd = va_arg(ap,uint64_t);
+                  uint32_t tempd = va_arg(ap,uint32_t);
                   
                   
                  
