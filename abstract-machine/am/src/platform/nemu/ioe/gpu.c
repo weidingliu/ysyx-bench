@@ -7,6 +7,7 @@
 void __am_gpu_init() {
   int i;
   uint32_t v1=inl(VGACTL_ADDR);
+  printf("%08x\n",v1);
   int w = (v1 >> 16)*2;  // TODO: get the correct width
   int h = (v1 % 256)*2;  // TODO: get the correct height
   printf("%d  %d\n",w,h);
