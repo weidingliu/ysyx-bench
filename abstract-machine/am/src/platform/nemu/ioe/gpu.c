@@ -37,7 +37,7 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
             outl(FB_ADDR+(i*ctl->h+j)*4, *(uint32_t *)(ctl->pixels + (i*ctl->h+j)*4));
         }
     }
-    printf("%d  %d\n",i,j);
+    printf("%d  %d   %d   %d \n",i,j,ctl->w,ctl->h);
   }
 }
 
