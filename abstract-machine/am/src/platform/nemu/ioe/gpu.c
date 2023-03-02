@@ -32,13 +32,13 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
     if(ctl->w==0 || ctl->h==0) return;
     int i=ctl->y,j=ctl->x;
     outl(SYNC_ADDR,1);
-   
+   printf("%d  %d   %d   %d \n",i,j,ctl->w,ctl->h);
    for(;i<ctl->h;i++){
         for(;j<ctl->w;j++){
             outl(FB_ADDR+(i*ctl->h+j)*4, *(uint32_t *)(ctl->pixels + (i*ctl->h+j)*4));
         }
     }
-    printf("%d  %d   %d   %d \n",i,j,ctl->w,ctl->h);
+    
   
 }
 
