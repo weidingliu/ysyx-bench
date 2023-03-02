@@ -109,7 +109,7 @@ int printf(const char *fmt, ...) {
               case 's':{
                   char *temps = va_arg(ap,char*);
                   putstr(temps);
-                  fmt+=2;
+                  fmt++;
                   break;
               }
               
