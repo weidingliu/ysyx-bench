@@ -10,9 +10,11 @@ void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd) {
   
 
   if(k!=AM_KEY_NONE){
+      //printf("%08x\n",k);
       kbd->keycode = k%256;
-      kbd->keydown = 1;
-      printf("%08x\n",k);
+      if(k>>8 !=0) kbd->keydown = 1;
+      else kbd->keydown = 0;
+      
   }
   else{
       kbd->keydown = 0;
