@@ -34,7 +34,7 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
     uint32_t v1=inl(VGACTL_ADDR);
     int w = (v1 >> 16); 
     //int h = (v1 & 0xffff);
-    
+    printf("%d\n",w);
     int i=ctl->y,j=ctl->x;
     
    //printf("%d  %d   %d   %d \n",i,j,ctl->w,ctl->h);
