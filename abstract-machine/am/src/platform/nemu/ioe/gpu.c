@@ -43,6 +43,7 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
             outl(FB_ADDR+(i*w+j)*4, *(uint32_t *)(ctl->pixels + ((i-ctl->y)*ctl->w+(j-ctl->x))*4));
             printf("%016x  %x\n",FB_ADDR+(i*w+j)*4,*(uint32_t *)(ctl->pixels + ((i-ctl->y)*ctl->w+(j-ctl->x))*4));
         }
+        printf("%d\n",i);
     }
     outl(SYNC_ADDR,1);
   
