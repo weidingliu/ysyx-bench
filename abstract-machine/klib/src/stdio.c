@@ -9,6 +9,8 @@ int printf(const char *fmt, ...) {
   va_list ap;
   va_start(ap, fmt);
   size_t ret=0;
+  putstr(fmt);
+  putch('\n');
   while(*fmt !='\0'){
       if(*fmt=='%'){
           fmt++;
