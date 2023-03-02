@@ -9,8 +9,8 @@ int printf(const char *fmt, ...) {
   va_list ap;
   va_start(ap, fmt);
   size_t ret=0;
-  putstr(fmt);
-  putch('\n');
+  //putstr(fmt);
+  //putch('\n');
   while(*fmt !='\0'){
       if(*fmt=='%'){
           fmt++;
@@ -21,7 +21,17 @@ int printf(const char *fmt, ...) {
                   width=width*10+ (int)*fmt-'0';
                   fmt++;
               }
+              if(width==0) panic("Not implemented");
           
+          }
+          int w=0;
+          bool flag=0;
+          if(*(fmt)>'0' && *(fmt)<='9'){
+               while(*fmt>'0' &&  *fmt<='9'){
+                  w=w*10+ (int)*fmt-'0';
+                fmt++;
+              }
+              flag=1;
           }
           switch(*(fmt)){
               case 'd':{
@@ -39,11 +49,16 @@ int printf(const char *fmt, ...) {
                     
                       ret++;
                       tempd/=10;
+                      if(flag!=0) w--;
                       
                       while(tempd!=0){
                           strnum[j--] =((tempd%10) + '0');
                           ret++;
                           tempd/=10;
+                          if(flag!=0){ 
+                              w--;
+                              if(w==0) break;
+                          }
                       }
                   }
                   
@@ -53,6 +68,10 @@ int printf(const char *fmt, ...) {
                           strnum[j--] =((tempd%10) + '0');
                           ret++;
                           tempd/=10;
+                          if(flag!=0) {
+                              w--;
+                              if(w==0) break;
+                          }
                       }while(tempd!=0);
                    
                   }
