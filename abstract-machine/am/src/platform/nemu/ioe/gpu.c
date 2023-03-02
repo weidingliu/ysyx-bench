@@ -23,7 +23,7 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
   printf("%016x\n",v);*/
   *cfg = (AM_GPU_CONFIG_T) {
     .present = true, .has_accel = false,
-    .width = v1 >> 16, .height = v1 % 256,
+    .width = v1 >> 16, .height = v1 & 0xffff,
     .vmemsz = (v1 >> 16)*(v1 % 256)
   };
 }
