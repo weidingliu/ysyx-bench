@@ -7,11 +7,12 @@
 void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd) {
   
   int k=inl(KBD_ADDR);
-  printf("%08x\n",k);
+  
 
   if(k!=AM_KEY_NONE){
       kbd->keycode = k%256;
       kbd->keydown = 1;
+      printf("%08x\n",k);
   }
   else{
       kbd->keydown = 0;
