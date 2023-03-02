@@ -115,6 +115,7 @@ int printf(const char *fmt, ...) {
               
               default:{
                   putch(*(fmt));
+                  putch('\n');
                   panic("Not implemented");
                   break;
               }
