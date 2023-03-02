@@ -37,10 +37,10 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
     //printf("%d\n",w);
     int i=ctl->y,j=ctl->x;
     
-   //printf("%d  %d   %d   %d \n",i,j,ctl->w,ctl->h);
+   printf("%d  %d   %d   %d \n",i,j,ctl->w,ctl->h);
    for(;i<ctl->y+ctl->h;i++){
         for(;j<ctl->x+ctl->w;j++){
-            outl(FB_ADDR+(i*w+j)*4, *(uint32_t *)(ctl->pixels) + ((i-ctl->y)*ctl->w+(j-ctl->x))*4);
+            outl(FB_ADDR+(i*w+j)*4, *(uint32_t *)(ctl->pixels + ((i-ctl->y)*ctl->w+(j-ctl->x))*4));
         }
     }
     outl(SYNC_ADDR,1);
