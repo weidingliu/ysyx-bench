@@ -8,8 +8,8 @@ void __am_gpu_init() {
   int i;
   uint32_t v1=inl(VGACTL_ADDR);
   printf("%08x\n",v1);
-  int w = (v1 >> 16)*2;  // TODO: get the correct width
-  int h = (v1 & 0xffff)*2;  // TODO: get the correct height
+  int w = (v1 >> 16);  // TODO: get the correct width
+  int h = (v1 & 0xffff);  // TODO: get the correct height
   printf("%d  %d\n",w,h);
   uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
   for (i = 0; i < w * h; i ++) fb[i] = i;
