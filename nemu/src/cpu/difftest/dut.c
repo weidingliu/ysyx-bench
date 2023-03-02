@@ -96,6 +96,12 @@ static void checkregs(CPU_state *ref, vaddr_t pc) {
   if (!isa_difftest_checkregs(ref, pc)) {
     nemu_state.state = NEMU_ABORT;
     nemu_state.halt_pc = pc;
+    printf("ref PC is : 0x%016lx nemu PC is : 0x%016lx\n",ref->pc,cpu.pc);
+    for(int i=0;i<32;i++){
+      printf("gpr[%d] :0x%016lx\n",i,ref->gpr[i]);
+      
+    }
+    printf("\n");
     isa_reg_display();
   }
 }

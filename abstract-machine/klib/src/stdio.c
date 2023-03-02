@@ -9,24 +9,120 @@ int printf(const char *fmt, ...) {
   va_list ap;
   va_start(ap, fmt);
   size_t ret=0;
+  //putstr(fmt);
+  //putch('\n');
   while(*fmt !='\0'){
       if(*fmt=='%'){
-          switch(*(fmt+1)){
+          fmt++;
+          int width=0;
+          if(*(fmt) == '0'){
+              fmt++;
+              while(*fmt>'0' &&  *fmt<='9'){
+                  width=width*10+ (int)*fmt-'0';
+                  fmt++;
+              }
+              if(width==0) panic("Not implemented");
+          
+          }
+          int w=0;
+          bool flag=0;
+          if(*(fmt)>'0' && *(fmt)<='9'){
+               while(*fmt>'0' &&  *fmt<='9'){
+                  w=w*10+ (int)*fmt-'0';
+                fmt++;
+              }
+              flag=1;
+          }
+          switch(*(fmt)){
               case 'd':{
                   char strnum[32];
                   int j=31;
                   int tempd = va_arg(ap,int);
-                  do{
-                      strnum[j--] =((tempd%10) + '0');
+                  if(tempd<0) 
+                  {
+                      putch('-');
+                      
+                      ret++;
+                      tempd = -(tempd+1);
+                      
+                      strnum[j--] =((tempd%10) + '1');
+                    
                       ret++;
                       tempd/=10;
-                  }while(tempd!=0);
-                  fmt+=2;
+                      if(flag!=0) w--;
+                      
+                      while(tempd!=0){
+                          strnum[j--] =((tempd%10) + '0');
+                          ret++;
+                          tempd/=10;
+                          if(flag!=0){ 
+                              w--;
+                              if(w==0) break;
+                          }
+                      }
+                  }
+                  
+                  else{
+                      
+                      do{
+                          strnum[j--] =((tempd%10) + '0');
+                          ret++;
+                          tempd/=10;
+                          if(flag!=0) {
+                              w--;
+                              if(w==0) break;
+                          }
+                      }while(tempd!=0);
+                   
+                  }
+                  
+                  
                   j++;
+                  if(width>0 && (32-j < width)){
+                      for(int i=0;i<(width-32+j);i++){
+                          putch('0');
+                      }
+                  }
+                  
                   while(j!=32){
                       putch(strnum[j]);
                       j++;
                   }
+                  fmt++;
+                  //char *p __attribute__((__unused__)) =strnum;
+                  //putstr(p);
+                  break;
+              }
+              case 'x':{
+                  char strnum[32];
+                  int j=31;
+                  uint32_t tempd = va_arg(ap,uint32_t);
+                  
+                  
+                 
+                      
+                      do{
+                          if((tempd%16)<10) strnum[j--] =((tempd%16) + '0');
+                          else strnum[j--] =((tempd%16)-10 + 'a');
+                          ret++;
+                          tempd/=16;
+                      }while(tempd!=0);
+                   
+                  
+                  
+                  
+                  j++;
+                  if(width>0 && (32-j < width)){
+                      for(int i=0;i<(width-32+j);i++){
+                          putch('0');
+                      }
+                  }
+                  
+                  while(j!=32){
+                      putch(strnum[j]);
+                      j++;
+                  }
+                  fmt++;
                   //char *p __attribute__((__unused__)) =strnum;
                   //putstr(p);
                   break;
@@ -34,7 +130,14 @@ int printf(const char *fmt, ...) {
               case 's':{
                   char *temps = va_arg(ap,char*);
                   putstr(temps);
-                  fmt+=2;
+                  fmt++;
+                  break;
+              }
+              
+              default:{
+                  putch(*(fmt));
+                  putch('\n');
+                  panic("Not implemented");
                   break;
               }
           }
@@ -61,7 +164,9 @@ int sprintf(char *out, const char *fmt, ...) {
   size_t ret=0;
   while (*fmt != '\0')
   {
+      
       if(*fmt == '%'){
+          
           switch(*(fmt+1)){
           case 'd':{
               char strnum[32];
@@ -99,10 +204,8 @@ int sprintf(char *out, const char *fmt, ...) {
               break;
           }
           default:{
-              *out=*fmt;
-              out++;
-              fmt++;
-              ret++;
+              panic("Not implemented");
+              
               break;
           }
           }

@@ -137,7 +137,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
   //puts(ibuf[irbuf_point]);
   IFDEF(CONFIG_ITRACE,irbuf_point=(irbuf_point+1)%IRTRACE);
   //printf("-------------%08x\n",_this->isa.inst.val);
-  
+  //printf("----------------%016lx\n",dnpc);
   IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
  #ifdef CONFIG_WATCHPOINT
       bool flag=true;
@@ -155,6 +155,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   s->snpc = pc;
   isa_exec_once(s);
   cpu.pc = s->dnpc;
+  
 #ifdef CONFIG_ITRACE
   char *p = s->logbuf;
   p += snprintf(p, sizeof(s->logbuf), FMT_WORD ":", s->pc);
@@ -191,6 +192,7 @@ static void execute(uint64_t n) {
   Decode s;
   for (;n > 0; n --) {
     exec_once(&s, cpu.pc);
+    //printf("----------------%016lx\n",cpu.pc);
     g_nr_guest_inst ++;
     trace_and_difftest(&s, cpu.pc);
     
@@ -243,7 +245,11 @@ void cpu_exec(uint64_t n) {
             ANSI_FMT("HIT BAD TRAP", ANSI_FG_RED))),
           nemu_state.halt_pc);
           #ifdef CONFIG_ITRACE
-          if(nemu_state.state == NEMU_ABORT || nemu_state.halt_ret != 0) display_iringbuf();
+          if(nemu_state.state == NEMU_ABORT || nemu_state.halt_ret != 0) {
+              
+              display_iringbuf();
+              
+              }
           #endif
           #ifdef CONFIG_TRACE
           display_ftrace();
