@@ -48,6 +48,7 @@ object ALUOPType{
   def bgeu ="b0001100".U
   def remuw ="b0001101".U
   def lb ="b0001110".U
+  def remu ="b0001111"
   def apply() = UInt(7.W)
 }
 object RD{
@@ -296,6 +297,9 @@ class EXU extends Module with paramete {
     }
     is(ALUOPType.mul){
       alu_result := (src1 * src2)(63,0)
+    }
+    is(ALUOPType.remu){
+      alu_result := (src1 % src2)
     }
   }
   val shift_result=WireDefault(0.U(xlen.W))

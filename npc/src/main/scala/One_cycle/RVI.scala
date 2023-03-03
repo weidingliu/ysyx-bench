@@ -54,6 +54,7 @@ object RVI_ALU extends paramete{
   def REMUW = BitPat("b0000001_?????_?????_111_?????_0111011")
   def SLL =BitPat("b0000000_?????_?????_001_?????_0110011")
   def LB=BitPat("b???????_?????_?????_000_?????_0000011")
+  def REMU = BitPat("b0000001_?????_?????_111_?????_0110011")
   def Ebreak = BitPat("b0000000_00001_00000_000_00000_1110011")
 
   val table =Array(
@@ -107,6 +108,8 @@ object RVI_ALU extends paramete{
       XOR ->List(InstrType.InstrR,FUType.alu,ALUOPType.xor,RD.write),
       REMUW->List(InstrType.InstrR,FUType.alu,ALUOPType.remuw,RD.write),
       SLL->List(InstrType.InstrR,FUType.shift,ALUOPType.sll,RD.write),
+      REMU->List(InstrType.InstrR,FUType.alu,ALUOPType.remu,RD.write),
+
       Ebreak -> List(InstrType.InstrN,FUType.alu,ALUOPType.ebreak,RD.NOP),
   )
 }
