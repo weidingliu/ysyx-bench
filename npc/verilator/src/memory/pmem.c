@@ -47,7 +47,7 @@ extern "C" void pmem_write(long long addr, long long wdata, char wmask) {
   //printf("------%llx,%llx,%x\n",(addr & ~0x7)-0x80000000,wdata,wmask);
   if((addr& ~0x7ull) == 0xa00003f8){
       //printf("uart\n");
-      printf("%c",*(char *)wdata);
+      //printf("%c",*(char *)wdata);
       //is_skip_ref=1;
       return;
   }
