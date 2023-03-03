@@ -102,7 +102,7 @@ object RVI_ALU extends paramete{
       BLTU ->List(InstrType.InstrB,FUType.branch,ALUOPType.bltu,RD.NOP),
        BGEU -> List(InstrType.InstrB,FUType.branch,ALUOPType.bgeu,RD.NOP),
       XOR ->List(InstrType.InstrR,FUType.alu,ALUOPType.xor,RD.write),
-      REMW->List(InstrType.InstrR,FUType.alu,ALUOPType.remuw,RD.write),
+      REMUW->List(InstrType.InstrR,FUType.alu,ALUOPType.remuw,RD.write),
       Ebreak -> List(InstrType.InstrN,FUType.alu,ALUOPType.ebreak,RD.NOP),
   )
 }
