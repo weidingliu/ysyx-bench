@@ -435,7 +435,8 @@ if(state==ABORT){
     display_iringbuf();
     printf("\033[40;31Program execution has ended. To restart the program, exit NEMU and run again.\033[0m");
     printf("\n");
-    difftest_print();
+    if(DIFFTEST) difftest_print();
+    
     
     printf("\033[40;31mABORT at pc = \033[0m \033[40;31m0x%016lx\033[0m\n",dut->io_pc-4);
 }
