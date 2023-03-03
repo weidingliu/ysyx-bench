@@ -95,7 +95,7 @@ class IDU extends Module with paramete{
   io.ctrlIO.Imm := imm
   io.rd_en := en
   io.mem_we := Mux((aluoptype=== ALUOPType.ld || aluoptype === ALUOPType.lw || aluoptype === ALUOPType.lbu|| aluoptype === ALUOPType.lh
-    || aluoptype === ALUOPType.lhu || aluoptype === ALUOPType.lb),0.U,1.U)
+    || aluoptype === ALUOPType.lhu || aluoptype === ALUOPType.lb || aluoptype === ALUOPType.lwu),0.U,1.U)
 
 }
 //import chisel3.stage._

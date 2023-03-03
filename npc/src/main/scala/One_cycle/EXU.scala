@@ -7,7 +7,7 @@ object ALUOPType{
   def add = "b1000000".U
   def sll = "b1000001".U
   def ebreak = "b1000010".U
-  def auipc ="b1000011".U
+  def div ="b1000011".U
   def jal = "b0011001".U
   def jalr ="b1001000".U
   def or = "b1000100".U
@@ -49,6 +49,10 @@ object ALUOPType{
   def remuw ="b0001101".U
   def lb ="b0001110".U
   def remu ="b0001111".U
+  def divuw ="b0010000".U
+  def lwu = "b0010001".U
+  def rem = "b0010010".U
+  def divu = "b0010011".U
   def apply() = UInt(7.W)
 }
 object RD{
@@ -150,6 +154,9 @@ class EXU extends Module with paramete {
     is(ALUOPType.lw) {
       addr_temp := src1+io.Imm
     }
+    is(ALUOPType.lwu) {
+      addr_temp := src1 + io.Imm
+    }
     is(ALUOPType.lbu) {
       addr_temp := src1 + io.Imm
     }
@@ -229,6 +236,9 @@ class EXU extends Module with paramete {
     is(ALUOPType.lw) {
       mem_result := Mux(addr_temp(2, 2) === 1.U, SIgEXtend(io1.rdata(63, 32), xlen), SIgEXtend(io1.rdata(31, 0), xlen))
     }
+    is(ALUOPType.lwu) {
+      mem_result := Mux(addr_temp(2, 2) === 1.U, ZeroEXtend(io1.rdata(63, 32), xlen), SIgEXtend(io1.rdata(31, 0), xlen))
+    }
     is(ALUOPType.lbu) {
       mem_result := ZeroEXtend(MuxCase(0.U(8.W), lb_mem_select), xlen)
     }
@@ -301,6 +311,18 @@ class EXU extends Module with paramete {
     is(ALUOPType.remu){
       alu_result := (src1 % src2)
     }
+    is(ALUOPType.rem) {
+      alu_result := (src1.asSInt % src2.asSInt)
+    }
+    is(ALUOPType.divuw) {
+      alu_result := SIgEXtend((src1(31, 0) / src2(31, 0)) (31, 0), xlen)
+    }
+    is(ALUOPType.divu) {
+      alu_result := src1 / src2
+    }
+    is(ALUOPType.div) {
+      alu_result := src1.asSInt / src2.asSInt
+    }
   }
   val shift_result=WireDefault(0.U(xlen.W))
   switch(io.aluoptype){
@@ -332,6 +354,7 @@ class EXU extends Module with paramete {
     is(ALUOPType.srlw) {
       shift_result := SIgEXtend((src1(31, 0) >> src2(4, 0)) (31, 0), xlen)
     }
+
   }
 
 
