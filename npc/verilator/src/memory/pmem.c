@@ -11,7 +11,7 @@ extern "C" void pmem_read(long long addr, long long *rdata) {
   if (addr>=0xa0000048 && addr<=0xa000004f){
       struct timespec now;
       clock_gettime(CLOCK_MONOTONIC,&now);
-      printf("%d\n",now.tv_nsec);
+      printf("%ld\n",now.tv_nsec);
       *rdata=now.tv_nsec;
   }
   long long temp;
