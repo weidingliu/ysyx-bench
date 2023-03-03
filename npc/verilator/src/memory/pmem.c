@@ -25,11 +25,11 @@ static uint64_t get_time(){
 extern "C" void pmem_read(long long addr, long long *rdata) {
   // 总是读取地址为`raddr & ~0x7ull`的8字节返回给`rdata`
   //printf("%016llx  %016llx\n",(addr & ~0x7ull)-RESET_VECTOR,addr);
-  if (addr>=0xa0000048 && addr<=0xa000004f){
+  if (addr & ~0x7ull==0xa0000048){
       
       //printf("%ld\n",now.tv_nsec);
       *rdata=get_time();
-      
+      printf("here\n");
       return;
   }
   long long temp;
