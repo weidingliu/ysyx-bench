@@ -29,7 +29,7 @@ void init_difftest(char *ref_so_file, uint32_t img_size, int port, uint8_t *mem)
   printf("here\n");
   ref_difftest_exec = (Ref_difftest_exec)dlsym(handle, "difftest_exec");
   assert(ref_difftest_exec);
-printf("here\n");
+  printf("here\n");
   ref_difftest_raise_intr = (Ref_difftest_raise_intr)dlsym(handle, "difftest_raise_intr");
   assert(ref_difftest_raise_intr);
   printf("here\n");
