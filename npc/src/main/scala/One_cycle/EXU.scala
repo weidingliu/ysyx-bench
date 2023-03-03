@@ -46,6 +46,7 @@ object ALUOPType{
   def srlw = "b0001010".U
   def bltu = "b0001011".U
   def bgeu ="b0001100".U
+  def remuw ="b0001101".U
   def apply() = UInt(7.W)
 }
 object RD{
@@ -279,6 +280,9 @@ class EXU extends Module with paramete {
     }
     is(ALUOPType.remw){
       alu_result := SIgEXtend((src1(31,0).asSInt % src2(31,0).asSInt)(31, 0), xlen)
+    }
+    is(ALUOPType.remuw) {
+      alu_result := SIgEXtend((src1(31, 0) % src2(31, 0)) (31, 0), xlen)
     }
     is(ALUOPType.subw){
       alu_result := SIgEXtend((src1 - src2)(31, 0), xlen)

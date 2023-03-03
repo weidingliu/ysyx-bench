@@ -51,6 +51,7 @@ object RVI_ALU extends paramete{
   def BLTU =BitPat("b???????_?????_?????_110_?????_1100011")
   def BGEU =BitPat("b???????_?????_?????_111_?????_1100011")
   def XOR =BitPat("b0000000_?????_?????_100_?????_0110011")
+  def REMUW = BitPat("b0000001_?????_?????_111_?????_0111011")
   def Ebreak = BitPat("b0000000_00001_00000_000_00000_1110011")
 
   val table =Array(
@@ -101,6 +102,7 @@ object RVI_ALU extends paramete{
       BLTU ->List(InstrType.InstrB,FUType.branch,ALUOPType.bltu,RD.NOP),
        BGEU -> List(InstrType.InstrB,FUType.branch,ALUOPType.bgeu,RD.NOP),
       XOR ->List(InstrType.InstrR,FUType.alu,ALUOPType.xor,RD.write),
+      REMW->List(InstrType.InstrR,FUType.alu,ALUOPType.remuw,RD.write),
       Ebreak -> List(InstrType.InstrN,FUType.alu,ALUOPType.ebreak,RD.NOP),
   )
 }
