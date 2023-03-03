@@ -28,7 +28,7 @@ extern "C" void pmem_read(long long addr, long long *rdata) {
   //printf("%016llx  %016llx\n",(addr & ~0x7ull)-RESET_VECTOR,addr);
   if ((addr & ~0x7ull)==0xa0000048){
       uint64_t us=get_time();
-      printf("%ld\n",us);
+      //printf("%ld\n",us);
       *rdata=us;
       //printf("%lld\n",*rdata);
       //printf("here\n");
