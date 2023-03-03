@@ -658,7 +658,7 @@ module EXU(
   wire [63:0] _GEN_91 = _T_165 ? _dnpc_T_9 : _GEN_90; // @[EXU.scala 429:23 437:12]
   wire [63:0] _GEN_92 = 7'h48 == io_aluoptype ? _dnpc_T_5 : _GEN_91; // @[EXU.scala 429:23 434:12]
   assign io1_result = 3'h0 == io_futype ? alu_result : _GEN_72; // @[EXU.scala 375:20 377:18]
-  assign io1_is_break = io_aluoptype == 7'h42; // @[EXU.scala 270:35]
+  assign io1_is_break = io_aluoptype == 7'h42 | io_aluoptype == 7'h0; // @[EXU.scala 270:56]
   assign io1_is_jump = io_futype == 3'h3; // @[EXU.scala 397:31]
   assign io1_is_branch = 7'h6b == io_aluoptype ? src1 == src2 : _GEN_83; // @[EXU.scala 401:25 404:21]
   assign io1_dnpc = 7'h19 == io_aluoptype ? _addr_temp_T_1 : _GEN_92; // @[EXU.scala 429:23 431:12]
