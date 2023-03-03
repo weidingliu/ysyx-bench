@@ -222,7 +222,7 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
                                                                == 
                                                                (0xfe00707fU 
                                                                 & vlSelf->CPUTop__DOT__IFM_inst)) 
-                                                              | (0x200603bU 
+                                                              | (0x200703bU 
                                                                  == 
                                                                  (0xfe00707fU 
                                                                   & vlSelf->CPUTop__DOT__IFM_inst))))))))))))))))))));
@@ -371,7 +371,7 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
                                                             & vlSelf->CPUTop__DOT__IFM_inst))
                                                            ? 0x72U
                                                            : 
-                                                          ((0x200603bU 
+                                                          ((0x200703bU 
                                                             == 
                                                             (0xfe00707fU 
                                                              & vlSelf->CPUTop__DOT__IFM_inst))
@@ -449,7 +449,7 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
                                                             & vlSelf->CPUTop__DOT__IFM_inst))
                                                            ? 5U
                                                            : 
-                                                          ((0x200603bU 
+                                                          ((0x200703bU 
                                                             == 
                                                             (0xfe00707fU 
                                                              & vlSelf->CPUTop__DOT__IFM_inst))

@@ -132,8 +132,9 @@ module IDU(
   wire  _Inst_decode_T_89 = 32'h6063 == _Inst_decode_T; // @[Lookup.scala 31:38]
   wire  _Inst_decode_T_91 = 32'h7063 == _Inst_decode_T; // @[Lookup.scala 31:38]
   wire  _Inst_decode_T_93 = 32'h4033 == _Inst_decode_T_20; // @[Lookup.scala 31:38]
+  wire  _Inst_decode_T_95 = 32'h200703b == _Inst_decode_T_20; // @[Lookup.scala 31:38]
   wire  _Inst_decode_T_97 = 32'h100073 == io_inst; // @[Lookup.scala 31:38]
-  wire [2:0] _Inst_decode_T_99 = _Inst_decode_T_65 ? 3'h5 : 3'h0; // @[Lookup.scala 34:39]
+  wire [2:0] _Inst_decode_T_99 = _Inst_decode_T_95 ? 3'h5 : 3'h0; // @[Lookup.scala 34:39]
   wire [2:0] _Inst_decode_T_100 = _Inst_decode_T_93 ? 3'h5 : _Inst_decode_T_99; // @[Lookup.scala 34:39]
   wire [3:0] _Inst_decode_T_101 = _Inst_decode_T_91 ? 4'hb : {{1'd0}, _Inst_decode_T_100}; // @[Lookup.scala 34:39]
   wire [3:0] _Inst_decode_T_102 = _Inst_decode_T_89 ? 4'hb : _Inst_decode_T_101; // @[Lookup.scala 34:39]
@@ -227,7 +228,7 @@ module IDU(
   wire [2:0] _Inst_decode_T_192 = _Inst_decode_T_5 ? 3'h0 : _Inst_decode_T_191; // @[Lookup.scala 34:39]
   wire [2:0] _Inst_decode_T_193 = _Inst_decode_T_3 ? 3'h1 : _Inst_decode_T_192; // @[Lookup.scala 34:39]
   wire [6:0] _Inst_decode_T_194 = _Inst_decode_T_97 ? 7'h42 : 7'h0; // @[Lookup.scala 34:39]
-  wire [6:0] _Inst_decode_T_195 = _Inst_decode_T_65 ? 7'hd : _Inst_decode_T_194; // @[Lookup.scala 34:39]
+  wire [6:0] _Inst_decode_T_195 = _Inst_decode_T_95 ? 7'hd : _Inst_decode_T_194; // @[Lookup.scala 34:39]
   wire [6:0] _Inst_decode_T_196 = _Inst_decode_T_93 ? 7'h72 : _Inst_decode_T_195; // @[Lookup.scala 34:39]
   wire [6:0] _Inst_decode_T_197 = _Inst_decode_T_91 ? 7'hc : _Inst_decode_T_196; // @[Lookup.scala 34:39]
   wire [6:0] _Inst_decode_T_198 = _Inst_decode_T_89 ? 7'hb : _Inst_decode_T_197; // @[Lookup.scala 34:39]
@@ -275,7 +276,7 @@ module IDU(
   wire [6:0] _Inst_decode_T_240 = _Inst_decode_T_5 ? 7'h40 : _Inst_decode_T_239; // @[Lookup.scala 34:39]
   wire [6:0] _Inst_decode_T_241 = _Inst_decode_T_3 ? 7'h41 : _Inst_decode_T_240; // @[Lookup.scala 34:39]
   wire [6:0] Inst_decode_2 = _Inst_decode_T_1 ? 7'h40 : _Inst_decode_T_241; // @[Lookup.scala 34:39]
-  wire  _Inst_decode_T_245 = _Inst_decode_T_91 ? 1'h0 : _Inst_decode_T_93 | _Inst_decode_T_65; // @[Lookup.scala 34:39]
+  wire  _Inst_decode_T_245 = _Inst_decode_T_91 ? 1'h0 : _Inst_decode_T_93 | _Inst_decode_T_95; // @[Lookup.scala 34:39]
   wire  _Inst_decode_T_246 = _Inst_decode_T_89 ? 1'h0 : _Inst_decode_T_245; // @[Lookup.scala 34:39]
   wire  _Inst_decode_T_257 = _Inst_decode_T_67 ? 1'h0 : _Inst_decode_T_69 | (_Inst_decode_T_71 | (_Inst_decode_T_73 | (
     _Inst_decode_T_75 | (_Inst_decode_T_77 | (_Inst_decode_T_79 | (_Inst_decode_T_81 | (_Inst_decode_T_83 | (
