@@ -31,5 +31,5 @@ extern uint32_t *Inst;
 
 extern uint32_t state;
 
-
+extern bool is_skip_ref;
 
