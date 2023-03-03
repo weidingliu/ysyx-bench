@@ -47,6 +47,7 @@ object ALUOPType{
   def bltu = "b0001011".U
   def bgeu ="b0001100".U
   def remuw ="b0001101".U
+  def lb ="b0001110".U
   def apply() = UInt(7.W)
 }
 object RD{
@@ -151,6 +152,9 @@ class EXU extends Module with paramete {
     is(ALUOPType.lbu) {
       addr_temp := src1 + io.Imm
     }
+    is(ALUOPType.lb) {
+      addr_temp := src1 + io.Imm
+    }
     is(ALUOPType.sb) {
       addr_temp := src1 + io.Imm
     }
@@ -226,6 +230,9 @@ class EXU extends Module with paramete {
     }
     is(ALUOPType.lbu) {
       mem_result := ZeroEXtend(MuxCase(0.U(8.W), lb_mem_select), xlen)
+    }
+    is(ALUOPType.lb) {
+      mem_result := SIgEXtend(MuxCase(0.U(8.W), lb_mem_select), xlen)
     }
     is(ALUOPType.lh){
       mem_result := SIgEXtend(MuxCase(0.U(16.W), lh_mem_select), xlen)
