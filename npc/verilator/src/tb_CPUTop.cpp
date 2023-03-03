@@ -417,7 +417,7 @@ m_trace->open("waveform.vcd");
 init_mem(argv[1]);
 //printf("%s\n",argv[2]);
 if(DIFFTEST) init_difftest(argv[2],mem_size,1,mem);
-if(!DIFFTEST) printf("difftest OFF");
+if(!DIFFTEST) printf("                        difftest OFF\n");
 init_disasm("riscv64" "-pc-linux-gnu");
 //reset rtl
 Reset(dut,contextp,m_trace);//reset rtl
