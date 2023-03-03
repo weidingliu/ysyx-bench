@@ -11,8 +11,10 @@ extern "C" void pmem_read(long long addr, long long *rdata) {
   if (addr>=0xa0000048 && addr<=0xa000004f){
       struct timespec now;
       clock_gettime(CLOCK_MONOTONIC,&now);
-      printf("%ld\n",now.tv_nsec);
-      *rdata=now.tv_nsec;
+      //printf("%ld\n",now.tv_nsec);
+      *rdata=now.tv_sec * 1000000 + now.tv_nsec / 1000;
+      printf("here\n");
+      return;
   }
   long long temp;
   if((((addr & ~0x7ull)-RESET_VECTOR)>MAX_MEM) ) return;//assert(0);
