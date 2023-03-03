@@ -3,6 +3,8 @@
 
 #define is_batch_mode 1
 #define mtrace 0
+#define DIFFTEST 0
+
 
 #define MAX_SIM_TIME 4000
 
