@@ -3,16 +3,16 @@
 #include <cstring>
 #include <cassert>
 #include <tb.h>
-//#include <time.h>
+#include <time.h>
 
 extern "C" void pmem_read(long long addr, long long *rdata) {
   // 总是读取地址为`raddr & ~0x7ull`的8字节返回给`rdata`
   //printf("%016llx  %016llx\n",(addr & ~0x7ull)-RESET_VECTOR,addr);
- /* if (addr>=0xa0000048 && addr<=0xa000004f){
+  if (addr>=0xa0000048 && addr<=0xa000004f){
       struct timespec now;
       clock_gettime(CLOCK_MONOTONIC,&now);
       *rdata=now.tv_nsec;
-  }*/
+  }
   long long temp;
   if((((addr & ~0x7ull)-RESET_VECTOR)>MAX_MEM) ) return;//assert(0);
   memcpy(&temp,(mem+(addr& ~0x7ull)-RESET_VECTOR),sizeof(long long));
