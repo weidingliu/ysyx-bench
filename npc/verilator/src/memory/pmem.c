@@ -5,15 +5,31 @@
 #include <tb.h>
 #include <time.h>
 
+static uint64_t boot_time = 0;
+
+static uint64_t get_time_internal(){
+    struct timespec now;
+    clock_gettime(CLOCK_MONOTONIC_COARSE,&now);
+    uint64_t us = now.tv_sec * 1000000 + now.tv_nsec / 1000;
+    return us;
+    
+}
+
+static uint64_t get_time(){
+    if (boot_time == 0) boot_time = get_time_internal();
+    uint64_t now = get_time_internal();
+    return now - boot_time;
+
+}
+
 extern "C" void pmem_read(long long addr, long long *rdata) {
   // 总是读取地址为`raddr & ~0x7ull`的8字节返回给`rdata`
   //printf("%016llx  %016llx\n",(addr & ~0x7ull)-RESET_VECTOR,addr);
   if (addr>=0xa0000048 && addr<=0xa000004f){
-      struct timespec now;
-      clock_gettime(CLOCK_MONOTONIC,&now);
+      
       //printf("%ld\n",now.tv_nsec);
-      *rdata=now.tv_sec * 1000000 + now.tv_nsec / 1000;
-      printf("here\n");
+      *rdata=get_time();
+      
       return;
   }
   long long temp;
