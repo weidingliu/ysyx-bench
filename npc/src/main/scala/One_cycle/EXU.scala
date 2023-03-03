@@ -48,7 +48,7 @@ object ALUOPType{
   def bgeu ="b0001100".U
   def remuw ="b0001101".U
   def lb ="b0001110".U
-  def remu ="b0001111"
+  def remu ="b0001111".U
   def apply() = UInt(7.W)
 }
 object RD{
