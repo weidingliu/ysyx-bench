@@ -312,7 +312,7 @@ class EXU extends Module with paramete {
       alu_result := (src1 % src2)
     }
     is(ALUOPType.rem) {
-      alu_result := (src1.asSInt % src2.asSInt)
+      alu_result := (src1.asSInt % src2.asSInt)(63,0)
     }
     is(ALUOPType.divuw) {
       alu_result := SIgEXtend((src1(31, 0) / src2(31, 0)) (31, 0), xlen)
