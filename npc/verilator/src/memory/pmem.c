@@ -44,7 +44,7 @@ extern "C" void pmem_write(long long addr, long long wdata, char wmask) {
   // `wmask`中每比特表示`wdata`中1个字节的掩码,
   // 如`wmask = 0x3`代表只写入最低2个字节, 内存中的其它字节保持不变
   //printf("------%llx,%llx,%x\n",(addr & ~0x7)-0x80000000,wdata,wmask);
-  if((addr& ~0x7ull) ==0xa00003f8){
+  if((addr& ~0x7ull) == 0xa00003f8){
       printf("uart\n");
       return;
   }
