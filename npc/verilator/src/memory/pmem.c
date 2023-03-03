@@ -30,7 +30,7 @@ extern "C" void pmem_read(long long addr, long long *rdata) {
       
       //printf("%ld\n",now.tv_nsec);
       *rdata=get_time();
-      //printf("here\n");
+      printf("here\n");
       return;
   }
   long long temp;
