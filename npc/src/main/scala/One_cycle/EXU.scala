@@ -267,7 +267,7 @@ class EXU extends Module with paramete {
 //  ))
   val alu_result = WireDefault(0.U(xlen.W))
   val dnpc=WireDefault(0.U(xlen.W))
-  io1.is_break := Mux(io.aluoptype===ALUOPType.ebreak,1.U,0.U)
+  io1.is_break := Mux((io.aluoptype===ALUOPType.ebreak | io.aluoptype === ALUOPType.NOP),1.U,0.U)
   switch(io.aluoptype){
     is(ALUOPType.add){
      alu_result := src1 + src2
