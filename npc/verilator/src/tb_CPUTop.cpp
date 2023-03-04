@@ -44,9 +44,10 @@ uint32_t *Inst;
 
 uint32_t state=RUN;
 
-cpu_state *cpu;
+/*cpu_state *cpu;
 cpu_state dut;
-*cpu=&dut;
+*cpu = &dut;*/
+struct reg_cpu *cpu;
 
 void init_disasm(const char *triple); 
 
@@ -153,10 +154,7 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
             if(i==0){
                 disassemble(p,96,s->io_pc,(uint8_t *)&inst,4);
                 //cpu->reg=cpu_gpr;
-                printf("here\n");
-                memcpy(cpu->reg,cpu_gpr,sizeof(uint64_t)*32);
-                cpu->pc=s->io_pc;
-                printf("here\n");
+                
       
                 if(s->reset==0 && step_print_inst){
                     printf("Addr: %08lx\t %08x\t Inst: %-16s\t\n",s->io_pc,Inst[0],p);
@@ -175,7 +173,10 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
         sim_time++;
         
     }
-    
+    printf("here\n");
+    memcpy(cpu->reg,cpu_gpr,sizeof(uint64_t)*32);
+    cpu->pc=s->io_pc;
+    printf("here\n");
     
     
 }
