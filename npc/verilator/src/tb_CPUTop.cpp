@@ -120,7 +120,7 @@ void init_mem(char *file_path){
         
         printf("%08x\n",mem[i]);
     }*/
-    printf("\033[40;44mload mem finish!\033[0m\n");
+    printf("\033[40;34mload mem finish!\033[0m\n");
     fclose(fp);
     //memset(mem+size,0,sizeof(uint8_t) * (MAX_MEM-size));
     //printf("%x\n",*(uint32_t *)(mem+0x24c));
