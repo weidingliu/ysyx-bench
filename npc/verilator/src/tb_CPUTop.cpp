@@ -93,13 +93,13 @@ void init_mem(char *file_path){
     FILE *fp;
     //printf("%x\n",*(uint32_t *)(mem+0x24c));
     if((fp=fopen(file_path,"rb"))==NULL){
-        printf("load mem fail!\n");
+        printf("\033[40;31mload mem fail!\033[0m\n");
         exit(-1);
     }
     fseek(fp,0,SEEK_END);
     int size=ftell(fp);
     mem_size=size;
-    printf("The image is %s, size = %d\n", file_path, size);
+    printf("\033[40;34mThe image is %s, size = %d\033[0m\n", file_path, size);
     if(size>MAX_MEM){
         printf("fail load mem file size:%d\n",size);
         exit(-1);
