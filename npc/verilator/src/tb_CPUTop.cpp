@@ -154,6 +154,7 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
                 printf("here\n");
                 memcpy(cpu->reg,cpu_gpr,sizeof(uint64_t)*32);
                 cpu->pc=s->io_pc;
+                printf("here\n");
       
                 if(s->reset==0 && step_print_inst){
                     printf("Addr: %08lx\t %08x\t Inst: %-16s\t\n",s->io_pc,Inst[0],p);
