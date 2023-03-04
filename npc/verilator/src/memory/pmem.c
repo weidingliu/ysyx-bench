@@ -30,6 +30,7 @@ extern "C" void pmem_read(long long addr, long long *rdata) {
       uint64_t us=get_time();
       //printf("%ld\n",us);
       *rdata=us;
+      is_skip_ref=1;
       //printf("%lld\n",*rdata);
       //printf("here\n");
       return;
@@ -49,6 +50,7 @@ extern "C" void pmem_write(long long addr, long long wdata, char wmask) {
   if((addr& ~0x7ull) == 0xa00003f8){
       //printf("uart\n");
       printf("%c",(char)wdata);
+      is_skip_ref=1;
       //is_skip_ref=1;
       return;
   }

@@ -44,6 +44,8 @@ uint32_t *Inst;
 
 uint32_t state=RUN;
 
+cpu_state cpu;
+
 void init_disasm(const char *triple); 
 
 extern "C" void pmem_read(long long addr, long long *rdata);
@@ -148,6 +150,8 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
             inst = pem_read(s->io_pc);
             if(i==0){
                 disassemble(p,96,s->io_pc,(uint8_t *)&inst,4);
+                cpu->reg=cpu_gpr;
+                cpu->pc=s->io_pc;
       
                 if(s->reset==0 && step_print_inst){
                     printf("Addr: %08lx\t %08x\t Inst: %-16s\t\n",s->io_pc,Inst[0],p);
