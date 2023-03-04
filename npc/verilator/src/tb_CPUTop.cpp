@@ -150,7 +150,7 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
             inst = pem_read(s->io_pc);
             if(i==0){
                 disassemble(p,96,s->io_pc,(uint8_t *)&inst,4);
-                cpu->reg=cpu_gpr;
+                //cpu->reg=cpu_gpr;
                 memcpy(cpu->reg,cpu_gpr,sizeof(uint64_t)*32);
                 cpu->pc=s->io_pc;
       
