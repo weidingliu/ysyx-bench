@@ -175,10 +175,12 @@ void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uint
     step_print_inst = (n<MAX_PRINT_STEP);
     while(n--!=0 &&((!contextp->gotFinish()))){
         exe_once(dut,contextp,m_trace);
+        if(DIFFTEST){
+            bool flag=difftest_step(dut->io_pc);
         
-        bool flag=difftest_step(dut->io_pc);
+            if(!flag) {state=ABORT; break;}
+        }
         
-        if(!flag) {state=ABORT; break;}
         
         
     }
@@ -414,9 +416,8 @@ m_trace->open("waveform.vcd");
 // init inst memory
 init_mem(argv[1]);
 //printf("%s\n",argv[2]);
-
-init_difftest(argv[2],mem_size,1,mem);
-
+if(DIFFTEST) init_difftest(argv[2],mem_size,1,mem);
+if(!DIFFTEST) printf("                        difftest OFF\n");
 init_disasm("riscv64" "-pc-linux-gnu");
 //reset rtl
 Reset(dut,contextp,m_trace);//reset rtl
@@ -434,7 +435,8 @@ if(state==ABORT){
     display_iringbuf();
     printf("\033[40;31Program execution has ended. To restart the program, exit NEMU and run again.\033[0m");
     printf("\n");
-    difftest_print();
+    if(DIFFTEST) difftest_print();
+    
     
     printf("\033[40;31mABORT at pc = \033[0m \033[40;31m0x%016lx\033[0m\n",dut->io_pc-4);
 }

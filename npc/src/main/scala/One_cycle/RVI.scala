@@ -49,6 +49,19 @@ object RVI_ALU extends paramete{
   def SRAW =BitPat("b0100000_?????_?????_101_?????_0111011")
   def SRLW = BitPat("b0000000_?????_?????_101_?????_0111011")
   def BLTU =BitPat("b???????_?????_?????_110_?????_1100011")
+  def BGEU =BitPat("b???????_?????_?????_111_?????_1100011")
+  def XOR =BitPat("b0000000_?????_?????_100_?????_0110011")
+  def REMUW = BitPat("b0000001_?????_?????_111_?????_0111011")
+  def SLL =BitPat("b0000000_?????_?????_001_?????_0110011")
+  def LB=BitPat("b???????_?????_?????_000_?????_0000011")
+  def REMU = BitPat("b0000001_?????_?????_111_?????_0110011")
+  def DIVUW = BitPat("b0000001_?????_?????_101_?????_0111011")
+  def SLTI = BitPat("b???????_?????_?????_010_?????_0010011")
+  def LWU = BitPat("b???????_?????_?????_110_?????_0000011")
+  def REM = BitPat("b0000001_?????_?????_110_?????_0110011")
+  def SRL = BitPat("b0000000_?????_?????_101_?????_0110011")
+  def DIVU = BitPat("b0000001_?????_?????_101_?????_0110011")
+  def DIV = BitPat("b0000001_?????_?????_100_?????_0110011")
   def Ebreak = BitPat("b0000000_00001_00000_000_00000_1110011")
 
   val table =Array(
@@ -71,6 +84,7 @@ object RVI_ALU extends paramete{
       ADD -> List(InstrType.InstrR,FUType.alu,ALUOPType.add,RD.write),
       SRAI ->List(InstrType.InstrI,FUType.shift,ALUOPType.srai,RD.write),
       LBU ->List(InstrType.InstrI,FUType.mem,ALUOPType.lbu,RD.write),
+      LB ->List(InstrType.InstrI,FUType.mem,ALUOPType.lb,RD.write),
       SH -> List(InstrType.InstrS,FUType.mem,ALUOPType.sh,RD.NOP),
       AND -> List(InstrType.InstrR,FUType.alu,ALUOPType.and,RD.write),
       SLTU -> List(InstrType.InstrR,FUType.compar,ALUOPType.sltiu,RD.write),//////////////
@@ -97,6 +111,19 @@ object RVI_ALU extends paramete{
       SRAW ->List(InstrType.InstrR,FUType.shift,ALUOPType.sraw,RD.write),
       SRLW ->List(InstrType.InstrR,FUType.shift,ALUOPType.srlw,RD.write),
       BLTU ->List(InstrType.InstrB,FUType.branch,ALUOPType.bltu,RD.NOP),
+       BGEU -> List(InstrType.InstrB,FUType.branch,ALUOPType.bgeu,RD.NOP),
+      XOR ->List(InstrType.InstrR,FUType.alu,ALUOPType.xor,RD.write),
+      REMUW->List(InstrType.InstrR,FUType.alu,ALUOPType.remuw,RD.write),
+      SLL->List(InstrType.InstrR,FUType.shift,ALUOPType.sll,RD.write),
+      REMU->List(InstrType.InstrR,FUType.alu,ALUOPType.remu,RD.write),
+      DIVUW->List(InstrType.InstrR,FUType.alu,ALUOPType.divuw,RD.write),
+      SLTI ->List(InstrType.InstrI,FUType.compar,ALUOPType.slt,RD.write),
+      LWU -> List(InstrType.InstrI,FUType.mem,ALUOPType.lwu,RD.write),
+      REM->List(InstrType.InstrR,FUType.alu,ALUOPType.rem,RD.write),
+      SRL ->List(InstrType.InstrR,FUType.shift,ALUOPType.srli,RD.write),
+      DIVU->List(InstrType.InstrR,FUType.alu,ALUOPType.divu,RD.write),
+      DIV->List(InstrType.InstrR,FUType.alu,ALUOPType.div,RD.write),
+
       Ebreak -> List(InstrType.InstrN,FUType.alu,ALUOPType.ebreak,RD.NOP),
   )
 }
