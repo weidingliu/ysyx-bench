@@ -173,11 +173,10 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
         sim_time++;
         
     }
-    printf("here\n");
-    memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
-    cpu.pc=s->io_pc;
-    printf("here\n");
-    
+    if(s->reset==0){
+        memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
+        cpu.pc=s->io_pc;
+    }
     
 }
 
