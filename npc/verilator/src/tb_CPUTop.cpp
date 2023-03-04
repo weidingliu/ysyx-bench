@@ -151,6 +151,7 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
             if(i==0){
                 disassemble(p,96,s->io_pc,(uint8_t *)&inst,4);
                 cpu->reg=cpu_gpr;
+                memcpy(cpu->reg,cpu_gpr,sizeof(uint64_t)*32);
                 cpu->pc=s->io_pc;
       
                 if(s->reset==0 && step_print_inst){
