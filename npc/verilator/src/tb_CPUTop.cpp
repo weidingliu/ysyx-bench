@@ -44,6 +44,11 @@ uint32_t *Inst;
 
 uint32_t state=RUN;
 
+/*cpu_state *cpu;
+cpu_state dut;
+*cpu = &dut;*/
+cpu_state cpu = {};
+
 void init_disasm(const char *triple); 
 
 extern "C" void pmem_read(long long addr, long long *rdata);
@@ -88,13 +93,13 @@ void init_mem(char *file_path){
     FILE *fp;
     //printf("%x\n",*(uint32_t *)(mem+0x24c));
     if((fp=fopen(file_path,"rb"))==NULL){
-        printf("load mem fail!\n");
+        printf("\033[40;31mload mem fail!\033[0m\n");
         exit(-1);
     }
     fseek(fp,0,SEEK_END);
     int size=ftell(fp);
     mem_size=size;
-    printf("The image is %s, size = %d\n", file_path, size);
+    printf("\033[40;34mThe image is %s, size = %d\033[0m\n", file_path, size);
     if(size>MAX_MEM){
         printf("fail load mem file size:%d\n",size);
         exit(-1);
@@ -102,10 +107,7 @@ void init_mem(char *file_path){
     //printf("----------%d\n",size);
     //uint8_t *temp=mem;
     fseek(fp, 0, SEEK_SET);
-    //printf("%x\n",*(uint32_t *)(mem+0x24c));
     size_t o=fread(mem,size,1,fp);
-    //printf("%ld\n",o);
-    //printf("%x\n",*(uint32_t *)(mem+0x24c));
     if(o==0){
         printf("fail load mem file \n");
         exit(-1);
@@ -115,7 +117,7 @@ void init_mem(char *file_path){
         
         printf("%08x\n",mem[i]);
     }*/
-    printf("load mem finish!\n");
+    printf("\033[40;34mload mem finish!\033[0m\n");
     fclose(fp);
     //memset(mem+size,0,sizeof(uint8_t) * (MAX_MEM-size));
     //printf("%x\n",*(uint32_t *)(mem+0x24c));
@@ -124,12 +126,7 @@ void init_mem(char *file_path){
 //void ebreak() {dut->final();return;}
 uint32_t pem_read(uint64_t pc){
     
-    /*mem[0]=0b00000000000100000000000100010011;
-    mem[1]=0b00000000000100010000000100010011;
-    mem[2]=0b00000000000100010000000100010011;
-    mem[3]=0b00000000000100000000000001110011;
-    mem[4]=0b00000000000100010000000100010011;*/
-    //printf("%lx  %ld\n",pc,(pc-0x80000000)/4);
+
     return *(uint32_t *)(mem+pc-0x80000000);
 } 
 //extern "C" void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
@@ -148,6 +145,8 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
             inst = pem_read(s->io_pc);
             if(i==0){
                 disassemble(p,96,s->io_pc,(uint8_t *)&inst,4);
+                //cpu->reg=cpu_gpr;
+                
       
                 if(s->reset==0 && step_print_inst){
                     printf("Addr: %08lx\t %08x\t Inst: %-16s\t\n",s->io_pc,Inst[0],p);
@@ -166,7 +165,9 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
         sim_time++;
         
     }
-    
+//////to ref
+    memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
+    cpu.pc=s->io_pc;
     
     
 }
@@ -175,7 +176,7 @@ void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uint
     step_print_inst = (n<MAX_PRINT_STEP);
     while(n--!=0 &&((!contextp->gotFinish()))){
         exe_once(dut,contextp,m_trace);
-        if(DIFFTEST){
+        if(DIFFTEST && is_skip_ref!=1){
             bool flag=difftest_step(dut->io_pc);
         
             if(!flag) {state=ABORT; break;}
@@ -207,6 +208,10 @@ void Reset(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     
         sim_time++;
     }
+    //reset ref
+    //printf("%lx\n",dut->io_pc);
+    memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
+    cpu.pc=dut->io_pc;
 
 }
 
@@ -416,11 +421,13 @@ m_trace->open("waveform.vcd");
 // init inst memory
 init_mem(argv[1]);
 //printf("%s\n",argv[2]);
+Reset(dut,contextp,m_trace);//reset rtl
+
 if(DIFFTEST) init_difftest(argv[2],mem_size,1,mem);
 if(!DIFFTEST) printf("                        difftest OFF\n");
 init_disasm("riscv64" "-pc-linux-gnu");
 //reset rtl
-Reset(dut,contextp,m_trace);//reset rtl
+
 //execute 
 //execute(dut,contextp,m_trace,-1);
 

@@ -78,6 +78,7 @@ void difftest_regcpy(ref_state *dut, bool direction) {
       return;
   }
   if(direction==DIFFTEST_TO_REF){
+      cpu.pc=dut->pc;
       for(int i=0;i<32;i++){
           cpu.gpr[i]=dut->reg[i];
       }

@@ -3,7 +3,7 @@
 
 #define is_batch_mode 1
 #define mtrace 0
-#define DIFFTEST 0
+#define DIFFTEST 1
 
 
 #define MAX_SIM_TIME 4000
@@ -24,6 +24,8 @@ extern const char *reg_name[];
 
 enum { DIFFTEST_TO_DUT, DIFFTEST_TO_REF };
 enum {RUN,ABORT,END};
+
+extern cpu_state cpu;
 
 extern uint8_t mem[MAX_MEM];
 extern uint32_t mem_size;

@@ -40,7 +40,7 @@ void init_difftest(char *ref_so_file, uint32_t img_size, int port, uint8_t *mem)
   //printf("%d\n",img_size);
   ref_difftest_memcpy(RESET_VECTOR, mem, img_size, DIFFTEST_TO_REF);
   //printf("here5\n");
-  ref_difftest_regcpy(&cpu_gpr, DIFFTEST_TO_REF);
+  ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
   
   printf("difftest \033[40;32mON\033[0m\n");
 }
@@ -62,6 +62,11 @@ static bool check_reg(cpu_state *ref_cpu,uint64_t pc){
 }
 
 bool difftest_step(uint64_t pc){
+    if(is_skip_ref){
+        ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
+        is_skip_ref=0;
+        return true;
+    }
     cpu_state ref_cpu;
     ref_difftest_exec(1);
     ref_difftest_regcpy(&ref_cpu, DIFFTEST_TO_DUT);
