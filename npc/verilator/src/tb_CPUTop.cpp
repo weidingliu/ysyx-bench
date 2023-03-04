@@ -107,10 +107,7 @@ void init_mem(char *file_path){
     //printf("----------%d\n",size);
     //uint8_t *temp=mem;
     fseek(fp, 0, SEEK_SET);
-    //printf("%x\n",*(uint32_t *)(mem+0x24c));
     size_t o=fread(mem,size,1,fp);
-    //printf("%ld\n",o);
-    //printf("%x\n",*(uint32_t *)(mem+0x24c));
     if(o==0){
         printf("fail load mem file \n");
         exit(-1);
@@ -129,12 +126,7 @@ void init_mem(char *file_path){
 //void ebreak() {dut->final();return;}
 uint32_t pem_read(uint64_t pc){
     
-    /*mem[0]=0b00000000000100000000000100010011;
-    mem[1]=0b00000000000100010000000100010011;
-    mem[2]=0b00000000000100010000000100010011;
-    mem[3]=0b00000000000100000000000001110011;
-    mem[4]=0b00000000000100010000000100010011;*/
-    //printf("%lx  %ld\n",pc,(pc-0x80000000)/4);
+
     return *(uint32_t *)(mem+pc-0x80000000);
 } 
 //extern "C" void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
@@ -173,7 +165,7 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
         sim_time++;
         
     }
-
+//////to ref
     memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
     cpu.pc=s->io_pc;
     
