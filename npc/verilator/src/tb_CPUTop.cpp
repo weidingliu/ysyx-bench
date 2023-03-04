@@ -45,6 +45,8 @@ uint32_t *Inst;
 uint32_t state=RUN;
 
 cpu_state *cpu;
+cpu_state dut;
+cpu=&dut;
 
 void init_disasm(const char *triple); 
 
