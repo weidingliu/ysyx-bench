@@ -93,7 +93,7 @@ int printf(const char *fmt, ...) {
                   //putstr(p);
                   break;
               }
-              case 'x':{
+              case  'x' :case 'p':{
                   char strnum[32];
                   int j=31;
                   uint32_t tempd = va_arg(ap,uint32_t);
