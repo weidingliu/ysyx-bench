@@ -54,7 +54,7 @@ static void decode_operand(Decode *s, int *dest, word_t *src1, word_t *src2, wor
     case TYPE_R: src1R(); src2R();         break;
   }
   printf("inst:%08x\n",i);
-  printf("----%08lx,%d,%d\n",src1R();,type,TYPE_I);
+  printf("----%08lx,%d,%d\n",*src1,type,TYPE_I);
   printf("%d\n",*csr);
 }
 
