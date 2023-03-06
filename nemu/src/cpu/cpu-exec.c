@@ -182,6 +182,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);
   printf("cpu------------%lx\n",cpu.csr[5]);
+  if(cpu.csr[5] !=0 ) nemu_state.state == NEMU_ABORT;
   //ibuf[irbuf_point].ch_inst=p;
   //strcpy(ibuf[irbuf_point].ch_inst,q);
   
