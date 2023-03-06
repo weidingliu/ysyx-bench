@@ -137,7 +137,7 @@ static int decode_exec(Decode *s) {
   //privlleged instruction
   INSTPAT("??????? ????? ????? 010 ????? 11100 11",csrrs,I,R(dest)=CSR(csr);CSR(csr)=src1 | CSR(csr));
   INSTPAT("??????? ????? ????? 001 ????? 11100 11",csrrw,I,R(dest)=CSR(csr);CSR(csr)=src1);
-  INSTPAT("0000000 00000 00000 000 00000 11100 11",ecall,N,s->dnpc=isa_raise_intr(1,s->snpc));
+  INSTPAT("0000000 00000 00000 000 00000 11100 11",ecall,N,s->dnpc=isa_raise_intr(0,s->snpc));
   
   
   
