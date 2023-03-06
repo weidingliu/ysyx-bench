@@ -53,7 +53,7 @@ static void decode_operand(Decode *s, int *dest, word_t *src1, word_t *src2, wor
     case TYPE_B: src1R(); src2R(); immB(); break;
     case TYPE_R: src1R(); src2R();         break;
   }
-  printf("%lx\n",*src2);
+  printf("%lx\n",*src1);
 }
 
 static int decode_exec(Decode *s) {
