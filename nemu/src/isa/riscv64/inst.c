@@ -19,7 +19,7 @@
 #include <cpu/decode.h>
 
 #define R(i) gpr(i)
-//#define CSR(i) 
+#define CSR(i) csrgpr(i) 
 #define Mr vaddr_read
 #define Mw vaddr_write
 
@@ -36,12 +36,15 @@ enum {
 #define immJ() do { *imm = SEXT(((BITS(i,31,31)<<19) + (BITS(i,30,21)) + (BITS(i,20,20)<<10) + (BITS(i,19,12)<<11))<<1,21); }while(0)
 #define immB() do { *imm = SEXT((BITS(i,11,8)+(BITS(i,7,7)<<10)+(BITS(i,30,25)<<4)+(BITS(i,31,31)<<11))<<1,13);}while(0)
 
-static void decode_operand(Decode *s, int *dest, word_t *src1, word_t *src2, word_t *imm, int type) {
+static void decode_operand(Decode *s, int *dest, word_t *src1, word_t *src2, word_t *imm, int *csr,int type) {
   uint32_t i = s->isa.inst.val;
   int rd  = BITS(i, 11, 7);
   int rs1 = BITS(i, 19, 15);
   int rs2 = BITS(i, 24, 20);
   *dest = rd;
+  int csrid=BITS(i, 27, 20);
+  
+  *csr = csrid;
   switch (type) {
     case TYPE_I: src1R();          immI(); break;
     case TYPE_U:                   immU(); break;
@@ -50,16 +53,19 @@ static void decode_operand(Decode *s, int *dest, word_t *src1, word_t *src2, wor
     case TYPE_B: src1R(); src2R(); immB(); break;
     case TYPE_R: src1R(); src2R();         break;
   }
+  /*printf("inst:%08x\n",i);
+  printf("----%08lx,%d,%d\n",R(rs1),type,TYPE_I);
+  printf("%d\n",*csr);*/
 }
 
 static int decode_exec(Decode *s) {
-  int dest = 0;
+  int dest = 0,csr=0;
   word_t src1 = 0, src2 = 0, imm = 0;
   s->dnpc = s->snpc;
 
 #define INSTPAT_INST(s) ((s)->isa.inst.val)
 #define INSTPAT_MATCH(s, name, type, ... /* execute body */ ) { \
-  decode_operand(s, &dest, &src1, &src2, &imm, concat(TYPE_, type)); \
+  decode_operand(s, &dest, &src1, &src2, &imm, &csr,concat(TYPE_, type)); \
   __VA_ARGS__ ; \
 }
 
@@ -133,8 +139,10 @@ static int decode_exec(Decode *s) {
   INSTPAT("0100000 ????? ????? 101 ????? 01100 11",sra,R,R(dest) =(long long)src1>>BITS(src2,5,0));
   
   //privlleged instruction
-  INSTPAT("??????? ????? ????? 010 ????? 11100 11",csrrs,I,R(dest)=);
-  INSTPAT("??????? ????? ????? 001 ????? 11100 11",csrrw,I,R(dest)=);
+  INSTPAT("??????? ????? ????? 010 ????? 11100 11",csrrs,I,R(dest)=CSR(csr);CSR(csr)=src1 | CSR(csr));
+  INSTPAT("??????? ????? ????? 001 ????? 11100 11",csrrw,I,R(dest)=CSR(csr);CSR(csr)=src1);
+  INSTPAT("0000000 00000 00000 000 00000 11100 11",ecall,N,s->dnpc=isa_raise_intr(0,s->snpc));
+  
   
   
   INSTPAT("0000000 00001 00000 000 00000 11100 11", ebreak , N, NEMUTRAP(s->pc, R(10))); // R(10) is $a0

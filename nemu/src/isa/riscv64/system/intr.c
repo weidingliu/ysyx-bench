@@ -12,17 +12,19 @@
 *
 * See the Mulan PSL v2 for more details.
 ***************************************************************************************/
-
+#include <common.h>
 #include <isa.h>
 
 word_t isa_raise_intr(word_t NO, vaddr_t epc) {
   /* TODO: Trigger an interrupt/exception with ``NO''.
    * Then return the address of the interrupt/exception vector.
    */
-   Context.mepc=epc;
-   Context.mcause=Event,event.EVENT_YIELD;
-
-  return 0;
+   //printf("--------%lx\n",cpu.csr[0]);
+   cpu.csr[0x41]=epc;
+   cpu.csr[0x42]=EVENT_YIELD;
+  // printf("--------%lx\n",cpu.csr[5]);
+  
+  return cpu.csr[5];
 }
 
 word_t isa_query_intr() {
