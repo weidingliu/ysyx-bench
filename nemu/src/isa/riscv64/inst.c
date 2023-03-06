@@ -43,7 +43,7 @@ static void decode_operand(Decode *s, int *dest, word_t *src1, word_t *src2, wor
   int rs2 = BITS(i, 24, 20);
   *dest = rd;
   int csrid=BITS(i, 27, 20);
-  printf("%d\n",csrid);
+  //printf("%d\n",csrid);
   *csr = csrid;
   switch (type) {
     case TYPE_I: src1R();          immI(); break;
