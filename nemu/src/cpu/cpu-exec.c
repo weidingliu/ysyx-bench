@@ -181,7 +181,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   //printf("-----------%d  %ld  %d\n",space_len,s->logbuf + sizeof(s->logbuf) - p,ilen);
   disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);
-  
+  printf("cpu------------%lx\n",cpu.csr[5]);
   //ibuf[irbuf_point].ch_inst=p;
   //strcpy(ibuf[irbuf_point].ch_inst,q);
   
