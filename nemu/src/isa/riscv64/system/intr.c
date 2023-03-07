@@ -24,6 +24,7 @@ word_t isa_raise_intr(word_t NO, vaddr_t epc) {
    cpu.csr[0x42]=11;//mcause
    //printf("--------%lx\n",cpu.csr[0x42]);
   //isa_reg_display();
+  printf("--->ecall pc: %016lx  mcause: %016lx\n",epc,cpu.csr[0x42]);
   return cpu.csr[5];
 }
 

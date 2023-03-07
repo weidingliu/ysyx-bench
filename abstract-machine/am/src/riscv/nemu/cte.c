@@ -8,14 +8,14 @@ Context* __am_irq_handle(Context *c) {
   if (user_handler) {
     Event ev = {0};
     switch (c->mcause) {
-      case(11): ev.event = EVENT_YIELD;break;
+      case(11): ev.event = EVENT_YIELD;c->mepc+=4;break;
       default: ev.event = EVENT_ERROR; break;
     }
     /*printf("%x %x %x %x\n",c->mcause,c->mstatus,c->mepc,c->pdir);
     for(int i=0;i<32;i++){
         printf("%x\n",c->gpr[i]);
     }*/
-    c->mepc+=4;
+    
     c = user_handler(ev, c);
     assert(c != NULL);
   }
