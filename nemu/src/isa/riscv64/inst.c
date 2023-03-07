@@ -62,7 +62,7 @@ static int decode_exec(Decode *s) {
   int dest = 0,csr=0;
   word_t src1 = 0, src2 = 0, imm = 0;
   s->dnpc = s->snpc;
-
+  //printf("dsad %lx\n",CSR(0x42));
 #define INSTPAT_INST(s) ((s)->isa.inst.val)
 #define INSTPAT_MATCH(s, name, type, ... /* execute body */ ) { \
   decode_operand(s, &dest, &src1, &src2, &imm, &csr,concat(TYPE_, type)); \
@@ -141,7 +141,8 @@ static int decode_exec(Decode *s) {
   //privlleged instruction
   INSTPAT("??????? ????? ????? 010 ????? 11100 11",csrrs,I,R(dest)=CSR(csr);CSR(csr)=src1 | CSR(csr));
   INSTPAT("??????? ????? ????? 001 ????? 11100 11",csrrw,I,R(dest)=CSR(csr);CSR(csr)=src1);
-  INSTPAT("0000000 00000 00000 000 00000 11100 11",ecall,N,s->dnpc=isa_raise_intr(0,s->snpc));
+  INSTPAT("0000000 00000 00000 000 00000 11100 11",ecall,N,s->dnpc=isa_raise_intr(0,s->pc));
+  INSTPAT("0011000 00010 00000 000 00000 11100 11",mret,N,s->dnpc=CSR(0x41));
   
   
   
