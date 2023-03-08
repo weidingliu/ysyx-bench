@@ -13,7 +13,7 @@ class DIP_model extends BlackBox{
 class ifm extends BlackBox{
   val io = IO(new Bundle() {
     val reset=Input(Bool())
-    val clk=Input(UInt(1.W))
+    val clk=Input(Clock())
     val pc = Input(UInt(64.W))
     val inst = Output(UInt(32.W))
   })
@@ -23,7 +23,7 @@ class MEM extends BlackBox{
   val io=IO(new Bundle() {
     val addr=Input(UInt(64.W))
     val reset=Input(Bool())
-    val clk=Input(UInt(1.W))
+    val clk=Input(Clock())
     val we=Input(Bool())
     val ce=Input(Bool())
     val wdata=Input(UInt(64.W))
