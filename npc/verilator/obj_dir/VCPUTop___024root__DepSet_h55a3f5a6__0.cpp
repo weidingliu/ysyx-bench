@@ -1969,6 +1969,10 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
     } else {
         vlSelf->CPUTop__DOT__mem_rdata = 0ULL;
     }
+    VL_WRITEF("-------------ddr---%x\n",64,((0x45U 
+                                             == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                                             ? vlSelf->CPUTop__DOT__EX__DOT___addr_temp_T_1
+                                             : vlSelf->CPUTop__DOT__EX__DOT___GEN_14));
     vlSelf->CPUTop__DOT__EX__DOT___mem_result_T_28 
         = (0xffU & ((0U == (7U & (IData)(vlSelf->CPUTop__DOT__EX__DOT__addr_temp)))
                      ? (IData)(vlSelf->CPUTop__DOT__mem_rdata)

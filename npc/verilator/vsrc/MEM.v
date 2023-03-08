@@ -19,6 +19,7 @@ always @(*) begin
             rdata=64'h0;
         end
         else begin 
+        $display("-------------ddr---%h",addr);
             pmem_read(addr, rdata);
             
         end
@@ -26,7 +27,7 @@ always @(*) begin
     else begin 
         rdata=64'h0;
     end
-    $display("-------------ddr---%h",addr);
+    
     //$display("-------------%h",rdata);
 end
 
