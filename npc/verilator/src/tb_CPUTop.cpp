@@ -179,6 +179,7 @@ void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uint
     while(n--!=0 &&((!contextp->gotFinish()))){
         exe_once(dut,contextp,m_trace);
         if(DIFFTEST &&  !is_ref_irq){
+        printf("qqq\n");
             bool flag=difftest_step(dut->io_pc);
         
             if(!flag) {state=ABORT; break;}
