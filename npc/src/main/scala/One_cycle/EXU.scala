@@ -450,6 +450,16 @@ class EXU extends Module with paramete {
       }
     }
 
+  val csr_data = WireDefault(0.U(xlen.W))
+  switch(io.aluoptype) {
+    is(ALUOPType.ecall) {
+      csr_data := csr.read(0x05.U)
+    }
+    is(ALUOPType.mret) {
+      csr_data := csr.read(0x41.U)
+    }
+  }
+
 
   switch(io.aluoptype){
     is(ALUOPType.jal) {
@@ -479,12 +489,13 @@ class EXU extends Module with paramete {
     }
 
     is(ALUOPType.ecall){
-      dnpc := csr.read(5.U)
+      dnpc := csr_data
     }
     is(ALUOPType.mret){
-      dnpc := csr.read(41.U)
+      dnpc := csr_data
     }
   }
+
   switch(io.aluoptype){
     is(ALUOPType.ecall){
       csr.write(0x41.U,io1.PC.asUInt)
