@@ -16,11 +16,11 @@ Ref_difftest_init ref_difftest_init=NULL;
 
 void init_difftest(char *ref_so_file, uint32_t img_size, int port, uint8_t *mem){
   assert(ref_so_file != NULL);
-  
+  printf("%d\n",img_size);
   void *handle;
   handle = dlopen(ref_so_file, RTLD_LAZY);
   assert(handle);
-  printf("%d\n",img_size);
+  
   ref_difftest_memcpy = (Ref_difftest_memcpy)dlsym(handle, "difftest_memcpy");
   assert(ref_difftest_memcpy);
   
