@@ -203,7 +203,7 @@ void Reset(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
         dut->clock ^= 1;
         dut->io_inst=0; 
         dut->reset = 1;
-    
+        printf("ddddd\n");
     
         dut->eval();
    
