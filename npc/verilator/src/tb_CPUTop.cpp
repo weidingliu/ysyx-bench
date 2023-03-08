@@ -424,7 +424,7 @@ m_trace->open("waveform.vcd");
 // init inst memory
 init_mem(argv[1]);
 //printf("%s\n",argv[2]);
-printf("fsdf\n");
+
 Reset(dut,contextp,m_trace);//reset rtl
 
 if(DIFFTEST) init_difftest(argv[2],mem_size,1,mem);
