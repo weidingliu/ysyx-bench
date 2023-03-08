@@ -328,7 +328,7 @@ class EXU extends Module with paramete {
   val shift_result=WireDefault(0.U(xlen.W))
   switch(io.aluoptype){
     is(ALUOPType.srai){
-      shift_result := src1.asSInt >> src2(4,0)
+      shift_result := (src1.asSInt >> src2(4,0)).asUInt
     }
     is(ALUOPType.sllw){
 
