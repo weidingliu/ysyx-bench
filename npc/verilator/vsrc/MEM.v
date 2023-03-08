@@ -5,6 +5,7 @@ import "DPI-C" function void pmem_write(
 
 module MEM(
     input wire reset,
+    input wire clk,
     input wire [63:0] addr,
     input wire we,
     input wire ce,
@@ -15,7 +16,7 @@ module MEM(
 
 always @(*) begin 
     //$display("-------------%h",addr);
-    if(reset) begin 
+    if(reset || clk==1'b1) begin 
         rdata=64'h0;
     end
     else if(ce==1'b1) begin 

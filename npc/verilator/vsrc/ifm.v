@@ -1,6 +1,7 @@
 
   module ifm(
       input wire reset,
+      input wire clk,
       input wire [63:0] pc,
       output wire [31:0]inst
   
@@ -8,10 +9,11 @@
   wire [63:0]rdata;
   always @(*) begin 
      //$display("----------dfas---%h",pc);
-      if(reset) begin 
+      if(reset & clk==1'b0) begin 
           
       end
       else begin 
+          
           pmem_read(pc, rdata);
       end
       

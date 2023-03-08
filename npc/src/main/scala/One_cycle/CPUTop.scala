@@ -7,11 +7,13 @@ class DIP_model extends BlackBox{
     val is_break = Input(Bool())
     val rf=Input(Vec(32,UInt(64.W)))
     val inst=Input(UInt(32.W))
+
   })
 }
 class ifm extends BlackBox{
   val io = IO(new Bundle() {
     val reset=Input(Bool())
+    val clk=Input(Bool())
     val pc = Input(UInt(64.W))
     val inst = Output(UInt(32.W))
   })
@@ -21,6 +23,7 @@ class MEM extends BlackBox{
   val io=IO(new Bundle() {
     val addr=Input(UInt(64.W))
     val reset=Input(Bool())
+    val clk=Input(Bool())
     val we=Input(Bool())
     val ce=Input(Bool())
     val wdata=Input(UInt(64.W))
@@ -92,6 +95,8 @@ class CPUTop extends Module with paramete{
   mem.io.we := ID.io.mem_we
   mem.io.reset := reset
   IFM.io.reset := reset
+  mem.io.clk := clock
+  IFM.io.clk := clock
 }
 
 import chisel3.stage._
