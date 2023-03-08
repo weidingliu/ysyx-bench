@@ -44,6 +44,8 @@ uint32_t *Inst;
 
 uint32_t state=RUN;
 
+bool is_ref_irq=false;
+
 /*cpu_state *cpu;
 cpu_state dut;
 *cpu = &dut;*/
@@ -163,7 +165,7 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
         s->eval();
         m_trace->dump(sim_time);
         sim_time++;
-        
+        if(Inst==0b00000000000000000000000001110011){is_ref_irq=true;}
     }
 //////to ref
     memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
@@ -176,7 +178,7 @@ void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uint
     step_print_inst = (n<MAX_PRINT_STEP);
     while(n--!=0 &&((!contextp->gotFinish()))){
         exe_once(dut,contextp,m_trace);
-        if(DIFFTEST && is_skip_ref!=1){
+        if(DIFFTEST &&  !is_ref_irq){
             bool flag=difftest_step(dut->io_pc);
         
             if(!flag) {state=ABORT; break;}

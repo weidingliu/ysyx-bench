@@ -54,6 +54,10 @@ object ALUOPType{
   def rem = "b0010010".U
   def divu = "b0010011".U
   def sra = "b0010100".U
+  def csrrs ="b0010101".U
+  def csrrw ="b0010110".U
+  def ecall ="b0010111".U
+  def mret ="b0011000".U
   def apply() = UInt(7.W)
 }
 object RD{
@@ -96,6 +100,7 @@ class EXU extends Module with paramete {
     val wmask=Output(UInt(masklen.W))
 
   })
+  val csr = new CSR
   val src1=WireDefault(0.U(xlen.W))
   val src2=WireDefault(0.U(xlen.W))
   switch(io.src1type){
@@ -324,6 +329,14 @@ class EXU extends Module with paramete {
     is(ALUOPType.div) {
       alu_result := (src1.asSInt / src2.asSInt)(63,0)
     }
+    is(ALUOPType.csrrs){
+      alu_result := csr.read(io.Imm(7,0))
+      csr.write(io.Imm(7,0),csr.read(io.Imm(7,0)) | src1)
+    }
+    is(ALUOPType.csrrw) {
+      alu_result := csr.read(io.Imm(7, 0))
+      csr.write(io.Imm(7,0),src1)
+    }
   }
   val shift_result=WireDefault(0.U(xlen.W))
   switch(io.aluoptype){
@@ -427,6 +440,14 @@ class EXU extends Module with paramete {
         branch_result := io1.PC + io.Imm
         branch_flag := Mux(src1 >= src2, 1.U, 0.U)
       }
+
+
+      is(ALUOPType.ecall){
+        branch_flag := 1.U
+      }
+      is(ALUOPType.mret){
+        branch_flag := 1.U
+      }
     }
 
 
@@ -455,6 +476,19 @@ class EXU extends Module with paramete {
     }
     is(ALUOPType.bltu) {
       dnpc := Mux(branch_flag === 1.U, branch_result, io1.PC + 4.U(xlen.W))
+    }
+
+    is(ALUOPType.ecall){
+      dnpc := csr.read(5.U)
+    }
+    is(ALUOPType.mret){
+      dnpc := csr.read(41.U)
+    }
+  }
+  switch(io.aluoptype){
+    is(ALUOPType.ecall){
+      csr.write(0x41.U,io1.PC.asUInt)
+      csr.write(0x42.U,11.U)
     }
   }
 

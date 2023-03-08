@@ -86,6 +86,9 @@ void difftest_print(){
     }
 }
 
+void difftest_irq(uint64_t NO){
+    ref_difftest_init(NO);
+}
 
 
 
