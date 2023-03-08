@@ -212,7 +212,7 @@ void Reset(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
         sim_time++;
     }
     //reset ref
-    //printf("%lx\n",dut->io_pc);
+    printf("%lx\n",dut->io_pc);
     memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
     cpu.pc=dut->io_pc;
 
@@ -426,7 +426,7 @@ init_mem(argv[1]);
 //printf("%s\n",argv[2]);
 
 Reset(dut,contextp,m_trace);//reset rtl
-printf("dsfs");
+
 if(DIFFTEST) init_difftest(argv[2],mem_size,1,mem);
 if(!DIFFTEST) printf("                        difftest OFF\n");
 init_disasm("riscv64" "-pc-linux-gnu");
