@@ -426,7 +426,7 @@ init_mem(argv[1]);
 //printf("%s\n",argv[2]);
 
 Reset(dut,contextp,m_trace);//reset rtl
-printf("%d\n",img_size);
+printf("dsfs");
 if(DIFFTEST) init_difftest(argv[2],mem_size,1,mem);
 if(!DIFFTEST) printf("                        difftest OFF\n");
 init_disasm("riscv64" "-pc-linux-gnu");
