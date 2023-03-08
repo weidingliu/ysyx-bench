@@ -211,7 +211,7 @@ void Reset(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
         sim_time++;
     }
     //reset ref
-    printf("%lx\n",dut->io_pc);
+    //printf("%lx\n",dut->io_pc);
     memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
     cpu.pc=dut->io_pc;
 
