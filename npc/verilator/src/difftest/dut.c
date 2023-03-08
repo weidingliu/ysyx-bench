@@ -89,7 +89,7 @@ void difftest_print(){
 }
 
 void difftest_irq(uint64_t NO){
-    ref_difftest_init(NO);
+    ref_difftest_raise_intr(NO);
     ref_is_irq=0;
 }
 
