@@ -4,6 +4,7 @@
 #include <cassert>
 #include <tb.h>
 #include <sys/time.h>
+#include <difftest.h>
 
 uint64_t boot_time = 0;
 bool is_skip_ref=0;
