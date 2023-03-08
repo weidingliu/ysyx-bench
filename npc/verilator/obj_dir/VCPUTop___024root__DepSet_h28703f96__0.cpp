@@ -8,6 +8,7 @@
 #include "VCPUTop___024root.h"
 
 void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf);
+void VCPUTop___024root___combo__TOP__0(VCPUTop___024root* vlSelf);
 
 void VCPUTop___024root___eval(VCPUTop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
@@ -18,6 +19,8 @@ void VCPUTop___024root___eval(VCPUTop___024root* vlSelf) {
         VCPUTop___024root___sequent__TOP__0(vlSelf);
         vlSelf->__Vm_traceActivity[1U] = 1U;
     }
+    VCPUTop___024root___combo__TOP__0(vlSelf);
+    vlSelf->__Vm_traceActivity[2U] = 1U;
     // Final
     vlSelf->__Vclklast__TOP__clock = vlSelf->clock;
 }

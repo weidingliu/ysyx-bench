@@ -95,7 +95,7 @@ class VCPUTop___024root final : public VerilatedModule {
         VlUnpacked<QData/*63:0*/, 32> CPUTop__DOT__rf;
         VlUnpacked<QData/*63:0*/, 256> CPUTop__DOT__EX__DOT__csr;
         VlUnpacked<QData/*63:0*/, 32> CPUTop__DOT__DIP__DOT__rf;
-        VlUnpacked<CData/*0:0*/, 2> __Vm_traceActivity;
+        VlUnpacked<CData/*0:0*/, 3> __Vm_traceActivity;
     };
 
     // INTERNAL VARIABLES

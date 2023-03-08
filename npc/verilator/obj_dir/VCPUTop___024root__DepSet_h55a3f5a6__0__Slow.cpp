@@ -1722,7 +1722,9 @@ VL_ATTR_COLD void VCPUTop___024root___settle__TOP__0(VCPUTop___024root* vlSelf) 
                                                                        & (IData)(vlSelf->CPUTop__DOT__EX__DOT__src2)))) 
                                                       << 0x38U)
                                                       : 0ULL))))))));
-    if ((4U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype))) {
+    if (vlSelf->reset) {
+        vlSelf->CPUTop__DOT__mem_rdata = 0ULL;
+    } else if ((4U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype))) {
         if (VL_UNLIKELY((((((((0x45U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
                               | (0x47U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))) 
                              | (0x6fU == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))) 
