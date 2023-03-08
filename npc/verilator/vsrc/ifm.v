@@ -7,6 +7,7 @@
   );
   wire [63:0]rdata;
   always @(*) begin 
+     $display("-------------%h",pc);
       if(reset) begin 
           
       end

@@ -37,7 +37,7 @@ extern "C" void pmem_read(long long addr, long long *rdata) {
       return;
   }
   long long temp;
-  printf("%llx\n",((addr & ~0x7ull)-RESET_VECTOR));
+  //printf("%llx\n",((addr & ~0x7ull)-RESET_VECTOR));
   if((((addr & ~0x7ull)-RESET_VECTOR)>MAX_MEM) ) {difftest_print();assert(0);}
   memcpy(&temp,(mem+(addr& ~0x7ull)-RESET_VECTOR),sizeof(long long));
   *rdata=temp;
