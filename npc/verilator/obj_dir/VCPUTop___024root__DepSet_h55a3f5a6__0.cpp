@@ -34,7 +34,7 @@ VL_INLINE_OPT void VCPUTop___024root___combo__TOP__0(VCPUTop___024root* vlSelf) 
     VlWide<4>/*127:0*/ __Vtemp_h53a40c04__0;
     VlWide<4>/*127:0*/ __Vtemp_hdc10468f__0;
     // Body
-    if ((1U & (~ ((IData)(vlSelf->reset) & (~ (IData)(vlSelf->clock)))))) {
+    if ((1U & (~ ((IData)(vlSelf->reset) | (~ (IData)(vlSelf->clock)))))) {
         VCPUTop___024unit____Vdpiimwrap_pmem_read_TOP____024unit(vlSelf->CPUTop__DOT__IF__DOT__temp, vlSelf->__Vtask_pmem_read__0__rdata);
         vlSelf->CPUTop__DOT__IFM__DOT__rdata = vlSelf->__Vtask_pmem_read__0__rdata;
     }
