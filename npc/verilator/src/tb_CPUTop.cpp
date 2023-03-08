@@ -165,7 +165,7 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
         s->eval();
         m_trace->dump(sim_time);
         sim_time++;
-        if(Inst[0]==0b00000000000000000000000001110011){is_ref_irq=true;}
+        if(Inst[0]==0b00000000000000000000000001110011){is_ref_irq=true; difftest_irq(0);}
     }
 //////to ref
     memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
@@ -179,7 +179,7 @@ void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uint
     while(n--!=0 &&((!contextp->gotFinish()))){
         exe_once(dut,contextp,m_trace);
         if(DIFFTEST &&  !is_ref_irq){
-        printf("qqq%d\n",is_skip_ref);
+        printf("qqq %d\n",is_skip_ref);
             bool flag=difftest_step(dut->io_pc);
         
             if(!flag) {state=ABORT; break;}

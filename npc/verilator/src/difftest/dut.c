@@ -67,6 +67,7 @@ bool difftest_step(uint64_t pc){
         is_skip_ref=0;
         return true;
     }
+
     printf("dsaf %d\n",is_skip_ref);
     cpu_state ref_cpu;
     ref_difftest_exec(1);
@@ -89,6 +90,7 @@ void difftest_print(){
 
 void difftest_irq(uint64_t NO){
     ref_difftest_init(NO);
+    ref_is_irq=0;
 }
 
 
