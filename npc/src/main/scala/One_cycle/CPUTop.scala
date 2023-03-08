@@ -23,7 +23,7 @@ class MEM extends BlackBox{
   val io=IO(new Bundle() {
     val addr=Input(UInt(64.W))
     val reset=Input(Bool())
-    val clk=Input(Bool())
+    val clk=Input(UInt(1.W))
     val we=Input(Bool())
     val ce=Input(Bool())
     val wdata=Input(UInt(64.W))
