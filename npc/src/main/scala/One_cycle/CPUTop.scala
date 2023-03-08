@@ -19,6 +19,7 @@ class ifm extends BlackBox{
 class MEM extends BlackBox{
   val io=IO(new Bundle() {
     val addr=Input(UInt(64.W))
+    val reset=Input(Bool())
     val we=Input(Bool())
     val ce=Input(Bool())
     val wdata=Input(UInt(64.W))
@@ -88,6 +89,7 @@ class CPUTop extends Module with paramete{
   mem.io.wmask := EX.io1.wmask
   mem.io.ce := Mux((ID.io.ctrlIO.futype === FUType.mem),1.U,0.U)
   mem.io.we := ID.io.mem_we
+  mem.io.reset := reset
 }
 
 import chisel3.stage._
