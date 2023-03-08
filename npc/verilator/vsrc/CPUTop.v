@@ -434,12 +434,12 @@ module EXU(
   wire  csr_alu_result_MPORT_1_en; // @[RF.scala 12:16]
   wire [7:0] csr_alu_result_MPORT_1_addr; // @[RF.scala 12:16]
   wire [63:0] csr_alu_result_MPORT_1_data; // @[RF.scala 12:16]
-  wire  csr_dnpc_MPORT_en; // @[RF.scala 12:16]
-  wire [7:0] csr_dnpc_MPORT_addr; // @[RF.scala 12:16]
-  wire [63:0] csr_dnpc_MPORT_data; // @[RF.scala 12:16]
-  wire  csr_dnpc_MPORT_1_en; // @[RF.scala 12:16]
-  wire [7:0] csr_dnpc_MPORT_1_addr; // @[RF.scala 12:16]
-  wire [63:0] csr_dnpc_MPORT_1_data; // @[RF.scala 12:16]
+  wire  csr_csr_data_MPORT_en; // @[RF.scala 12:16]
+  wire [7:0] csr_csr_data_MPORT_addr; // @[RF.scala 12:16]
+  wire [63:0] csr_csr_data_MPORT_data; // @[RF.scala 12:16]
+  wire  csr_csr_data_MPORT_1_en; // @[RF.scala 12:16]
+  wire [7:0] csr_csr_data_MPORT_1_addr; // @[RF.scala 12:16]
+  wire [63:0] csr_csr_data_MPORT_1_data; // @[RF.scala 12:16]
   wire [63:0] csr_MPORT_1_data; // @[RF.scala 12:16]
   wire [7:0] csr_MPORT_1_addr; // @[RF.scala 12:16]
   wire  csr_MPORT_1_mask; // @[RF.scala 12:16]
@@ -744,33 +744,19 @@ module EXU(
   wire  _GEN_341 = 7'h6c == io_aluoptype ? src1 != src2 : _GEN_339; // @[EXU.scala 418:25 425:21]
   wire [63:0] branch_result = 7'h6b == io_aluoptype ? _branch_result_T_1 : _GEN_340; // @[EXU.scala 418:25 420:23]
   wire  branch_flag = 7'h6b == io_aluoptype ? src1 == src2 : _GEN_341; // @[EXU.scala 418:25 421:21]
-  wire  _T_182 = 7'h19 == io_aluoptype; // @[EXU.scala 454:23]
+  wire [63:0] _GEN_347 = _T_181 ? csr_csr_data_MPORT_1_data : 64'h0; // @[EXU.scala 454:24 459:16]
+  wire [63:0] csr_data = _T_180 ? csr_csr_data_MPORT_data : _GEN_347; // @[EXU.scala 454:24 456:16]
   wire [63:0] _dnpc_T_5 = {_addr_temp_T_1[63:1],1'h0}; // @[Cat.scala 31:58]
-  wire [63:0] _dnpc_T_9 = branch_flag ? branch_result : _jump_result_T_2; // @[EXU.scala 462:18]
-  wire [63:0] _GEN_347 = _T_181 ? csr_dnpc_MPORT_1_data : 64'h0; // @[EXU.scala 454:23 485:12]
-  wire [63:0] _GEN_351 = _T_180 ? csr_dnpc_MPORT_data : _GEN_347; // @[EXU.scala 454:23 482:12]
-  wire  _GEN_354 = _T_180 ? 1'h0 : _T_181; // @[EXU.scala 454:23 RF.scala 12:16]
-  wire [63:0] _GEN_355 = _T_178 ? _dnpc_T_9 : _GEN_351; // @[EXU.scala 454:23 478:12]
-  wire  _GEN_358 = _T_178 ? 1'h0 : _T_180; // @[EXU.scala 454:23 RF.scala 12:16]
-  wire  _GEN_361 = _T_178 ? 1'h0 : _GEN_354; // @[EXU.scala 454:23 RF.scala 12:16]
-  wire [63:0] _GEN_362 = _T_177 ? _dnpc_T_9 : _GEN_355; // @[EXU.scala 454:23 475:12]
-  wire  _GEN_365 = _T_177 ? 1'h0 : _GEN_358; // @[EXU.scala 454:23 RF.scala 12:16]
-  wire  _GEN_368 = _T_177 ? 1'h0 : _GEN_361; // @[EXU.scala 454:23 RF.scala 12:16]
-  wire [63:0] _GEN_369 = _T_179 ? _dnpc_T_9 : _GEN_362; // @[EXU.scala 454:23 472:12]
-  wire  _GEN_372 = _T_179 ? 1'h0 : _GEN_365; // @[EXU.scala 454:23 RF.scala 12:16]
-  wire  _GEN_375 = _T_179 ? 1'h0 : _GEN_368; // @[EXU.scala 454:23 RF.scala 12:16]
-  wire [63:0] _GEN_376 = _T_176 ? _dnpc_T_9 : _GEN_369; // @[EXU.scala 454:23 469:12]
-  wire  _GEN_379 = _T_176 ? 1'h0 : _GEN_372; // @[EXU.scala 454:23 RF.scala 12:16]
-  wire  _GEN_382 = _T_176 ? 1'h0 : _GEN_375; // @[EXU.scala 454:23 RF.scala 12:16]
-  wire [63:0] _GEN_383 = _T_175 ? _dnpc_T_9 : _GEN_376; // @[EXU.scala 454:23 466:12]
-  wire  _GEN_386 = _T_175 ? 1'h0 : _GEN_379; // @[EXU.scala 454:23 RF.scala 12:16]
-  wire  _GEN_389 = _T_175 ? 1'h0 : _GEN_382; // @[EXU.scala 454:23 RF.scala 12:16]
-  wire [63:0] _GEN_390 = _T_174 ? _dnpc_T_9 : _GEN_383; // @[EXU.scala 454:23 462:12]
-  wire  _GEN_393 = _T_174 ? 1'h0 : _GEN_386; // @[EXU.scala 454:23 RF.scala 12:16]
-  wire  _GEN_396 = _T_174 ? 1'h0 : _GEN_389; // @[EXU.scala 454:23 RF.scala 12:16]
-  wire [63:0] _GEN_397 = 7'h48 == io_aluoptype ? _dnpc_T_5 : _GEN_390; // @[EXU.scala 454:23 459:12]
-  wire  _GEN_400 = 7'h48 == io_aluoptype ? 1'h0 : _GEN_393; // @[EXU.scala 454:23 RF.scala 12:16]
-  wire  _GEN_403 = 7'h48 == io_aluoptype ? 1'h0 : _GEN_396; // @[EXU.scala 454:23 RF.scala 12:16]
+  wire [63:0] _dnpc_T_9 = branch_flag ? branch_result : _jump_result_T_2; // @[EXU.scala 472:18]
+  wire [63:0] _GEN_355 = _T_181 ? csr_data : 64'h0; // @[EXU.scala 464:23 495:12]
+  wire [63:0] _GEN_356 = _T_180 ? csr_data : _GEN_355; // @[EXU.scala 464:23 492:12]
+  wire [63:0] _GEN_357 = _T_178 ? _dnpc_T_9 : _GEN_356; // @[EXU.scala 464:23 488:12]
+  wire [63:0] _GEN_358 = _T_177 ? _dnpc_T_9 : _GEN_357; // @[EXU.scala 464:23 485:12]
+  wire [63:0] _GEN_359 = _T_179 ? _dnpc_T_9 : _GEN_358; // @[EXU.scala 464:23 482:12]
+  wire [63:0] _GEN_360 = _T_176 ? _dnpc_T_9 : _GEN_359; // @[EXU.scala 464:23 479:12]
+  wire [63:0] _GEN_361 = _T_175 ? _dnpc_T_9 : _GEN_360; // @[EXU.scala 464:23 476:12]
+  wire [63:0] _GEN_362 = _T_174 ? _dnpc_T_9 : _GEN_361; // @[EXU.scala 464:23 472:12]
+  wire [63:0] _GEN_363 = 7'h48 == io_aluoptype ? _dnpc_T_5 : _GEN_362; // @[EXU.scala 464:23 469:12]
   assign csr_alu_result_MPORT_en = _T_130 ? 1'h0 : _GEN_287;
   assign csr_alu_result_MPORT_addr = io_Imm[7:0];
   assign csr_alu_result_MPORT_data = csr[csr_alu_result_MPORT_addr]; // @[RF.scala 12:16]
@@ -780,12 +766,12 @@ module EXU(
   assign csr_alu_result_MPORT_1_en = _T_130 ? 1'h0 : _GEN_294;
   assign csr_alu_result_MPORT_1_addr = io_Imm[7:0];
   assign csr_alu_result_MPORT_1_data = csr[csr_alu_result_MPORT_1_addr]; // @[RF.scala 12:16]
-  assign csr_dnpc_MPORT_en = _T_182 ? 1'h0 : _GEN_400;
-  assign csr_dnpc_MPORT_addr = 8'h5;
-  assign csr_dnpc_MPORT_data = csr[csr_dnpc_MPORT_addr]; // @[RF.scala 12:16]
-  assign csr_dnpc_MPORT_1_en = _T_182 ? 1'h0 : _GEN_403;
-  assign csr_dnpc_MPORT_1_addr = 8'h29;
-  assign csr_dnpc_MPORT_1_data = csr[csr_dnpc_MPORT_1_addr]; // @[RF.scala 12:16]
+  assign csr_csr_data_MPORT_en = 7'h17 == io_aluoptype;
+  assign csr_csr_data_MPORT_addr = 8'h5;
+  assign csr_csr_data_MPORT_data = csr[csr_csr_data_MPORT_addr]; // @[RF.scala 12:16]
+  assign csr_csr_data_MPORT_1_en = _T_180 ? 1'h0 : _T_181;
+  assign csr_csr_data_MPORT_1_addr = 8'h41;
+  assign csr_csr_data_MPORT_1_data = csr[csr_csr_data_MPORT_1_addr]; // @[RF.scala 12:16]
   assign csr_MPORT_1_data = csr_MPORT_data | src1;
   assign csr_MPORT_1_addr = io_Imm[7:0];
   assign csr_MPORT_1_mask = 1'h1;
@@ -806,7 +792,7 @@ module EXU(
   assign io1_is_break = io_aluoptype == 7'h42; // @[EXU.scala 276:36]
   assign io1_is_jump = io_futype == 3'h3; // @[EXU.scala 414:31]
   assign io1_is_branch = 7'h6b == io_aluoptype ? src1 == src2 : _GEN_341; // @[EXU.scala 418:25 421:21]
-  assign io1_dnpc = 7'h19 == io_aluoptype ? _addr_temp_T_1 : _GEN_397; // @[EXU.scala 454:23 456:12]
+  assign io1_dnpc = 7'h19 == io_aluoptype ? _addr_temp_T_1 : _GEN_363; // @[EXU.scala 464:23 466:12]
   assign io1_addr = 7'h45 == io_aluoptype ? _addr_temp_T_1 : _GEN_14; // @[EXU.scala 150:23 152:17]
   assign io1_wdata = _T_68 ? src2 : _GEN_29; // @[EXU.scala 185:24 189:18]
   assign io1_wmask = _T_68 ? 8'hff : _GEN_28; // @[EXU.scala 185:24 188:18]

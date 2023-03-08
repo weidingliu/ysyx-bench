@@ -1224,6 +1224,15 @@ VL_INLINE_OPT void VCPUTop___024root___combo__TOP__0(VCPUTop___024root* vlSelf) 
                                                                                 != (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
                                                                                 & (0x16U 
                                                                                 == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))))))))))))))))))));
+    vlSelf->CPUTop__DOT__EX__DOT__csr_data = ((0x17U 
+                                               == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                                               ? vlSelf->CPUTop__DOT__EX__DOT__csr
+                                              [5U] : 
+                                              ((0x18U 
+                                                == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                                                ? vlSelf->CPUTop__DOT__EX__DOT__csr
+                                               [0x41U]
+                                                : 0ULL));
     vlSelf->CPUTop__DOT__EX__DOT___branch_result_T_1 
         = (vlSelf->CPUTop__DOT__IF__DOT__temp + vlSelf->CPUTop__DOT__ID_io_ctrlIO_Imm);
     if (vlSelf->CPUTop__DOT__ID__DOT__srctype2) {

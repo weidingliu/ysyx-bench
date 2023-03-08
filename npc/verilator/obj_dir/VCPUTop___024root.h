@@ -89,6 +89,7 @@ class VCPUTop___024root final : public VerilatedModule {
         QData/*63:0*/ CPUTop__DOT__EX__DOT___GEN_325;
         QData/*63:0*/ CPUTop__DOT__EX__DOT___GEN_326;
         QData/*63:0*/ CPUTop__DOT__EX__DOT___branch_result_T_1;
+        QData/*63:0*/ CPUTop__DOT__EX__DOT__csr_data;
         QData/*63:0*/ CPUTop__DOT__EX__DOT___dnpc_T_9;
         QData/*63:0*/ __Vtask_pmem_read__0__rdata;
         QData/*63:0*/ __Vtask_pmem_read__4__rdata;
