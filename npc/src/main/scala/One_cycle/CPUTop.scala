@@ -13,7 +13,7 @@ class DIP_model extends BlackBox{
 class ifm extends BlackBox{
   val io = IO(new Bundle() {
     val reset=Input(Bool())
-    val clk=Input(Bool())
+    val clk=Input(UInt(1.W))
     val pc = Input(UInt(64.W))
     val inst = Output(UInt(32.W))
   })
