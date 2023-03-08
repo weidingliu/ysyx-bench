@@ -8,7 +8,7 @@
   wire [63:0]rdata;
   always @(*) begin 
       if(reset) begin 
-          inst=32'h0;
+          rdata=64'h0;
       end
       else begin 
           pmem_read(pc, rdata);
