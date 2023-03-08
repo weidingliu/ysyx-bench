@@ -9,11 +9,10 @@
   wire [63:0]rdata;
   always @(*) begin 
      //$display("----------dfas---%h",pc);
-      if(reset & clk==1'b0) begin 
+      if(reset | clk==1'b0) begin 
           
       end
       else begin 
-          
           pmem_read(pc, rdata);
       end
       

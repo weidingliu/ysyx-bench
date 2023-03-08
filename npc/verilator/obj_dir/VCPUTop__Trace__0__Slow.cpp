@@ -29,6 +29,7 @@ VL_ATTR_COLD void VCPUTop___024root__trace_init_sub__TOP__0(VCPUTop___024root* v
     tracep->declBit(c+212,"IF_io_is_branch", false,-1);
     tracep->declQuad(c+1,"IF_io_pc", false,-1, 63,0);
     tracep->declBit(c+291,"IFM_reset", false,-1);
+    tracep->declBit(c+290,"IFM_clk", false,-1);
     tracep->declQuad(c+1,"IFM_pc", false,-1, 63,0);
     tracep->declBus(c+213,"IFM_inst", false,-1, 31,0);
     tracep->declBus(c+213,"ID_io_inst", false,-1, 31,0);
@@ -205,6 +206,7 @@ VL_ATTR_COLD void VCPUTop___024root__trace_init_sub__TOP__0(VCPUTop___024root* v
     tracep->declBit(c+223,"rf_MPORT_en", false,-1);
     tracep->declQuad(c+232,"mem_addr", false,-1, 63,0);
     tracep->declBit(c+291,"mem_reset", false,-1);
+    tracep->declBit(c+290,"mem_clk", false,-1);
     tracep->declBit(c+224,"mem_we", false,-1);
     tracep->declBit(c+241,"mem_ce", false,-1);
     tracep->declQuad(c+236,"mem_wdata", false,-1, 63,0);
@@ -362,12 +364,14 @@ VL_ATTR_COLD void VCPUTop___024root__trace_init_sub__TOP__0(VCPUTop___024root* v
     tracep->popNamePrefix(1);
     tracep->pushNamePrefix("IFM ");
     tracep->declBit(c+291,"reset", false,-1);
+    tracep->declBit(c+290,"clk", false,-1);
     tracep->declQuad(c+1,"pc", false,-1, 63,0);
     tracep->declBus(c+213,"inst", false,-1, 31,0);
     tracep->declQuad(c+288,"rdata", false,-1, 63,0);
     tracep->popNamePrefix(1);
     tracep->pushNamePrefix("mem ");
     tracep->declBit(c+291,"reset", false,-1);
+    tracep->declBit(c+290,"clk", false,-1);
     tracep->declQuad(c+232,"addr", false,-1, 63,0);
     tracep->declBit(c+224,"we", false,-1);
     tracep->declBit(c+241,"ce", false,-1);
