@@ -1,12 +1,12 @@
 
 #define MAX_MEM 0x2000000
 
-#define is_batch_mode 1
+#define is_batch_mode 0
 #define mtrace 0
 #define DIFFTEST 1
 
 
-#define MAX_SIM_TIME 4000
+#define MAX_SIM_TIME 5000
 
 #define MAX_PRINT_STEP 10
 

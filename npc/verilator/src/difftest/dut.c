@@ -16,7 +16,7 @@ Ref_difftest_init ref_difftest_init=NULL;
 
 void init_difftest(char *ref_so_file, uint32_t img_size, int port, uint8_t *mem){
   assert(ref_so_file != NULL);
-  
+
   void *handle;
   handle = dlopen(ref_so_file, RTLD_LAZY);
   assert(handle);
@@ -37,7 +37,7 @@ void init_difftest(char *ref_so_file, uint32_t img_size, int port, uint8_t *mem)
   assert(ref_difftest_init);
 
   ref_difftest_init(port);
-  //printf("%d\n",img_size);
+  
   ref_difftest_memcpy(RESET_VECTOR, mem, img_size, DIFFTEST_TO_REF);
   //printf("here5\n");
   ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
@@ -62,11 +62,15 @@ static bool check_reg(cpu_state *ref_cpu,uint64_t pc){
 }
 
 bool difftest_step(uint64_t pc){
+   // printf("dsaf %d  %lx \n",is_skip_ref,cpu.pc);
     if(is_skip_ref){
+        //cpu.pc+=4;
         ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
         is_skip_ref=0;
         return true;
     }
+
+    
     cpu_state ref_cpu;
     ref_difftest_exec(1);
     ref_difftest_regcpy(&ref_cpu, DIFFTEST_TO_DUT);
@@ -86,6 +90,11 @@ void difftest_print(){
     }
 }
 
+void difftest_irq(uint64_t NO){
+    //printf("sdafas\n");
+    ref_difftest_raise_intr(NO);
+    ref_is_irq=0;
+}
 
 
 

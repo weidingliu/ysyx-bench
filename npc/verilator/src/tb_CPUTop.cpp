@@ -44,6 +44,8 @@ uint32_t *Inst;
 
 uint32_t state=RUN;
 
+bool ref_is_irq=false;
+
 /*cpu_state *cpu;
 cpu_state dut;
 *cpu = &dut;*/
@@ -163,7 +165,7 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
         s->eval();
         m_trace->dump(sim_time);
         sim_time++;
-        
+        if(Inst[0]==0b00000000000000000000000001110011){ref_is_irq=true; difftest_irq(0);}
     }
 //////to ref
     memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
@@ -176,7 +178,8 @@ void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uint
     step_print_inst = (n<MAX_PRINT_STEP);
     while(n--!=0 &&((!contextp->gotFinish()))){
         exe_once(dut,contextp,m_trace);
-        if(DIFFTEST && is_skip_ref!=1){
+        
+        if(DIFFTEST && !is_skip_ref && !ref_is_irq){
             bool flag=difftest_step(dut->io_pc);
         
             if(!flag) {state=ABORT; break;}
@@ -200,12 +203,11 @@ void Reset(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
         dut->clock ^= 1;
         dut->io_inst=0; 
         dut->reset = 1;
-    
-    
+        
+        
         dut->eval();
    
         m_trace->dump(sim_time);
-    
         sim_time++;
     }
     //reset ref
@@ -373,7 +375,7 @@ void sdb_main_loop(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace)
     cmd_c(NULL,s,contextp,m_trace);
     return;
   }
-    
+    //printf("sdfas\n");
     for (char *str; (str = rl_gets()) != NULL; ) {
     
     char *str_end = str + strlen(str);
@@ -421,6 +423,7 @@ m_trace->open("waveform.vcd");
 // init inst memory
 init_mem(argv[1]);
 //printf("%s\n",argv[2]);
+
 Reset(dut,contextp,m_trace);//reset rtl
 
 if(DIFFTEST) init_difftest(argv[2],mem_size,1,mem);

@@ -4,6 +4,7 @@
 #include <cassert>
 #include <tb.h>
 #include <sys/time.h>
+#include <difftest.h>
 
 uint64_t boot_time = 0;
 bool is_skip_ref=0;
@@ -36,7 +37,8 @@ extern "C" void pmem_read(long long addr, long long *rdata) {
       return;
   }
   long long temp;
-  if((((addr & ~0x7ull)-RESET_VECTOR)>MAX_MEM) ) return;//assert(0);
+  //printf("%llx\n",((addr & ~0x7ull)-RESET_VECTOR));
+  if((((addr & ~0x7ull)-RESET_VECTOR)>MAX_MEM) ) {difftest_print();assert(0);}
   memcpy(&temp,(mem+(addr& ~0x7ull)-RESET_VECTOR),sizeof(long long));
   *rdata=temp;
   if(mtrace) printf("READ--- ADDR:  %016llx  DATA:  %016llx \n",(addr),*rdata);
