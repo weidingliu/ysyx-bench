@@ -208,7 +208,7 @@ void Reset(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
         dut->eval();
    
         m_trace->dump(sim_time);
-    
+        printf("asdfasfd\n");
         sim_time++;
     }
     //reset ref
