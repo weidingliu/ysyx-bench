@@ -67,7 +67,7 @@ bool difftest_step(uint64_t pc){
         is_skip_ref=0;
         return true;
     }
-    printf("dsaf\n");
+    printf("dsaf %d\n",is_skip_ref);
     cpu_state ref_cpu;
     ref_difftest_exec(1);
     ref_difftest_regcpy(&ref_cpu, DIFFTEST_TO_DUT);
