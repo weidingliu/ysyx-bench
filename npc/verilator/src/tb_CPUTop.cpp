@@ -44,7 +44,7 @@ uint32_t *Inst;
 
 uint32_t state=RUN;
 
-bool is_ref_irq=false;
+bool ref_is_irq=false;
 
 /*cpu_state *cpu;
 cpu_state dut;
