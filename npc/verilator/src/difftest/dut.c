@@ -62,13 +62,14 @@ static bool check_reg(cpu_state *ref_cpu,uint64_t pc){
 }
 
 bool difftest_step(uint64_t pc){
+printf("dsaf %d\n",is_skip_ref);
     if(is_skip_ref){
         ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
         is_skip_ref=0;
         return true;
     }
 
-    printf("dsaf %d\n",is_skip_ref);
+    
     cpu_state ref_cpu;
     ref_difftest_exec(1);
     ref_difftest_regcpy(&ref_cpu, DIFFTEST_TO_DUT);
