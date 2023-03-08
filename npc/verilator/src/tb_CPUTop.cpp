@@ -376,7 +376,7 @@ void sdb_main_loop(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace)
     cmd_c(NULL,s,contextp,m_trace);
     return;
   }
-    printf("sdfas\n");
+    //printf("sdfas\n");
     for (char *str; (str = rl_gets()) != NULL; ) {
     
     char *str_end = str + strlen(str);
