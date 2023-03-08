@@ -7,7 +7,7 @@
   );
   wire [63:0]rdata;
   always @(*) begin 
-     $display("----------dfas---%h",pc);
+     //$display("----------dfas---%h",pc);
       if(reset) begin 
           
       end
