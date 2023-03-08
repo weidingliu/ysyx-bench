@@ -46,6 +46,7 @@ VM_USER_LDLIBS = \
 VM_USER_CLASSES = \
 	dut \
 	pmem \
+	irq \
 	tb_CPUTop \
 	disasm \
 
@@ -54,6 +55,7 @@ VM_USER_DIR = \
 	src \
 	src/difftest \
 	src/memory \
+	src/system \
 	src/util \
 
 
@@ -69,6 +71,8 @@ VPATH += $(VM_USER_DIR)
 dut.o: src/difftest/dut.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 pmem.o: src/memory/pmem.c
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+irq.o: src/system/irq.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 tb_CPUTop.o: src/tb_CPUTop.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<

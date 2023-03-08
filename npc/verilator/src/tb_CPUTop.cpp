@@ -165,7 +165,7 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
         s->eval();
         m_trace->dump(sim_time);
         sim_time++;
-        if(Inst==0b00000000000000000000000001110011){is_ref_irq=true;}
+        if(Inst[0]==0b00000000000000000000000001110011){is_ref_irq=true;}
     }
 //////to ref
     memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);

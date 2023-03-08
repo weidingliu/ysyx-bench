@@ -19,6 +19,15 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
     CData/*4:0*/ __Vdlyvdim0__CPUTop__DOT__rf__v0;
     QData/*63:0*/ __Vdlyvval__CPUTop__DOT__rf__v0;
     CData/*0:0*/ __Vdlyvset__CPUTop__DOT__rf__v0;
+    CData/*7:0*/ __Vdlyvdim0__CPUTop__DOT__EX__DOT__csr__v0;
+    QData/*63:0*/ __Vdlyvval__CPUTop__DOT__EX__DOT__csr__v0;
+    CData/*0:0*/ __Vdlyvset__CPUTop__DOT__EX__DOT__csr__v0;
+    CData/*7:0*/ __Vdlyvdim0__CPUTop__DOT__EX__DOT__csr__v1;
+    QData/*63:0*/ __Vdlyvval__CPUTop__DOT__EX__DOT__csr__v1;
+    CData/*0:0*/ __Vdlyvset__CPUTop__DOT__EX__DOT__csr__v1;
+    QData/*63:0*/ __Vdlyvval__CPUTop__DOT__EX__DOT__csr__v2;
+    CData/*0:0*/ __Vdlyvset__CPUTop__DOT__EX__DOT__csr__v2;
+    CData/*0:0*/ __Vdlyvset__CPUTop__DOT__EX__DOT__csr__v3;
     VlWide<3>/*95:0*/ __Vtemp_hb04a9c46__0;
     VlWide<3>/*95:0*/ __Vtemp_h6d2d15ff__0;
     VlWide<3>/*95:0*/ __Vtemp_h34da3607__0;
@@ -38,6 +47,10 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
     VlWide<4>/*127:0*/ __Vtemp_hdc10468f__0;
     // Body
     __Vdlyvset__CPUTop__DOT__rf__v0 = 0U;
+    __Vdlyvset__CPUTop__DOT__EX__DOT__csr__v0 = 0U;
+    __Vdlyvset__CPUTop__DOT__EX__DOT__csr__v1 = 0U;
+    __Vdlyvset__CPUTop__DOT__EX__DOT__csr__v2 = 0U;
+    __Vdlyvset__CPUTop__DOT__EX__DOT__csr__v3 = 0U;
     if (((0x13U == (0x707fU & vlSelf->CPUTop__DOT__IFM_inst)) 
          | ((0x1013U == (0xfc00707fU & vlSelf->CPUTop__DOT__IFM_inst)) 
             | ((0x17U == (0x7fU & vlSelf->CPUTop__DOT__IFM_inst)) 
@@ -63,7 +76,7 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
                                                  != 
                                                  (0x707fU 
                                                   & vlSelf->CPUTop__DOT__IFM_inst)) 
-                                                & (IData)(vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_342)))))))))))))))) {
+                                                & (IData)(vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_366)))))))))))))))) {
         __Vdlyvval__CPUTop__DOT__rf__v0 = ((0U == (0x1fU 
                                                    & (vlSelf->CPUTop__DOT__IFM_inst 
                                                       >> 7U)))
@@ -73,51 +86,27 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
                                             (vlSelf->CPUTop__DOT__IFM_inst 
                                              >> 7U));
     }
-    vlSelf->CPUTop__DOT__IF__DOT__temp = ((IData)(vlSelf->reset)
-                                           ? 0x80000000ULL
-                                           : (((3U 
-                                                == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype)) 
-                                               | ((0x6bU 
-                                                   == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
-                                                   ? 
-                                                  (vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_58 
-                                                   == vlSelf->CPUTop__DOT__EX__DOT__src2)
-                                                   : (IData)(vlSelf->CPUTop__DOT__EX__DOT___GEN_84)))
-                                               ? ((0x19U 
-                                                   == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
-                                                   ? vlSelf->CPUTop__DOT__EX__DOT___addr_temp_T_1
-                                                   : 
-                                                  ((0x48U 
-                                                    == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
-                                                    ? 
-                                                   (0xfffffffffffffffeULL 
-                                                    & vlSelf->CPUTop__DOT__EX__DOT___addr_temp_T_1)
-                                                    : 
-                                                   ((0x6bU 
-                                                     == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
-                                                     ? vlSelf->CPUTop__DOT__EX__DOT___dnpc_T_9
-                                                     : 
-                                                    ((0x6cU 
-                                                      == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
-                                                      ? vlSelf->CPUTop__DOT__EX__DOT___dnpc_T_9
-                                                      : 
-                                                     ((0x76U 
-                                                       == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
-                                                       ? vlSelf->CPUTop__DOT__EX__DOT___dnpc_T_9
-                                                       : 
-                                                      ((0xcU 
-                                                        == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
-                                                        ? vlSelf->CPUTop__DOT__EX__DOT___dnpc_T_9
-                                                        : 
-                                                       ((0x7bU 
-                                                         == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
-                                                         ? vlSelf->CPUTop__DOT__EX__DOT___dnpc_T_9
-                                                         : 
-                                                        ((0xbU 
-                                                          == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
-                                                          ? vlSelf->CPUTop__DOT__EX__DOT___dnpc_T_9
-                                                          : 0ULL))))))))
-                                               : vlSelf->CPUTop__DOT__IF__DOT___temp_T_2));
+    if (((0x40U != (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
+         & (IData)(vlSelf->CPUTop__DOT__EX__DOT___GEN_287))) {
+        __Vdlyvval__CPUTop__DOT__EX__DOT__csr__v0 = vlSelf->CPUTop__DOT__EX__DOT__csr_MPORT_1_data;
+        __Vdlyvset__CPUTop__DOT__EX__DOT__csr__v0 = 1U;
+        __Vdlyvdim0__CPUTop__DOT__EX__DOT__csr__v0 
+            = (0xffU & (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_Imm));
+    }
+    if (((0x40U != (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
+         & (IData)(vlSelf->CPUTop__DOT__EX__DOT___GEN_294))) {
+        __Vdlyvval__CPUTop__DOT__EX__DOT__csr__v1 = 
+            ((0U == (IData)(vlSelf->CPUTop__DOT__ID__DOT___io_ctrlIO_src1type_T_2))
+              ? vlSelf->CPUTop__DOT__EX_io1_REG1 : vlSelf->CPUTop__DOT__EX__DOT___GEN_1);
+        __Vdlyvset__CPUTop__DOT__EX__DOT__csr__v1 = 1U;
+        __Vdlyvdim0__CPUTop__DOT__EX__DOT__csr__v1 
+            = (0xffU & (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_Imm));
+    }
+    if ((0x17U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))) {
+        __Vdlyvval__CPUTop__DOT__EX__DOT__csr__v2 = vlSelf->CPUTop__DOT__IF__DOT__temp;
+        __Vdlyvset__CPUTop__DOT__EX__DOT__csr__v2 = 1U;
+        __Vdlyvset__CPUTop__DOT__EX__DOT__csr__v3 = 1U;
+    }
     if (__Vdlyvset__CPUTop__DOT__rf__v0) {
         vlSelf->CPUTop__DOT__rf[__Vdlyvdim0__CPUTop__DOT__rf__v0] 
             = __Vdlyvval__CPUTop__DOT__rf__v0;
@@ -186,6 +175,77 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
         [0x1eU];
     vlSelf->CPUTop__DOT__DIP__DOT__rf[0x1fU] = vlSelf->CPUTop__DOT__rf
         [0x1fU];
+    vlSelf->CPUTop__DOT__IF__DOT__temp = ((IData)(vlSelf->reset)
+                                           ? 0x80000000ULL
+                                           : (((3U 
+                                                == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype)) 
+                                               | ((0x6bU 
+                                                   == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                                                   ? 
+                                                  (vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_58 
+                                                   == vlSelf->CPUTop__DOT__EX__DOT__src2)
+                                                   : (IData)(vlSelf->CPUTop__DOT__EX__DOT___GEN_341)))
+                                               ? ((0x19U 
+                                                   == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                                                   ? vlSelf->CPUTop__DOT__EX__DOT___addr_temp_T_1
+                                                   : 
+                                                  ((0x48U 
+                                                    == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                                                    ? 
+                                                   (0xfffffffffffffffeULL 
+                                                    & vlSelf->CPUTop__DOT__EX__DOT___addr_temp_T_1)
+                                                    : 
+                                                   ((0x6bU 
+                                                     == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                                                     ? vlSelf->CPUTop__DOT__EX__DOT___dnpc_T_9
+                                                     : 
+                                                    ((0x6cU 
+                                                      == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                                                      ? vlSelf->CPUTop__DOT__EX__DOT___dnpc_T_9
+                                                      : 
+                                                     ((0x76U 
+                                                       == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                                                       ? vlSelf->CPUTop__DOT__EX__DOT___dnpc_T_9
+                                                       : 
+                                                      ((0xcU 
+                                                        == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                                                        ? vlSelf->CPUTop__DOT__EX__DOT___dnpc_T_9
+                                                        : 
+                                                       ((0x7bU 
+                                                         == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                                                         ? vlSelf->CPUTop__DOT__EX__DOT___dnpc_T_9
+                                                         : 
+                                                        ((0xbU 
+                                                          == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                                                          ? vlSelf->CPUTop__DOT__EX__DOT___dnpc_T_9
+                                                          : 
+                                                         ((0x17U 
+                                                           == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                                                           ? 
+                                                          vlSelf->CPUTop__DOT__EX__DOT__csr
+                                                          [5U]
+                                                           : 
+                                                          ((0x18U 
+                                                            == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                                                            ? 
+                                                           vlSelf->CPUTop__DOT__EX__DOT__csr
+                                                           [0x29U]
+                                                            : 0ULL))))))))))
+                                               : vlSelf->CPUTop__DOT__IF__DOT___temp_T_2));
+    if (__Vdlyvset__CPUTop__DOT__EX__DOT__csr__v0) {
+        vlSelf->CPUTop__DOT__EX__DOT__csr[__Vdlyvdim0__CPUTop__DOT__EX__DOT__csr__v0] 
+            = __Vdlyvval__CPUTop__DOT__EX__DOT__csr__v0;
+    }
+    if (__Vdlyvset__CPUTop__DOT__EX__DOT__csr__v1) {
+        vlSelf->CPUTop__DOT__EX__DOT__csr[__Vdlyvdim0__CPUTop__DOT__EX__DOT__csr__v1] 
+            = __Vdlyvval__CPUTop__DOT__EX__DOT__csr__v1;
+    }
+    if (__Vdlyvset__CPUTop__DOT__EX__DOT__csr__v2) {
+        vlSelf->CPUTop__DOT__EX__DOT__csr[0x41U] = __Vdlyvval__CPUTop__DOT__EX__DOT__csr__v2;
+    }
+    if (__Vdlyvset__CPUTop__DOT__EX__DOT__csr__v3) {
+        vlSelf->CPUTop__DOT__EX__DOT__csr[0x42U] = 0xbULL;
+    }
     vlSelf->io_pc = vlSelf->CPUTop__DOT__IF__DOT__temp;
     vlSelf->CPUTop__DOT__IF__DOT___temp_T_2 = (4ULL 
                                                + vlSelf->CPUTop__DOT__IF__DOT__temp);
@@ -197,7 +257,7 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
                                       ? (IData)((vlSelf->CPUTop__DOT__IFM__DOT__rdata 
                                                  >> 0x20U))
                                       : (IData)(vlSelf->CPUTop__DOT__IFM__DOT__rdata));
-    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_322 
+    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_346 
         = ((0x4063U != (0x707fU & vlSelf->CPUTop__DOT__IFM_inst)) 
            & ((0x4000003bU == (0xfe00707fU & vlSelf->CPUTop__DOT__IFM_inst)) 
               | ((0x2033U == (0xfe00707fU & vlSelf->CPUTop__DOT__IFM_inst)) 
@@ -268,11 +328,21 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
                                                                                 == 
                                                                                 (0xfe00707fU 
                                                                                 & vlSelf->CPUTop__DOT__IFM_inst)) 
-                                                                                | (0x40005033U 
+                                                                                | ((0x40005033U 
                                                                                 == 
                                                                                 (0xfc00707fU 
-                                                                                & vlSelf->CPUTop__DOT__IFM_inst))))))))))))))))))))))))));
-    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_197 
+                                                                                & vlSelf->CPUTop__DOT__IFM_inst)) 
+                                                                                | ((0x100073U 
+                                                                                != vlSelf->CPUTop__DOT__IFM_inst) 
+                                                                                & ((0x2073U 
+                                                                                == 
+                                                                                (0x707fU 
+                                                                                & vlSelf->CPUTop__DOT__IFM_inst)) 
+                                                                                | (0x1073U 
+                                                                                == 
+                                                                                (0x707fU 
+                                                                                & vlSelf->CPUTop__DOT__IFM_inst)))))))))))))))))))))))))))));
+    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_213 
         = ((0x2000033U == (0xfe00707fU & vlSelf->CPUTop__DOT__IFM_inst))
             ? 0U : ((0x501bU == (0xfc00707fU & vlSelf->CPUTop__DOT__IFM_inst))
                      ? 1U : ((0x4000503bU == (0xfe00707fU 
@@ -353,155 +423,149 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
                                          ? 0ULL : vlSelf->CPUTop__DOT__rf
                                         [(0x1fU & (vlSelf->CPUTop__DOT__IFM_inst 
                                                    >> 0xfU))]);
-    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_252 
-        = ((0x6063U == (0x707fU & vlSelf->CPUTop__DOT__IFM_inst))
-            ? 0xbU : ((0x7063U == (0x707fU & vlSelf->CPUTop__DOT__IFM_inst))
-                       ? 0xcU : ((0x4033U == (0xfe00707fU 
-                                              & vlSelf->CPUTop__DOT__IFM_inst))
-                                  ? 0x72U : ((0x200703bU 
-                                              == (0xfe00707fU 
+    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_268 
+        = ((0x1033U == (0xfe00707fU & vlSelf->CPUTop__DOT__IFM_inst))
+            ? 0x41U : ((0x2007033U == (0xfe00707fU 
+                                       & vlSelf->CPUTop__DOT__IFM_inst))
+                        ? 0xfU : ((0x200503bU == (0xfe00707fU 
                                                   & vlSelf->CPUTop__DOT__IFM_inst))
-                                              ? 0xdU
-                                              : ((0x1033U 
-                                                  == 
-                                                  (0xfe00707fU 
+                                   ? 0x10U : ((0x2013U 
+                                               == (0x707fU 
                                                    & vlSelf->CPUTop__DOT__IFM_inst))
-                                                  ? 0x41U
-                                                  : 
-                                                 ((0x2007033U 
+                                               ? 2U
+                                               : ((0x6003U 
                                                    == 
-                                                   (0xfe00707fU 
+                                                   (0x707fU 
                                                     & vlSelf->CPUTop__DOT__IFM_inst))
-                                                   ? 0xfU
+                                                   ? 0x11U
                                                    : 
-                                                  ((0x200503bU 
+                                                  ((0x2006033U 
                                                     == 
                                                     (0xfe00707fU 
                                                      & vlSelf->CPUTop__DOT__IFM_inst))
-                                                    ? 0x10U
+                                                    ? 0x12U
                                                     : 
-                                                   ((0x2013U 
-                                                     == 
-                                                     (0x707fU 
-                                                      & vlSelf->CPUTop__DOT__IFM_inst))
-                                                     ? 2U
-                                                     : 
-                                                    ((0x6003U 
-                                                      == 
-                                                      (0x707fU 
-                                                       & vlSelf->CPUTop__DOT__IFM_inst))
-                                                      ? 0x11U
-                                                      : 
-                                                     ((0x2006033U 
-                                                       == 
-                                                       (0xfe00707fU 
-                                                        & vlSelf->CPUTop__DOT__IFM_inst))
-                                                       ? 0x12U
-                                                       : 
-                                                      ((0x5033U 
-                                                        == 
-                                                        (0xfe00707fU 
-                                                         & vlSelf->CPUTop__DOT__IFM_inst))
-                                                        ? 0x75U
-                                                        : 
-                                                       ((0x2005033U 
-                                                         == 
-                                                         (0xfe00707fU 
-                                                          & vlSelf->CPUTop__DOT__IFM_inst))
-                                                         ? 0x13U
-                                                         : 
-                                                        ((0x2004033U 
-                                                          == 
-                                                          (0xfe00707fU 
-                                                           & vlSelf->CPUTop__DOT__IFM_inst))
-                                                          ? 0x43U
-                                                          : 
-                                                         ((0x40005033U 
-                                                           == 
-                                                           (0xfc00707fU 
-                                                            & vlSelf->CPUTop__DOT__IFM_inst))
-                                                           ? 0x14U
-                                                           : 
-                                                          ((0x100073U 
-                                                            == vlSelf->CPUTop__DOT__IFM_inst)
-                                                            ? 0x42U
-                                                            : 0U)))))))))))))));
-    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_135 
-        = ((0x503bU == (0xfe00707fU & vlSelf->CPUTop__DOT__IFM_inst))
-            ? 5U : ((0x6063U == (0x707fU & vlSelf->CPUTop__DOT__IFM_inst))
-                     ? 0xbU : ((0x7063U == (0x707fU 
-                                            & vlSelf->CPUTop__DOT__IFM_inst))
-                                ? 0xbU : ((0x4033U 
-                                           == (0xfe00707fU 
-                                               & vlSelf->CPUTop__DOT__IFM_inst))
-                                           ? 5U : (
-                                                   (0x200703bU 
-                                                    == 
-                                                    (0xfe00707fU 
-                                                     & vlSelf->CPUTop__DOT__IFM_inst))
-                                                    ? 5U
-                                                    : 
-                                                   ((0x1033U 
+                                                   ((0x5033U 
                                                      == 
                                                      (0xfe00707fU 
                                                       & vlSelf->CPUTop__DOT__IFM_inst))
-                                                     ? 5U
+                                                     ? 0x75U
                                                      : 
-                                                    ((0x2007033U 
+                                                    ((0x2005033U 
+                                                      == 
+                                                      (0xfe00707fU 
+                                                       & vlSelf->CPUTop__DOT__IFM_inst))
+                                                      ? 0x13U
+                                                      : 
+                                                     ((0x2004033U 
+                                                       == 
+                                                       (0xfe00707fU 
+                                                        & vlSelf->CPUTop__DOT__IFM_inst))
+                                                       ? 0x43U
+                                                       : 
+                                                      ((0x40005033U 
+                                                        == 
+                                                        (0xfc00707fU 
+                                                         & vlSelf->CPUTop__DOT__IFM_inst))
+                                                        ? 0x14U
+                                                        : 
+                                                       ((0x100073U 
+                                                         == vlSelf->CPUTop__DOT__IFM_inst)
+                                                         ? 0x42U
+                                                         : 
+                                                        ((0x2073U 
+                                                          == 
+                                                          (0x707fU 
+                                                           & vlSelf->CPUTop__DOT__IFM_inst))
+                                                          ? 0x15U
+                                                          : 
+                                                         ((0x1073U 
+                                                           == 
+                                                           (0x707fU 
+                                                            & vlSelf->CPUTop__DOT__IFM_inst))
+                                                           ? 0x16U
+                                                           : 
+                                                          ((0x73U 
+                                                            == vlSelf->CPUTop__DOT__IFM_inst)
+                                                            ? 0x17U
+                                                            : 
+                                                           ((0x30200073U 
+                                                             == vlSelf->CPUTop__DOT__IFM_inst)
+                                                             ? 0x18U
+                                                             : 0U)))))))))))))));
+    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_144 
+        = ((0x4033U == (0xfe00707fU & vlSelf->CPUTop__DOT__IFM_inst))
+            ? 5U : ((0x200703bU == (0xfe00707fU & vlSelf->CPUTop__DOT__IFM_inst))
+                     ? 5U : ((0x1033U == (0xfe00707fU 
+                                          & vlSelf->CPUTop__DOT__IFM_inst))
+                              ? 5U : ((0x2007033U == 
+                                       (0xfe00707fU 
+                                        & vlSelf->CPUTop__DOT__IFM_inst))
+                                       ? 5U : ((0x200503bU 
+                                                == 
+                                                (0xfe00707fU 
+                                                 & vlSelf->CPUTop__DOT__IFM_inst))
+                                                ? 5U
+                                                : (
+                                                   (0x2013U 
+                                                    == 
+                                                    (0x707fU 
+                                                     & vlSelf->CPUTop__DOT__IFM_inst))
+                                                    ? 8U
+                                                    : 
+                                                   ((0x6003U 
+                                                     == 
+                                                     (0x707fU 
+                                                      & vlSelf->CPUTop__DOT__IFM_inst))
+                                                     ? 8U
+                                                     : 
+                                                    ((0x2006033U 
                                                       == 
                                                       (0xfe00707fU 
                                                        & vlSelf->CPUTop__DOT__IFM_inst))
                                                       ? 5U
                                                       : 
-                                                     ((0x200503bU 
+                                                     ((0x5033U 
                                                        == 
                                                        (0xfe00707fU 
                                                         & vlSelf->CPUTop__DOT__IFM_inst))
                                                        ? 5U
                                                        : 
-                                                      ((0x2013U 
+                                                      ((0x2005033U 
                                                         == 
-                                                        (0x707fU 
+                                                        (0xfe00707fU 
                                                          & vlSelf->CPUTop__DOT__IFM_inst))
-                                                        ? 8U
+                                                        ? 5U
                                                         : 
-                                                       ((0x6003U 
+                                                       ((0x2004033U 
                                                          == 
-                                                         (0x707fU 
+                                                         (0xfe00707fU 
                                                           & vlSelf->CPUTop__DOT__IFM_inst))
-                                                         ? 8U
+                                                         ? 5U
                                                          : 
-                                                        ((0x2006033U 
+                                                        ((0x40005033U 
                                                           == 
-                                                          (0xfe00707fU 
+                                                          (0xfc00707fU 
                                                            & vlSelf->CPUTop__DOT__IFM_inst))
                                                           ? 5U
                                                           : 
-                                                         ((0x5033U 
-                                                           == 
-                                                           (0xfe00707fU 
-                                                            & vlSelf->CPUTop__DOT__IFM_inst))
-                                                           ? 5U
+                                                         ((0x100073U 
+                                                           == vlSelf->CPUTop__DOT__IFM_inst)
+                                                           ? 0U
                                                            : 
-                                                          ((0x2005033U 
+                                                          ((0x2073U 
                                                             == 
-                                                            (0xfe00707fU 
+                                                            (0x707fU 
                                                              & vlSelf->CPUTop__DOT__IFM_inst))
-                                                            ? 5U
+                                                            ? 8U
                                                             : 
-                                                           ((0x2004033U 
+                                                           ((0x1073U 
                                                              == 
-                                                             (0xfe00707fU 
+                                                             (0x707fU 
                                                               & vlSelf->CPUTop__DOT__IFM_inst))
-                                                             ? 5U
-                                                             : 
-                                                            ((0x40005033U 
-                                                              == 
-                                                              (0xfc00707fU 
-                                                               & vlSelf->CPUTop__DOT__IFM_inst))
-                                                              ? 5U
-                                                              : 0U)))))))))))))));
-    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_342 
+                                                             ? 8U
+                                                             : 0U)))))))))))))));
+    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_366 
         = ((0x1063U != (0x707fU & vlSelf->CPUTop__DOT__IFM_inst)) 
            & ((0x1bU == (0x707fU & vlSelf->CPUTop__DOT__IFM_inst)) 
               | ((0x33U == (0xfe00707fU & vlSelf->CPUTop__DOT__IFM_inst)) 
@@ -553,8 +617,8 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
                                                                      == 
                                                                      (0xfe00707fU 
                                                                       & vlSelf->CPUTop__DOT__IFM_inst)) 
-                                                                    | (IData)(vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_322)))))))))))))))))))));
-    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_212 
+                                                                    | (IData)(vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_346)))))))))))))))))))));
+    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_228 
         = ((0x6033U == (0xfe00707fU & vlSelf->CPUTop__DOT__IFM_inst))
             ? 0U : ((0x23U == (0x707fU & vlSelf->CPUTop__DOT__IFM_inst))
                      ? 4U : ((0x5013U == (0xfc00707fU 
@@ -626,160 +690,156 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
                                                              (0xfc00707fU 
                                                               & vlSelf->CPUTop__DOT__IFM_inst))
                                                              ? 1U
-                                                             : (IData)(vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_197))))))))))))))));
-    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_267 
-        = ((0x2023U == (0x707fU & vlSelf->CPUTop__DOT__IFM_inst))
-            ? 0x77U : ((0x200003bU == (0xfe00707fU 
-                                       & vlSelf->CPUTop__DOT__IFM_inst))
-                        ? 0x78U : ((0x200403bU == (0xfe00707fU 
-                                                   & vlSelf->CPUTop__DOT__IFM_inst))
-                                    ? 0x79U : ((0x200603bU 
-                                                == 
-                                                (0xfe00707fU 
-                                                 & vlSelf->CPUTop__DOT__IFM_inst))
-                                                ? 0x7aU
-                                                : (
-                                                   (0x4063U 
+                                                             : (IData)(vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_213))))))))))))))));
+    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_283 
+        = ((0x4063U == (0x707fU & vlSelf->CPUTop__DOT__IFM_inst))
+            ? 0x7bU : ((0x4000003bU == (0xfe00707fU 
+                                        & vlSelf->CPUTop__DOT__IFM_inst))
+                        ? 1U : ((0x2033U == (0xfe00707fU 
+                                             & vlSelf->CPUTop__DOT__IFM_inst))
+                                 ? 2U : ((0x1003U == 
+                                          (0x707fU 
+                                           & vlSelf->CPUTop__DOT__IFM_inst))
+                                          ? 3U : ((0x5003U 
+                                                   == 
+                                                   (0x707fU 
+                                                    & vlSelf->CPUTop__DOT__IFM_inst))
+                                                   ? 4U
+                                                   : 
+                                                  ((0x101bU 
                                                     == 
-                                                    (0x707fU 
+                                                    (0xfc00707fU 
                                                      & vlSelf->CPUTop__DOT__IFM_inst))
-                                                    ? 0x7bU
+                                                    ? 5U
                                                     : 
-                                                   ((0x4000003bU 
+                                                   ((0x4000501bU 
                                                      == 
-                                                     (0xfe00707fU 
+                                                     (0xfc00707fU 
                                                       & vlSelf->CPUTop__DOT__IFM_inst))
-                                                     ? 1U
+                                                     ? 6U
                                                      : 
-                                                    ((0x2033U 
+                                                    ((0x2000033U 
                                                       == 
                                                       (0xfe00707fU 
                                                        & vlSelf->CPUTop__DOT__IFM_inst))
-                                                      ? 2U
+                                                      ? 7U
                                                       : 
-                                                     ((0x1003U 
+                                                     ((0x501bU 
                                                        == 
-                                                       (0x707fU 
+                                                       (0xfc00707fU 
                                                         & vlSelf->CPUTop__DOT__IFM_inst))
-                                                       ? 3U
+                                                       ? 8U
                                                        : 
-                                                      ((0x5003U 
+                                                      ((0x4000503bU 
                                                         == 
-                                                        (0x707fU 
+                                                        (0xfe00707fU 
                                                          & vlSelf->CPUTop__DOT__IFM_inst))
-                                                        ? 4U
+                                                        ? 9U
                                                         : 
-                                                       ((0x101bU 
+                                                       ((0x503bU 
                                                          == 
-                                                         (0xfc00707fU 
+                                                         (0xfe00707fU 
                                                           & vlSelf->CPUTop__DOT__IFM_inst))
-                                                         ? 5U
+                                                         ? 0xaU
                                                          : 
-                                                        ((0x4000501bU 
+                                                        ((0x6063U 
                                                           == 
-                                                          (0xfc00707fU 
+                                                          (0x707fU 
                                                            & vlSelf->CPUTop__DOT__IFM_inst))
-                                                          ? 6U
+                                                          ? 0xbU
                                                           : 
-                                                         ((0x2000033U 
+                                                         ((0x7063U 
                                                            == 
-                                                           (0xfe00707fU 
+                                                           (0x707fU 
                                                             & vlSelf->CPUTop__DOT__IFM_inst))
-                                                           ? 7U
+                                                           ? 0xcU
                                                            : 
-                                                          ((0x501bU 
+                                                          ((0x4033U 
                                                             == 
-                                                            (0xfc00707fU 
+                                                            (0xfe00707fU 
                                                              & vlSelf->CPUTop__DOT__IFM_inst))
-                                                            ? 8U
+                                                            ? 0x72U
                                                             : 
-                                                           ((0x4000503bU 
+                                                           ((0x200703bU 
                                                              == 
                                                              (0xfe00707fU 
                                                               & vlSelf->CPUTop__DOT__IFM_inst))
-                                                             ? 9U
-                                                             : 
-                                                            ((0x503bU 
-                                                              == 
-                                                              (0xfe00707fU 
-                                                               & vlSelf->CPUTop__DOT__IFM_inst))
-                                                              ? 0xaU
-                                                              : (IData)(vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_252))))))))))))))));
-    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_150 
-        = ((0x5063U == (0x707fU & vlSelf->CPUTop__DOT__IFM_inst))
-            ? 0xbU : ((0x2023U == (0x707fU & vlSelf->CPUTop__DOT__IFM_inst))
-                       ? 9U : ((0x200003bU == (0xfe00707fU 
-                                               & vlSelf->CPUTop__DOT__IFM_inst))
-                                ? 5U : ((0x200403bU 
+                                                             ? 0xdU
+                                                             : (IData)(vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_268))))))))))))))));
+    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_159 
+        = ((0x200403bU == (0xfe00707fU & vlSelf->CPUTop__DOT__IFM_inst))
+            ? 5U : ((0x200603bU == (0xfe00707fU & vlSelf->CPUTop__DOT__IFM_inst))
+                     ? 5U : ((0x4063U == (0x707fU & vlSelf->CPUTop__DOT__IFM_inst))
+                              ? 0xbU : ((0x4000003bU 
                                          == (0xfe00707fU 
                                              & vlSelf->CPUTop__DOT__IFM_inst))
-                                         ? 5U : ((0x200603bU 
+                                         ? 5U : ((0x2033U 
                                                   == 
                                                   (0xfe00707fU 
                                                    & vlSelf->CPUTop__DOT__IFM_inst))
                                                   ? 5U
                                                   : 
-                                                 ((0x4063U 
+                                                 ((0x1003U 
                                                    == 
                                                    (0x707fU 
                                                     & vlSelf->CPUTop__DOT__IFM_inst))
-                                                   ? 0xbU
+                                                   ? 8U
                                                    : 
-                                                  ((0x4000003bU 
+                                                  ((0x5003U 
                                                     == 
-                                                    (0xfe00707fU 
+                                                    (0x707fU 
                                                      & vlSelf->CPUTop__DOT__IFM_inst))
-                                                    ? 5U
+                                                    ? 8U
                                                     : 
-                                                   ((0x2033U 
+                                                   ((0x101bU 
                                                      == 
-                                                     (0xfe00707fU 
+                                                     (0xfc00707fU 
                                                       & vlSelf->CPUTop__DOT__IFM_inst))
-                                                     ? 5U
+                                                     ? 8U
                                                      : 
-                                                    ((0x1003U 
+                                                    ((0x4000501bU 
                                                       == 
-                                                      (0x707fU 
+                                                      (0xfc00707fU 
                                                        & vlSelf->CPUTop__DOT__IFM_inst))
                                                       ? 8U
                                                       : 
-                                                     ((0x5003U 
+                                                     ((0x2000033U 
                                                        == 
-                                                       (0x707fU 
+                                                       (0xfe00707fU 
                                                         & vlSelf->CPUTop__DOT__IFM_inst))
-                                                       ? 8U
+                                                       ? 5U
                                                        : 
-                                                      ((0x101bU 
+                                                      ((0x501bU 
                                                         == 
                                                         (0xfc00707fU 
                                                          & vlSelf->CPUTop__DOT__IFM_inst))
                                                         ? 8U
                                                         : 
-                                                       ((0x4000501bU 
+                                                       ((0x4000503bU 
                                                          == 
-                                                         (0xfc00707fU 
+                                                         (0xfe00707fU 
                                                           & vlSelf->CPUTop__DOT__IFM_inst))
-                                                         ? 8U
+                                                         ? 5U
                                                          : 
-                                                        ((0x2000033U 
+                                                        ((0x503bU 
                                                           == 
                                                           (0xfe00707fU 
                                                            & vlSelf->CPUTop__DOT__IFM_inst))
                                                           ? 5U
                                                           : 
-                                                         ((0x501bU 
+                                                         ((0x6063U 
                                                            == 
-                                                           (0xfc00707fU 
+                                                           (0x707fU 
                                                             & vlSelf->CPUTop__DOT__IFM_inst))
-                                                           ? 8U
+                                                           ? 0xbU
                                                            : 
-                                                          ((0x4000503bU 
+                                                          ((0x7063U 
                                                             == 
-                                                            (0xfe00707fU 
+                                                            (0x707fU 
                                                              & vlSelf->CPUTop__DOT__IFM_inst))
-                                                            ? 5U
-                                                            : (IData)(vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_135))))))))))))))));
-    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_227 
+                                                            ? 0xbU
+                                                            : (IData)(vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_144))))))))))))))));
+    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_243 
         = ((0x40000033U == (0xfe00707fU & vlSelf->CPUTop__DOT__IFM_inst))
             ? 0U : ((0x3013U == (0x707fU & vlSelf->CPUTop__DOT__IFM_inst))
                      ? 5U : ((0x63U == (0x707fU & vlSelf->CPUTop__DOT__IFM_inst))
@@ -850,229 +910,309 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
                                                              (0x707fU 
                                                               & vlSelf->CPUTop__DOT__IFM_inst))
                                                              ? 0U
-                                                             : (IData)(vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_212))))))))))))))));
-    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_282 
-        = ((0x1bU == (0x707fU & vlSelf->CPUTop__DOT__IFM_inst))
-            ? 0x6dU : ((0x33U == (0xfe00707fU & vlSelf->CPUTop__DOT__IFM_inst))
-                        ? 0x40U : ((0x40005013U == 
-                                    (0xfc00707fU & vlSelf->CPUTop__DOT__IFM_inst))
-                                    ? 0x6eU : ((0x4003U 
-                                                == 
-                                                (0x707fU 
-                                                 & vlSelf->CPUTop__DOT__IFM_inst))
-                                                ? 0x6fU
-                                                : (
-                                                   (3U 
-                                                    == 
-                                                    (0x707fU 
-                                                     & vlSelf->CPUTop__DOT__IFM_inst))
-                                                    ? 0xeU
-                                                    : 
-                                                   ((0x1023U 
-                                                     == 
-                                                     (0x707fU 
-                                                      & vlSelf->CPUTop__DOT__IFM_inst))
-                                                     ? 0x70U
-                                                     : 
-                                                    ((0x7033U 
-                                                      == 
-                                                      (0xfe00707fU 
-                                                       & vlSelf->CPUTop__DOT__IFM_inst))
-                                                      ? 0x71U
-                                                      : 
-                                                     ((0x3033U 
-                                                       == 
-                                                       (0xfe00707fU 
-                                                        & vlSelf->CPUTop__DOT__IFM_inst))
-                                                       ? 0x6aU
-                                                       : 
-                                                      ((0x4013U 
-                                                        == 
-                                                        (0x707fU 
-                                                         & vlSelf->CPUTop__DOT__IFM_inst))
-                                                        ? 0x72U
-                                                        : 
-                                                       ((0x103bU 
-                                                         == 
-                                                         (0xfe00707fU 
-                                                          & vlSelf->CPUTop__DOT__IFM_inst))
-                                                         ? 0x73U
-                                                         : 
-                                                        ((0x7013U 
-                                                          == 
-                                                          (0x707fU 
-                                                           & vlSelf->CPUTop__DOT__IFM_inst))
-                                                          ? 0x71U
-                                                          : 
-                                                         ((0x6033U 
-                                                           == 
-                                                           (0xfe00707fU 
-                                                            & vlSelf->CPUTop__DOT__IFM_inst))
-                                                           ? 0x44U
-                                                           : 
-                                                          ((0x23U 
-                                                            == 
-                                                            (0x707fU 
-                                                             & vlSelf->CPUTop__DOT__IFM_inst))
-                                                            ? 0x74U
-                                                            : 
-                                                           ((0x5013U 
-                                                             == 
-                                                             (0xfc00707fU 
-                                                              & vlSelf->CPUTop__DOT__IFM_inst))
-                                                             ? 0x75U
-                                                             : 
-                                                            ((0x5063U 
-                                                              == 
-                                                              (0x707fU 
-                                                               & vlSelf->CPUTop__DOT__IFM_inst))
-                                                              ? 0x76U
-                                                              : (IData)(vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_267))))))))))))))));
-    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_165 
-        = ((0x1063U == (0x707fU & vlSelf->CPUTop__DOT__IFM_inst))
-            ? 0xbU : ((0x1bU == (0x707fU & vlSelf->CPUTop__DOT__IFM_inst))
-                       ? 8U : ((0x33U == (0xfe00707fU 
-                                          & vlSelf->CPUTop__DOT__IFM_inst))
-                                ? 5U : ((0x40005013U 
-                                         == (0xfc00707fU 
-                                             & vlSelf->CPUTop__DOT__IFM_inst))
-                                         ? 8U : ((0x4003U 
-                                                  == 
-                                                  (0x707fU 
+                                                             : (IData)(vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_228))))))))))))))));
+    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_298 
+        = ((3U == (0x707fU & vlSelf->CPUTop__DOT__IFM_inst))
+            ? 0xeU : ((0x1023U == (0x707fU & vlSelf->CPUTop__DOT__IFM_inst))
+                       ? 0x70U : ((0x7033U == (0xfe00707fU 
+                                               & vlSelf->CPUTop__DOT__IFM_inst))
+                                   ? 0x71U : ((0x3033U 
+                                               == (0xfe00707fU 
                                                    & vlSelf->CPUTop__DOT__IFM_inst))
-                                                  ? 8U
-                                                  : 
-                                                 ((3U 
+                                               ? 0x6aU
+                                               : ((0x4013U 
                                                    == 
                                                    (0x707fU 
                                                     & vlSelf->CPUTop__DOT__IFM_inst))
-                                                   ? 8U
+                                                   ? 0x72U
                                                    : 
-                                                  ((0x1023U 
+                                                  ((0x103bU 
                                                     == 
-                                                    (0x707fU 
+                                                    (0xfe00707fU 
                                                      & vlSelf->CPUTop__DOT__IFM_inst))
-                                                    ? 9U
+                                                    ? 0x73U
                                                     : 
-                                                   ((0x7033U 
+                                                   ((0x7013U 
                                                      == 
-                                                     (0xfe00707fU 
+                                                     (0x707fU 
                                                       & vlSelf->CPUTop__DOT__IFM_inst))
-                                                     ? 5U
+                                                     ? 0x71U
                                                      : 
-                                                    ((0x3033U 
+                                                    ((0x6033U 
+                                                      == 
+                                                      (0xfe00707fU 
+                                                       & vlSelf->CPUTop__DOT__IFM_inst))
+                                                      ? 0x44U
+                                                      : 
+                                                     ((0x23U 
+                                                       == 
+                                                       (0x707fU 
+                                                        & vlSelf->CPUTop__DOT__IFM_inst))
+                                                       ? 0x74U
+                                                       : 
+                                                      ((0x5013U 
+                                                        == 
+                                                        (0xfc00707fU 
+                                                         & vlSelf->CPUTop__DOT__IFM_inst))
+                                                        ? 0x75U
+                                                        : 
+                                                       ((0x5063U 
+                                                         == 
+                                                         (0x707fU 
+                                                          & vlSelf->CPUTop__DOT__IFM_inst))
+                                                         ? 0x76U
+                                                         : 
+                                                        ((0x2023U 
+                                                          == 
+                                                          (0x707fU 
+                                                           & vlSelf->CPUTop__DOT__IFM_inst))
+                                                          ? 0x77U
+                                                          : 
+                                                         ((0x200003bU 
+                                                           == 
+                                                           (0xfe00707fU 
+                                                            & vlSelf->CPUTop__DOT__IFM_inst))
+                                                           ? 0x78U
+                                                           : 
+                                                          ((0x200403bU 
+                                                            == 
+                                                            (0xfe00707fU 
+                                                             & vlSelf->CPUTop__DOT__IFM_inst))
+                                                            ? 0x79U
+                                                            : 
+                                                           ((0x200603bU 
+                                                             == 
+                                                             (0xfe00707fU 
+                                                              & vlSelf->CPUTop__DOT__IFM_inst))
+                                                             ? 0x7aU
+                                                             : (IData)(vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_283))))))))))))))));
+    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_174 
+        = ((0x40005013U == (0xfc00707fU & vlSelf->CPUTop__DOT__IFM_inst))
+            ? 8U : ((0x4003U == (0x707fU & vlSelf->CPUTop__DOT__IFM_inst))
+                     ? 8U : ((3U == (0x707fU & vlSelf->CPUTop__DOT__IFM_inst))
+                              ? 8U : ((0x1023U == (0x707fU 
+                                                   & vlSelf->CPUTop__DOT__IFM_inst))
+                                       ? 9U : ((0x7033U 
+                                                == 
+                                                (0xfe00707fU 
+                                                 & vlSelf->CPUTop__DOT__IFM_inst))
+                                                ? 5U
+                                                : (
+                                                   (0x3033U 
+                                                    == 
+                                                    (0xfe00707fU 
+                                                     & vlSelf->CPUTop__DOT__IFM_inst))
+                                                    ? 5U
+                                                    : 
+                                                   ((0x4013U 
+                                                     == 
+                                                     (0x707fU 
+                                                      & vlSelf->CPUTop__DOT__IFM_inst))
+                                                     ? 8U
+                                                     : 
+                                                    ((0x103bU 
                                                       == 
                                                       (0xfe00707fU 
                                                        & vlSelf->CPUTop__DOT__IFM_inst))
                                                       ? 5U
                                                       : 
-                                                     ((0x4013U 
+                                                     ((0x7013U 
                                                        == 
                                                        (0x707fU 
                                                         & vlSelf->CPUTop__DOT__IFM_inst))
                                                        ? 8U
                                                        : 
-                                                      ((0x103bU 
+                                                      ((0x6033U 
                                                         == 
                                                         (0xfe00707fU 
                                                          & vlSelf->CPUTop__DOT__IFM_inst))
                                                         ? 5U
                                                         : 
-                                                       ((0x7013U 
+                                                       ((0x23U 
+                                                         == 
+                                                         (0x707fU 
+                                                          & vlSelf->CPUTop__DOT__IFM_inst))
+                                                         ? 9U
+                                                         : 
+                                                        ((0x5013U 
+                                                          == 
+                                                          (0xfc00707fU 
+                                                           & vlSelf->CPUTop__DOT__IFM_inst))
+                                                          ? 8U
+                                                          : 
+                                                         ((0x5063U 
+                                                           == 
+                                                           (0x707fU 
+                                                            & vlSelf->CPUTop__DOT__IFM_inst))
+                                                           ? 0xbU
+                                                           : 
+                                                          ((0x2023U 
+                                                            == 
+                                                            (0x707fU 
+                                                             & vlSelf->CPUTop__DOT__IFM_inst))
+                                                            ? 9U
+                                                            : 
+                                                           ((0x200003bU 
+                                                             == 
+                                                             (0xfe00707fU 
+                                                              & vlSelf->CPUTop__DOT__IFM_inst))
+                                                             ? 5U
+                                                             : (IData)(vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_159))))))))))))))));
+    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_313 
+        = ((0x6013U == (0x707fU & vlSelf->CPUTop__DOT__IFM_inst))
+            ? 0x44U : ((0x6fU == (0x7fU & vlSelf->CPUTop__DOT__IFM_inst))
+                        ? 0x19U : ((0x67U == (0x707fU 
+                                              & vlSelf->CPUTop__DOT__IFM_inst))
+                                    ? 0x48U : ((0x3003U 
+                                                == 
+                                                (0x707fU 
+                                                 & vlSelf->CPUTop__DOT__IFM_inst))
+                                                ? 0x45U
+                                                : (
+                                                   (0x3023U 
+                                                    == 
+                                                    (0x707fU 
+                                                     & vlSelf->CPUTop__DOT__IFM_inst))
+                                                    ? 0x46U
+                                                    : 
+                                                   ((0x2003U 
+                                                     == 
+                                                     (0x707fU 
+                                                      & vlSelf->CPUTop__DOT__IFM_inst))
+                                                     ? 0x47U
+                                                     : 
+                                                    ((0x3bU 
+                                                      == 
+                                                      (0xfe00707fU 
+                                                       & vlSelf->CPUTop__DOT__IFM_inst))
+                                                      ? 0x68U
+                                                      : 
+                                                     ((0x40000033U 
+                                                       == 
+                                                       (0xfe00707fU 
+                                                        & vlSelf->CPUTop__DOT__IFM_inst))
+                                                       ? 0x69U
+                                                       : 
+                                                      ((0x3013U 
+                                                        == 
+                                                        (0x707fU 
+                                                         & vlSelf->CPUTop__DOT__IFM_inst))
+                                                        ? 0x6aU
+                                                        : 
+                                                       ((0x63U 
+                                                         == 
+                                                         (0x707fU 
+                                                          & vlSelf->CPUTop__DOT__IFM_inst))
+                                                         ? 0x6bU
+                                                         : 
+                                                        ((0x1063U 
+                                                          == 
+                                                          (0x707fU 
+                                                           & vlSelf->CPUTop__DOT__IFM_inst))
+                                                          ? 0x6cU
+                                                          : 
+                                                         ((0x1bU 
+                                                           == 
+                                                           (0x707fU 
+                                                            & vlSelf->CPUTop__DOT__IFM_inst))
+                                                           ? 0x6dU
+                                                           : 
+                                                          ((0x33U 
+                                                            == 
+                                                            (0xfe00707fU 
+                                                             & vlSelf->CPUTop__DOT__IFM_inst))
+                                                            ? 0x40U
+                                                            : 
+                                                           ((0x40005013U 
+                                                             == 
+                                                             (0xfc00707fU 
+                                                              & vlSelf->CPUTop__DOT__IFM_inst))
+                                                             ? 0x6eU
+                                                             : 
+                                                            ((0x4003U 
+                                                              == 
+                                                              (0x707fU 
+                                                               & vlSelf->CPUTop__DOT__IFM_inst))
+                                                              ? 0x6fU
+                                                              : (IData)(vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_298))))))))))))))));
+    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_189 
+        = ((0x17U == (0x7fU & vlSelf->CPUTop__DOT__IFM_inst))
+            ? 3U : ((0x37U == (0x7fU & vlSelf->CPUTop__DOT__IFM_inst))
+                     ? 3U : ((0x6013U == (0x707fU & vlSelf->CPUTop__DOT__IFM_inst))
+                              ? 8U : ((0x6fU == (0x7fU 
+                                                 & vlSelf->CPUTop__DOT__IFM_inst))
+                                       ? 7U : ((0x67U 
+                                                == 
+                                                (0x707fU 
+                                                 & vlSelf->CPUTop__DOT__IFM_inst))
+                                                ? 8U
+                                                : (
+                                                   (0x3003U 
+                                                    == 
+                                                    (0x707fU 
+                                                     & vlSelf->CPUTop__DOT__IFM_inst))
+                                                    ? 8U
+                                                    : 
+                                                   ((0x3023U 
+                                                     == 
+                                                     (0x707fU 
+                                                      & vlSelf->CPUTop__DOT__IFM_inst))
+                                                     ? 9U
+                                                     : 
+                                                    ((0x2003U 
+                                                      == 
+                                                      (0x707fU 
+                                                       & vlSelf->CPUTop__DOT__IFM_inst))
+                                                      ? 8U
+                                                      : 
+                                                     ((0x3bU 
+                                                       == 
+                                                       (0xfe00707fU 
+                                                        & vlSelf->CPUTop__DOT__IFM_inst))
+                                                       ? 5U
+                                                       : 
+                                                      ((0x40000033U 
+                                                        == 
+                                                        (0xfe00707fU 
+                                                         & vlSelf->CPUTop__DOT__IFM_inst))
+                                                        ? 5U
+                                                        : 
+                                                       ((0x3013U 
                                                          == 
                                                          (0x707fU 
                                                           & vlSelf->CPUTop__DOT__IFM_inst))
                                                          ? 8U
                                                          : 
-                                                        ((0x6033U 
+                                                        ((0x63U 
                                                           == 
-                                                          (0xfe00707fU 
+                                                          (0x707fU 
                                                            & vlSelf->CPUTop__DOT__IFM_inst))
-                                                          ? 5U
+                                                          ? 0xbU
                                                           : 
-                                                         ((0x23U 
+                                                         ((0x1063U 
                                                            == 
                                                            (0x707fU 
                                                             & vlSelf->CPUTop__DOT__IFM_inst))
-                                                           ? 9U
+                                                           ? 0xbU
                                                            : 
-                                                          ((0x5013U 
+                                                          ((0x1bU 
                                                             == 
-                                                            (0xfc00707fU 
+                                                            (0x707fU 
                                                              & vlSelf->CPUTop__DOT__IFM_inst))
                                                             ? 8U
-                                                            : (IData)(vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_150))))))))))))))));
-    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_296 
+                                                            : 
+                                                           ((0x33U 
+                                                             == 
+                                                             (0xfe00707fU 
+                                                              & vlSelf->CPUTop__DOT__IFM_inst))
+                                                             ? 5U
+                                                             : (IData)(vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_174))))))))))))))));
+    vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_316 
         = ((0x1013U == (0xfc00707fU & vlSelf->CPUTop__DOT__IFM_inst))
             ? 0x41U : ((0x17U == (0x7fU & vlSelf->CPUTop__DOT__IFM_inst))
                         ? 0x40U : ((0x37U == (0x7fU 
                                               & vlSelf->CPUTop__DOT__IFM_inst))
-                                    ? 0x40U : ((0x6013U 
-                                                == 
-                                                (0x707fU 
-                                                 & vlSelf->CPUTop__DOT__IFM_inst))
-                                                ? 0x44U
-                                                : (
-                                                   (0x6fU 
-                                                    == 
-                                                    (0x7fU 
-                                                     & vlSelf->CPUTop__DOT__IFM_inst))
-                                                    ? 0x19U
-                                                    : 
-                                                   ((0x67U 
-                                                     == 
-                                                     (0x707fU 
-                                                      & vlSelf->CPUTop__DOT__IFM_inst))
-                                                     ? 0x48U
-                                                     : 
-                                                    ((0x3003U 
-                                                      == 
-                                                      (0x707fU 
-                                                       & vlSelf->CPUTop__DOT__IFM_inst))
-                                                      ? 0x45U
-                                                      : 
-                                                     ((0x3023U 
-                                                       == 
-                                                       (0x707fU 
-                                                        & vlSelf->CPUTop__DOT__IFM_inst))
-                                                       ? 0x46U
-                                                       : 
-                                                      ((0x2003U 
-                                                        == 
-                                                        (0x707fU 
-                                                         & vlSelf->CPUTop__DOT__IFM_inst))
-                                                        ? 0x47U
-                                                        : 
-                                                       ((0x3bU 
-                                                         == 
-                                                         (0xfe00707fU 
-                                                          & vlSelf->CPUTop__DOT__IFM_inst))
-                                                         ? 0x68U
-                                                         : 
-                                                        ((0x40000033U 
-                                                          == 
-                                                          (0xfe00707fU 
-                                                           & vlSelf->CPUTop__DOT__IFM_inst))
-                                                          ? 0x69U
-                                                          : 
-                                                         ((0x3013U 
-                                                           == 
-                                                           (0x707fU 
-                                                            & vlSelf->CPUTop__DOT__IFM_inst))
-                                                           ? 0x6aU
-                                                           : 
-                                                          ((0x63U 
-                                                            == 
-                                                            (0x707fU 
-                                                             & vlSelf->CPUTop__DOT__IFM_inst))
-                                                            ? 0x6bU
-                                                            : 
-                                                           ((0x1063U 
-                                                             == 
-                                                             (0x707fU 
-                                                              & vlSelf->CPUTop__DOT__IFM_inst))
-                                                             ? 0x6cU
-                                                             : (IData)(vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_282)))))))))))))));
+                                    ? 0x40U : (IData)(vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_313))));
     if ((0x13U == (0x707fU & vlSelf->CPUTop__DOT__IFM_inst))) {
         vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype = 0U;
         vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0 = 8U;
@@ -1081,45 +1221,51 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
         if ((0x1013U == (0xfc00707fU & vlSelf->CPUTop__DOT__IFM_inst))) {
             vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype = 1U;
             vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0 = 8U;
-        } else if ((0x17U == (0x7fU & vlSelf->CPUTop__DOT__IFM_inst))) {
-            vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype = 0U;
-            vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0 = 3U;
-        } else if ((0x37U == (0x7fU & vlSelf->CPUTop__DOT__IFM_inst))) {
-            vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype = 0U;
-            vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0 = 3U;
-        } else if ((0x6013U == (0x707fU & vlSelf->CPUTop__DOT__IFM_inst))) {
-            vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype = 0U;
-            vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0 = 8U;
-        } else if ((0x6fU == (0x7fU & vlSelf->CPUTop__DOT__IFM_inst))) {
-            vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype = 3U;
-            vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0 = 7U;
-        } else if ((0x67U == (0x707fU & vlSelf->CPUTop__DOT__IFM_inst))) {
-            vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype = 3U;
-            vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0 = 8U;
-        } else if ((0x3003U == (0x707fU & vlSelf->CPUTop__DOT__IFM_inst))) {
-            vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype = 4U;
-            vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0 = 8U;
-        } else if ((0x3023U == (0x707fU & vlSelf->CPUTop__DOT__IFM_inst))) {
-            vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype = 4U;
-            vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0 = 9U;
-        } else if ((0x2003U == (0x707fU & vlSelf->CPUTop__DOT__IFM_inst))) {
-            vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype = 4U;
-            vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0 = 8U;
-        } else if ((0x3bU == (0xfe00707fU & vlSelf->CPUTop__DOT__IFM_inst))) {
-            vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype = 0U;
-            vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0 = 5U;
         } else {
             vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype 
-                = vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_227;
+                = ((0x17U == (0x7fU & vlSelf->CPUTop__DOT__IFM_inst))
+                    ? 0U : ((0x37U == (0x7fU & vlSelf->CPUTop__DOT__IFM_inst))
+                             ? 0U : ((0x6013U == (0x707fU 
+                                                  & vlSelf->CPUTop__DOT__IFM_inst))
+                                      ? 0U : ((0x6fU 
+                                               == (0x7fU 
+                                                   & vlSelf->CPUTop__DOT__IFM_inst))
+                                               ? 3U
+                                               : ((0x67U 
+                                                   == 
+                                                   (0x707fU 
+                                                    & vlSelf->CPUTop__DOT__IFM_inst))
+                                                   ? 3U
+                                                   : 
+                                                  ((0x3003U 
+                                                    == 
+                                                    (0x707fU 
+                                                     & vlSelf->CPUTop__DOT__IFM_inst))
+                                                    ? 4U
+                                                    : 
+                                                   ((0x3023U 
+                                                     == 
+                                                     (0x707fU 
+                                                      & vlSelf->CPUTop__DOT__IFM_inst))
+                                                     ? 4U
+                                                     : 
+                                                    ((0x2003U 
+                                                      == 
+                                                      (0x707fU 
+                                                       & vlSelf->CPUTop__DOT__IFM_inst))
+                                                      ? 4U
+                                                      : 
+                                                     ((0x3bU 
+                                                       == 
+                                                       (0xfe00707fU 
+                                                        & vlSelf->CPUTop__DOT__IFM_inst))
+                                                       ? 0U
+                                                       : (IData)(vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_243))))))))));
             vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0 
-                = ((0x40000033U == (0xfe00707fU & vlSelf->CPUTop__DOT__IFM_inst))
-                    ? 5U : ((0x3013U == (0x707fU & vlSelf->CPUTop__DOT__IFM_inst))
-                             ? 8U : ((0x63U == (0x707fU 
-                                                & vlSelf->CPUTop__DOT__IFM_inst))
-                                      ? 0xbU : (IData)(vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_165))));
+                = vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_189;
         }
         vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype 
-            = vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_296;
+            = vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_316;
     }
     vlSelf->CPUTop__DOT__ID_io_ctrlIO_Imm = ((((((8U 
                                                   == (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0))
@@ -1216,6 +1362,80 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
     if (VL_UNLIKELY((0x42U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)))) {
         VL_FINISH_MT("vsrc/DIP_model.v", 47, "");
     }
+    vlSelf->CPUTop__DOT__EX__DOT___GEN_287 = ((0x68U 
+                                               != (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
+                                              & ((0x44U 
+                                                  != (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
+                                                 & ((0x69U 
+                                                     != (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
+                                                    & ((0x71U 
+                                                        != (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
+                                                       & ((0x72U 
+                                                           != (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
+                                                          & ((0x6dU 
+                                                              != (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
+                                                             & ((0x78U 
+                                                                 != (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
+                                                                & ((0x79U 
+                                                                    != (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
+                                                                   & ((0x7aU 
+                                                                       != (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
+                                                                      & ((0xdU 
+                                                                          != (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
+                                                                         & ((1U 
+                                                                             != (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
+                                                                            & ((7U 
+                                                                                != (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
+                                                                               & ((0xfU 
+                                                                                != (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
+                                                                                & ((0x12U 
+                                                                                != (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
+                                                                                & ((0x10U 
+                                                                                != (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
+                                                                                & ((0x13U 
+                                                                                != (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
+                                                                                & ((0x43U 
+                                                                                != (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
+                                                                                & (0x15U 
+                                                                                == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)))))))))))))))))));
+    vlSelf->CPUTop__DOT__EX__DOT___GEN_294 = ((0x68U 
+                                               != (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
+                                              & ((0x44U 
+                                                  != (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
+                                                 & ((0x69U 
+                                                     != (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
+                                                    & ((0x71U 
+                                                        != (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
+                                                       & ((0x72U 
+                                                           != (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
+                                                          & ((0x6dU 
+                                                              != (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
+                                                             & ((0x78U 
+                                                                 != (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
+                                                                & ((0x79U 
+                                                                    != (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
+                                                                   & ((0x7aU 
+                                                                       != (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
+                                                                      & ((0xdU 
+                                                                          != (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
+                                                                         & ((1U 
+                                                                             != (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
+                                                                            & ((7U 
+                                                                                != (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
+                                                                               & ((0xfU 
+                                                                                != (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
+                                                                                & ((0x12U 
+                                                                                != (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
+                                                                                & ((0x10U 
+                                                                                != (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
+                                                                                & ((0x13U 
+                                                                                != (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
+                                                                                & ((0x43U 
+                                                                                != (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
+                                                                                & ((0x15U 
+                                                                                != (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
+                                                                                & (0x16U 
+                                                                                == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))))))))))))))))))));
     vlSelf->CPUTop__DOT__EX__DOT___branch_result_T_1 
         = (vlSelf->CPUTop__DOT__IF__DOT__temp + vlSelf->CPUTop__DOT__ID_io_ctrlIO_Imm);
     if (vlSelf->CPUTop__DOT__ID__DOT__srctype2) {
@@ -1231,30 +1451,40 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
     vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_58 
         = ((0U == (IData)(vlSelf->CPUTop__DOT__ID__DOT___io_ctrlIO_src1type_T_2))
             ? vlSelf->CPUTop__DOT__EX_io1_REG1 : vlSelf->CPUTop__DOT__EX__DOT___GEN_1);
-    vlSelf->CPUTop__DOT__EX__DOT___GEN_84 = ((0x6cU 
-                                              == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
-                                              ? (vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_58 
-                                                 != vlSelf->CPUTop__DOT__EX__DOT__src2)
-                                              : ((0x76U 
-                                                  == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
-                                                  ? 
-                                                 VL_GTES_IQQ(64, vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_58, vlSelf->CPUTop__DOT__EX__DOT__src2)
-                                                  : 
-                                                 ((0x7bU 
+    vlSelf->CPUTop__DOT__EX__DOT__csr_MPORT_1_data 
+        = (vlSelf->CPUTop__DOT__EX__DOT__csr[(0xffU 
+                                              & (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_Imm))] 
+           | vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_58);
+    vlSelf->CPUTop__DOT__EX__DOT___GEN_341 = ((0x6cU 
+                                               == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                                               ? (vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_58 
+                                                  != vlSelf->CPUTop__DOT__EX__DOT__src2)
+                                               : ((0x76U 
                                                    == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                                    ? 
-                                                  VL_LTS_IQQ(64, vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_58, vlSelf->CPUTop__DOT__EX__DOT__src2)
+                                                  VL_GTES_IQQ(64, vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_58, vlSelf->CPUTop__DOT__EX__DOT__src2)
                                                    : 
-                                                  ((0xbU 
+                                                  ((0x7bU 
                                                     == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                                     ? 
-                                                   (vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_58 
-                                                    < vlSelf->CPUTop__DOT__EX__DOT__src2)
+                                                   VL_LTS_IQQ(64, vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_58, vlSelf->CPUTop__DOT__EX__DOT__src2)
                                                     : 
-                                                   ((0xcU 
-                                                     == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
-                                                    & (vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_58 
-                                                       >= vlSelf->CPUTop__DOT__EX__DOT__src2))))));
+                                                   ((0xbU 
+                                                     == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                                                     ? 
+                                                    (vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_58 
+                                                     < vlSelf->CPUTop__DOT__EX__DOT__src2)
+                                                     : 
+                                                    ((0xcU 
+                                                      == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                                                      ? 
+                                                     (vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_58 
+                                                      >= vlSelf->CPUTop__DOT__EX__DOT__src2)
+                                                      : 
+                                                     ((0x17U 
+                                                       == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype)) 
+                                                      | (0x18U 
+                                                         == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))))))));
     vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_28 
         = (0x1ffffffffULL & VL_DIVS_QQQ(33, (0x1ffffffffULL 
                                              & VL_EXTENDS_QI(33,32, (IData)(vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_58))), 
@@ -1314,7 +1544,7 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
                                                  ? 
                                                 (vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_58 
                                                  == vlSelf->CPUTop__DOT__EX__DOT__src2)
-                                                 : (IData)(vlSelf->CPUTop__DOT__EX__DOT___GEN_84))
+                                                 : (IData)(vlSelf->CPUTop__DOT__EX__DOT___GEN_341))
                                                 ? (
                                                    (0x6bU 
                                                     == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
@@ -1351,96 +1581,88 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
     __Vtemp_h00d1789c__0[1U] = __Vtemp_haf1887f5__0[1U];
     __Vtemp_h00d1789c__0[2U] = (1U & __Vtemp_haf1887f5__0[2U]);
     VL_DIVS_WWW(65, __Vtemp_h8f84d91f__0, __Vtemp_h50a54222__0, __Vtemp_h00d1789c__0);
-    vlSelf->CPUTop__DOT__EX__DOT___GEN_48 = ((0x79U 
-                                              == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
-                                              ? (((QData)((IData)(
-                                                                  ((1U 
-                                                                    & (IData)(
-                                                                              (vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_28 
-                                                                               >> 0x1fU)))
-                                                                    ? 0xffffffffU
-                                                                    : 0U))) 
-                                                  << 0x20U) 
-                                                 | (QData)((IData)(vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_28)))
-                                              : ((0x7aU 
-                                                  == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
-                                                  ? 
-                                                 (((QData)((IData)(
-                                                                   ((vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_38 
+    vlSelf->CPUTop__DOT__EX__DOT___GEN_158 = ((0xdU 
+                                               == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                                               ? (((QData)((IData)(
+                                                                   ((vlSelf->CPUTop__DOT__EX__DOT___GEN_15 
                                                                      >> 0x1fU)
                                                                      ? 0xffffffffU
                                                                      : 0U))) 
                                                    << 0x20U) 
-                                                  | (QData)((IData)(vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_38)))
-                                                  : 
-                                                 ((0xdU 
+                                                  | (QData)((IData)(vlSelf->CPUTop__DOT__EX__DOT___GEN_15)))
+                                               : ((1U 
                                                    == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                                    ? 
                                                   (((QData)((IData)(
-                                                                    ((vlSelf->CPUTop__DOT__EX__DOT___GEN_15 
-                                                                      >> 0x1fU)
+                                                                    ((1U 
+                                                                      & (IData)(
+                                                                                (vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_10 
+                                                                                >> 0x1fU)))
                                                                       ? 0xffffffffU
                                                                       : 0U))) 
                                                     << 0x20U) 
-                                                   | (QData)((IData)(vlSelf->CPUTop__DOT__EX__DOT___GEN_15)))
+                                                   | (QData)((IData)(vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_10)))
                                                    : 
-                                                  ((1U 
+                                                  ((7U 
                                                     == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                                     ? 
                                                    (((QData)((IData)(
-                                                                     ((1U 
-                                                                       & (IData)(
-                                                                                (vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_10 
-                                                                                >> 0x1fU)))
-                                                                       ? 0xffffffffU
-                                                                       : 0U))) 
+                                                                     vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_19[1U])) 
                                                      << 0x20U) 
-                                                    | (QData)((IData)(vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_10)))
+                                                    | (QData)((IData)(
+                                                                      vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_19[0U])))
                                                     : 
-                                                   ((7U 
+                                                   ((0xfU 
                                                      == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                                      ? 
-                                                    (((QData)((IData)(
-                                                                      vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_19[1U])) 
-                                                      << 0x20U) 
-                                                     | (QData)((IData)(
-                                                                       vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_19[0U])))
+                                                    VL_MODDIV_QQQ(64, vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_58, vlSelf->CPUTop__DOT__EX__DOT__src2)
                                                      : 
-                                                    ((0xfU 
+                                                    ((0x12U 
                                                       == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                                       ? 
-                                                     VL_MODDIV_QQQ(64, vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_58, vlSelf->CPUTop__DOT__EX__DOT__src2)
+                                                     VL_MODDIVS_QQQ(64, vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_58, vlSelf->CPUTop__DOT__EX__DOT__src2)
                                                       : 
-                                                     ((0x12U 
+                                                     ((0x10U 
                                                        == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                                        ? 
-                                                      VL_MODDIVS_QQQ(64, vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_58, vlSelf->CPUTop__DOT__EX__DOT__src2)
+                                                      (((QData)((IData)(
+                                                                        ((vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_64 
+                                                                          >> 0x1fU)
+                                                                          ? 0xffffffffU
+                                                                          : 0U))) 
+                                                        << 0x20U) 
+                                                       | (QData)((IData)(vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_64)))
                                                        : 
-                                                      ((0x10U 
+                                                      ((0x13U 
                                                         == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                                         ? 
-                                                       (((QData)((IData)(
-                                                                         ((vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_64 
-                                                                           >> 0x1fU)
-                                                                           ? 0xffffffffU
-                                                                           : 0U))) 
-                                                         << 0x20U) 
-                                                        | (QData)((IData)(vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_64)))
+                                                       VL_DIV_QQQ(64, vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_58, vlSelf->CPUTop__DOT__EX__DOT__src2)
                                                         : 
-                                                       ((0x13U 
+                                                       ((0x43U 
                                                          == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                                          ? 
-                                                        VL_DIV_QQQ(64, vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_58, vlSelf->CPUTop__DOT__EX__DOT__src2)
+                                                        (((QData)((IData)(
+                                                                          __Vtemp_h8f84d91f__0[1U])) 
+                                                          << 0x20U) 
+                                                         | (QData)((IData)(
+                                                                           __Vtemp_h8f84d91f__0[0U])))
                                                          : 
-                                                        ((0x43U 
+                                                        ((0x15U 
                                                           == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                                           ? 
-                                                         (((QData)((IData)(
-                                                                           __Vtemp_h8f84d91f__0[1U])) 
-                                                           << 0x20U) 
-                                                          | (QData)((IData)(
-                                                                            __Vtemp_h8f84d91f__0[0U])))
-                                                          : 0ULL))))))))));
+                                                         vlSelf->CPUTop__DOT__EX__DOT__csr
+                                                         [
+                                                         (0xffU 
+                                                          & (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_Imm))]
+                                                          : 
+                                                         ((0x16U 
+                                                           == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                                                           ? 
+                                                          vlSelf->CPUTop__DOT__EX__DOT__csr
+                                                          [
+                                                          (0xffU 
+                                                           & (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_Imm))]
+                                                           : 0ULL))))))))));
     vlSelf->CPUTop__DOT__EX__DOT___shift_result_T_28 
         = (((QData)((IData)(((vlSelf->CPUTop__DOT__EX__DOT___shift_result_T_25 
                               >> 0x1fU) ? 0xffffffffU
@@ -1821,91 +2043,91 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
                                                   >> 1U))))
                              ? (IData)((vlSelf->CPUTop__DOT__mem_rdata 
                                         >> 0x30U)) : 0U)))));
-    vlSelf->CPUTop__DOT__EX__DOT___GEN_70 = ((4U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype))
-                                              ? ((0x45U 
-                                                  == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
-                                                  ? vlSelf->CPUTop__DOT__mem_rdata
-                                                  : 
-                                                 ((0x47U 
+    vlSelf->CPUTop__DOT__EX__DOT___GEN_325 = ((4U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype))
+                                               ? ((0x45U 
                                                    == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
-                                                   ? 
-                                                  ((1U 
-                                                    & (IData)(
-                                                              (vlSelf->CPUTop__DOT__EX__DOT__addr_temp 
-                                                               >> 2U)))
-                                                    ? 
-                                                   (((QData)((IData)(
-                                                                     ((1U 
-                                                                       & (IData)(
-                                                                                (vlSelf->CPUTop__DOT__mem_rdata 
-                                                                                >> 0x3fU)))
-                                                                       ? 0xffffffffU
-                                                                       : 0U))) 
-                                                     << 0x20U) 
-                                                    | (QData)((IData)(
-                                                                      (vlSelf->CPUTop__DOT__mem_rdata 
-                                                                       >> 0x20U))))
-                                                    : vlSelf->CPUTop__DOT__EX__DOT___mem_result_T_9)
+                                                   ? vlSelf->CPUTop__DOT__mem_rdata
                                                    : 
-                                                  ((0x11U 
+                                                  ((0x47U 
                                                     == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                                     ? 
                                                    ((1U 
                                                      & (IData)(
                                                                (vlSelf->CPUTop__DOT__EX__DOT__addr_temp 
                                                                 >> 2U)))
-                                                     ? (QData)((IData)(
+                                                     ? 
+                                                    (((QData)((IData)(
+                                                                      ((1U 
+                                                                        & (IData)(
+                                                                                (vlSelf->CPUTop__DOT__mem_rdata 
+                                                                                >> 0x3fU)))
+                                                                        ? 0xffffffffU
+                                                                        : 0U))) 
+                                                      << 0x20U) 
+                                                     | (QData)((IData)(
                                                                        (vlSelf->CPUTop__DOT__mem_rdata 
-                                                                        >> 0x20U)))
+                                                                        >> 0x20U))))
                                                      : vlSelf->CPUTop__DOT__EX__DOT___mem_result_T_9)
                                                     : 
-                                                   ((0x6fU 
+                                                   ((0x11U 
                                                      == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
-                                                     ? (QData)((IData)(vlSelf->CPUTop__DOT__EX__DOT___mem_result_T_28))
+                                                     ? 
+                                                    ((1U 
+                                                      & (IData)(
+                                                                (vlSelf->CPUTop__DOT__EX__DOT__addr_temp 
+                                                                 >> 2U)))
+                                                      ? (QData)((IData)(
+                                                                        (vlSelf->CPUTop__DOT__mem_rdata 
+                                                                         >> 0x20U)))
+                                                      : vlSelf->CPUTop__DOT__EX__DOT___mem_result_T_9)
                                                      : 
-                                                    ((0xeU 
+                                                    ((0x6fU 
                                                       == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
-                                                      ? 
-                                                     ((((0x80U 
-                                                         & (IData)(vlSelf->CPUTop__DOT__EX__DOT___mem_result_T_28))
-                                                         ? 0xffffffffffffffULL
-                                                         : 0ULL) 
-                                                       << 8U) 
-                                                      | (QData)((IData)(vlSelf->CPUTop__DOT__EX__DOT___mem_result_T_28)))
+                                                      ? (QData)((IData)(vlSelf->CPUTop__DOT__EX__DOT___mem_result_T_28))
                                                       : 
-                                                     ((3U 
+                                                     ((0xeU 
                                                        == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                                        ? 
-                                                      ((((0x8000U 
-                                                          & (IData)(vlSelf->CPUTop__DOT__EX__DOT___mem_result_T_45))
-                                                          ? 0xffffffffffffULL
+                                                      ((((0x80U 
+                                                          & (IData)(vlSelf->CPUTop__DOT__EX__DOT___mem_result_T_28))
+                                                          ? 0xffffffffffffffULL
                                                           : 0ULL) 
-                                                        << 0x10U) 
-                                                       | (QData)((IData)(vlSelf->CPUTop__DOT__EX__DOT___mem_result_T_45)))
+                                                        << 8U) 
+                                                       | (QData)((IData)(vlSelf->CPUTop__DOT__EX__DOT___mem_result_T_28)))
                                                        : 
-                                                      ((4U 
+                                                      ((3U 
                                                         == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
-                                                        ? (QData)((IData)(vlSelf->CPUTop__DOT__EX__DOT___mem_result_T_45))
-                                                        : 0ULL)))))))
-                                              : ((5U 
-                                                  == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype))
-                                                  ? 
-                                                 ((0x6aU 
-                                                   == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                                                        ? 
+                                                       ((((0x8000U 
+                                                           & (IData)(vlSelf->CPUTop__DOT__EX__DOT___mem_result_T_45))
+                                                           ? 0xffffffffffffULL
+                                                           : 0ULL) 
+                                                         << 0x10U) 
+                                                        | (QData)((IData)(vlSelf->CPUTop__DOT__EX__DOT___mem_result_T_45)))
+                                                        : 
+                                                       ((4U 
+                                                         == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                                                         ? (QData)((IData)(vlSelf->CPUTop__DOT__EX__DOT___mem_result_T_45))
+                                                         : 0ULL)))))))
+                                               : ((5U 
+                                                   == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype))
                                                    ? 
-                                                  ((vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_58 
-                                                    < vlSelf->CPUTop__DOT__EX__DOT__src2)
-                                                    ? 1ULL
-                                                    : 0ULL)
-                                                   : 
-                                                  ((2U 
+                                                  ((0x6aU 
                                                     == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                                     ? 
-                                                   (VL_LTS_IQQ(64, vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_58, vlSelf->CPUTop__DOT__EX__DOT__src2)
+                                                   ((vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_58 
+                                                     < vlSelf->CPUTop__DOT__EX__DOT__src2)
                                                      ? 1ULL
                                                      : 0ULL)
-                                                    : 0ULL))
-                                                  : 0ULL));
+                                                    : 
+                                                   ((2U 
+                                                     == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                                                     ? 
+                                                    (VL_LTS_IQQ(64, vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_58, vlSelf->CPUTop__DOT__EX__DOT__src2)
+                                                      ? 1ULL
+                                                      : 0ULL)
+                                                     : 0ULL))
+                                                   : 0ULL));
     VL_EXTEND_WQ(127,64, __Vtemp_h7548e965__0, VL_SHIFTRS_QQI(64,64,5, vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_58, 
                                                               (0x1fU 
                                                                & (IData)(vlSelf->CPUTop__DOT__EX__DOT__src2))));
@@ -1963,43 +2185,43 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
                                                                      (0x3fU 
                                                                       & (IData)(vlSelf->CPUTop__DOT__EX__DOT__src2)))
                                                        : 0ULL))))))));
-    vlSelf->CPUTop__DOT__EX__DOT___GEN_71 = ((1U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype))
-                                              ? (((QData)((IData)(
-                                                                  ((0x6eU 
-                                                                    == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
-                                                                    ? 
-                                                                   __Vtemp_h7548e965__0[1U]
-                                                                    : 
-                                                                   ((0x73U 
-                                                                     == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
-                                                                     ? 
-                                                                    __Vtemp_hd83d5fe3__0[1U]
-                                                                     : 
-                                                                    ((0x41U 
-                                                                      == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
-                                                                      ? 
-                                                                     __Vtemp_h53a40c04__0[1U]
-                                                                      : 
-                                                                     __Vtemp_hdc10468f__0[1U]))))) 
-                                                  << 0x20U) 
-                                                 | (QData)((IData)(
+    vlSelf->CPUTop__DOT__EX__DOT___GEN_326 = ((1U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype))
+                                               ? (((QData)((IData)(
                                                                    ((0x6eU 
                                                                      == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                                                      ? 
-                                                                    __Vtemp_h7548e965__0[0U]
+                                                                    __Vtemp_h7548e965__0[1U]
                                                                      : 
                                                                     ((0x73U 
                                                                       == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                                                       ? 
-                                                                     __Vtemp_hd83d5fe3__0[0U]
+                                                                     __Vtemp_hd83d5fe3__0[1U]
                                                                       : 
                                                                      ((0x41U 
                                                                        == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                                                        ? 
-                                                                      __Vtemp_h53a40c04__0[0U]
+                                                                      __Vtemp_h53a40c04__0[1U]
                                                                        : 
-                                                                      __Vtemp_hdc10468f__0[0U]))))))
-                                              : vlSelf->CPUTop__DOT__EX__DOT___GEN_70);
+                                                                      __Vtemp_hdc10468f__0[1U]))))) 
+                                                   << 0x20U) 
+                                                  | (QData)((IData)(
+                                                                    ((0x6eU 
+                                                                      == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                                                                      ? 
+                                                                     __Vtemp_h7548e965__0[0U]
+                                                                      : 
+                                                                     ((0x73U 
+                                                                       == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                                                                       ? 
+                                                                      __Vtemp_hd83d5fe3__0[0U]
+                                                                       : 
+                                                                      ((0x41U 
+                                                                        == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                                                                        ? 
+                                                                       __Vtemp_h53a40c04__0[0U]
+                                                                        : 
+                                                                       __Vtemp_hdc10468f__0[0U]))))))
+                                               : vlSelf->CPUTop__DOT__EX__DOT___GEN_325);
     vlSelf->CPUTop__DOT__EX_io1_result = ((0U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype))
                                            ? ((0x40U 
                                                == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
@@ -2045,7 +2267,31 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
                                                           << 0x20U) 
                                                          | (QData)((IData)(
                                                                            vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_19[0U])))
-                                                         : vlSelf->CPUTop__DOT__EX__DOT___GEN_48))))))))
+                                                         : 
+                                                        ((0x79U 
+                                                          == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                                                          ? 
+                                                         (((QData)((IData)(
+                                                                           ((1U 
+                                                                             & (IData)(
+                                                                                (vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_28 
+                                                                                >> 0x1fU)))
+                                                                             ? 0xffffffffU
+                                                                             : 0U))) 
+                                                           << 0x20U) 
+                                                          | (QData)((IData)(vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_28)))
+                                                          : 
+                                                         ((0x7aU 
+                                                           == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                                                           ? 
+                                                          (((QData)((IData)(
+                                                                            ((vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_38 
+                                                                              >> 0x1fU)
+                                                                              ? 0xffffffffU
+                                                                              : 0U))) 
+                                                            << 0x20U) 
+                                                           | (QData)((IData)(vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_38)))
+                                                           : vlSelf->CPUTop__DOT__EX__DOT___GEN_158))))))))))
                                            : ((3U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype))
                                                ? ((3U 
                                                    == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype))
@@ -2056,6 +2302,6 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
                                                : ((2U 
                                                    == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype))
                                                    ? 0ULL
-                                                   : vlSelf->CPUTop__DOT__EX__DOT___GEN_71)));
+                                                   : vlSelf->CPUTop__DOT__EX__DOT___GEN_326)));
     vlSelf->io_result = vlSelf->CPUTop__DOT__EX_io1_result;
 }
