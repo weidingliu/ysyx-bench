@@ -424,7 +424,6 @@ module EXU(
 );
 `ifdef RANDOMIZE_REG_INIT
   reg [63:0] _RAND_0;
-  reg [63:0] _RAND_1;
 `endif // RANDOMIZE_REG_INIT
   wire [63:0] CSRDIFF_mepc; // @[EXU.scala 113:21]
   wire [63:0] CSRDIFF_mcause; // @[EXU.scala 113:21]
@@ -593,7 +592,7 @@ module EXU(
   wire [63:0] _alu_result_T_68 = {_alu_result_T_67,_alu_result_T_64}; // @[Cat.scala 31:58]
   wire [63:0] _alu_result_T_69 = src1 / src2; // @[EXU.scala 337:26]
   wire [64:0] _alu_result_T_72 = $signed(_alu_result_T_58) / $signed(_alu_result_T_59); // @[EXU.scala 340:34]
-  wire [63:0] _T_151 = mcause | src1; // @[EXU.scala 344:51]
+  wire [63:0] _T_151 = mcause | src1; // @[EXU.scala 344:53]
   wire [63:0] _GEN_39 = 7'h16 == io_aluoptype ? mcause : 64'h0; // @[EXU.scala 287:23 347:18]
   wire [63:0] _GEN_40 = 7'h16 == io_aluoptype ? src1 : mcause; // @[EXU.scala 287:23 CSR.scala 31:17 17:23]
   wire [63:0] _GEN_41 = 7'h15 == io_aluoptype ? mcause : _GEN_39; // @[EXU.scala 287:23 343:18]
@@ -714,7 +713,6 @@ module EXU(
   wire [63:0] _GEN_119 = _T_173 ? _dnpc_T_9 : _GEN_118; // @[EXU.scala 474:23 486:12]
   wire [63:0] _GEN_120 = _T_172 ? _dnpc_T_9 : _GEN_119; // @[EXU.scala 474:23 482:12]
   wire [63:0] _GEN_121 = 7'h48 == io_aluoptype ? _dnpc_T_5 : _GEN_120; // @[EXU.scala 474:23 479:12]
-  reg [63:0] CSRDIFF_io_mcause_REG; // @[EXU.scala 525:31]
   CSR_DIFF CSRDIFF ( // @[EXU.scala 113:21]
     .mepc(CSRDIFF_mepc),
     .mcause(CSRDIFF_mcause),
@@ -730,7 +728,7 @@ module EXU(
   assign io1_wdata = _T_68 ? src2 : _GEN_29; // @[EXU.scala 195:24 199:18]
   assign io1_wmask = _T_68 ? 8'hff : _GEN_28; // @[EXU.scala 195:24 198:18]
   assign CSRDIFF_mepc = 64'h0; // @[EXU.scala 526:19]
-  assign CSRDIFF_mcause = CSRDIFF_io_mcause_REG; // @[EXU.scala 525:21]
+  assign CSRDIFF_mcause = mcause; // @[EXU.scala 525:21]
   assign CSRDIFF_mstatus = 64'h0; // @[EXU.scala 527:22]
   assign CSRDIFF_mtvec = 64'h0; // @[EXU.scala 524:20]
   always @(posedge clock) begin
@@ -743,7 +741,6 @@ module EXU(
         mcause <= _GEN_74;
       end
     end
-    CSRDIFF_io_mcause_REG <= mcause; // @[EXU.scala 525:31]
   end
 // Register and memory initialization
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
@@ -783,8 +780,6 @@ initial begin
 `ifdef RANDOMIZE_REG_INIT
   _RAND_0 = {2{`RANDOM}};
   mcause = _RAND_0[63:0];
-  _RAND_1 = {2{`RANDOM}};
-  CSRDIFF_io_mcause_REG = _RAND_1[63:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
