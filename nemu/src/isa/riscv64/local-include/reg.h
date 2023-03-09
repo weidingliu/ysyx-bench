@@ -28,15 +28,21 @@ static inline int check_reg_idx(int idx) {
 }*/
 
 #define gpr(idx) (cpu.gpr[check_reg_idx(idx)])
-#define csrgpr(idx)                          \
-    do{                                      \
-      if(idx==0x00) return cpu.mstatus;      \
-      else if(idx==0x05) return cpu.mtvec;   \
-      else if(idx == 0x41) return cpu.mepc;  \
-      else if(idx==0x42) return cpu.mcause;   \
-      else assert(0);                         \
-    }while(0)               
-
+word_t csrgpr_read(int idx) {
+      if(idx==0x00) return cpu.mstatus;               
+      else if(idx==0x05) return cpu.mtvec;     
+      else if(idx == 0x41) return cpu.mepc;   
+      else if(idx==0x42) return cpu.mcause;
+      else assert(0);
+     
+}
+void csrgpr_write(int idx,word_t csr_data){
+    if(idx==0x00) cpu.mstatus=csr_data;               
+      else if(idx==0x05) cpu.mtvec=csr_data;     
+      else if(idx == 0x41) cpu.mepc=csr_data;   
+      else if(idx==0x42) cpu.mcause=csr_data;
+      else assert(0);
+}
 
 static inline const char* reg_name(int idx, int width) {
   extern const char* regs[];
