@@ -28,7 +28,7 @@ static inline int check_reg_idx(int idx) {
 }*/
 
 #define gpr(idx) (cpu.gpr[check_reg_idx(idx)])
-word_t *csrgpr(idx){                          
+word_t *csrgpr(int idx){                          
                              
       if(idx==0x00) return cpu.mstatus;      
       else if(idx==0x05) return cpu.mtvec;   
