@@ -20,7 +20,7 @@
 
 #define R(i) gpr(i)
 #define CSRR csrgpr_read
-#define CSRRW csrgpr_write
+#define CSRW csrgpr_write
 #define Mr vaddr_read
 #define Mw vaddr_write
 
