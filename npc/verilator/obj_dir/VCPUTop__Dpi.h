@@ -20,6 +20,8 @@ extern "C" {
     extern void pmem_read(long long raddr, long long* rdata);
     // DPI import at vsrc/MEM.v:3:30
     extern void pmem_write(long long waddr, long long wdata, char wmask);
+    // DPI import at vsrc/CSR_DIFF.v:1:30
+    extern void set_csr(const svOpenArrayHandle a);
     // DPI import at vsrc/DIP_model.v:3:30
     extern void set_gpr_ptr(const svOpenArrayHandle a);
     // DPI import at vsrc/DIP_model.v:5:30

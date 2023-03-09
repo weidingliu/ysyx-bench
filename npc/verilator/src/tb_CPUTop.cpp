@@ -68,7 +68,7 @@ extern "C" void set_pc( const svOpenArrayHandle inst){
 }
 extern "C" void set_csr( const svOpenArrayHandle inst){
 
-    CSR=(uint32_t *)(((VerilatedDpiOpenVar*)inst)->datap());
+    CSR=(uint64_t *)(((VerilatedDpiOpenVar*)inst)->datap());
 
     
 }
