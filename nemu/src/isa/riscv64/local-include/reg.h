@@ -30,12 +30,12 @@ static inline int check_reg_idx(int idx) {
 #define gpr(idx) (cpu.gpr[check_reg_idx(idx)])
 #define csrgpr(idx)                          \
     do{                                      \
-      if(idx==0x00) return cpu.mstatus;      \
-      else if(idx==0x05) return cpu.mtvec;   \
-      else if(idx == 0x41) return cpu.mepc;  \
-      else if(idx==0x42) return cpu.mcause;   \
+      if(idx==0x00) cpu.mstatus;      \
+      else if(idx==0x05) cpu.mtvec;   \
+      else if(idx == 0x41) cpu.mepc;  \
+      else if(idx==0x42) cpu.mcause;   \
       else assert(0);                         \
-    }while(0)               
+    }while(0);               
 
 
 static inline const char* reg_name(int idx, int width) {
