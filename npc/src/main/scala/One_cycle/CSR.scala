@@ -2,10 +2,10 @@ package One_cycle
 import chisel3._
 
 object CSR_index {
-  def mstatus = "0x300".U
-  def mtvec ="0x305".U
-  def mepc ="0x341".U
-  def mcause ="0x342".U
+  def mstatus = 0x300.U
+  def mtvec =0x305.U
+  def mepc =0x341.U
+  def mcause =0x342.U
 
   def apply() =UInt(12.W)
 }
