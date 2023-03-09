@@ -358,7 +358,7 @@ module IDU(
   wire [1:0] _srctype1_T_12 = _srctype1_T_5 ? 2'h2 : 2'h0; // @[Mux.scala 27:73]
   wire [1:0] srctype1 = _srctype1_T_11 | _srctype1_T_12; // @[Mux.scala 27:73]
   wire  srctype2 = _srctype1_T | _srctype1_T_4 | _srctype1_T_5; // @[Mux.scala 27:73]
-  wire [1:0] _io_ctrlIO_src1type_T_2 = io_inst[6:0] == 7'h37 ? 2'h3 : srctype1; // @[IDU.scala 83:28]
+  wire [1:0] _io_ctrlIO_src1type_T_2 = io_inst[6:0] == 7'h37 ? 2'h3 : srctype1; // @[IDU.scala 82:28]
   wire  sign = io_inst[31]; // @[util.scala 9:19]
   wire [51:0] _T_2 = sign ? 52'hfffffffffffff : 52'h0; // @[Bitwise.scala 74:12]
   wire [63:0] _T_3 = {_T_2,io_inst[31:20]}; // @[Cat.scala 31:58]
@@ -387,10 +387,10 @@ module IDU(
   wire [63:0] _imm_T_11 = _imm_T_10 | _imm_T_7; // @[Mux.scala 27:73]
   wire [63:0] _imm_T_12 = _imm_T_11 | _imm_T_8; // @[Mux.scala 27:73]
   wire  _io_mem_we_T_6 = Inst_decode_2 == 7'h45 | Inst_decode_2 == 7'h47 | Inst_decode_2 == 7'h6f | Inst_decode_2 == 7'h3
-    ; // @[IDU.scala 97:107]
-  wire  _io_mem_we_T_12 = _io_mem_we_T_6 | Inst_decode_2 == 7'h4 | Inst_decode_2 == 7'he | Inst_decode_2 == 7'h11; // @[IDU.scala 98:66]
-  assign io_ctrlIO_src1type = {{1'd0}, _io_ctrlIO_src1type_T_2}; // @[IDU.scala 83:22]
-  assign io_ctrlIO_src2type = {{2'd0}, srctype2}; // @[IDU.scala 84:22]
+    ; // @[IDU.scala 96:107]
+  wire  _io_mem_we_T_12 = _io_mem_we_T_6 | Inst_decode_2 == 7'h4 | Inst_decode_2 == 7'he | Inst_decode_2 == 7'h11; // @[IDU.scala 97:66]
+  assign io_ctrlIO_src1type = {{1'd0}, _io_ctrlIO_src1type_T_2}; // @[IDU.scala 82:22]
+  assign io_ctrlIO_src2type = {{2'd0}, srctype2}; // @[IDU.scala 83:22]
   assign io_ctrlIO_src1 = io_inst[19:15]; // @[IDU.scala 54:30]
   assign io_ctrlIO_src2 = io_inst[24:20]; // @[IDU.scala 54:47]
   assign io_ctrlIO_rd = io_inst[11:7]; // @[IDU.scala 54:64]
@@ -399,7 +399,7 @@ module IDU(
   assign io_ctrlIO_Imm = _imm_T_12 | _imm_T_9; // @[Mux.scala 27:73]
   assign io_rd_en = _Inst_decode_T_1 | (_Inst_decode_T_3 | (_Inst_decode_T_5 | (_Inst_decode_T_7 | (_Inst_decode_T_9 | (
     _Inst_decode_T_11 | (_Inst_decode_T_13 | (_Inst_decode_T_15 | _Inst_decode_T_372))))))); // @[Lookup.scala 34:39]
-  assign io_mem_we = _io_mem_we_T_12 ? 1'h0 : 1'h1; // @[IDU.scala 97:19]
+  assign io_mem_we = _io_mem_we_T_12 ? 1'h0 : 1'h1; // @[IDU.scala 96:19]
 endmodule
 module EXU(
   input         clock,
