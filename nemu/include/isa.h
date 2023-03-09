@@ -32,8 +32,8 @@ void init_isa();
 extern CPU_state cpu;
 void isa_reg_display();
 word_t isa_reg_str2val(const char *name, bool *success);
-//extern word_t csrgpr_read(int idx); 
-//extern void csrgpr_write(int idx,word_t csr_data);
+word_t csrgpr_read(int idx); 
+void csrgpr_write(int idx,word_t csr_data);
 
 // exec
 struct Decode;
