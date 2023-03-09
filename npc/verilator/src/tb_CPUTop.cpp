@@ -206,7 +206,7 @@ void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uint
 
 
 void Reset(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
-    printf("sdfsa\n");
+    
     while(sim_time<3){
         dut->clock ^= 1;
         dut->io_inst=0; 
@@ -220,7 +220,9 @@ void Reset(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     }
     //reset ref
     //printf("%lx\n",dut->io_pc);
+    printf("sdfsa\n");
     memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
+    printf("sdfsa\n");
     cpu.pc=dut->io_pc;
     cpu.mepc=CSR[0];
     cpu.mcause=CSR[1];
