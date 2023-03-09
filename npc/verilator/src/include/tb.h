@@ -17,6 +17,7 @@
 typedef struct reg_cpu{
     uint64_t reg[32];
     uint64_t pc;
+    uint64_t mcause,mstatus, mepc,mtvec;
 }cpu_state;
 
 extern const char *reg_name[];
@@ -32,6 +33,7 @@ extern uint32_t mem_size;
 
 extern uint64_t *cpu_gpr;
 extern uint32_t *Inst;
+extern uint64_t *CSR;
 
 extern uint32_t state;
 

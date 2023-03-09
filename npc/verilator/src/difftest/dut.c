@@ -16,7 +16,7 @@ Ref_difftest_init ref_difftest_init=NULL;
 
 void init_difftest(char *ref_so_file, uint32_t img_size, int port, uint8_t *mem){
   assert(ref_so_file != NULL);
-
+  
   void *handle;
   handle = dlopen(ref_so_file, RTLD_LAZY);
   assert(handle);
@@ -56,6 +56,22 @@ static bool check_reg(cpu_state *ref_cpu,uint64_t pc){
     
         if(ref_cpu->reg[i] != cpu_gpr[i]) {return false;}
         
+    }
+    if(ref_cpu->mcause != cpu.mcause) {
+        printf("mcause fail! ref : %016lx  dut : %016lx\n",ref_cpu->mcause,cpu.mcause);
+        return false;
+    }
+    if(ref_cpu->mstatus != cpu.mstatus) {
+        printf("mstatus fail! ref : %016lx  dut : %016lx\n",ref_cpu->mstatus,cpu.mstatus);
+        return false;
+    }
+    if(ref_cpu->mepc != cpu.mepc) {
+        printf("mepc fail! ref : %016lx  dut : %016lx\n",ref_cpu->mepc,cpu.mepc);
+        return false;
+    }
+    if(ref_cpu->mtvec != cpu.mtvec) {
+        printf("mtvec fail! ref : %016lx  dut : %016lx\n",ref_cpu->mtvec,cpu.mtvec);
+        return false;
     }
     
     return true;

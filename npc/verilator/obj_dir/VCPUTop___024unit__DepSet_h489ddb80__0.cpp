@@ -8,6 +8,17 @@
 #include "VCPUTop__Syms.h"
 #include "VCPUTop___024unit.h"
 
+extern "C" void set_csr(const svOpenArrayHandle inst);
+
+VL_INLINE_OPT void VCPUTop___024unit____Vdpiimwrap_set_csr__Vdpioc2_TOP____024unit(const VlUnpacked<QData/*63:0*/, 6> &inst) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+        VCPUTop___024unit____Vdpiimwrap_set_csr__Vdpioc2_TOP____024unit\n"); );
+    // Body
+    static const int inst__Vopenprops__ulims[2] = {5, 0};
+    static const VerilatedVarProps inst__Vopenprops(VLVT_UINT64, VLVD_IN, VerilatedVarProps::Packed(), 63, 0, VerilatedVarProps::Unpacked(), 1, inst__Vopenprops__ulims);
+    VerilatedDpiOpenVar inst__Vopenarray (&inst__Vopenprops, &inst);
+    set_csr(&inst__Vopenarray);
+}
+
 extern "C" void set_gpr_ptr(const svOpenArrayHandle a);
 
 VL_INLINE_OPT void VCPUTop___024unit____Vdpiimwrap_set_gpr_ptr__Vdpioc2_TOP____024unit(const VlUnpacked<QData/*63:0*/, 32> &a) {

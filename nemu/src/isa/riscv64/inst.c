@@ -19,7 +19,8 @@
 #include <cpu/decode.h>
 
 #define R(i) gpr(i)
-#define CSR(i) csrgpr(i) 
+#define CSRR csrgpr_read
+#define CSRW csrgpr_write
 #define Mr vaddr_read
 #define Mw vaddr_write
 
@@ -139,10 +140,10 @@ static int decode_exec(Decode *s) {
   INSTPAT("0100000 ????? ????? 101 ????? 01100 11",sra,R,R(dest) =(long long)src1>>BITS(src2,5,0));
   
   //privlleged instruction
-  INSTPAT("??????? ????? ????? 010 ????? 11100 11",csrrs,I,R(dest)=CSR(csr);CSR(csr)=src1 | CSR(csr));
-  INSTPAT("??????? ????? ????? 001 ????? 11100 11",csrrw,I,R(dest)=CSR(csr);CSR(csr)=src1);
+  INSTPAT("??????? ????? ????? 010 ????? 11100 11",csrrs,I,R(dest)=CSRR(csr);CSRW(csr,src1 | CSRR(csr)));
+  INSTPAT("??????? ????? ????? 001 ????? 11100 11",csrrw,I,R(dest)=CSRR(csr);CSRW(csr,src1));
   INSTPAT("0000000 00000 00000 000 00000 11100 11",ecall,N,s->dnpc=isa_raise_intr(0,s->pc));
-  INSTPAT("0011000 00010 00000 000 00000 11100 11",mret,N,s->dnpc=CSR(0x41));
+  INSTPAT("0011000 00010 00000 000 00000 11100 11",mret,N,s->dnpc=cpu.mepc);
   
   
   

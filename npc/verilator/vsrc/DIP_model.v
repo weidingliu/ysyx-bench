@@ -85,6 +85,7 @@ assign rf[29]=rf_29;
 assign rf[30]=rf_30;
 assign rf[31]=rf_31;
 
+
 initial begin 
 set_pc(inst);
 set_gpr_ptr(rf);  // rf为通用寄存器的二维数组变量
