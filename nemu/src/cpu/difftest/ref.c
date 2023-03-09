@@ -21,6 +21,7 @@
 typedef struct reg_cpu{
     uint64_t reg[32];
     uint64_t pc;
+    uint64_t mcause,mstatus, mepc,mtvec;
 }ref_state;
 
 void difftest_memcpy(paddr_t addr, void *buf, size_t n, bool direction) {
