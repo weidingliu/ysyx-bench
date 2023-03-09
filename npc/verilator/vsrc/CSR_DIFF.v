@@ -1,4 +1,4 @@
-import "DPI-C" function void set_csr(input logic [63:0] a []);
+import "DPI-C" function void set_csr(input logic [63:0] inst []);
 module CSR_DIFF(
   input wire [63:0] mepc,
 input wire [63:0] mcause,
@@ -13,7 +13,7 @@ assign inst_csr[2] =mstatus;
 assign inst_csr[3] =mtvec;
 
 initial begin 
-set_gpr_ptr(inst_csr);
+set_csr(inst_csr);
 end
 
 endmodule
