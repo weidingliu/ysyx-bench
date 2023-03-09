@@ -22,16 +22,16 @@ word_t isa_raise_intr(word_t NO, vaddr_t epc) {
    //printf("--------%lx\n",cpu.csr[0]);
    switch(NO){
        case(0):{//ecall
-           cpu.csr[0x41]=epc;//mepc
-           cpu.csr[0x42]=11;//mcause
+           cpu.mepc=epc;//mepc
+           cpu.mcause=11;//mcause
        }
        default: assert(0);
    }
    
    //printf("--------%lx\n",cpu.csr[0x42]);
   //isa_reg_display();
-  printf("--->ecall pc: %016lx  mcause: %016lx\n",epc,cpu.csr[0x42]);
-  return cpu.csr[5];
+  printf("--->ecall pc: %016lx  mcause: %016lx\n",epc,cpu.mcause);
+  return cpu.mtvec;
 }
 
 word_t isa_query_intr() {

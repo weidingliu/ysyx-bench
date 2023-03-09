@@ -68,8 +68,7 @@ class IDU extends Module with paramete{
     (InstrType.InstrU) -> (SRCType.PC,SRCType.imm),
 
     (InstrType.InstrN) -> (SRCType.R,SRCType.R),
-
-
+    
   )
   //val srctype= LookupTree(instrtype,List(SRCType.R,SRCType.R),srctype_list)
   //val srctype1 :: srctype2 :: Nil =  srctype

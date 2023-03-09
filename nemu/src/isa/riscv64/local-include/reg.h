@@ -22,13 +22,21 @@ static inline int check_reg_idx(int idx) {
   IFDEF(CONFIG_RT_CHECK, assert(idx >= 0 && idx < 32));
   return idx;
 }
-static inline int check_csr_idx(int idx){
+/*static inline int check_csr_idx(int idx){
     IFDEF(CONFIG_RT_CHECK, assert(idx >= 0 && idx < 256));
     return idx;
-}
+}*/
 
 #define gpr(idx) (cpu.gpr[check_reg_idx(idx)])
-#define csrgpr(idx) (cpu.csr[check_csr_idx(idx)])
+#define CSR(idx)                          \
+    do{                                      \
+      if(idx==0x00) return cpu.mstatus;      \
+      else if(idx==0x05) return cpu.mtvec;   \
+      else if(idx == 0x41) return cpu.mepc;  \
+      else if(idx==0x42) return cpu.mcause;   \
+      else assert(0);                         \
+    }while(0)               
+
 
 static inline const char* reg_name(int idx, int width) {
   extern const char* regs[];
