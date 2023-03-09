@@ -19,7 +19,7 @@
 #include <cpu/decode.h>
 
 #define R(i) gpr(i)
-#define CSR csrgpr
+#define CSR(i) csrgpr(i)
 #define Mr vaddr_read
 #define Mw vaddr_write
 
