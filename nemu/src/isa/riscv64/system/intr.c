@@ -20,6 +20,7 @@ word_t isa_raise_intr(word_t NO, vaddr_t epc) {
    * Then return the address of the interrupt/exception vector.
    */
    //printf("--------%lx\n",cpu.csr[0]);
+   printf("%d\n",NO);
    switch(NO){
        case(0):{//ecall
            cpu.mepc=epc;//mepc
