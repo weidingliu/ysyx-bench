@@ -225,6 +225,7 @@ void Reset(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     cpu.mcause=CSR[1];
     cpu.mstatus=CSR[2];
     cpu.mtvec=CSR[3];
+    printf("sdfsa\n");
 
 }
 
