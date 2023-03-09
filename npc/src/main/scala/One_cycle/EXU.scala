@@ -340,12 +340,12 @@ class EXU extends Module with paramete {
       alu_result := (src1.asSInt / src2.asSInt)(63,0)
     }
     is(ALUOPType.csrrs){
-      alu_result := csr.read(io.Imm(7,0))
-      csr.write(io.Imm(7,0),csr.read(io.Imm(7,0)) | src1)
+      alu_result := csr.read(io.Imm(11,0))
+      csr.write(io.Imm(11,0),csr.read(io.Imm(11,0)) | src1)
     }
     is(ALUOPType.csrrw) {
-      alu_result := csr.read(io.Imm(7, 0))
-      csr.write(io.Imm(7,0),src1)
+      alu_result := csr.read(io.Imm(11, 0))
+      csr.write(io.Imm(11,0),src1)
     }
   }
   val shift_result=WireDefault(0.U(xlen.W))
@@ -463,10 +463,10 @@ class EXU extends Module with paramete {
   val csr_data = WireDefault(0.U(xlen.W))
   switch(io.aluoptype) {
     is(ALUOPType.ecall) {
-      csr_data := csr.read(0x05.U)
+      csr_data := csr.read(CSR_index.mtvec)
     }
     is(ALUOPType.mret) {
-      csr_data := csr.read(0x41.U)
+      csr_data := csr.read(CSR_index.mepc)
     }
   }
 
@@ -508,8 +508,8 @@ class EXU extends Module with paramete {
 
   switch(io.aluoptype){
     is(ALUOPType.ecall){
-      csr.write(0x41.U,io1.PC.asUInt)
-      csr.write(0x42.U,11.U)
+      csr.write(CSR_index.mepc,io1.PC.asUInt)
+      csr.write(CSR_index.mcause,11.U)
     }
   }
 
@@ -521,10 +521,10 @@ class EXU extends Module with paramete {
   io1.wdata := wdata_temp
   io1.addr := addr_temp
 
-  CSRDIFF.io.mtvec := RegNext(csr.mtvec)
-  CSRDIFF.io.mcause := RegNext(csr.mcause)
-  CSRDIFF.io.mepc := RegNext(csr.mepc)
-  CSRDIFF.io.mstatus := RegNext(csr.mstatus)
+  CSRDIFF.io.mtvec := (csr.mtvec)
+  CSRDIFF.io.mcause := (csr.mcause)
+  CSRDIFF.io.mepc := (csr.mepc)
+  CSRDIFF.io.mstatus := (csr.mstatus)
 
 //
 //  DIP.io.mtvec := csr.mtvec
