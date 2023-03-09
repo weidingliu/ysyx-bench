@@ -91,7 +91,7 @@ void difftest_regcpy(ref_state *dut, bool direction) {
       cpu.mstatus=dut->mstatus;
       cpu.mepc=dut->mepc;
       cpu.mtvec=dut->mtvec;
-      printf("sdfsa\n"):
+      printf("sdfsa\n");
       return;
   }
   assert(0);
