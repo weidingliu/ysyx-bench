@@ -25,6 +25,7 @@ word_t isa_raise_intr(word_t NO, vaddr_t epc) {
        case(0):{//ecall
            cpu.mepc=epc;//mepc
            cpu.mcause=11;//mcause
+           break;
        }
        default: assert(0);
    }
