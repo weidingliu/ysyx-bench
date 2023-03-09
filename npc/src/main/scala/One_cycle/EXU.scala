@@ -68,6 +68,14 @@ object RD{
   def apply() =UInt(1.W)
 }
 
+class CSR_DIFF extends BlackBox{
+  val io=IO(new Bundle() {
+    val mepc = Input(UInt(64.W))
+    val mcause = Input(UInt(64.W))
+    val mstatus = Input(UInt(64.W))
+    val mtvec = Input(UInt(64.W))
+  })
+}
 
 class EXU extends Module with paramete {
   val io = IO(new Bundle() {
@@ -102,6 +110,7 @@ class EXU extends Module with paramete {
 
   })
   val csr = new CSR
+  val CSRDIFF=Module(new CSR_DIFF)
   val src1=WireDefault(0.U(xlen.W))
   val src2=WireDefault(0.U(xlen.W))
   switch(io.src1type){
@@ -512,6 +521,10 @@ class EXU extends Module with paramete {
   io1.wdata := wdata_temp
   io1.addr := addr_temp
 
+  CSRDIFF.io.mtvec := RegNext(csr.mtvec)
+  CSRDIFF.io.mcause := RegNext(csr.mcause)
+  CSRDIFF.io.mepc := RegNext(csr.mepc)
+  CSRDIFF.io.mstatus := RegNext(csr.mstatus)
 
 //
 //  DIP.io.mtvec := csr.mtvec
