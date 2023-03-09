@@ -29,7 +29,7 @@ static inline int check_reg_idx(int idx) {
 }*/
 
 #define gpr(idx) (cpu.gpr[check_reg_idx(idx)])
-word_t csrgpr_read(int idx) {
+static word_t csrgpr_read(int idx) {
       if(idx==0x00) return cpu.mstatus;               
       else if(idx==0x05) return cpu.mtvec;     
       else if(idx == 0x41) return cpu.mepc;   
@@ -37,7 +37,7 @@ word_t csrgpr_read(int idx) {
       else assert(0);
      
 }
-void csrgpr_write(int idx,word_t csr_data){
+static void csrgpr_write(int idx,word_t csr_data){
     if(idx==0x00) cpu.mstatus=csr_data;               
       else if(idx==0x05) cpu.mtvec=csr_data;     
       else if(idx == 0x41) cpu.mepc=csr_data;   
