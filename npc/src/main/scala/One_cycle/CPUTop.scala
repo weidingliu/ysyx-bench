@@ -90,10 +90,10 @@ class CPUTop extends Module with paramete{
     DIP.io.rf(i) := Reg.rf(i)
   }
   DIP.io.inst := io.inst
-  DIP.io.mtvec := EX.csr.mtvec
-  DIP.io.mcause := EX.csr.mcause
-  DIP.io.mepc := EX.csr.mepc
-  DIP.io.mstatus := EX.csr.mstatus
+  DIP.io.mtvec := RegNext(EX.csr.mtvec)
+  DIP.io.mcause := RegNext(EX.csr.mcause)
+  DIP.io.mepc := RegNext(EX.csr.mepc)
+  DIP.io.mstatus := RegNext(EX.csr.mstatus)
 
   mem.io.addr:= EX.io1.addr
   EX.io1.rdata := mem.io.rdata

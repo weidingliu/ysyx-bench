@@ -2,6 +2,7 @@ package One_cycle
 import chisel3.{util, _}
 import chisel3.util.{BitPat, _}
 
+
 object ALUOPType{
   def NOP = "b0000000".U
   def add = "b1000000".U
@@ -511,4 +512,10 @@ class EXU extends Module with paramete {
   io1.wdata := wdata_temp
   io1.addr := addr_temp
 
+
+//
+//  DIP.io.mtvec := csr.mtvec
+//  DIP.io.mcause := csr.mcause
+//  DIP.io.mepc := csr.mepc
+//  DIP.io.mstatus := csr.mstatus
 }
