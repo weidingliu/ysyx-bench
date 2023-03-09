@@ -220,11 +220,12 @@ void Reset(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     }
     //reset ref
     //printf("%lx\n",dut->io_pc);
-    printf("sdfsa\n");
+    
     memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
     printf("sdfsa\n");
-    cpu.pc=dut->io_pc;
+    
     cpu.mepc=CSR[0];
+    cpu.pc=dut->io_pc;
     cpu.mcause=CSR[1];
     cpu.mstatus=CSR[2];
     cpu.mtvec=CSR[3];
