@@ -37,7 +37,11 @@ input wire [63:0]rf_27,
 input wire [63:0]rf_28,
 input wire [63:0]rf_29,
 input wire [63:0]rf_30,
-input wire [63:0]rf_31
+input wire [63:0]rf_31,
+input wire [63:0] mepc,
+input wire [63:0] mcause,
+input wire [63:0] mstatus,
+input wire [63:0] mtvec
 
 );
 
@@ -84,6 +88,12 @@ assign rf[28]=rf_28;
 assign rf[29]=rf_29;
 assign rf[30]=rf_30;
 assign rf[31]=rf_31;
+wire [63:0] inst_csr[4:0];
+assign inst_csr[0] =inst;
+assign inst_csr[1] =mepc;
+assign inst_csr[2] =mcause;
+assign inst_csr[3] =mstatus;
+assign inst_csr[4] =mtvec;
 
 initial begin 
 set_pc(inst);
