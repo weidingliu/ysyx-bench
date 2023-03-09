@@ -41,6 +41,7 @@ uint8_t mem[MAX_MEM] __attribute((aligned(4096))) = {};
 
 uint32_t mem_size;
 uint32_t *Inst;
+uint64_t *CSR;
 
 uint32_t state=RUN;
 
@@ -61,15 +62,17 @@ extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
 }
 
 extern "C" void set_pc( const svOpenArrayHandle inst){
-    //printf("%lld\n",pc);
-    //PC=pc;
+
     Inst=(uint32_t *)(((VerilatedDpiOpenVar*)inst)->datap());
-    //Inst=inst;
-    /*Inst=inst[0];
-    
-    printf("%x\n", inst[0]);*/
+
+}
+extern "C" void set_csr( const svOpenArrayHandle inst){
+
+    CSR=(uint32_t *)(((VerilatedDpiOpenVar*)inst)->datap());
+
     
 }
+
 
 
 
@@ -170,10 +173,10 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
 //////to ref
     memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
     cpu.pc=s->io_pc;
-    cpu.mepc=Inst[1];
-    cpu.mcause=Inst[2];
-    cpu.mstatus=Inst[3];
-    cpu.mtvec=Inst[4];
+    cpu.mepc=CSR[0];
+    cpu.mcause=CSR[1];
+    cpu.mstatus=CSR[2];
+    cpu.mtvec=CSR[3];
     
     
 }
@@ -218,10 +221,10 @@ void Reset(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     //printf("%lx\n",dut->io_pc);
     memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
     cpu.pc=dut->io_pc;
-    cpu.mepc=Inst[1];
-    cpu.mcause=Inst[2];
-    cpu.mstatus=Inst[3];
-    cpu.mtvec=Inst[4];
+    cpu.mepc=CSR[0];
+    cpu.mcause=CSR[1];
+    cpu.mstatus=CSR[2];
+    cpu.mtvec=CSR[3];
 
 }
 

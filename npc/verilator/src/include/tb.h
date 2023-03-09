@@ -33,6 +33,7 @@ extern uint32_t mem_size;
 
 extern uint64_t *cpu_gpr;
 extern uint32_t *Inst;
+extern uint64_t *Inst;
 
 extern uint32_t state;
 
