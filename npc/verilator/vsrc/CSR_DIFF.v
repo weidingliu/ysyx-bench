@@ -11,6 +11,7 @@ assign inst_csr[0] =mepc;
 assign inst_csr[1] =mcause;
 assign inst_csr[2] =mstatus;
 assign inst_csr[3] =mtvec;
+
 initial begin 
 set_gpr_ptr(inst_csr);
 end
