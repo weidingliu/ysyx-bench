@@ -1,5 +1,6 @@
 package One_cycle
 import chisel3._
+import chisel3.util._
 
 object CSR_index {
   val mstatus = 0x300.U
@@ -17,12 +18,7 @@ class CSR extends paramete {
   val mcause = RegInit(0.U(xlen.W))
   val mstatus = RegInit(0.U(xlen.W))
   val mtvec = RegInit(0.U(xlen.W))
-  val map =Map(
-    CSR_index.mstatus -> 1,
-    CSR_index.mtvec -> 2,
-    CSR_index.mepc -> 3,
-    CSR_index.mcause ->4,
-  )
+
   def read (addr:UInt): UInt = {
     Muxcase(0.U(xlen.W),Seq(
       (addr===CSR_index.mstatus) -> mstatus,
