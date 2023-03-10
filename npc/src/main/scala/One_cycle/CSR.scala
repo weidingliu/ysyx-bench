@@ -14,9 +14,9 @@ object CSR_index {
 class CSR extends paramete {
 
   val mepc = Reg(UInt(xlen.W))
-  val mcause = RegInit(UInt(xlen.W),0.U)
-  val mstatus = RegInit(UInt(xlen.W),0.U)
-  val mtvec = RegInit(UInt(xlen.W),0.U)
+  val mcause = RegInit(0.U(xlen.W))
+  val mstatus = RegInit(0.U(xlen.W))
+  val mtvec = RegInit(0.U(xlen.W))
   def read (addr:UInt): UInt = addr match{
     case (CSR_index.mstatus) => mstatus
     case (CSR_index.mtvec) => mtvec
