@@ -24,12 +24,12 @@ class CSR extends paramete {
     CSR_index.mcause ->4,
   )
   def read (addr:UInt): UInt = {
-    addr match{
-    case (CSR_index.mstatus) => mstatus
-    case (CSR_index.mtvec) => mtvec
-    case (CSR_index.mepc) => mepc
-    case (CSR_index.mcause) => mcause
-  }
+    Muxcase(0.U(xlen.W),Seq(
+      (addr===CSR_index.mstatus) -> mstatus,
+      (addr === CSR_index.mtvec) -> mtvec,
+      (addr === CSR_index.mepc) -> mepc,
+      (addr === CSR_index.mcause) -> mcause,
+    ))
 }
   def write (addr:UInt,data:UInt) = {
 
