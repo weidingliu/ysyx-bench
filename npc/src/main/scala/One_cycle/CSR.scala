@@ -18,9 +18,9 @@ class CSR extends paramete {
   val mstatus = RegInit(UInt(xlen.W),0.U)
   val mtvec = RegInit(UInt(xlen.W),0.U)
   def read (addr:UInt): UInt = addr match{
-    case CSR_index.mstatus => mstatus
-    case CSR_index.mtvec => mtvec
-    case CSR_index.mepc => mepc
+    case (CSR_index.mstatus) => mstatus
+    case (CSR_index.mtvec) => mtvec
+    case (CSR_index.mepc) => mepc
   }
   def write (addr:UInt,data:UInt) = {
 
