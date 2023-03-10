@@ -18,14 +18,14 @@ class CSR extends paramete {
   val mstatus = RegInit(0.U(xlen.W))
   val mtvec = RegInit(0.U(xlen.W))
   val map =Map(
-    CSR_index.mstatus -> 1,
+    CSR_index.mstatus -> (false.B,false.B),
     CSR_index.mtvec -> 2,
     CSR_index.mepc -> 3,
     CSR_index.mcause -> 4,
   )
   def read (addr:UInt): UInt = {
     map(addr) match{
-    case (1) => mstatus
+    case (false,false) => mstatus
     case (2) => mtvec
     case (3) => mepc
     case (4) => mcause
