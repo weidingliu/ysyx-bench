@@ -19,14 +19,14 @@ class CSR extends paramete {
   val mstatus = RegInit(0.U(xlen.W))
   val mtvec = RegInit(0.U(xlen.W))
   
-  def read [T <: UInt] (addr:UInt): T = {
+  def read [T <: UInt] (addr:UInt): T = 
     Muxcase(0.U(xlen.W),Seq(
       (addr===CSR_index.mstatus) -> mstatus,
       (addr === CSR_index.mtvec) -> mtvec,
       (addr === CSR_index.mepc) -> mepc,
       (addr === CSR_index.mcause) -> mcause,
     ))
-}
+
   def write (addr:UInt,data:UInt) = {
 
     if (addr == CSR_index.mstatus) mstatus := data(xlen-1,0)
