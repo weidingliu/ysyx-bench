@@ -27,10 +27,10 @@ class CSR extends paramete {
     ))
 
   def write (addr:UInt,data:UInt) = {
-
-    if (addr == CSR_index.mstatus) mstatus := data(xlen-1,0)
-    else if (addr == CSR_index.mtvec) mtvec := data(xlen-1,0)
-    else if (addr == CSR_index.mepc) mepc := data(xlen-1,0)
-    else mcause := data(xlen-1,0)
+    
+    when (addr === CSR_index.mstatus) mstatus := data(xlen-1,0)
+    when (addr === CSR_index.mtvec) mtvec := data(xlen-1,0)
+    when (addr === CSR_index.mepc) mepc := data(xlen-1,0)
+    when (addr === CSR_index.mcause) mcause := data(xlen-1,0)
   }
 }
