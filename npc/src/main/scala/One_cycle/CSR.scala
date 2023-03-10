@@ -3,9 +3,9 @@ import chisel3._
 
 object CSR_index {
   val mstatus = 0x300.U
-  def mtvec =0x305.U
-  def mepc =0x341.U
-  def mcause =0x342.U
+  val mtvec =0x305.U
+  val mepc =0x341.U
+  val mcause =0x342.U
 
   def apply() =UInt(12.W)
 }
