@@ -1,5 +1,5 @@
 
-#define MAX_MEM 0x4000000
+#define MAX_MEM 0x2000000
 
 #define is_batch_mode 0
 #define mtrace 0
