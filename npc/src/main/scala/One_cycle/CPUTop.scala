@@ -39,6 +39,7 @@ class CPUTop extends Module with paramete{
     val pc=Output(UInt(xlen.W))
     val inst=Input(UInt(instlen.W))
     val result=Output(UInt(xlen.W))
+    val time_int = Output(UInt(1.W))
   })
   val IF=Module(new IFU)
 
@@ -54,6 +55,8 @@ class CPUTop extends Module with paramete{
 
   val mem = Module(new MEM)
 
+  val mmio = Module(new MMIO)
+
   io.pc := IF.io.pc
 
   IFM.io.pc := IF.io.pc
@@ -65,6 +68,7 @@ class CPUTop extends Module with paramete{
 
   val src1add = Wire(UInt(5.W))
   val src2add = Wire(UInt(5.W))
+
   EX.io1.REG1 := Reg.read(src1add)
   EX.io1.REG2 := Reg.read(src2add)
 
@@ -88,16 +92,31 @@ class CPUTop extends Module with paramete{
   DIP.io.inst := io.inst
 
 
-  mem.io.addr:= EX.io1.addr
-  EX.io1.rdata := mem.io.rdata
-  mem.io.wdata := EX.io1.wdata
-  mem.io.wmask := EX.io1.wmask
-  mem.io.ce := Mux((ID.io.ctrlIO.futype === FUType.mem),1.U,0.U)
-  mem.io.we := ID.io.mem_we
+  mem.io.addr:= mmio.io.addr_m
+  mmio.io.rdata_m := mem.io.rdata
+  mem.io.wdata := mmio.io.wdata_m
+  mem.io.wmask := mmio.io.wmask_m
+  mem.io.ce := mmio.io.ce_m
+  mem.io.we := mmio.io.we_m
+
+  mmio.io.addr := EX.io1.addr
+  EX.io1.rdata := mmio.io.rdata
+  mmio.io.wdata := EX.io1.wdata
+  mmio.io.wmask := EX.io1.wmask
+  mmio.io.ce := Mux((ID.io.ctrlIO.futype === FUType.mem), 1.U, 0.U)
+  mmio.io.we := ID.io.mem_we
+
+
   mem.io.reset := reset
   IFM.io.reset := reset
   mem.io.clk := clock
   IFM.io.clk := clock
+
+  EX.io1.mtime := mmio.io.time
+  EX.io1.mtimecmp := mmio.io.timecmp
+  mmio.io.time_int := EX.io1.time_int
+  io.time_int := EX.io1.time_int
+
 }
 
 import chisel3.stage._
