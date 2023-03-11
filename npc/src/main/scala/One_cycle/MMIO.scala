@@ -12,7 +12,7 @@ object TIME_index {
 
 class TIME extends paramete{
   val mtime =RegInit(0.U(xlen.W))//0xbff8
-  val mtimecmp = RegInit(100.U(xlen.W))//0x4000
+  val mtimecmp = RegInit(2000.U(xlen.W))//0x4000
   mtime := mtime +1.U(xlen.W)
   def read (addr:UInt): UInt = MuxCase(0.U(xlen.W),Seq(
     (addr === TIME_index.mtimecmp) -> mtimecmp,
@@ -65,7 +65,7 @@ class MMIO extends Module{
     io.time := time.read(TIME_index.mtime)
     io.timecmp := time.read(TIME_index.mtimecmp)
     when(io.time_int===1.U){
-      time.write(TIME_index.mtimecmp,time.read(TIME_index.mtimecmp)+600.U)
+      time.write(TIME_index.mtimecmp,time.read(TIME_index.mtimecmp)+4000.U)
 
     }
 
