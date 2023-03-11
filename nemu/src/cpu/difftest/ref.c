@@ -90,6 +90,7 @@ void difftest_regcpy(ref_state *dut, bool direction) {
       cpu.mcause=dut->mcause;
       cpu.mstatus=dut->mstatus;
       cpu.mepc=dut->mepc;
+      printf("%lx\n",dut->mepc);
       cpu.mtvec=dut->mtvec;
       
       return;
