@@ -63,7 +63,7 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
     }
     if (vlSelf->reset) {
         vlSelf->CPUTop__DOT__mmio__DOT__mtime = 0ULL;
-        vlSelf->CPUTop__DOT__mmio__DOT__mtimecmp = 0x64ULL;
+        vlSelf->CPUTop__DOT__mmio__DOT__mtimecmp = 0x7d0ULL;
         vlSelf->CPUTop__DOT__EX__DOT__mstatus = 0ULL;
         vlSelf->CPUTop__DOT__EX__DOT__mip = 0ULL;
         vlSelf->CPUTop__DOT__EX__DOT__mie = 0ULL;
@@ -192,7 +192,7 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
     }
     vlSelf->CPUTop__DOT__mmio__DOT___mtime_T_1 = (1ULL 
                                                   + vlSelf->CPUTop__DOT__mmio__DOT__mtime);
-    vlSelf->CPUTop__DOT__mmio__DOT___T_11 = (0x258ULL 
+    vlSelf->CPUTop__DOT__mmio__DOT___T_11 = (0xfa0ULL 
                                              + vlSelf->CPUTop__DOT__mmio__DOT__mtimecmp);
     vlSelf->CPUTop__DOT__EX__DOT__CSRDIFF__DOT__inst_csr[2U] 
         = vlSelf->CPUTop__DOT__EX__DOT__mstatus;

@@ -46,6 +46,8 @@ word_t csrgpr_read(int idx) {
       else if(idx==0x05) return cpu.mtvec;     
       else if(idx == 0x41) return cpu.mepc;   
       else if(idx==0x42) return cpu.mcause;
+      else if(idx==0x04) return cpu.mie;
+      else if(idx==0x44) return cpu.mip;
       else assert(0);
      
 }
@@ -54,6 +56,8 @@ void csrgpr_write(int idx,word_t csr_data){
       else if(idx==0x05) cpu.mtvec=csr_data;     
       else if(idx == 0x41) cpu.mepc=csr_data;   
       else if(idx==0x42) cpu.mcause=csr_data;
+      else if(idx==0x04) cpu.mie=csr_data;
+      else if(idx==0x44) cpu.mip=csr_data;
       else assert(0);
 }
 
