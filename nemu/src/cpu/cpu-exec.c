@@ -156,7 +156,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   s->snpc = pc;
   isa_exec_once(s);
   cpu.pc = s->dnpc;
-  
+  printf("-------%lx\n",cpu.mepc);
 #ifdef CONFIG_ITRACE
   char *p = s->logbuf;
   p += snprintf(p, sizeof(s->logbuf), FMT_WORD ":", s->pc);
@@ -186,7 +186,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   //if(cpu.csr[5] !=0 ) nemu_state.state = NEMU_ABORT;
   //ibuf[irbuf_point].ch_inst=p;
   //strcpy(ibuf[irbuf_point].ch_inst,q);
-   printf("-------%lx\n",cpu.mepc);
+   
   
 #endif
 }
