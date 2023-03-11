@@ -14,6 +14,7 @@ VCPUTop::VCPUTop(VerilatedContext* _vcontextp__, const char* _vcname__)
     , vlSymsp{new VCPUTop__Syms(contextp(), _vcname__, this)}
     , clock{vlSymsp->TOP.clock}
     , reset{vlSymsp->TOP.reset}
+    , io_time_int{vlSymsp->TOP.io_time_int}
     , io_inst{vlSymsp->TOP.io_inst}
     , io_pc{vlSymsp->TOP.io_pc}
     , io_result{vlSymsp->TOP.io_result}

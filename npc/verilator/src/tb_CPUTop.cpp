@@ -168,17 +168,18 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
         s->eval();
         m_trace->dump(sim_time);
         sim_time++;
-        if(Inst[0]==0b00000000000000000000000001110011){ref_is_irq=true; difftest_irq(0);}
+        if(s->io_time_int ==1 || Inst[0]==0b00000000000000000000000001110011) is_skip_ref=1;
+        //if(Inst[0]==0b00000000000000000000000001110011){ref_is_irq=true; difftest_irq(0);}
     }
 //////to ref
     memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
     cpu.pc=s->io_pc;
-    //printf("%016lx\n",CSR[0]);
+    
     cpu.mepc=CSR[0];
     cpu.mcause=CSR[1];
     cpu.mstatus=CSR[2];
     cpu.mtvec=CSR[3];
-    
+    //printf("---------%016lx %d\n",cpu.mepc,s->io_time_int);
     
 }
 
@@ -187,7 +188,7 @@ void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uint
     while(n--!=0 &&((!contextp->gotFinish()))){
         exe_once(dut,contextp,m_trace);
         
-        if(DIFFTEST && !is_skip_ref && !ref_is_irq){
+        if(DIFFTEST && !ref_is_irq){
             bool flag=difftest_step(dut->io_pc);
         
             if(!flag) {state=ABORT; break;}

@@ -108,11 +108,19 @@ class EXU extends Module with paramete {
     val wdata=Output(UInt(xlen.W))
     val wmask=Output(UInt(masklen.W))
 
+    val mtime = Input(UInt(xlen.W))
+    val mtimecmp = Input(UInt(xlen.W))
+    val time_int = Output(Bool())
+
   })
   val csr = new CSR
   val CSRDIFF=Module(new CSR_DIFF)
   val src1=WireDefault(0.U(xlen.W))
   val src2=WireDefault(0.U(xlen.W))
+
+  val time_int = WireDefault(0.U(1.W))
+  time_int := (csr.read(CSR_index.mstatus)(3, 3) === 1.U & csr.read(CSR_index.mie)(7, 7) === 1.U & (io1.mtime >= io1.mtimecmp))
+
   switch(io.src1type){
     is(SRCType.R){
       src1 := io1.REG1
@@ -514,7 +522,7 @@ class EXU extends Module with paramete {
   }
 
 
-  io1.dnpc := dnpc
+  io1.dnpc := Mux(time_int===1.U,csr.read(CSR_index.mtvec),dnpc)
   io1.is_branch := branch_flag
 
   io1.wmask := wmask_temp
@@ -526,6 +534,14 @@ class EXU extends Module with paramete {
   CSRDIFF.io.mepc := (csr.mepc)
   CSRDIFF.io.mstatus := (csr.mstatus)
 
+
+
+  io1.time_int := time_int
+  when(time_int===1.U) {
+    csr.write(CSR_index.mip, csr.read(CSR_index.mip) | 0x0000000000000080.U)
+    csr.write(CSR_index.mcause, 7.U(xlen.W))
+    csr.write(CSR_index.mepc, io1.PC.asUInt)
+  }
 //
 //  DIP.io.mtvec := csr.mtvec
 //  DIP.io.mcause := csr.mcause

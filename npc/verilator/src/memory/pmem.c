@@ -38,7 +38,7 @@ extern "C" void pmem_read(long long addr, long long *rdata) {
   }
   long long temp;
   //printf("%llx\n",((addr & ~0x7ull)-RESET_VECTOR));
-  if((((addr & ~0x7ull)-RESET_VECTOR)>MAX_MEM) ) {difftest_print();assert(0);}
+  if((((addr & ~0x7ull)-RESET_VECTOR)>MAX_MEM) ) {difftest_print();printf("%016llx\n",(addr & ~0x7ull)-RESET_VECTOR);assert(0);}
   memcpy(&temp,(mem+(addr& ~0x7ull)-RESET_VECTOR),sizeof(long long));
   *rdata=temp;
   if(mtrace) printf("READ--- ADDR:  %016llx  DATA:  %016llx \n",(addr),*rdata);
@@ -51,7 +51,8 @@ extern "C" void pmem_write(long long addr, long long wdata, char wmask) {
   //printf("------%llx,%llx,%x\n",(addr & ~0x7)-0x80000000,wdata,wmask);
   if((addr& ~0x7ull) == 0xa00003f8){
       //printf("uart\n");
-      printf("%c",(char)wdata);
+      unsigned char *p= (unsigned char *)&wdata;
+      printf("%c",*p);
       is_skip_ref=1;
       //is_skip_ref=1;
       return;

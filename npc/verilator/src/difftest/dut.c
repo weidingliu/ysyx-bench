@@ -49,14 +49,15 @@ static bool check_reg(cpu_state *ref_cpu,uint64_t pc){
     //printf("%016lx  %016lx\n",pc,ref_cpu->pc);
     if(pc != ref_cpu->pc){
         //printf("her\n");
-        
+        printf("PC fail!\n");
         return false;
     }
     for(int i=0;i<32;i++){
     
-        if(ref_cpu->reg[i] != cpu_gpr[i]) {return false;}
+        if(ref_cpu->reg[i] != cpu_gpr[i]) {printf("REG fail ! at %d ref :%016lx dut: %016lx\n ",i,ref_cpu->reg[i],cpu_gpr[i]);return false;}
         
     }
+    //printf("%016lx   %016lx\n",cpu.mstatus,ref_cpu->mstatus);
     if(ref_cpu->mcause != cpu.mcause) {
         printf("mcause fail! ref : %016lx  dut : %016lx\n",ref_cpu->mcause,cpu.mcause);
         return false;
@@ -78,7 +79,7 @@ static bool check_reg(cpu_state *ref_cpu,uint64_t pc){
 }
 
 bool difftest_step(uint64_t pc){
-   // printf("dsaf %d  %lx \n",is_skip_ref,cpu.pc);
+    //printf("dsaf %lx  %lx \n",,cpu.pc);
     if(is_skip_ref){
         //cpu.pc+=4;
         ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
@@ -104,6 +105,7 @@ void difftest_print(){
     for(int i=0;i<32;i++){
         printf("gpr[%d]: %016lx\n",i,ref_cpu.reg[i]);
     }
+    printf("mcause: %016lx \n mstatus:  %016lx \n mepc: %016lx \n mtvec: %016lx \n",ref_cpu.mcause,ref_cpu.mstatus,ref_cpu.mepc,ref_cpu.mtvec);
 }
 
 void difftest_irq(uint64_t NO){
