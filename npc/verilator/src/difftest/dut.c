@@ -104,6 +104,7 @@ void difftest_print(){
     for(int i=0;i<32;i++){
         printf("gpr[%d]: %016lx\n",i,ref_cpu.reg[i]);
     }
+    printf("mcause: %016lx \n mstatus:  %016lx \n mepc: %016lx \n mtvec: %016lx \n",ref_cpu.mcause,ref_cpu.mstatus,ref_cpu.mepc,ref_cpu.mtvec);
 }
 
 void difftest_irq(uint64_t NO){
