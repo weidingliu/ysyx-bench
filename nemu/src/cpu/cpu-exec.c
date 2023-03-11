@@ -186,6 +186,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   //if(cpu.csr[5] !=0 ) nemu_state.state = NEMU_ABORT;
   //ibuf[irbuf_point].ch_inst=p;
   //strcpy(ibuf[irbuf_point].ch_inst,q);
+   printf("-------%lx\n",cpu.mepc);
   
 #endif
 }
