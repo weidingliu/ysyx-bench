@@ -9,6 +9,7 @@ Context* __am_irq_handle(Context *c) {
     //printf("%d\n",c->mcause);
     switch (c->mcause) {
       case(11): ev.event = EVENT_YIELD;c->mepc+=4;break;
+      case(7): ev.event =EVENT_IRQ_TIMER;break;
       default: ev.event = EVENT_ERROR; break;
     }
 
