@@ -57,6 +57,7 @@ static bool check_reg(cpu_state *ref_cpu,uint64_t pc){
         if(ref_cpu->reg[i] != cpu_gpr[i]) {return false;}
         
     }
+    printf("%016lx   %016lx\n",cpu.mstatus,ref_cpu.mstatus);
     if(ref_cpu->mcause != cpu.mcause) {
         printf("mcause fail! ref : %016lx  dut : %016lx\n",ref_cpu->mcause,cpu.mcause);
         return false;

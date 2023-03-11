@@ -168,8 +168,8 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
         s->eval();
         m_trace->dump(sim_time);
         sim_time++;
-        if(s->io_time_int ==1) is_skip_ref=1;
-        if(Inst[0]==0b00000000000000000000000001110011){ref_is_irq=true; difftest_irq(0);}
+        if(s->io_time_int ==1 || Inst[0]==0b00000000000000000000000001110011) is_skip_ref=1;
+        //if(Inst[0]==0b00000000000000000000000001110011){ref_is_irq=true; difftest_irq(0);}
     }
 //////to ref
     memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
@@ -179,7 +179,7 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     cpu.mcause=CSR[1];
     cpu.mstatus=CSR[2];
     cpu.mtvec=CSR[3];
-    printf("%016lx   %016lx\n",cpu.mstatus,cpu.mcause);
+    
     
 }
 
