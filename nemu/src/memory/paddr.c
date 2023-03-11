@@ -34,7 +34,7 @@ static word_t pmem_read(paddr_t addr, int len) {
   //printf("%08x\n",pmem[1]);
   //printf("%08x   %08lx\n",(uint32_t) guest_to_host(addr),ret);
   #ifdef CONFIG_MTRACE
-    printf("-->READ  Address: 0x%016x  Len: %d\n",addr,len);
+    printf("-->READ  Address: 0x%016x  Len: %d  DATA: 0x%016x\n",addr,len,ret);
   #endif
   
   return ret;

@@ -46,7 +46,7 @@ void init_difftest(char *ref_so_file, uint32_t img_size, int port, uint8_t *mem)
 }
 
 static bool check_reg(cpu_state *ref_cpu,uint64_t pc){
-    printf("%016lx  %016lx\n",pc,ref_cpu->pc);
+    //printf("%016lx  %016lx\n",pc,ref_cpu->pc);
     if(pc != ref_cpu->pc){
         //printf("her\n");
         printf("PC fail!\n");
