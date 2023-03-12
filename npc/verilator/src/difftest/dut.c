@@ -81,7 +81,7 @@ static bool check_reg(cpu_state *ref_cpu,uint64_t pc){
 
 bool difftest_step(uint64_t pc){
     //printf("dsaf %lx  %lx \n",,cpu.pc);
-    printf("sadf\n");
+    
     if(is_skip_ref){
         //cpu.pc+=4;
         ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
@@ -89,10 +89,13 @@ bool difftest_step(uint64_t pc){
         return true;
     }
 
-    
+    printf("sadf\n");
     cpu_state ref_cpu;
+    printf("sadf\n");
     ref_difftest_exec(1);
+    printf("sadf\n");
     ref_difftest_regcpy(&ref_cpu, DIFFTEST_TO_DUT);
+    printf("sadf\n");
     //printf("%016lx\n",ref_cpu.pc);
     //printf("%016lx\n",pc);
     bool ret=check_reg(&ref_cpu,pc);
