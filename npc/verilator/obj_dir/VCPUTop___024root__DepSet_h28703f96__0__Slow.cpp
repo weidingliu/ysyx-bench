@@ -52,6 +52,7 @@ VL_ATTR_COLD void VCPUTop___024root___ctor_var_reset(VCPUTop___024root* vlSelf) 
     vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype = VL_RAND_RESET_I(3);
     vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype = VL_RAND_RESET_I(7);
     vlSelf->CPUTop__DOT__ID_io_ctrlIO_Imm = VL_RAND_RESET_Q(64);
+    vlSelf->CPUTop__DOT__ID_io_rd_en = VL_RAND_RESET_I(1);
     vlSelf->CPUTop__DOT__EX_io1_REG1 = VL_RAND_RESET_Q(64);
     vlSelf->CPUTop__DOT__EX_io1_REG2 = VL_RAND_RESET_Q(64);
     vlSelf->CPUTop__DOT__EX_io1_result = VL_RAND_RESET_Q(64);
@@ -139,7 +140,7 @@ VL_ATTR_COLD void VCPUTop___024root___ctor_var_reset(VCPUTop___024root* vlSelf) 
     for (int __Vi0=0; __Vi0<6; ++__Vi0) {
         vlSelf->CPUTop__DOT__EX__DOT__CSRDIFF__DOT__inst_csr[__Vi0] = VL_RAND_RESET_Q(64);
     }
-    for (int __Vi0=0; __Vi0<32; ++__Vi0) {
+    for (int __Vi0=0; __Vi0<33; ++__Vi0) {
         vlSelf->CPUTop__DOT__DIP__DOT__rf[__Vi0] = VL_RAND_RESET_Q(64);
     }
     vlSelf->CPUTop__DOT__mmio__DOT__mtime = VL_RAND_RESET_Q(64);

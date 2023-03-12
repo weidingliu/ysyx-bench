@@ -24,6 +24,7 @@ class VCPUTop___024root final : public VerilatedModule {
         VL_OUT8(io_time_int,0,0);
         CData/*2:0*/ CPUTop__DOT__ID_io_ctrlIO_futype;
         CData/*6:0*/ CPUTop__DOT__ID_io_ctrlIO_aluoptype;
+        CData/*0:0*/ CPUTop__DOT__ID_io_rd_en;
         CData/*0:0*/ CPUTop__DOT__EX_io1_time_int;
         CData/*3:0*/ CPUTop__DOT__ID__DOT___Inst_decode_T_144;
         CData/*3:0*/ CPUTop__DOT__ID__DOT___Inst_decode_T_159;
@@ -82,9 +83,9 @@ class VCPUTop___024root final : public VerilatedModule {
         QData/*63:0*/ CPUTop__DOT__EX__DOT___GEN_3;
         QData/*63:0*/ CPUTop__DOT__EX__DOT__src2;
         QData/*63:0*/ CPUTop__DOT__EX__DOT___addr_temp_T_1;
-        QData/*63:0*/ CPUTop__DOT__EX__DOT___addr_temp_T_3;
     };
     struct {
+        QData/*63:0*/ CPUTop__DOT__EX__DOT___addr_temp_T_3;
         QData/*63:0*/ CPUTop__DOT__EX__DOT___GEN_14;
         QData/*63:0*/ CPUTop__DOT__EX__DOT___wdata_temp_T_21;
         QData/*63:0*/ CPUTop__DOT__EX__DOT___mem_result_T_9;
@@ -122,7 +123,7 @@ class VCPUTop___024root final : public VerilatedModule {
         QData/*63:0*/ __Vtask_pmem_read__5__rdata;
         VlUnpacked<QData/*63:0*/, 32> CPUTop__DOT__rf;
         VlUnpacked<QData/*63:0*/, 6> CPUTop__DOT__EX__DOT__CSRDIFF__DOT__inst_csr;
-        VlUnpacked<QData/*63:0*/, 32> CPUTop__DOT__DIP__DOT__rf;
+        VlUnpacked<QData/*63:0*/, 33> CPUTop__DOT__DIP__DOT__rf;
         VlUnpacked<CData/*0:0*/, 3> __Vm_traceActivity;
     };
 
