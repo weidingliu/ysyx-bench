@@ -89,13 +89,9 @@ bool difftest_step(uint64_t pc){
         return true;
     }
 
-    printf("sadf\n");
     cpu_state ref_cpu;
-    printf("sadf\n");
     ref_difftest_exec(1);
-    printf("sadf\n");
     ref_difftest_regcpy(&ref_cpu, DIFFTEST_TO_DUT);
-    printf("sadf\n");
     //printf("%016lx\n",ref_cpu.pc);
     //printf("%016lx\n",pc);
     bool ret=check_reg(&ref_cpu,pc);
