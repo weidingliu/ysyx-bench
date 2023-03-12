@@ -34,6 +34,7 @@ VL_ATTR_COLD void VCPUTop___024root___settle__TOP__0(VCPUTop___024root* vlSelf) 
     VlWide<4>/*127:0*/ __Vtemp_h53a40c04__0;
     VlWide<4>/*127:0*/ __Vtemp_hdc10468f__0;
     // Body
+    vlSelf->io_time_int = vlSelf->CPUTop__DOT__io_time_int_REG;
     vlSelf->CPUTop__DOT__EX__DOT___T_242 = (0x80ULL 
                                             | vlSelf->CPUTop__DOT__EX__DOT__mip);
     vlSelf->CPUTop__DOT__mmio__DOT___mtime_T_1 = (1ULL 
@@ -127,7 +128,6 @@ VL_ATTR_COLD void VCPUTop___024root___settle__TOP__0(VCPUTop___024root* vlSelf) 
     }
     vlSelf->CPUTop__DOT__EX__DOT__CSRDIFF__DOT__inst_csr[3U] 
         = vlSelf->CPUTop__DOT__EX__DOT__mtvec;
-    vlSelf->io_time_int = vlSelf->CPUTop__DOT__EX_io1_time_int;
     vlSelf->CPUTop__DOT__IFM_inst = ((1U & (IData)(
                                                    (vlSelf->CPUTop__DOT__IF__DOT__temp 
                                                     >> 2U)))
@@ -2674,7 +2674,7 @@ VL_ATTR_COLD void VCPUTop___024root___initial__TOP__0(VCPUTop___024root* vlSelf)
     VCPUTop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    VCPUTop___024root___initial__TOP__0\n"); );
     // Body
-    VCPUTop___024unit____Vdpiimwrap_set_pc__Vdpioc2_TOP____024unit(vlSelf->CPUTop__DOT__DIP_io_inst_REG);
+    VCPUTop___024unit____Vdpiimwrap_set_pc__Vdpioc2_TOP____024unit(vlSelf->io_inst);
     VCPUTop___024unit____Vdpiimwrap_set_gpr_ptr__Vdpioc2_TOP____024unit(vlSelf->CPUTop__DOT__DIP__DOT__rf);
     VCPUTop___024unit____Vdpiimwrap_set_csr__Vdpioc2_TOP____024unit(vlSelf->CPUTop__DOT__EX__DOT__CSRDIFF__DOT__inst_csr);
 }

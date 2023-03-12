@@ -25,6 +25,7 @@ class VCPUTop___024root final : public VerilatedModule {
         CData/*2:0*/ CPUTop__DOT__ID_io_ctrlIO_futype;
         CData/*6:0*/ CPUTop__DOT__ID_io_ctrlIO_aluoptype;
         CData/*0:0*/ CPUTop__DOT__EX_io1_time_int;
+        CData/*0:0*/ CPUTop__DOT__io_time_int_REG;
         CData/*3:0*/ CPUTop__DOT__ID__DOT___Inst_decode_T_144;
         CData/*3:0*/ CPUTop__DOT__ID__DOT___Inst_decode_T_159;
         CData/*3:0*/ CPUTop__DOT__ID__DOT___Inst_decode_T_174;
@@ -51,7 +52,6 @@ class VCPUTop___024root final : public VerilatedModule {
         SData/*15:0*/ CPUTop__DOT__EX__DOT___mem_result_T_45;
         VL_IN(io_inst,31,0);
         IData/*31:0*/ CPUTop__DOT__IFM_inst;
-        IData/*31:0*/ CPUTop__DOT__DIP_io_inst_REG;
         VlWide<4>/*127:0*/ CPUTop__DOT__EX__DOT___alu_result_T_19;
         IData/*31:0*/ CPUTop__DOT__EX__DOT___alu_result_T_38;
         IData/*31:0*/ CPUTop__DOT__EX__DOT___GEN_15;

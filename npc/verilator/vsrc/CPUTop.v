@@ -1342,7 +1342,7 @@ module CPUTop(
   wire [4:0] src2add = ID_io_ctrlIO_src2; // @[CPUTop.scala 70:21 80:10]
   wire  _T_1 = ID_io_ctrlIO_rd == 5'h0; // @[RF.scala 8:61]
   wire [63:0] _T_2 = EX_io1_result; // @[RF.scala 8:78]
-  reg [31:0] DIP_io_inst_REG; // @[CPUTop.scala 92:25]
+  reg  io_time_int_REG; // @[CPUTop.scala 118:25]
   IFU IF ( // @[CPUTop.scala 44:16]
     .clock(IF_clock),
     .reset(IF_reset),
@@ -1567,7 +1567,7 @@ module CPUTop(
   assign rf_MPORT_en = ID_io_rd_en;
   assign io_pc = IF_io_pc; // @[CPUTop.scala 60:9]
   assign io_result = EX_io1_result; // @[CPUTop.scala 86:13]
-  assign io_time_int = EX_io1_time_int; // @[CPUTop.scala 118:15]
+  assign io_time_int = io_time_int_REG; // @[CPUTop.scala 118:15]
   assign IF_clock = clock;
   assign IF_reset = reset;
   assign IF_io_dnpc = EX_io1_dnpc; // @[CPUTop.scala 75:14]
@@ -1623,7 +1623,7 @@ module CPUTop(
   assign DIP_rf_29 = rf_DIP_io_rf_29_MPORT_data; // @[CPUTop.scala 90:18]
   assign DIP_rf_30 = rf_DIP_io_rf_30_MPORT_data; // @[CPUTop.scala 90:18]
   assign DIP_rf_31 = rf_DIP_io_rf_31_MPORT_data; // @[CPUTop.scala 90:18]
-  assign DIP_inst = DIP_io_inst_REG; // @[CPUTop.scala 92:15]
+  assign DIP_inst = io_inst; // @[CPUTop.scala 92:15]
   assign mem_addr = mmio_io_addr_m; // @[CPUTop.scala 95:14]
   assign mem_reset = reset; // @[CPUTop.scala 110:16]
   assign mem_clk = clock; // @[CPUTop.scala 112:14]
@@ -1644,7 +1644,7 @@ module CPUTop(
     if (rf_MPORT_en & rf_MPORT_mask) begin
       rf[rf_MPORT_addr] <= rf_MPORT_data; // @[RF.scala 6:17]
     end
-    DIP_io_inst_REG <= io_inst; // @[CPUTop.scala 92:25]
+    io_time_int_REG <= EX_io1_time_int; // @[CPUTop.scala 118:25]
   end
 // Register and memory initialization
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
@@ -1688,7 +1688,7 @@ initial begin
 `endif // RANDOMIZE_MEM_INIT
 `ifdef RANDOMIZE_REG_INIT
   _RAND_1 = {1{`RANDOM}};
-  DIP_io_inst_REG = _RAND_1[31:0];
+  io_time_int_REG = _RAND_1[0:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial

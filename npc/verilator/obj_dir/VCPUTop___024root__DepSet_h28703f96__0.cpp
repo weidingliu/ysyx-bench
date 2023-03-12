@@ -17,7 +17,7 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
     CData/*0:0*/ __Vdlyvset__CPUTop__DOT__rf__v0;
     // Body
     __Vdlyvset__CPUTop__DOT__rf__v0 = 0U;
-    vlSelf->CPUTop__DOT__DIP_io_inst_REG = vlSelf->io_inst;
+    vlSelf->CPUTop__DOT__io_time_int_REG = vlSelf->CPUTop__DOT__EX_io1_time_int;
     if (((0x13U == (0x707fU & vlSelf->CPUTop__DOT__IFM_inst)) 
          | ((0x1013U == (0xfc00707fU & vlSelf->CPUTop__DOT__IFM_inst)) 
             | ((0x17U == (0x7fU & vlSelf->CPUTop__DOT__IFM_inst)) 
@@ -66,8 +66,8 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
         vlSelf->CPUTop__DOT__mmio__DOT__mtime = 0ULL;
         vlSelf->CPUTop__DOT__mmio__DOT__mtimecmp = 0x7d0ULL;
         vlSelf->CPUTop__DOT__EX__DOT__mstatus = 0ULL;
-        vlSelf->CPUTop__DOT__EX__DOT__mip = 0ULL;
         vlSelf->CPUTop__DOT__EX__DOT__mie = 0ULL;
+        vlSelf->CPUTop__DOT__EX__DOT__mip = 0ULL;
         vlSelf->CPUTop__DOT__EX__DOT__mcause = 0ULL;
         vlSelf->CPUTop__DOT__IF__DOT__temp = 0x80000000ULL;
         vlSelf->CPUTop__DOT__EX__DOT__mtvec = 0ULL;
@@ -191,6 +191,7 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
         vlSelf->CPUTop__DOT__rf[__Vdlyvdim0__CPUTop__DOT__rf__v0] 
             = __Vdlyvval__CPUTop__DOT__rf__v0;
     }
+    vlSelf->io_time_int = vlSelf->CPUTop__DOT__io_time_int_REG;
     vlSelf->CPUTop__DOT__mmio__DOT___mtime_T_1 = (1ULL 
                                                   + vlSelf->CPUTop__DOT__mmio__DOT__mtime);
     vlSelf->CPUTop__DOT__mmio__DOT___T_11 = (0xfa0ULL 
@@ -275,7 +276,6 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
                                                         >> 7U))) 
                                             & (vlSelf->CPUTop__DOT__mmio__DOT__mtime 
                                                >= vlSelf->CPUTop__DOT__mmio__DOT__mtimecmp));
-    vlSelf->io_time_int = vlSelf->CPUTop__DOT__EX_io1_time_int;
     vlSelf->io_pc = vlSelf->CPUTop__DOT__IF__DOT__temp;
     vlSelf->CPUTop__DOT__IF__DOT___temp_T_2 = (4ULL 
                                                + vlSelf->CPUTop__DOT__IF__DOT__temp);
