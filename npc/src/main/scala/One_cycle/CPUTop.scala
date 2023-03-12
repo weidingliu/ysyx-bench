@@ -87,7 +87,7 @@ class CPUTop extends Module with paramete{
   io.result := EX.io1.result
 
   DIP.io.is_break := EX.io1.is_break
-  DIP.io.npc := IF.temp
+  DIP.io.npc := IF.io.pc
   for (i <- 0 until NReg){
     DIP.io.rf(i) := Mux(ID.io.rd_en === RD.write & ID.io.ctrlIO.rd===i.asUInt,EX.io1.result,Reg.rf(i))
   }
