@@ -6,7 +6,6 @@ import "DPI-C" function void set_pc(input logic [31:0] inst[]);
 
 module DIP_model(input wire is_break,
 input wire [31:0] inst,
-input wire [63:0] npc,
 input wire [63:0]rf_0,
 input wire [63:0]rf_1,
 input wire [63:0]rf_2,
@@ -51,7 +50,7 @@ always @(*) begin
 end
 
 
-wire [63:0]rf[32:0];
+wire [63:0]rf[31:0];
 
 assign rf[0]=rf_0;
 assign rf[1]=rf_1;
@@ -85,7 +84,6 @@ assign rf[28]=rf_28;
 assign rf[29]=rf_29;
 assign rf[30]=rf_30;
 assign rf[31]=rf_31;
-assign rf[32]=npc;
 
 
 initial begin 
