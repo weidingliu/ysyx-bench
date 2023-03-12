@@ -140,6 +140,7 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     char p[128];
     void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
     uint32_t inst;
+    printf("%d\n",s->clock);
     for(int i=0;i<2 && (! contextp->gotFinish());i++){
         s->clock ^=1;
         
