@@ -174,7 +174,7 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     }
 //////to ref
     memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
-    cpu.pc=cpu_gpr[32];
+    cpu.pc=s->io_pc;
     
     cpu.mepc=CSR[0];
     cpu.mcause=CSR[1];
@@ -226,7 +226,7 @@ void Reset(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     //printf("%lx\n",dut->io_pc);
     
     memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
-    cpu.pc=cpu_gpr[32];
+    cpu.pc=s->io_pc;
     cpu.mepc=CSR[0];
     cpu.mcause=CSR[1];
     cpu.mstatus=CSR[2];
