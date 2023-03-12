@@ -65,7 +65,7 @@ class MMIO extends Module{
     io.time := time.read(TIME_index.mtime)
     io.timecmp := time.read(TIME_index.mtimecmp)
     when(io.time_int===1.U){
-      time.write(TIME_index.mtimecmp,time.read(TIME_index.mtimecmp)+6000.U)
+      time.write(TIME_index.mtimecmp,time.read(TIME_index.mtimecmp)+4000.U)
 
     }
 

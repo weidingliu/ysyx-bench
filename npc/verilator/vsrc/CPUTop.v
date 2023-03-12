@@ -1035,7 +1035,7 @@ module MMIO(
   wire  _io_ce_m_T_4 = _flag_T_3 ? 1'h0 : io_ce; // @[MMIO.scala 60:55]
   wire [63:0] _io_rdata_T_3 = _flag_T_3 ? mtime : 64'h0; // @[Mux.scala 101:16]
   wire [63:0] _io_rdata_T_4 = _flag_T_1 ? mtimecmp : _io_rdata_T_3; // @[Mux.scala 101:16]
-  wire [63:0] _T_11 = mtimecmp + 64'hfa0; // @[MMIO.scala 68:68]
+  wire [63:0] _T_11 = mtimecmp + 64'h1770; // @[MMIO.scala 68:68]
   assign io_rdata = flag ? _io_rdata_T_4 : io_rdata_m; // @[MMIO.scala 62:20]
   assign io_addr_m = io_addr; // @[MMIO.scala 58:15]
   assign io_we_m = io_we; // @[MMIO.scala 59:13]
