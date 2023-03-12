@@ -174,7 +174,7 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     }
 //////to ref
     memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
-    cpu.pc=s->io_pc;
+    cpu.pc=cpu_gpr[32];
     
     cpu.mepc=CSR[0];
     cpu.mcause=CSR[1];
@@ -189,7 +189,7 @@ void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uint
     step_print_inst = (n<MAX_PRINT_STEP);
     while(n--!=0 &&((!contextp->gotFinish()))){
         exe_once(dut,contextp,m_trace);
-        printf("-----%d\n",is_skip_ref);
+        //printf("-----%d\n",is_skip_ref);
         if(DIFFTEST && !ref_is_irq){
             bool flag=difftest_step(dut->io_pc);
         
@@ -226,7 +226,7 @@ void Reset(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     //printf("%lx\n",dut->io_pc);
     
     memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
-    cpu.pc=dut->io_pc;
+    cpu.pc=cpu_gpr[32];
     cpu.mepc=CSR[0];
     cpu.mcause=CSR[1];
     cpu.mstatus=CSR[2];

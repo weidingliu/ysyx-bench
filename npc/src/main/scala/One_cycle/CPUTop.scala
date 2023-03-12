@@ -7,6 +7,7 @@ class DIP_model extends BlackBox{
     val is_break = Input(Bool())
     val rf=Input(Vec(32,UInt(64.W)))
     val inst=Input(UInt(32.W))
+    val npc=Input(UInt(64.W))
 
   })
 }
@@ -86,8 +87,9 @@ class CPUTop extends Module with paramete{
   io.result := EX.io1.result
 
   DIP.io.is_break := EX.io1.is_break
+  DIP.io.npc := IF.temp
   for (i <- 0 until NReg){
-    DIP.io.rf(i) := Reg.rf(i)
+    DIP.io.rf(i) := Mux(ID.io.rd_en === RD.write & ID.io.ctrlIO.rd===i.asUInt,EX.io1.result,Reg.rf(i))
   }
   DIP.io.inst := io.inst
 
