@@ -121,7 +121,7 @@ VL_ATTR_COLD void VCPUTop___024root___settle__TOP__0(VCPUTop___024root* vlSelf) 
     vlSelf->io_pc = vlSelf->CPUTop__DOT__IF__DOT__temp;
     vlSelf->CPUTop__DOT__IF__DOT___temp_T_2 = (4ULL 
                                                + vlSelf->CPUTop__DOT__IF__DOT__temp);
-    if ((1U & (~ ((IData)(vlSelf->reset) | (~ (IData)(vlSelf->clock)))))) {
+    if ((1U & (~ ((IData)(vlSelf->reset) | (IData)(vlSelf->clock))))) {
         VCPUTop___024unit____Vdpiimwrap_pmem_read_TOP____024unit(vlSelf->CPUTop__DOT__IF__DOT__temp, vlSelf->__Vtask_pmem_read__0__rdata);
         vlSelf->CPUTop__DOT__IFM__DOT__rdata = vlSelf->__Vtask_pmem_read__0__rdata;
     }
@@ -2302,7 +2302,7 @@ VL_ATTR_COLD void VCPUTop___024root___settle__TOP__0(VCPUTop___024root* vlSelf) 
                                                     << 0x20U)
                                                     : (QData)((IData)(vlSelf->CPUTop__DOT__EX__DOT__src2)))
                                                    : 0ULL))));
-    if (((IData)(vlSelf->reset) | (IData)(vlSelf->clock))) {
+    if ((1U & ((IData)(vlSelf->reset) | (~ (IData)(vlSelf->clock))))) {
         vlSelf->CPUTop__DOT__mem_rdata = 0ULL;
     } else if (((0x4000U != (0xffffU & (IData)((vlSelf->CPUTop__DOT__EX_io1_addr 
                                                 >> 0x30U)))) 
