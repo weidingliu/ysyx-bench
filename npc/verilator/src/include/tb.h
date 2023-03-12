@@ -1,7 +1,7 @@
 
 #define MAX_MEM 0x2000000
 
-#define is_batch_mode 1
+#define is_batch_mode 0
 #define mtrace 1
 #define DIFFTEST 1
 
