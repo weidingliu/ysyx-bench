@@ -47,6 +47,7 @@ void init_difftest(char *ref_so_file, uint32_t img_size, int port, uint8_t *mem)
 
 static bool check_reg(cpu_state *ref_cpu,uint64_t pc){
     //printf("%016lx  %016lx\n",pc,ref_cpu->pc);
+    printf("sadf\n");
     if(pc != ref_cpu->pc){
         //printf("her\n");
         printf("PC fail!\n");
@@ -74,7 +75,7 @@ static bool check_reg(cpu_state *ref_cpu,uint64_t pc){
         printf("mtvec fail! ref : %016lx  dut : %016lx\n",ref_cpu->mtvec,cpu.mtvec);
         return false;
     }
-    
+    printf("sadf\n");
     return true;
 }
 
