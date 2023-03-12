@@ -57,7 +57,7 @@ class MMIO extends Module{
 
     io.addr_m := io.addr
     io.we_m := io.we
-    io.ce_m := Mux(io.addr(63,48) === 0x4000.U,0.U,Mux(io.addr(63,48) === 0xBFF8.U,0.U,io.ce))
+    io.ce_m := Mux(io.addr(63,48) === 0x8000.U,0.U,Mux(io.addr(63,48) === 0xBFF8.U,0.U,io.ce))
     io.wdata_m := io.wdata
     io.rdata := Mux(flag,time.read(io.addr(63,48)),io.rdata_m)
     io.wmask_m:=io.wmask
@@ -65,7 +65,7 @@ class MMIO extends Module{
     io.time := time.read(TIME_index.mtime)
     io.timecmp := time.read(TIME_index.mtimecmp)
     when(io.time_int===1.U){
-      time.write(TIME_index.mtimecmp,time.read(TIME_index.mtimecmp)+4000.U)
+      time.write(TIME_index.mtimecmp,time.read(TIME_index.mtimecmp)+10000.U)
 
     }
 

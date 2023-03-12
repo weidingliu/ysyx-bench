@@ -195,7 +195,7 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
     vlSelf->io_time_int = vlSelf->CPUTop__DOT__io_time_int_REG;
     vlSelf->CPUTop__DOT__mmio__DOT___mtime_T_1 = (1ULL 
                                                   + vlSelf->CPUTop__DOT__mmio__DOT__mtime);
-    vlSelf->CPUTop__DOT__mmio__DOT___T_11 = (0x1770ULL 
+    vlSelf->CPUTop__DOT__mmio__DOT___T_11 = (0xfa0ULL 
                                              + vlSelf->CPUTop__DOT__mmio__DOT__mtimecmp);
     vlSelf->CPUTop__DOT__EX__DOT__CSRDIFF__DOT__inst_csr[2U] 
         = vlSelf->CPUTop__DOT__EX__DOT__mstatus;
