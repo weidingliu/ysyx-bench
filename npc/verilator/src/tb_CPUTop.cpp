@@ -174,7 +174,7 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
 //////to ref
     memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
     cpu.pc=s->io_pc;
-    
+    printf("sadf\n");
     cpu.mepc=CSR[0];
     cpu.mcause=CSR[1];
     cpu.mstatus=CSR[2];
