@@ -198,7 +198,7 @@ static void execute(uint64_t n) {
     //printf("----------------%016lx\n",cpu.pc);
     g_nr_guest_inst ++;
     trace_and_difftest(&s, cpu.pc);
-    
+    //printf("dfdggg\n");
     IFDEF(CONFIG_TRACE,func_trace(cpu.pc,&s));
     //if(funcINFO[2].start == cpu.pc) printf("%s\n",funcINFO[2].fun_name);
     if (nemu_state.state != NEMU_RUNNING) break;

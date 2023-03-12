@@ -17,32 +17,7 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
     CData/*0:0*/ __Vdlyvset__CPUTop__DOT__rf__v0;
     // Body
     __Vdlyvset__CPUTop__DOT__rf__v0 = 0U;
-    if (((0x13U == (0x707fU & vlSelf->CPUTop__DOT__IFM_inst)) 
-         | ((0x1013U == (0xfc00707fU & vlSelf->CPUTop__DOT__IFM_inst)) 
-            | ((0x17U == (0x7fU & vlSelf->CPUTop__DOT__IFM_inst)) 
-               | ((0x37U == (0x7fU & vlSelf->CPUTop__DOT__IFM_inst)) 
-                  | ((0x6013U == (0x707fU & vlSelf->CPUTop__DOT__IFM_inst)) 
-                     | ((0x6fU == (0x7fU & vlSelf->CPUTop__DOT__IFM_inst)) 
-                        | ((0x67U == (0x707fU & vlSelf->CPUTop__DOT__IFM_inst)) 
-                           | ((0x3003U == (0x707fU 
-                                           & vlSelf->CPUTop__DOT__IFM_inst)) 
-                              | ((0x3023U != (0x707fU 
-                                              & vlSelf->CPUTop__DOT__IFM_inst)) 
-                                 & ((0x2003U == (0x707fU 
-                                                 & vlSelf->CPUTop__DOT__IFM_inst)) 
-                                    | ((0x3bU == (0xfe00707fU 
-                                                  & vlSelf->CPUTop__DOT__IFM_inst)) 
-                                       | ((0x40000033U 
-                                           == (0xfe00707fU 
-                                               & vlSelf->CPUTop__DOT__IFM_inst)) 
-                                          | ((0x3013U 
-                                              == (0x707fU 
-                                                  & vlSelf->CPUTop__DOT__IFM_inst)) 
-                                             | ((0x63U 
-                                                 != 
-                                                 (0x707fU 
-                                                  & vlSelf->CPUTop__DOT__IFM_inst)) 
-                                                & (IData)(vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_366)))))))))))))))) {
+    if (vlSelf->CPUTop__DOT__ID_io_rd_en) {
         __Vdlyvval__CPUTop__DOT__rf__v0 = ((0U == (0x1fU 
                                                    & (vlSelf->CPUTop__DOT__IFM_inst 
                                                       >> 7U)))
@@ -200,70 +175,6 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
                                             | vlSelf->CPUTop__DOT__EX__DOT__mip);
     vlSelf->CPUTop__DOT__EX__DOT__CSRDIFF__DOT__inst_csr[1U] 
         = vlSelf->CPUTop__DOT__EX__DOT__mcause;
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0U] = vlSelf->CPUTop__DOT__rf
-        [0U];
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[1U] = vlSelf->CPUTop__DOT__rf
-        [1U];
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[2U] = vlSelf->CPUTop__DOT__rf
-        [2U];
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[3U] = vlSelf->CPUTop__DOT__rf
-        [3U];
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[4U] = vlSelf->CPUTop__DOT__rf
-        [4U];
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[5U] = vlSelf->CPUTop__DOT__rf
-        [5U];
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[6U] = vlSelf->CPUTop__DOT__rf
-        [6U];
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[7U] = vlSelf->CPUTop__DOT__rf
-        [7U];
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[8U] = vlSelf->CPUTop__DOT__rf
-        [8U];
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[9U] = vlSelf->CPUTop__DOT__rf
-        [9U];
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0xaU] = vlSelf->CPUTop__DOT__rf
-        [0xaU];
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0xbU] = vlSelf->CPUTop__DOT__rf
-        [0xbU];
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0xcU] = vlSelf->CPUTop__DOT__rf
-        [0xcU];
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0xdU] = vlSelf->CPUTop__DOT__rf
-        [0xdU];
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0xeU] = vlSelf->CPUTop__DOT__rf
-        [0xeU];
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0xfU] = vlSelf->CPUTop__DOT__rf
-        [0xfU];
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x10U] = vlSelf->CPUTop__DOT__rf
-        [0x10U];
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x11U] = vlSelf->CPUTop__DOT__rf
-        [0x11U];
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x12U] = vlSelf->CPUTop__DOT__rf
-        [0x12U];
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x13U] = vlSelf->CPUTop__DOT__rf
-        [0x13U];
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x14U] = vlSelf->CPUTop__DOT__rf
-        [0x14U];
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x15U] = vlSelf->CPUTop__DOT__rf
-        [0x15U];
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x16U] = vlSelf->CPUTop__DOT__rf
-        [0x16U];
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x17U] = vlSelf->CPUTop__DOT__rf
-        [0x17U];
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x18U] = vlSelf->CPUTop__DOT__rf
-        [0x18U];
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x19U] = vlSelf->CPUTop__DOT__rf
-        [0x19U];
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x1aU] = vlSelf->CPUTop__DOT__rf
-        [0x1aU];
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x1bU] = vlSelf->CPUTop__DOT__rf
-        [0x1bU];
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x1cU] = vlSelf->CPUTop__DOT__rf
-        [0x1cU];
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x1dU] = vlSelf->CPUTop__DOT__rf
-        [0x1dU];
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x1eU] = vlSelf->CPUTop__DOT__rf
-        [0x1eU];
-    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x1fU] = vlSelf->CPUTop__DOT__rf
-        [0x1fU];
     vlSelf->CPUTop__DOT__EX__DOT__CSRDIFF__DOT__inst_csr[0U] 
         = vlSelf->CPUTop__DOT__EX__DOT__mepc;
     vlSelf->CPUTop__DOT__EX_io1_time_int = (((IData)(
@@ -278,6 +189,7 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
     vlSelf->io_pc = vlSelf->CPUTop__DOT__IF__DOT__temp;
     vlSelf->CPUTop__DOT__IF__DOT___temp_T_2 = (4ULL 
                                                + vlSelf->CPUTop__DOT__IF__DOT__temp);
+    vlSelf->CPUTop__DOT__DIP__DOT__rf[0x20U] = vlSelf->CPUTop__DOT__IF__DOT__temp;
     vlSelf->CPUTop__DOT__EX__DOT__CSRDIFF__DOT__inst_csr[3U] 
         = vlSelf->CPUTop__DOT__EX__DOT__mtvec;
 }

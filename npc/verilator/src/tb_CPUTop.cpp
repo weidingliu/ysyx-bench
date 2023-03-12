@@ -140,6 +140,7 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     char p[128];
     void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
     uint32_t inst;
+    //printf("%d\n",s->clock);
     for(int i=0;i<2 && (! contextp->gotFinish());i++){
         s->clock ^=1;
         
@@ -173,7 +174,7 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     }
 //////to ref
     memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
-    cpu.pc=s->io_pc;
+    cpu.pc=cpu_gpr[32];
     
     cpu.mepc=CSR[0];
     cpu.mcause=CSR[1];
@@ -181,13 +182,14 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     cpu.mtvec=CSR[3];
     //printf("---------%016lx %d\n",cpu.mepc,s->io_time_int);
     
+    
 }
 
 void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uint64_t n){
     step_print_inst = (n<MAX_PRINT_STEP);
     while(n--!=0 &&((!contextp->gotFinish()))){
         exe_once(dut,contextp,m_trace);
-        
+        //printf("-----%d\n",is_skip_ref);
         if(DIFFTEST && !ref_is_irq){
             bool flag=difftest_step(dut->io_pc);
         
@@ -209,7 +211,7 @@ void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uint
 
 void Reset(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     
-    while(sim_time<3){
+    while(sim_time<=3){
         dut->clock ^= 1;
         dut->io_inst=0; 
         dut->reset = 1;
@@ -224,7 +226,7 @@ void Reset(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     //printf("%lx\n",dut->io_pc);
     
     memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
-    cpu.pc=dut->io_pc;
+    cpu.pc=cpu_gpr[32];
     cpu.mepc=CSR[0];
     cpu.mcause=CSR[1];
     cpu.mstatus=CSR[2];
