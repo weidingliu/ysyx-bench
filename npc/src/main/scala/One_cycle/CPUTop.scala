@@ -89,7 +89,7 @@ class CPUTop extends Module with paramete{
   for (i <- 0 until NReg){
     DIP.io.rf(i) := Reg.rf(i)
   }
-  DIP.io.inst := RegNext(io.inst)
+  DIP.io.inst := io.inst
 
 
   mem.io.addr:= mmio.io.addr_m
@@ -115,7 +115,7 @@ class CPUTop extends Module with paramete{
   EX.io1.mtime := mmio.io.time
   EX.io1.mtimecmp := mmio.io.timecmp
   mmio.io.time_int := EX.io1.time_int
-  io.time_int := EX.io1.time_int
+  io.time_int := RegNext(EX.io1.time_int)
 
 }
 
