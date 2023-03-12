@@ -16,7 +16,7 @@ module MEM(
 
 always @(*) begin 
     //$display("-------------%h ----%h",addr,clk);
-    if(reset || clk==1'b1) begin 
+    if(reset || clk==1'b0) begin 
         rdata=64'h0;
     end
     else if(ce==1'b1) begin 
