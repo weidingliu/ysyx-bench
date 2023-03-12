@@ -98,6 +98,7 @@ void difftest_regcpy(ref_state *dut, bool direction) {
 }
 
 void difftest_exec(uint64_t n) {
+  printf("fgdfg\n");
   cpu_exec(n);
 
 }
