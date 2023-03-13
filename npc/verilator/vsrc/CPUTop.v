@@ -870,7 +870,7 @@ module EXU(
   wire [63:0] _GEN_262 = _T_196 ? _dnpc_T_9 : _GEN_261; // @[EXU.scala 482:23 490:12]
   wire [63:0] _GEN_263 = 7'h48 == io_aluoptype ? _dnpc_T_5 : _GEN_262; // @[EXU.scala 482:23 487:12]
   wire [63:0] dnpc = 7'h19 == io_aluoptype ? _addr_temp_T_1 : _GEN_263; // @[EXU.scala 482:23 484:12]
-  wire [63:0] _T_242 = mip | 64'h80; // @[EXU.scala 541:54]
+  wire [63:0] _T_242 = mip | 64'h80; // @[EXU.scala 539:54]
   CSR_DIFF CSRDIFF ( // @[EXU.scala 117:21]
     .mepc(CSRDIFF_mepc),
     .mcause(CSRDIFF_mcause),
@@ -891,7 +891,7 @@ module EXU(
   assign CSRDIFF_mstatus = mstatus; // @[EXU.scala 535:22]
   assign CSRDIFF_mtvec = mtvec; // @[EXU.scala 532:20]
   always @(posedge clock) begin
-    if (time_int) begin // @[EXU.scala 540:24]
+    if (time_int) begin // @[EXU.scala 538:24]
       mepc <= io1_PC;
     end else if (_T_202) begin // @[EXU.scala 517:23]
       mepc <= io1_PC;
@@ -902,7 +902,7 @@ module EXU(
     end
     if (reset) begin // @[CSR.scala 20:23]
       mcause <= 64'h0; // @[CSR.scala 20:23]
-    end else if (time_int) begin // @[EXU.scala 540:24]
+    end else if (time_int) begin // @[EXU.scala 538:24]
       mcause <= 64'h7;
     end else if (_T_202) begin // @[EXU.scala 517:23]
       mcause <= 64'hb;
@@ -938,7 +938,7 @@ module EXU(
     end
     if (reset) begin // @[CSR.scala 24:20]
       mip <= 64'h0; // @[CSR.scala 24:20]
-    end else if (time_int) begin // @[EXU.scala 540:24]
+    end else if (time_int) begin // @[EXU.scala 538:24]
       mip <= _T_242;
     end else if (!(7'h40 == io_aluoptype)) begin // @[EXU.scala 295:23]
       if (!(7'h68 == io_aluoptype)) begin // @[EXU.scala 295:23]
