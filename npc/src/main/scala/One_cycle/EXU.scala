@@ -429,8 +429,8 @@ class EXU extends Module with paramete {
   }
   io1.result:= result_tem
 
-  io1.is_jump := Mux(io.futype===FUType.jump || time_int===1.U,1.U,0.U)
-//  io1.is_jump := Mux(io.futype===FUType.branch,1.U,0.U)
+  //io1.is_jump := Mux(io.futype===FUType.jump || time_int===1.U,1.U,0.U)
+  io1.is_jump := Mux(io.futype===FUType.jump,1.U,0.U)
   val branch_result=WireDefault(0.U(xlen.W))
   val branch_flag=WireDefault(0.U(1.W))
     switch(io.aluoptype){
