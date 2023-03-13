@@ -733,7 +733,7 @@ VL_ATTR_COLD void VCPUTop___024root__trace_full_sub_0(VCPUTop___024root* vlSelf,
     bufp->fullQData(oldp+261,(((0U == (0x1fU & (vlSelf->CPUTop__DOT__IFM_inst 
                                                 >> 7U)))
                                 ? 0ULL : vlSelf->CPUTop__DOT__EX_io1_result)),64);
-    bufp->fullBit(oldp+263,(((0x4000U != (0xffffU & (IData)(
+    bufp->fullBit(oldp+263,(((0x8000U != (0xffffU & (IData)(
                                                             (vlSelf->CPUTop__DOT__EX_io1_addr 
                                                              >> 0x30U)))) 
                              & ((0xbff8U != (0xffffU 

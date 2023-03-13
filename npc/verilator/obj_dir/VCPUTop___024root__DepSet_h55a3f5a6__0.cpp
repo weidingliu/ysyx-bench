@@ -2214,7 +2214,7 @@ VL_INLINE_OPT void VCPUTop___024root___combo__TOP__0(VCPUTop___024root* vlSelf) 
                                                    : 0ULL))));
     if (((IData)(vlSelf->reset) | (IData)(vlSelf->clock))) {
         vlSelf->CPUTop__DOT__mem_rdata = 0ULL;
-    } else if (((0x4000U != (0xffffU & (IData)((vlSelf->CPUTop__DOT__EX_io1_addr 
+    } else if (((0x8000U != (0xffffU & (IData)((vlSelf->CPUTop__DOT__EX_io1_addr 
                                                 >> 0x30U)))) 
                 & ((0xbff8U != (0xffffU & (IData)((vlSelf->CPUTop__DOT__EX_io1_addr 
                                                    >> 0x30U)))) 
