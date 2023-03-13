@@ -522,8 +522,8 @@ class EXU extends Module with paramete {
   }
 
 
-  io1.dnpc := Mux(time_int===1.U,csr.read(CSR_index.mtvec),dnpc)
-  io1.is_branch := branch_flag
+  io1.dnpc := Mux(time_int === 1.U,csr.read(CSR_index.mtvec),dnpc)
+  io1.is_branch := Mux(time_int===1.U,1.U,branch_flag)
 
   io1.wmask := wmask_temp
   io1.wdata := wdata_temp
