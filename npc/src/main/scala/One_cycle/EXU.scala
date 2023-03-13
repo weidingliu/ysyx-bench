@@ -534,8 +534,6 @@ class EXU extends Module with paramete {
   CSRDIFF.io.mepc := (csr.mepc)
   CSRDIFF.io.mstatus := (csr.mstatus)
 
-
-
   io1.time_int := time_int
   when(time_int===1.U) {
     csr.write(CSR_index.mip, csr.read(CSR_index.mip) | 0x0000000000000080.U)

@@ -46,7 +46,7 @@ class VCPUTop___024root final : public VerilatedModule {
         CData/*0:0*/ CPUTop__DOT__ID__DOT___io_mem_we_T_12;
         CData/*7:0*/ CPUTop__DOT__EX__DOT___GEN_28;
         CData/*7:0*/ CPUTop__DOT__EX__DOT___mem_result_T_28;
-        CData/*0:0*/ CPUTop__DOT__EX__DOT___GEN_250;
+        CData/*0:0*/ CPUTop__DOT__EX__DOT__branch_flag;
         CData/*0:0*/ CPUTop__DOT__mmio__DOT__flag;
         CData/*0:0*/ __Vclklast__TOP__clock;
         SData/*15:0*/ CPUTop__DOT__EX__DOT___mem_result_T_45;

@@ -880,7 +880,7 @@ module EXU(
   assign io1_result = 3'h0 == io_futype ? alu_result : _GEN_237; // @[EXU.scala 410:20 412:18]
   assign io1_is_break = io_aluoptype == 7'h42; // @[EXU.scala 294:36]
   assign io1_is_jump = io_futype == 3'h3; // @[EXU.scala 433:31]
-  assign io1_is_branch = 7'h6b == io_aluoptype ? src1 == src2 : _GEN_250; // @[EXU.scala 436:25 439:21]
+  assign io1_is_branch = time_int | branch_flag; // @[EXU.scala 526:23]
   assign io1_dnpc = time_int ? mtvec : dnpc; // @[EXU.scala 525:18]
   assign io1_addr = 7'h45 == io_aluoptype ? _addr_temp_T_1 : _GEN_14; // @[EXU.scala 168:23 170:17]
   assign io1_wdata = _T_68 ? src2 : _GEN_29; // @[EXU.scala 203:24 207:18]
