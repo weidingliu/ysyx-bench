@@ -826,7 +826,6 @@ module EXU(
   wire [63:0] _compar_result_T_5 = $signed(_alu_result_T_58) < $signed(_alu_result_T_59) ? 64'h1 : 64'h0; // @[EXU.scala 402:27]
   wire [63:0] _GEN_231 = 7'h2 == io_aluoptype ? _compar_result_T_5 : 64'h0; // @[EXU.scala 397:23 402:21]
   wire [63:0] compar_result = 7'h6a == io_aluoptype ? _compar_result_T_1 : _GEN_231; // @[EXU.scala 397:23 399:21]
-  wire  _jump_result_T = io_futype == 3'h3; // @[EXU.scala 407:31]
   wire [63:0] _jump_result_T_2 = io1_PC + 64'h4; // @[EXU.scala 407:52]
   wire [63:0] jump_result = io_futype == 3'h3 ? _jump_result_T_2 : 64'h0; // @[EXU.scala 407:21]
   wire [63:0] _GEN_233 = 3'h5 == io_futype ? compar_result : 64'h0; // @[EXU.scala 410:20 427:17]
@@ -880,7 +879,7 @@ module EXU(
   );
   assign io1_result = 3'h0 == io_futype ? alu_result : _GEN_237; // @[EXU.scala 410:20 412:18]
   assign io1_is_break = io_aluoptype == 7'h42; // @[EXU.scala 294:36]
-  assign io1_is_jump = _jump_result_T | time_int; // @[EXU.scala 432:46]
+  assign io1_is_jump = io_futype == 3'h3; // @[EXU.scala 433:31]
   assign io1_is_branch = 7'h6b == io_aluoptype ? src1 == src2 : _GEN_250; // @[EXU.scala 436:25 439:21]
   assign io1_dnpc = time_int ? mtvec : dnpc; // @[EXU.scala 525:18]
   assign io1_addr = 7'h45 == io_aluoptype ? _addr_temp_T_1 : _GEN_14; // @[EXU.scala 168:23 170:17]

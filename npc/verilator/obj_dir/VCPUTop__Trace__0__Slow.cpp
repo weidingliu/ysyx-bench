@@ -11,63 +11,63 @@ VL_ATTR_COLD void VCPUTop___024root__trace_init_sub__TOP__0(VCPUTop___024root* v
     // Init
     const int c = vlSymsp->__Vm_baseCode;
     // Body
-    tracep->declBit(c+309,"clock", false,-1);
-    tracep->declBit(c+310,"reset", false,-1);
-    tracep->declQuad(c+311,"io_pc", false,-1, 63,0);
-    tracep->declBus(c+313,"io_inst", false,-1, 31,0);
-    tracep->declQuad(c+314,"io_result", false,-1, 63,0);
-    tracep->declBit(c+316,"io_time_int", false,-1);
+    tracep->declBit(c+301,"clock", false,-1);
+    tracep->declBit(c+302,"reset", false,-1);
+    tracep->declQuad(c+303,"io_pc", false,-1, 63,0);
+    tracep->declBus(c+305,"io_inst", false,-1, 31,0);
+    tracep->declQuad(c+306,"io_result", false,-1, 63,0);
+    tracep->declBit(c+308,"io_time_int", false,-1);
     tracep->pushNamePrefix("CPUTop ");
-    tracep->declBit(c+309,"clock", false,-1);
-    tracep->declBit(c+310,"reset", false,-1);
-    tracep->declQuad(c+311,"io_pc", false,-1, 63,0);
-    tracep->declBus(c+313,"io_inst", false,-1, 31,0);
-    tracep->declQuad(c+314,"io_result", false,-1, 63,0);
-    tracep->declBit(c+316,"io_time_int", false,-1);
-    tracep->declBit(c+309,"IF_clock", false,-1);
-    tracep->declBit(c+310,"IF_reset", false,-1);
-    tracep->declQuad(c+225,"IF_io_dnpc", false,-1, 63,0);
-    tracep->declBit(c+227,"IF_io_is_jump", false,-1);
-    tracep->declBit(c+234,"IF_io_is_branch", false,-1);
+    tracep->declBit(c+301,"clock", false,-1);
+    tracep->declBit(c+302,"reset", false,-1);
+    tracep->declQuad(c+303,"io_pc", false,-1, 63,0);
+    tracep->declBus(c+305,"io_inst", false,-1, 31,0);
+    tracep->declQuad(c+306,"io_result", false,-1, 63,0);
+    tracep->declBit(c+308,"io_time_int", false,-1);
+    tracep->declBit(c+301,"IF_clock", false,-1);
+    tracep->declBit(c+302,"IF_reset", false,-1);
+    tracep->declQuad(c+309,"IF_io_dnpc", false,-1, 63,0);
+    tracep->declBit(c+225,"IF_io_is_jump", false,-1);
+    tracep->declBit(c+226,"IF_io_is_branch", false,-1);
     tracep->declQuad(c+1,"IF_io_pc", false,-1, 63,0);
-    tracep->declBit(c+310,"IFM_reset", false,-1);
-    tracep->declBit(c+309,"IFM_clk", false,-1);
+    tracep->declBit(c+302,"IFM_reset", false,-1);
+    tracep->declBit(c+301,"IFM_clk", false,-1);
     tracep->declQuad(c+1,"IFM_pc", false,-1, 63,0);
-    tracep->declBus(c+235,"IFM_inst", false,-1, 31,0);
-    tracep->declBus(c+235,"ID_io_inst", false,-1, 31,0);
-    tracep->declBus(c+236,"ID_io_ctrlIO_src1type", false,-1, 2,0);
-    tracep->declBus(c+237,"ID_io_ctrlIO_src2type", false,-1, 2,0);
-    tracep->declBus(c+238,"ID_io_ctrlIO_src1", false,-1, 4,0);
-    tracep->declBus(c+239,"ID_io_ctrlIO_src2", false,-1, 4,0);
-    tracep->declBus(c+240,"ID_io_ctrlIO_rd", false,-1, 4,0);
-    tracep->declBus(c+241,"ID_io_ctrlIO_futype", false,-1, 2,0);
-    tracep->declBus(c+242,"ID_io_ctrlIO_aluoptype", false,-1, 6,0);
-    tracep->declQuad(c+243,"ID_io_ctrlIO_Imm", false,-1, 63,0);
-    tracep->declBit(c+245,"ID_io_rd_en", false,-1);
-    tracep->declBit(c+246,"ID_io_mem_we", false,-1);
-    tracep->declBit(c+309,"EX_clock", false,-1);
-    tracep->declBit(c+310,"EX_reset", false,-1);
-    tracep->declBus(c+236,"EX_io_src1type", false,-1, 2,0);
-    tracep->declBus(c+237,"EX_io_src2type", false,-1, 2,0);
-    tracep->declBus(c+241,"EX_io_futype", false,-1, 2,0);
-    tracep->declBus(c+242,"EX_io_aluoptype", false,-1, 6,0);
-    tracep->declQuad(c+243,"EX_io_Imm", false,-1, 63,0);
-    tracep->declQuad(c+247,"EX_io1_REG1", false,-1, 63,0);
-    tracep->declQuad(c+249,"EX_io1_REG2", false,-1, 63,0);
+    tracep->declBus(c+227,"IFM_inst", false,-1, 31,0);
+    tracep->declBus(c+227,"ID_io_inst", false,-1, 31,0);
+    tracep->declBus(c+228,"ID_io_ctrlIO_src1type", false,-1, 2,0);
+    tracep->declBus(c+229,"ID_io_ctrlIO_src2type", false,-1, 2,0);
+    tracep->declBus(c+230,"ID_io_ctrlIO_src1", false,-1, 4,0);
+    tracep->declBus(c+231,"ID_io_ctrlIO_src2", false,-1, 4,0);
+    tracep->declBus(c+232,"ID_io_ctrlIO_rd", false,-1, 4,0);
+    tracep->declBus(c+233,"ID_io_ctrlIO_futype", false,-1, 2,0);
+    tracep->declBus(c+234,"ID_io_ctrlIO_aluoptype", false,-1, 6,0);
+    tracep->declQuad(c+235,"ID_io_ctrlIO_Imm", false,-1, 63,0);
+    tracep->declBit(c+237,"ID_io_rd_en", false,-1);
+    tracep->declBit(c+238,"ID_io_mem_we", false,-1);
+    tracep->declBit(c+301,"EX_clock", false,-1);
+    tracep->declBit(c+302,"EX_reset", false,-1);
+    tracep->declBus(c+228,"EX_io_src1type", false,-1, 2,0);
+    tracep->declBus(c+229,"EX_io_src2type", false,-1, 2,0);
+    tracep->declBus(c+233,"EX_io_futype", false,-1, 2,0);
+    tracep->declBus(c+234,"EX_io_aluoptype", false,-1, 6,0);
+    tracep->declQuad(c+235,"EX_io_Imm", false,-1, 63,0);
+    tracep->declQuad(c+239,"EX_io1_REG1", false,-1, 63,0);
+    tracep->declQuad(c+241,"EX_io1_REG2", false,-1, 63,0);
     tracep->declQuad(c+1,"EX_io1_PC", false,-1, 63,0);
-    tracep->declQuad(c+251,"EX_io1_result", false,-1, 63,0);
-    tracep->declBit(c+253,"EX_io1_is_break", false,-1);
-    tracep->declBit(c+227,"EX_io1_is_jump", false,-1);
-    tracep->declBit(c+234,"EX_io1_is_branch", false,-1);
-    tracep->declQuad(c+225,"EX_io1_dnpc", false,-1, 63,0);
-    tracep->declQuad(c+254,"EX_io1_addr", false,-1, 63,0);
-    tracep->declQuad(c+256,"EX_io1_rdata", false,-1, 63,0);
-    tracep->declQuad(c+258,"EX_io1_wdata", false,-1, 63,0);
-    tracep->declBus(c+260,"EX_io1_wmask", false,-1, 7,0);
+    tracep->declQuad(c+243,"EX_io1_result", false,-1, 63,0);
+    tracep->declBit(c+245,"EX_io1_is_break", false,-1);
+    tracep->declBit(c+225,"EX_io1_is_jump", false,-1);
+    tracep->declBit(c+226,"EX_io1_is_branch", false,-1);
+    tracep->declQuad(c+309,"EX_io1_dnpc", false,-1, 63,0);
+    tracep->declQuad(c+246,"EX_io1_addr", false,-1, 63,0);
+    tracep->declQuad(c+248,"EX_io1_rdata", false,-1, 63,0);
+    tracep->declQuad(c+250,"EX_io1_wdata", false,-1, 63,0);
+    tracep->declBus(c+252,"EX_io1_wmask", false,-1, 7,0);
     tracep->declQuad(c+3,"EX_io1_mtime", false,-1, 63,0);
     tracep->declQuad(c+5,"EX_io1_mtimecmp", false,-1, 63,0);
     tracep->declBit(c+7,"EX_io1_time_int", false,-1);
-    tracep->declBit(c+253,"DIP_is_break", false,-1);
+    tracep->declBit(c+245,"DIP_is_break", false,-1);
     tracep->declQuad(c+8,"DIP_rf_0", false,-1, 63,0);
     tracep->declQuad(c+10,"DIP_rf_1", false,-1, 63,0);
     tracep->declQuad(c+12,"DIP_rf_2", false,-1, 63,0);
@@ -100,16 +100,16 @@ VL_ATTR_COLD void VCPUTop___024root__trace_init_sub__TOP__0(VCPUTop___024root* v
     tracep->declQuad(c+66,"DIP_rf_29", false,-1, 63,0);
     tracep->declQuad(c+68,"DIP_rf_30", false,-1, 63,0);
     tracep->declQuad(c+70,"DIP_rf_31", false,-1, 63,0);
-    tracep->declBus(c+313,"DIP_inst", false,-1, 31,0);
+    tracep->declBus(c+305,"DIP_inst", false,-1, 31,0);
     for (int i = 0; i < 32; ++i) {
         tracep->declQuad(c+72+i*2,"rf", true,(i+0), 63,0);
     }
     tracep->declBit(c+317,"rf_EX_io1_REG1_MPORT_en", false,-1);
-    tracep->declBus(c+238,"rf_EX_io1_REG1_MPORT_addr", false,-1, 4,0);
-    tracep->declQuad(c+228,"rf_EX_io1_REG1_MPORT_data", false,-1, 63,0);
+    tracep->declBus(c+230,"rf_EX_io1_REG1_MPORT_addr", false,-1, 4,0);
+    tracep->declQuad(c+311,"rf_EX_io1_REG1_MPORT_data", false,-1, 63,0);
     tracep->declBit(c+317,"rf_EX_io1_REG2_MPORT_en", false,-1);
-    tracep->declBus(c+239,"rf_EX_io1_REG2_MPORT_addr", false,-1, 4,0);
-    tracep->declQuad(c+230,"rf_EX_io1_REG2_MPORT_data", false,-1, 63,0);
+    tracep->declBus(c+231,"rf_EX_io1_REG2_MPORT_addr", false,-1, 4,0);
+    tracep->declQuad(c+313,"rf_EX_io1_REG2_MPORT_data", false,-1, 63,0);
     tracep->declBit(c+317,"rf_DIP_io_rf_0_MPORT_en", false,-1);
     tracep->declBus(c+318,"rf_DIP_io_rf_0_MPORT_addr", false,-1, 4,0);
     tracep->declQuad(c+8,"rf_DIP_io_rf_0_MPORT_data", false,-1, 63,0);
@@ -206,41 +206,41 @@ VL_ATTR_COLD void VCPUTop___024root__trace_init_sub__TOP__0(VCPUTop___024root* v
     tracep->declBit(c+317,"rf_DIP_io_rf_31_MPORT_en", false,-1);
     tracep->declBus(c+349,"rf_DIP_io_rf_31_MPORT_addr", false,-1, 4,0);
     tracep->declQuad(c+70,"rf_DIP_io_rf_31_MPORT_data", false,-1, 63,0);
-    tracep->declQuad(c+261,"rf_MPORT_data", false,-1, 63,0);
-    tracep->declBus(c+240,"rf_MPORT_addr", false,-1, 4,0);
+    tracep->declQuad(c+253,"rf_MPORT_data", false,-1, 63,0);
+    tracep->declBus(c+232,"rf_MPORT_addr", false,-1, 4,0);
     tracep->declBit(c+317,"rf_MPORT_mask", false,-1);
-    tracep->declBit(c+245,"rf_MPORT_en", false,-1);
-    tracep->declQuad(c+254,"mem_addr", false,-1, 63,0);
-    tracep->declBit(c+310,"mem_reset", false,-1);
-    tracep->declBit(c+309,"mem_clk", false,-1);
-    tracep->declBit(c+246,"mem_we", false,-1);
-    tracep->declBit(c+263,"mem_ce", false,-1);
-    tracep->declQuad(c+258,"mem_wdata", false,-1, 63,0);
-    tracep->declQuad(c+264,"mem_rdata", false,-1, 63,0);
-    tracep->declBus(c+260,"mem_wmask", false,-1, 7,0);
-    tracep->declBit(c+309,"mmio_clock", false,-1);
-    tracep->declBit(c+310,"mmio_reset", false,-1);
-    tracep->declQuad(c+254,"mmio_io_addr", false,-1, 63,0);
-    tracep->declBit(c+246,"mmio_io_we", false,-1);
-    tracep->declBit(c+266,"mmio_io_ce", false,-1);
-    tracep->declQuad(c+258,"mmio_io_wdata", false,-1, 63,0);
-    tracep->declQuad(c+256,"mmio_io_rdata", false,-1, 63,0);
-    tracep->declBus(c+260,"mmio_io_wmask", false,-1, 7,0);
-    tracep->declQuad(c+254,"mmio_io_addr_m", false,-1, 63,0);
-    tracep->declBit(c+246,"mmio_io_we_m", false,-1);
-    tracep->declBit(c+263,"mmio_io_ce_m", false,-1);
-    tracep->declQuad(c+258,"mmio_io_wdata_m", false,-1, 63,0);
-    tracep->declQuad(c+264,"mmio_io_rdata_m", false,-1, 63,0);
-    tracep->declBus(c+260,"mmio_io_wmask_m", false,-1, 7,0);
+    tracep->declBit(c+237,"rf_MPORT_en", false,-1);
+    tracep->declQuad(c+246,"mem_addr", false,-1, 63,0);
+    tracep->declBit(c+302,"mem_reset", false,-1);
+    tracep->declBit(c+301,"mem_clk", false,-1);
+    tracep->declBit(c+238,"mem_we", false,-1);
+    tracep->declBit(c+255,"mem_ce", false,-1);
+    tracep->declQuad(c+250,"mem_wdata", false,-1, 63,0);
+    tracep->declQuad(c+256,"mem_rdata", false,-1, 63,0);
+    tracep->declBus(c+252,"mem_wmask", false,-1, 7,0);
+    tracep->declBit(c+301,"mmio_clock", false,-1);
+    tracep->declBit(c+302,"mmio_reset", false,-1);
+    tracep->declQuad(c+246,"mmio_io_addr", false,-1, 63,0);
+    tracep->declBit(c+238,"mmio_io_we", false,-1);
+    tracep->declBit(c+258,"mmio_io_ce", false,-1);
+    tracep->declQuad(c+250,"mmio_io_wdata", false,-1, 63,0);
+    tracep->declQuad(c+248,"mmio_io_rdata", false,-1, 63,0);
+    tracep->declBus(c+252,"mmio_io_wmask", false,-1, 7,0);
+    tracep->declQuad(c+246,"mmio_io_addr_m", false,-1, 63,0);
+    tracep->declBit(c+238,"mmio_io_we_m", false,-1);
+    tracep->declBit(c+255,"mmio_io_ce_m", false,-1);
+    tracep->declQuad(c+250,"mmio_io_wdata_m", false,-1, 63,0);
+    tracep->declQuad(c+256,"mmio_io_rdata_m", false,-1, 63,0);
+    tracep->declBus(c+252,"mmio_io_wmask_m", false,-1, 7,0);
     tracep->declQuad(c+3,"mmio_io_time", false,-1, 63,0);
     tracep->declQuad(c+5,"mmio_io_timecmp", false,-1, 63,0);
     tracep->declBit(c+7,"mmio_io_time_int", false,-1);
-    tracep->declBus(c+238,"src1add", false,-1, 4,0);
-    tracep->declBus(c+239,"src2add", false,-1, 4,0);
+    tracep->declBus(c+230,"src1add", false,-1, 4,0);
+    tracep->declBus(c+231,"src2add", false,-1, 4,0);
     tracep->declBit(c+136,"io_time_int_REG", false,-1);
     tracep->pushNamePrefix("DIP ");
-    tracep->declBit(c+253,"is_break", false,-1);
-    tracep->declBus(c+313,"inst", false,-1, 31,0);
+    tracep->declBit(c+245,"is_break", false,-1);
+    tracep->declBus(c+305,"inst", false,-1, 31,0);
     tracep->declQuad(c+8,"rf_0", false,-1, 63,0);
     tracep->declQuad(c+10,"rf_1", false,-1, 63,0);
     tracep->declQuad(c+12,"rf_2", false,-1, 63,0);
@@ -278,25 +278,25 @@ VL_ATTR_COLD void VCPUTop___024root__trace_init_sub__TOP__0(VCPUTop___024root* v
     }
     tracep->popNamePrefix(1);
     tracep->pushNamePrefix("EX ");
-    tracep->declBit(c+309,"clock", false,-1);
-    tracep->declBit(c+310,"reset", false,-1);
-    tracep->declBus(c+236,"io_src1type", false,-1, 2,0);
-    tracep->declBus(c+237,"io_src2type", false,-1, 2,0);
-    tracep->declBus(c+241,"io_futype", false,-1, 2,0);
-    tracep->declBus(c+242,"io_aluoptype", false,-1, 6,0);
-    tracep->declQuad(c+243,"io_Imm", false,-1, 63,0);
-    tracep->declQuad(c+247,"io1_REG1", false,-1, 63,0);
-    tracep->declQuad(c+249,"io1_REG2", false,-1, 63,0);
+    tracep->declBit(c+301,"clock", false,-1);
+    tracep->declBit(c+302,"reset", false,-1);
+    tracep->declBus(c+228,"io_src1type", false,-1, 2,0);
+    tracep->declBus(c+229,"io_src2type", false,-1, 2,0);
+    tracep->declBus(c+233,"io_futype", false,-1, 2,0);
+    tracep->declBus(c+234,"io_aluoptype", false,-1, 6,0);
+    tracep->declQuad(c+235,"io_Imm", false,-1, 63,0);
+    tracep->declQuad(c+239,"io1_REG1", false,-1, 63,0);
+    tracep->declQuad(c+241,"io1_REG2", false,-1, 63,0);
     tracep->declQuad(c+1,"io1_PC", false,-1, 63,0);
-    tracep->declQuad(c+251,"io1_result", false,-1, 63,0);
-    tracep->declBit(c+253,"io1_is_break", false,-1);
-    tracep->declBit(c+227,"io1_is_jump", false,-1);
-    tracep->declBit(c+234,"io1_is_branch", false,-1);
-    tracep->declQuad(c+225,"io1_dnpc", false,-1, 63,0);
-    tracep->declQuad(c+254,"io1_addr", false,-1, 63,0);
-    tracep->declQuad(c+256,"io1_rdata", false,-1, 63,0);
-    tracep->declQuad(c+258,"io1_wdata", false,-1, 63,0);
-    tracep->declBus(c+260,"io1_wmask", false,-1, 7,0);
+    tracep->declQuad(c+243,"io1_result", false,-1, 63,0);
+    tracep->declBit(c+245,"io1_is_break", false,-1);
+    tracep->declBit(c+225,"io1_is_jump", false,-1);
+    tracep->declBit(c+226,"io1_is_branch", false,-1);
+    tracep->declQuad(c+309,"io1_dnpc", false,-1, 63,0);
+    tracep->declQuad(c+246,"io1_addr", false,-1, 63,0);
+    tracep->declQuad(c+248,"io1_rdata", false,-1, 63,0);
+    tracep->declQuad(c+250,"io1_wdata", false,-1, 63,0);
+    tracep->declBus(c+252,"io1_wmask", false,-1, 7,0);
     tracep->declQuad(c+3,"io1_mtime", false,-1, 63,0);
     tracep->declQuad(c+5,"io1_mtimecmp", false,-1, 63,0);
     tracep->declBit(c+7,"io1_time_int", false,-1);
@@ -311,33 +311,33 @@ VL_ATTR_COLD void VCPUTop___024root__trace_init_sub__TOP__0(VCPUTop___024root* v
     tracep->declQuad(c+209,"mie", false,-1, 63,0);
     tracep->declQuad(c+211,"mip", false,-1, 63,0);
     tracep->declBit(c+7,"time_int", false,-1);
-    tracep->declQuad(c+267,"src1", false,-1, 63,0);
-    tracep->declQuad(c+269,"src2", false,-1, 63,0);
-    tracep->declQuad(c+254,"addr_temp", false,-1, 63,0);
-    tracep->declBit(c+271,"mem_result_sign", false,-1);
-    tracep->declBit(c+272,"mem_result_sign_1", false,-1);
-    tracep->declBit(c+273,"mem_result_sign_3", false,-1);
-    tracep->declBit(c+274,"mem_result_sign_4", false,-1);
-    tracep->declQuad(c+275,"mem_result", false,-1, 63,0);
-    tracep->declBit(c+277,"alu_result_sign", false,-1);
-    tracep->declBit(c+278,"alu_result_sign_2", false,-1);
-    tracep->declBit(c+279,"alu_result_sign_3", false,-1);
-    tracep->declBit(c+280,"alu_result_sign_4", false,-1);
-    tracep->declBit(c+281,"alu_result_sign_5", false,-1);
-    tracep->declBit(c+282,"alu_result_sign_6", false,-1);
-    tracep->declBit(c+283,"alu_result_sign_7", false,-1);
-    tracep->declQuad(c+284,"alu_result", false,-1, 63,0);
-    tracep->declBit(c+286,"shift_result_sign", false,-1);
-    tracep->declBit(c+287,"shift_result_sign_1", false,-1);
-    tracep->declBit(c+288,"shift_result_sign_2", false,-1);
-    tracep->declBit(c+289,"shift_result_sign_3", false,-1);
-    tracep->declQuad(c+290,"compar_result", false,-1, 63,0);
-    tracep->declQuad(c+232,"jump_result", false,-1, 63,0);
-    tracep->declQuad(c+292,"shift_result", false,-1, 63,0);
-    tracep->declQuad(c+294,"branch_result", false,-1, 63,0);
-    tracep->declBit(c+234,"branch_flag", false,-1);
-    tracep->declQuad(c+296,"csr_data", false,-1, 63,0);
-    tracep->declQuad(c+298,"dnpc", false,-1, 63,0);
+    tracep->declQuad(c+259,"src1", false,-1, 63,0);
+    tracep->declQuad(c+261,"src2", false,-1, 63,0);
+    tracep->declQuad(c+246,"addr_temp", false,-1, 63,0);
+    tracep->declBit(c+263,"mem_result_sign", false,-1);
+    tracep->declBit(c+264,"mem_result_sign_1", false,-1);
+    tracep->declBit(c+265,"mem_result_sign_3", false,-1);
+    tracep->declBit(c+266,"mem_result_sign_4", false,-1);
+    tracep->declQuad(c+267,"mem_result", false,-1, 63,0);
+    tracep->declBit(c+269,"alu_result_sign", false,-1);
+    tracep->declBit(c+270,"alu_result_sign_2", false,-1);
+    tracep->declBit(c+271,"alu_result_sign_3", false,-1);
+    tracep->declBit(c+272,"alu_result_sign_4", false,-1);
+    tracep->declBit(c+273,"alu_result_sign_5", false,-1);
+    tracep->declBit(c+274,"alu_result_sign_6", false,-1);
+    tracep->declBit(c+275,"alu_result_sign_7", false,-1);
+    tracep->declQuad(c+276,"alu_result", false,-1, 63,0);
+    tracep->declBit(c+278,"shift_result_sign", false,-1);
+    tracep->declBit(c+279,"shift_result_sign_1", false,-1);
+    tracep->declBit(c+280,"shift_result_sign_2", false,-1);
+    tracep->declBit(c+281,"shift_result_sign_3", false,-1);
+    tracep->declQuad(c+282,"compar_result", false,-1, 63,0);
+    tracep->declQuad(c+315,"jump_result", false,-1, 63,0);
+    tracep->declQuad(c+284,"shift_result", false,-1, 63,0);
+    tracep->declQuad(c+286,"branch_result", false,-1, 63,0);
+    tracep->declBit(c+226,"branch_flag", false,-1);
+    tracep->declQuad(c+288,"csr_data", false,-1, 63,0);
+    tracep->declQuad(c+290,"dnpc", false,-1, 63,0);
     tracep->pushNamePrefix("CSRDIFF ");
     tracep->declQuad(c+201,"mepc", false,-1, 63,0);
     tracep->declQuad(c+203,"mcause", false,-1, 63,0);
@@ -348,75 +348,75 @@ VL_ATTR_COLD void VCPUTop___024root__trace_init_sub__TOP__0(VCPUTop___024root* v
     }
     tracep->popNamePrefix(2);
     tracep->pushNamePrefix("ID ");
-    tracep->declBus(c+235,"io_inst", false,-1, 31,0);
-    tracep->declBus(c+236,"io_ctrlIO_src1type", false,-1, 2,0);
-    tracep->declBus(c+237,"io_ctrlIO_src2type", false,-1, 2,0);
-    tracep->declBus(c+238,"io_ctrlIO_src1", false,-1, 4,0);
-    tracep->declBus(c+239,"io_ctrlIO_src2", false,-1, 4,0);
-    tracep->declBus(c+240,"io_ctrlIO_rd", false,-1, 4,0);
-    tracep->declBus(c+241,"io_ctrlIO_futype", false,-1, 2,0);
-    tracep->declBus(c+242,"io_ctrlIO_aluoptype", false,-1, 6,0);
-    tracep->declQuad(c+243,"io_ctrlIO_Imm", false,-1, 63,0);
-    tracep->declBit(c+245,"io_rd_en", false,-1);
-    tracep->declBit(c+246,"io_mem_we", false,-1);
-    tracep->declBus(c+240,"rd", false,-1, 4,0);
-    tracep->declBus(c+300,"Inst_decode_0", false,-1, 3,0);
-    tracep->declBus(c+242,"Inst_decode_2", false,-1, 6,0);
-    tracep->declBus(c+301,"srctype1", false,-1, 1,0);
-    tracep->declBit(c+302,"srctype2", false,-1);
-    tracep->declBit(c+303,"sign", false,-1);
-    tracep->declBit(c+304,"sign_1", false,-1);
-    tracep->declBit(c+305,"sign_2", false,-1);
-    tracep->declBit(c+305,"sign_3", false,-1);
-    tracep->declBit(c+303,"sign_4", false,-1);
+    tracep->declBus(c+227,"io_inst", false,-1, 31,0);
+    tracep->declBus(c+228,"io_ctrlIO_src1type", false,-1, 2,0);
+    tracep->declBus(c+229,"io_ctrlIO_src2type", false,-1, 2,0);
+    tracep->declBus(c+230,"io_ctrlIO_src1", false,-1, 4,0);
+    tracep->declBus(c+231,"io_ctrlIO_src2", false,-1, 4,0);
+    tracep->declBus(c+232,"io_ctrlIO_rd", false,-1, 4,0);
+    tracep->declBus(c+233,"io_ctrlIO_futype", false,-1, 2,0);
+    tracep->declBus(c+234,"io_ctrlIO_aluoptype", false,-1, 6,0);
+    tracep->declQuad(c+235,"io_ctrlIO_Imm", false,-1, 63,0);
+    tracep->declBit(c+237,"io_rd_en", false,-1);
+    tracep->declBit(c+238,"io_mem_we", false,-1);
+    tracep->declBus(c+232,"rd", false,-1, 4,0);
+    tracep->declBus(c+292,"Inst_decode_0", false,-1, 3,0);
+    tracep->declBus(c+234,"Inst_decode_2", false,-1, 6,0);
+    tracep->declBus(c+293,"srctype1", false,-1, 1,0);
+    tracep->declBit(c+294,"srctype2", false,-1);
+    tracep->declBit(c+295,"sign", false,-1);
+    tracep->declBit(c+296,"sign_1", false,-1);
+    tracep->declBit(c+297,"sign_2", false,-1);
+    tracep->declBit(c+297,"sign_3", false,-1);
+    tracep->declBit(c+295,"sign_4", false,-1);
     tracep->popNamePrefix(1);
     tracep->pushNamePrefix("IF ");
-    tracep->declBit(c+309,"clock", false,-1);
-    tracep->declBit(c+310,"reset", false,-1);
-    tracep->declQuad(c+225,"io_dnpc", false,-1, 63,0);
-    tracep->declBit(c+227,"io_is_jump", false,-1);
-    tracep->declBit(c+234,"io_is_branch", false,-1);
+    tracep->declBit(c+301,"clock", false,-1);
+    tracep->declBit(c+302,"reset", false,-1);
+    tracep->declQuad(c+309,"io_dnpc", false,-1, 63,0);
+    tracep->declBit(c+225,"io_is_jump", false,-1);
+    tracep->declBit(c+226,"io_is_branch", false,-1);
     tracep->declQuad(c+1,"io_pc", false,-1, 63,0);
     tracep->declQuad(c+1,"temp", false,-1, 63,0);
     tracep->popNamePrefix(1);
     tracep->pushNamePrefix("IFM ");
-    tracep->declBit(c+310,"reset", false,-1);
-    tracep->declBit(c+309,"clk", false,-1);
+    tracep->declBit(c+302,"reset", false,-1);
+    tracep->declBit(c+301,"clk", false,-1);
     tracep->declQuad(c+1,"pc", false,-1, 63,0);
-    tracep->declBus(c+235,"inst", false,-1, 31,0);
-    tracep->declQuad(c+306,"rdata", false,-1, 63,0);
+    tracep->declBus(c+227,"inst", false,-1, 31,0);
+    tracep->declQuad(c+298,"rdata", false,-1, 63,0);
     tracep->popNamePrefix(1);
     tracep->pushNamePrefix("mem ");
-    tracep->declBit(c+310,"reset", false,-1);
-    tracep->declBit(c+309,"clk", false,-1);
-    tracep->declQuad(c+254,"addr", false,-1, 63,0);
-    tracep->declBit(c+246,"we", false,-1);
-    tracep->declBit(c+263,"ce", false,-1);
-    tracep->declQuad(c+258,"wdata", false,-1, 63,0);
-    tracep->declQuad(c+264,"rdata", false,-1, 63,0);
-    tracep->declBus(c+260,"wmask", false,-1, 7,0);
+    tracep->declBit(c+302,"reset", false,-1);
+    tracep->declBit(c+301,"clk", false,-1);
+    tracep->declQuad(c+246,"addr", false,-1, 63,0);
+    tracep->declBit(c+238,"we", false,-1);
+    tracep->declBit(c+255,"ce", false,-1);
+    tracep->declQuad(c+250,"wdata", false,-1, 63,0);
+    tracep->declQuad(c+256,"rdata", false,-1, 63,0);
+    tracep->declBus(c+252,"wmask", false,-1, 7,0);
     tracep->popNamePrefix(1);
     tracep->pushNamePrefix("mmio ");
-    tracep->declBit(c+309,"clock", false,-1);
-    tracep->declBit(c+310,"reset", false,-1);
-    tracep->declQuad(c+254,"io_addr", false,-1, 63,0);
-    tracep->declBit(c+246,"io_we", false,-1);
-    tracep->declBit(c+266,"io_ce", false,-1);
-    tracep->declQuad(c+258,"io_wdata", false,-1, 63,0);
-    tracep->declQuad(c+256,"io_rdata", false,-1, 63,0);
-    tracep->declBus(c+260,"io_wmask", false,-1, 7,0);
-    tracep->declQuad(c+254,"io_addr_m", false,-1, 63,0);
-    tracep->declBit(c+246,"io_we_m", false,-1);
-    tracep->declBit(c+263,"io_ce_m", false,-1);
-    tracep->declQuad(c+258,"io_wdata_m", false,-1, 63,0);
-    tracep->declQuad(c+264,"io_rdata_m", false,-1, 63,0);
-    tracep->declBus(c+260,"io_wmask_m", false,-1, 7,0);
+    tracep->declBit(c+301,"clock", false,-1);
+    tracep->declBit(c+302,"reset", false,-1);
+    tracep->declQuad(c+246,"io_addr", false,-1, 63,0);
+    tracep->declBit(c+238,"io_we", false,-1);
+    tracep->declBit(c+258,"io_ce", false,-1);
+    tracep->declQuad(c+250,"io_wdata", false,-1, 63,0);
+    tracep->declQuad(c+248,"io_rdata", false,-1, 63,0);
+    tracep->declBus(c+252,"io_wmask", false,-1, 7,0);
+    tracep->declQuad(c+246,"io_addr_m", false,-1, 63,0);
+    tracep->declBit(c+238,"io_we_m", false,-1);
+    tracep->declBit(c+255,"io_ce_m", false,-1);
+    tracep->declQuad(c+250,"io_wdata_m", false,-1, 63,0);
+    tracep->declQuad(c+256,"io_rdata_m", false,-1, 63,0);
+    tracep->declBus(c+252,"io_wmask_m", false,-1, 7,0);
     tracep->declQuad(c+3,"io_time", false,-1, 63,0);
     tracep->declQuad(c+5,"io_timecmp", false,-1, 63,0);
     tracep->declBit(c+7,"io_time_int", false,-1);
     tracep->declQuad(c+3,"mtime", false,-1, 63,0);
     tracep->declQuad(c+5,"mtimecmp", false,-1, 63,0);
-    tracep->declBit(c+308,"flag", false,-1);
+    tracep->declBit(c+300,"flag", false,-1);
     tracep->popNamePrefix(2);
 }
 
@@ -610,71 +610,24 @@ VL_ATTR_COLD void VCPUTop___024root__trace_full_sub_0(VCPUTop___024root* vlSelf,
     bufp->fullQData(oldp+219,(vlSelf->CPUTop__DOT__EX__DOT__CSRDIFF__DOT__inst_csr[3]),64);
     bufp->fullQData(oldp+221,(vlSelf->CPUTop__DOT__EX__DOT__CSRDIFF__DOT__inst_csr[4]),64);
     bufp->fullQData(oldp+223,(vlSelf->CPUTop__DOT__EX__DOT__CSRDIFF__DOT__inst_csr[5]),64);
-    bufp->fullQData(oldp+225,(((IData)(vlSelf->CPUTop__DOT__EX_io1_time_int)
-                                ? vlSelf->CPUTop__DOT__EX__DOT__mtvec
-                                : ((0x19U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
-                                    ? vlSelf->CPUTop__DOT__EX__DOT___addr_temp_T_1
-                                    : ((0x48U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
-                                        ? (0xfffffffffffffffeULL 
-                                           & vlSelf->CPUTop__DOT__EX__DOT___addr_temp_T_1)
-                                        : ((0x6bU == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
-                                            ? vlSelf->CPUTop__DOT__EX__DOT___dnpc_T_9
-                                            : ((0x6cU 
-                                                == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
-                                                ? vlSelf->CPUTop__DOT__EX__DOT___dnpc_T_9
-                                                : (
-                                                   (0x76U 
-                                                    == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
-                                                    ? vlSelf->CPUTop__DOT__EX__DOT___dnpc_T_9
-                                                    : 
-                                                   ((0xcU 
-                                                     == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
-                                                     ? vlSelf->CPUTop__DOT__EX__DOT___dnpc_T_9
-                                                     : 
-                                                    ((0x7bU 
-                                                      == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
-                                                      ? vlSelf->CPUTop__DOT__EX__DOT___dnpc_T_9
-                                                      : 
-                                                     ((0xbU 
-                                                       == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
-                                                       ? vlSelf->CPUTop__DOT__EX__DOT___dnpc_T_9
-                                                       : 
-                                                      ((0x17U 
-                                                        == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
-                                                        ? vlSelf->CPUTop__DOT__EX__DOT__csr_data
-                                                        : 
-                                                       ((0x18U 
-                                                         == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
-                                                         ? vlSelf->CPUTop__DOT__EX__DOT__csr_data
-                                                         : 0ULL)))))))))))),64);
-    bufp->fullBit(oldp+227,(((3U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype)) 
-                             | (IData)(vlSelf->CPUTop__DOT__EX_io1_time_int))));
-    bufp->fullQData(oldp+228,(vlSelf->CPUTop__DOT__rf
-                              [(0x1fU & (vlSelf->CPUTop__DOT__IFM_inst 
-                                         >> 0xfU))]),64);
-    bufp->fullQData(oldp+230,(vlSelf->CPUTop__DOT__rf
-                              [(0x1fU & (vlSelf->CPUTop__DOT__IFM_inst 
-                                         >> 0x14U))]),64);
-    bufp->fullQData(oldp+232,(((3U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype))
-                                ? (4ULL + vlSelf->CPUTop__DOT__IF__DOT__temp)
-                                : 0ULL)),64);
-    bufp->fullBit(oldp+234,(((0x6bU == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+    bufp->fullBit(oldp+225,((3U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype))));
+    bufp->fullBit(oldp+226,(((0x6bU == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                               ? (vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_58 
                                  == vlSelf->CPUTop__DOT__EX__DOT__src2)
                               : (IData)(vlSelf->CPUTop__DOT__EX__DOT___GEN_250))));
-    bufp->fullIData(oldp+235,(vlSelf->CPUTop__DOT__IFM_inst),32);
-    bufp->fullCData(oldp+236,(vlSelf->CPUTop__DOT__ID__DOT___io_ctrlIO_src1type_T_2),3);
-    bufp->fullCData(oldp+237,(vlSelf->CPUTop__DOT__ID__DOT__srctype2),3);
-    bufp->fullCData(oldp+238,((0x1fU & (vlSelf->CPUTop__DOT__IFM_inst 
+    bufp->fullIData(oldp+227,(vlSelf->CPUTop__DOT__IFM_inst),32);
+    bufp->fullCData(oldp+228,(vlSelf->CPUTop__DOT__ID__DOT___io_ctrlIO_src1type_T_2),3);
+    bufp->fullCData(oldp+229,(vlSelf->CPUTop__DOT__ID__DOT__srctype2),3);
+    bufp->fullCData(oldp+230,((0x1fU & (vlSelf->CPUTop__DOT__IFM_inst 
                                         >> 0xfU))),5);
-    bufp->fullCData(oldp+239,((0x1fU & (vlSelf->CPUTop__DOT__IFM_inst 
+    bufp->fullCData(oldp+231,((0x1fU & (vlSelf->CPUTop__DOT__IFM_inst 
                                         >> 0x14U))),5);
-    bufp->fullCData(oldp+240,((0x1fU & (vlSelf->CPUTop__DOT__IFM_inst 
+    bufp->fullCData(oldp+232,((0x1fU & (vlSelf->CPUTop__DOT__IFM_inst 
                                         >> 7U))),5);
-    bufp->fullCData(oldp+241,(vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype),3);
-    bufp->fullCData(oldp+242,(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype),7);
-    bufp->fullQData(oldp+243,(vlSelf->CPUTop__DOT__ID_io_ctrlIO_Imm),64);
-    bufp->fullBit(oldp+245,(((0x13U == (0x707fU & vlSelf->CPUTop__DOT__IFM_inst)) 
+    bufp->fullCData(oldp+233,(vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype),3);
+    bufp->fullCData(oldp+234,(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype),7);
+    bufp->fullQData(oldp+235,(vlSelf->CPUTop__DOT__ID_io_ctrlIO_Imm),64);
+    bufp->fullBit(oldp+237,(((0x13U == (0x707fU & vlSelf->CPUTop__DOT__IFM_inst)) 
                              | ((0x1013U == (0xfc00707fU 
                                              & vlSelf->CPUTop__DOT__IFM_inst)) 
                                 | ((0x17U == (0x7fU 
@@ -720,20 +673,20 @@ VL_ATTR_COLD void VCPUTop___024root__trace_full_sub_0(VCPUTop___024root* vlSelf,
                                                                      (0x707fU 
                                                                       & vlSelf->CPUTop__DOT__IFM_inst)) 
                                                                     & (IData)(vlSelf->CPUTop__DOT__ID__DOT___Inst_decode_T_366)))))))))))))))));
-    bufp->fullBit(oldp+246,((1U & (~ (IData)(vlSelf->CPUTop__DOT__ID__DOT___io_mem_we_T_12)))));
-    bufp->fullQData(oldp+247,(vlSelf->CPUTop__DOT__EX_io1_REG1),64);
-    bufp->fullQData(oldp+249,(vlSelf->CPUTop__DOT__EX_io1_REG2),64);
-    bufp->fullQData(oldp+251,(vlSelf->CPUTop__DOT__EX_io1_result),64);
-    bufp->fullBit(oldp+253,((0x42U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))));
-    bufp->fullQData(oldp+254,(vlSelf->CPUTop__DOT__EX_io1_addr),64);
-    bufp->fullQData(oldp+256,(vlSelf->CPUTop__DOT__mmio_io_rdata),64);
-    bufp->fullQData(oldp+258,(vlSelf->CPUTop__DOT__EX_io1_wdata),64);
-    bufp->fullCData(oldp+260,(((0x46U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+    bufp->fullBit(oldp+238,((1U & (~ (IData)(vlSelf->CPUTop__DOT__ID__DOT___io_mem_we_T_12)))));
+    bufp->fullQData(oldp+239,(vlSelf->CPUTop__DOT__EX_io1_REG1),64);
+    bufp->fullQData(oldp+241,(vlSelf->CPUTop__DOT__EX_io1_REG2),64);
+    bufp->fullQData(oldp+243,(vlSelf->CPUTop__DOT__EX_io1_result),64);
+    bufp->fullBit(oldp+245,((0x42U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))));
+    bufp->fullQData(oldp+246,(vlSelf->CPUTop__DOT__EX_io1_addr),64);
+    bufp->fullQData(oldp+248,(vlSelf->CPUTop__DOT__mmio_io_rdata),64);
+    bufp->fullQData(oldp+250,(vlSelf->CPUTop__DOT__EX_io1_wdata),64);
+    bufp->fullCData(oldp+252,(((0x46U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                 ? 0xffU : (IData)(vlSelf->CPUTop__DOT__EX__DOT___GEN_28))),8);
-    bufp->fullQData(oldp+261,(((0U == (0x1fU & (vlSelf->CPUTop__DOT__IFM_inst 
+    bufp->fullQData(oldp+253,(((0U == (0x1fU & (vlSelf->CPUTop__DOT__IFM_inst 
                                                 >> 7U)))
                                 ? 0ULL : vlSelf->CPUTop__DOT__EX_io1_result)),64);
-    bufp->fullBit(oldp+263,(((0x8000U != (0xffffU & (IData)(
+    bufp->fullBit(oldp+255,(((0x8000U != (0xffffU & (IData)(
                                                             (vlSelf->CPUTop__DOT__EX_io1_addr 
                                                              >> 0x30U)))) 
                              & ((0xbff8U != (0xffffU 
@@ -741,19 +694,19 @@ VL_ATTR_COLD void VCPUTop___024root__trace_full_sub_0(VCPUTop___024root* vlSelf,
                                                        (vlSelf->CPUTop__DOT__EX_io1_addr 
                                                         >> 0x30U)))) 
                                 & (4U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype))))));
-    bufp->fullQData(oldp+264,(vlSelf->CPUTop__DOT__mem_rdata),64);
-    bufp->fullBit(oldp+266,((4U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype))));
-    bufp->fullQData(oldp+267,(vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_58),64);
-    bufp->fullQData(oldp+269,(vlSelf->CPUTop__DOT__EX__DOT__src2),64);
-    bufp->fullBit(oldp+271,((1U & (IData)((vlSelf->CPUTop__DOT__mmio_io_rdata 
+    bufp->fullQData(oldp+256,(vlSelf->CPUTop__DOT__mem_rdata),64);
+    bufp->fullBit(oldp+258,((4U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype))));
+    bufp->fullQData(oldp+259,(vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_58),64);
+    bufp->fullQData(oldp+261,(vlSelf->CPUTop__DOT__EX__DOT__src2),64);
+    bufp->fullBit(oldp+263,((1U & (IData)((vlSelf->CPUTop__DOT__mmio_io_rdata 
                                            >> 0x3fU)))));
-    bufp->fullBit(oldp+272,((1U & (IData)((vlSelf->CPUTop__DOT__mmio_io_rdata 
+    bufp->fullBit(oldp+264,((1U & (IData)((vlSelf->CPUTop__DOT__mmio_io_rdata 
                                            >> 0x1fU)))));
-    bufp->fullBit(oldp+273,((1U & ((IData)(vlSelf->CPUTop__DOT__EX__DOT___mem_result_T_28) 
+    bufp->fullBit(oldp+265,((1U & ((IData)(vlSelf->CPUTop__DOT__EX__DOT___mem_result_T_28) 
                                    >> 7U))));
-    bufp->fullBit(oldp+274,((1U & ((IData)(vlSelf->CPUTop__DOT__EX__DOT___mem_result_T_45) 
+    bufp->fullBit(oldp+266,((1U & ((IData)(vlSelf->CPUTop__DOT__EX__DOT___mem_result_T_45) 
                                    >> 0xfU))));
-    bufp->fullQData(oldp+275,(((0x45U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+    bufp->fullQData(oldp+267,(((0x45U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                 ? vlSelf->CPUTop__DOT__mmio_io_rdata
                                 : ((0x47U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                     ? ((1U & (IData)(
@@ -805,21 +758,21 @@ VL_ATTR_COLD void VCPUTop___024root__trace_full_sub_0(VCPUTop___024root* vlSelf,
                                                      == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                                      ? (QData)((IData)(vlSelf->CPUTop__DOT__EX__DOT___mem_result_T_45))
                                                      : 0ULL)))))))),64);
-    bufp->fullBit(oldp+277,((1U & (IData)((vlSelf->CPUTop__DOT__EX__DOT___addr_temp_T_1 
+    bufp->fullBit(oldp+269,((1U & (IData)((vlSelf->CPUTop__DOT__EX__DOT___addr_temp_T_1 
                                            >> 0x1fU)))));
-    bufp->fullBit(oldp+278,((vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_19[0U] 
+    bufp->fullBit(oldp+270,((vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_19[0U] 
                              >> 0x1fU)));
-    bufp->fullBit(oldp+279,((1U & (IData)((vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_28 
+    bufp->fullBit(oldp+271,((1U & (IData)((vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_28 
                                            >> 0x1fU)))));
-    bufp->fullBit(oldp+280,((vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_38 
+    bufp->fullBit(oldp+272,((vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_38 
                              >> 0x1fU)));
-    bufp->fullBit(oldp+281,((vlSelf->CPUTop__DOT__EX__DOT___GEN_15 
+    bufp->fullBit(oldp+273,((vlSelf->CPUTop__DOT__EX__DOT___GEN_15 
                              >> 0x1fU)));
-    bufp->fullBit(oldp+282,((1U & (IData)((vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_10 
+    bufp->fullBit(oldp+274,((1U & (IData)((vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_10 
                                            >> 0x1fU)))));
-    bufp->fullBit(oldp+283,((vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_64 
+    bufp->fullBit(oldp+275,((vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_64 
                              >> 0x1fU)));
-    bufp->fullQData(oldp+284,(((0x40U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+    bufp->fullQData(oldp+276,(((0x40U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                 ? vlSelf->CPUTop__DOT__EX__DOT___addr_temp_T_1
                                 : ((0x68U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                     ? vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_7
@@ -868,15 +821,15 @@ VL_ATTR_COLD void VCPUTop___024root__trace_full_sub_0(VCPUTop___024root* vlSelf,
                                                         << 0x20U) 
                                                        | (QData)((IData)(vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_28)))
                                                        : vlSelf->CPUTop__DOT__EX__DOT___GEN_151)))))))))),64);
-    bufp->fullBit(oldp+286,((vlSelf->CPUTop__DOT__EX__DOT___shift_result_T_5[0U] 
+    bufp->fullBit(oldp+278,((vlSelf->CPUTop__DOT__EX__DOT___shift_result_T_5[0U] 
                              >> 0x1fU)));
-    bufp->fullBit(oldp+287,((vlSelf->CPUTop__DOT__EX__DOT___shift_result_T_16[0U] 
+    bufp->fullBit(oldp+279,((vlSelf->CPUTop__DOT__EX__DOT___shift_result_T_16[0U] 
                              >> 0x1fU)));
-    bufp->fullBit(oldp+288,((vlSelf->CPUTop__DOT__EX__DOT___shift_result_T_25 
+    bufp->fullBit(oldp+280,((vlSelf->CPUTop__DOT__EX__DOT___shift_result_T_25 
                              >> 0x1fU)));
-    bufp->fullBit(oldp+289,((vlSelf->CPUTop__DOT__EX__DOT___shift_result_T_31 
+    bufp->fullBit(oldp+281,((vlSelf->CPUTop__DOT__EX__DOT___shift_result_T_31 
                              >> 0x1fU)));
-    bufp->fullQData(oldp+290,(((0x6aU == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+    bufp->fullQData(oldp+282,(((0x6aU == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                 ? ((vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_58 
                                     < vlSelf->CPUTop__DOT__EX__DOT__src2)
                                     ? 1ULL : 0ULL) : 
@@ -941,7 +894,7 @@ VL_ATTR_COLD void VCPUTop___024root__trace_full_sub_0(VCPUTop___024root* vlSelf,
                                                                      (0x3fU 
                                                                       & (IData)(vlSelf->CPUTop__DOT__EX__DOT__src2)))
                                                        : 0ULL))))))));
-    bufp->fullQData(oldp+292,((((QData)((IData)(((0x6eU 
+    bufp->fullQData(oldp+284,((((QData)((IData)(((0x6eU 
                                                   == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                                   ? 
                                                  __Vtemp_h7548e965__0[1U]
@@ -974,7 +927,7 @@ VL_ATTR_COLD void VCPUTop___024root__trace_full_sub_0(VCPUTop___024root* vlSelf,
                                                                __Vtemp_h2a02089f__0[0U]
                                                                 : 
                                                                __Vtemp_hdc10468f__0[0U]))))))),64);
-    bufp->fullQData(oldp+294,(((0x6bU == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+    bufp->fullQData(oldp+286,(((0x6bU == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                 ? vlSelf->CPUTop__DOT__EX__DOT___branch_result_T_1
                                 : ((0x6cU == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                     ? vlSelf->CPUTop__DOT__EX__DOT___branch_result_T_1
@@ -990,8 +943,8 @@ VL_ATTR_COLD void VCPUTop___024root__trace_full_sub_0(VCPUTop___024root* vlSelf,
                                                     == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                                     ? vlSelf->CPUTop__DOT__EX__DOT___branch_result_T_1
                                                     : 0ULL))))))),64);
-    bufp->fullQData(oldp+296,(vlSelf->CPUTop__DOT__EX__DOT__csr_data),64);
-    bufp->fullQData(oldp+298,(((0x19U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+    bufp->fullQData(oldp+288,(vlSelf->CPUTop__DOT__EX__DOT__csr_data),64);
+    bufp->fullQData(oldp+290,(((0x19U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                 ? vlSelf->CPUTop__DOT__EX__DOT___addr_temp_T_1
                                 : ((0x48U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                     ? (0xfffffffffffffffeULL 
@@ -1024,27 +977,73 @@ VL_ATTR_COLD void VCPUTop___024root__trace_full_sub_0(VCPUTop___024root* vlSelf,
                                                         == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                                         ? vlSelf->CPUTop__DOT__EX__DOT__csr_data
                                                         : 0ULL))))))))))),64);
-    bufp->fullCData(oldp+300,(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0),4);
-    bufp->fullCData(oldp+301,((((7U == (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0))
+    bufp->fullCData(oldp+292,(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0),4);
+    bufp->fullCData(oldp+293,((((7U == (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0))
                                  ? 2U : 0U) | ((3U 
                                                 == (IData)(vlSelf->CPUTop__DOT__ID__DOT__Inst_decode_0))
                                                 ? 2U
                                                 : 0U))),2);
-    bufp->fullBit(oldp+302,(vlSelf->CPUTop__DOT__ID__DOT__srctype2));
-    bufp->fullBit(oldp+303,((vlSelf->CPUTop__DOT__IFM_inst 
+    bufp->fullBit(oldp+294,(vlSelf->CPUTop__DOT__ID__DOT__srctype2));
+    bufp->fullBit(oldp+295,((vlSelf->CPUTop__DOT__IFM_inst 
                              >> 0x1fU)));
-    bufp->fullBit(oldp+304,((1U & (vlSelf->CPUTop__DOT__IFM_inst 
+    bufp->fullBit(oldp+296,((1U & (vlSelf->CPUTop__DOT__IFM_inst 
                                    >> 0x13U))));
-    bufp->fullBit(oldp+305,((vlSelf->CPUTop__DOT__IFM_inst 
+    bufp->fullBit(oldp+297,((vlSelf->CPUTop__DOT__IFM_inst 
                              >> 0x1fU)));
-    bufp->fullQData(oldp+306,(vlSelf->CPUTop__DOT__IFM__DOT__rdata),64);
-    bufp->fullBit(oldp+308,(vlSelf->CPUTop__DOT__mmio__DOT__flag));
-    bufp->fullBit(oldp+309,(vlSelf->clock));
-    bufp->fullBit(oldp+310,(vlSelf->reset));
-    bufp->fullQData(oldp+311,(vlSelf->io_pc),64);
-    bufp->fullIData(oldp+313,(vlSelf->io_inst),32);
-    bufp->fullQData(oldp+314,(vlSelf->io_result),64);
-    bufp->fullBit(oldp+316,(vlSelf->io_time_int));
+    bufp->fullQData(oldp+298,(vlSelf->CPUTop__DOT__IFM__DOT__rdata),64);
+    bufp->fullBit(oldp+300,(vlSelf->CPUTop__DOT__mmio__DOT__flag));
+    bufp->fullBit(oldp+301,(vlSelf->clock));
+    bufp->fullBit(oldp+302,(vlSelf->reset));
+    bufp->fullQData(oldp+303,(vlSelf->io_pc),64);
+    bufp->fullIData(oldp+305,(vlSelf->io_inst),32);
+    bufp->fullQData(oldp+306,(vlSelf->io_result),64);
+    bufp->fullBit(oldp+308,(vlSelf->io_time_int));
+    bufp->fullQData(oldp+309,(((IData)(vlSelf->CPUTop__DOT__EX_io1_time_int)
+                                ? vlSelf->CPUTop__DOT__EX__DOT__mtvec
+                                : ((0x19U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                                    ? vlSelf->CPUTop__DOT__EX__DOT___addr_temp_T_1
+                                    : ((0x48U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                                        ? (0xfffffffffffffffeULL 
+                                           & vlSelf->CPUTop__DOT__EX__DOT___addr_temp_T_1)
+                                        : ((0x6bU == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                                            ? vlSelf->CPUTop__DOT__EX__DOT___dnpc_T_9
+                                            : ((0x6cU 
+                                                == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                                                ? vlSelf->CPUTop__DOT__EX__DOT___dnpc_T_9
+                                                : (
+                                                   (0x76U 
+                                                    == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                                                    ? vlSelf->CPUTop__DOT__EX__DOT___dnpc_T_9
+                                                    : 
+                                                   ((0xcU 
+                                                     == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                                                     ? vlSelf->CPUTop__DOT__EX__DOT___dnpc_T_9
+                                                     : 
+                                                    ((0x7bU 
+                                                      == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                                                      ? vlSelf->CPUTop__DOT__EX__DOT___dnpc_T_9
+                                                      : 
+                                                     ((0xbU 
+                                                       == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                                                       ? vlSelf->CPUTop__DOT__EX__DOT___dnpc_T_9
+                                                       : 
+                                                      ((0x17U 
+                                                        == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                                                        ? vlSelf->CPUTop__DOT__EX__DOT__csr_data
+                                                        : 
+                                                       ((0x18U 
+                                                         == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
+                                                         ? vlSelf->CPUTop__DOT__EX__DOT__csr_data
+                                                         : 0ULL)))))))))))),64);
+    bufp->fullQData(oldp+311,(vlSelf->CPUTop__DOT__rf
+                              [(0x1fU & (vlSelf->CPUTop__DOT__IFM_inst 
+                                         >> 0xfU))]),64);
+    bufp->fullQData(oldp+313,(vlSelf->CPUTop__DOT__rf
+                              [(0x1fU & (vlSelf->CPUTop__DOT__IFM_inst 
+                                         >> 0x14U))]),64);
+    bufp->fullQData(oldp+315,(((3U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_futype))
+                                ? (4ULL + vlSelf->CPUTop__DOT__IF__DOT__temp)
+                                : 0ULL)),64);
     bufp->fullBit(oldp+317,(1U));
     bufp->fullCData(oldp+318,(0U),5);
     bufp->fullCData(oldp+319,(1U),5);
