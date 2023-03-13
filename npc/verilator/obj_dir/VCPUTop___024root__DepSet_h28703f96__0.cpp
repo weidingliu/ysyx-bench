@@ -126,8 +126,8 @@ VL_INLINE_OPT void VCPUTop___024root___sequent__TOP__0(VCPUTop___024root* vlSelf
                                                | ((0x6bU 
                                                    == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                                    ? 
-                                                  (vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_58 
-                                                   == vlSelf->CPUTop__DOT__EX__DOT__src2)
+                                                  (vlSelf->CPUTop__DOT__EX__DOT___alu_result_T 
+                                                   == vlSelf->CPUTop__DOT__EX__DOT___alu_result_T_1)
                                                    : (IData)(vlSelf->CPUTop__DOT__EX__DOT___GEN_250)))
                                                ? ((IData)(vlSelf->CPUTop__DOT__EX_io1_time_int)
                                                    ? vlSelf->CPUTop__DOT__EX__DOT__mtvec
