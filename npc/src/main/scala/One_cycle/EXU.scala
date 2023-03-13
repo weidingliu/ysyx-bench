@@ -294,7 +294,7 @@ class EXU extends Module with paramete {
   io1.is_break := Mux((io.aluoptype===ALUOPType.ebreak),1.U,0.U)
   switch(io.aluoptype){
     is(ALUOPType.add){
-     alu_result := src1.asSInt + src2.asSInt
+     alu_result := (src1.asSInt + src2.asSInt)(xlen-1,0)
     }
     is(ALUOPType.addw) {
       alu_result := SIgEXtend((src1 + src2)(31,0),xlen)
@@ -303,7 +303,7 @@ class EXU extends Module with paramete {
       alu_result := src1 | src2
     }
     is(ALUOPType.sub){
-      alu_result := src1 - src2
+      alu_result := (src1.asSInt - src2.asSInt)(xlen-1,0)
     }
     is(ALUOPType.and){
       alu_result := src1 & src2
