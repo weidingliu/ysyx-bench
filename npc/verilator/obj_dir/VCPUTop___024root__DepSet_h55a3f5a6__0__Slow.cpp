@@ -39,7 +39,7 @@ VL_ATTR_COLD void VCPUTop___024root___settle__TOP__0(VCPUTop___024root* vlSelf) 
                                             | vlSelf->CPUTop__DOT__EX__DOT__mip);
     vlSelf->CPUTop__DOT__mmio__DOT___mtime_T_1 = (1ULL 
                                                   + vlSelf->CPUTop__DOT__mmio__DOT__mtime);
-    vlSelf->CPUTop__DOT__mmio__DOT___T_11 = (0x2710ULL 
+    vlSelf->CPUTop__DOT__mmio__DOT___T_11 = (0x20000ULL 
                                              + vlSelf->CPUTop__DOT__mmio__DOT__mtimecmp);
     vlSelf->CPUTop__DOT__EX__DOT__CSRDIFF__DOT__inst_csr[0U] 
         = vlSelf->CPUTop__DOT__EX__DOT__mepc;
