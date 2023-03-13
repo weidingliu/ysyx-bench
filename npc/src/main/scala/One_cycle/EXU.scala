@@ -471,11 +471,11 @@ class EXU extends Module with paramete {
   switch(io.aluoptype) {
     is(ALUOPType.ecall) {
       csr_data := csr.read(CSR_index.mtvec)
-      csr.write(CSR_index.mstatus,csr.read(CSR_index.mstatus & "0xfffffffffffffff7".U(xlen.W)))
+      csr.write(CSR_index.mstatus,csr.read(CSR_index.mstatus & "fffffffffffffff7".U(xlen.W)))
     }
     is(ALUOPType.mret) {
       csr_data := csr.read(CSR_index.mepc)
-      csr.write(CSR_index.mstatus,csr.read(CSR_index.mstatus | "0x0000000000000008".U(xlen.W)))
+      csr.write(CSR_index.mstatus,csr.read(CSR_index.mstatus | "0000000000000008".U(xlen.W)))
     }
   }
 
@@ -540,7 +540,7 @@ class EXU extends Module with paramete {
     csr.write(CSR_index.mip, csr.read(CSR_index.mip) | 0x0000000000000080.U)
     csr.write(CSR_index.mcause, 7.U(xlen.W))
     csr.write(CSR_index.mepc, io1.PC.asUInt)
-    csr.write(CSR_index.mstatus,csr.read(CSR_index.mstatus & "0xfffffffffffffff7".U(xlen.W)))
+    csr.write(CSR_index.mstatus,csr.read(CSR_index.mstatus & "fffffffffffffff7".U(xlen.W)))
   }
 //
 //  DIP.io.mtvec := csr.mtvec
