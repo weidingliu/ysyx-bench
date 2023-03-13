@@ -180,7 +180,7 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     cpu.mcause=CSR[1];
     cpu.mstatus=CSR[2];
     cpu.mtvec=CSR[3];
-    //printf("---------%016lx  %016lx\n",cpu_gpr[8],cpu_gpr[15]);
+    printf("---------%016lx  %016lx\n",cpu_gpr[8],cpu_gpr[15]);
     
     
 }
