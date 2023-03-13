@@ -39,6 +39,7 @@ class VCPUTop___024root final : public VerilatedModule {
         CData/*6:0*/ CPUTop__DOT__ID__DOT___Inst_decode_T_298;
         CData/*6:0*/ CPUTop__DOT__ID__DOT___Inst_decode_T_313;
         CData/*6:0*/ CPUTop__DOT__ID__DOT___Inst_decode_T_316;
+        CData/*6:0*/ CPUTop__DOT__ID__DOT__Inst_decode_2;
         CData/*0:0*/ CPUTop__DOT__ID__DOT___Inst_decode_T_346;
         CData/*0:0*/ CPUTop__DOT__ID__DOT___Inst_decode_T_366;
         CData/*0:0*/ CPUTop__DOT__ID__DOT__srctype2;
@@ -82,9 +83,9 @@ class VCPUTop___024root final : public VerilatedModule {
         QData/*63:0*/ CPUTop__DOT__EX__DOT___GEN_1;
         QData/*63:0*/ CPUTop__DOT__EX__DOT___GEN_3;
         QData/*63:0*/ CPUTop__DOT__EX__DOT__src2;
-        QData/*63:0*/ CPUTop__DOT__EX__DOT___addr_temp_T_1;
     };
     struct {
+        QData/*63:0*/ CPUTop__DOT__EX__DOT___addr_temp_T_1;
         QData/*63:0*/ CPUTop__DOT__EX__DOT___addr_temp_T_3;
         QData/*63:0*/ CPUTop__DOT__EX__DOT___GEN_14;
         QData/*63:0*/ CPUTop__DOT__EX__DOT___wdata_temp_T_21;
@@ -101,20 +102,23 @@ class VCPUTop___024root final : public VerilatedModule {
         QData/*63:0*/ CPUTop__DOT__EX__DOT___GEN_151;
         QData/*63:0*/ CPUTop__DOT__EX__DOT___GEN_154;
         QData/*63:0*/ CPUTop__DOT__EX__DOT___GEN_181;
-        QData/*63:0*/ CPUTop__DOT__EX__DOT___GEN_194;
         QData/*63:0*/ CPUTop__DOT__EX__DOT___GEN_195;
         QData/*63:0*/ CPUTop__DOT__EX__DOT___GEN_198;
+        QData/*63:0*/ CPUTop__DOT__EX__DOT___GEN_201;
         QData/*63:0*/ CPUTop__DOT__EX__DOT___GEN_203;
         QData/*63:0*/ CPUTop__DOT__EX__DOT___GEN_206;
         QData/*63:0*/ CPUTop__DOT__EX__DOT___GEN_211;
+        QData/*63:0*/ CPUTop__DOT__EX__DOT___GEN_215;
         QData/*63:0*/ CPUTop__DOT__EX__DOT___shift_result_T_28;
         QData/*63:0*/ CPUTop__DOT__EX__DOT___shift_result_T_35;
         QData/*63:0*/ CPUTop__DOT__EX__DOT___GEN_234;
         QData/*63:0*/ CPUTop__DOT__EX__DOT___GEN_235;
         QData/*63:0*/ CPUTop__DOT__EX__DOT___branch_result_T_1;
+        QData/*63:0*/ CPUTop__DOT__EX__DOT___T_217;
+        QData/*63:0*/ CPUTop__DOT__EX__DOT___T_237;
         QData/*63:0*/ CPUTop__DOT__EX__DOT__csr_data;
         QData/*63:0*/ CPUTop__DOT__EX__DOT___dnpc_T_9;
-        QData/*63:0*/ CPUTop__DOT__EX__DOT___T_242;
+        QData/*63:0*/ CPUTop__DOT__EX__DOT___T_280;
         QData/*63:0*/ CPUTop__DOT__mmio__DOT__mtime;
         QData/*63:0*/ CPUTop__DOT__mmio__DOT__mtimecmp;
         QData/*63:0*/ CPUTop__DOT__mmio__DOT___mtime_T_1;
