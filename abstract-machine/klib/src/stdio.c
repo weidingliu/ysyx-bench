@@ -97,9 +97,6 @@ int printf(const char *fmt, ...) {
                   char strnum[32];
                   int j=31;
                   uint32_t tempd = va_arg(ap,uint32_t);
-                  
-                  
-                 
                       
                       do{
                           if((tempd%16)<10) strnum[j--] =((tempd%16) + '0');

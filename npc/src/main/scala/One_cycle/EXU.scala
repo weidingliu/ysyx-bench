@@ -429,8 +429,8 @@ class EXU extends Module with paramete {
   }
   io1.result:= result_tem
 
-  io1.is_jump := Mux(io.futype===FUType.jump || time_int===1.U,1.U,0.U)
-//  io1.is_jump := Mux(io.futype===FUType.branch,1.U,0.U)
+  //io1.is_jump := Mux(io.futype===FUType.jump || time_int===1.U,1.U,0.U)
+  io1.is_jump := Mux(io.futype===FUType.jump,1.U,0.U)
   val branch_result=WireDefault(0.U(xlen.W))
   val branch_flag=WireDefault(0.U(1.W))
     switch(io.aluoptype){
@@ -459,7 +459,6 @@ class EXU extends Module with paramete {
         branch_flag := Mux(src1 >= src2, 1.U, 0.U)
       }
 
-
       is(ALUOPType.ecall){
         branch_flag := 1.U
       }
@@ -472,9 +471,11 @@ class EXU extends Module with paramete {
   switch(io.aluoptype) {
     is(ALUOPType.ecall) {
       csr_data := csr.read(CSR_index.mtvec)
+      csr.write(CSR_index.mstatus,csr.read(CSR_index.mstatus) & "hfffffffffffffff7".U(xlen.W))
     }
     is(ALUOPType.mret) {
       csr_data := csr.read(CSR_index.mepc)
+      csr.write(CSR_index.mstatus,csr.read(CSR_index.mstatus) | "h0000000000000008".U(xlen.W))
     }
   }
 
@@ -522,8 +523,8 @@ class EXU extends Module with paramete {
   }
 
 
-  io1.dnpc := Mux(time_int===1.U,csr.read(CSR_index.mtvec),dnpc)
-  io1.is_branch := branch_flag
+  io1.dnpc := Mux(time_int === 1.U,csr.read(CSR_index.mtvec),dnpc)
+  io1.is_branch := Mux(time_int===1.U,1.U,branch_flag)
 
   io1.wmask := wmask_temp
   io1.wdata := wdata_temp
@@ -534,13 +535,12 @@ class EXU extends Module with paramete {
   CSRDIFF.io.mepc := (csr.mepc)
   CSRDIFF.io.mstatus := (csr.mstatus)
 
-
-
   io1.time_int := time_int
   when(time_int===1.U) {
     csr.write(CSR_index.mip, csr.read(CSR_index.mip) | 0x0000000000000080.U)
     csr.write(CSR_index.mcause, 7.U(xlen.W))
     csr.write(CSR_index.mepc, io1.PC.asUInt)
+    csr.write(CSR_index.mstatus,csr.read(CSR_index.mstatus) & "hfffffffffffffff7".U(xlen.W))
   }
 //
 //  DIP.io.mtvec := csr.mtvec

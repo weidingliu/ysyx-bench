@@ -781,12 +781,15 @@ module EXU(
   wire [63:0] _GEN_198 = 7'h69 == io_aluoptype ? mie : _GEN_191; // @[CSR.scala 23:19 EXU.scala 295:23]
   wire [63:0] _GEN_199 = 7'h69 == io_aluoptype ? mip : _GEN_192; // @[CSR.scala 24:20 EXU.scala 295:23]
   wire [63:0] _GEN_200 = 7'h44 == io_aluoptype ? _alu_result_T_8 : _GEN_193; // @[EXU.scala 295:23 303:18]
+  wire [63:0] _GEN_201 = 7'h44 == io_aluoptype ? mstatus : _GEN_194; // @[EXU.scala 295:23 CSR.scala 21:24]
   wire [63:0] _GEN_203 = 7'h44 == io_aluoptype ? mepc : _GEN_196; // @[CSR.scala 19:17 EXU.scala 295:23]
   wire [63:0] _GEN_204 = 7'h44 == io_aluoptype ? mcause : _GEN_197; // @[CSR.scala 20:23 EXU.scala 295:23]
   wire [63:0] _GEN_206 = 7'h44 == io_aluoptype ? mip : _GEN_199; // @[CSR.scala 24:20 EXU.scala 295:23]
   wire [63:0] _GEN_207 = 7'h68 == io_aluoptype ? _alu_result_T_7 : _GEN_200; // @[EXU.scala 295:23 300:18]
+  wire [63:0] _GEN_208 = 7'h68 == io_aluoptype ? mstatus : _GEN_201; // @[EXU.scala 295:23 CSR.scala 21:24]
   wire [63:0] _GEN_211 = 7'h68 == io_aluoptype ? mcause : _GEN_204; // @[CSR.scala 20:23 EXU.scala 295:23]
   wire [63:0] alu_result = 7'h40 == io_aluoptype ? _addr_temp_T_1 : _GEN_207; // @[EXU.scala 295:23 297:17]
+  wire [63:0] _GEN_215 = 7'h40 == io_aluoptype ? mstatus : _GEN_208; // @[EXU.scala 295:23 CSR.scala 21:24]
   wire [63:0] _shift_result_T_3 = $signed(_alu_result_T_58) >>> src2[4:0]; // @[EXU.scala 362:50]
   wire [94:0] _GEN_0 = {{31'd0}, src1}; // @[EXU.scala 366:38]
   wire [94:0] _shift_result_T_5 = _GEN_0 << src2[4:0]; // @[EXU.scala 366:38]
@@ -826,7 +829,6 @@ module EXU(
   wire [63:0] _compar_result_T_5 = $signed(_alu_result_T_58) < $signed(_alu_result_T_59) ? 64'h1 : 64'h0; // @[EXU.scala 402:27]
   wire [63:0] _GEN_231 = 7'h2 == io_aluoptype ? _compar_result_T_5 : 64'h0; // @[EXU.scala 397:23 402:21]
   wire [63:0] compar_result = 7'h6a == io_aluoptype ? _compar_result_T_1 : _GEN_231; // @[EXU.scala 397:23 399:21]
-  wire  _jump_result_T = io_futype == 3'h3; // @[EXU.scala 407:31]
   wire [63:0] _jump_result_T_2 = io1_PC + 64'h4; // @[EXU.scala 407:52]
   wire [63:0] jump_result = io_futype == 3'h3 ? _jump_result_T_2 : 64'h0; // @[EXU.scala 407:21]
   wire [63:0] _GEN_233 = 3'h5 == io_futype ? compar_result : 64'h0; // @[EXU.scala 410:20 427:17]
@@ -844,7 +846,7 @@ module EXU(
   wire  _T_201 = 7'hc == io_aluoptype; // @[EXU.scala 436:25]
   wire  _T_202 = 7'h17 == io_aluoptype; // @[EXU.scala 436:25]
   wire  _T_203 = 7'h18 == io_aluoptype; // @[EXU.scala 436:25]
-  wire  _GEN_240 = 7'h17 == io_aluoptype | 7'h18 == io_aluoptype; // @[EXU.scala 436:25 464:21]
+  wire  _GEN_240 = 7'h17 == io_aluoptype | 7'h18 == io_aluoptype; // @[EXU.scala 436:25 463:21]
   wire [63:0] _GEN_241 = 7'hc == io_aluoptype ? _branch_result_T_1 : 64'h0; // @[EXU.scala 436:25 458:23]
   wire  _GEN_242 = 7'hc == io_aluoptype ? src1 >= src2 : _GEN_240; // @[EXU.scala 436:25 459:21]
   wire [63:0] _GEN_243 = 7'hb == io_aluoptype ? _branch_result_T_1 : _GEN_241; // @[EXU.scala 436:25 454:23]
@@ -857,21 +859,23 @@ module EXU(
   wire  _GEN_250 = 7'h6c == io_aluoptype ? src1 != src2 : _GEN_248; // @[EXU.scala 436:25 443:21]
   wire [63:0] branch_result = 7'h6b == io_aluoptype ? _branch_result_T_1 : _GEN_249; // @[EXU.scala 436:25 438:23]
   wire  branch_flag = 7'h6b == io_aluoptype ? src1 == src2 : _GEN_250; // @[EXU.scala 436:25 439:21]
-  wire [63:0] _GEN_253 = _T_203 ? mepc : 64'h0; // @[EXU.scala 472:24 477:16]
-  wire [63:0] csr_data = _T_202 ? mtvec : _GEN_253; // @[EXU.scala 472:24 474:16]
+  wire [63:0] _T_217 = mstatus & 64'hfffffffffffffff7; // @[EXU.scala 474:63]
+  wire [63:0] _T_237 = mstatus | 64'h8; // @[EXU.scala 478:63]
+  wire [63:0] _GEN_295 = _T_203 ? mepc : 64'h0; // @[EXU.scala 471:24 477:16]
+  wire [63:0] csr_data = _T_202 ? mtvec : _GEN_295; // @[EXU.scala 471:24 473:16]
   wire [63:0] _dnpc_T_5 = {_addr_temp_T_1[63:1],1'h0}; // @[Cat.scala 31:58]
-  wire [63:0] _dnpc_T_9 = branch_flag ? branch_result : _jump_result_T_2; // @[EXU.scala 490:18]
-  wire [63:0] _GEN_255 = _T_203 ? csr_data : 64'h0; // @[EXU.scala 482:23 513:12]
-  wire [63:0] _GEN_256 = _T_202 ? csr_data : _GEN_255; // @[EXU.scala 482:23 510:12]
-  wire [63:0] _GEN_257 = _T_200 ? _dnpc_T_9 : _GEN_256; // @[EXU.scala 482:23 506:12]
-  wire [63:0] _GEN_258 = _T_199 ? _dnpc_T_9 : _GEN_257; // @[EXU.scala 482:23 503:12]
-  wire [63:0] _GEN_259 = _T_201 ? _dnpc_T_9 : _GEN_258; // @[EXU.scala 482:23 500:12]
-  wire [63:0] _GEN_260 = _T_198 ? _dnpc_T_9 : _GEN_259; // @[EXU.scala 482:23 497:12]
-  wire [63:0] _GEN_261 = _T_197 ? _dnpc_T_9 : _GEN_260; // @[EXU.scala 482:23 494:12]
-  wire [63:0] _GEN_262 = _T_196 ? _dnpc_T_9 : _GEN_261; // @[EXU.scala 482:23 490:12]
-  wire [63:0] _GEN_263 = 7'h48 == io_aluoptype ? _dnpc_T_5 : _GEN_262; // @[EXU.scala 482:23 487:12]
-  wire [63:0] dnpc = 7'h19 == io_aluoptype ? _addr_temp_T_1 : _GEN_263; // @[EXU.scala 482:23 484:12]
-  wire [63:0] _T_242 = mip | 64'h80; // @[EXU.scala 541:54]
+  wire [63:0] _dnpc_T_9 = branch_flag ? branch_result : _jump_result_T_2; // @[EXU.scala 491:18]
+  wire [63:0] _GEN_309 = _T_203 ? csr_data : 64'h0; // @[EXU.scala 483:23 514:12]
+  wire [63:0] _GEN_310 = _T_202 ? csr_data : _GEN_309; // @[EXU.scala 483:23 511:12]
+  wire [63:0] _GEN_311 = _T_200 ? _dnpc_T_9 : _GEN_310; // @[EXU.scala 483:23 507:12]
+  wire [63:0] _GEN_312 = _T_199 ? _dnpc_T_9 : _GEN_311; // @[EXU.scala 483:23 504:12]
+  wire [63:0] _GEN_313 = _T_201 ? _dnpc_T_9 : _GEN_312; // @[EXU.scala 483:23 501:12]
+  wire [63:0] _GEN_314 = _T_198 ? _dnpc_T_9 : _GEN_313; // @[EXU.scala 483:23 498:12]
+  wire [63:0] _GEN_315 = _T_197 ? _dnpc_T_9 : _GEN_314; // @[EXU.scala 483:23 495:12]
+  wire [63:0] _GEN_316 = _T_196 ? _dnpc_T_9 : _GEN_315; // @[EXU.scala 483:23 491:12]
+  wire [63:0] _GEN_317 = 7'h48 == io_aluoptype ? _dnpc_T_5 : _GEN_316; // @[EXU.scala 483:23 488:12]
+  wire [63:0] dnpc = 7'h19 == io_aluoptype ? _addr_temp_T_1 : _GEN_317; // @[EXU.scala 483:23 485:12]
+  wire [63:0] _T_280 = mip | 64'h80; // @[EXU.scala 540:54]
   CSR_DIFF CSRDIFF ( // @[EXU.scala 117:21]
     .mepc(CSRDIFF_mepc),
     .mcause(CSRDIFF_mcause),
@@ -880,21 +884,21 @@ module EXU(
   );
   assign io1_result = 3'h0 == io_futype ? alu_result : _GEN_237; // @[EXU.scala 410:20 412:18]
   assign io1_is_break = io_aluoptype == 7'h42; // @[EXU.scala 294:36]
-  assign io1_is_jump = _jump_result_T | time_int; // @[EXU.scala 432:46]
-  assign io1_is_branch = 7'h6b == io_aluoptype ? src1 == src2 : _GEN_250; // @[EXU.scala 436:25 439:21]
-  assign io1_dnpc = time_int ? mtvec : dnpc; // @[EXU.scala 525:18]
+  assign io1_is_jump = io_futype == 3'h3; // @[EXU.scala 433:31]
+  assign io1_is_branch = time_int | branch_flag; // @[EXU.scala 527:23]
+  assign io1_dnpc = time_int ? mtvec : dnpc; // @[EXU.scala 526:18]
   assign io1_addr = 7'h45 == io_aluoptype ? _addr_temp_T_1 : _GEN_14; // @[EXU.scala 168:23 170:17]
   assign io1_wdata = _T_68 ? src2 : _GEN_29; // @[EXU.scala 203:24 207:18]
   assign io1_wmask = _T_68 ? 8'hff : _GEN_28; // @[EXU.scala 203:24 206:18]
   assign io1_time_int = mstatus[3] & mie[7] & io1_mtime >= io1_mtimecmp; // @[EXU.scala 122:98]
-  assign CSRDIFF_mepc = mepc; // @[EXU.scala 534:19]
-  assign CSRDIFF_mcause = mcause; // @[EXU.scala 533:21]
-  assign CSRDIFF_mstatus = mstatus; // @[EXU.scala 535:22]
-  assign CSRDIFF_mtvec = mtvec; // @[EXU.scala 532:20]
+  assign CSRDIFF_mepc = mepc; // @[EXU.scala 535:19]
+  assign CSRDIFF_mcause = mcause; // @[EXU.scala 534:21]
+  assign CSRDIFF_mstatus = mstatus; // @[EXU.scala 536:22]
+  assign CSRDIFF_mtvec = mtvec; // @[EXU.scala 533:20]
   always @(posedge clock) begin
-    if (time_int) begin // @[EXU.scala 540:24]
+    if (time_int) begin // @[EXU.scala 539:24]
       mepc <= io1_PC;
-    end else if (_T_202) begin // @[EXU.scala 517:23]
+    end else if (_T_202) begin // @[EXU.scala 518:23]
       mepc <= io1_PC;
     end else if (!(7'h40 == io_aluoptype)) begin // @[EXU.scala 295:23]
       if (!(7'h68 == io_aluoptype)) begin // @[EXU.scala 295:23]
@@ -903,21 +907,23 @@ module EXU(
     end
     if (reset) begin // @[CSR.scala 20:23]
       mcause <= 64'h0; // @[CSR.scala 20:23]
-    end else if (time_int) begin // @[EXU.scala 540:24]
+    end else if (time_int) begin // @[EXU.scala 539:24]
       mcause <= 64'h7;
-    end else if (_T_202) begin // @[EXU.scala 517:23]
+    end else if (_T_202) begin // @[EXU.scala 518:23]
       mcause <= 64'hb;
     end else if (!(7'h40 == io_aluoptype)) begin // @[EXU.scala 295:23]
       mcause <= _GEN_211;
     end
     if (reset) begin // @[CSR.scala 21:24]
       mstatus <= 64'h0; // @[CSR.scala 21:24]
-    end else if (!(7'h40 == io_aluoptype)) begin // @[EXU.scala 295:23]
-      if (!(7'h68 == io_aluoptype)) begin // @[EXU.scala 295:23]
-        if (!(7'h44 == io_aluoptype)) begin // @[EXU.scala 295:23]
-          mstatus <= _GEN_194;
-        end
-      end
+    end else if (time_int) begin // @[EXU.scala 539:24]
+      mstatus <= _T_217;
+    end else if (_T_202) begin // @[EXU.scala 471:24]
+      mstatus <= _T_217;
+    end else if (_T_203) begin // @[EXU.scala 471:24]
+      mstatus <= _T_237;
+    end else begin
+      mstatus <= _GEN_215;
     end
     if (reset) begin // @[CSR.scala 22:22]
       mtvec <= 64'h0; // @[CSR.scala 22:22]
@@ -939,8 +945,8 @@ module EXU(
     end
     if (reset) begin // @[CSR.scala 24:20]
       mip <= 64'h0; // @[CSR.scala 24:20]
-    end else if (time_int) begin // @[EXU.scala 540:24]
-      mip <= _T_242;
+    end else if (time_int) begin // @[EXU.scala 539:24]
+      mip <= _T_280;
     end else if (!(7'h40 == io_aluoptype)) begin // @[EXU.scala 295:23]
       if (!(7'h68 == io_aluoptype)) begin // @[EXU.scala 295:23]
         mip <= _GEN_206;
@@ -1035,7 +1041,7 @@ module MMIO(
   wire  _io_ce_m_T_4 = _flag_T_3 ? 1'h0 : io_ce; // @[MMIO.scala 60:55]
   wire [63:0] _io_rdata_T_3 = _flag_T_3 ? mtime : 64'h0; // @[Mux.scala 101:16]
   wire [63:0] _io_rdata_T_4 = _flag_T_1 ? mtimecmp : _io_rdata_T_3; // @[Mux.scala 101:16]
-  wire [63:0] _T_11 = mtimecmp + 64'h2710; // @[MMIO.scala 68:68]
+  wire [63:0] _T_11 = mtimecmp + 64'h20000; // @[MMIO.scala 68:68]
   assign io_rdata = flag ? _io_rdata_T_4 : io_rdata_m; // @[MMIO.scala 62:20]
   assign io_addr_m = io_addr; // @[MMIO.scala 58:15]
   assign io_we_m = io_we; // @[MMIO.scala 59:13]

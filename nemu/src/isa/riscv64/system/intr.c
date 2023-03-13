@@ -25,6 +25,7 @@ word_t isa_raise_intr(word_t NO, vaddr_t epc) {
        case(0):{//ecall
            cpu.mepc=epc;//mepc
            cpu.mcause=11;//mcause
+           cpu.mstatus=cpu.mstatus & 0xfffffffffffffff7;
            break;
        }
        default: assert(0);
@@ -32,7 +33,9 @@ word_t isa_raise_intr(word_t NO, vaddr_t epc) {
    
    //printf("--------%lx\n",cpu.csr[0x42]);
   //isa_reg_display();
+  #ifdef CONFIG_MTRACE
   printf("--->ecall pc: %016lx  mcause: %016lx\n",epc,cpu.mcause);
+  #endif
   return cpu.mtvec;
 }
 

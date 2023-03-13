@@ -159,7 +159,9 @@ config ITRACE_COND
 config MTRACE
   bool "Enable memory tracer"
   default n
-
+config ETRACE
+  bool "Enable exception tracer"
+  default n
 config DIFFTEST
   depends on TARGET_NATIVE_ELF
   bool "Enable differential testing"
