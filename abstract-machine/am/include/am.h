@@ -12,6 +12,15 @@
 #define MMAP_READ  0x00000001 // can read
 #define MMAP_WRITE 0x00000002 // can write
 
+#if defined(__ISA_AM_NATIVE__)
+# define EXPECT_TYPE EM_X86_64
+#elif defined(__ISA_RISCV32__) || defined(__ISA_RISCV64__)
+# define EXPECT_TYPE EM_ARM
+#else
+# error Unsupported ISA
+#endif
+
+
 // Memory area for [@start, @end)
 typedef struct {
   void *start, *end;
