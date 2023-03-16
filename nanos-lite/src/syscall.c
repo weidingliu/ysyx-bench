@@ -11,6 +11,7 @@ void do_syscall(Context *c) {
   printf("%d\n",a[0]);
   switch (a[0]) {
     case(SYS_yield): {sys_yield();break;}
+    case(-1): break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 }
