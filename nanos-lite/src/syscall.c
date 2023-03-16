@@ -5,21 +5,23 @@ int sys_yield(){
     return 0;
 }
 
-void sys_exit(){
+int sys_exit(void *state){
     halt(1);
-    return;
+    return 0;
 }
 
 void do_syscall(Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
   //printf("%d\n",a[0]);
+  int ret;
   switch (a[0]) {
-    case(SYS_yield): {sys_yield();break;}
+    case(SYS_yield): {ret=sys_yield();break;}
     case(-1): break;
-    case(SYS_exit): sys_exit();break;
+    case(SYS_exit): ret=sys_exit(NULL);break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
+  c->GPRx=ret;
 }
 
 
