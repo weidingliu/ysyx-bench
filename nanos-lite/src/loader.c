@@ -10,6 +10,18 @@
 # define Elf_Phdr Elf32_Phdr
 #endif
 
+#if defined(__ISA_AM_NATIVE__)
+# define EXPECT_TYPE EM_X86_64
+#elif defined(__ISA_RISCV32__) || defined(__ISA_RISCV64__)
+# define EXPECT_TYPE EM_ARM
+#elif defined(__ISA_X86_64__)
+# define EXPECT_TYPE EM_X86_64
+#elif defined(__ISA_X86__)
+# define EXPECT_TYPE EM_X86_64
+#else
+# error Unsupported ISA
+#endif
+
 static uintptr_t loader(PCB *pcb, const char *filename) {
   Elf_Ehdr elf_head;
   size_t o __attribute__((unused));
@@ -17,10 +29,9 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   assert(o);
   //printf("%x\n",*(uint32_t *)elf_head.e_ident);
   assert(*(uint32_t *)elf_head.e_ident == 0x464c457f);
-  printf("%s\n",elf_head.e_machine);
-  //assert(elf_head.e_machine == EXPECT_TYPE);
+  //printf("%d\n",elf_head.e_machine);
+  assert(elf_head.e_machine == EXPECT_TYPE);
   Elf_Phdr *phdr = (Elf_Phdr*)malloc(sizeof(Elf_Phdr) * elf_head.e_phnum);
-  
   o=ramdisk_read(phdr,elf_head.e_phoff,sizeof(Elf_Phdr) * elf_head.e_phnum);
   assert(o);
   for(int i=0;i<elf_head.e_phnum;i++){
@@ -36,7 +47,6 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
           memset((void *)(phdr[i].p_vaddr+phdr[i].p_filesz),0,phdr[i].p_memsz-phdr[i].p_filesz);
       }
   }
- 
   return elf_head.e_entry;
 }
 
