@@ -6,7 +6,7 @@ int sys_yield(){
 }
 
 int sys_exit(void *state){
-    halt(1);
+    halt(0);
     return 0;
 }
 
