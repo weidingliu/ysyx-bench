@@ -17,6 +17,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   assert(o);
   //printf("%x\n",*(uint32_t *)elf_head.e_ident);
   assert(*(uint32_t *)elf_head.e_ident == 0x464c457f);
+  printf("%d  %d\n",elf_head.e_machine,EXPECT_TYPE);
   assert(elf_head.e_machine == EXPECT_TYPE);
   Elf_Phdr *phdr = (Elf_Phdr*)malloc(sizeof(Elf_Phdr) * elf_head.e_phnum);
   
