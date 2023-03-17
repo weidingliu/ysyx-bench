@@ -12,7 +12,7 @@ int sys_exit(void *state){
 
 size_t sys_write(int fd,const void *buf,size_t count){
     size_t o=0;
-    printf("%x\n",(int *)buf);
+    //printf("%x\n",(int *)buf);
     if(fd!=1 && fd!=2) {panic("Unhandled FD =%d",fd); return -1;}//1 stdout 2 stderr
     for(int i=0;i<count;i++){
         putch(*(uint8_t *)buf);
@@ -27,7 +27,7 @@ void do_syscall(Context *c) {
   a[0] = c->GPR1;
   a[1] = c->GPR2;
   a[2] = c->GPR3;
-  printf("%x  %d\n",a[1],a[2]);
+  //printf("%x  %d\n",a[1],a[2]);
   int ret=-1;
   switch (a[0]) {
     case(SYS_yield): {ret=sys_yield();break;}
