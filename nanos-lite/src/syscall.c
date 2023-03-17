@@ -27,7 +27,7 @@ void do_syscall(Context *c) {
   a[0] = c->GPR1;
   a[1] = c->GPR2;
   a[2] = c->GPR3;
-  //printf("%d\n",a[0]);
+  printf("%x  %d\n",a[1],a[2]);
   int ret=-1;
   switch (a[0]) {
     case(SYS_yield): {ret=sys_yield();break;}
