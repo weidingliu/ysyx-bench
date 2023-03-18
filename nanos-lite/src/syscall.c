@@ -28,7 +28,7 @@ size_t sys_write(int fd,const void *buf,size_t count){
 size_t sys_sbrk(void *addr){
     
     
-    return -1;//error return -1
+    return 0;//error return -1
 }
 
 void do_syscall(Context *c) {
