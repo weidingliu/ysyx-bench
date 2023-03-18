@@ -154,7 +154,7 @@ void init_ftrace(){
     read_elf(elf_path);
     #ifdef CONFIG_MULTIPLE_FTRACE
     char elf_app[360]="/home/liuweiding/ysyx-workbench/nanos-lite/build/ramdisk.img";
-    printf("apps path is %s\n",elf_apps);
+    printf("apps path is %s\n",elf_app);
     read_elf(elf_app);
     #endif
     /*for(int i=0;i<ftrace_point;i++){
