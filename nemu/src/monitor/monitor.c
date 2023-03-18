@@ -53,19 +53,8 @@ static int difftest_port = 1234;
 size_t ftrace_point=0;
 ftrace funcINFO[FUN_BUFF_SIZE];
 
-void init_ftrace(){
-    if(img_file == NULL){
-        printf("ftrace close!\n");
-        return;
-    } 
-    
-    char elf_path[360];
+void read_elf(char * elf_path){
     size_t o __attribute__((unused));
-    strcpy(elf_path,img_file);
-    elf_path[strlen(img_file)-1]='f';
-    elf_path[strlen(img_file)-2]='l';
-    elf_path[strlen(img_file)-3]='e';
-    
     FILE *fp = fopen(elf_path, "rb");
     Assert(fp, "Can not open '%s'", elf_path);
     
@@ -144,14 +133,31 @@ void init_ftrace(){
         else continue;
         
     }
+    fclose(fp);
+    free(elf_section_head);
+}
+
+void init_ftrace(){
+    if(img_file == NULL){
+        printf("ftrace close!\n");
+        return;
+    } 
     
+    char elf_path[360];
+    
+    strcpy(elf_path,img_file);
+    elf_path[strlen(img_file)-1]='f';
+    elf_path[strlen(img_file)-2]='l';
+    elf_path[strlen(img_file)-3]='e';
+    
+    read_elf(elf_path);
+    //read_elf();
     /*for(int i=0;i<ftrace_point;i++){
         printf("%s    %x   %ld\n",funcINFO[i].fun_name,funcINFO[i].start,funcINFO[i].size);
     }*/
     
     printf("\033[40;34mftrace: \033[0m \033[40;32mON\033[0m\n");
-    fclose(fp);
-    free(elf_section_head);
+    
     return;
 
 }
