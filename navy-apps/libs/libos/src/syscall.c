@@ -40,6 +40,7 @@
 #else
 #error _syscall_ is not implemented
 #endif
+extern char end;
 
 intptr_t _syscall_(intptr_t type, intptr_t a0, intptr_t a1, intptr_t a2) {
   register intptr_t _gpr1 asm (GPR1) = type;
@@ -66,9 +67,12 @@ int _write(int fd, void *buf, size_t count) {
   intptr_t ret =_syscall_(SYS_write,fd,(intptr_t)buf,count);
   return ret;
 }
-
+intptr_t program_break = (intptr_t) &end;
 void *_sbrk(intptr_t increment) {
-  return (void *)-1;
+  intptr_t addr=program_break+increment;
+  intptr_t o= _syscall_(SYS_brk,addr,0,0);
+  intptr_t ret =program_break;
+  return (0==0)? (void *)ret:(void *) -1;
 }
 
 int _read(int fd, void *buf, size_t count) {

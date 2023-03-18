@@ -1,5 +1,7 @@
 #include <common.h>
 #include "syscall.h"
+
+
 int sys_yield(){
     yield();
     return 0;
@@ -23,6 +25,12 @@ size_t sys_write(int fd,const void *buf,size_t count){
     return o;
 }
 
+size_t sys_sbrk(void *addr){
+    
+    
+    return 0;//error return -1
+}
+
 void do_syscall(Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
@@ -36,6 +44,7 @@ void do_syscall(Context *c) {
     case(-1): break;//??
     case(SYS_exit): ret=sys_exit(NULL);break;
     case(SYS_write): ret=sys_write(a[1],(void *)a[2],a[3]);break;
+    case(SYS_brk): ret=sys_sbrk((void *)a[1]); break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
   //printf("%d\n",ret);
