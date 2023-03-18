@@ -58,7 +58,7 @@ static void func_trace(paddr_t pc,Decode *s){//head insert
     uint32_t t __attribute__((unused)) =s->isa.inst.val;
     //printf("%d   %08x  %08x\n",(t & 0b1101111),pc,t);
     
-    if((t & 0b1101111) !=0b1101111 && (t & 0b111000001100111)!=0b1100111) return;
+    if((t & 0b1101111) !=0b01101111 && (t & 0b0111000001100111)!=0b1100111) return;
     for(int i=0;i<ftrace_point;i++){
         
         //printf("%s\n",funcINFO[i].fun_name);
