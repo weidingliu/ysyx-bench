@@ -1,5 +1,8 @@
 #include <fs.h>
 
+extern uint8_t ramdisk_start;
+extern uint8_t ramdisk_end;
+
 typedef size_t (*ReadFn) (void *buf, size_t offset, size_t len);
 typedef size_t (*WriteFn) (const void *buf, size_t offset, size_t len);
 
@@ -34,3 +37,33 @@ static Finfo file_table[] __attribute__((used)) = {
 void init_fs() {
   // TODO: initialize the size of /dev/fb
 }
+
+int fs_close(int fd){
+    return 0;
+}
+int fs_open(const char *pathname, int flags, int mode){
+    int num=sizeof(file_table)/sizeof(file_table[0]);
+    for(int i=0;i<num;i++){
+        if(!strcmp(file_table[i].name,pathname)){
+            return i;
+        }
+    }
+    
+    panic("open file fail!");
+    
+}
+
+size_t fs_read(int fd, void *buf, size_t len){
+    if() panic("should not reach here");
+    return ramdisk_read(buf,file_table[fd].disk_offset,len);
+}
+size_t fs_write(int fd, const void *buf, size_t len){
+    return ramdisk_write(buf,file_table[fd].disk_offset,len);
+}
+size_t fs_lseek(int fd, size_t offset, int whence){
+    panic("should not reach here");
+}
+
+
+
+

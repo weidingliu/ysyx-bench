@@ -24,6 +24,7 @@
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
   Elf_Ehdr elf_head;
+  size_t fd=fr_open(filename,NULL,NULL);
   size_t o __attribute__((unused));
   o=ramdisk_read(&elf_head,0,sizeof(Elf_Ehdr));
   assert(o);

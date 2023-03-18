@@ -58,7 +58,7 @@ static void func_trace(paddr_t pc,Decode *s){//head insert
     uint32_t t __attribute__((unused)) =s->isa.inst.val;
     //printf("%d   %08x  %08x\n",(t & 0b1101111),pc,t);
     
-    if((t & 0b1101111) !=0b1101111 && (t & 0b111000001100111)!=0b1100111) return;
+    if((t & 0b01101111) !=0b01101111 && (t & 0b0111000001100111)!=0b01100111) return;
     for(int i=0;i<ftrace_point;i++){
         
         //printf("%s\n",funcINFO[i].fun_name);
@@ -236,7 +236,7 @@ void cpu_exec(uint64_t n) {
 
   uint64_t timer_end = get_time();
   g_timer += timer_end - timer_start;
-
+  //if(n>20000) display_ftrace();
   switch (nemu_state.state) {
     case NEMU_RUNNING: nemu_state.state = NEMU_STOP; break;
     
@@ -260,6 +260,6 @@ void cpu_exec(uint64_t n) {
           
       // fall through
       
-    case NEMU_QUIT: statistic();
+    case NEMU_QUIT: {statistic();}
   }
 }
