@@ -15,7 +15,7 @@ int sys_exit(void *state){
 size_t sys_write(int fd,const void *buf,size_t count){
     size_t o=0;
     //printf("%x\n",(int *)buf);
-    //printf("%d\n",count);
+    printf("%d\n",count);
     if(fd!=1 && fd!=2) {panic("Unhandled FD =%d",fd); return -1;}//1 stdout 2 stderr
     for(int i=0;i<count;i++){
         putch(*(uint8_t *)buf);
@@ -44,7 +44,7 @@ void do_syscall(Context *c) {
     case(-1): break;//??
     case(SYS_exit): ret=sys_exit(NULL);break;
     case(SYS_write): ret=sys_write(a[1],(void *)a[2],a[3]);break;
-    case(SYS_brk): ret=sys_sbrk((void *)a[1]); break;
+    case(SYS_brk): printf("sdff\n");ret=sys_sbrk((void *)a[1]); break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
   //printf("%d\n",ret);
