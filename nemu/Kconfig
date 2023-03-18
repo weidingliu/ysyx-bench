@@ -130,8 +130,12 @@ menu "Testing and Debugging"
 config TRACE
   bool "Enable tracer"
   default y
-
-
+  
+config MULTIPLE_FTRACE
+    depends on TRACE
+    bool "Enable multiple ftrace"
+    default n
+    
 config TRACE_START
   depends on TRACE
   int "When tracing is enabled (unit: number of instructions)"

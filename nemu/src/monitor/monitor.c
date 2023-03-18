@@ -150,9 +150,13 @@ void init_ftrace(){
     elf_path[strlen(img_file)-2]='l';
     elf_path[strlen(img_file)-3]='e';
     
-    char elf_app[360]="/home/liuweiding/ysyx-workbench/nanos-lite/build/ramdisk.img";
+    
     read_elf(elf_path);
+    #ifdef CONFIG_MULTIPLE_FTRACE
+    char elf_app[360]="/home/liuweiding/ysyx-workbench/nanos-lite/build/ramdisk.img";
+    printf("apps path is %s\n",elf_apps);
     read_elf(elf_app);
+    #endif
     /*for(int i=0;i<ftrace_point;i++){
         printf("%s    %x   %ld\n",funcINFO[i].fun_name,funcINFO[i].start,funcINFO[i].size);
     }*/
