@@ -152,7 +152,7 @@ void init_ftrace(){
     
     char elf_app[360]="/home/liuweiding/ysyx-workbench/nanos-lite/build/ramdisk.img";
     read_elf(elf_path);
-    //read_elf();
+    read_elf(elf_app);
     /*for(int i=0;i<ftrace_point;i++){
         printf("%s    %x   %ld\n",funcINFO[i].fun_name,funcINFO[i].start,funcINFO[i].size);
     }*/
