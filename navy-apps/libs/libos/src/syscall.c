@@ -71,6 +71,7 @@ void *_sbrk(intptr_t increment) {
   intptr_t addr=program_break+increment;
   intptr_t o= _syscall_(SYS_brk,addr,0,0);
   intptr_t ret =program_break;
+  program_break+=increment;
   return (o==0)? (void *)ret:(void *) -1;
 }
 
