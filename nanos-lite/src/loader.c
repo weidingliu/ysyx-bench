@@ -32,7 +32,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
 
   o=fs_read(fd,&elf_head,sizeof(Elf_Ehdr));//read elf head
   assert(o);
-  printf("%x  %d\n",*(uint32_t *)elf_head.e_ident,sizeof(Elf_Ehdr));
+  printf("%x  %d\n",*(uint32_t *)elf_head.e_ident,elf_head.e_machine);
   assert(*(uint32_t *)elf_head.e_ident == 0x464c457f);
   //printf("%d\n",elf_head.e_machine);
   
