@@ -42,6 +42,7 @@ size_t sys_lseek(int fd, size_t offset, int whence){
     return fs_lseek(fd, offset, whence);
 }
 size_t sys_read(int fd, void *buf, size_t len){
+    printf("%d  %d\n",fd,len);
     if(fd ==1 || fd ==2) panic("should not here!");
     return fs_read(fd,buf,len);
 }
