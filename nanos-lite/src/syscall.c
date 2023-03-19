@@ -38,8 +38,16 @@ int sys_open(const char *pathname, int flags, int mode){
 }
 
 size_t sys_lseek(int fd, size_t offset, int whence){
-    printf("%d  %d  %d\n",fd,offset,whence);
+    //printf("%d  %d  %d\n",fd,offset,whence);
     return fs_lseek(fd, offset, whence);
+}
+size_t sys_read(int fd, void *buf, size_t len){
+    if(fd ==1 || fd ==2) panic("should not here!");
+    return fs_read(fd,buf,len);
+}
+
+int sys_close(int fd){
+    return fs_close(fd);
 }
 
 void do_syscall(Context *c) {
@@ -58,6 +66,8 @@ void do_syscall(Context *c) {
     case(SYS_brk): ret=sys_sbrk((void *)a[1]); break;
     case(SYS_open): ret=sys_open((const char *)a[1],(int) a[2],(int) a[3]);break;
     case(SYS_lseek): ret=sys_lseek(a[1],a[2],a[3]); break;
+    case(SYS_read): ret=sys_read(a[1],(void *)a[2],a[3]);break;
+    case(SYS_close): ret=sys_close(a[1]);break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
   //printf("%d\n",ret);
