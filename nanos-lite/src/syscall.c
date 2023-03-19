@@ -37,6 +37,10 @@ int sys_open(const char *pathname, int flags, int mode){
     return fs_open(pathname,flags,mode);
 }
 
+size_t sys_lseek(int fd, size_t offset, int whence){
+    return fs_lseek(fd, offset, whence);
+}
+
 void do_syscall(Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
@@ -52,6 +56,7 @@ void do_syscall(Context *c) {
     case(SYS_write): ret=sys_write(a[1],(void *)a[2],a[3]);break;
     case(SYS_brk): ret=sys_sbrk((void *)a[1]); break;
     case(SYS_open): ret=sys_open((const char *)a[1],(int) a[2],(int) a[3]);break;
+    case(SYS_lseek): ret=sys_lseek(a[1],a[2],a[3]); break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
   //printf("%d\n",ret);
