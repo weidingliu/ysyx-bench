@@ -34,7 +34,7 @@ size_t sys_sbrk(void *addr){
     return 0;//error return -1
 }
 
-size_t sys_open(const char *pathname, int flags, int mode){
+int sys_open(const char *pathname, int flags, int mode){
     return fs_open(pathname,flags,mode);
 }
 
