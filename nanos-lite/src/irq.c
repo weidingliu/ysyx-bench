@@ -1,5 +1,6 @@
 #include <common.h>
 #include "syscall.h"
+extern void do_syscall(Context *c);
 
 const char *enum_name[]={
       "SYS_exit","SYS_yield","SYS_open","SYS_read","SYS_write","SYS_kill","SYS_getpid","SYS_close",
@@ -23,7 +24,6 @@ static Context* do_event(Event e, Context* c) {
   #ifdef SYSCALL_TRACE
   printf("syscall %s  = %x\n",get_name(c->GPR1),c->GPRx);  //strace
   #endif
-  printf("syscall %s  = %x\n",get_name(c->GPR1),c->GPRx);  //strace
   return c;
 }
 
