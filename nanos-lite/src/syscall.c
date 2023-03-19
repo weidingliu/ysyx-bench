@@ -13,19 +13,8 @@ int sys_exit(void *state){
 }
 
 size_t sys_write(int fd,const void *buf,size_t count){
-    size_t o=0;
-    //printf("%x\n",(int *)buf);
-    if(fd==1 || fd==2) {//1 stdout 2 stderr
-        for(int i=0;i<count;i++){
-            putch(*(uint8_t *)buf);
-            buf++;
-            o++;
-        }
-    }
-    else{
-        o=fs_write(fd,buf,count);
-    }
-    return o;
+    
+    return fs_write(fd,buf,count);;
 }
 
 size_t sys_sbrk(void *addr){
