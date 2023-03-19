@@ -8,7 +8,7 @@
 //#define TIME_SHARING
 
 //#define SYSCALL_TRACE
-#define FTRACE
+//#define FTRACE
 
 #include <am.h>
 #include <klib.h>
