@@ -1,6 +1,6 @@
 #include <common.h>
 #include "syscall.h"
-
+#include <fs.h>
 
 int sys_yield(){
     yield();
@@ -30,6 +30,10 @@ size_t sys_sbrk(void *addr){
     return 0;//error return -1
 }
 
+size_t sys_open(const char *pathname, int flags, int mode){
+    return fs_open(pathname,flags,mode);
+}
+
 void do_syscall(Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
@@ -44,6 +48,7 @@ void do_syscall(Context *c) {
     case(SYS_exit): ret=sys_exit(NULL);break;
     case(SYS_write): ret=sys_write(a[1],(void *)a[2],a[3]);break;
     case(SYS_brk): ret=sys_sbrk((void *)a[1]); break;
+    case(SYS_open): printf("dsfadf\n"); ret=sys_open((const char *)a[1],(int) a[2],(int) a[3]);break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
   //printf("%d\n",ret);

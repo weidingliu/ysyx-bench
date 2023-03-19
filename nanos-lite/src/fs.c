@@ -43,7 +43,7 @@ int fs_close(int fd){
     
     return 0;
 }
-int fs_open(const char *pathname, int flags, int mode){
+size_t fs_open(const char *pathname, int flags, int mode){
     int num=sizeof(file_table)/sizeof(file_table[0]);
     for(int i=0;i<num;i++){
         if(!strcmp(file_table[i].name,pathname)){
