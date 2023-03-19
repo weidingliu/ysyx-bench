@@ -16,14 +16,14 @@ size_t sys_write(int fd,const void *buf,size_t count){
     size_t o=0;
     //printf("%x\n",(int *)buf);
     printf("%d\n",fd);
-    if(fd==1 || fd==2) {//1 stdout 2 stderr
+    if(fd==2 || fd==3) {//1 stdout 2 stderr
         for(int i=0;i<count;i++){
             putch(*(uint8_t *)buf);
             buf++;
             o++;
         }
     }
-    else if(fd!=3){
+    else if(fd!=1){
         fs_write(fd,buf,count);
     }
     return o;
