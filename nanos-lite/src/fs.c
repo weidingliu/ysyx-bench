@@ -40,7 +40,9 @@ void init_fs() {
 }
 
 int fs_close(int fd){
-    
+     #ifdef FTRACE
+          printf("-----------> close file : %s\n",file_table[fd].name);
+     #endif
     return 0;
 }
 int fs_open(const char *pathname, int flags, int mode){
@@ -48,6 +50,9 @@ int fs_open(const char *pathname, int flags, int mode){
     for(int i=0;i<num;i++){
         if(!strcmp(file_table[i].name,pathname)){
             file_table[i].open_offset=0;
+            #ifdef FTRACE
+                printf("-----------> open file : %s\n",file_table[i].name);
+            #endif
             return i;
         }
     }
