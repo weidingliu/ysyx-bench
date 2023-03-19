@@ -33,7 +33,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   //o=ramdisk_read(&elf_head,33072,64);
   o=fs_read(fd,&elf_head,sizeof(Elf_Ehdr));//read elf head
   assert(o);
-  printf("%x  %d\n",*(uint32_t *)elf_head.e_ident,elf_head.e_machine);
+  //printf("%x  %d\n",*(uint32_t *)elf_head.e_ident,elf_head.e_machine);
   assert(*(uint32_t *)elf_head.e_ident == 0x464c457f);
   //printf("%d\n",elf_head.e_machine);
   
@@ -53,7 +53,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
           char buf[phdr[i].p_memsz];
           
           o=fs_lseek(fd,phdr[i].p_offset,SEEK_SET); 
-          assert(o);
+          assert(o!=-1);
           
           o=fs_read(fd,buf,phdr[i].p_memsz);
           assert(o);
