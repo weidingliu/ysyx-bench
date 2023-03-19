@@ -38,6 +38,7 @@ int sys_open(const char *pathname, int flags, int mode){
 }
 
 size_t sys_lseek(int fd, size_t offset, int whence){
+    printf("%d  %d  %d\n",fd,offset,whence);
     return fs_lseek(fd, offset, whence);
 }
 
