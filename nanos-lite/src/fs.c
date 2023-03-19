@@ -90,20 +90,33 @@ size_t fs_lseek(int fd, size_t offset, int whence){
     
     switch(whence){
         case(SEEK_SET):{
+            
+            if(offset>file_table[fd].size || offset<0){
+                
+                return -1;
+            }
             file_table[fd].open_offset=offset;
             break;
         }
         case(SEEK_CUR):{
+            if(file_table[fd].open_offset+offset>file_table[fd].size || file_table[fd].open_offset+offset<0){
+                
+                return -1;
+            }
             file_table[fd].open_offset+=offset;
             break;
         }
         case(SEEK_END):{
+            if(offset+file_table[fd].size>file_table[fd].size || offset+file_table[fd].size<0){
+                
+                return -1;
+            }
             file_table[fd].open_offset=offset+file_table[fd].size;
             break;
         }
         default: panic("should not reach here");
     }
-    printf("%d  %d\n",file_table[fd].open_offset,file_table[fd].size);
+    //printf("%d  %d\n",file_table[fd].open_offset,file_table[fd].size);
     if(file_table[fd].open_offset>file_table[fd].size || file_table[fd].open_offset<0) panic("should not reach here");
     return file_table[fd].open_offset;
 }
