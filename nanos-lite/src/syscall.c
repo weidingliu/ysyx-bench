@@ -23,7 +23,7 @@ size_t sys_write(int fd,const void *buf,size_t count){
         }
     }
     else{
-        fs_write(fd,buf,count);
+        o=fs_write(fd,buf,count);
     }
     return o;
 }
