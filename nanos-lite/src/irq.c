@@ -22,7 +22,7 @@ static Context* do_event(Event e, Context* c) {
   }
   
   #ifdef SYSCALL_TRACE
-  printf("syscall %s (ID %d) = %x\n",get_name(c->GPR1),c->GPR1,c->GPRx);  //strace
+  printf("syscall %s (ID = %d) = %x\n",get_name(c->GPR1),c->GPR1,c->GPRx);  //strace
   #endif
   return c;
 }
