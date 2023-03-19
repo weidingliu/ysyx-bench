@@ -15,13 +15,15 @@ const char *get_name(int value){
 
 static Context* do_event(Event e, Context* c) {
   switch (e.event) {
-    case(EVENT_YIELD): do_syscall(c); break;
-    case(EVENT_SYSCALL): do_syscall(c);  break;
-    default: panic("Unhandled event ID = %d", e.event);break;
+    case(EVENT_YIELD): {do_syscall(c); break;}
+    case(EVENT_SYSCALL): {do_syscall(c);  break;}
+    default: {panic("Unhandled event ID = %d", e.event);break;}
   }
+  
   #ifdef SYSCALL_TRACE
   printf("syscall %s  = %x\n",get_name(c->GPR1),c->GPRx);  //strace
   #endif
+  
   return c;
 }
 
