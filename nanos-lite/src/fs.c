@@ -1,7 +1,6 @@
 #include <fs.h>
 
-extern uint8_t ramdisk_start;
-extern uint8_t ramdisk_end;
+
 
 typedef size_t (*ReadFn) (void *buf, size_t offset, size_t len);
 typedef size_t (*WriteFn) (const void *buf, size_t offset, size_t len);
@@ -58,14 +57,14 @@ int fs_open(const char *pathname, int flags, int mode){
 }
 
 size_t fs_read(int fd, void *buf, size_t len){
-    printf("%d  %x  %x\n",file_table[fd].disk_offset+file_table[fd].open_offset+len,(size_t)&ramdisk_end,(size_t)&ramdisk_start);
-    if(file_table[fd].disk_offset+file_table[fd].open_offset+len>(size_t)&ramdisk_end || file_table[fd].disk_offset+file_table[fd].open_offset+len<(size_t)&ramdisk_start) panic("should not reach here");
+    printf("%d  %d\n",file_table[fd].disk_offset+file_table[fd].open_offset+len,get_ramdisk_size());
+    if(file_table[fd].disk_offset+file_table[fd].open_offset+len>get_ramdisk_size() || file_table[fd].disk_offset+file_table[fd].open_offset+len<0) panic("should not reach here");
     if(file_table[fd].open_offset+len>file_table[fd].disk_offset+file_table[fd].size) panic("should not reach here");
     file_table[fd].open_offset+=len;
     return ramdisk_read(buf,file_table[fd].disk_offset+file_table[fd].open_offset,len);
 }
 size_t fs_write(int fd, const void *buf, size_t len){
-    if(file_table[fd].disk_offset+file_table[fd].open_offset+len>(size_t)&ramdisk_end || file_table[fd].disk_offset+file_table[fd].open_offset+len<(size_t)&ramdisk_start) panic("should not reach here");
+    if(file_table[fd].disk_offset+file_table[fd].open_offset+len>get_ramdisk_size() || file_table[fd].disk_offset+file_table[fd].open_offset+len<0) panic("should not reach here");
     if(file_table[fd].open_offset+len>file_table[fd].disk_offset+file_table[fd].size) panic("should not reach here");
     file_table[fd].open_offset+=len;
     return ramdisk_write(buf,file_table[fd].disk_offset+file_table[fd].open_offset,len);
