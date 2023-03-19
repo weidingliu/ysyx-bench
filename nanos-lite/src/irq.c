@@ -1,5 +1,6 @@
 #include <common.h>
 #include "syscall.h"
+extern void do_syscall(Context *c);
 
 const char *enum_name[]={
       "SYS_exit","SYS_yield","SYS_open","SYS_read","SYS_write","SYS_kill","SYS_getpid","SYS_close",
@@ -15,12 +16,13 @@ const char *get_name(int value){
 
 static Context* do_event(Event e, Context* c) {
   switch (e.event) {
-    case(EVENT_YIELD): do_syscall(c); break;
-    case(EVENT_SYSCALL): do_syscall(c);  break;
-    default: panic("Unhandled event ID = %d", e.event);break;
+    case(EVENT_YIELD): {do_syscall(c); break;}
+    case(EVENT_SYSCALL): {do_syscall(c);  break;}
+    default: {panic("Unhandled event ID = %d", e.event);break;}
   }
+  
   #ifdef SYSCALL_TRACE
-  printf("syscall %s  = %x\n",get_name(c->GPR1),c->GPRx);  //strace
+  printf("syscall %s (ID = %d) = %x\n",get_name(c->GPR1),c->GPR1,c->GPRx);  //strace
   #endif
   return c;
 }
