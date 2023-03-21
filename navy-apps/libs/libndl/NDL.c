@@ -22,9 +22,9 @@ int NDL_PollEvent(char *buf, int len) {
   FILE *fp = fopen("/dev/events", "r");
   //printf("----%d\n",*(int *)fp);
   assert(fp);
-  //int o=fscanf(fp,"%s",buf);
+  fgets(buf,len,fp);
   printf("dsafasf\n");
-  //if(o==0); {fclose(fp); return 0;}
+  if(o==0); {fclose(fp); return 0;}
   fclose(fp);
   return 1;
 }
