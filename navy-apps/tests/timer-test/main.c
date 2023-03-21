@@ -7,6 +7,7 @@ int main(){
     struct timeval tv;
     struct timezone tz;
     int times=0;
+    printf("sadf\n");
     while(1){
         do{
             gettimeofday(&tv,&tz);
