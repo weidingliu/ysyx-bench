@@ -20,15 +20,15 @@ uint32_t NDL_GetTicks() {
 
 int NDL_PollEvent(char *buf, int len) {
   printf("asdfasf\n");
-  FILE *fp = fopen("/dev/events", "r");
+  //FILE *fp = fopen("/dev/events", "r");
   //printf("----%d\n",*(int *)fp);
-  assert(fp);
+  //assert(fp);
   
-  int o=fscanf(fp,"%s\n",buf);
-  printf("%d\n",o);
-  if(o==0) {fclose(fp); return 0;}
-  fclose(fp);
-  return 1;
+  //int o=fscanf(fp,"%s\n",buf);
+  //printf("%d\n",o);
+  //if(o==0) {fclose(fp); return 0;}
+  //fclose(fp);
+  return 0;
 }
 
 void NDL_OpenCanvas(int *w, int *h) {
