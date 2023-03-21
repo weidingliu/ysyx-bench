@@ -7,8 +7,8 @@
 //#define MULTIPROGRAM
 //#define TIME_SHARING
 
-//#define SYSCALL_TRACE
-//#define FTRACE
+#define SYSCALL_TRACE
+#define FTRACE
 
 #include <am.h>
 #include <klib.h>
