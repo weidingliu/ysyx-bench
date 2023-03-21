@@ -20,14 +20,13 @@ uint32_t NDL_GetTicks() {
 
 int NDL_PollEvent(char *buf, int len) {
   FILE *fp = fopen("/dev/events", "r");
-  printf("----%d\n",*(int *)fp);
+  //printf("----%d\n",*(int *)fp);
   assert(fp);
-  /*int o=fscanf(fp,"%s",buf);
+  int o=fscanf(fp,"%s",buf);
   printf("dsafasf\n");
   if(o==0); return 0;
   fclose(fp);
-  return 1;*/
-  return 0;
+  return 1;
 }
 
 void NDL_OpenCanvas(int *w, int *h) {
