@@ -1,10 +1,17 @@
 #include <stdio.h>
 #include <assert.h>
 #include <sys/time.h>
+#include <NDL.h>
 
 int main(){
+    NDL_Init(0);
+    int times=1;
+    while(1){
+        while(NDL_GetTicks()/ 500 < times);
+        printf("loop in %d times\n",times++);
+    }
     
-    struct timeval tv;
+    /*struct timeval tv;
     struct timezone tz;
     int times=1;
     //printf("sadf\n");
@@ -15,7 +22,7 @@ int main(){
             //printf("sadf %ld\n",tv.tv_usec);
         }while((tv.tv_usec) / 500000 < times);
         printf("loop in %d times\n",times++);
-    }
+    }*/
     
     return 0;
 }
