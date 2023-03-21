@@ -7,11 +7,11 @@ int main(){
     struct timeval tv;
     struct timezone tz;
     int times=0;
-    printf("sadf\n");
+    //printf("sadf\n");
     while(1){
         do{
             gettimeofday(&tv,&tz);
-            printf("sadf\n");
+            //printf("sadf\n");
         }while(tv.tv_usec % 500000 !=0);
         printf("loop in %d times\n",times++);
     }
