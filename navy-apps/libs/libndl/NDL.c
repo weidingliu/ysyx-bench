@@ -23,9 +23,9 @@ int NDL_PollEvent(char *buf, int len) {
   //printf("----%d\n",*(int *)fp);
   assert(fp);
   char temp[200]={0};
-  fgets(temp,len,fp);
-  memcpy(buf,temp,fp);
-  if(!strcmp(temp,"N")); {fclose(fp); return 0;}
+  int o=fscanf(fp,"%s\n",buf);
+  printf("%d\n",o);
+  if(o==0) {fclose(fp); return 0;}
   fclose(fp);
   return 1;
 }
