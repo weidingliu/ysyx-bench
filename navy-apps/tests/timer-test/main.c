@@ -10,6 +10,7 @@ int main(){
     //printf("sadf\n");
     while(1){
         do{
+            printf("sadf\n");
             gettimeofday(&tv,&tz);
             printf("sadf %d\n",tv.tv_usec);
         }while(tv.tv_usec % 500000 !=0);
