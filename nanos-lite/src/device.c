@@ -30,7 +30,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   AM_INPUT_KEYBRD_T *kbd=NULL;
   __am_input_keybrd(kbd);
   
-  if(kbd->keycode == AM_KEY_NONE) return 0;
+  if(kbd->keycode == AM_KEY_NONE) {sprintf((char *)buf, "%c\n","N");return 0;}
   else {
       if(kbd->keydown){
           return sprintf((char *)buf, "kd %c\n",keyname[kbd->keycode]);

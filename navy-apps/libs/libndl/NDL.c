@@ -23,8 +23,7 @@ int NDL_PollEvent(char *buf, int len) {
   //printf("----%d\n",*(int *)fp);
   assert(fp);
   fgets(buf,len,fp);
-  printf("dsafasf\n");
-  if(o==0); {fclose(fp); return 0;}
+  if(!strcmp(buf,"N")); {fclose(fp); return 0;}
   fclose(fp);
   return 1;
 }
