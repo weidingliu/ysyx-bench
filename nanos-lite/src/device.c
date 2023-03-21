@@ -28,7 +28,6 @@ size_t serial_write(const void *buf, size_t offset, size_t len) {
 
 size_t events_read(void *buf, size_t offset, size_t len) {
   AM_INPUT_KEYBRD_T *kbd=NULL;
-  printf("dsaffggg\n");
   __am_input_keybrd(kbd);
   
   if(kbd->keycode == AM_KEY_NONE) return 0;
