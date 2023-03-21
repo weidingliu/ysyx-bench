@@ -24,7 +24,7 @@ int NDL_PollEvent(char *buf, int len) {
   assert(fp);
   int o=fscanf(fp,"%s",buf);
   printf("dsafasf\n");
-  if(o==0); return 0;
+  if(o==0); {fclose(fp); return 0;}
   fclose(fp);
   return 1;
 }
