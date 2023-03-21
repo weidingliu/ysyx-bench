@@ -22,7 +22,8 @@ int NDL_PollEvent(char *buf, int len) {
   FILE *fp = fopen("/dev/events", "r");
   //printf("----%d\n",*(int *)fp);
   assert(fp);
-  fgets(buf,len,fp);
+  //fgets(buf,len,fp);
+  memcpy(buf,"dasf",4);
   if(!strcmp(buf,"N")); {fclose(fp); return 0;}
   fclose(fp);
   return 0;
