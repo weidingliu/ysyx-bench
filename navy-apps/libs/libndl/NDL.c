@@ -6,6 +6,8 @@
 #include <sys/time.h>
 #include <assert.h>
 
+#define event_fd 3
+
 static int evtdev = -1;
 static int fbdev = -1;
 static int screen_w = 0, screen_h = 0;
@@ -19,16 +21,16 @@ uint32_t NDL_GetTicks() {
 }
 
 int NDL_PollEvent(char *buf, int len) {
-  printf("asdfasf\n");
+  ssize_t o=read(event_fd,buf,len );
   //FILE *fp = fopen("/dev/events", "r");
   //printf("----%d\n",*(int *)fp);
   //assert(fp);
   
   //int o=fscanf(fp,"%s\n",buf);
   //printf("%d\n",o);
-  //if(o==0) {fclose(fp); return 0;}
+  if(o==0) { return 0;}
   //fclose(fp);
-  return 0;
+  return 1;
 }
 
 void NDL_OpenCanvas(int *w, int *h) {
