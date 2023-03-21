@@ -22,7 +22,7 @@ int NDL_PollEvent(char *buf, int len) {
   FILE *fp = fopen("/dev/events", "r");
   //printf("----%d\n",*(int *)fp);
   assert(fp);
-  char temp[200]={0};
+  printf("asdfasf\n");
   int o=fscanf(fp,"%s\n",buf);
   printf("%d\n",o);
   if(o==0) {fclose(fp); return 0;}
