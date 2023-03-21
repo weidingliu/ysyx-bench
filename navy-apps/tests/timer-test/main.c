@@ -12,7 +12,7 @@ int main(){
         do{
             printf("sadf\n");
             gettimeofday(&tv,&tz);
-            printf("sadf %d\n",tv.tv_usec);
+            printf("sadf %ld\n",tv.tv_usec);
         }while(tv.tv_usec % 500000 !=0);
         printf("loop in %d times\n",times++);
     }
