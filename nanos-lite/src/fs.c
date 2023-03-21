@@ -1,6 +1,7 @@
 #include <fs.h>
 
 extern size_t serial_write(const void *buf, size_t offset, size_t len);
+extern size_t events_read(void *buf, size_t offset, size_t len);
 
 typedef size_t (*ReadFn) (void *buf, size_t offset, size_t len);
 typedef size_t (*WriteFn) (const void *buf, size_t offset, size_t len);
@@ -32,6 +33,7 @@ static Finfo file_table[] __attribute__((used)) = {
   [FD_STDIN]  = {"stdin", 0, 0, invalid_read, invalid_write},
   [FD_STDOUT] = {"stdout", 0, 0, invalid_read, serial_write},
   [FD_STDERR] = {"stderr", 0, 0, invalid_read, serial_write},
+  [FD_FB]={"/dev/events",0,0,events_read,invalid_write},//keyboard
 #include "files.h"
 };
 
@@ -64,6 +66,10 @@ int fs_open(const char *pathname, int flags, int mode){
 size_t fs_read(int fd, void *buf, size_t len){
     int num=sizeof(file_table)/sizeof(file_table[0]);
     if(fd>num || fd<0) panic("should not reach here");
+    if(file_table[fd].write != NULL){
+    
+        return file_table[fd].read(buf,0,len);
+    }
     //printf("%x  %x\n",file_table[fd].disk_offset+file_table[fd].open_offset+len,get_ramdisk_size());
     if( file_table[fd].disk_offset+file_table[fd].open_offset+len<0) panic("should not reach here");
     if(file_table[fd].open_offset>=file_table[fd].size) return 0;
