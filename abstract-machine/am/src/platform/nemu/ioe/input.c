@@ -5,9 +5,9 @@
 #define KEYDOWN_MASK 0x8000
 
 void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd) {
-  
+  printf("sdfas\n");
   int k=inl(KBD_ADDR);
-  
+  printf("sdfas\n");
 
   if(k!=AM_KEY_NONE){
       kbd->keycode = k%256;
