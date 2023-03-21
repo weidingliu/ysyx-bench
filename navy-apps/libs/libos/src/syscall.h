@@ -24,18 +24,5 @@ enum {
   SYS_gettimeofday
 };
 
-struct  timeval{
-       long  tv_sec;/*秒*/
-
-       long  tv_usec;/*微妙*/
-
-};
-struct  timezone{
-
-        int tz_minuteswest;/*和greenwich 时间差了多少分钟*/
-
-        int tz_dsttime;/*type of DST correction*/
-
-};
 
 #endif

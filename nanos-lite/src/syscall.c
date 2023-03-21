@@ -1,6 +1,7 @@
 #include <common.h>
 #include "syscall.h"
 #include <fs.h>
+#include <sys/time.h>
 
 int sys_yield(){
     yield();
