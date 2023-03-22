@@ -69,7 +69,7 @@ void do_syscall(Context *c) {
     case(SYS_exit): ret=sys_exit(NULL);break;
     case(SYS_write): ret=sys_write(a[1],(void *)a[2],a[3]);break;
     case(SYS_brk): ret=sys_sbrk((void *)a[1]); break;
-    case(SYS_open): ret=sys_open((const char *)a[1],(int) a[2],(int) a[3]);break;
+    case(SYS_open): printf("asdfasfd\n");ret=sys_open((const char *)a[1],(int) a[2],(int) a[3]);break;
     case(SYS_lseek): ret=sys_lseek(a[1],a[2],a[3]); break;
     case(SYS_read): ret=sys_read(a[1],(void *)a[2],a[3]);break;
     case(SYS_close): ret=sys_close(a[1]);break;
