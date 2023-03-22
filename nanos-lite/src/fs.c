@@ -2,6 +2,8 @@
 
 extern size_t serial_write(const void *buf, size_t offset, size_t len);
 extern size_t events_read(void *buf, size_t offset, size_t len);
+extern size_t dispinfo_read(void *buf, size_t offset, size_t len);
+extern size_t fb_write(const void *buf, size_t offset, size_t len);
 
 typedef size_t (*ReadFn) (void *buf, size_t offset, size_t len);
 typedef size_t (*WriteFn) (const void *buf, size_t offset, size_t len);
@@ -16,7 +18,7 @@ typedef struct {
 } Finfo;
 
 
-enum {FD_STDIN, FD_STDOUT, FD_STDERR, FD_KEY,FD_FB};
+enum {FD_STDIN, FD_STDOUT, FD_STDERR, FD_FB,FD_KEY,FD_DISPLYINFO};
 
 size_t invalid_read(void *buf, size_t offset, size_t len) {
   panic("should not reach here");
@@ -33,12 +35,17 @@ static Finfo file_table[] __attribute__((used)) = {
   [FD_STDIN]  = {"stdin", 0, 0, invalid_read, invalid_write},
   [FD_STDOUT] = {"stdout", 0, 0, invalid_read, serial_write},
   [FD_STDERR] = {"stderr", 0, 0, invalid_read, serial_write},
+  [FD_FB] = {"/dev/fb",0,0,invalid_read, fb_write},//frame buff
   [FD_KEY]={"/dev/events",0,0,events_read,invalid_write},//keyboard
+  [FD_DISPLYINFO] = {"/proc/dispinfo",0,0,dispinfo_read, invalid_write},//display_info
 #include "files.h"
 };
 
 void init_fs() {
-  // TODO: initialize the size of /dev/fb
+  AM_GPU_CONFIG_T fg;
+  fg=io_read(AM_GPU_CONFIG);
+  
+  file_table[FD_FB].size=fg.width*fg.height*4;
 }
 
 int fs_close(int fd){
@@ -90,8 +97,12 @@ size_t fs_write(int fd, const void *buf, size_t len){
     int num=sizeof(file_table)/sizeof(file_table[0]);
     if(fd>num || fd<0) panic("should not reach here");
     if(file_table[fd].write != NULL){
-    
-        return file_table[fd].write(buf,0,len);
+        if(file_table[fd].size!=0){
+            size_t ret=file_table[fd].write(buf,file_table[fd].open_offset,len);
+            file_table[fd].open_offset+=ret;
+            return ret;
+        }
+        else return file_table[fd].write(buf,0,len);
     }
     if(file_table[fd].disk_offset+file_table[fd].open_offset+len>get_ramdisk_size() || file_table[fd].disk_offset+file_table[fd].open_offset+len<0) panic("should not reach here");
     if(file_table[fd].open_offset+len>file_table[fd].disk_offset+file_table[fd].size) panic("should not reach here");
@@ -101,7 +112,8 @@ size_t fs_write(int fd, const void *buf, size_t len){
 }
 
 size_t fs_lseek(int fd, size_t offset, int whence){
-    
+    //printf("----%d  %d %d\n",offset,fd,whence);
+    //printf("%d  %d\n",file_table[fd].open_offset,file_table[fd].size);
     switch(whence){
         case(SEEK_SET):{
             
@@ -109,10 +121,12 @@ size_t fs_lseek(int fd, size_t offset, int whence){
                 
                 return -1;
             }
+            
             file_table[fd].open_offset=offset;
             break;
         }
         case(SEEK_CUR):{
+            
             if(file_table[fd].open_offset+offset>file_table[fd].size || file_table[fd].open_offset+offset<0){
                 
                 return -1;
@@ -121,6 +135,7 @@ size_t fs_lseek(int fd, size_t offset, int whence){
             break;
         }
         case(SEEK_END):{
+            
             if(offset+file_table[fd].size>file_table[fd].size || offset+file_table[fd].size<0){
                 
                 return -1;
