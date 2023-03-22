@@ -5,6 +5,7 @@
 #include <unistd.h>
 #include <sys/time.h>
 #include <assert.h>
+#include <fcntl.h>
 
 
 static int evtdev = -1;
@@ -22,14 +23,14 @@ uint32_t NDL_GetTicks() {
 int NDL_PollEvent(char *buf, int len) {
   //printf("here\n");
   //assert(len==64);
-  FILE *fp = fopen("/dev/events", "r");
+  int fd = open("/dev/events", O_RDONLY);
   //printf("----%d\n",*(int *)fp);
-  assert(fp);
+  assert(fd!=-1);
   
-  char *o=fgets((char *)buf,len,fp);
+  ssize_t o=read(fd,(char *)buf,len);
   //printf("%d\n",o);
-  if(o==NULL) { fclose(fp); return 0;}
-  fclose(fp);
+  if(o<=0) { close(fd); return 0;}
+  close(fd);
   return 1;
 }
 
