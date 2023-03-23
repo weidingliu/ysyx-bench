@@ -55,7 +55,7 @@ void NDL_OpenCanvas(int *w, int *h) {
     close(fbctl);
   }
 
-    
+    printf("sadfas\n");
     int fp = open("/proc/dispinfo",O_RDONLY);
     assert(fp!=-1);
     printf("sadfas\n");
