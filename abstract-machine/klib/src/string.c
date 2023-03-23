@@ -108,8 +108,9 @@ void *memmove(void *dst, const void *src, size_t n) {
 
 void *memcpy(void *out, const void *in, size_t n) {
   int num=n;
-  printf("%x  %d\n",&out,n);
-  if(((uint64_t)out) == 0x800c2728)assert(0);
+  printf("%x  %d %x\n",&out,n,(uint64_t)out);
+  
+  if(((uint64_t)out) == 0x800c2728) assert(0);
   while(num--){
           *(char *)out = *(char *)in;
           out= (char *)out+1;
