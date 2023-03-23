@@ -21,6 +21,7 @@ Context* __am_irq_handle(Context *c) {
     }*/
     printf("asdfasf\n");
     c = user_handler(ev, c);
+    printf("asdfasf\n");
     assert(c != NULL);
   }
   
