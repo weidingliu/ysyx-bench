@@ -64,7 +64,7 @@ static int decode_exec(Decode *s) {
   word_t src1 = 0, src2 = 0, imm = 0;
   s->dnpc = s->snpc;
   //printf("dsad %lx\n",CSR(0x42));
-  printf("%lx %lx\n",Mr(0x800c6008,4),s->pc);
+  //printf("%lx %lx\n",Mr(0x800c6008,4),s->pc);
   if(s->pc==0x80000eb8) assert(0);
   //assert(Mr(0x800c6008,4) == 0x80000a00 || Mr(0x800c6008,4) == 0x0);
 #define INSTPAT_INST(s) ((s)->isa.inst.val)
