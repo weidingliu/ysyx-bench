@@ -110,7 +110,7 @@ void *memcpy(void *out, const void *in, size_t n) {
   int num=n;
   //printf("%x  %d %x\n",&out,n,(intptr_t)out);
   
-  if(((intptr_t)out) == 0x800c2780) assert(0);
+  //if(((intptr_t)out) == 0x800c2780) assert(0);
   while(num--){
           *(char *)out = *(char *)in;
           out= (char *)out+1;

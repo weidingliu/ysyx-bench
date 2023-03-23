@@ -19,7 +19,7 @@ Context* __am_irq_handle(Context *c) {
     for(int i=0;i<32;i++){
         printf("%x\n",c->gpr[i]);
     }*/
-    printf("asdfasf  %x\n",user_handler);
+    printf("asdfasf  %x\n",&user_handler);
     c = user_handler(ev, c);
     assert(c != NULL);
   }
@@ -34,7 +34,7 @@ bool cte_init(Context*(*handler)(Event, Context*)) {
   asm volatile("csrw mtvec, %0" : : "r"(__am_asm_trap));
   asm volatile("csrw mstatus, %0" : : "r"(0xa00001800));
   // register event handler
-  printf("%x\n",handler);
+  //printf("%x\n",handler);
   user_handler = handler;
 
   return true;
