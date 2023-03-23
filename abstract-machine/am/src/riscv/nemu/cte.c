@@ -20,7 +20,7 @@ Context* __am_irq_handle(Context *c) {
     for(int i=0;i<32;i++){
         printf("%x\n",c->gpr[i]);
     }*/
-    printf("asdfasf%d\n");
+    printf("asdfasf%x\n",user_handler);
     c = user_handler(ev, c);
     printf("asdfasf\n");
     assert(c != NULL);
