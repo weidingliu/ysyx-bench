@@ -9,6 +9,7 @@
 #define NAME(key) \
   [AM_KEY_##key] = #key,
 
+
 extern void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd);
 
 static const char *keyname[256] __attribute__((used)) = {
@@ -45,11 +46,25 @@ size_t events_read(void *buf, size_t offset, size_t len) {
 }
 
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {
-  return 0;
+  AM_GPU_CONFIG_T fg;
+  fg=io_read(AM_GPU_CONFIG);
+  //memcpy(buf,&fg,len);
+  sprintf((char *)buf,"WIDTH:%dHEIGHT:%d",fg.width,fg.height);
+  //printf("%d  %d\n",fg.width,fg.height);
+  return len;
 }
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
-  return 0;
+  AM_GPU_CONFIG_T fg;
+  fg=io_read(AM_GPU_CONFIG);
+  int x=(offset/4)%fg.width;
+  int y=(offset/4)/fg.width;
+  //file_table[FD_FB].open_offset+=len;
+  //printf("%d\n",len/4);
+  io_write(AM_GPU_FBDRAW,x , y,(void *)buf,len/4,1,true);
+
+  return len;
+  //return 0;
 }
 
 void init_device() {

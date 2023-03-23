@@ -62,3 +62,15 @@ typedef uint64_t Uint64;
 #define SDLK_z   SDLK_Z
 
 #endif
+
+#define Log(format, ...) \
+  printf("\33[1;35m[%s,%d,%s] " format "\33[0m\n", \
+      __FILE__, __LINE__, __func__, ## __VA_ARGS__)
+
+#define panic(format, ...) \
+  do { \
+    Log("\33[1;31msystem panic: " format, ## __VA_ARGS__); \
+    halt(1); \
+  } while (0)
+
+
