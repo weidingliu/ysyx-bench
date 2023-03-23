@@ -14,5 +14,6 @@ int main(){
     assert(fixedpt_toint(fixedpt_floor(fixedpt_fromint(c))) !=0);
     assert(fixedpt_toint(fixedpt_floor(fixedpt_fromint(d))) !=2);
     
+    printf("PASS!\n");
     return 0;
 }
