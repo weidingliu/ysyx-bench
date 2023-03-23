@@ -58,10 +58,14 @@ void NDL_OpenCanvas(int *w, int *h) {
     
     int fp = open("/proc/dispinfo",O_RDONLY);
     assert(fp!=-1);
+    printf("sadfas\n");
     int sys_w,sys_h;
     char temp[64];
+    printf("sadfas\n");
     read(fp,temp,sizeof(temp));
+    printf("sadfas\n");
     sscanf(temp,"WIDTH:%d\nHEIGHT:%d",&sys_w,&sys_h);
+    printf("sadfas\n");
     //fscanf(fp,"%s:%d",info[1].name,&info[1].value);
     if(*w==0 && *h==0){
         *w=sys_w;
