@@ -19,9 +19,8 @@ Context* __am_irq_handle(Context *c) {
     for(int i=0;i<32;i++){
         printf("%x\n",c->gpr[i]);
     }*/
-    
+    printf("asdfasf\n");
     c = user_handler(ev, c);
-    printf("dsafasggg\n");
     assert(c != NULL);
   }
   
