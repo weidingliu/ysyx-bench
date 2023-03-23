@@ -73,11 +73,11 @@ void *_sbrk(intptr_t increment) {
   intptr_t o= _syscall_(SYS_brk,addr,0,0);
   intptr_t ret =program_break;
   program_break+=increment;
+  printf("%lx\n",program_break);
   return (o==0)? (void *)ret:(void *) -1;
 }
 
 int _read(int fd, void *buf, size_t count) {
-  printf("%lx\n",(intptr_t)buf);
   intptr_t ret =_syscall_(SYS_read,fd,(intptr_t)buf,count);
   return ret;
 }
