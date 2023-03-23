@@ -51,7 +51,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
           //printf("%x\n",phdr[i].p_vaddr);
           if(phdr[i].p_memsz==0) continue;
           
-          assert(phdr[i].p_memsz<0x2000);
+          assert(phdr[i].p_memsz<0x20000);
           o=fs_lseek(fd,phdr[i].p_offset,SEEK_SET); 
           assert(o!=-1);
           
