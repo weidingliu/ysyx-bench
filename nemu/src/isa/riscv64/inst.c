@@ -65,6 +65,7 @@ static int decode_exec(Decode *s) {
   s->dnpc = s->snpc;
   //printf("dsad %lx\n",CSR(0x42));
   printf("%lx %lx\n",Mr(0x800c6008,4),s->pc);
+  if(s->pc==0x80000eb8) assert(0);
   //assert(Mr(0x800c6008,4) == 0x80000a00 || Mr(0x800c6008,4) == 0x0);
 #define INSTPAT_INST(s) ((s)->isa.inst.val)
 #define INSTPAT_MATCH(s, name, type, ... /* execute body */ ) { \
