@@ -49,7 +49,7 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
   AM_GPU_CONFIG_T fg;
   fg=io_read(AM_GPU_CONFIG);
   //memcpy(buf,&fg,len);
-  sprintf((char *)buf,"WIDTH:%dHEIGHT:%d",fg.width,fg.height);
+  sprintf((char *)buf,"WIDTH:%d\nHEIGHT:%d",fg.width,fg.height);
   //printf("%d  %d\n",fg.width,fg.height);
   return len;
 }

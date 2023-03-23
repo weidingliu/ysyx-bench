@@ -55,11 +55,14 @@ void NDL_OpenCanvas(int *w, int *h) {
     close(fbctl);
   }
 
-    
-    FILE *fp = fopen("/proc/dispinfo","r");
-    assert(fp);
+    int fp = open("/proc/dispinfo",O_RDONLY);
+    assert(fp!=-1);
     int sys_w,sys_h;
-    fscanf(fp,"WIDTH:%dHEIGHT:%d",&sys_w,&sys_h);
+    char temp[64];
+    ssize_t o=read(fp,temp,sizeof(temp));
+    assert(o);
+    o=sscanf(temp,"WIDTH:%d\nHEIGHT:%d",&sys_w,&sys_h);
+    assert(o);
     //fscanf(fp,"%s:%d",info[1].name,&info[1].value);
     if(*w==0 && *h==0){
         *w=sys_w;
@@ -78,7 +81,7 @@ void NDL_OpenCanvas(int *w, int *h) {
     screen_h = sys_h;
     assert(*w<=sys_w && *h<=sys_h);
     //printf("%d  %d   %d  %d\n",sys_w,sys_h,*w,*h);
-    fclose(fp);
+    close(fp);
     return;
 }
 
