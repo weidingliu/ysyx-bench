@@ -56,6 +56,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
           assert(o!=-1);
           
           o=fs_read(fd,buf,phdr[i].p_memsz);
+          printf("fdsf\n");
           assert(o);
           
           memcpy((void *)phdr[i].p_vaddr,buf,phdr[i].p_memsz);
