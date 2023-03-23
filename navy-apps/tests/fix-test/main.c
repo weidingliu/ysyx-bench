@@ -8,7 +8,6 @@ int main(){
     fixedpt b = fixedpt_fromint(10);
     int c=0;
     int d =2;
-    printf("%d\n",fixedpt_toint(fixedpt_floor(a)));
     assert(fixedpt_toint(fixedpt_floor(a)) ==1);
     assert(fixedpt_toint(fixedpt_floor(b)) ==10);
     assert(fixedpt_toint(fixedpt_floor(fixedpt_fromint(c))) ==0);
