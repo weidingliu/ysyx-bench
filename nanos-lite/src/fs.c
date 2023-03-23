@@ -82,7 +82,7 @@ size_t fs_read(int fd, void *buf, size_t len){
     if(file_table[fd].open_offset+len>file_table[fd].disk_offset+file_table[fd].size) panic("should not reach here");
     
     size_t ret =0;
-    printf("%x %x\n",&buf,len);
+    printf("%x %x %d\n",&buf,len,fd);
     if(file_table[fd].open_offset+len > file_table[fd].size){
         ret=ramdisk_read(buf,file_table[fd].disk_offset+file_table[fd].open_offset,file_table[fd].open_offset+len - file_table[fd].size);
         file_table[fd].open_offset+=file_table[fd].open_offset+len - file_table[fd].size;
