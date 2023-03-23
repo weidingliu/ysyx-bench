@@ -45,14 +45,14 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   Elf_Phdr *phdr = (Elf_Phdr*)malloc(sizeof(Elf_Phdr) * elf_head.e_phnum);
   o=fs_read(fd,phdr,sizeof(Elf_Phdr) * elf_head.e_phnum);
   assert(o);
-  //char buf[0x20000];
+  char buf[0x20000];
   for(int i=0;i<elf_head.e_phnum;i++){
       if(phdr[i].p_type == 1){
           //printf("%x\n",phdr[i].p_vaddr);
           if(phdr[i].p_memsz==0) continue;
           
           //assert(phdr[i].p_memsz<0x20000);
-          char buf[phdr[i].p_memsz];
+          //char buf[phdr[i].p_memsz];
           o=fs_lseek(fd,phdr[i].p_offset,SEEK_SET); 
           assert(o!=-1);
           
