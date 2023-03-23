@@ -65,6 +65,7 @@ static int decode_exec(Decode *s) {
   s->dnpc = s->snpc;
   //printf("dsad %lx\n",CSR(0x42));
   printf("%lx %lx\n",Mr(0x800c6008,4),s->pc);
+  if(Mr(0x800c6008,4) == 1097) #error dasfasg
 #define INSTPAT_INST(s) ((s)->isa.inst.val)
 #define INSTPAT_MATCH(s, name, type, ... /* execute body */ ) { \
   decode_operand(s, &dest, &src1, &src2, &imm, &csr,concat(TYPE_, type)); \
