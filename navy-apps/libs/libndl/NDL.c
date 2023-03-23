@@ -121,7 +121,6 @@ int NDL_Init(uint32_t flags) {
   if (getenv("NWM_APP")) {
     evtdev = 3;
   }
-  printf("fsadfggg\n");
   return 0;
 }
 
