@@ -24,17 +24,18 @@ int SDL_WaitEvent(SDL_Event *event) {
   char buf[128];
   while(!NDL_PollEvent(buf,sizeof(buf)));
   printf("%s\n",buf);
-  
+  int keycode=0;
   if(!strncmp("ku",buf,2)){
       event->type = SDL_KEYUP;
       
-      sscanf(buf,"ku %*c%c",&event->key.keysym.sym);
-      
+      sscanf(buf,"ku %*c %d",&keycode);
+      event->key.keysym.sym=(uint8_t) keycode;
 
   }
   else{
       event->type = SDL_KEYDOWN;
-      sscanf(buf,"kd %*c%c",&event->key.keysym.sym);
+      sscanf(buf,"kd %*c %d",&keycode);
+      event->key.keysym.sym=(uint8_t) keycode;
       printf("%d  %d  %d %d\n",SDLK_1,event->key.keysym.sym,SDLK_DOWN,SDLK_UP);
   }
   
