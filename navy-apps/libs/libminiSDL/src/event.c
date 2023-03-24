@@ -28,13 +28,13 @@ int SDL_WaitEvent(SDL_Event *event) {
   if(!strncmp("ku",buf,2)){
       event->type = SDL_KEYUP;
       
-      sscanf(buf,"ku %*c %d",&keycode);
+      sscanf(buf,"ku %*s %d",&keycode);
       event->key.keysym.sym=keycode;
 
   }
   else{
       event->type = SDL_KEYDOWN;
-      sscanf(buf,"kd %*c %d",&keycode);
+      sscanf(buf,"kd %*s %d",&keycode);
       event->key.keysym.sym=keycode;
       //event->key.keysym.sym=SDLK_DOWN;
       printf("%d  %d \n",keycode,event->key.keysym.sym);
