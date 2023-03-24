@@ -15,10 +15,15 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   src_y=srcrect!=NULL? srcrect->y:0; 
   dst_x=dstrect!=NULL? dstrect->x:0; 
   dst_y=dstrect!=NULL? dstrect->y:0;
-  src_w=srcrect!=NULL? srcrect->x+srcrect->w:src->w;
-  src_h=srcrect!=NULL? srcrect->y+srcrect->h:src->h;
-  dst_w=dstrect!=NULL? dstrect->x+dstrect->w:dst->w;
-  dst_h=dstrect!=NULL? dstrect->y+dstrect->h:dst->h;
+  //src_w=srcrect!=NULL? srcrect->x+srcrect->w:src->w;
+  //src_h=srcrect!=NULL? srcrect->y+srcrect->h:src->h;
+  //dst_w=dstrect!=NULL? dstrect->x+dstrect->w:dst->w;
+  //dst_h=dstrect!=NULL? dstrect->y+dstrect->h:dst->h;
+  
+  src_w=src->w;
+  src_h=src->h;
+  dst_w=dst->w;
+  dst_h=dst->h;
   
   
  // assert(src_w==dst_w && src_h==dst_h);
