@@ -48,6 +48,7 @@ static int i_max = 0;
 static void set_i_max() {
   i_max = (page == MAX_PAGE ? MAX_IDX_LAST_PAGE : 9);
   printf("page = %d, MAX_PAGE = %ld, MAX_IDX_LAST_PAGE = %ld\n", page, MAX_PAGE, MAX_IDX_LAST_PAGE);
+   printf("sdaf\n");
 }
 static void next() {
   if (page < MAX_PAGE) {
@@ -75,7 +76,7 @@ int main(int argc, char *argv[], char *envp[]) {
   logo_sf = SDL_LoadBMP("/share/pictures/projectn.bmp");
   assert(logo_sf);
   set_i_max();
-
+  printf("sdaf\n");
   while (1) {
     display_menu(i_max);
 
