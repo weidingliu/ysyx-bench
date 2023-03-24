@@ -16,8 +16,25 @@ int SDL_PushEvent(SDL_Event *ev) {
 }
 
 int SDL_PollEvent(SDL_Event *ev) {
-  printf("should not reach here\n");
-  return 0;
+  char buf[128];
+  int ret=NDL_PollEvent(buf,sizeof(buf));
+  if(!ret) return 0;
+
+  int keycode=0;
+  if(!strncmp("ku",buf,2)){
+      ev->type = SDL_KEYUP;
+      
+      sscanf(buf,"ku %*s %d",&keycode);
+      ev->key.keysym.sym=keycode;
+
+  }
+  else{
+      ev->type = SDL_KEYDOWN;
+      sscanf(buf,"kd %*s %d",&keycode);
+      ev->key.keysym.sym=keycode;
+  }
+  
+  return 1;
 }
 
 int SDL_WaitEvent(SDL_Event *event) {
