@@ -7,15 +7,15 @@ SDL_TimerID SDL_AddTimer(uint32_t interval, SDL_NewTimerCallback callback, void 
 }
 
 int SDL_RemoveTimer(SDL_TimerID id) {
-  printf("should not reach here");
+  printf("should not reach here\n");
   return 1;
 }
 
 uint32_t SDL_GetTicks() {
-  printf("should not reach here");
+  printf("should not reach here\n");
   return 0;
 }
 
 void SDL_Delay(uint32_t ms) {
-  printf("should not reach here");
+  printf("should not reach here\n");
 }
