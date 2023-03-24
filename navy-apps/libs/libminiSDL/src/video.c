@@ -3,18 +3,57 @@
 #include <assert.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect) {
   assert(dst && src);
+  //printf("%d %d %d %d \n",src->w,dst->w,src->h,dst->h);
+  //assert(src->w == dst->w && src->h == dst->h);
+  int src_x,src_y,src_w,src_h;
+  int dst_x,dst_y,dst_w,dst_h;
+  src_x=srcrect!=NULL? srcrect->x:0; 
+  src_y=srcrect!=NULL? srcrect->y:0; 
+  dst_x=dstrect!=NULL? dstrect->x:0; 
+  dst_y=dstrect!=NULL? dstrect->y:0;
+  src_w=srcrect!=NULL? srcrect->x+srcrect->w:src->w;
+  src_h=srcrect!=NULL? srcrect->y+srcrect->h:src->h;
+  dst_w=dst->w;
+  dst_h=dst->h;
+  
+ // assert(src_w==dst_w && src_h==dst_h);
   assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
+  int src_i=src_y;
+  for(int i=dst_y;i<dst_h;i++){
+      int src_j=src_x;
+      for(int j=dst_x;j<dst_w;j++){
+           *((uint32_t *)dst->pixels+j+i*dst->w)=*((uint32_t *)src->pixels+src_j+src_i*src->w);
+           src_j++;
+           if(src_j>=src_w) break;
+       }
+      src_i++;
+      if(src_i>=src_h) break;
+  }
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
-panic("should not reach here");
+  int x,y,w,h;
+  x=dstrect!=NULL? dstrect->x:0;
+  y=dstrect!=NULL? dstrect->y:0;
+  w=dstrect!=NULL? dstrect->x+dstrect->w:dst->w;
+  h=dstrect!=NULL? dstrect->y+dstrect->h:dst->h;
+  
+  for(int i=y;i<h;i++){
+      for(int j=x;j<w;j++) *((uint32_t *)dst->pixels+j+i*dst->w)=color;
+  }
+  NDL_DrawRect((uint32_t *)dst->pixels, x, y,  w,  h);
 }
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
-panic("should not reach here");
+    //printf("%d %d \n",s->w,s->h);
+    if(x==0 && y==0 && w==0 && h==0){
+        NDL_DrawRect((uint32_t *)s->pixels, 0, 0,  s->w,  s->h);
+    }
+    else NDL_DrawRect((uint32_t *)s->pixels, x, y,  w,  h);
 }
 
 // APIs below are already implemented.
@@ -195,10 +234,10 @@ uint32_t SDL_MapRGBA(SDL_PixelFormat *fmt, uint8_t r, uint8_t g, uint8_t b, uint
 }
 
 int SDL_LockSurface(SDL_Surface *s) {
-panic("should not reach here");
+  printf("should not reach here\n");
   return 0;
 }
 
 void SDL_UnlockSurface(SDL_Surface *s) {
-panic("should not reach here");
+  printf("should not reach here\n");
 }

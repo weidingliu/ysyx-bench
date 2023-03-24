@@ -80,7 +80,6 @@ void NDL_OpenCanvas(int *w, int *h) {
     screen_w = sys_w; 
     screen_h = sys_h;
     assert(*w<=sys_w && *h<=sys_h);
-    //printf("%d  %d   %d  %d\n",sys_w,sys_h,*w,*h);
     close(fp);
     return;
 }
