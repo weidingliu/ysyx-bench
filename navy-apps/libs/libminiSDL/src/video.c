@@ -23,10 +23,11 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   y=dstrect!=NULL? dstrect->y:0;
   w=dstrect!=NULL? dstrect->x+dstrect->w:dst->w;
   h=dstrect!=NULL? dstrect->y+dstrect->h:dst->h;
-  printf("sdafas\n");
+  
   for(int i=y;i<h;i++){
       for(int j=x;j<w;j++) *(uint32_t *)(dst+j+i*dst->w)->pixels=color;
   }
+  printf("sdafas\n");
   NDL_DrawRect((uint32_t *)dst->pixels, x, y,  w,  h);
 }
 
