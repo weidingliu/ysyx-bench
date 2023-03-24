@@ -37,7 +37,7 @@ int SDL_WaitEvent(SDL_Event *event) {
       sscanf(buf,"kd %*s %d",&keycode);
       event->key.keysym.sym=keycode;
       //event->key.keysym.sym=SDLK_DOWN;
-      printf("%d  %d \n",keycode,event->key.keysym.sym);
+      //printf("%d  %d \n",keycode,event->key.keysym.sym);
   }
   
   return 1;
