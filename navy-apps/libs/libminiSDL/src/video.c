@@ -34,6 +34,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
       src_i++;
       if(src_i>src_h) break;
   }
+  printf("fsadgfggg\n");
   NDL_DrawRect((uint32_t *)dst->pixels, dst_x, dst_y,  dst_w,  dst_h);
 }
 
