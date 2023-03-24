@@ -48,7 +48,6 @@ static int i_max = 0;
 static void set_i_max() {
   i_max = (page == MAX_PAGE ? MAX_IDX_LAST_PAGE : 9);
   printf("page = %d, MAX_PAGE = %ld, MAX_IDX_LAST_PAGE = %ld\n", page, MAX_PAGE, MAX_IDX_LAST_PAGE);
-   printf("sdaf\n");
 }
 static void next() {
   if (page < MAX_PAGE) {
