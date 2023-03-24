@@ -7,6 +7,7 @@
 
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect) {
   assert(dst && src);
+  printf("%d %d %d %d \n",src->w,dst->w,src->h,dst->h);
   assert(src->w == dst->w && src->h == dst->h);
   if(srcrect!=NULL && dstrect!=NULL)assert(srcrect->w==dstrect->w && srcrect->h==dstrect->h);
   assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
@@ -27,7 +28,6 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   for(int i=y;i<h;i++){
       for(int j=x;j<w;j++) *((uint32_t *)dst->pixels+j+i*dst->w)=color;
   }
-  printf("sdafas\n");
   NDL_DrawRect((uint32_t *)dst->pixels, x, y,  w,  h);
 }
 
