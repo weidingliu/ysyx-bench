@@ -29,10 +29,10 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
       for(int j=dst_x;j<dst_w;j++){
            *((uint32_t *)dst->pixels+j+i*dst->w)=*((uint32_t *)src->pixels+src_j+src_i*src->w);
            src_j++;
-           if(src_j>src_w) break;
+           if(src_j>=src_w) break;
        }
       src_i++;
-      if(src_i>src_h) break;
+      if(src_i>=src_h) break;
   }
   printf("fsadgfggg %d %d %d %d\n",dst_x, dst_y,  dst_w,  dst_h);
   NDL_DrawRect((uint32_t *)dst->pixels, dst_x, dst_y,  dst_w,  dst_h);
