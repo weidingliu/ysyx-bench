@@ -23,7 +23,7 @@ int SDL_PollEvent(SDL_Event *ev) {
 int SDL_WaitEvent(SDL_Event *event) {
   char buf[128];
   while(!NDL_PollEvent(buf,sizeof(buf)));
-  printf("%s\n",buf);
+  //printf("%s\n",buf);
   int keycode=0;
   if(!strncmp("ku",buf,2)){
       event->type = SDL_KEYUP;
