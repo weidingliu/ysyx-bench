@@ -34,7 +34,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
       src_i++;
       if(src_i>src_h) break;
   }
-  
+  NDL_DrawRect((uint32_t *)dst->pixels, dst_x, dst_y,  dst_w,  dst_h);
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
