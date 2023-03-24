@@ -20,7 +20,10 @@ int SDL_PollEvent(SDL_Event *ev) {
 }
 
 int SDL_WaitEvent(SDL_Event *event) {
-  printf("should not reach here\n");
+  char buf[128];
+  while(!NDL_PollEvent(buf,sizeof(buf)));
+  printf("%s\n",buf);
+  
   return 1;
 }
 
