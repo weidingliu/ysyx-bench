@@ -9,11 +9,29 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   assert(dst && src);
   //printf("%d %d %d %d \n",src->w,dst->w,src->h,dst->h);
   //assert(src->w == dst->w && src->h == dst->h);
-  if(srcrect!=NULL && dstrect!=NULL)assert(srcrect->w==dstrect->w && srcrect->h==dstrect->h);
-  assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
+  int src_x,src_y,src_w,src_h;
+  int dst_x,dst_y,dst_w,dst_h;
+  src_x=srcrect!=NULL? srcrect->x:0; 
+  src_y=srcrect!=NULL? srcrect->y:0; 
+  dst_x=dstrect!=NULL? dstrect->x:0; 
+  dst_y=dstrect!=NULL? dstrect->y:0;
+  src_w=srcrect!=NULL? srcrect->x+srcrect->w:src->w;
+  src_h=srcrect!=NULL? srcrect->y+srcrect->h:src->h;
+  dst_w=dstrect!=NULL? dstrect->x+dstrect->w:dst->w;
+  dst_h=dstrect!=NULL? dstrect->y+dstrect->h:dst->h;
   
-  for(int i=(dstrect!=NULL? dstrect->y:0);i<(dstrect!=NULL? dstrect->y+dstrect->h:dst->h);i++){
-      for(int j=(dstrect!=NULL? dstrect->x:0);j<(dstrect!=NULL? dstrect->x+dstrect->w:dst->w);j++) *(uint32_t *)(dst+j+i*dst->w)->pixels=*(uint32_t *)(src+j+i*src->w)->pixels;
+  
+  assert(src_w==dst_w && src_h==dst_h);
+  assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
+  int src_i=src_y;
+  for(int i=dst_y;i<dst_h;i++){
+      int src_j=src_x;
+      for(int j=dst_x;j<dst_w;j++){
+           *((uint32_t *)dst->pixels+j+i*dst->w)=*((uint32_t *)src->pixels+src_j+src_i*src->w);
+           src_j++;
+           
+       }
+      src_i++;
   }
   
 }
