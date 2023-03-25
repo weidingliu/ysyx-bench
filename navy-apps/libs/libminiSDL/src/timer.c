@@ -17,5 +17,6 @@ uint32_t SDL_GetTicks() {
 }
 
 void SDL_Delay(uint32_t ms) {
-  printf("should not reach here\n");
+  uint32_t start=SDL_GetTicks();
+  while(SDL_GetTicks()-start<ms);
 }
