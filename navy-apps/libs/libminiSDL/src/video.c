@@ -7,7 +7,7 @@
 
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect) {
   assert(dst && src);
-  printf("%d %d %d %d \n",src->w,dst->w,src->h,dst->h);
+  //printf("%d %d %d %d \n",src->w,dst->w,src->h,dst->h);
   //assert(src->w == dst->w && src->h == dst->h);
   int src_x,src_y,src_w,src_h;
   int dst_x,dst_y,dst_w,dst_h;
