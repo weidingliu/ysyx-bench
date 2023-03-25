@@ -2,7 +2,7 @@
 #include <SDL.h>
 #include <stdio.h>
 int SDL_OpenAudio(SDL_AudioSpec *desired, SDL_AudioSpec *obtained) {
-  printf("should not reach here\n");
+  printf("should not reach here audio\n");
   return 0;
 }
 
