@@ -20,7 +20,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   dst_w=dst->w;
   dst_h=dst->h;
   
- // assert(src_w==dst_w && src_h==dst_h);
+  assert(src_w==dst_w && src_h==dst_h);
   assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
   int src_i=src_y;
   for(int i=dst_y;i<dst_h;i++){
