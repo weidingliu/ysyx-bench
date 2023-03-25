@@ -156,7 +156,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   s->snpc = pc;
   isa_exec_once(s);
   cpu.pc = s->dnpc;
-  //printf("-------%lx\n",cpu.mepc);
+  
 #ifdef CONFIG_ITRACE
   char *p = s->logbuf;
   p += snprintf(p, sizeof(s->logbuf), FMT_WORD ":", s->pc);
@@ -164,7 +164,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   int i;
   uint8_t *inst = (uint8_t *)&s->isa.inst.val;
   
-  //printf("%08x\n", s->isa.inst.val);
+  if(0x0000000083001160==s->pc ) printf("%08x\n", s->isa.inst.val);
   
   
   for (i = ilen - 1; i >= 0; i --) {
