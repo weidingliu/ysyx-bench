@@ -66,6 +66,6 @@ int SDL_PeepEvents(SDL_Event *ev, int numevents, int action, uint32_t mask) {
 }
 
 uint8_t* SDL_GetKeyState(int *numkeys) {
-  printf("should not reach here\n");
+  printf("should not reach here event\n");
   return NULL;
 }
