@@ -14,20 +14,21 @@ SDL_Surface* IMG_Load_RW(SDL_RWops *src, int freesrc) {
 }
 
 SDL_Surface* IMG_Load(const char *filename) {
-  int fp=open(filename,O_RDONLY);
-  assert(fp!=-1);
-  int size=lseek(fp,0,SEEK_END);
-  int o=lseek(fp,0,SEEK_SET);
-  assert(o!=-1);
+  FILE *fp=fopen(filename,"r");
+  assert(fp);
+  int o=fseek(fp,0,SEEK_END);
+  assert(o==0);
+  long size=ftell(fp);
+  rewind(fp);
   char * buf = (char * )malloc(sizeof(char)*size);
-  o=read(fp,buf,size);
-  printf("%d %d\n",size,o);
+  o=fread(buf,sizeof(char),size,fp);
+  //printf("%d %d\n",size,o);
   assert(o==size);
   
   SDL_Surface *ret=STBIMG_LoadFromMemory(buf,size);
   //printf("%d %d\n",ret->w,ret->h);
   free(buf);
-  close(fp);
+  fclose(fp);
   return ret;
 }
 
