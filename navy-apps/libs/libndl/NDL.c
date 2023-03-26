@@ -99,7 +99,7 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
     //printf("%d  %d\n",screen_w,screen_h);
     int fdm = open("/dev/fb",O_RDWR);
     assert(fdm!=-1);
-    printf("%d  %d %d %d %d\n",fdm,w,h,x,y);
+   // printf("%d  %d %d %d %d\n",fdm,w,h,x,y);
 
     for(int i=0;i<h;i++){
         lseek(fdm,((y+mid_y+i)*screen_w+x+mid_x)*4,SEEK_SET);
