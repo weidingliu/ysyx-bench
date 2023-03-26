@@ -6,6 +6,7 @@
 int main(){
     
     SDL_Init(0);
+    
     uint32_t next=SDL_GetTicks();
     uint32_t current=SDL_GetTicks();
     

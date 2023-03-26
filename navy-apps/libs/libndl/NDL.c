@@ -24,7 +24,8 @@ uint32_t NDL_GetTicks() {
   if(start==0){
       start=current;
   }
-  //printf("%d %d\n",start,current);
+  assert(current>=start);
+  //+printf("%d %d\n",start,current);
   /*printf("---------%lu  \n",(tv.tv_sec-start.tv_sec)*1000+(tv.tv_usec-start.tv_usec)/1000);
   return (tv.tv_sec-start.tv_sec)*1000+(tv.tv_usec-start.tv_usec)/1000;*/
   //printf("%lu %lu\n",tv.tv_sec,tv.tv_usec);
@@ -98,13 +99,19 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
     //printf("%d  %d\n",screen_w,screen_h);
     int fdm = open("/dev/fb",O_RDWR);
     assert(fdm!=-1);
+    printf("%d  %d %d %d %d\n",fdm,w,h,x,y);
+
     for(int i=0;i<h;i++){
         lseek(fdm,((y+mid_y+i)*screen_w+x+mid_x)*4,SEEK_SET);
+        
         int o=write(fdm,pixels+i*w,w*4);
-        //assert(o<w);
+       /* if(o<0) {
+            perror("error:");
+        }*/
+        assert(o!=-1);
         
     }
-    close(fdm);
+    //close(fdm);
 }
 
 void NDL_OpenAudio(int freq, int channels, int samples) {

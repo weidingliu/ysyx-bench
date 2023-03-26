@@ -5,9 +5,7 @@
 static uint64_t boot_time=0;
 
 void __am_timer_init() {
-    /*uint32_t t=0;
-    outl(RTC_ADDR,t);
-    outl();*/
+
     uint64_t t=inl(RTC_ADDR);
     uint64_t t2=inl(RTC_ADDR+4);
     uint64_t p=(t2 << 32) + t;

@@ -126,6 +126,7 @@ static void open_display() {
   assert(fb != (void *)-1);
   memset(fb, 0, FB_SIZE);
   lseek(fb_memfd, 0, SEEK_SET);
+  
 }
 
 static void open_event() {
