@@ -15,11 +15,21 @@ static int mid_x=0,mid_y=0;
 
 
 uint32_t NDL_GetTicks() {
+  static uint32_t start=0;
+  uint32_t current=0;
   struct timeval tv;
-  struct timezone tz;
-  gettimeofday(&tv,&tz);
-  
-  return tv.tv_usec / 1000;
+
+  gettimeofday(&tv,NULL);
+  current = (uint32_t)(tv.tv_sec*1000 + tv.tv_usec/1000);
+  if(start==0){
+      start=current;
+  }
+  assert(current>=start);
+  //+printf("%d %d\n",start,current);
+  /*printf("---------%lu  \n",(tv.tv_sec-start.tv_sec)*1000+(tv.tv_usec-start.tv_usec)/1000);
+  return (tv.tv_sec-start.tv_sec)*1000+(tv.tv_usec-start.tv_usec)/1000;*/
+  //printf("%lu %lu\n",tv.tv_sec,tv.tv_usec);
+  return (current-start);
 }
 
 int NDL_PollEvent(char *buf, int len) {
@@ -59,6 +69,7 @@ void NDL_OpenCanvas(int *w, int *h) {
     assert(fp!=-1);
     int sys_w,sys_h;
     char temp[64];
+    //char *temp=(char *)malloc(sizeof(char)*64);
     ssize_t o=read(fp,temp,sizeof(temp));
     assert(o);
     o=sscanf(temp,"WIDTH:%d\nHEIGHT:%d",&sys_w,&sys_h);
@@ -89,13 +100,19 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
     //printf("%d  %d\n",screen_w,screen_h);
     int fdm = open("/dev/fb",O_RDWR);
     assert(fdm!=-1);
+    //printf("%d  %d %d %d %d\n",fdm,w,h,x,y);
+
     for(int i=0;i<h;i++){
         lseek(fdm,((y+mid_y+i)*screen_w+x+mid_x)*4,SEEK_SET);
+        
         int o=write(fdm,pixels+i*w,w*4);
-        //assert(o<w);
+       /* if(o<0) {
+            perror("error:");
+        }*/
+        assert(o!=-1);
         
     }
-    close(fdm);
+    //close(fdm);
 }
 
 void NDL_OpenAudio(int freq, int channels, int samples) {
@@ -117,8 +134,11 @@ int NDL_Init(uint32_t flags) {
   if (getenv("NWM_APP")) {
     evtdev = 3;
   }
+
+
   return 0;
 }
 
 void NDL_Quit() {
+
 }

@@ -2,6 +2,7 @@
 #include <stdio.h>
 
 int SDL_Init(uint32_t flags) {
+
   return NDL_Init(flags);
 }
 
