@@ -12,14 +12,14 @@ static int evtdev = -1;
 static int fbdev = -1;
 static int screen_w = 0, screen_h = 0;
 static int mid_x=0,mid_y=0;
-
+struct timeval start;
 
 uint32_t NDL_GetTicks() {
   struct timeval tv;
-  struct timezone tz;
-  gettimeofday(&tv,&tz);
+
+  gettimeofday(&tv,NULL);
   
-  return tv.tv_usec / 1000;
+  return (tv.tv_sec-start.tv_sec)*1000+(tv.tv_usec-start.tv_usec)/1000;
 }
 
 int NDL_PollEvent(char *buf, int len) {
@@ -117,6 +117,9 @@ int NDL_Init(uint32_t flags) {
   if (getenv("NWM_APP")) {
     evtdev = 3;
   }
+
+  gettimeofday(&start,NULL);
+
   return 0;
 }
 
