@@ -12,14 +12,23 @@ static int evtdev = -1;
 static int fbdev = -1;
 static int screen_w = 0, screen_h = 0;
 static int mid_x=0,mid_y=0;
-struct timeval start;
+
 
 uint32_t NDL_GetTicks() {
+  static uint32_t start=0;
+  uint32_t current=0;
   struct timeval tv;
 
   gettimeofday(&tv,NULL);
-  
-  return (tv.tv_sec-start.tv_sec)*1000+(tv.tv_usec-start.tv_usec)/1000;
+  current = (uint32_t)(tv.tv_sec*1000 + tv.tv_usec/1000);
+  if(start==0){
+      start=current;
+  }
+  //printf("%d %d\n",start,current);
+  /*printf("---------%lu  \n",(tv.tv_sec-start.tv_sec)*1000+(tv.tv_usec-start.tv_usec)/1000);
+  return (tv.tv_sec-start.tv_sec)*1000+(tv.tv_usec-start.tv_usec)/1000;*/
+  //printf("%lu %lu\n",tv.tv_sec,tv.tv_usec);
+  return (current-start);
 }
 
 int NDL_PollEvent(char *buf, int len) {
@@ -118,10 +127,10 @@ int NDL_Init(uint32_t flags) {
     evtdev = 3;
   }
 
-  gettimeofday(&start,NULL);
 
   return 0;
 }
 
 void NDL_Quit() {
+
 }
