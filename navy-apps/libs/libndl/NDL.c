@@ -69,6 +69,7 @@ void NDL_OpenCanvas(int *w, int *h) {
     assert(fp!=-1);
     int sys_w,sys_h;
     char temp[64];
+    //char *temp=(char *)malloc(sizeof(char)*64);
     ssize_t o=read(fp,temp,sizeof(temp));
     assert(o);
     o=sscanf(temp,"WIDTH:%d\nHEIGHT:%d",&sys_w,&sys_h);
