@@ -47,6 +47,8 @@ int sys_gettimeofday(struct timeval *tv, struct timezone *tz){
    if(tv!=NULL){
        tv->tv_sec = rtc.second;
        tv->tv_usec = io_read(AM_TIMER_UPTIME).us;
+       //printf("%d\n",tv->tv_usec);
+       //printf("%s\n",__TIME__);
    }
    if(tz!=NULL){
        tz->tz_minuteswest = 0;
