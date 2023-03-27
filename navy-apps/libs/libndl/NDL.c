@@ -13,6 +13,9 @@ static int fbdev = -1;
 static int screen_w = 0, screen_h = 0;
 static int mid_x=0,mid_y=0;
 
+static int fdm=-1;
+static int fp=-1;
+static int fd=-1;
 
 uint32_t NDL_GetTicks() {
   static uint32_t start=0;
@@ -35,14 +38,12 @@ uint32_t NDL_GetTicks() {
 int NDL_PollEvent(char *buf, int len) {
   //printf("here\n");
   //assert(len==64);
-  int fd = open("/dev/events", O_RDONLY);
-  //printf("----%d\n",*(int *)fp);
-  assert(fd!=-1);
+
   
   ssize_t o=read(fd,(char *)buf,len);
   //printf("%d\n",o);
   if(o<=0) { close(fd); return 0;}
-  close(fd);
+
   return 1;
 }
 
@@ -65,8 +66,7 @@ void NDL_OpenCanvas(int *w, int *h) {
     close(fbctl);
   }
 
-    int fp = open("/proc/dispinfo",O_RDONLY);
-    assert(fp!=-1);
+     
     int sys_w,sys_h;
     char temp[64];
     //char *temp=(char *)malloc(sizeof(char)*64);
@@ -91,28 +91,22 @@ void NDL_OpenCanvas(int *w, int *h) {
     screen_w = sys_w; 
     screen_h = sys_h;
     assert(*w<=sys_w && *h<=sys_h);
-    close(fp);
+
     return;
 }
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
-    
-    //printf("%d  %d\n",screen_w,screen_h);
-    int fdm = open("/dev/fb",O_RDWR);
-    assert(fdm!=-1);
-    //printf("%d  %d %d %d %d\n",fdm,w,h,x,y);
-
     for(int i=0;i<h;i++){
-        lseek(fdm,((y+mid_y+i)*screen_w+x+mid_x)*4,SEEK_SET);
-        
-        int o=write(fdm,pixels+i*w,w*4);
+        int o=lseek(fdm,((y+mid_y+i)*screen_w+x+mid_x)*4,SEEK_SET);
+        assert(o!=-1);
+        o=write(fdm,pixels+i*w,w*4);
        /* if(o<0) {
             perror("error:");
         }*/
         assert(o!=-1);
         
     }
-    //close(fdm);
+    //
 }
 
 void NDL_OpenAudio(int freq, int channels, int samples) {
@@ -134,6 +128,12 @@ int NDL_Init(uint32_t flags) {
   if (getenv("NWM_APP")) {
     evtdev = 3;
   }
+  fdm = open("/dev/fb",O_RDWR);
+  assert(fdm!=-1);
+  fp= open("/proc/dispinfo",O_RDONLY);
+  assert(fp!=-1);
+  fd = open("/dev/events", O_RDONLY);
+  assert(fd!=-1);
 
 
   return 0;
@@ -141,4 +141,7 @@ int NDL_Init(uint32_t flags) {
 
 void NDL_Quit() {
 
+close(fdm);
+close(fp);
+close(fd);
 }
