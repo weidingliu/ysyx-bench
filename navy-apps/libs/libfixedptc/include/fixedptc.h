@@ -128,24 +128,24 @@ typedef	__uint128_t fixedptud;
 /* Multiplies a fixedpt number with an integer, returns the result. */
 static inline fixedpt fixedpt_muli(fixedpt A, int B) {
 	fixedpt b=fixedpt_fromint(B);
-	return (A*b)/(2^8);
+	return (A*b) >> FIXEDPT_FBITS;
 }
 
 /* Divides a fixedpt number with an integer, returns the result. */
 static inline fixedpt fixedpt_divi(fixedpt A, int B) {
 	fixedpt b=fixedpt_fromint(B);
-	return (A/b)*2^8;
+	return (A/b) << FIXEDPT_FBITS;
 }
 
 /* Multiplies two fixedpt numbers, returns the result. */
 static inline fixedpt fixedpt_mul(fixedpt A, fixedpt B) {
-	return (A*B)/(2^8);
+	return (A*(B >> FIXEDPT_FBITS));
 }
 
 
 /* Divides two fixedpt numbers, returns the result. */
 static inline fixedpt fixedpt_div(fixedpt A, fixedpt B) {
-	return (A/B)*2^8;
+	return (A/B) << FIXEDPT_FBITS;
 }
 
 static inline fixedpt fixedpt_abs(fixedpt A) {
