@@ -189,7 +189,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
    
   
 #endif
-if(cpu.pc>=0x83001150){printf("%x %x\n",cpu.gpr[20],cpu.gpr[21]);}
+if(cpu.pc>=0x83001150){printf("%lx %lx\n",cpu.gpr[20],cpu.gpr[21]);}
 
 }
 
