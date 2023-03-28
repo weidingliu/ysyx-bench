@@ -189,6 +189,8 @@ static void exec_once(Decode *s, vaddr_t pc) {
    
   
 #endif
+if(cpu.pc>=0x83001150){printf("%x %x\n",cpu.gpr[20],cpu.gpr[21]);}
+
 }
 
 static void execute(uint64_t n) {
