@@ -18,12 +18,12 @@ static int fp=-1;
 static int fd=-1;
 
 uint32_t NDL_GetTicks() {
-  static uint32_t start=0;
-  uint32_t current=0;
+  static uint64_t start=0;
+  uint64_t current=0;
   struct timeval tv;
 
   gettimeofday(&tv,NULL);
-  current = (uint32_t)(tv.tv_sec*1000 + tv.tv_usec/1000);
+  current = (tv.tv_sec*1000 + tv.tv_usec/1000);
   if(start==0){
       start=current;
   }
