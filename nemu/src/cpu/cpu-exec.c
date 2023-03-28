@@ -189,7 +189,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
    
   
 #endif
-if(cpu.pc==0x83001184) {isa_reg_display();display_ftrace();}
+//if(cpu.pc==0x83001184) {isa_reg_display();display_ftrace();}
 
 }
 
