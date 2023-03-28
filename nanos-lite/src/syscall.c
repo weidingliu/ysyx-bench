@@ -44,9 +44,10 @@ int sys_close(int fd){
 int sys_gettimeofday(struct timeval *tv, struct timezone *tz){
    //AM_TIMER_RTC_T rtc;
    //rtc = io_read(AM_TIMER_RTC);
+   uint64_t utime=io_read(AM_TIMER_UPTIME).us;
    if(tv!=NULL){
-       tv->tv_sec = 0;
-       tv->tv_usec = io_read(AM_TIMER_UPTIME).us;
+       tv->tv_sec = utime/1000000;
+       tv->tv_usec = utime % 1000000;
        //printf("%d\n",tv->tv_usec);
        //printf("%s\n",__TIME__);
    }
