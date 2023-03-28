@@ -42,11 +42,13 @@ int sys_close(int fd){
 }
 
 int sys_gettimeofday(struct timeval *tv, struct timezone *tz){
-   AM_TIMER_RTC_T rtc;
-   rtc = io_read(AM_TIMER_RTC);
+   //AM_TIMER_RTC_T rtc;
+   //rtc = io_read(AM_TIMER_RTC);
    if(tv!=NULL){
-       tv->tv_sec = rtc.second;
+       tv->tv_sec = 0;
        tv->tv_usec = io_read(AM_TIMER_UPTIME).us;
+       //printf("%d\n",tv->tv_usec);
+       //printf("%s\n",__TIME__);
    }
    if(tz!=NULL){
        tz->tz_minuteswest = 0;
