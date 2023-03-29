@@ -67,13 +67,18 @@ int _write(int fd, void *buf, size_t count) {
   intptr_t ret =_syscall_(SYS_write,fd,(intptr_t)buf,count);
   return ret;
 }
-intptr_t program_break = (intptr_t) &end;
+static intptr_t program_break = (intptr_t) &end;
 void *_sbrk(intptr_t increment) {
   intptr_t addr=program_break+increment;
   intptr_t o= _syscall_(SYS_brk,addr,0,0);
   intptr_t ret =program_break;
-  program_break+=increment;
-  return (o==0)? (void *)ret:(void *) -1;
+  if(o==0){
+      program_break=addr;
+      return (void *)ret;
+  }
+  else return (void *)-1;
+  
+  
 }
 
 int _read(int fd, void *buf, size_t count) {

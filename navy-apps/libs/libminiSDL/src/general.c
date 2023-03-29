@@ -19,10 +19,10 @@ int SDL_SetError(const char* fmt, ...) {
 }
 
 int SDL_ShowCursor(int toggle) {
-  printf("should not reach here general\n");
+  printf("should not reach here general 0\n");
   return 0;
 }
 
 void SDL_WM_SetCaption(const char *title, const char *icon) {
-  printf("should not reach here general\n");
+  printf("should not reach here general 1\n");
 }

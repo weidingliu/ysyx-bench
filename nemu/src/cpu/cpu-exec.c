@@ -84,7 +84,7 @@ static void func_trace(paddr_t pc,Decode *s){//head insert
             Assert(0,"bad ftrace!");    
         }
     }
-    printf("%s  %x\n",ftr->dst->fun_name,ftr->inst_addr);
+    //printf("%s  %x\n",ftr->dst->fun_name,ftr->inst_addr);
 }
 static void display_ftrace(){
 
@@ -189,6 +189,9 @@ static void exec_once(Decode *s, vaddr_t pc) {
    
   
 #endif
+//if(cpu.pc==0x83001184) {isa_reg_display();display_ftrace();}
+//if(cpu.pc==0x83001184) {printf("%016lx %016lx\n",cpu.gpr[20],cpu.gpr[21]);}
+
 }
 
 static void execute(uint64_t n) {
