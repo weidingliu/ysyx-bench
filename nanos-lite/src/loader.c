@@ -60,7 +60,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
           o=fs_read(fd,buf,phdr[i].p_filesz);
           
           assert(o);
-          if(0x83002ac0-phdr[i].p_vaddr>=0)printf("buf :%x\n",*(uint32_t *)(buf+0x83002ac0-phdr[i].p_vaddr));
+          if(0x83000120-phdr[i].p_vaddr>=0)printf("buf :%x\n",*(uint32_t *)(buf+0x83002ac0-phdr[i].p_vaddr));
           printf("Program Section start: %016x end: %016x\n",phdr[i].p_vaddr,phdr[i].p_vaddr+phdr[i].p_memsz);
           memcpy((char *)phdr[i].p_vaddr,buf,phdr[i].p_memsz);
           assert(phdr[i].p_memsz-phdr[i].p_filesz>=0);
@@ -69,7 +69,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
           free(buf);
       }
   }
-  uint32_t *p=(uint32_t *)0x83002ac0;
+  uint32_t *p=(uint32_t *)0x83000120;
   //memcpy(p,);
   printf("--------%x\n",*p);
   fs_close(fd);
