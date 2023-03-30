@@ -54,15 +54,15 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
           //assert(phdr[i].p_memsz<0x20000);
           //char buf[phdr[i].p_memsz];
           char *buf = (char *)malloc(sizeof(char)*phdr[i].p_memsz);
-          printf("buf addr: %x\n",buf);
+          //printf("buf addr: %x\n",buf);
           o=fs_lseek(fd,phdr[i].p_offset,SEEK_SET); 
           assert(o!=-1);
           
           o=fs_read(fd,buf,phdr[i].p_memsz);
           
           assert(o);
-          printf(" %x %x %x\n",phdr[i].p_memsz,phdr[i].p_offset,&ramdisk_start);
-          if(0x83002ac0-phdr[i].p_vaddr>=0)printf("buf :%x\n",*(uint32_t *)(buf+0x83002ac0-phdr[i].p_vaddr));
+         // printf(" %x %x %x\n",phdr[i].p_memsz,phdr[i].p_offset,&ramdisk_start);
+          //if(0x83002ac0-phdr[i].p_vaddr>=0)printf("buf :%x\n",*(uint32_t *)(buf+0x83002ac0-phdr[i].p_vaddr));
           printf("Program Section start: %016x end: %016x\n",phdr[i].p_vaddr,phdr[i].p_vaddr+phdr[i].p_memsz);
           memcpy((char *)phdr[i].p_vaddr,buf,phdr[i].p_memsz);
           assert(phdr[i].p_memsz-phdr[i].p_filesz>=0);
@@ -71,9 +71,9 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
           free(buf);
       }
   }
-  uint32_t *p=(uint32_t *)0x83002ac0;
+  //uint32_t *p=(uint32_t *)0x83002ac0;
   //memcpy(p,);
-  printf("---endg-----%08x %08x %08x \n",*p,351168,&ramdisk_start);
+ // printf("---endg-----%08x %08x %08x \n",*p,351168,&ramdisk_start);
   fs_close(fd);
   //printf("%x\n",elf_head.e_entry);
   return elf_head.e_entry;
