@@ -111,7 +111,7 @@ void *memcpy(void *out, const void *in, size_t n) {
   //printf("here\n");
   //if(((intptr_t)out) == 0x800c2780) assert(0);
   char *_out =(char *)out;
-  const char *_in = (char *)in;
+  const char *_in = (const char *)in;
   for(int i=0;i<n;i++){
       _out[i] = _in[i];
   }
