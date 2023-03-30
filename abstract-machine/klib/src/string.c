@@ -116,7 +116,7 @@ void *memcpy(void *out, const void *in, size_t n) {
       _out[i] = _in[i];
   }
 
-  return out;
+  return 0;
 }
 
 int memcmp(const void *s1, const void *s2, size_t n) {
