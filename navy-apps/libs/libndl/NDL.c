@@ -22,7 +22,7 @@ uint32_t NDL_GetTicks() {
   //printf("dfgggppp---------p\n");
   //uint64_t current=0;
   //printf("upppppppppp\n");
-  struct timeval tv;
+  static struct timeval tv;
 //printf("dghhhhhhhhhjjjj\n");
   gettimeofday(&tv,NULL);
  // current = (tv.tv_sec*1000 + tv.tv_usec/1000);
@@ -68,6 +68,8 @@ void NDL_OpenCanvas(int *w, int *h) {
      
     int sys_w,sys_h;
     char temp[64];
+    fp= open("/proc/dispinfo",O_RDONLY);
+    assert(fp!=-1);
     //char *temp=(char *)malloc(sizeof(char)*64);
     ssize_t o=read(fp,temp,sizeof(temp));
     assert(o);
@@ -90,7 +92,7 @@ void NDL_OpenCanvas(int *w, int *h) {
     screen_w = sys_w; 
     screen_h = sys_h;
     assert(*w<=sys_w && *h<=sys_h);
-
+    close(fp);
     return;
 }
 
@@ -127,13 +129,10 @@ int NDL_Init(uint32_t flags) {
   }
   fdm = open("/dev/fb",O_RDWR);
   assert(fdm!=-1);
-  fp= open("/proc/dispinfo",O_RDONLY);
-  assert(fp!=-1);
-
   
-  struct timeval tv;
-  gettimeofday(&tv,NULL);
-  start = (tv.tv_sec*1000 + tv.tv_usec/1000);
+  struct timeval ta;
+  gettimeofday(&ta,NULL);
+  start = (ta.tv_sec*1000 + ta.tv_usec/1000);
 
   return 0;
 }
@@ -141,6 +140,6 @@ int NDL_Init(uint32_t flags) {
 void NDL_Quit() {
 
 close(fdm);
-close(fp);
+
 //close(fd);
 }
