@@ -124,7 +124,7 @@ static void display_ftrace(){
     }    
     return;
 }
-
+extern paddr_read(paddr_t addr, int len);
 #endif
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_ITRACE_COND
