@@ -61,6 +61,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
           o=fs_read(fd,buf,phdr[i].p_memsz);
           
           assert(o);
+          printf(" %x %x %x\n",phdr[i].p_memsz,phdr[i].p_offset,&ramdisk_start);
           if(0x83002ac0-phdr[i].p_vaddr>=0)printf("buf :%x\n",*(uint32_t *)(buf+0x83002ac0-phdr[i].p_vaddr));
           printf("Program Section start: %016x end: %016x\n",phdr[i].p_vaddr,phdr[i].p_vaddr+phdr[i].p_memsz);
           memcpy((char *)phdr[i].p_vaddr,buf,phdr[i].p_memsz);
