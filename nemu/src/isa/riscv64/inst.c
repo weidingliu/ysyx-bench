@@ -67,6 +67,7 @@ static int decode_exec(Decode *s) {
   //printf("%lx %lx\n",Mr(0x800c6008,4),s->pc);
   //if(s->pc==0x80000eb8) assert(0);
   //assert(Mr(0x800c6008,4) == 0x80000a00 || Mr(0x800c6008,4) == 0x0);
+  if(Mr(0x83002b3c,4)!=0x00d10b23) {printf("%016lx %08x %lx\n",cpu.gpr[20],s->isa.inst.val,cpu.pc);isa_reg_display();nemu_state.state=NEMU_ABORT;}
 #define INSTPAT_INST(s) ((s)->isa.inst.val)
 #define INSTPAT_MATCH(s, name, type, ... /* execute body */ ) { \
   decode_operand(s, &dest, &src1, &src2, &imm, &csr,concat(TYPE_, type)); \
