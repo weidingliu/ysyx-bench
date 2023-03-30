@@ -47,8 +47,8 @@ static void display_iringbuf(){
     for(;i<IRTRACE;i++){
         if(i==(irbuf_point+31)%32) printf("-->");
         else printf("   ");
-
-        puts(ibuf[i]);
+        printf("%s\n",ibuf[i]);
+        //puts(ibuf[i]);
     }
 }
 #endif
@@ -164,7 +164,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   int i;
   uint8_t *inst = (uint8_t *)&s->isa.inst.val;
   
-  if(0x0000000083001160==s->pc ) printf("%08x\n", s->isa.inst.val);
+  //if(0x0000000083001160==s->pc ) printf("%08x\n", s->isa.inst.val);
   
   
   for (i = ilen - 1; i >= 0; i --) {
@@ -189,8 +189,9 @@ static void exec_once(Decode *s, vaddr_t pc) {
    
   
 #endif
-//if(cpu.pc==0x83001184) {isa_reg_display();display_ftrace();}
-//if(cpu.pc==0x83001184) {printf("%016lx %016lx\n",cpu.gpr[20],cpu.gpr[21]);}
+//if(cpu.pc==0x83001184) {isa_reg_display();display_ftrace();
+//printf("%016lx %016lx %lx\n",cpu.gpr[20],cpu.gpr[21],cpu.pc);
+//if(cpu.gpr[20]==0x49ff4cff4fff8bff) {printf("%016lx %08x %lx\n",cpu.gpr[20],s->isa.inst.val,cpu.pc);nemu_state.state=NEMU_ABORT;}
 
 }
 
@@ -264,5 +265,6 @@ void cpu_exec(uint64_t n) {
       // fall through
       
     case NEMU_QUIT: {statistic();}
+    //display_iringbuf();
   }
 }

@@ -72,6 +72,7 @@ int fs_open(const char *pathname, int flags, int mode){
 
 size_t fs_read(int fd, void *buf, size_t len){
     int num=sizeof(file_table)/sizeof(file_table[0]);
+    //printf("fs_ %x %x\n",buf,len);
     if(fd>num || fd<0) panic("should not reach here");
     if(file_table[fd].read != NULL){ 
         return file_table[fd].read(buf,0,len);
@@ -84,11 +85,12 @@ size_t fs_read(int fd, void *buf, size_t len){
     size_t ret =0;
     //printf("%x %d %d\n",&buf,len,fd);
     if(file_table[fd].open_offset+len > file_table[fd].size){
-        ret=ramdisk_read(buf,file_table[fd].disk_offset+file_table[fd].open_offset,file_table[fd].open_offset+len - file_table[fd].size);
-        file_table[fd].open_offset+=file_table[fd].open_offset+len - file_table[fd].size;
+        ret=ramdisk_read(buf,file_table[fd].disk_offset+file_table[fd].open_offset,file_table[fd].size-file_table[fd].open_offset);
+        file_table[fd].open_offset+=file_table[fd].size-file_table[fd].open_offset;
     }
     else{
         //printf("%x %d %d\n",&buf,len,fd);
+        //printf("%d  %d\n",file_table[fd].disk_offset+file_table[fd].open_offset,len);
         ret=ramdisk_read(buf,file_table[fd].disk_offset+file_table[fd].open_offset,len);
         file_table[fd].open_offset+=len;
     }
