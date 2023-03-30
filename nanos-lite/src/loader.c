@@ -55,6 +55,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
           //char buf[phdr[i].p_memsz];
           char *buf = (char *)malloc(sizeof(char)*phdr[i].p_memsz);
           //printf("buf addr: %x\n",buf);
+          assert(buf!=NULL);
           o=fs_lseek(fd,phdr[i].p_offset,SEEK_SET); 
           assert(o!=-1);
           

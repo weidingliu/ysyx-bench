@@ -22,8 +22,9 @@ uint32_t NDL_GetTicks() {
   //printf("dfgggppp---------p\n");
   //uint64_t current=0;
   //printf("upppppppppp\n");
-  static struct timeval tv;
+  struct timeval tv;
 //printf("dghhhhhhhhhjjjj\n");
+
   gettimeofday(&tv,NULL);
  // current = (tv.tv_sec*1000 + tv.tv_usec/1000);
 
