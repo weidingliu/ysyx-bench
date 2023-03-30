@@ -107,16 +107,13 @@ void *memmove(void *dst, const void *src, size_t n) {
 }
 
 void *memcpy(void *out, const void *in, size_t n) {
-  int num=n;
-  //printf("%x  %d %x\n",&out,n,(intptr_t)out);
-  //printf("here\n");
-  //if(((intptr_t)out) == 0x800c2780) assert(0);
-  while(num--){
-          *(char *)out = *(const char *)in;
-          out= (char *)out+1;
-          in = (const char *)in+1;
-      }
-  return 0;
+  char *char_out = (char *)out;
+  const char *char_in = (const char *)in;
+  for (int i = 0; i < n; ++i){
+    char_out[i] = char_in[i];
+  }
+
+  return out;
 }
 
 int memcmp(const void *s1, const void *s2, size_t n) {
