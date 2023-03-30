@@ -57,7 +57,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
           o=fs_lseek(fd,phdr[i].p_offset,SEEK_SET); 
           assert(o!=-1);
           
-          o=fs_read(fd,buf,phdr[i].p_filesz);
+          o=fs_read(fd,buf,phdr[i].p_memsz);
           
           assert(o);
           if(0x83002ac0-phdr[i].p_vaddr>=0)printf("buf :%x\n",*(uint32_t *)(buf+0x83002ac0-phdr[i].p_vaddr));
