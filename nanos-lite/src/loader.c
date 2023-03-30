@@ -23,7 +23,7 @@
 # error Unsupported ISA
 #endif
 
-
+extern uint8_t ramdisk_start;
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
   Elf_Ehdr elf_head;
@@ -71,7 +71,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   }
   uint32_t *p=(uint32_t *)0x83002ac0;
   //memcpy(p,);
-  printf("--------%x\n",*p);
+  printf("--------%x  %x\n",*p,351168+ramdisk_start);
   fs_close(fd);
   //printf("%x\n",elf_head.e_entry);
   return elf_head.e_entry;
