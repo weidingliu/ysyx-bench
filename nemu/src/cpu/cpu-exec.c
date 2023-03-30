@@ -192,7 +192,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
 //if(cpu.pc==0x83001184) {isa_reg_display();display_ftrace();
 //printf("%016lx %016lx %lx\n",cpu.gpr[20],cpu.gpr[21],cpu.pc);
 if(cpu.gpr[20]==0x49ff4cff4fff8bff) {printf("%016lx %08x %lx\n",cpu.gpr[20],s->isa.inst.val,cpu.pc);isa_reg_display();nemu_state.state=NEMU_ABORT;}
-if(paddr_read(0x83002b3c,4)!=0x00d10b23) {printf("%016lx %08x %lx\n",cpu.gpr[20],s->isa.inst.val,cpu.pc);isa_reg_display();nemu_state.state=NEMU_ABORT;}
+
 }
 
 static void execute(uint64_t n) {
