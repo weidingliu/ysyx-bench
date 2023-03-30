@@ -72,6 +72,7 @@ int fs_open(const char *pathname, int flags, int mode){
 
 size_t fs_read(int fd, void *buf, size_t len){
     int num=sizeof(file_table)/sizeof(file_table[0]);
+    printf("fs_ %x %x\n",buf,len);
     if(fd>num || fd<0) panic("should not reach here");
     if(file_table[fd].read != NULL){ 
         return file_table[fd].read(buf,0,len);
