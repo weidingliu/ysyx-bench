@@ -107,7 +107,7 @@ void *memmove(void *dst, const void *src, size_t n) {
 }
 
 void *memcpy(void *out, const void *in, size_t n) {
-  //printf("memcpy %p %p\n",out,in);
+  printf("memcpy %p %p\n",out,in);
   int num=n;
   void *ret=out;
   while(num--){
