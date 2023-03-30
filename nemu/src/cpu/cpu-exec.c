@@ -265,6 +265,6 @@ void cpu_exec(uint64_t n) {
       // fall through
       
     case NEMU_QUIT: {statistic();}
-    display_iringbuf();
+    //display_iringbuf();
   }
 }
