@@ -16,22 +16,19 @@ static int mid_x=0,mid_y=0;
 static int fdm=-1;
 static int fp=-1;
 static int fd=-1;
+static uint64_t start=0;
 
 uint32_t NDL_GetTicks() {
-  static uint64_t start=0;
+  //printf("dfgggppp---------p\n");
   uint64_t current=0;
+  //printf("upppppppppp\n");
   struct timeval tv;
-
+//printf("dghhhhhhhhhjjjj\n");
   gettimeofday(&tv,NULL);
   current = (tv.tv_sec*1000 + tv.tv_usec/1000);
-  if(start==0){
-      start=current;
-  }
+
   assert(current>=start);
-  //+printf("%d %d\n",start,current);
-  /*printf("---------%lu  \n",(tv.tv_sec-start.tv_sec)*1000+(tv.tv_usec-start.tv_usec)/1000);
-  return (tv.tv_sec-start.tv_sec)*1000+(tv.tv_usec-start.tv_usec)/1000;*/
-  //printf("%lu %lu\n",tv.tv_sec,tv.tv_usec);
+  //printf("dfgggpppp\n");
   return (current-start);
 }
 
@@ -132,7 +129,10 @@ int NDL_Init(uint32_t flags) {
   assert(fp!=-1);
   fd = open("/dev/events", O_RDONLY);
   assert(fd!=-1);
-
+  
+  struct timeval tv;
+  gettimeofday(&tv,NULL);
+  start = (tv.tv_sec*1000 + tv.tv_usec/1000);
 
   return 0;
 }
