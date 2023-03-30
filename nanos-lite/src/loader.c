@@ -60,11 +60,11 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
           o=fs_read(fd,buf,phdr[i].p_memsz);
           
           assert(o);
-          printf("Section start: %016x end: %016x\n",phdr[i].p_vaddr,phdr[i].p_vaddr+phdr[i].p_memsz);
-          memcpy((void *)phdr[i].p_vaddr,buf,phdr[i].p_memsz);
+          printf("Program Section start: %016x end: %016x\n",phdr[i].p_vaddr,phdr[i].p_vaddr+phdr[i].p_memsz);
+          memcpy((char *)phdr[i].p_vaddr,buf,phdr[i].p_memsz);
           assert(phdr[i].p_memsz-phdr[i].p_filesz>=0);
           //printf("%x  %x  %x\n",phdr[i].p_vaddr+phdr[i].p_filesz,phdr[i].p_vaddr,phdr[i].p_filesz);
-          memset((void *)(phdr[i].p_vaddr+phdr[i].p_filesz),0,phdr[i].p_memsz-phdr[i].p_filesz);
+          memset((char *)(phdr[i].p_vaddr+phdr[i].p_filesz),0,phdr[i].p_memsz-phdr[i].p_filesz);
           free(buf);
       }
   }
