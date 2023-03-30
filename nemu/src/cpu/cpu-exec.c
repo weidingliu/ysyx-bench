@@ -135,7 +135,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
   //puts(_this->logbuf);
   //printf("%d\n",(int) cpu.gpr[15]);
   IFDEF(CONFIG_ITRACE,strcpy(ibuf[irbuf_point],_this->logbuf));
-  //puts(ibuf[irbuf_point]);
+  puts(ibuf[irbuf_point]);
   IFDEF(CONFIG_ITRACE,irbuf_point=(irbuf_point+1)%IRTRACE);
   //printf("-------------%08x\n",_this->isa.inst.val);
   //printf("----------------%016lx\n",dnpc);
