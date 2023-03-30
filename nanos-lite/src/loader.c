@@ -68,6 +68,9 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
           free(buf);
       }
   }
+  uint32_t *p=(uint32_t *)0x83002b3c;
+  //memcpy(p,);
+  printf("%x\n",*p);
   fs_close(fd);
   //printf("%x\n",elf_head.e_entry);
   return elf_head.e_entry;
