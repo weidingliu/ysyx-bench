@@ -36,12 +36,13 @@ uint32_t NDL_GetTicks() {
 int NDL_PollEvent(char *buf, int len) {
   //printf("here\n");
   //assert(len==64);
-
+  fd = open("/dev/events", O_RDONLY);
+  assert(fd!=-1);
   
   ssize_t o=read(fd,(char *)buf,len);
   //printf("%d\n",o);
   if(o<=0) { close(fd); return 0;}
-
+  close(fd);
   return 1;
 }
 
@@ -128,8 +129,7 @@ int NDL_Init(uint32_t flags) {
   assert(fdm!=-1);
   fp= open("/proc/dispinfo",O_RDONLY);
   assert(fp!=-1);
-  fd = open("/dev/events", O_RDONLY);
-  assert(fd!=-1);
+
   
   struct timeval tv;
   gettimeofday(&tv,NULL);
@@ -142,5 +142,5 @@ void NDL_Quit() {
 
 close(fdm);
 close(fp);
-close(fd);
+//close(fd);
 }
