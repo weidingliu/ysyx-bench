@@ -14,7 +14,7 @@ size_t ramdisk_read(void *buf, size_t offset, size_t len) {
   assert(offset + len <= RAMDISK_SIZE);
   //printf("%d  %d\n",offset,len);
   memcpy(buf, &ramdisk_start + offset, len);
-  printf("%x\n",*(uint32_t *)(buf+0x2b3c));
+  //printf("%x\n",*(uint32_t *)(buf+0x2b3c));
   return len;
 }
 
