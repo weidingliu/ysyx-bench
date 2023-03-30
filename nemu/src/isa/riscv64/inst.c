@@ -70,7 +70,7 @@ static int decode_exec(Decode *s) {
   //if(Mr(0x83002b3c,4)==0x00d10b23) {printf("%016lx %08x %lx\n",cpu.gpr[20],s->isa.inst.val,cpu.pc);}
   //if(Mr(0x83002b3c,4)==0x00d10b23) nemu_state.state=NEMU_ABORT;
   //printf("%lx\n",Mr(0x83002b3c,4));
-  if(s->pc==83002b3c) {nemu_state.state=NEMU_ABORT;printf("%016lx %08x %lx\n",cpu.gpr[20],s->isa.inst.val,cpu.pc);}
+  if(s->pc==0x83002b3c) {nemu_state.state=NEMU_ABORT;printf("%016lx %08x %lx\n",cpu.gpr[20],s->isa.inst.val,cpu.pc);}
 #define INSTPAT_INST(s) ((s)->isa.inst.val)
 #define INSTPAT_MATCH(s, name, type, ... /* execute body */ ) { \
   decode_operand(s, &dest, &src1, &src2, &imm, &csr,concat(TYPE_, type)); \
