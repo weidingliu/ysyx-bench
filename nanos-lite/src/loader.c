@@ -71,7 +71,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   }
   uint32_t *p=(uint32_t *)0x83002ac0;
   //memcpy(p,);
-  printf("--------%08x  %08x\n",*p, &ramdisk_start );
+  printf("--------%08x  \n",*p);
   fs_close(fd);
   //printf("%x\n",elf_head.e_entry);
   return elf_head.e_entry;
