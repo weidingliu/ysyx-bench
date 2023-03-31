@@ -47,7 +47,7 @@ ARCHIVE  = $(WORK_DIR)/build/$(NAME)-$(ISA).a
 
 ### Add default libraries for ISA != native
 ifneq ($(ISA), native)
-LIBS += libc libos libndl libfixedptc ##libminiSDL libSDL_image
+LIBS += libc libos libndl libfixedptc ##libminiSDL ##libSDL_image
 CFLAGS += -U_FORTIFY_SOURCE  # fix compile error in Newlib on ubuntu
 else
 WL = -Wl,
@@ -84,7 +84,7 @@ INCFLAGS += $(addprefix -I, $(INC_PATH))
 
 CFLAGS   += -O0 -MMD $(INCFLAGS) -static -D__NAVY__ \
             -D__ISA__=\"$(ISA)\" -D__ISA_$(shell echo $(ISA) | tr a-z A-Z)__ \
-            -fno-asynchronous-unwind-tables -fno-builtin -fno-stack-protector -g
+            -fno-asynchronous-unwind-tables -fno-builtin -fno-stack-protector
 CXXFLAGS +=  $(CFLAGS) -ffreestanding -fno-rtti -fno-exceptions
 ASFLAGS  +=  $(CFLAGS)
 

@@ -23,19 +23,31 @@ int SDL_PollEvent(SDL_Event *ev) {
   char buf[128];
   int ret=NDL_PollEvent(buf,sizeof(buf));
   if(!ret) return 0;
+  int keycode_len= sizeof(keyname)/sizeof(keyname[0]);
 
   int keycode=0;
+  char key[32];
   if(!strncmp("ku",buf,2)){
       ev->type = SDL_KEYUP;
-      
-      sscanf(buf,"ku %*s %d",&keycode);
+      sscanf(buf,"ku %s",key);
+      for (int i = 0; i < keycode_len; i++)
+      {
+        if(!strcmp(key,keyname[i])) {keycode=i;break;}
+      }
+      assert(keycode!=0);
+      //printf("up %d %s %s\n",keycode,buf,key);
       ev->key.keysym.sym=keycode;
       key_state[keycode]=0;
 
   }
   else{
       ev->type = SDL_KEYDOWN;
-      sscanf(buf,"kd %*s %d",&keycode);
+      sscanf(buf,"kd %s",key);
+      for (int i = 0; i < keycode_len; i++)
+      {
+        if(!strcmp(key,keyname[i])) {keycode=i;break;}
+      }
+      assert(keycode!=0);
       ev->key.keysym.sym=keycode;
       key_state[keycode]=1;
   }
@@ -48,21 +60,33 @@ int SDL_WaitEvent(SDL_Event *event) {
   while(!NDL_PollEvent(buf,sizeof(buf)));
   //printf("%s\n",buf);
   int keycode=0;
+  char key[32];
+  int keycode_len= sizeof(keyname)/sizeof(keyname[0]);
   if(!strncmp("ku",buf,2)){
       event->type = SDL_KEYUP;
-      
-      sscanf(buf,"ku %*s %d",&keycode);
+      sscanf(buf,"ku %s",key);
+      for (int i = 0; i < keycode_len; i++)
+      {
+        /* code */
+        if(!strcmp(key,keyname[i])) {keycode=i;break;}
+      }
+      assert(keycode!=0);
       key_state[keycode]=0;
       event->key.keysym.sym=keycode;
 
   }
   else{
       event->type = SDL_KEYDOWN;
-      sscanf(buf,"kd %*s %d",&keycode);
+      sscanf(buf,"kd %s",key);
+      for (int i = 0; i < keycode_len; i++)
+      {
+        /* code */
+        if(!strcmp(key,keyname[i])) {keycode=i;break;}
+      }
+      assert(keycode!=0);
       event->key.keysym.sym=keycode;
       key_state[keycode]=1;
-      //event->key.keysym.sym=SDLK_DOWN;
-      //printf("%d  %d \n",keycode,event->key.keysym.sym);
+
   }
   
   return 1;
