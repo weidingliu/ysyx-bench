@@ -20,18 +20,18 @@ static uint64_t start=0;
 
 uint32_t NDL_GetTicks() {
   //printf("dfgggppp---------p\n");
-  //uint64_t current=0;
+  uint64_t current=0;
   //printf("upppppppppp\n");
   struct timeval tv;
 //printf("dghhhhhhhhhjjjj\n");
 
   gettimeofday(&tv,NULL);
- // current = (tv.tv_sec*1000 + tv.tv_usec/1000);
+  current = (tv.tv_sec*1000 + tv.tv_usec/1000);
 
-  //assert(current>=start);
+  assert(current>=start);
   //printf("dfgggpppp\n");
-  //return (current-start);
-  return (tv.tv_sec*1000 + tv.tv_usec/1000)-start;
+  return (current-start);
+  //return (tv.tv_sec*1000 + tv.tv_usec/1000)-start;
 }
 
 int NDL_PollEvent(char *buf, int len) {
