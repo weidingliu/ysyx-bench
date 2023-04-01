@@ -328,9 +328,10 @@ static int cmd_save(char *args){
       printf("Illegal parameter!\n");
       return 0;
   }
-  FILE *fp=fopen(arg,"r+");
+  FILE *fp=fopen(arg,"w+");
+  assert(fp!=NULL);
   //printf("dsfgg\n");
-  //fwrite(guest_to_host(RESET_VECTOR+0x100000),1,CONFIG_MSIZE-0x100000,fp);
+  fwrite(guest_to_host(RESET_VECTOR+0x100000),1,CONFIG_MSIZE-0x100000,fp);
   fclose(fp);
 
   return 0;
