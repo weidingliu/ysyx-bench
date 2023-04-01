@@ -331,7 +331,7 @@ static int cmd_save(char *args){
   FILE *fp=fopen(arg,"w+");
   assert(fp!=NULL);
   //printf("dsfgg\n");
-  //fwrite(guest_to_host(RESET_VECTOR+0x100000),1,CONFIG_MSIZE-0x100000,fp);
+  fwrite(guest_to_host(RESET_VECTOR+0x100000),1,CONFIG_MSIZE-0x100000,fp);
   fwrite(&cpu,sizeof(CPU_state),1,fp);
   fclose(fp);
 
@@ -344,7 +344,15 @@ static int cmd_load(char *args){
       printf("Illegal parameter!\n");
       return 0;
   }
-
+  FILE *fp=fopen(arg,"r");
+  assert(fp!=NULL);
+  int o=fread(guest_to_host(RESET_VECTOR+0x100000),1,CONFIG_MSIZE-0x100000,fp);
+  assert(o!=0);
+  o=fread(&cpu,sizeof(CPU_state),1,fp);
+  assert(o!=0);
+  fclose(fp);
+  ref_difftest_memcpy(RESET_VECTOR+0x100000, guest_to_host(RESET_VECTOR+0x100000), CONFIG_MSIZE-0x100000, DIFFTEST_TO_REF);
+  ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
   return 0;
 }
 
