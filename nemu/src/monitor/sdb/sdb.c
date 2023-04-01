@@ -311,7 +311,7 @@ static int cmd_attach(char *args){
   #endif
   detach_difftest=0;
 
-  ref_difftest_memcpy(0x10000000, guest_to_host(0x10000000), CONFIG_MSIZE - 0x10000000, DIFFTEST_TO_REF);
+  ref_difftest_memcpy(RESET_VECTOR, guest_to_host(RESET_VECTOR), CONFIG_MSIZE, DIFFTEST_TO_REF);
   ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
   return 0;
 }
