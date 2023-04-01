@@ -19,7 +19,10 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "sdb.h"
+#include <difftest-def.h>
+#include <cpu/difftest.h>
 
+bool detach_difftest=0;
 uint32_t atoi32_t(char *arg){
     uint32_t temp=0x0;
     for (int i=2;i<strlen(arg);i++){
@@ -107,6 +110,14 @@ static int cmd_p(char *args);
 
 static int cmd_watch(char *args);
 
+static int cmd_detach(char *args);
+
+static int cmd_attach(char *args);
+
+static int cmd_save(char *args);
+
+static int cmd_load(char *args);
+
 static struct {
   const char *name;
   const char *description;
@@ -120,6 +131,10 @@ static struct {
   { "x", "x [N] EXPR ,Hexadecimal output N byte in memory, EXPR is address", cmd_x },
    { "p", "evaluate regular expressions",  cmd_p},
    { "w", "set a watchpoint regular expressions",  cmd_watch},
+   { "detach", "close difftest",  cmd_detach},
+   { "attach", "open difftest",  cmd_attach},
+   { "save", "save nemu",  cmd_save},
+   { "load", "load nemu",  cmd_load},
   /* TODO: Add more commands */
 
 };
@@ -284,6 +299,72 @@ static int cmd_watch(char *args){
          new_wp(out,arg);
     }
     return 0;
+}
+
+static int cmd_detach(char *args){
+  #ifndef CONFIG_DIFFTEST
+        printf("Don't open difftest!\n");
+        return 0;
+  #endif
+  detach_difftest=1;
+  printf("detach difftest!\n");
+  return 0;
+}
+static int cmd_attach(char *args){
+   #ifndef CONFIG_DIFFTEST
+        printf("Don't open difftest!\n");
+        return 0;
+  #endif
+  detach_difftest=0;
+  printf("attach defftest!\n");
+  ref_difftest_memcpy(RESET_VECTOR+0x100000, guest_to_host(RESET_VECTOR+0x100000), CONFIG_MSIZE-0x100000, DIFFTEST_TO_REF);
+  ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
+  return 0;
+}
+
+static char path[64]="/home/liuweiding/ysyx-workbench/nemu/resource/snapshot/";
+static int cmd_save(char *args){
+  char *arg = strtok(NULL, " ");
+  if(arg == NULL ){
+      printf("Illegal parameter!\n");
+      return 0;
+  }
+  char *save_path=(char *)malloc(sizeof(path)+sizeof(arg));
+  sprintf(save_path,"%s%s",path,arg);
+  FILE *fp=fopen(save_path,"w+");
+  assert(fp!=NULL);
+  //printf("dsfgg\n");
+  fwrite(guest_to_host(RESET_VECTOR),1,CONFIG_MSIZE,fp);
+  fwrite(&cpu,sizeof(CPU_state),1,fp);
+  fwrite(&nemu_state,sizeof(NEMUState),1,fp);
+  fclose(fp);
+  free(save_path);
+  //printf("%lx\n",cpu.pc);
+  return 0;
+}
+
+static int cmd_load(char *args){
+  char *arg = strtok(NULL, " ");
+  if(arg == NULL ){
+      printf("Illegal parameter!\n");
+      return 0;
+  }
+  char *save_path=(char *)malloc(sizeof(path)+sizeof(arg));
+  sprintf(save_path,"%s%s",path,arg);
+  FILE *fp=fopen(save_path,"r");
+  assert(fp!=NULL);
+  int o=fread(guest_to_host(RESET_VECTOR),1,CONFIG_MSIZE,fp);
+  assert(o!=0);
+  o=fread(&cpu,sizeof(CPU_state),1,fp);
+  assert(o!=0);
+  o=fread(&nemu_state,sizeof(NEMUState),1,fp);
+  assert(o!=0);
+  fclose(fp);
+  ref_difftest_memcpy(RESET_VECTOR, guest_to_host(RESET_VECTOR), CONFIG_MSIZE, DIFFTEST_TO_REF);
+  ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
+  free(save_path);
+  //printf("%lx\n",cpu.pc);
+  return 0;
 }
 
 void sdb_set_batch_mode() {
