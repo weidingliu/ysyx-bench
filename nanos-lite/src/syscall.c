@@ -2,6 +2,7 @@
 #include "syscall.h"
 #include <fs.h>
 #include <sys/time.h>
+#include <proc.h>
 
 int sys_yield(){
     yield();
@@ -57,6 +58,10 @@ int sys_gettimeofday(struct timeval *tv, struct timezone *tz){
    }
    return 0;
 }
+int sys_execve(const char *fname, char * const argv[], char *const envp[]){
+    naive_uload(NULL,fname);
+    return 0;
+}
 
 void do_syscall(Context *c) {
   uintptr_t a[4];
@@ -77,6 +82,7 @@ void do_syscall(Context *c) {
     case(SYS_read): ret=sys_read(a[1],(void *)a[2],a[3]);break;
     case(SYS_close): ret=sys_close(a[1]);break;
     case(SYS_gettimeofday): ret=sys_gettimeofday((struct timeval *)a[1],(struct timezone *)a[2]);break;
+    case(SYS_execve): ret=sys_execve((const char *)a[1],(char * const *)a[2],(char * const *)a[3]); break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
   //printf("%d\n",ret);
