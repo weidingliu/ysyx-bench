@@ -331,7 +331,8 @@ static int cmd_save(char *args){
   FILE *fp=fopen(arg,"w+");
   assert(fp!=NULL);
   //printf("dsfgg\n");
-  fwrite(guest_to_host(RESET_VECTOR+0x100000),1,CONFIG_MSIZE-0x100000,fp);
+  //fwrite(guest_to_host(RESET_VECTOR+0x100000),1,CONFIG_MSIZE-0x100000,fp);
+  fwrite(&cpu,1,sizeof(CPU_state),fp);
   fclose(fp);
 
   return 0;
