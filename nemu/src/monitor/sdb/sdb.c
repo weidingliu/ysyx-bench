@@ -332,7 +332,7 @@ static int cmd_save(char *args){
   char *save_path=(char *)malloc(sizeof(path)+sizeof(arg));
   sprintf(save_path,"%s%s",path,arg);
   printf("%s\n",save_path);
-  FILE *fp=fopen(path,"w+");
+  FILE *fp=fopen(save_path,"w+");
   assert(fp!=NULL);
   //printf("dsfgg\n");
   fwrite(guest_to_host(RESET_VECTOR+0x100000),1,CONFIG_MSIZE-0x100000,fp);
