@@ -329,6 +329,7 @@ static int cmd_save(char *args){
       return 0;
   }
   FILE *fp=fopen(arg,"r+");
+  printf("dsfgg\n");
   fwrite(guest_to_host(RESET_VECTOR+0x100000),1,CONFIG_MSIZE-0x100000,fp);
   fclose(fp);
 
