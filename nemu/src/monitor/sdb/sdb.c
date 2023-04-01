@@ -335,7 +335,7 @@ static int cmd_save(char *args){
   fwrite(&cpu,sizeof(CPU_state),1,fp);
   fwrite(&nemu_state,sizeof(NEMUState),1,fp);
   fclose(fp);
-
+  printf("%lx\n",cpu.pc);
   return 0;
 }
 
@@ -356,6 +356,7 @@ static int cmd_load(char *args){
   fclose(fp);
   ref_difftest_memcpy(RESET_VECTOR+0x100000, guest_to_host(RESET_VECTOR+0x100000), CONFIG_MSIZE-0x100000, DIFFTEST_TO_REF);
   ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
+  printf("%lx\n",cpu.pc);
   return 0;
 }
 
