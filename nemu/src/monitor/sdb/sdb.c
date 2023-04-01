@@ -360,7 +360,7 @@ static int cmd_load(char *args){
   o=fread(&nemu_state,sizeof(NEMUState),1,fp);
   assert(o!=0);
   fclose(fp);
-  ref_difftest_memcpy(RESET_VECTOR+0x100000, guest_to_host(RESET_VECTOR+0x100000), CONFIG_MSIZE-0x100000, DIFFTEST_TO_REF);
+  ref_difftest_memcpy(RESET_VECTOR, guest_to_host(RESET_VECTOR), CONFIG_MSIZE, DIFFTEST_TO_REF);
   ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
   free(save_path);
   //printf("%lx\n",cpu.pc);
