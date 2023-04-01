@@ -328,7 +328,8 @@ static int cmd_save(char *args){
       printf("Illegal parameter!\n");
       return 0;
   }
-  char *path=strcat("/home/liuweiding/ysyx-workbench/nemu/resource/snapshot/",arg);
+  char *path="/home/liuweiding/ysyx-workbench/nemu/resource/snapshot/";
+  strcat(path,arg);
   FILE *fp=fopen(path,"w+");
   assert(fp!=NULL);
   //printf("dsfgg\n");
@@ -346,7 +347,8 @@ static int cmd_load(char *args){
       printf("Illegal parameter!\n");
       return 0;
   }
-  char *path=strcat("/home/liuweiding/ysyx-workbench/nemu/resource/snapshot/",arg);
+  char *path="/home/liuweiding/ysyx-workbench/nemu/resource/snapshot/";
+  strcat(path,arg);
   FILE *fp=fopen(path,"r");
   assert(fp!=NULL);
   int o=fread(guest_to_host(RESET_VECTOR+0x100000),1,CONFIG_MSIZE-0x100000,fp);
