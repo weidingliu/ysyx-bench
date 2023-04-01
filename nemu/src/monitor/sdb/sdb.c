@@ -19,7 +19,10 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "sdb.h"
+#include <difftest-def.h>
+#include <cpu/difftest.h>
 
+bool detach_difftest=0;
 uint32_t atoi32_t(char *arg){
     uint32_t temp=0x0;
     for (int i=2;i<strlen(arg);i++){
@@ -107,6 +110,10 @@ static int cmd_p(char *args);
 
 static int cmd_watch(char *args);
 
+static int cmd_detach(char *args);
+
+static int cmd_attach(char *args);
+
 static struct {
   const char *name;
   const char *description;
@@ -120,6 +127,8 @@ static struct {
   { "x", "x [N] EXPR ,Hexadecimal output N byte in memory, EXPR is address", cmd_x },
    { "p", "evaluate regular expressions",  cmd_p},
    { "w", "set a watchpoint regular expressions",  cmd_watch},
+   { "detach", "close difftest",  cmd_detach},
+   { "attach", "open difftest",  cmd_attach},
   /* TODO: Add more commands */
 
 };
@@ -285,6 +294,27 @@ static int cmd_watch(char *args){
     }
     return 0;
 }
+
+static int cmd_detach(char *args){
+  #ifndef CONFIG_DIFFTEST
+        printf("Don't open difftest!\n");
+        return 0;
+  #endif
+  detach_difftest=1;
+  printf("detach difftest!\n");
+  return 0;
+}
+static int cmd_attach(char *args){
+   #ifndef CONFIG_DIFFTEST
+        printf("Don't open difftest!\n");
+        return 0;
+  #endif
+  detach_difftest=0;
+
+  ref_difftest_memcpy(0x10000000, guest_to_host(0x10000000), CONFIG_MSIZE - 0x10000000, DIFFTEST_TO_REF);
+  ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
+}
+
 
 void sdb_set_batch_mode() {
   is_batch_mode = true;
