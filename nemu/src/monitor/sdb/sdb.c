@@ -330,6 +330,7 @@ static int cmd_save(char *args){
   }
   char *path="/home/liuweiding/ysyx-workbench/nemu/resource/snapshot/";
   strcat(path,arg);
+  printf("%s\n",path);
   FILE *fp=fopen(path,"w+");
   assert(fp!=NULL);
   //printf("dsfgg\n");
