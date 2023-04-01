@@ -8,9 +8,13 @@ int sys_yield(){
     yield();
     return 0;
 }
+int sys_execve(const char *fname, char * const argv[], char *const envp[]){
+    naive_uload(NULL,fname);
+    return 0;
+}
 
 int sys_exit(void *state){
-    halt(0);
+   sys_execve("/bin/menu", NULL, NULL);
     return 0;
 }
 
@@ -58,10 +62,7 @@ int sys_gettimeofday(struct timeval *tv, struct timezone *tz){
    }
    return 0;
 }
-int sys_execve(const char *fname, char * const argv[], char *const envp[]){
-    naive_uload(NULL,fname);
-    return 0;
-}
+
 
 void do_syscall(Context *c) {
   uintptr_t a[4];
