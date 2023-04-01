@@ -334,7 +334,7 @@ static int cmd_save(char *args){
   FILE *fp=fopen(save_path,"w+");
   assert(fp!=NULL);
   //printf("dsfgg\n");
-  fwrite(guest_to_host(RESET_VECTOR+0x100000),1,CONFIG_MSIZE-0x100000,fp);
+  fwrite(guest_to_host(RESET_VECTOR),1,CONFIG_MSIZE,fp);
   fwrite(&cpu,sizeof(CPU_state),1,fp);
   fwrite(&nemu_state,sizeof(NEMUState),1,fp);
   fclose(fp);
@@ -353,7 +353,7 @@ static int cmd_load(char *args){
   sprintf(save_path,"%s%s",path,arg);
   FILE *fp=fopen(save_path,"r");
   assert(fp!=NULL);
-  int o=fread(guest_to_host(RESET_VECTOR+0x100000),1,CONFIG_MSIZE-0x100000,fp);
+  int o=fread(guest_to_host(RESET_VECTOR),1,CONFIG_MSIZE,fp);
   assert(o!=0);
   o=fread(&cpu,sizeof(CPU_state),1,fp);
   assert(o!=0);
