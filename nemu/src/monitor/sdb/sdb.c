@@ -332,7 +332,7 @@ static int cmd_save(char *args){
   assert(fp!=NULL);
   //printf("dsfgg\n");
   //fwrite(guest_to_host(RESET_VECTOR+0x100000),1,CONFIG_MSIZE-0x100000,fp);
-  fwrite(&cpu,1,sizeof(CPU_state),fp);
+  fwrite(&cpu,sizeof(CPU_state),1,fp);
   fclose(fp);
 
   return 0;
