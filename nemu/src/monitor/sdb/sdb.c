@@ -331,8 +331,7 @@ static int cmd_save(char *args){
   char *path="/home/liuweiding/ysyx-workbench/nemu/resource/snapshot/";
   char *save_path=(char *)malloc(sizeof(path)+sizeof(arg));
   sprintf(save_path,"%s%s",path,arg);
-  strcat(path,arg);
-  printf("%s\n",path);
+  printf("%s\n",save_path);
   FILE *fp=fopen(path,"w+");
   assert(fp!=NULL);
   //printf("dsfgg\n");
@@ -340,6 +339,7 @@ static int cmd_save(char *args){
   fwrite(&cpu,sizeof(CPU_state),1,fp);
   fwrite(&nemu_state,sizeof(NEMUState),1,fp);
   fclose(fp);
+  free(save_path);
   //printf("%lx\n",cpu.pc);
   return 0;
 }
