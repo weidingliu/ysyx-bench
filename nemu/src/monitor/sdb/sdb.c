@@ -328,9 +328,9 @@ static int cmd_save(char *args){
       printf("Illegal parameter!\n");
       return 0;
   }
-  char *path="/home/liuweiding/ysyx-workbench/nemu/resource/snapshot/";
+  char path[64]="/home/liuweiding/ysyx-workbench/nemu/resource/snapshot/";
   char *save_path=(char *)malloc(sizeof(path)+sizeof(arg));
-  printf("%s\n",arg);
+  printf("%s %s\n",arg,path);
   sprintf(save_path,"%s%s",path,arg);
   printf("%s\n",save_path);
   FILE *fp=fopen(path,"w+");
