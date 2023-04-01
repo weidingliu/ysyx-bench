@@ -329,6 +329,8 @@ static int cmd_save(char *args){
       return 0;
   }
   char *path="/home/liuweiding/ysyx-workbench/nemu/resource/snapshot/";
+  char *save_path=(char *)malloc(sizeof(path)+sizeof(arg));
+  sprintf(save_path,"%s%s",path,arg);
   strcat(path,arg);
   printf("%s\n",path);
   FILE *fp=fopen(path,"w+");
