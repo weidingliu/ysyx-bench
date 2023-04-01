@@ -328,14 +328,15 @@ static int cmd_save(char *args){
       printf("Illegal parameter!\n");
       return 0;
   }
-  FILE *fp=fopen(arg,"w+");
+  char *path=strcat("/home/liuweiding/ysyx-workbench/nemu/resource/snapshot/",arg);
+  FILE *fp=fopen(path,"w+");
   assert(fp!=NULL);
   //printf("dsfgg\n");
   fwrite(guest_to_host(RESET_VECTOR+0x100000),1,CONFIG_MSIZE-0x100000,fp);
   fwrite(&cpu,sizeof(CPU_state),1,fp);
   fwrite(&nemu_state,sizeof(NEMUState),1,fp);
   fclose(fp);
-  printf("%lx\n",cpu.pc);
+  //printf("%lx\n",cpu.pc);
   return 0;
 }
 
@@ -345,7 +346,8 @@ static int cmd_load(char *args){
       printf("Illegal parameter!\n");
       return 0;
   }
-  FILE *fp=fopen(arg,"r");
+  char *path=strcat("/home/liuweiding/ysyx-workbench/nemu/resource/snapshot/",arg);
+  FILE *fp=fopen(path,"r");
   assert(fp!=NULL);
   int o=fread(guest_to_host(RESET_VECTOR+0x100000),1,CONFIG_MSIZE-0x100000,fp);
   assert(o!=0);
@@ -356,7 +358,7 @@ static int cmd_load(char *args){
   fclose(fp);
   ref_difftest_memcpy(RESET_VECTOR+0x100000, guest_to_host(RESET_VECTOR+0x100000), CONFIG_MSIZE-0x100000, DIFFTEST_TO_REF);
   ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
-  printf("%lx\n",cpu.pc);
+  //printf("%lx\n",cpu.pc);
   return 0;
 }
 
