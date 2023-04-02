@@ -28,6 +28,7 @@ extern uint8_t ramdisk_start;
 static uintptr_t loader(PCB *pcb, const char *filename) {
   Elf_Ehdr elf_head;
   size_t fd=fs_open(filename,0,0);
+  assert(fd!=-1);
   size_t o __attribute__((unused));
    
   //o=ramdisk_read(&elf_head,33072,64);
