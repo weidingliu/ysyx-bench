@@ -9,13 +9,14 @@ int sys_yield(){
     return 0;
 }
 int sys_execve(const char *fname, char * const argv[], char *const envp[]){
+    //printf("----%s\n",fname);
     naive_uload(NULL,fname);
     return 0;
 }
 
 int sys_exit(void *state){
-   sys_execve("/bin/menu", NULL, NULL);
-    return 0;
+   sys_execve("/bin/nterm", NULL, NULL);
+   return 0;
 }
 
 size_t sys_write(int fd,const void *buf,size_t count){

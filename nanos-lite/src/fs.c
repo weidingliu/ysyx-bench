@@ -65,8 +65,7 @@ int fs_open(const char *pathname, int flags, int mode){
             return i;
         }
     }
-    
-    panic("open file fail!");
+    return -1;
     
 }
 
