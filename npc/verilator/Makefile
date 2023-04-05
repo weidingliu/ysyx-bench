@@ -10,7 +10,7 @@ vpath %.c %.cpp src
 VSRC :=$(wildcard vsrc/*.v)
 ##CFLAGS := include
 CSRC :=$(wildcard src/*.cpp src/util/*.cc src/difftest/*.c src/memory/*.c src/system/*.c src/device/*.c)
-LDFLAGS=-LDFLAGS "$(shell llvm-config-13 --libs) -ldl" -LDFLAGS -lreadline 
+LDFLAGS=-LDFLAGS "$(shell llvm-config-13 --libs) -ldl" -LDFLAGS -lreadline -LDFAGS "-lSDL2 -lSDL2_image"
 CFLAGS=-CFLAGS "-I $$NPC_HOME/verilator/src/include -I /usr/lib/llvm-13/include"
 ##CFLAGS+=-CFLAGS $(shell llvm-config-13 --cxxflags) -CFLAGS -fPIE
 

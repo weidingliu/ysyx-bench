@@ -35,13 +35,12 @@ VM_PREFIX = VCPUTop
 VM_MODPREFIX = VCPUTop
 # User CFLAGS (from -CFLAGS on Verilator command line)
 VM_USER_CFLAGS = \
-	-I /home/liuweiding/ysyx-workbench/npc/verilator/src/include -I /usr/lib/llvm-13/include -I /usr/include \
+	-I /home/liuweiding/ysyx-workbench/npc/verilator/src/include -I /usr/lib/llvm-13/include \
 
 # User LDLIBS (from -LDFLAGS on Verilator command line)
 VM_USER_LDLIBS = \
 	-lLLVM-13 -ldl \
 	-lreadline \
-	-I /usr/include \
 
 # User .cpp files (from .cpp's on Verilator command line)
 VM_USER_CLASSES = \
