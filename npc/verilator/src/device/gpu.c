@@ -5,11 +5,11 @@
 #define SCREEN_H 300
 
 static uint32_t screen_width() {
-  return MUXDEF(CONFIG_TARGET_AM, io_read(AM_GPU_CONFIG).width, SCREEN_W);
+  return  SCREEN_W;
 }
 
 static uint32_t screen_height() {
-  return MUXDEF(CONFIG_TARGET_AM, io_read(AM_GPU_CONFIG).height, SCREEN_H);
+  return SCREEN_H;
 }
 
 static uint32_t screen_size() {
@@ -77,6 +77,6 @@ void init_vga() {
 
   vmem = new_space(screen_size());
   add_mmio_map("vmem", CONFIG_FB_ADDR, vmem, screen_size(), NULL);*/
-  IFDEF(CONFIG_VGA_SHOW_SCREEN, init_screen());
-  IFDEF(CONFIG_VGA_SHOW_SCREEN, memset(vmem, 0, screen_size()));
+  init_screen();
+  memset(vmem, 0, screen_size());
 }
