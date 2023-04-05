@@ -1,6 +1,6 @@
 #include <tb.h>
 #include <device.h>
-
+#include <cstdio>
 void init_device(){
     init_vga();
 }
