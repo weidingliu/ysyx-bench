@@ -197,9 +197,9 @@ void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uint
         
             if(!flag) {state=ABORT; break;}
         }
-        
+        device_update();
     }
-    device_update();
+    
     
     if(contextp->gotFinish()) state=END;
     switch(state){
