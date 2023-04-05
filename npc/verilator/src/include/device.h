@@ -23,3 +23,4 @@ void init_device();
 void init_vga();
 void vga_update_screen();
 uint64_t get_time();
+void device_update();
