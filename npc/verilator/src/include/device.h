@@ -26,4 +26,4 @@ void vga_update_screen();
 uint64_t get_time();
 void device_update();
 void init_i8042();
-void send_key(uint8_t scancode, bool is_keydown)
+void send_key(uint8_t scancode, bool is_keydown);
