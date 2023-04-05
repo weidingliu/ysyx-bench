@@ -39,7 +39,7 @@ extern "C" void pmem_read(long long addr, long long *rdata) {
       return;
   }
   if((addr& ~0x7ull)>=DEVICE_BASE && (addr& ~0x7ull)<=DEVICE_BASE+0x1200000){
-      read_device(addr,rdata);
+      read_device(addr& ~0x7ull,rdata);
       is_skip_ref=1;
       return;
   }
@@ -66,7 +66,7 @@ extern "C" void pmem_write(long long addr, long long wdata, char wmask) {
       return;
   }
   if((addr& ~0x7ull)>=DEVICE_BASE && (addr& ~0x7ull)<=DEVICE_BASE+0x1200000){
-      write_device(addr,wdata,wmask);
+      write_device(addr& ~0x7ull,wdata,wmask);
       is_skip_ref=1;
       return;
   }
