@@ -48,4 +48,5 @@ void read_device(long long addr, long long *rdata){
     else if(addr>=FB_ADDR && addr<=FB_ADDR+400*300){
         *rdata = *(long long *)((char *)vmem+addr-FB_ADDR);
     }
+    else assert(0);
 }
