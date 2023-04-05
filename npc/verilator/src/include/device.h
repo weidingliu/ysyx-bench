@@ -19,3 +19,4 @@ extern uint32_t *vgactl_port_base;
 
 void write_device(long long addr,  long long data,char wmask);
 void read_device(long long addr, long long *rdata);
+void init_device();
