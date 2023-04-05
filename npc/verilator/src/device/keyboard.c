@@ -81,7 +81,7 @@ static uint32_t key_dequeue() {
 }
 #endif
 
-static uint32_t *i8042_data_port_base = (uint32 *)malloc(4);
+static uint32_t *i8042_data_port_base = (uint32_t *)malloc(4);
 
 static void i8042_data_io_handler(uint32_t offset, int len, bool is_write) {
   assert(!is_write);
