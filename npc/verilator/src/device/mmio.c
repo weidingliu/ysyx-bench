@@ -1,6 +1,7 @@
 #include <tb.h>
 #include <device.h>
 #include <cstdio>
+#include <assert.h>
 
 
 
@@ -28,7 +29,7 @@ void write_device(long long addr,  long long data,char wmask){
         uint8_t *temp=(uint8_t *)p;
         while(loop!=0){
             if(loop & 1){
-                *((uint8_t *)vgactl_port_base+addr-FB_ADDR+i)=*temp;
+                *((uint8_t *)vgactl_port_base+addr-VGACTL_ADDR+i)=*temp;
                 //printf("%x %x\n",*((uint8_t *)vmem+addr-FB_ADDR+i),*temp);
             }
             temp++;
@@ -36,6 +37,7 @@ void write_device(long long addr,  long long data,char wmask){
             loop=loop>>1;
         }
     }
+    else assert(0);
    
 }
 
