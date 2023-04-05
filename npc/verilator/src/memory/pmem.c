@@ -38,7 +38,7 @@ extern "C" void pmem_read(long long addr, long long *rdata) {
       return;
   }
   if((addr& ~0x7ull)>=DEVICE_BASE && (addr& ~0x7ull)<=DEVICE_BASE+0x1200000){
-      read_read(addr,rdata);
+      read_device(addr,rdata);
       is_skip_ref=1;
       return;
   }
