@@ -29,6 +29,6 @@ void read_device(long long addr, long long *rdata){
         *rdata = *(long long *)vgactl_port_base;
     }
     else if(addr>=FB_ADDR && addr<=FB_ADDR+400*300){
-        *rdata = *(long long *)(vmem+addr-FB_ADDR);
+        *rdata = *(long long *)((char *)vmem+addr-FB_ADDR);
     }
 }
