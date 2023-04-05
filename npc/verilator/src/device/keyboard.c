@@ -22,6 +22,8 @@
 #ifndef CONFIG_TARGET_AM
 #include <SDL2/SDL.h>
 
+#define MAP(c, f) c(f)
+
 // Note that this is not the standard
 #define _KEYS(f) \
   f(ESCAPE) f(F1) f(F2) f(F3) f(F4) f(F5) f(F6) f(F7) f(F8) f(F9) f(F10) f(F11) f(F12) \
@@ -81,7 +83,7 @@ static uint32_t key_dequeue() {
 }
 #endif
 
-static uint32_t *i8042_data_port_base = (uint32_t *)malloc(4);
+static uint32_t *i8042_data_port_base = malloc(4);
 
 static void i8042_data_io_handler(uint32_t offset, int len, bool is_write) {
   assert(!is_write);
