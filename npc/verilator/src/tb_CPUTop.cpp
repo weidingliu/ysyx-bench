@@ -198,16 +198,15 @@ void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uint
             if(!flag) {state=ABORT; break;}
         }
         
-        
-        
     }
+    vga_update_screen();
+    
     if(contextp->gotFinish()) state=END;
     switch(state){
         case(ABORT): return;
         case(RUN): return;
         case(END): return;
     }
-     vga_update_screen();
 }
 
 
