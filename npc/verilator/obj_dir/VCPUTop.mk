@@ -47,6 +47,7 @@ VM_USER_LDLIBS = \
 VM_USER_CLASSES = \
 	device \
 	gpu \
+	keyboard \
 	mmio \
 	dut \
 	pmem \
@@ -76,6 +77,8 @@ VPATH += $(VM_USER_DIR)
 device.o: src/device/device.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 gpu.o: src/device/gpu.c
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+keyboard.o: src/device/keyboard.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 mmio.o: src/device/mmio.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<

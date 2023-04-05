@@ -1,4 +1,5 @@
 #define CONFIG_VGA_SHOW_SCREEN
+#define CONFIG_HAS_KEYBOARD
 #define CONFIG_VGA_SIZE_400x300
 
 #define DEVICE_BASE 0xa0000000
@@ -24,3 +25,5 @@ void init_vga();
 void vga_update_screen();
 uint64_t get_time();
 void device_update();
+void init_i8042();
+void send_key(uint8_t scancode, bool is_keydown)
