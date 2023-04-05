@@ -1,5 +1,6 @@
 #include <tb.h>
 #include <device.h>
+#include <SDL2/SDL.h>
 
 #define SCREEN_W 400
 #define SCREEN_H 300
@@ -21,7 +22,7 @@ uint32_t *vgactl_port_base = (uint32_t *)malloc(8);
 
 #ifdef CONFIG_VGA_SHOW_SCREEN
 #ifndef CONFIG_TARGET_AM
-#include <SDL2/SDL.h>
+
 
 static SDL_Renderer *renderer = NULL;
 static SDL_Texture *texture = NULL;
