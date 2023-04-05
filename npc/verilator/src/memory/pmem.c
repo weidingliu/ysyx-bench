@@ -5,6 +5,7 @@
 #include <tb.h>
 #include <sys/time.h>
 #include <difftest.h>
+#include <device.h>
 
 uint64_t boot_time = 0;
 bool is_skip_ref=0;
@@ -36,9 +37,15 @@ extern "C" void pmem_read(long long addr, long long *rdata) {
       //printf("here\n");
       return;
   }
+  if((addr& ~0x7ull)>=DEVICE_BASE && (addr& ~0x7ull)<=DEVICE_BASE+0x1200000){
+      write_read(addr,rdata);
+      is_skip_ref=1;
+      return;
+  }
+  
   long long temp;
-  printf("%llx\n",((addr & ~0x7ull)));
-  if((((addr & ~0x7ull)-RESET_VECTOR)>MAX_MEM) ) {difftest_print();printf("%016llx\n",(addr & ~0x7ull)-RESET_VECTOR);assert(0);}
+  //printf("%llx\n",((addr & ~0x7ull)));
+  if((((addr & ~0x7ull)-RESET_VECTOR)>MAX_MEM) ) {difftest_print();printf("%016llx\n",(addr & ~0x7ull));assert(0);}
   memcpy(&temp,(mem+(addr& ~0x7ull)-RESET_VECTOR),sizeof(long long));
   *rdata=temp;
   if(mtrace) printf("READ--- ADDR:  %016llx  DATA:  %016llx \n",(addr),*rdata);
@@ -57,7 +64,11 @@ extern "C" void pmem_write(long long addr, long long wdata, char wmask) {
       //is_skip_ref=1;
       return;
   }
-  
+  if((addr& ~0x7ull)>=DEVICE_BASE && (addr& ~0x7ull)<=DEVICE_BASE+0x1200000){
+      write_device(addr,wdata,wmask);
+      is_skip_ref=1;
+      return;
+  }
   long long *p=&wdata;
   uint8_t *temp=(uint8_t *)p;
   int i=0;
