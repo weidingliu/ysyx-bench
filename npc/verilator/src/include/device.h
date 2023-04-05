@@ -22,3 +22,4 @@ void read_device(long long addr, long long *rdata);
 void init_device();
 void init_vga();
 void vga_update_screen();
+uint64_t get_time();
