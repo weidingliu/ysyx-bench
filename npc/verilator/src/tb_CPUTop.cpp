@@ -15,6 +15,8 @@
 
 #include <tb.h>
 #include <difftest.h>
+#include <device.h>
+
 
 const char *reg_name[] = {
   "$0", "ra", "sp", "gp", "tp", "t0", "t1", "t2",
@@ -195,10 +197,10 @@ void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uint
         
             if(!flag) {state=ABORT; break;}
         }
-        
-        
-        
+        device_update();
     }
+    
+    
     if(contextp->gotFinish()) state=END;
     switch(state){
         case(ABORT): return;
@@ -440,6 +442,7 @@ m_trace->open("waveform.vcd");
 
 // init inst memory
 init_mem(argv[1]);
+init_device();
 //printf("%s\n",argv[2]);
 
 Reset(dut,contextp,m_trace);//reset rtl

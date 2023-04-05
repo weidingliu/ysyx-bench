@@ -10,7 +10,9 @@ void __am_gpu_init() {
 }
 
 void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
+  
   uint32_t v1=inl(VGACTL_ADDR);
+  
   //uint32_t v2=inl(VGACTL_ADDR+4);
   /*uint64_t v=(v2<<32) +v1;
   printf("%016x\n",v);*/
@@ -19,6 +21,7 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
     .width = v1 >> 16, .height = v1 & 0xffff,
     .vmemsz = (v1 >> 16)*(v1 & 0xffff)
   };
+  //printf("%d %d\n",v1 >> 16,v1 & 0xffff);
 }
 
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
@@ -27,9 +30,9 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
     uint32_t v1=inl(VGACTL_ADDR);
     int w = (v1 >> 16); 
     //int h = (v1 & 0xffff);
-    //printf("%d\n",w);
-    int i=ctl->y,j=ctl->x;
     
+    int i=ctl->y,j=ctl->x;
+
    //printf("%d  %d   %d   %d  %d %d\n",i,j,ctl->w,ctl->h,ctl->y+ctl->h,ctl->x+ctl->w);
    for(;i<ctl->y+ctl->h;i++){
         for(j=ctl->x;j<ctl->x+ctl->w;j++){
