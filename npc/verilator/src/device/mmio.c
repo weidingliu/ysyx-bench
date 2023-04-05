@@ -1,9 +1,7 @@
 #include <tb.h>
 #include <device.h>
 #include <cstdio>
-void init_device(){
-    init_vga();
-}
+
 
 
 void write_device(long long addr,  long long data,char wmask){
