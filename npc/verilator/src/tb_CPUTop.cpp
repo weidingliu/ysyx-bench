@@ -199,7 +199,7 @@ void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uint
         }
         
     }
-    vga_update_screen();
+    device_update();
     
     if(contextp->gotFinish()) state=END;
     switch(state){
