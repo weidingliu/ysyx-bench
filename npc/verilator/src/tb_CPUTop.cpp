@@ -207,6 +207,7 @@ void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uint
         case(RUN): return;
         case(END): return;
     }
+     vga_update_screen();
 }
 
 

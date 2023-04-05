@@ -22,7 +22,7 @@ void write_device(long long addr,  long long data,char wmask){
         }
         
     }
-    vga_update_screen();
+   
 }
 
 void read_device(long long addr, long long *rdata){
