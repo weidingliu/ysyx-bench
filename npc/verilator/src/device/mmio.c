@@ -21,6 +21,21 @@ void write_device(long long addr,  long long data,char wmask){
         }
         
     }
+    else if(addr>=VGACTL_ADDR && addr<=VGACTL_ADDR+8){
+        unsigned char loop= (unsigned char) wmask;
+        int i=0;
+        long long *p=&data;
+        uint8_t *temp=(uint8_t *)p;
+        while(loop!=0){
+            if(loop & 1){
+                *((uint8_t *)vgactl_port_base+addr-FB_ADDR+i)=*temp;
+                //printf("%x %x\n",*((uint8_t *)vmem+addr-FB_ADDR+i),*temp);
+            }
+            temp++;
+            i++;
+            loop=loop>>1;
+        }
+    }
    
 }
 
