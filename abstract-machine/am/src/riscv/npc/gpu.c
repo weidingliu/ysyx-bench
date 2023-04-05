@@ -21,7 +21,7 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
     .width = v1 >> 16, .height = v1 & 0xffff,
     .vmemsz = (v1 >> 16)*(v1 & 0xffff)
   };
-  printf("%d %d\n",v1 >> 16,v1 & 0xffff);
+  //printf("%d %d\n",v1 >> 16,v1 & 0xffff);
 }
 
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
@@ -32,8 +32,8 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
     //int h = (v1 & 0xffff);
     
     int i=ctl->y,j=ctl->x;
-    
-   //printf("%d  %d   %d   %d  %d %d\n",i,j,ctl->w,ctl->h,ctl->y+ctl->h,ctl->x+ctl->w);
+
+   printf("%d  %d   %d   %d  %d %d\n",i,j,ctl->w,ctl->h,ctl->y+ctl->h,ctl->x+ctl->w);
    for(;i<ctl->y+ctl->h;i++){
         for(j=ctl->x;j<ctl->x+ctl->w;j++){
             outl(FB_ADDR+(i*w+j)*4, *(uint32_t *)(ctl->pixels + ((i-ctl->y)*ctl->w+(j-ctl->x))*4));
