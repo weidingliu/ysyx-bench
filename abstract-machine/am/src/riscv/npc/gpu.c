@@ -10,7 +10,7 @@ void __am_gpu_init() {
 }
 
 void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
-  printf("%x\n",VGACTL_ADDR);
+  
   uint32_t v1=inl(VGACTL_ADDR);
   
   //uint32_t v2=inl(VGACTL_ADDR+4);
