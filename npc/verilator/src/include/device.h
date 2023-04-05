@@ -21,3 +21,4 @@ void write_device(long long addr,  long long data,char wmask);
 void read_device(long long addr, long long *rdata);
 void init_device();
 void init_vga();
+void vga_update_screen();
