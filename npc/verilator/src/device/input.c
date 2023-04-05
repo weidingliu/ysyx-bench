@@ -13,7 +13,7 @@
 * See the Mulan PSL v2 for more details.
 ***************************************************************************************/
 
-
+/*
 #include <device.h>
 #include <tb.h>
 #include <cassert>
@@ -98,4 +98,4 @@ void init_i8042() {
   //i8042_data_port_base = (uint32_t *)new_space(4);
   i8042_data_port_base[0] = _KEY_NONE;
   init_keymap();
-}
+}*/
