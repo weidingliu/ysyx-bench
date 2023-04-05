@@ -6,6 +6,7 @@
 
 
 
+
 void write_device(long long addr,  long long data,char wmask){
   if(addr>=FB_ADDR && addr<=FB_ADDR+400*300*4){
         //printf(" %x\n",FB_ADDR+400*300);
