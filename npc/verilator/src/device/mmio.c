@@ -24,7 +24,7 @@ void write_device(long long addr,  long long data,char wmask){
         
     }
     else if(addr>=VGACTL_ADDR && addr<=VGACTL_ADDR+8){
-        //printf(" %x\n",VGACTL_ADDR);
+        printf(" %x\n",addr);
         unsigned char loop= (unsigned char) wmask;
         int i=0;
         long long *p=&data;
