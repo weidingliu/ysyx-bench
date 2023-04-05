@@ -17,7 +17,6 @@
 #include <difftest.h>
 #include <device.h>
 
-extern void init_device();
 
 const char *reg_name[] = {
   "$0", "ra", "sp", "gp", "tp", "t0", "t1", "t2",

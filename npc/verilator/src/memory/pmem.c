@@ -7,8 +7,6 @@
 #include <difftest.h>
 #include <device.h>
 
-extern void write_device(long long addr,  long long data,char wmask);
-extern void read_device(long long addr, long long *rdata);
 
 uint64_t boot_time = 0;
 bool is_skip_ref=0;
