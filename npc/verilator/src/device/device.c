@@ -12,7 +12,7 @@ void device_update() {
     return;
   }
   last = now;
-printf("sdfggyuiii\n");
+//printf("sdfggyuiii\n");
   vga_update_screen();
 
 #ifndef CONFIG_TARGET_AM
