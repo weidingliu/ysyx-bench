@@ -7,6 +7,7 @@
 
 void write_device(long long addr,  long long data,char wmask){
   if(addr>=FB_ADDR && addr<=FB_ADDR+400*300){
+        printf(" %x\n",VGACTL_ADDR+400*300);
         unsigned char loop= (unsigned char) wmask;
         int i=0;
         long long *p=&data;
@@ -23,7 +24,7 @@ void write_device(long long addr,  long long data,char wmask){
         
     }
     else if(addr>=VGACTL_ADDR && addr<=VGACTL_ADDR+8){
-        printf(" %x\n",VGACTL_ADDR);
+        //printf(" %x\n",VGACTL_ADDR);
         unsigned char loop= (unsigned char) wmask;
         int i=0;
         long long *p=&data;
