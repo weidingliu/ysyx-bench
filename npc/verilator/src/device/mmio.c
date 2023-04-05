@@ -37,7 +37,7 @@ void write_device(long long addr,  long long data,char wmask){
             loop=loop>>1;
         }
     }
-    else assert(0);
+    else printf("%x\n",addr);assert(0);
    
 }
 
