@@ -82,7 +82,7 @@ extern "C" void pmem_write(long long addr, long long wdata, char wmask) {
   int i=0;
   unsigned char loop= (unsigned char) wmask;
   //printf("%llx\n",*(long long *)(mem+(addr & ~0x7)-0x80000000));
-  uint32_t host_addr= (addr & ~0x7ull);
+  long long host_addr= (addr & ~0x7ull);
   while(loop!=0){
       if(loop & 1){
 
@@ -102,7 +102,7 @@ extern "C" void pmem_write(long long addr, long long wdata, char wmask) {
   uint8_t *temp=(uint8_t *)p;
   int i=0;
   unsigned char loop= (unsigned char) wmask;
-  uint32_t offset=mem+(addr& ~0x7ull)-RESET_VECTOR;
+  long long offset=mem+(addr& ~0x7ull)-RESET_VECTOR;
   while(loop!=0){
       if(loop & 1){
           if(((offset+i)>MAX_MEM) ){ printf("%llx\n",addr & ~0x7ull);assert(0);}
