@@ -43,6 +43,11 @@ extern "C" void pmem_read(long long addr, long long *rdata) {
       is_skip_ref=1;
       return;
   }
+//   if((addr& ~0x7ull)>=0x83000000){
+//     memcpy(rdata,addr,8);
+//     is_skip_ref=1;
+//     return;
+//   }
   
   long long temp;
   //printf("%llx\n",((addr & ~0x7ull)));
@@ -70,6 +75,11 @@ extern "C" void pmem_write(long long addr, long long wdata, char wmask) {
       is_skip_ref=1;
       return;
   }
+//   if((addr& ~0x7ull)>=0x83000000){
+    
+//     is_skip_ref=1;
+//     return;
+//   }
   long long *p=&wdata;
   uint8_t *temp=(uint8_t *)p;
   int i=0;
