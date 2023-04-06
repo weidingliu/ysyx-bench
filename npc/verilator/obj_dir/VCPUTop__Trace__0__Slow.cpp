@@ -316,8 +316,8 @@ VL_ATTR_COLD void VCPUTop___024root__trace_init_sub__TOP__0(VCPUTop___024root* v
     tracep->declQuad(c+254,"addr_temp", false,-1, 63,0);
     tracep->declBit(c+271,"mem_result_sign", false,-1);
     tracep->declBit(c+272,"mem_result_sign_1", false,-1);
-    tracep->declBit(c+273,"mem_result_sign_3", false,-1);
-    tracep->declBit(c+274,"mem_result_sign_4", false,-1);
+    tracep->declBit(c+273,"mem_result_sign_2", false,-1);
+    tracep->declBit(c+274,"mem_result_sign_3", false,-1);
     tracep->declQuad(c+275,"mem_result", false,-1, 63,0);
     tracep->declBit(c+277,"alu_result_sign", false,-1);
     tracep->declBit(c+278,"alu_result_sign_2", false,-1);
@@ -746,9 +746,9 @@ VL_ATTR_COLD void VCPUTop___024root__trace_full_sub_0(VCPUTop___024root* vlSelf,
                                            >> 0x3fU)))));
     bufp->fullBit(oldp+272,((1U & (IData)((vlSelf->CPUTop__DOT__mmio_io_rdata 
                                            >> 0x1fU)))));
-    bufp->fullBit(oldp+273,((1U & ((IData)(vlSelf->CPUTop__DOT__EX__DOT___mem_result_T_28) 
+    bufp->fullBit(oldp+273,((1U & ((IData)(vlSelf->CPUTop__DOT__EX__DOT___mem_result_T_27) 
                                    >> 7U))));
-    bufp->fullBit(oldp+274,((1U & ((IData)(vlSelf->CPUTop__DOT__EX__DOT___mem_result_T_45) 
+    bufp->fullBit(oldp+274,((1U & ((IData)(vlSelf->CPUTop__DOT__EX__DOT___mem_result_T_44) 
                                    >> 0xfU))));
     bufp->fullQData(oldp+275,(((0x45U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                 ? vlSelf->CPUTop__DOT__mmio_io_rdata
@@ -767,7 +767,15 @@ VL_ATTR_COLD void VCPUTop___024root__trace_full_sub_0(VCPUTop___024root* vlSelf,
                                            | (QData)((IData)(
                                                              (vlSelf->CPUTop__DOT__mmio_io_rdata 
                                                               >> 0x20U))))
-                                        : vlSelf->CPUTop__DOT__EX__DOT___mem_result_T_9)
+                                        : (((QData)((IData)(
+                                                            ((1U 
+                                                              & (IData)(
+                                                                        (vlSelf->CPUTop__DOT__mmio_io_rdata 
+                                                                         >> 0x1fU)))
+                                                              ? 0xffffffffU
+                                                              : 0U))) 
+                                            << 0x20U) 
+                                           | (QData)((IData)(vlSelf->CPUTop__DOT__mmio_io_rdata))))
                                     : ((0x11U == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                         ? ((1U & (IData)(
                                                          (vlSelf->CPUTop__DOT__EX_io1_addr 
@@ -775,32 +783,32 @@ VL_ATTR_COLD void VCPUTop___024root__trace_full_sub_0(VCPUTop___024root* vlSelf,
                                             ? (QData)((IData)(
                                                               (vlSelf->CPUTop__DOT__mmio_io_rdata 
                                                                >> 0x20U)))
-                                            : vlSelf->CPUTop__DOT__EX__DOT___mem_result_T_9)
+                                            : (QData)((IData)(vlSelf->CPUTop__DOT__mmio_io_rdata)))
                                         : ((0x6fU == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
-                                            ? (QData)((IData)(vlSelf->CPUTop__DOT__EX__DOT___mem_result_T_28))
+                                            ? (QData)((IData)(vlSelf->CPUTop__DOT__EX__DOT___mem_result_T_27))
                                             : ((0xeU 
                                                 == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                                 ? (
                                                    (((0x80U 
-                                                      & (IData)(vlSelf->CPUTop__DOT__EX__DOT___mem_result_T_28))
+                                                      & (IData)(vlSelf->CPUTop__DOT__EX__DOT___mem_result_T_27))
                                                       ? 0xffffffffffffffULL
                                                       : 0ULL) 
                                                     << 8U) 
-                                                   | (QData)((IData)(vlSelf->CPUTop__DOT__EX__DOT___mem_result_T_28)))
+                                                   | (QData)((IData)(vlSelf->CPUTop__DOT__EX__DOT___mem_result_T_27)))
                                                 : (
                                                    (3U 
                                                     == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
                                                     ? 
                                                    ((((0x8000U 
-                                                       & (IData)(vlSelf->CPUTop__DOT__EX__DOT___mem_result_T_45))
+                                                       & (IData)(vlSelf->CPUTop__DOT__EX__DOT___mem_result_T_44))
                                                        ? 0xffffffffffffULL
                                                        : 0ULL) 
                                                      << 0x10U) 
-                                                    | (QData)((IData)(vlSelf->CPUTop__DOT__EX__DOT___mem_result_T_45)))
+                                                    | (QData)((IData)(vlSelf->CPUTop__DOT__EX__DOT___mem_result_T_44)))
                                                     : 
                                                    ((4U 
                                                      == (IData)(vlSelf->CPUTop__DOT__ID_io_ctrlIO_aluoptype))
-                                                     ? (QData)((IData)(vlSelf->CPUTop__DOT__EX__DOT___mem_result_T_45))
+                                                     ? (QData)((IData)(vlSelf->CPUTop__DOT__EX__DOT___mem_result_T_44))
                                                      : 0ULL)))))))),64);
     bufp->fullBit(oldp+277,((1U & (IData)((vlSelf->CPUTop__DOT__EX__DOT___addr_temp_T_1 
                                            >> 0x1fU)))));
