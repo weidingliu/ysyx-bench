@@ -87,7 +87,7 @@ extern "C" void pmem_write(long long addr, long long wdata, char wmask) {
       if(loop & 1){
 
           memcpy((uint8_t *)host_addr,temp,sizeof(uint8_t));
-          //printf("%x\n",*temp);
+          printf("%x\n",*temp);
       }
       //printf("%d  %x  \n",i,loop);
       temp++;
