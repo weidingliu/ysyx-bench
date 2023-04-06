@@ -53,7 +53,7 @@ static int key_f = 0, key_r = 0;
 static void key_enqueue(uint32_t am_scancode) {
   key_queue[key_r] = am_scancode;
   key_r = (key_r + 1) % KEY_QUEUE_LEN;
-  if(key_r != key_f){
+  if(key_r == key_f){
       printf("key queue overflow!\n");
       assert(0);
   }
