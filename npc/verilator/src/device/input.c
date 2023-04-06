@@ -18,11 +18,9 @@
 #include <tb.h>
 #include <cassert>
 #define KEYDOWN_MASK 0x8000
-
+#define MAP(c, f) c(f)
 #ifndef CONFIG_TARGET_AM
 #include <SDL2/SDL.h>
-
-#define MAP(c, f) c(f)
 
 // Note that this is not the standard
 #define _KEYS(f) \

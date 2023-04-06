@@ -50,7 +50,7 @@ void read_device(long long addr, long long *rdata){
     else if(addr>=FB_ADDR && addr<=FB_ADDR+400*300){
         *rdata = *(long long *)((char *)vmem+addr-FB_ADDR);
     }
-    else if(addr>= KBD_ADDR & addr<= KBD_ADDR+4){
+    else if(addr>= KBD_ADDR && addr<= KBD_ADDR+4){
         *rdata = *(long long *)(i8042_data_port_base);
         i8042_data_io_handler(0, 4, false);
     }

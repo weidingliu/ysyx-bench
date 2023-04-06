@@ -13,6 +13,9 @@
 #define DISK_ADDR       (DEVICE_BASE + 0x0000300)
 #define FB_ADDR         (MMIO_BASE   + 0x1000000)
 #define AUDIO_SBUF_ADDR (MMIO_BASE   + 0x1200000)
+
+#define concat_temp(x, y) x ## y
+#define concat(x, y) concat_temp(x, y)
 #include <cstdint>
 
 extern void *vmem;
