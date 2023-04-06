@@ -13,16 +13,14 @@
 * See the Mulan PSL v2 for more details.
 ***************************************************************************************/
 
-/*
+
 #include <device.h>
 #include <tb.h>
 #include <cassert>
 #define KEYDOWN_MASK 0x8000
-
+#define MAP(c, f) c(f)
 #ifndef CONFIG_TARGET_AM
 #include <SDL2/SDL.h>
-
-#define MAP(c, f) c(f)
 
 // Note that this is not the standard
 #define _KEYS(f) \
@@ -55,7 +53,7 @@ static int key_f = 0, key_r = 0;
 static void key_enqueue(uint32_t am_scancode) {
   key_queue[key_r] = am_scancode;
   key_r = (key_r + 1) % KEY_QUEUE_LEN;
-  if(key_r != key_f){
+  if(key_r == key_f){
       printf("key queue overflow!\n");
       assert(0);
   }
@@ -86,9 +84,9 @@ static uint32_t key_dequeue() {
 }
 #endif
 
-static uint32_t *i8042_data_port_base = (uint32_t *)malloc(4);
+uint32_t *i8042_data_port_base = (uint32_t *)malloc(4);
 
-static void i8042_data_io_handler(uint32_t offset, int len, bool is_write) {
+void i8042_data_io_handler(uint32_t offset, int len, bool is_write) {
   assert(!is_write);
   assert(offset == 0);
   i8042_data_port_base[0] = key_dequeue();
@@ -98,4 +96,4 @@ void init_i8042() {
   //i8042_data_port_base = (uint32_t *)new_space(4);
   i8042_data_port_base[0] = _KEY_NONE;
   init_keymap();
-}*/
+}

@@ -40,6 +40,6 @@ void device_update() {
 
 void init_device(){
     init_vga();
-    //init_i8042();
+    init_i8042();
 }
 
