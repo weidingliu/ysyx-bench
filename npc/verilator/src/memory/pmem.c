@@ -102,11 +102,11 @@ extern "C" void pmem_write(long long addr, long long wdata, char wmask) {
   uint8_t *temp=(uint8_t *)p;
   int i=0;
   unsigned char loop= (unsigned char) wmask;
-  long long offset=mem+(addr& ~0x7ull)-RESET_VECTOR;
+  long long offset=(addr& ~0x7ull)-RESET_VECTOR;
   while(loop!=0){
       if(loop & 1){
           if(((offset+i)>MAX_MEM) ){ printf("%llx\n",addr & ~0x7ull);assert(0);}
-          memcpy(offset+i,temp,sizeof(uint8_t));
+          memcpy(mem+offset+i,temp,sizeof(uint8_t));
       }
       //printf("%d  %x  \n",i,loop);
       temp++;
