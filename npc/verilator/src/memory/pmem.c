@@ -43,11 +43,11 @@ extern "C" void pmem_read(long long addr, long long *rdata) {
       is_skip_ref=1;
       return;
   }
-//   if((addr& ~0x7ull)>=0x83000000){
-//     memcpy(rdata,addr,8);
-//     is_skip_ref=1;
-//     return;
-//   }
+  if((addr& ~0x7ull)>=0x83000000){
+    memcpy(rdata,(void *)addr,8);
+    is_skip_ref=1;
+    return;
+  }
   
   long long temp;
   //printf("%llx\n",((addr & ~0x7ull)));
@@ -75,22 +75,38 @@ extern "C" void pmem_write(long long addr, long long wdata, char wmask) {
       is_skip_ref=1;
       return;
   }
-//   if((addr& ~0x7ull)>=0x83000000){
+  if((addr& ~0x7ull)>=0x83000000){
     
-//     is_skip_ref=1;
-//     return;
-//   }
-  long long *p=&wdata;
+    long long *p=&wdata;
   uint8_t *temp=(uint8_t *)p;
   int i=0;
   unsigned char loop= (unsigned char) wmask;
   //printf("%llx\n",*(long long *)(mem+(addr & ~0x7)-0x80000000));
+  uint32_t host_addr= (addr & ~0x7ull);
   while(loop!=0){
       if(loop & 1){
-      //printf("here%x\n",loop);
-          if((((addr & ~0x7ull)-RESET_VECTOR+i)>MAX_MEM) ){ printf("%llx\n",addr & ~0x7ull);assert(0);}
-          memcpy(mem+(addr& ~0x7ull)-RESET_VECTOR+i,temp,sizeof(uint8_t));
+
+          memcpy((uint8_t *)host_addr,temp,sizeof(uint8_t));
           //printf("%x\n",*temp);
+      }
+      //printf("%d  %x  \n",i,loop);
+      temp++;
+      i++;
+      loop=loop>>1;
+  }
+
+    is_skip_ref=1;
+    return;
+  }
+  long long *p=&wdata;
+  uint8_t *temp=(uint8_t *)p;
+  int i=0;
+  unsigned char loop= (unsigned char) wmask;
+  uint32_t offset=mem+(addr& ~0x7ull)-RESET_VECTOR;
+  while(loop!=0){
+      if(loop & 1){
+          if(((offset+i)>MAX_MEM) ){ printf("%llx\n",addr & ~0x7ull);assert(0);}
+          memcpy(offset+i,temp,sizeof(uint8_t));
       }
       //printf("%d  %x  \n",i,loop);
       temp++;
