@@ -1,5 +1,5 @@
 #define CONFIG_VGA_SHOW_SCREEN
-//#define CONFIG_HAS_KEYBOARD
+#define CONFIG_HAS_KEYBOARD
 #define CONFIG_VGA_SIZE_400x300
 
 #define DEVICE_BASE 0xa0000000
@@ -17,6 +17,7 @@
 
 extern void *vmem;
 extern uint32_t *vgactl_port_base;
+extern uint32_t *i8042_data_port_base;
 
 void write_device(long long addr,  long long data,char wmask);
 void read_device(long long addr, long long *rdata);
@@ -27,3 +28,4 @@ uint64_t get_time();
 void device_update();
 void init_i8042();
 void send_key(uint8_t scancode, bool is_keydown);
+void i8042_data_io_handler(uint32_t offset, int len, bool is_write);
