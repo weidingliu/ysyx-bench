@@ -14,7 +14,7 @@ LDFLAGS=-LDFLAGS "$(shell llvm-config-13 --libs) -ldl" -LDFLAGS -lreadline -LDFL
 CFLAGS=-CFLAGS "-I $$NPC_HOME/verilator/src/include -I /usr/lib/llvm-13/include"
 
 ifeq ('$(WTRACE)','y')
-CFLAGS+= "-D WTRACE"
+CFLAGS+= -CFLAGS "-D WTRACE"
 endif
 ##CFLAGS+=-CFLAGS $(shell llvm-config-13 --cxxflags) -CFLAGS -fPIE
 
