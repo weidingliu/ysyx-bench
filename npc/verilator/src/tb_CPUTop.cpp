@@ -450,7 +450,7 @@ init_device();
 #ifdef WTRACE
 Reset(dut,contextp,m_trace);//reset rtl
 #endif
-#else
+#ifndef WTRACE
 Reset(dut,contextp,NULL);//reset rtl
 #endif
 if(DIFFTEST) init_difftest(argv[2],mem_size,1,mem);
@@ -463,7 +463,7 @@ init_disasm("riscv64" "-pc-linux-gnu");
 #ifdef WTRACE
 sdb_main_loop(dut,contextp,m_trace);
 #endif
-#else
+#ifndef WTRACE
 sdb_main_loop(dut,contextp,NULL);
 #endif
 //printf("Final PC is : 0x%lx\n",dut->io_pc);
