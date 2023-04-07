@@ -51,7 +51,13 @@ extern "C" void pmem_read(long long addr, long long *rdata) {
   
   long long temp;
   //printf("%llx\n",((addr & ~0x7ull)));
-  if((((addr & ~0x7ull)-RESET_VECTOR)>MAX_MEM) ) {difftest_print();printf("%016llx\n",(addr & ~0x7ull));assert(0);}
+  if((((addr & ~0x7ull)-RESET_VECTOR)>MAX_MEM) ) {
+  	#ifdef DIFFTEST 
+  	difftest_print();
+  	#endif
+  	printf("%016llx\n",(addr & ~0x7ull));
+  	assert(0);
+  }
   memcpy(&temp,(mem+(addr& ~0x7ull)-RESET_VECTOR),sizeof(long long));
   *rdata=temp;
   #ifdef mtrace 
