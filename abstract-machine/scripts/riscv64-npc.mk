@@ -25,7 +25,8 @@ image: $(IMAGE).elf
 	@echo + OBJCOPY "->" $(IMAGE_REL).bin
 	@$(OBJCOPY) -S --set-section-flags .bss=alloc,contents -O binary $(IMAGE).elf $(IMAGE).bin
 run: image
-	$(MAKE) -C $(NPC_PATH) sim IMG=$(IMAGE).bin
+	$(MAKE) -C $(NPC_PATH) sim IMG=$(IMAGE).bin WTRACE=n
 	
-runvcd: run
+runvcd: image
+	$(MAKE) -C $(NPC_PATH) sim IMG=$(IMAGE).bin WTRACE=y
 	$(MAKE) -C $(NPC_PATH) wave IMG=$(IMAGE).bin
