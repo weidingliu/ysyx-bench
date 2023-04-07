@@ -77,8 +77,7 @@ extern "C" void set_csr( const svOpenArrayHandle inst){
 }
 
 
-
-
+#ifdef ITRACE 
 static void display_iringbuf(){
     int i=0;
     for(;i<IRTRACE;i++){
@@ -88,7 +87,7 @@ static void display_iringbuf(){
         printf("%s\n",ibuf[i]);
     }
 }
-
+#endif
 // 一个输出RTL中通用寄存器的值的示例
 void dump_gpr() {
   int i;
