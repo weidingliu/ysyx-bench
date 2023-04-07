@@ -151,6 +151,7 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
         if(sim_time % 1==0) {
             
             inst = pem_read(s->io_pc);
+            if(ITRACE){
             if(i==0){
                 disassemble(p,96,s->io_pc,(uint8_t *)&inst,4);
                 //cpu->reg=cpu_gpr;
@@ -165,6 +166,7 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     
                 irbuf_point=(irbuf_point+1)%IRTRACE;
             }
+            }
             
         }
         
@@ -177,13 +179,15 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
         //if(Inst[0]==0b00000000000000000000000001110011){ref_is_irq=true; difftest_irq(0);}
     }
 //////to ref
-    memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
-    cpu.pc=s->io_pc;
+    if(DIFFTEST){
+    	memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
+    	cpu.pc=s->io_pc;
     
-    cpu.mepc=CSR[0];
-    cpu.mcause=CSR[1];
-    cpu.mstatus=CSR[2];
-    cpu.mtvec=CSR[3];
+    	cpu.mepc=CSR[0];
+    	cpu.mcause=CSR[1];
+    	cpu.mstatus=CSR[2];
+    	cpu.mtvec=CSR[3];
+    }
     //printf("---------%016lx  %016lx\n",cpu_gpr[8],cpu_gpr[15]);
     
     
@@ -229,13 +233,16 @@ void Reset(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     }
     //reset ref
     //printf("%lx\n",dut->io_pc);
-    
+    if(DIFFTEST){
     memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
     cpu.pc=dut->io_pc;
     cpu.mepc=CSR[0];
     cpu.mcause=CSR[1];
     cpu.mstatus=CSR[2];
     cpu.mtvec=CSR[3];
+
+    }
+
     
 
 }
@@ -472,7 +479,7 @@ sdb_main_loop(dut,contextp,NULL);
 if(state==ABORT){
     dump_gpr(); 
     printf("\n");
-    display_iringbuf();
+    if(ITRACE) display_iringbuf();
     printf("\033[40;31Program execution has ended. To restart the program, exit NEMU and run again.\033[0m");
     printf("\n");
     if(DIFFTEST) difftest_print();
@@ -483,7 +490,7 @@ if(state==ABORT){
 else if(cpu_gpr[10] !=0) {
     dump_gpr(); 
     printf("\n");
-    display_iringbuf();
+    if(ITRACE) display_iringbuf();
     printf("\033[40;31mHIT BAD TRAP at pc = \033[0m \033[40;31m0x%016lx\033[0m\n",dut->io_pc);
 }
 else printf("\033[40;32mHIT GOOD TRAP at pc = \033[0m \033[40;32m0x%016lx\033[0m\n",dut->io_pc);
