@@ -462,9 +462,11 @@ init_disasm("riscv64" "-pc-linux-gnu");
 //execute(dut,contextp,m_trace,-1);
 #ifdef WTRACE
 sdb_main_loop(dut,contextp,m_trace);
+printf("sdfggggg\n");
 #endif
 #ifndef WTRACE
 sdb_main_loop(dut,contextp,NULL);
+printf("sdfggggg--------------\n");
 #endif
 //printf("Final PC is : 0x%lx\n",dut->io_pc);
 
