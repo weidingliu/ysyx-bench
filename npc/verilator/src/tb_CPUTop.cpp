@@ -169,7 +169,9 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
         }
         
         s->eval();
+        #ifdef WTRACE
         m_trace->dump(sim_time);
+        #endif
         sim_time++;
         if(s->io_time_int ==1 || Inst[0]==0b00000000000000000000000001110011) {is_skip_ref=1;}
         //if(Inst[0]==0b00000000000000000000000001110011){ref_is_irq=true; difftest_irq(0);}
@@ -220,8 +222,9 @@ void Reset(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
         
         
         dut->eval();
-   
+        #ifdef WTRACE
         m_trace->dump(sim_time);
+        #endif
         sim_time++;
     }
     //reset ref
@@ -434,19 +437,22 @@ int main(int argc, char** argv) {
 VerilatedContext* contextp = new VerilatedContext;
 contextp->commandArgs(argc, argv);
 VCPUTop *dut = new VCPUTop;
-
+#ifdef WTRACE
 Verilated::traceEverOn(true);
 VerilatedVcdC *m_trace = new VerilatedVcdC;
 dut->trace(m_trace,5);
 m_trace->open("waveform.vcd");
-
+#endif
 // init inst memory
 init_mem(argv[1]);
 init_device();
 //printf("%s\n",argv[2]);
-
+#ifdef WTRACE
 Reset(dut,contextp,m_trace);//reset rtl
-
+#endif
+#else
+Reset(dut,contextp,NULL);//reset rtl
+#endif
 if(DIFFTEST) init_difftest(argv[2],mem_size,1,mem);
 if(!DIFFTEST) printf("                        difftest OFF\n");
 init_disasm("riscv64" "-pc-linux-gnu");
@@ -454,9 +460,12 @@ init_disasm("riscv64" "-pc-linux-gnu");
 
 //execute 
 //execute(dut,contextp,m_trace,-1);
-
+#ifdef WTRACE
 sdb_main_loop(dut,contextp,m_trace);
-
+#endif
+#else
+sdb_main_loop(dut,contextp,NULL);
+#endif
 //printf("Final PC is : 0x%lx\n",dut->io_pc);
 
 
@@ -478,8 +487,9 @@ else if(cpu_gpr[10] !=0) {
     printf("\033[40;31mHIT BAD TRAP at pc = \033[0m \033[40;31m0x%016lx\033[0m\n",dut->io_pc);
 }
 else printf("\033[40;32mHIT GOOD TRAP at pc = \033[0m \033[40;32m0x%016lx\033[0m\n",dut->io_pc);
-
+#ifdef WTRACE
 m_trace->close();
+#endif
 delete dut;
 delete contextp;
 exit(EXIT_SUCCESS);
