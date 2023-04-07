@@ -140,7 +140,6 @@ uint32_t pem_read(uint64_t pc){
 
 void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     char p[128];
-    void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
     uint32_t inst;
     //printf("%d\n",s->clock);
     for(int i=0;i<2 && (! contextp->gotFinish());i++){
@@ -152,6 +151,7 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
             
             inst = pem_read(s->io_pc);
             if(ITRACE){
+            void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
             if(i==0){
                 disassemble(p,96,s->io_pc,(uint8_t *)&inst,4);
                 //cpu->reg=cpu_gpr;
