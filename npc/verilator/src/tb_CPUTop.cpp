@@ -32,9 +32,10 @@ const char *reg_name[] = {
 #define div_clock(c) ((((10^9)/(c*10^6))*10^3)/2)
 */
 //irbuf
+#ifdef ITRACE
 char ibuf[IRTRACE][128];
 static uint32_t irbuf_point=0;
-
+#endif
 static bool step_print_inst = false;
 vluint64_t sim_time=0;
 
@@ -76,8 +77,7 @@ extern "C" void set_csr( const svOpenArrayHandle inst){
 }
 
 
-
-
+#ifdef ITRACE 
 static void display_iringbuf(){
     int i=0;
     for(;i<IRTRACE;i++){
@@ -87,7 +87,7 @@ static void display_iringbuf(){
         printf("%s\n",ibuf[i]);
     }
 }
-
+#endif
 // 一个输出RTL中通用寄存器的值的示例
 void dump_gpr() {
   int i;
@@ -140,7 +140,6 @@ uint32_t pem_read(uint64_t pc){
 
 void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     char p[128];
-    void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
     uint32_t inst;
     //printf("%d\n",s->clock);
     for(int i=0;i<2 && (! contextp->gotFinish());i++){
@@ -151,6 +150,9 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
         if(sim_time % 1==0) {
             
             inst = pem_read(s->io_pc);
+            #ifdef ITRACE
+
+            void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
             if(i==0){
                 disassemble(p,96,s->io_pc,(uint8_t *)&inst,4);
                 //cpu->reg=cpu_gpr;
@@ -166,22 +168,28 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
                 irbuf_point=(irbuf_point+1)%IRTRACE;
             }
             
+            #endif
+            
         }
         
         s->eval();
+        #ifdef WTRACE
         m_trace->dump(sim_time);
+        #endif
         sim_time++;
         if(s->io_time_int ==1 || Inst[0]==0b00000000000000000000000001110011) {is_skip_ref=1;}
         //if(Inst[0]==0b00000000000000000000000001110011){ref_is_irq=true; difftest_irq(0);}
     }
 //////to ref
-    memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
-    cpu.pc=s->io_pc;
+    #ifdef DIFFTEST 
+    	memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
+    	cpu.pc=s->io_pc;
     
-    cpu.mepc=CSR[0];
-    cpu.mcause=CSR[1];
-    cpu.mstatus=CSR[2];
-    cpu.mtvec=CSR[3];
+    	cpu.mepc=CSR[0];
+    	cpu.mcause=CSR[1];
+    	cpu.mstatus=CSR[2];
+    	cpu.mtvec=CSR[3];
+    #endif
     //printf("---------%016lx  %016lx\n",cpu_gpr[8],cpu_gpr[15]);
     
     
@@ -192,11 +200,13 @@ void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uint
     while(n--!=0 &&((!contextp->gotFinish()))){
         exe_once(dut,contextp,m_trace);
         //printf("-----%d\n",is_skip_ref);
-        if(DIFFTEST && !ref_is_irq){
+        #ifdef DIFFTEST 
+        if(!ref_is_irq){
             bool flag=difftest_step(dut->io_pc);
         
             if(!flag) {state=ABORT; break;}
         }
+        #endif
         device_update();
     }
     
@@ -220,19 +230,24 @@ void Reset(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
         
         
         dut->eval();
-   
+        #ifdef WTRACE
         m_trace->dump(sim_time);
+        #endif
         sim_time++;
     }
     //reset ref
     //printf("%lx\n",dut->io_pc);
     
+    #ifdef DIFFTEST 
     memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
     cpu.pc=dut->io_pc;
     cpu.mepc=CSR[0];
     cpu.mcause=CSR[1];
     cpu.mstatus=CSR[2];
     cpu.mtvec=CSR[3];
+
+    #endif
+
     
 
 }
@@ -434,39 +449,51 @@ int main(int argc, char** argv) {
 VerilatedContext* contextp = new VerilatedContext;
 contextp->commandArgs(argc, argv);
 VCPUTop *dut = new VCPUTop;
-
+#ifdef WTRACE
 Verilated::traceEverOn(true);
 VerilatedVcdC *m_trace = new VerilatedVcdC;
 dut->trace(m_trace,5);
 m_trace->open("waveform.vcd");
-
+#endif
 // init inst memory
 init_mem(argv[1]);
 init_device();
 //printf("%s\n",argv[2]);
-
+#ifdef WTRACE
 Reset(dut,contextp,m_trace);//reset rtl
+#endif
+#ifndef WTRACE
+Reset(dut,contextp,NULL);//reset rtl
+#endif
+#ifdef DIFFTEST 
+init_difftest(argv[2],mem_size,1,mem);
+#endif
 
-if(DIFFTEST) init_difftest(argv[2],mem_size,1,mem);
-if(!DIFFTEST) printf("                        difftest OFF\n");
 init_disasm("riscv64" "-pc-linux-gnu");
 //reset rtl
 
 //execute 
 //execute(dut,contextp,m_trace,-1);
-
+#ifdef WTRACE
 sdb_main_loop(dut,contextp,m_trace);
-
+#endif
+#ifndef WTRACE
+sdb_main_loop(dut,contextp,NULL);
+#endif
 //printf("Final PC is : 0x%lx\n",dut->io_pc);
 
 
 if(state==ABORT){
     dump_gpr(); 
     printf("\n");
+    #ifdef ITRACE
     display_iringbuf();
+    #endif
     printf("\033[40;31Program execution has ended. To restart the program, exit NEMU and run again.\033[0m");
     printf("\n");
-    if(DIFFTEST) difftest_print();
+    #ifdef DIFFTEST 
+    difftest_print();
+    #endif
     
     
     printf("\033[40;31mABORT at pc = \033[0m \033[40;31m0x%016lx\033[0m\n",dut->io_pc-4);
@@ -474,12 +501,15 @@ if(state==ABORT){
 else if(cpu_gpr[10] !=0) {
     dump_gpr(); 
     printf("\n");
+    #ifdef ITRACE
     display_iringbuf();
+    #endif
     printf("\033[40;31mHIT BAD TRAP at pc = \033[0m \033[40;31m0x%016lx\033[0m\n",dut->io_pc);
 }
 else printf("\033[40;32mHIT GOOD TRAP at pc = \033[0m \033[40;32m0x%016lx\033[0m\n",dut->io_pc);
-
+#ifdef WTRACE
 m_trace->close();
+#endif
 delete dut;
 delete contextp;
 exit(EXIT_SUCCESS);

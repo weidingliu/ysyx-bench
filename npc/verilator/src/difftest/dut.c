@@ -6,7 +6,7 @@
 #include <tb.h>
 #include<difftest.h>
 
-
+#ifdef DIFFTEST 
 
 Ref_difftest_memcpy ref_difftest_memcpy=NULL;
 Ref_difftest_regcpy ref_difftest_regcpy=NULL;
@@ -115,7 +115,7 @@ void difftest_irq(uint64_t NO){
     ref_is_irq=0;
 }
 
-
+#endif
 
 
 
