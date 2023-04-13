@@ -1,4 +1,4 @@
-package Pipline_CPU.frontend
+package Pipline_CPU
 
 class CSR {
 
