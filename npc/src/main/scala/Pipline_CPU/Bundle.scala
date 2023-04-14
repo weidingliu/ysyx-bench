@@ -7,11 +7,11 @@ class CtrlSignalIO extends Bundle with Paramete{
   val src2Type = Output(SRCType())
   val fuType = Output(FUType())
   val inst_valid = Output(Bool())
-  val rfSrc1 = Output(5.W)
-  val rfSrc2 = Output(5.W)
+  val rfSrc1 = Output(UInt(5.W))
+  val rfSrc2 = Output(UInt(5.W))
   val rfWen = Output(Bool())
   val aluoptype = Output(ALUOPType())
-  val rfDest = Output (5.W)
+  val rfDest = Output (UInt(5.W))
 
 
 }
@@ -40,7 +40,9 @@ class CSRCtrlIO extends Bundle with Paramete{
 }
 
 class RFCtrlIO extends Bundle with Paramete{
-  val rfDest = Output(5.W)
+  val rfDest = Output(UInt(5.W))
+  val rfWen = Output(Bool())
+  val rfData = Output(UInt(xlen.W))
 }
 
 class FetchIO extends Bundle with Paramete{
@@ -54,8 +56,14 @@ class BranchIO extends Bundle with Paramete{
 }
 
 class DecoderIO extends Bundle with Paramete{
-  val ctrl_rf = new RFCtrlIO
+  //val ctrl_rf = new RFCtrlIO
   val ctrl_signal = new CtrlSignalIO
   val ctrl_data = new DataSrcIO
+  val ctrl_flow = new CtrlFlowIO
+}
+
+class MEMIO extends Bundle with Paramete{
+  val ctrl_signal = new CtrlSignalIO
+  val ctrl_flow = new CtrlFlowIO
 }
 

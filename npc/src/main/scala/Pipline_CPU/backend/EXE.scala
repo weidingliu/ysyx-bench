@@ -67,6 +67,15 @@ object RD{
   def apply() =UInt(1.W)
 }
 
-class EXE extends Paramete{
+class EXE extends Module with Paramete{
+  val io = IO(new Bundle() {
+   val in = Decoupled(Flipped(new DecoderIO))
+   val branchIO = new BranchIO
+    val out = Decoupled(new MEMIO)
+  })
+
+
+  io.out.bits.ctrl_signal <> io.in.bits.ctrl_signal
+  io.out.bits.ctrl_flow <> io.in.bits.ctrl_flow
 
 }
