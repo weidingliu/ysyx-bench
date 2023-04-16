@@ -8,7 +8,6 @@ import chisel3.util._
 class DIP_model extends BlackBox{
   val io = IO(new Bundle() {
     val is_break = Input(Bool())
-    val is_flush = Input(Bool())
     val rf=Input(Vec(32,UInt(64.W)))
     val inst=Input(UInt(32.W))
     val pc = Input(UInt(64.W))
@@ -100,7 +99,6 @@ class CoreTop extends Module with Paramete{
 
 
   DIP.io.is_break := EX.io.is_break
-  DIP.io.is_flush := EX.io.is_flush
   for (i <- 0 until NReg) {
     DIP.io.rf(i) := RegNext(Reg.rf(i))
   }
