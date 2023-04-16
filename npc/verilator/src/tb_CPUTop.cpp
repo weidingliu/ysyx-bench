@@ -448,7 +448,7 @@ int main(int argc, char** argv) {
 
 VerilatedContext* contextp = new VerilatedContext;
 contextp->commandArgs(argc, argv);
-VCPUTop *dut = new VCPUTop;
+VCoreTop *dut = new VCoreTop;
 #ifdef WTRACE
 printf("sdafffffffffffffffffffffffffffffffffffffff\n");
 Verilated::traceEverOn(true);
