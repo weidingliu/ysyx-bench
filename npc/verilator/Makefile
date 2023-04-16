@@ -19,7 +19,7 @@ endif
 ##CFLAGS+=-CFLAGS $(shell llvm-config-13 --cxxflags) -CFLAGS -fPIE
 
 vcd:	
-	@echo $(WTRACE)
+	@echo $(CFLAGS)
 	verilator -Wno-fatal --trace -j $(nproc) -compiler clang -cc  $(VSRC) --top-module CoreTop   --exe $(CSRC) $(LDFLAGS) $(CFLAGS)
 	$(MAKE) -C obj_dir -f VCPUTop.mk VCPUTop 
 	##$(info $(bin_path)$(ALL)-$(ARCH).bin)
