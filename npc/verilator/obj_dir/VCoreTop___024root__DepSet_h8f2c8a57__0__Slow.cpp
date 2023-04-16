@@ -7,15 +7,24 @@
 
 #include "VCoreTop___024root.h"
 
-VL_ATTR_COLD void VCoreTop___024root___initial__TOP__0(VCoreTop___024root* vlSelf);
+VL_ATTR_COLD void VCoreTop___024root___initial__TOP__0(VCoreTop___024root* vlSelf) {
+    if (false && vlSelf) {}  // Prevent unused
+    VCoreTop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VCoreTop___024root___initial__TOP__0\n"); );
+    // Body
+    vlSelf->io_inst_valid = 1U;
+}
+
+VL_ATTR_COLD void VCoreTop___024root___initial__TOP__1(VCoreTop___024root* vlSelf);
 
 VL_ATTR_COLD void VCoreTop___024root___eval_initial(VCoreTop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     VCoreTop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    VCoreTop___024root___eval_initial\n"); );
     // Body
-    vlSelf->__Vclklast__TOP__clock = vlSelf->clock;
     VCoreTop___024root___initial__TOP__0(vlSelf);
+    vlSelf->__Vclklast__TOP__clock = vlSelf->clock;
+    VCoreTop___024root___initial__TOP__1(vlSelf);
 }
 
 VL_ATTR_COLD void VCoreTop___024root___settle__TOP__0(VCoreTop___024root* vlSelf);
@@ -46,6 +55,7 @@ VL_ATTR_COLD void VCoreTop___024root___ctor_var_reset(VCoreTop___024root* vlSelf
     vlSelf->reset = VL_RAND_RESET_I(1);
     vlSelf->io_pc = VL_RAND_RESET_Q(64);
     vlSelf->io_inst = VL_RAND_RESET_I(32);
+    vlSelf->io_inst_valid = VL_RAND_RESET_I(1);
     vlSelf->CoreTop__DOT__ID_io_out_bits_ctrl_signal_rfWen = VL_RAND_RESET_I(1);
     for (int __Vi0=0; __Vi0<32; ++__Vi0) {
         vlSelf->CoreTop__DOT__rf[__Vi0] = VL_RAND_RESET_Q(64);

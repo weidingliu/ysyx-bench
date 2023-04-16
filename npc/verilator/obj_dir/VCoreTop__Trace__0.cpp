@@ -802,12 +802,13 @@ void VCoreTop___024root__trace_chg_sub_0(VCoreTop___024root* vlSelf, VerilatedVc
     bufp->chgBit(oldp+370,(vlSelf->reset));
     bufp->chgQData(oldp+371,(vlSelf->io_pc),64);
     bufp->chgIData(oldp+373,(vlSelf->io_inst),32);
-    bufp->chgIData(oldp+374,(((1U & (IData)((vlSelf->CoreTop__DOT__IF__DOT__temp 
+    bufp->chgBit(oldp+374,(vlSelf->io_inst_valid));
+    bufp->chgIData(oldp+375,(((1U & (IData)((vlSelf->CoreTop__DOT__IF__DOT__temp 
                                              >> 2U)))
                                ? (IData)((vlSelf->CoreTop__DOT__IFM__DOT__rdata 
                                           >> 0x20U))
                                : (IData)(vlSelf->CoreTop__DOT__IFM__DOT__rdata))),32);
-    bufp->chgQData(oldp+375,(((4U == (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_fuType))
+    bufp->chgQData(oldp+376,(((4U == (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_fuType))
                                ? ((0x45U == (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_aluoptype))
                                    ? vlSelf->CoreTop__DOT__mem_rdata
                                    : ((0x47U == (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_aluoptype))
@@ -870,7 +871,7 @@ void VCoreTop___024root__trace_chg_sub_0(VCoreTop___024root* vlSelf, VerilatedVc
                                                      ? (QData)((IData)(vlSelf->CoreTop__DOT__MEM__DOT___mem_result_T_44))
                                                      : 0ULL)))))))
                                : vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_rf_rfData)),64);
-    bufp->chgQData(oldp+377,(((0x45U == (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_aluoptype))
+    bufp->chgQData(oldp+378,(((0x45U == (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_aluoptype))
                                ? vlSelf->CoreTop__DOT__mem_rdata
                                : ((0x47U == (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_aluoptype))
                                    ? ((1U & (IData)(

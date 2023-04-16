@@ -652,7 +652,7 @@ VL_INLINE_OPT void VCoreTop___024root___sequent__TOP__0(VCoreTop___024root* vlSe
             = vlSelf->CoreTop__DOT__ID__DOT___Inst_decode_T_313;
     }
     if (VL_UNLIKELY((0x42U == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype)))) {
-        VL_FINISH_MT("vsrc/DIP_model.v", 47, "");
+        VL_FINISH_MT("vsrc/DIP_model.v", 48, "");
     }
     vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst = ((1U 
                                                    & (IData)(

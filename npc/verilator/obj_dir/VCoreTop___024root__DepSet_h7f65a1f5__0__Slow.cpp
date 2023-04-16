@@ -77,7 +77,7 @@ VL_ATTR_COLD void VCoreTop___024root___settle__TOP__0(VCoreTop___024root* vlSelf
                                               ? vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_data_Imm
                                               : 0ULL);
     if (VL_UNLIKELY((0x42U == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype)))) {
-        VL_FINISH_MT("vsrc/DIP_model.v", 47, "");
+        VL_FINISH_MT("vsrc/DIP_model.v", 48, "");
     }
     vlSelf->CoreTop__DOT__EX__DOT___branch_result_T_1 
         = (vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_flow_PC 
@@ -1818,10 +1818,10 @@ VL_ATTR_COLD void VCoreTop___024root___settle__TOP__0(VCoreTop___024root* vlSelf
 void VCoreTop___024unit____Vdpiimwrap_set_pc__Vdpioc2_TOP____024unit(const IData/*31:0*/ &inst);
 void VCoreTop___024unit____Vdpiimwrap_set_gpr_ptr__Vdpioc2_TOP____024unit(const VlUnpacked<QData/*63:0*/, 32> &a);
 
-VL_ATTR_COLD void VCoreTop___024root___initial__TOP__0(VCoreTop___024root* vlSelf) {
+VL_ATTR_COLD void VCoreTop___024root___initial__TOP__1(VCoreTop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     VCoreTop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VCoreTop___024root___initial__TOP__0\n"); );
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VCoreTop___024root___initial__TOP__1\n"); );
     // Body
     VCoreTop___024unit____Vdpiimwrap_set_pc__Vdpioc2_TOP____024unit(vlSelf->CoreTop__DOT__DIP_io_inst_REG);
     VCoreTop___024unit____Vdpiimwrap_set_gpr_ptr__Vdpioc2_TOP____024unit(vlSelf->CoreTop__DOT__DIP__DOT__rf);
