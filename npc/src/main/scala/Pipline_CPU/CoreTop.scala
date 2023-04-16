@@ -42,7 +42,7 @@ class CoreTop extends Module with Paramete{
   val io =IO(new Bundle() {
     val pc = Output(UInt(xlen.W))
     val inst = Output(UInt(instlen.W))
-    val inst_valid = Input(Bool())
+    val inst_valid = Output(Bool())
 //    val result = Output(UInt(xlen.W))
 //    val time_int = Output(UInt(1.W))
   })
