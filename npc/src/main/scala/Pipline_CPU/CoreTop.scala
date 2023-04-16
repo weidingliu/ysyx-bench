@@ -11,6 +11,7 @@ class DIP_model extends BlackBox{
     val rf=Input(Vec(32,UInt(64.W)))
     val inst=Input(UInt(32.W))
 
+
   })
 }
 class ifm extends BlackBox{
@@ -41,6 +42,7 @@ class CoreTop extends Module with Paramete{
   val io =IO(new Bundle() {
     val pc = Output(UInt(xlen.W))
     val inst = Output(UInt(instlen.W))
+    val inst_valid = Input(Bool())
 //    val result = Output(UInt(xlen.W))
 //    val time_int = Output(UInt(1.W))
   })
@@ -99,6 +101,7 @@ class CoreTop extends Module with Paramete{
     DIP.io.rf(i) := RegNext(Reg.rf(i))
   }
   DIP.io.inst := RegNext(WB.io.out.bits.ctrl_flow.inst)
+  io.inst_valid := RegNext(WB.io.out.bits.ctrl_signal.inst_valid)
   io.inst := RegNext(WB.io.out.bits.ctrl_flow.inst)
   io.pc := IF.io.out.bits.PC
   //io.pc := RegNext(WB.io.out.bits.ctrl_flow.PC)
