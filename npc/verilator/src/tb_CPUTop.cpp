@@ -2,10 +2,10 @@
 #include <iostream>
 #include <verilated.h>
 #include <verilated_vcd_c.h>
-#include "VCPUTop.h"
-#include "VCPUTop___024root.h"
+#include "VCoreTop.h"
+#include "VCoreTop___024root.h"
 #include <svdpi.h>
-#include "VCPUTop__Dpi.h"
+#include "VCoreTop__Dpi.h"
 #include "verilated_dpi.h"
 
 #include <readline/readline.h>
