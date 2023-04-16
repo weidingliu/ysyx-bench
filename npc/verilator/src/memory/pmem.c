@@ -56,8 +56,7 @@ extern "C" void pmem_read(long long addr, long long *rdata) {
   	difftest_print();
   	#endif
   	printf("%016llx\n",(addr & ~0x7ull));
-  	return;
-  	//assert(0);
+  	assert(0);
   }
   memcpy(&temp,(mem+(addr& ~0x7ull)-RESET_VECTOR),sizeof(long long));
   *rdata=temp;
