@@ -20,7 +20,7 @@ endif
 
 vcd:	
 	
-	verilator -Wno-fatal --trace -j $(nproc) -compiler clang -cc  $(VSRC) --top-module CPUTop   --exe $(CSRC) $(LDFLAGS) $(CFLAGS)
+	verilator -Wno-fatal --trace -j $(nproc) -compiler clang -cc  $(VSRC) --top-module CoreTop   --exe $(CSRC) $(LDFLAGS) $(CFLAGS)
 	$(MAKE) -C obj_dir -f VCPUTop.mk VCPUTop 
 	##$(info $(bin_path)$(ALL)-$(ARCH).bin)
 	./obj_dir/VCPUTop $(IMG) $(SO_PATH)

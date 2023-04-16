@@ -35,7 +35,7 @@ clean:
 
 sim: verilog
 	#$(MAKE) -C $(BPATH) 
-	cp -f ./build/CPUTop.v ./verilator/vsrc
+	cp -f ./build/CoreTop.v ./verilator/vsrc
 	$(info  $(IMG))
 	$(MAKE) -C ./verilator IMG=$(IMG) WTRACE=$(WTRACE)
 	 
