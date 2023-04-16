@@ -47,7 +47,7 @@ void init_difftest(char *ref_so_file, uint32_t img_size, int port, uint8_t *mem)
 
 static bool check_reg(cpu_state *ref_cpu,uint64_t pc){
     printf("%016lx  %016lx\n",pc,ref_cpu->pc);
-    if(pc != ref_cpu->pc){
+    if(pc != ref_cpu->pc-4){
         //printf("her\n");
         printf("PC fail!\n");
         
@@ -102,7 +102,7 @@ void difftest_print(){
     cpu_state ref_cpu;
     ref_difftest_regcpy(&ref_cpu, DIFFTEST_TO_DUT);
     
-    printf("======ref PC is %016lx\n",ref_cpu.pc);
+    printf("======ref PC is %016lx\n",ref_cpu.pc-4);
     for(int i=0;i<32;i++){
         printf("gpr[%d]: %016lx\n",i,ref_cpu.reg[i]);
     }
