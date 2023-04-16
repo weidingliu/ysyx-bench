@@ -185,10 +185,10 @@ void exe_once(VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     	memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
     	cpu.pc=s->io_pc;
     
-    	cpu.mepc=CSR[0];
+    	/*cpu.mepc=CSR[0];
     	cpu.mcause=CSR[1];
     	cpu.mstatus=CSR[2];
-    	cpu.mtvec=CSR[3];
+    	cpu.mtvec=CSR[3];*/
     #endif
     //printf("---------%016lx  %016lx\n",cpu_gpr[8],cpu_gpr[15]);
     
@@ -238,18 +238,12 @@ void Reset(VCoreTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     //printf("%lx\n",dut->io_pc);
 
     #ifdef DIFFTEST 
-    printf("sdfggg\n");
     memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
-    printf("sdfggg\n");
-    cpu.pc=dut->io_pc;
-    printf("sdfggg\n");
+    /*cpu.pc=dut->io_pc;
     cpu.mepc=CSR[0];
-    printf("sdfggg\n");
     cpu.mcause=CSR[1];
-    printf("sdfggg\n");
     cpu.mstatus=CSR[2];
-    printf("sdfggg\n");
-    cpu.mtvec=CSR[3];
+    cpu.mtvec=CSR[3];*/
     
     #endif
 
