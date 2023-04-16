@@ -90,7 +90,7 @@ wire [31:0]IN[3:0];
 assign IN[0]=inst;
 assign IN[1]=pc[31:0];
 assign IN[2]=pc[63:32];
-assign IN[3][0]=inst_valid;
+assign IN[3]={31'h0,inst_valid};
 
 initial begin 
 set_pc(inst);

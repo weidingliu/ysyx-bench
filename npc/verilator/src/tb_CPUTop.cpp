@@ -46,6 +46,7 @@ uint32_t mem_size;
 uint32_t *Inst;
 uint64_t *CSR;
 uint64_t pc;
+uint32_t inst_valid=0;
 
 uint32_t state=RUN;
 
@@ -69,6 +70,7 @@ extern "C" void set_pc( const svOpenArrayHandle inst){
 
     Inst=(uint32_t *)(((VerilatedDpiOpenVar*)inst)->datap());
     pc = (uint64_t)Inst[1]+((uint64_t)Inst[2]<<32);
+    inst_valid=Inst[3];
 
 }
 extern "C" void set_csr( const svOpenArrayHandle inst){
@@ -205,8 +207,8 @@ void execute(VCoreTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uin
         exe_once(dut,contextp,m_trace);
         //printf("-----%d\n",is_skip_ref);
         #ifdef DIFFTEST 
-        //printf("%d\n",dut->io_inst_valid);
-        if(!ref_is_irq && Inst[3]){
+        printf("%d %lx\n",inst_valid,pc);
+        if(!ref_is_irq && inst_valid==1){
             bool flag=difftest_step(pc);
         
             if(!flag) {state=ABORT; break;}
