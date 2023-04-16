@@ -101,4 +101,5 @@ class ID extends Module with Paramete{
 
   io.out.valid := 1.U
   io.in.ready := io.out.ready
+  println(io.out.bits.ctrl_signal.inst_valid)
 }
