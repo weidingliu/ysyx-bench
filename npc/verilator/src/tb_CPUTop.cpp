@@ -174,6 +174,7 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
         
         s->eval();
         #ifdef WTRACE
+        printf("dsafdgggg------------\n");
         m_trace->dump(sim_time);
         #endif
         sim_time++;
