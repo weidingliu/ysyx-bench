@@ -1133,8 +1133,8 @@ module CoreTop(
   reg [4:0] WB_io_in_bits_r_ctrl_rf_rfDest; // @[Reg.scala 16:16]
   reg  WB_io_in_bits_r_ctrl_rf_rfWen; // @[Reg.scala 16:16]
   reg [63:0] WB_io_in_bits_r_ctrl_rf_rfData; // @[Reg.scala 16:16]
-  wire  _T_13 = WB_io_out_bits_ctrl_rf_rfDest == 5'h0; // @[RF.scala 9:61]
-  wire [63:0] _T_14 = WB_io_out_bits_ctrl_rf_rfData; // @[RF.scala 9:78]
+  wire  _T_17 = WB_io_out_bits_ctrl_rf_rfDest == 5'h0; // @[RF.scala 9:61]
+  wire [63:0] _T_18 = WB_io_out_bits_ctrl_rf_rfData; // @[RF.scala 9:78]
   reg [63:0] DIP_io_rf_0_REG; // @[CoreTop.scala 102:28]
   reg [63:0] DIP_io_rf_1_REG; // @[CoreTop.scala 102:28]
   reg [63:0] DIP_io_rf_2_REG; // @[CoreTop.scala 102:28]
@@ -1424,7 +1424,7 @@ module CoreTop(
   assign rf_DIP_io_rf_31_MPORT_en = 1'h1;
   assign rf_DIP_io_rf_31_MPORT_addr = 5'h1f;
   assign rf_DIP_io_rf_31_MPORT_data = rf[rf_DIP_io_rf_31_MPORT_addr]; // @[RF.scala 7:15]
-  assign rf_MPORT_data = _T_13 ? 64'h0 : _T_14;
+  assign rf_MPORT_data = _T_17 ? 64'h0 : _T_18;
   assign rf_MPORT_addr = WB_io_out_bits_ctrl_rf_rfDest;
   assign rf_MPORT_mask = 1'h1;
   assign rf_MPORT_en = WB_io_out_bits_ctrl_rf_rfWen;
