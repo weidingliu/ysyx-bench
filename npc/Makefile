@@ -38,11 +38,11 @@ sim: verilog
 	cp -f ./build/CoreTop.v ./verilator/vsrc
 	$(info  $(IMG))
 	$(MAKE) -C ./verilator IMG=$(IMG) WTRACE=$(WTRACE)
-	 
+	@echo $(WTRACE)
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 	@echo "Write this Makefile by yourself."
 
-wave: 
+wave:
 	cd verilator;\
 	gtkwave waveform.vcd
 all: wave
