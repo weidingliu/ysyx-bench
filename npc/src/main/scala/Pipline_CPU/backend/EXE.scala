@@ -114,7 +114,7 @@ class EXE extends Module with Paramete{
 
   val alu_result = WireDefault(0.U(xlen.W))
   val dnpc = WireDefault(0.U(xlen.W))
-  io.is_break := Mux((io.in.bits.ctrl_signal.aluoptype === ALUOPType.ebreak), 1.U, 0.U)
+
   switch(io.in.bits.ctrl_signal.aluoptype) {
     is(ALUOPType.add) {
       alu_result := src1 + src2
@@ -331,6 +331,8 @@ class EXE extends Module with Paramete{
 //  }
 
   io.flush := Mux(branch_flag === 1.U || io.in.bits.ctrl_signal.fuType === FUType.jump,1.U,0.U)
+  io.is_break := Mux((io.in.bits.ctrl_signal.aluoptype === ALUOPType.ebreak), 1.U, 0.U)
+
   io.out.bits.ctrl_signal <> io.in.bits.ctrl_signal
   io.out.bits.ctrl_flow <> io.in.bits.ctrl_flow
   io.out.bits.ctrl_data <> io.in.bits.ctrl_data
