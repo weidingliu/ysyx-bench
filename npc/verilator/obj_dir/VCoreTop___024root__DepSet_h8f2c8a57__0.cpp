@@ -197,10 +197,7 @@ VL_INLINE_OPT void VCoreTop___024root___sequent__TOP__0(VCoreTop___024root* vlSe
     vlSelf->CoreTop__DOT__DIP__DOT__IN[0U] = vlSelf->CoreTop__DOT__DIP_io_inst_REG;
     vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_flow_inst 
         = vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_flow_inst;
-    vlSelf->CoreTop__DOT__DIP__DOT__IN[3U] = ((0xfffffffeU 
-                                               & vlSelf->CoreTop__DOT__DIP__DOT__IN
-                                               [3U]) 
-                                              | (IData)(vlSelf->CoreTop__DOT__DIP_io_inst_valid_REG));
+    vlSelf->CoreTop__DOT__DIP__DOT__IN[3U] = vlSelf->CoreTop__DOT__DIP_io_inst_valid_REG;
     vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_signal_inst_valid 
         = vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_inst_valid;
     vlSelf->CoreTop__DOT__DIP__DOT__IN[1U] = (IData)(vlSelf->CoreTop__DOT__DIP_io_pc_REG);

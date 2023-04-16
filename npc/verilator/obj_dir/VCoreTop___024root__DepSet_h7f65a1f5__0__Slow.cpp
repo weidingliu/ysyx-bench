@@ -40,10 +40,7 @@ VL_ATTR_COLD void VCoreTop___024root___settle__TOP__0(VCoreTop___024root* vlSelf
     vlSelf->CoreTop__DOT__DIP__DOT__IN[2U] = (IData)(
                                                      (vlSelf->CoreTop__DOT__DIP_io_pc_REG 
                                                       >> 0x20U));
-    vlSelf->CoreTop__DOT__DIP__DOT__IN[3U] = ((0xfffffffeU 
-                                               & vlSelf->CoreTop__DOT__DIP__DOT__IN
-                                               [3U]) 
-                                              | (IData)(vlSelf->CoreTop__DOT__DIP_io_inst_valid_REG));
+    vlSelf->CoreTop__DOT__DIP__DOT__IN[3U] = vlSelf->CoreTop__DOT__DIP_io_inst_valid_REG;
     vlSelf->CoreTop__DOT__DIP__DOT__rf[0U] = vlSelf->CoreTop__DOT__DIP_io_rf_0_REG;
     vlSelf->CoreTop__DOT__DIP__DOT__rf[1U] = vlSelf->CoreTop__DOT__DIP_io_rf_1_REG;
     vlSelf->CoreTop__DOT__DIP__DOT__rf[2U] = vlSelf->CoreTop__DOT__DIP_io_rf_2_REG;
