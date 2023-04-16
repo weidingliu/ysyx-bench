@@ -96,6 +96,9 @@ VL_ATTR_COLD void VCoreTop___024root___settle__TOP__0(VCoreTop___024root* vlSelf
                                                 + vlSelf->CoreTop__DOT__IF__DOT__temp);
     VL_WRITEF("----------dfas---%x\n",64,vlSelf->CoreTop__DOT__IF__DOT__temp);
     if ((1U & (~ ((IData)(vlSelf->reset) | (IData)(vlSelf->clock))))) {
+        if (VL_UNLIKELY((0ULL == vlSelf->CoreTop__DOT__IF__DOT__temp))) {
+            VL_FINISH_MT("vsrc/ifm.v", 17, "");
+        }
         VCoreTop___024unit____Vdpiimwrap_pmem_read_TOP____024unit(vlSelf->CoreTop__DOT__IF__DOT__temp, vlSelf->__Vtask_pmem_read__0__rdata);
         vlSelf->CoreTop__DOT__IFM__DOT__rdata = vlSelf->__Vtask_pmem_read__0__rdata;
     }
