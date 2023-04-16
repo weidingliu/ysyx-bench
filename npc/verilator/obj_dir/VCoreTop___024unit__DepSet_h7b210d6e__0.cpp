@@ -21,10 +21,11 @@ VL_INLINE_OPT void VCoreTop___024unit____Vdpiimwrap_set_gpr_ptr__Vdpioc2_TOP____
 
 extern "C" void set_pc(const svOpenArrayHandle inst);
 
-VL_INLINE_OPT void VCoreTop___024unit____Vdpiimwrap_set_pc__Vdpioc2_TOP____024unit(const IData/*31:0*/ &inst) {
+VL_INLINE_OPT void VCoreTop___024unit____Vdpiimwrap_set_pc__Vdpioc2_TOP____024unit(const VlUnpacked<IData/*31:0*/, 4> &inst) {
     VL_DEBUG_IF(VL_DBG_MSGF("+        VCoreTop___024unit____Vdpiimwrap_set_pc__Vdpioc2_TOP____024unit\n"); );
     // Body
-    static const VerilatedVarProps inst__Vopenprops(VLVT_UINT32, VLVD_IN, VerilatedVarProps::Packed(), 31, 0);
+    static const int inst__Vopenprops__ulims[2] = {3, 0};
+    static const VerilatedVarProps inst__Vopenprops(VLVT_UINT32, VLVD_IN, VerilatedVarProps::Packed(), 31, 0, VerilatedVarProps::Unpacked(), 1, inst__Vopenprops__ulims);
     VerilatedDpiOpenVar inst__Vopenarray (&inst__Vopenprops, &inst);
     set_pc(&inst__Vopenarray);
 }
