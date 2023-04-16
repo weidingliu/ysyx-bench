@@ -21,9 +21,9 @@ endif
 vcd:	
 	@echo $(CFLAGS)
 	verilator -Wno-fatal --trace -j $(nproc) -compiler clang -cc  $(VSRC) --top-module CoreTop   --exe $(CSRC) $(LDFLAGS) $(CFLAGS)
-	$(MAKE) -C obj_dir -f VCPUTop.mk VCPUTop 
+	$(MAKE) -C obj_dir -f VCoreTop.mk VCoreTop 
 	##$(info $(bin_path)$(ALL)-$(ARCH).bin)
-	./obj_dir/VCPUTop $(IMG) $(SO_PATH)
+	./obj_dir/VCoreTop $(IMG) $(SO_PATH)
 
 .PHONY: vcd
 
