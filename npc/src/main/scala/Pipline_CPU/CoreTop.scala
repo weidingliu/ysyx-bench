@@ -8,6 +8,7 @@ import chisel3.util._
 class DIP_model extends BlackBox{
   val io = IO(new Bundle() {
     val is_break = Input(Bool())
+    val is_flush = Input(Bool())
     val rf=Input(Vec(32,UInt(64.W)))
     val inst=Input(UInt(32.W))
     val pc = Input(UInt(64.W))
@@ -66,16 +67,15 @@ class CoreTop extends Module with Paramete{
   val WB = Module(new WB)
 
 //  io.pc := IF.io.out.bits.PC
-  val is_flush = WireDefault(0.B)
-  is_flush := EX.io.is_flush
+
   // fetch inst
   IFM.io.pc := IF.io.out.bits.PC
   IF.io.inst := IFM.io.inst
 
-  Pipline_Connect(IF.io.out,ID.io.in,ID.io.out.fire,is_flush)
+  Pipline_Connect(IF.io.out,ID.io.in,ID.io.out.fire,EX.io.is_flush)
   ID.io.REG1 := Reg.read(ID.io.out.bits.ctrl_signal.rfSrc1)
   ID.io.REG2 := Reg.read(ID.io.out.bits.ctrl_signal.rfSrc1)
-  Pipline_Connect(ID.io.out,EX.io.in,EX.io.out.fire,is_flush)
+  Pipline_Connect(ID.io.out,EX.io.in,EX.io.out.fire,EX.io.is_flush)
   IF.io.branch_io <> EX.io.branchIO
 
   Pipline_Connect(EX.io.out,MEM.io.in,MEM.io.out.fire,0.B)
@@ -100,6 +100,7 @@ class CoreTop extends Module with Paramete{
 
 
   DIP.io.is_break := EX.io.is_break
+  DIP.io.is_flush := EX.io.is_flush
   for (i <- 0 until NReg) {
     DIP.io.rf(i) := RegNext(Reg.rf(i))
   }

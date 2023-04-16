@@ -39,7 +39,8 @@ input wire [63:0]rf_29,
 input wire [63:0]rf_30,
 input wire [63:0]rf_31,
 input wire inst_valid,
-input wire [63:0]pc
+input wire [63:0]pc,
+input wire is_flush
 
 );
 
