@@ -26,15 +26,19 @@ class VCoreTop___024root final : public VerilatedModule {
         CData/*2:0*/ CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_src1Type;
         CData/*2:0*/ CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_src2Type;
         CData/*2:0*/ CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_fuType;
+        CData/*0:0*/ CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_inst_valid;
         CData/*0:0*/ CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_rfWen;
         CData/*6:0*/ CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype;
         CData/*4:0*/ CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_rfDest;
         CData/*2:0*/ CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_fuType;
+        CData/*0:0*/ CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_inst_valid;
         CData/*6:0*/ CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_aluoptype;
         CData/*4:0*/ CoreTop__DOT__MEM_io_in_bits_r_ctrl_rf_rfDest;
         CData/*0:0*/ CoreTop__DOT__MEM_io_in_bits_r_ctrl_rf_rfWen;
+        CData/*0:0*/ CoreTop__DOT__WB_io_in_bits_r_ctrl_signal_inst_valid;
         CData/*4:0*/ CoreTop__DOT__WB_io_in_bits_r_ctrl_rf_rfDest;
         CData/*0:0*/ CoreTop__DOT__WB_io_in_bits_r_ctrl_rf_rfWen;
+        CData/*0:0*/ CoreTop__DOT__io_inst_valid_REG;
         CData/*3:0*/ CoreTop__DOT__ID__DOT___Inst_decode_T_144;
         CData/*3:0*/ CoreTop__DOT__ID__DOT___Inst_decode_T_159;
         CData/*3:0*/ CoreTop__DOT__ID__DOT___Inst_decode_T_174;
@@ -47,6 +51,7 @@ class VCoreTop___024root final : public VerilatedModule {
         CData/*6:0*/ CoreTop__DOT__ID__DOT___Inst_decode_T_283;
         CData/*6:0*/ CoreTop__DOT__ID__DOT___Inst_decode_T_298;
         CData/*6:0*/ CoreTop__DOT__ID__DOT___Inst_decode_T_313;
+        CData/*6:0*/ CoreTop__DOT__ID__DOT___Inst_decode_T_316;
         CData/*0:0*/ CoreTop__DOT__ID__DOT___Inst_decode_T_363;
         CData/*0:0*/ CoreTop__DOT__EX__DOT___GEN_51;
         CData/*7:0*/ CoreTop__DOT__MEM__DOT___GEN_32;
@@ -78,13 +83,13 @@ class VCoreTop___024root final : public VerilatedModule {
         QData/*63:0*/ CoreTop__DOT__MEM_io_in_bits_r_ctrl_data_src1;
         QData/*63:0*/ CoreTop__DOT__MEM_io_in_bits_r_ctrl_data_src2;
         QData/*63:0*/ CoreTop__DOT__MEM_io_in_bits_r_ctrl_data_Imm;
+    };
+    struct {
         QData/*63:0*/ CoreTop__DOT__WB_io_in_bits_r_ctrl_rf_rfData;
         QData/*63:0*/ CoreTop__DOT__DIP_io_rf_0_REG;
         QData/*63:0*/ CoreTop__DOT__DIP_io_rf_1_REG;
         QData/*63:0*/ CoreTop__DOT__DIP_io_rf_2_REG;
         QData/*63:0*/ CoreTop__DOT__DIP_io_rf_3_REG;
-    };
-    struct {
         QData/*63:0*/ CoreTop__DOT__DIP_io_rf_4_REG;
         QData/*63:0*/ CoreTop__DOT__DIP_io_rf_5_REG;
         QData/*63:0*/ CoreTop__DOT__DIP_io_rf_6_REG;

@@ -35,6 +35,7 @@ VL_ATTR_COLD void VCoreTop___024root___settle__TOP__0(VCoreTop___024root* vlSelf
     VlWide<4>/*127:0*/ __Vtemp_hf56a95e4__0;
     // Body
     vlSelf->io_inst = vlSelf->CoreTop__DOT__io_inst_REG;
+    vlSelf->io_inst_valid = vlSelf->CoreTop__DOT__io_inst_valid_REG;
     vlSelf->CoreTop__DOT__DIP__DOT__rf[0U] = vlSelf->CoreTop__DOT__DIP_io_rf_0_REG;
     vlSelf->CoreTop__DOT__DIP__DOT__rf[1U] = vlSelf->CoreTop__DOT__DIP_io_rf_1_REG;
     vlSelf->CoreTop__DOT__DIP__DOT__rf[2U] = vlSelf->CoreTop__DOT__DIP_io_rf_2_REG;
@@ -314,6 +315,76 @@ VL_ATTR_COLD void VCoreTop___024root___settle__TOP__0(VCoreTop___024root* vlSelf
                                                               & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
                                                              ? 2U
                                                              : 0U)))))))))))))));
+    vlSelf->CoreTop__DOT__ID__DOT___Inst_decode_T_144 
+        = ((0x3023U == (0x707fU & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+            ? 9U : ((0x1023U == (0x707fU & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                     ? 9U : ((0x23U == (0x707fU & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                              ? 9U : ((0x2023U == (0x707fU 
+                                                   & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                       ? 9U : ((0x100073U 
+                                                == vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst)
+                                                ? 0U
+                                                : (
+                                                   (0x6fU 
+                                                    == 
+                                                    (0x7fU 
+                                                     & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                    ? 7U
+                                                    : 
+                                                   ((0x67U 
+                                                     == 
+                                                     (0x707fU 
+                                                      & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                     ? 8U
+                                                     : 
+                                                    ((0x63U 
+                                                      == 
+                                                      (0x707fU 
+                                                       & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                      ? 0xbU
+                                                      : 
+                                                     ((0x1063U 
+                                                       == 
+                                                       (0x707fU 
+                                                        & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                       ? 0xbU
+                                                       : 
+                                                      ((0x5063U 
+                                                        == 
+                                                        (0x707fU 
+                                                         & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                        ? 0xbU
+                                                        : 
+                                                       ((0x4063U 
+                                                         == 
+                                                         (0x707fU 
+                                                          & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                         ? 0xbU
+                                                         : 
+                                                        ((0x6063U 
+                                                          == 
+                                                          (0x707fU 
+                                                           & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                          ? 0xbU
+                                                          : 
+                                                         ((0x7063U 
+                                                           == 
+                                                           (0x707fU 
+                                                            & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                           ? 0xbU
+                                                           : 
+                                                          ((0x2073U 
+                                                            == 
+                                                            (0x707fU 
+                                                             & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                            ? 8U
+                                                            : 
+                                                           ((0x1073U 
+                                                             == 
+                                                             (0x707fU 
+                                                              & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                             ? 8U
+                                                             : 0U)))))))))))))));
     vlSelf->CoreTop__DOT__ID__DOT___Inst_decode_T_268 
         = ((0x23U == (0x707fU & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
             ? 0x74U : ((0x2023U == (0x707fU & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
@@ -386,76 +457,6 @@ VL_ATTR_COLD void VCoreTop___024root___settle__TOP__0(VCoreTop___024root* vlSelf
                                                               == vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst)
                                                               ? 0x18U
                                                               : 0U)))))))))))))));
-    vlSelf->CoreTop__DOT__ID__DOT___Inst_decode_T_144 
-        = ((0x3023U == (0x707fU & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-            ? 9U : ((0x1023U == (0x707fU & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                     ? 9U : ((0x23U == (0x707fU & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                              ? 9U : ((0x2023U == (0x707fU 
-                                                   & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                       ? 9U : ((0x100073U 
-                                                == vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst)
-                                                ? 0U
-                                                : (
-                                                   (0x6fU 
-                                                    == 
-                                                    (0x7fU 
-                                                     & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                    ? 7U
-                                                    : 
-                                                   ((0x67U 
-                                                     == 
-                                                     (0x707fU 
-                                                      & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                     ? 8U
-                                                     : 
-                                                    ((0x63U 
-                                                      == 
-                                                      (0x707fU 
-                                                       & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                      ? 0xbU
-                                                      : 
-                                                     ((0x1063U 
-                                                       == 
-                                                       (0x707fU 
-                                                        & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                       ? 0xbU
-                                                       : 
-                                                      ((0x5063U 
-                                                        == 
-                                                        (0x707fU 
-                                                         & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                        ? 0xbU
-                                                        : 
-                                                       ((0x4063U 
-                                                         == 
-                                                         (0x707fU 
-                                                          & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                         ? 0xbU
-                                                         : 
-                                                        ((0x6063U 
-                                                          == 
-                                                          (0x707fU 
-                                                           & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                          ? 0xbU
-                                                          : 
-                                                         ((0x7063U 
-                                                           == 
-                                                           (0x707fU 
-                                                            & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                           ? 0xbU
-                                                           : 
-                                                          ((0x2073U 
-                                                            == 
-                                                            (0x707fU 
-                                                             & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                            ? 8U
-                                                            : 
-                                                           ((0x1073U 
-                                                             == 
-                                                             (0x707fU 
-                                                              & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                             ? 8U
-                                                             : 0U)))))))))))))));
     vlSelf->CoreTop__DOT__MEM__DOT___GEN_16 = ((0x46U 
                                                 == (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_aluoptype))
                                                 ? vlSelf->CoreTop__DOT__MEM__DOT___addr_temp_T_3
@@ -622,6 +623,80 @@ VL_ATTR_COLD void VCoreTop___024root___settle__TOP__0(VCoreTop___024root* vlSelf
                                                               & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
                                                              ? 0U
                                                              : (IData)(vlSelf->CoreTop__DOT__ID__DOT___Inst_decode_T_209))))))))))))))));
+    vlSelf->CoreTop__DOT__ID__DOT___Inst_decode_T_159 
+        = ((0x4000503bU == (0xfe00707fU & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+            ? 5U : ((0x503bU == (0xfe00707fU & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                     ? 5U : ((0x4033U == (0xfe00707fU 
+                                          & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                              ? 5U : ((0x200703bU == 
+                                       (0xfe00707fU 
+                                        & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                       ? 5U : ((0x1033U 
+                                                == 
+                                                (0xfe00707fU 
+                                                 & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                ? 5U
+                                                : (
+                                                   (0x2007033U 
+                                                    == 
+                                                    (0xfe00707fU 
+                                                     & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                    ? 5U
+                                                    : 
+                                                   ((0x200503bU 
+                                                     == 
+                                                     (0xfe00707fU 
+                                                      & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                     ? 5U
+                                                     : 
+                                                    ((0x2006033U 
+                                                      == 
+                                                      (0xfe00707fU 
+                                                       & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                      ? 5U
+                                                      : 
+                                                     ((0x5033U 
+                                                       == 
+                                                       (0xfe00707fU 
+                                                        & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                       ? 5U
+                                                       : 
+                                                      ((0x2005033U 
+                                                        == 
+                                                        (0xfe00707fU 
+                                                         & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                        ? 5U
+                                                        : 
+                                                       ((0x2004033U 
+                                                         == 
+                                                         (0xfe00707fU 
+                                                          & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                         ? 5U
+                                                         : 
+                                                        ((0x40005033U 
+                                                          == 
+                                                          (0xfc00707fU 
+                                                           & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                          ? 5U
+                                                          : 
+                                                         ((0x2000033U 
+                                                           == 
+                                                           (0xfe00707fU 
+                                                            & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                           ? 5U
+                                                           : 
+                                                          ((0x17U 
+                                                            == 
+                                                            (0x7fU 
+                                                             & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                            ? 3U
+                                                            : 
+                                                           ((0x37U 
+                                                             == 
+                                                             (0x7fU 
+                                                              & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                             ? 3U
+                                                             : (IData)(vlSelf->CoreTop__DOT__ID__DOT___Inst_decode_T_144))))))))))))))));
     vlSelf->CoreTop__DOT__ID__DOT___Inst_decode_T_283 
         = ((0x4033U == (0xfe00707fU & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
             ? 0x72U : ((0x200703bU == (0xfe00707fU 
@@ -698,80 +773,6 @@ VL_ATTR_COLD void VCoreTop___024root___settle__TOP__0(VCoreTop___024root* vlSelf
                                                               & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
                                                              ? 0x70U
                                                              : (IData)(vlSelf->CoreTop__DOT__ID__DOT___Inst_decode_T_268))))))))))))))));
-    vlSelf->CoreTop__DOT__ID__DOT___Inst_decode_T_159 
-        = ((0x4000503bU == (0xfe00707fU & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-            ? 5U : ((0x503bU == (0xfe00707fU & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                     ? 5U : ((0x4033U == (0xfe00707fU 
-                                          & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                              ? 5U : ((0x200703bU == 
-                                       (0xfe00707fU 
-                                        & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                       ? 5U : ((0x1033U 
-                                                == 
-                                                (0xfe00707fU 
-                                                 & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                ? 5U
-                                                : (
-                                                   (0x2007033U 
-                                                    == 
-                                                    (0xfe00707fU 
-                                                     & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                    ? 5U
-                                                    : 
-                                                   ((0x200503bU 
-                                                     == 
-                                                     (0xfe00707fU 
-                                                      & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                     ? 5U
-                                                     : 
-                                                    ((0x2006033U 
-                                                      == 
-                                                      (0xfe00707fU 
-                                                       & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                      ? 5U
-                                                      : 
-                                                     ((0x5033U 
-                                                       == 
-                                                       (0xfe00707fU 
-                                                        & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                       ? 5U
-                                                       : 
-                                                      ((0x2005033U 
-                                                        == 
-                                                        (0xfe00707fU 
-                                                         & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                        ? 5U
-                                                        : 
-                                                       ((0x2004033U 
-                                                         == 
-                                                         (0xfe00707fU 
-                                                          & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                         ? 5U
-                                                         : 
-                                                        ((0x40005033U 
-                                                          == 
-                                                          (0xfc00707fU 
-                                                           & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                          ? 5U
-                                                          : 
-                                                         ((0x2000033U 
-                                                           == 
-                                                           (0xfe00707fU 
-                                                            & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                           ? 5U
-                                                           : 
-                                                          ((0x17U 
-                                                            == 
-                                                            (0x7fU 
-                                                             & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                            ? 3U
-                                                            : 
-                                                           ((0x37U 
-                                                             == 
-                                                             (0x7fU 
-                                                              & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                             ? 3U
-                                                             : (IData)(vlSelf->CoreTop__DOT__ID__DOT___Inst_decode_T_144))))))))))))))));
     vlSelf->CoreTop__DOT__MEM__DOT__addr_temp = ((0x45U 
                                                   == (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_aluoptype))
                                                   ? vlSelf->CoreTop__DOT__MEM__DOT___addr_temp_T_1
@@ -928,6 +929,78 @@ VL_ATTR_COLD void VCoreTop___024root___settle__TOP__0(VCoreTop___024root* vlSelf
                                                               & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
                                                              ? 0U
                                                              : (IData)(vlSelf->CoreTop__DOT__ID__DOT___Inst_decode_T_224))))))))))))))));
+    vlSelf->CoreTop__DOT__ID__DOT___Inst_decode_T_174 
+        = ((0x501bU == (0xfc00707fU & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+            ? 8U : ((0x2013U == (0x707fU & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                     ? 8U : ((0x6003U == (0x707fU & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                              ? 8U : ((0x3bU == (0xfe00707fU 
+                                                 & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                       ? 5U : ((0x40000033U 
+                                                == 
+                                                (0xfe00707fU 
+                                                 & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                ? 5U
+                                                : (
+                                                   (0x33U 
+                                                    == 
+                                                    (0xfe00707fU 
+                                                     & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                    ? 5U
+                                                    : 
+                                                   ((0x7033U 
+                                                     == 
+                                                     (0xfe00707fU 
+                                                      & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                     ? 5U
+                                                     : 
+                                                    ((0x3033U 
+                                                      == 
+                                                      (0xfe00707fU 
+                                                       & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                      ? 5U
+                                                      : 
+                                                     ((0x103bU 
+                                                       == 
+                                                       (0xfe00707fU 
+                                                        & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                       ? 5U
+                                                       : 
+                                                      ((0x6033U 
+                                                        == 
+                                                        (0xfe00707fU 
+                                                         & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                        ? 5U
+                                                        : 
+                                                       ((0x200003bU 
+                                                         == 
+                                                         (0xfe00707fU 
+                                                          & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                         ? 5U
+                                                         : 
+                                                        ((0x200403bU 
+                                                          == 
+                                                          (0xfe00707fU 
+                                                           & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                          ? 5U
+                                                          : 
+                                                         ((0x200603bU 
+                                                           == 
+                                                           (0xfe00707fU 
+                                                            & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                           ? 5U
+                                                           : 
+                                                          ((0x4000003bU 
+                                                            == 
+                                                            (0xfe00707fU 
+                                                             & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                            ? 5U
+                                                            : 
+                                                           ((0x2033U 
+                                                             == 
+                                                             (0xfe00707fU 
+                                                              & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                             ? 5U
+                                                             : (IData)(vlSelf->CoreTop__DOT__ID__DOT___Inst_decode_T_159))))))))))))))));
     vlSelf->CoreTop__DOT__ID__DOT___Inst_decode_T_298 
         = ((0x6003U == (0x707fU & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
             ? 0x11U : ((0x3bU == (0xfe00707fU & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
@@ -1005,78 +1078,6 @@ VL_ATTR_COLD void VCoreTop___024root___settle__TOP__0(VCoreTop___024root* vlSelf
                                                                & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
                                                               ? 0xaU
                                                               : (IData)(vlSelf->CoreTop__DOT__ID__DOT___Inst_decode_T_283))))))))))))))));
-    vlSelf->CoreTop__DOT__ID__DOT___Inst_decode_T_174 
-        = ((0x501bU == (0xfc00707fU & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-            ? 8U : ((0x2013U == (0x707fU & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                     ? 8U : ((0x6003U == (0x707fU & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                              ? 8U : ((0x3bU == (0xfe00707fU 
-                                                 & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                       ? 5U : ((0x40000033U 
-                                                == 
-                                                (0xfe00707fU 
-                                                 & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                ? 5U
-                                                : (
-                                                   (0x33U 
-                                                    == 
-                                                    (0xfe00707fU 
-                                                     & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                    ? 5U
-                                                    : 
-                                                   ((0x7033U 
-                                                     == 
-                                                     (0xfe00707fU 
-                                                      & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                     ? 5U
-                                                     : 
-                                                    ((0x3033U 
-                                                      == 
-                                                      (0xfe00707fU 
-                                                       & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                      ? 5U
-                                                      : 
-                                                     ((0x103bU 
-                                                       == 
-                                                       (0xfe00707fU 
-                                                        & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                       ? 5U
-                                                       : 
-                                                      ((0x6033U 
-                                                        == 
-                                                        (0xfe00707fU 
-                                                         & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                        ? 5U
-                                                        : 
-                                                       ((0x200003bU 
-                                                         == 
-                                                         (0xfe00707fU 
-                                                          & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                         ? 5U
-                                                         : 
-                                                        ((0x200403bU 
-                                                          == 
-                                                          (0xfe00707fU 
-                                                           & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                          ? 5U
-                                                          : 
-                                                         ((0x200603bU 
-                                                           == 
-                                                           (0xfe00707fU 
-                                                            & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                           ? 5U
-                                                           : 
-                                                          ((0x4000003bU 
-                                                            == 
-                                                            (0xfe00707fU 
-                                                             & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                            ? 5U
-                                                            : 
-                                                           ((0x2033U 
-                                                             == 
-                                                             (0xfe00707fU 
-                                                              & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                             ? 5U
-                                                             : (IData)(vlSelf->CoreTop__DOT__ID__DOT___Inst_decode_T_159))))))))))))))));
     vlSelf->CoreTop__DOT__MEM__DOT___GEN_32 = ((0x70U 
                                                 == (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_aluoptype))
                                                 ? (
@@ -1321,6 +1322,78 @@ VL_ATTR_COLD void VCoreTop___024root___settle__TOP__0(VCoreTop___024root* vlSelf
         = (((QData)((IData)(((vlSelf->CoreTop__DOT__EX__DOT___shift_result_T_31 
                               >> 0x1fU) ? 0xffffffffU
                               : 0U))) << 0x20U) | (QData)((IData)(vlSelf->CoreTop__DOT__EX__DOT___shift_result_T_31)));
+    vlSelf->CoreTop__DOT__ID__DOT___Inst_decode_T_189 
+        = ((0x6013U == (0x707fU & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+            ? 8U : ((0x3003U == (0x707fU & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                     ? 8U : ((0x2003U == (0x707fU & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                              ? 8U : ((0x3013U == (0x707fU 
+                                                   & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                       ? 8U : ((0x1bU 
+                                                == 
+                                                (0x707fU 
+                                                 & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                ? 8U
+                                                : (
+                                                   (0x40005013U 
+                                                    == 
+                                                    (0xfc00707fU 
+                                                     & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                    ? 8U
+                                                    : 
+                                                   ((0x4003U 
+                                                     == 
+                                                     (0x707fU 
+                                                      & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                     ? 8U
+                                                     : 
+                                                    ((3U 
+                                                      == 
+                                                      (0x707fU 
+                                                       & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                      ? 8U
+                                                      : 
+                                                     ((0x4013U 
+                                                       == 
+                                                       (0x707fU 
+                                                        & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                       ? 8U
+                                                       : 
+                                                      ((0x7013U 
+                                                        == 
+                                                        (0x707fU 
+                                                         & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                        ? 8U
+                                                        : 
+                                                       ((0x5013U 
+                                                         == 
+                                                         (0xfc00707fU 
+                                                          & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                         ? 8U
+                                                         : 
+                                                        ((0x1003U 
+                                                          == 
+                                                          (0x707fU 
+                                                           & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                          ? 8U
+                                                          : 
+                                                         ((0x5003U 
+                                                           == 
+                                                           (0x707fU 
+                                                            & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                           ? 8U
+                                                           : 
+                                                          ((0x101bU 
+                                                            == 
+                                                            (0xfc00707fU 
+                                                             & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                            ? 8U
+                                                            : 
+                                                           ((0x4000501bU 
+                                                             == 
+                                                             (0xfc00707fU 
+                                                              & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                             ? 8U
+                                                             : (IData)(vlSelf->CoreTop__DOT__ID__DOT___Inst_decode_T_174))))))))))))))));
     vlSelf->CoreTop__DOT__ID__DOT___Inst_decode_T_313 
         = ((0x2003U == (0x707fU & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
             ? 0x47U : ((0x3013U == (0x707fU & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
@@ -1398,78 +1471,6 @@ VL_ATTR_COLD void VCoreTop___024root___settle__TOP__0(VCoreTop___024root* vlSelf
                                                                & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
                                                               ? 2U
                                                               : (IData)(vlSelf->CoreTop__DOT__ID__DOT___Inst_decode_T_298))))))))))))))));
-    vlSelf->CoreTop__DOT__ID__DOT___Inst_decode_T_189 
-        = ((0x6013U == (0x707fU & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-            ? 8U : ((0x3003U == (0x707fU & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                     ? 8U : ((0x2003U == (0x707fU & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                              ? 8U : ((0x3013U == (0x707fU 
-                                                   & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                       ? 8U : ((0x1bU 
-                                                == 
-                                                (0x707fU 
-                                                 & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                ? 8U
-                                                : (
-                                                   (0x40005013U 
-                                                    == 
-                                                    (0xfc00707fU 
-                                                     & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                    ? 8U
-                                                    : 
-                                                   ((0x4003U 
-                                                     == 
-                                                     (0x707fU 
-                                                      & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                     ? 8U
-                                                     : 
-                                                    ((3U 
-                                                      == 
-                                                      (0x707fU 
-                                                       & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                      ? 8U
-                                                      : 
-                                                     ((0x4013U 
-                                                       == 
-                                                       (0x707fU 
-                                                        & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                       ? 8U
-                                                       : 
-                                                      ((0x7013U 
-                                                        == 
-                                                        (0x707fU 
-                                                         & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                        ? 8U
-                                                        : 
-                                                       ((0x5013U 
-                                                         == 
-                                                         (0xfc00707fU 
-                                                          & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                         ? 8U
-                                                         : 
-                                                        ((0x1003U 
-                                                          == 
-                                                          (0x707fU 
-                                                           & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                          ? 8U
-                                                          : 
-                                                         ((0x5003U 
-                                                           == 
-                                                           (0x707fU 
-                                                            & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                           ? 8U
-                                                           : 
-                                                          ((0x101bU 
-                                                            == 
-                                                            (0xfc00707fU 
-                                                             & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                            ? 8U
-                                                            : 
-                                                           ((0x4000501bU 
-                                                             == 
-                                                             (0xfc00707fU 
-                                                              & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                                             ? 8U
-                                                             : (IData)(vlSelf->CoreTop__DOT__ID__DOT___Inst_decode_T_174))))))))))))))));
     vlSelf->CoreTop__DOT__MEM__DOT___wdata_temp_T_21 
         = ((0U == (7U & (IData)(vlSelf->CoreTop__DOT__MEM__DOT__addr_temp)))
             ? (QData)((IData)((0xffU & (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_data_src2))))
@@ -1797,6 +1798,12 @@ VL_ATTR_COLD void VCoreTop___024root___settle__TOP__0(VCoreTop___024root* vlSelf
         ((0x13U == (0x707fU & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
           ? 8U : ((0x1013U == (0xfc00707fU & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
                    ? 8U : (IData)(vlSelf->CoreTop__DOT__ID__DOT___Inst_decode_T_189)));
+    vlSelf->CoreTop__DOT__ID__DOT___Inst_decode_T_316 
+        = ((0x1013U == (0xfc00707fU & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+            ? 0x41U : ((0x6013U == (0x707fU & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                        ? 0x44U : ((0x3003U == (0x707fU 
+                                                & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                    ? 0x45U : (IData)(vlSelf->CoreTop__DOT__ID__DOT___Inst_decode_T_313))));
     vlSelf->CoreTop__DOT__MEM__DOT___mem_result_T_44 
         = (0xffffU & ((0U == (3U & (IData)((vlSelf->CoreTop__DOT__MEM__DOT__addr_temp 
                                             >> 1U))))
@@ -1818,10 +1825,10 @@ VL_ATTR_COLD void VCoreTop___024root___settle__TOP__0(VCoreTop___024root* vlSelf
 void VCoreTop___024unit____Vdpiimwrap_set_pc__Vdpioc2_TOP____024unit(const IData/*31:0*/ &inst);
 void VCoreTop___024unit____Vdpiimwrap_set_gpr_ptr__Vdpioc2_TOP____024unit(const VlUnpacked<QData/*63:0*/, 32> &a);
 
-VL_ATTR_COLD void VCoreTop___024root___initial__TOP__1(VCoreTop___024root* vlSelf) {
+VL_ATTR_COLD void VCoreTop___024root___initial__TOP__0(VCoreTop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     VCoreTop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VCoreTop___024root___initial__TOP__1\n"); );
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VCoreTop___024root___initial__TOP__0\n"); );
     // Body
     VCoreTop___024unit____Vdpiimwrap_set_pc__Vdpioc2_TOP____024unit(vlSelf->CoreTop__DOT__DIP_io_inst_REG);
     VCoreTop___024unit____Vdpiimwrap_set_gpr_ptr__Vdpioc2_TOP____024unit(vlSelf->CoreTop__DOT__DIP__DOT__rf);

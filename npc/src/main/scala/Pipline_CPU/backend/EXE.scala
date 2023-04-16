@@ -77,6 +77,7 @@ class EXE extends Module with Paramete{
    val branchIO = new BranchIO
     val out = Decoupled(new MEMIO)
     val is_break = Output(Bool())
+    val flush = Output(Bool())
 
   })
 //  val rf = new RF
@@ -311,7 +312,7 @@ class EXE extends Module with Paramete{
     is(ALUOPType.bltu) {
       dnpc := Mux(branch_flag === 1.U, branch_result, PC + 4.U(xlen.W))
     }
-
+    io.flush := Mux(branch_flag === 1.U || io.in.bits.ctrl_signal.fuType === FUType.jump,1.U,0.U)
 //    is(ALUOPType.ecall) {
 //      dnpc := csr_data
 //    }

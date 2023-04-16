@@ -69,13 +69,13 @@ class CoreTop extends Module with Paramete{
   IFM.io.pc := IF.io.out.bits.PC
   IF.io.inst := IFM.io.inst
 
-  Pipline_Connect(IF.io.out,ID.io.in,ID.io.out.fire)
+  Pipline_Connect(IF.io.out,ID.io.in,ID.io.out.fire,EX.io.flush)
   ID.io.REG1 := Reg.read(ID.io.out.bits.ctrl_signal.rfSrc1)
   ID.io.REG2 := Reg.read(ID.io.out.bits.ctrl_signal.rfSrc1)
-  Pipline_Connect(ID.io.out,EX.io.in,EX.io.out.fire)
+  Pipline_Connect(ID.io.out,EX.io.in,EX.io.out.fire,EX.io.flush)
   IF.io.branch_io <> EX.io.branchIO
 
-  Pipline_Connect(EX.io.out,MEM.io.in,MEM.io.out.fire)
+  Pipline_Connect(EX.io.out,MEM.io.in,MEM.io.out.fire,0.B)
   MEM.io.mem.rdata := mem.io.rdata
   mem.io.wdata := MEM.io.mem.wdata
   mem.io.addr := MEM.io.mem.addr
@@ -83,7 +83,7 @@ class CoreTop extends Module with Paramete{
   mem.io.ce := MEM.io.mem.ce
   mem.io.we := MEM.io.mem.we
 
-  Pipline_Connect(MEM.io.out,WB.io.in,WB.io.out.fire)
+  Pipline_Connect(MEM.io.out,WB.io.in,WB.io.out.fire,0.B)
   when((WB.io.out.bits.ctrl_rf.rfWen === RD.write)) {
     Reg.write(WB.io.out.bits.ctrl_rf.rfDest, WB.io.out.bits.ctrl_rf.rfData)
   }
