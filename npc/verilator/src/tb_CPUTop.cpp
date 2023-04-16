@@ -45,6 +45,7 @@ uint8_t mem[MAX_MEM] __attribute((aligned(4096))) = {};
 uint32_t mem_size;
 uint32_t *Inst;
 uint64_t *CSR;
+uint64_t pc = (uint64_t)Inst[1]+((uint64_t)Inst[2]<<32);
 
 uint32_t state=RUN;
 
@@ -141,7 +142,7 @@ uint32_t pem_read(uint64_t pc){
 void exe_once(VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     char p[128];
     uint32_t inst;
-    uint64_t pc = (uint64_t)Inst[1]+((uint64_t)Inst[2]<<32);
+    
     //printf("%d\n",s->clock);
     for(int i=0;i<2 && (! contextp->gotFinish());i++){
         s->clock ^=1;
@@ -185,8 +186,8 @@ void exe_once(VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
 //////to ref
     #ifdef DIFFTEST 
     	memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
-    	cpu.pc=s->io_pc;
-        printf("%lx\n",s->io_pc);
+    	cpu.pc=pc;
+        //printf("%lx\n",s->io_pc);
     	/*cpu.mepc=CSR[0];
     	cpu.mcause=CSR[1];
     	cpu.mstatus=CSR[2];
@@ -205,7 +206,7 @@ void execute(VCoreTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uin
         #ifdef DIFFTEST 
         //printf("%d\n",dut->io_inst_valid);
         if(!ref_is_irq && Inst[3]){
-            bool flag=difftest_step(dut->io_pc);
+            bool flag=difftest_step(pc);
         
             if(!flag) {state=ABORT; break;}
         }
@@ -501,7 +502,7 @@ if(state==ABORT){
     #endif
     
     
-    printf("\033[40;31mABORT at pc = \033[0m \033[40;31m0x%016lx\033[0m\n",dut->io_pc-4);
+    printf("\033[40;31mABORT at pc = \033[0m \033[40;31m0x%016lx\033[0m\n",pc-4);
 }
 else if(cpu_gpr[10] !=0) {
     dump_gpr(); 
@@ -509,9 +510,9 @@ else if(cpu_gpr[10] !=0) {
     #ifdef ITRACE
     display_iringbuf();
     #endif
-    printf("\033[40;31mHIT BAD TRAP at pc = \033[0m \033[40;31m0x%016lx\033[0m\n",dut->io_pc);
+    printf("\033[40;31mHIT BAD TRAP at pc = \033[0m \033[40;31m0x%016lx\033[0m\n",pc);
 }
-else printf("\033[40;32mHIT GOOD TRAP at pc = \033[0m \033[40;32m0x%016lx\033[0m\n",dut->io_pc);
+else printf("\033[40;32mHIT GOOD TRAP at pc = \033[0m \033[40;32m0x%016lx\033[0m\n",pc);
 #ifdef WTRACE
 m_trace->close();
 #endif
