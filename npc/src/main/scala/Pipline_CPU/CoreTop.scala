@@ -66,14 +66,16 @@ class CoreTop extends Module with Paramete{
   val WB = Module(new WB)
 
 //  io.pc := IF.io.out.bits.PC
+  val is_flush = WireDefault(0.B)
+  is_flush := EX.io.is_flush
   // fetch inst
   IFM.io.pc := IF.io.out.bits.PC
   IF.io.inst := IFM.io.inst
 
-  Pipline_Connect(IF.io.out,ID.io.in,ID.io.out.fire,EX.io.flush)
+  Pipline_Connect(IF.io.out,ID.io.in,ID.io.out.fire,is_flush)
   ID.io.REG1 := Reg.read(ID.io.out.bits.ctrl_signal.rfSrc1)
   ID.io.REG2 := Reg.read(ID.io.out.bits.ctrl_signal.rfSrc1)
-  Pipline_Connect(ID.io.out,EX.io.in,EX.io.out.fire,EX.io.flush)
+  Pipline_Connect(ID.io.out,EX.io.in,EX.io.out.fire,is_flush)
   IF.io.branch_io <> EX.io.branchIO
 
   Pipline_Connect(EX.io.out,MEM.io.in,MEM.io.out.fire,0.B)

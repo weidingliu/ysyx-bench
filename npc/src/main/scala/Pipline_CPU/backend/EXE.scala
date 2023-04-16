@@ -77,7 +77,7 @@ class EXE extends Module with Paramete{
    val branchIO = new BranchIO
     val out = Decoupled(new MEMIO)
     val is_break = Output(Bool())
-    val flush = Output(Bool())
+    val is_flush = Output(Bool())
 
   })
 //  val rf = new RF
@@ -330,7 +330,7 @@ class EXE extends Module with Paramete{
 //    csr.write(CSR_index.mstatus, csr.read(CSR_index.mstatus) & "hfffffffffffffff7".U(xlen.W))
 //  }
 
-  io.flush := Mux(branch_flag === 1.U || io.in.bits.ctrl_signal.fuType === FUType.jump,1.U,0.U)
+  io.is_flush := Mux(branch_flag === 1.U || io.in.bits.ctrl_signal.fuType === FUType.jump,1.U,0.U)
   io.is_break := Mux((io.in.bits.ctrl_signal.aluoptype === ALUOPType.ebreak), 1.U, 0.U)
 
   io.out.bits.ctrl_signal <> io.in.bits.ctrl_signal
