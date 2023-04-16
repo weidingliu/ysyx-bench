@@ -249,7 +249,7 @@ class EXE extends Module with Paramete{
   }
 
   //io1.is_jump := Mux(io.futype===FUType.jump || time_int===1.U,1.U,0.U)
-  io.branchIO.is_jump := Mux(io.in.bits.ctrl_signal.fuType === FUType.jump, 1.U, 0.U)
+
   val branch_result = WireDefault(0.U(xlen.W))
   val branch_flag = WireDefault(0.U(1.W))
   switch(io.in.bits.ctrl_signal.aluoptype) {
@@ -342,6 +342,7 @@ class EXE extends Module with Paramete{
   io.out.bits.ctrl_rf.rfWen := io.in.bits.ctrl_signal.rfWen
   io.branchIO.dnpc := dnpc//Mux(time_int === 1.U, csr.read(CSR_index.mtvec), dnpc)
   io.branchIO.is_branch := branch_flag//Mux(time_int === 1.U, 1.U, branch_flag)
+  io.branchIO.is_jump := Mux(io.in.bits.ctrl_signal.fuType === FUType.jump, 1.U, 0.U)
 
   io.out.valid := 1.U
   io.in.ready := io.out.ready
