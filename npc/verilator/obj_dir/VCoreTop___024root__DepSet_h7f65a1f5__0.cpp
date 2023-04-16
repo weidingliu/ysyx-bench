@@ -119,7 +119,7 @@ VL_INLINE_OPT void VCoreTop___024root___combo__TOP__0(VCoreTop___024root* vlSelf
     } else {
         vlSelf->CoreTop__DOT__mem_rdata = 0ULL;
     }
-    if ((1U & (~ ((IData)(vlSelf->reset) | (~ (IData)(vlSelf->clock)))))) {
+    if ((1U & (~ ((IData)(vlSelf->reset) | (IData)(vlSelf->clock))))) {
         VCoreTop___024unit____Vdpiimwrap_pmem_read_TOP____024unit(vlSelf->CoreTop__DOT__IF__DOT__temp, vlSelf->__Vtask_pmem_read__0__rdata);
         vlSelf->CoreTop__DOT__IFM__DOT__rdata = vlSelf->__Vtask_pmem_read__0__rdata;
     }
