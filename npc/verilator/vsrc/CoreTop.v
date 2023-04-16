@@ -3,7 +3,7 @@ module IF(
   input         reset,
   input         io_branch_io_is_branch,
   input         io_branch_io_is_jump,
-  input         io_branch_io_dnpc,
+  input  [63:0] io_branch_io_dnpc,
   input  [31:0] io_inst,
   output [63:0] io_out_bits_PC,
   output [31:0] io_out_bits_Inst
@@ -19,7 +19,7 @@ module IF(
     if (reset) begin // @[IF.scala 14:21]
       temp <= 64'h80000000; // @[IF.scala 14:21]
     end else if (io_branch_io_is_jump | io_branch_io_is_branch) begin // @[IF.scala 15:14]
-      temp <= {{63'd0}, io_branch_io_dnpc};
+      temp <= io_branch_io_dnpc;
     end else begin
       temp <= _temp_T_2;
     end
@@ -429,7 +429,7 @@ module EXE(
   input  [31:0] io_in_bits_ctrl_flow_inst,
   output        io_branchIO_is_branch,
   output        io_branchIO_is_jump,
-  output        io_branchIO_dnpc,
+  output [63:0] io_branchIO_dnpc,
   output [2:0]  io_out_bits_ctrl_signal_fuType,
   output        io_out_bits_ctrl_signal_inst_valid,
   output [6:0]  io_out_bits_ctrl_signal_aluoptype,
@@ -582,10 +582,9 @@ module EXE(
   wire [63:0] _GEN_58 = _T_41 ? _dnpc_T_9 : _GEN_57; // @[EXE.scala 289:44 301:12]
   wire [63:0] _GEN_59 = _T_40 ? _dnpc_T_9 : _GEN_58; // @[EXE.scala 289:44 297:12]
   wire [63:0] _GEN_60 = 7'h48 == io_in_bits_ctrl_signal_aluoptype ? _dnpc_T_5 : _GEN_59; // @[EXE.scala 289:44 294:12]
-  wire [63:0] dnpc = 7'h19 == io_in_bits_ctrl_signal_aluoptype ? _alu_result_T_1 : _GEN_60; // @[EXE.scala 289:44 291:12]
   assign io_branchIO_is_branch = 7'h6b == io_in_bits_ctrl_signal_aluoptype ? src1 == src2 : _GEN_51; // @[EXE.scala 255:44 258:19]
   assign io_branchIO_is_jump = io_in_bits_ctrl_signal_fuType == 3'h3; // @[EXE.scala 252:60]
-  assign io_branchIO_dnpc = dnpc[0]; // @[EXE.scala 343:20]
+  assign io_branchIO_dnpc = 7'h19 == io_in_bits_ctrl_signal_aluoptype ? _alu_result_T_1 : _GEN_60; // @[EXE.scala 289:44 291:12]
   assign io_out_bits_ctrl_signal_fuType = io_in_bits_ctrl_signal_fuType; // @[EXE.scala 334:27]
   assign io_out_bits_ctrl_signal_inst_valid = io_in_bits_ctrl_signal_inst_valid; // @[EXE.scala 334:27]
   assign io_out_bits_ctrl_signal_aluoptype = io_in_bits_ctrl_signal_aluoptype; // @[EXE.scala 334:27]
@@ -865,7 +864,7 @@ module CoreTop(
   wire  IF_reset; // @[CoreTop.scala 50:18]
   wire  IF_io_branch_io_is_branch; // @[CoreTop.scala 50:18]
   wire  IF_io_branch_io_is_jump; // @[CoreTop.scala 50:18]
-  wire  IF_io_branch_io_dnpc; // @[CoreTop.scala 50:18]
+  wire [63:0] IF_io_branch_io_dnpc; // @[CoreTop.scala 50:18]
   wire [31:0] IF_io_inst; // @[CoreTop.scala 50:18]
   wire [63:0] IF_io_out_bits_PC; // @[CoreTop.scala 50:18]
   wire [31:0] IF_io_out_bits_Inst; // @[CoreTop.scala 50:18]
@@ -904,7 +903,7 @@ module CoreTop(
   wire [31:0] EX_io_in_bits_ctrl_flow_inst; // @[CoreTop.scala 56:18]
   wire  EX_io_branchIO_is_branch; // @[CoreTop.scala 56:18]
   wire  EX_io_branchIO_is_jump; // @[CoreTop.scala 56:18]
-  wire  EX_io_branchIO_dnpc; // @[CoreTop.scala 56:18]
+  wire [63:0] EX_io_branchIO_dnpc; // @[CoreTop.scala 56:18]
   wire [2:0] EX_io_out_bits_ctrl_signal_fuType; // @[CoreTop.scala 56:18]
   wire  EX_io_out_bits_ctrl_signal_inst_valid; // @[CoreTop.scala 56:18]
   wire [6:0] EX_io_out_bits_ctrl_signal_aluoptype; // @[CoreTop.scala 56:18]
