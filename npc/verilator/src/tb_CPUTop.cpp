@@ -149,7 +149,7 @@ void exe_once(VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
         
         if(sim_time % 1==0) {
             
-            inst = pem_read(s->io_pc);
+            inst = s->io_inst;
             #ifdef ITRACE
 
             void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
@@ -225,7 +225,6 @@ void Reset(VCoreTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     
     while(sim_time<3){
         dut->clock ^= 1;
-        dut->io_inst=0; 
         dut->reset = 1;
         
         
