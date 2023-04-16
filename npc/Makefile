@@ -9,7 +9,7 @@ test:
 verilog: $(SCSRC)
 	$(call git_commit, "generate verilog")
 	mkdir -p $(BUILD_DIR)
-	mill -i __.test.runMain One_cycle.Spec -td $(BUILD_DIR)
+	mill -i __.test.runMain Pipline_CPU.Spec -td $(BUILD_DIR)
 
 help:
 	mill -i __.test.runMain Elaborate --help
