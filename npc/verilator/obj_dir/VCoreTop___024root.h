@@ -21,7 +21,6 @@ class VCoreTop___024root final : public VerilatedModule {
     struct {
         VL_IN8(clock,0,0);
         VL_IN8(reset,0,0);
-        VL_OUT8(io_inst_valid,0,0);
         CData/*0:0*/ CoreTop__DOT__ID_io_out_bits_ctrl_signal_rfWen;
         CData/*2:0*/ CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_src1Type;
         CData/*2:0*/ CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_src2Type;
@@ -38,7 +37,7 @@ class VCoreTop___024root final : public VerilatedModule {
         CData/*0:0*/ CoreTop__DOT__WB_io_in_bits_r_ctrl_signal_inst_valid;
         CData/*4:0*/ CoreTop__DOT__WB_io_in_bits_r_ctrl_rf_rfDest;
         CData/*0:0*/ CoreTop__DOT__WB_io_in_bits_r_ctrl_rf_rfWen;
-        CData/*0:0*/ CoreTop__DOT__io_inst_valid_REG;
+        CData/*0:0*/ CoreTop__DOT__DIP_io_inst_valid_REG;
         CData/*3:0*/ CoreTop__DOT__ID__DOT___Inst_decode_T_144;
         CData/*3:0*/ CoreTop__DOT__ID__DOT___Inst_decode_T_159;
         CData/*3:0*/ CoreTop__DOT__ID__DOT___Inst_decode_T_174;
@@ -83,9 +82,9 @@ class VCoreTop___024root final : public VerilatedModule {
         QData/*63:0*/ CoreTop__DOT__MEM_io_in_bits_r_ctrl_rf_rfData;
         QData/*63:0*/ CoreTop__DOT__MEM_io_in_bits_r_ctrl_data_src1;
         QData/*63:0*/ CoreTop__DOT__MEM_io_in_bits_r_ctrl_data_src2;
+        QData/*63:0*/ CoreTop__DOT__MEM_io_in_bits_r_ctrl_data_Imm;
     };
     struct {
-        QData/*63:0*/ CoreTop__DOT__MEM_io_in_bits_r_ctrl_data_Imm;
         QData/*63:0*/ CoreTop__DOT__WB_io_in_bits_r_ctrl_flow_PC;
         QData/*63:0*/ CoreTop__DOT__WB_io_in_bits_r_ctrl_rf_rfData;
         QData/*63:0*/ CoreTop__DOT__DIP_io_rf_0_REG;
@@ -120,7 +119,7 @@ class VCoreTop___024root final : public VerilatedModule {
         QData/*63:0*/ CoreTop__DOT__DIP_io_rf_29_REG;
         QData/*63:0*/ CoreTop__DOT__DIP_io_rf_30_REG;
         QData/*63:0*/ CoreTop__DOT__DIP_io_rf_31_REG;
-        QData/*63:0*/ CoreTop__DOT__io_pc_REG;
+        QData/*63:0*/ CoreTop__DOT__DIP_io_pc_REG;
         QData/*63:0*/ CoreTop__DOT__IF__DOT__temp;
         QData/*63:0*/ CoreTop__DOT__IF__DOT___temp_T_2;
         QData/*63:0*/ CoreTop__DOT__IFM__DOT__rdata;
@@ -148,6 +147,7 @@ class VCoreTop___024root final : public VerilatedModule {
         QData/*63:0*/ __Vtask_pmem_read__4__rdata;
         VlUnpacked<QData/*63:0*/, 32> CoreTop__DOT__rf;
         VlUnpacked<QData/*63:0*/, 32> CoreTop__DOT__DIP__DOT__rf;
+        VlUnpacked<IData/*31:0*/, 4> CoreTop__DOT__DIP__DOT__IN;
         VlUnpacked<CData/*0:0*/, 3> __Vm_traceActivity;
     };
 
