@@ -222,7 +222,7 @@ void execute(VCoreTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uin
 
 
 void Reset(VCoreTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
-    
+    printf("sdfggg\n");
     while(sim_time<3){
         dut->clock ^= 1;
         dut->reset = 1;
@@ -236,7 +236,7 @@ void Reset(VCoreTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     }
     //reset ref
     //printf("%lx\n",dut->io_pc);
-    
+    printf("sdfggg\n");
     #ifdef DIFFTEST 
     memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
     cpu.pc=dut->io_pc;
@@ -244,7 +244,7 @@ void Reset(VCoreTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     cpu.mcause=CSR[1];
     cpu.mstatus=CSR[2];
     cpu.mtvec=CSR[3];
-
+    printf("sdfggg\n");
     #endif
 
     
@@ -466,11 +466,10 @@ Reset(dut,contextp,m_trace);//reset rtl
 #ifndef WTRACE
 Reset(dut,contextp,NULL);//reset rtl
 #endif
-printf("sdfggg\n");
+
 #ifdef DIFFTEST 
 init_difftest(argv[2],mem_size,1,mem);
 #endif
-printf("sdfggg\n");
 init_disasm("riscv64" "-pc-linux-gnu");
 //reset rtl
 
