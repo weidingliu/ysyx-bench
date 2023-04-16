@@ -103,7 +103,7 @@ class CoreTop extends Module with Paramete{
   DIP.io.inst := RegNext(WB.io.out.bits.ctrl_flow.inst)
   io.inst_valid := RegNext(WB.io.out.bits.ctrl_signal.inst_valid)
   io.inst := RegNext(WB.io.out.bits.ctrl_flow.inst)
-  io.pc := IF.io.out.bits.PC
+  io.pc := RegNext(WB.io.out.bits.ctrl_flow.PC)
   //io.pc := RegNext(WB.io.out.bits.ctrl_flow.PC)
 
 
