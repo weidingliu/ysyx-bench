@@ -466,6 +466,7 @@ Reset(dut,contextp,m_trace);//reset rtl
 #ifndef WTRACE
 Reset(dut,contextp,NULL);//reset rtl
 #endif
+printf("sdfggg\n");
 #ifdef DIFFTEST 
 init_difftest(argv[2],mem_size,1,mem);
 #endif
