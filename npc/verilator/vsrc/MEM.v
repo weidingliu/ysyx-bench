@@ -20,7 +20,6 @@ always @(*) begin
         rdata=64'h0;
     end
     else if(ce==1'b1) begin 
-    $display("-------------%h ----%h",addr,clk);
         if(we==1'b1) begin 
             pmem_write(addr, wdata, wmask);
             rdata=64'h0;

@@ -18,7 +18,12 @@ VL_INLINE_OPT void VCoreTop___024root___combo__TOP__0(VCoreTop___024root* vlSelf
     // Body
     if (((IData)(vlSelf->reset) | (IData)(vlSelf->clock))) {
         vlSelf->CoreTop__DOT__mem_rdata = 0ULL;
-    } else if ((4U == (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_fuType))) {
+    } else if (VL_UNLIKELY((4U == (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_fuType)))) {
+        VL_WRITEF("-------------%x ----%x\n",64,((0x45U 
+                                                  == (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_aluoptype))
+                                                  ? vlSelf->CoreTop__DOT__MEM__DOT___addr_temp_T_1
+                                                  : vlSelf->CoreTop__DOT__MEM__DOT___GEN_16),
+                  1,(IData)(vlSelf->clock));
         if (((0x45U != (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_aluoptype)) 
              & ((0x46U == (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_aluoptype)) 
                 | ((0x70U == (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_aluoptype)) 
