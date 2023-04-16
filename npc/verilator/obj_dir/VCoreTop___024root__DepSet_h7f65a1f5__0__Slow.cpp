@@ -1839,6 +1839,7 @@ VL_ATTR_COLD void VCoreTop___024root___initial__TOP__0(VCoreTop___024root* vlSel
     VCoreTop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    VCoreTop___024root___initial__TOP__0\n"); );
     // Body
+    VL_WRITEF("%x--------------\n",1,vlSelf->CoreTop__DOT__DIP_io_inst_valid_REG);
     VCoreTop___024unit____Vdpiimwrap_set_pc__Vdpioc2_TOP____024unit(vlSelf->CoreTop__DOT__DIP__DOT__IN);
     VCoreTop___024unit____Vdpiimwrap_set_gpr_ptr__Vdpioc2_TOP____024unit(vlSelf->CoreTop__DOT__DIP__DOT__rf);
 }
