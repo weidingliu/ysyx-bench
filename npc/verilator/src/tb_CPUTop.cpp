@@ -138,7 +138,7 @@ uint32_t pem_read(uint64_t pc){
 } 
 //extern "C" void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
 
-void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
+void exe_once(VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     char p[128];
     uint32_t inst;
     //printf("%d\n",s->clock);
@@ -195,7 +195,7 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     
 }
 
-void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uint64_t n){
+void execute(VCoreTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uint64_t n){
     step_print_inst = (n<MAX_PRINT_STEP);
     while(n--!=0 &&((!contextp->gotFinish()))){
         exe_once(dut,contextp,m_trace);
@@ -221,7 +221,7 @@ void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uint
 
 
 
-void Reset(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
+void Reset(VCoreTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     
     while(sim_time<3){
         dut->clock ^= 1;
@@ -277,20 +277,20 @@ for (i =len-1 ; i >=0;i--)
 return nTmpRes;
 }
 
-static int cmd_c(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace) {
+static int cmd_c(char *args,VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace) {
   execute(s,contextp,m_trace,-1);
   return 0;
 }
-static int cmd_q(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace) {
+static int cmd_q(char *args,VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace) {
   
   return -1;
 }
 
-static int cmd_help(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace);
+static int cmd_help(char *args,VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace);
 
-static int cmd_si(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace);
+static int cmd_si(char *args,VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace);
 
-static int cmd_info(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace);
+static int cmd_info(char *args,VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace);
 
 //static int cmd_x(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace);
 
@@ -298,7 +298,7 @@ static int cmd_info(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVc
 static struct {
   const char *name;
   const char *description;
-  int (*handler) (char *,VCPUTop *,VerilatedContext* ,VerilatedVcdC *);
+  int (*handler) (char *,VCoreTop *,VerilatedContext* ,VerilatedVcdC *);
 } cmd_table [] = {
   { "help", "Display information about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
@@ -313,7 +313,7 @@ static struct {
 
 #define NR_CMD 5
 
-static int cmd_help(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace) {
+static int cmd_help(char *args,VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace) {
   /* extract the first argument */
   char *arg = strtok(NULL, " ");
   int i;
@@ -336,7 +336,7 @@ static int cmd_help(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVc
   return 0;
 }
 
-static int cmd_si(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
+static int cmd_si(char *args,VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     //cpu_exec(n);
     
     char *arg = strtok(NULL, " ");
@@ -354,7 +354,7 @@ static int cmd_si(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC
     return 0;
 }
 
-static int cmd_info(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
+static int cmd_info(char *args,VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
 	char *arg = strtok(NULL, " ");
 	if(arg == NULL){
 	    printf("need parameter!\n");
@@ -405,7 +405,7 @@ static char* rl_gets() {
   return line_read;
 }
 
-void sdb_main_loop(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
+void sdb_main_loop(VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     if (is_batch_mode) {
     cmd_c(NULL,s,contextp,m_trace);
     return;
