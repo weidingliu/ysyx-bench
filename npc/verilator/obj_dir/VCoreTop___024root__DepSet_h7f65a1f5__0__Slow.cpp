@@ -83,7 +83,7 @@ VL_ATTR_COLD void VCoreTop___024root___settle__TOP__0(VCoreTop___024root* vlSelf
                                               ? vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_data_Imm
                                               : 0ULL);
     if (VL_UNLIKELY((0x42U == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype)))) {
-        VL_FINISH_MT("vsrc/DIP_model.v", 49, "");
+        VL_FINISH_MT("vsrc/DIP_model.v", 50, "");
     }
     vlSelf->CoreTop__DOT__EX__DOT___branch_result_T_1 
         = (vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_flow_PC 
