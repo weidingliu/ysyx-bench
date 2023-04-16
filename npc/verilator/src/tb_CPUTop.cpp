@@ -141,7 +141,7 @@ uint32_t pem_read(uint64_t pc){
 void exe_once(VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     char p[128];
     uint32_t inst;
-    uint64_t pc = Inst[1]+(Inst[2]<<32);
+    uint64_t pc = (uint64_t)Inst[1]+((uint64_t)Inst[2]<<32);
     //printf("%d\n",s->clock);
     for(int i=0;i<2 && (! contextp->gotFinish());i++){
         s->clock ^=1;
