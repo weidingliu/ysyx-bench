@@ -467,10 +467,10 @@ Reset(dut,contextp,NULL);//reset rtl
 #ifdef DIFFTEST 
 init_difftest(argv[2],mem_size,1,mem);
 #endif
-
+printf("sdfggg\n");
 init_disasm("riscv64" "-pc-linux-gnu");
 //reset rtl
-
+printf("sdfggg\n");
 //execute 
 //execute(dut,contextp,m_trace,-1);
 #ifdef WTRACE
@@ -480,7 +480,7 @@ sdb_main_loop(dut,contextp,m_trace);
 sdb_main_loop(dut,contextp,NULL);
 #endif
 //printf("Final PC is : 0x%lx\n",dut->io_pc);
-
+printf("sdfggg\n");
 
 if(state==ABORT){
     dump_gpr(); 
