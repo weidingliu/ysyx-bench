@@ -4,6 +4,7 @@ import Pipline_CPU.utils._
 import Pipline_CPU.isa._
 import chisel3._
 import chisel3.util._
+import backend.ALUOPType
 object InstrType{
   def InstrI = "b1000".U
   def InstrR = "b0101".U
@@ -85,7 +86,7 @@ class ID extends Module with Paramete{
   io.out.bits.ctrl_signal.rfSrc2 := rt
   io.out.bits.ctrl_signal.src1Type := srctype1
   io.out.bits.ctrl_signal.src2Type := srctype2
-  io.out.bits.ctrl_signal.inst_valid := 1.U
+  io.out.bits.ctrl_signal.inst_valid := Mux(aluoptype === ALUOPType.NOP,0.U,1.U)
   io.out.bits.ctrl_signal.rfDest := rd
 
   io.out.bits.ctrl_flow.PC := io.in.bits.PC
