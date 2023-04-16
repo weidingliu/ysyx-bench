@@ -12,7 +12,7 @@ object Pipline_Connect {
     when(!right_fire) {
       valid := false.B
     }
-    when(flush){
+    when(flush === 1.U){
       valid := false.B
     }
 
