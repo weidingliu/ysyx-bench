@@ -1,17 +1,17 @@
 // Verilated -*- C++ -*-
 // DESCRIPTION: Verilator output: Symbol table implementation internals
 
-#include "VCPUTop__Syms.h"
-#include "VCPUTop.h"
-#include "VCPUTop___024root.h"
-#include "VCPUTop___024unit.h"
+#include "VCoreTop__Syms.h"
+#include "VCoreTop.h"
+#include "VCoreTop___024root.h"
+#include "VCoreTop___024unit.h"
 
 // FUNCTIONS
-VCPUTop__Syms::~VCPUTop__Syms()
+VCoreTop__Syms::~VCoreTop__Syms()
 {
 }
 
-VCPUTop__Syms::VCPUTop__Syms(VerilatedContext* contextp, const char* namep, VCPUTop* modelp)
+VCoreTop__Syms::VCoreTop__Syms(VerilatedContext* contextp, const char* namep, VCoreTop* modelp)
     : VerilatedSyms{contextp}
     // Setup internal state of the Syms class
     , __Vm_modelp{modelp}

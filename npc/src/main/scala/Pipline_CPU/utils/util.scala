@@ -1,4 +1,4 @@
-package Pipline_CPU
+package Pipline_CPU.utils
 
 import chisel3._
 import chisel3.util._

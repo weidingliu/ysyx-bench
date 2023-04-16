@@ -1,12 +1,11 @@
-package Pipline_CPU
+package Pipline_CPU.isa
+import Pipline_CPU._
+import Pipline_CPU.frontend._
+import Pipline_CPU.backend._
 
 import chisel3._
 import chisel3.util._
 
-
-object Bit_match{
-
-}
 
 
 object Instruction extends Paramete {

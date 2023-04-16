@@ -2,7 +2,7 @@
 # DESCRIPTION: Verilator output: Make include file with class lists
 #
 # This file lists generated Verilated files, for including in higher level makefiles.
-# See VCPUTop.mk for the caller.
+# See VCoreTop.mk for the caller.
 
 ### Switches...
 # C11 constructs required?  0/1 (always on now)
@@ -23,28 +23,28 @@ VM_TRACE_FST = 0
 ### Object file lists...
 # Generated module classes, fast-path, compile with highest optimization
 VM_CLASSES_FAST += \
-	VCPUTop \
-	VCPUTop___024root__DepSet_h55a3f5a6__0 \
-	VCPUTop___024root__DepSet_h28703f96__0 \
-	VCPUTop___024unit__DepSet_h489ddb80__0 \
+	VCoreTop \
+	VCoreTop___024root__DepSet_h7f65a1f5__0 \
+	VCoreTop___024root__DepSet_h8f2c8a57__0 \
+	VCoreTop___024unit__DepSet_h7b210d6e__0 \
 
 # Generated module classes, non-fast-path, compile with low/medium optimization
 VM_CLASSES_SLOW += \
-	VCPUTop___024root__Slow \
-	VCPUTop___024root__DepSet_h55a3f5a6__0__Slow \
-	VCPUTop___024root__DepSet_h28703f96__0__Slow \
-	VCPUTop___024unit__Slow \
-	VCPUTop___024unit__DepSet_h2d3e2d70__0__Slow \
+	VCoreTop___024root__Slow \
+	VCoreTop___024root__DepSet_h7f65a1f5__0__Slow \
+	VCoreTop___024root__DepSet_h8f2c8a57__0__Slow \
+	VCoreTop___024unit__Slow \
+	VCoreTop___024unit__DepSet_h92f026be__0__Slow \
 
 # Generated support classes, fast-path, compile with highest optimization
 VM_SUPPORT_FAST += \
-	VCPUTop__Dpi \
-	VCPUTop__Trace__0 \
+	VCoreTop__Dpi \
+	VCoreTop__Trace__0 \
 
 # Generated support classes, non-fast-path, compile with low/medium optimization
 VM_SUPPORT_SLOW += \
-	VCPUTop__Syms \
-	VCPUTop__Trace__0__Slow \
+	VCoreTop__Syms \
+	VCoreTop__Trace__0__Slow \
 
 # Global classes, need linked once per executable, fast-path, compile with highest optimization
 VM_GLOBAL_FAST += \

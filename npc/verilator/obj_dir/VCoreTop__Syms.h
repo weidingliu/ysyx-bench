@@ -4,37 +4,37 @@
 // Internal details; most calling programs do not need this header,
 // unless using verilator public meta comments.
 
-#ifndef VERILATED_VCPUTOP__SYMS_H_
-#define VERILATED_VCPUTOP__SYMS_H_  // guard
+#ifndef VERILATED_VCORETOP__SYMS_H_
+#define VERILATED_VCORETOP__SYMS_H_  // guard
 
 #include "verilated.h"
 
 // INCLUDE MODEL CLASS
 
-#include "VCPUTop.h"
+#include "VCoreTop.h"
 
 // INCLUDE MODULE CLASSES
-#include "VCPUTop___024root.h"
-#include "VCPUTop___024unit.h"
+#include "VCoreTop___024root.h"
+#include "VCoreTop___024unit.h"
 
 // DPI TYPES for DPI Export callbacks (Internal use)
 
 // SYMS CLASS (contains all model state)
-class VCPUTop__Syms final : public VerilatedSyms {
+class VCoreTop__Syms final : public VerilatedSyms {
   public:
     // INTERNAL STATE
-    VCPUTop* const __Vm_modelp;
+    VCoreTop* const __Vm_modelp;
     bool __Vm_activity = false;  ///< Used by trace routines to determine change occurred
     uint32_t __Vm_baseCode = 0;  ///< Used by trace routines when tracing multiple models
     bool __Vm_didInit = false;
 
     // MODULE INSTANCE STATE
-    VCPUTop___024root              TOP;
-    VCPUTop___024unit              TOP____024unit;
+    VCoreTop___024root             TOP;
+    VCoreTop___024unit             TOP____024unit;
 
     // CONSTRUCTORS
-    VCPUTop__Syms(VerilatedContext* contextp, const char* namep, VCPUTop* modelp);
-    ~VCPUTop__Syms();
+    VCoreTop__Syms(VerilatedContext* contextp, const char* namep, VCoreTop* modelp);
+    ~VCoreTop__Syms();
 
     // METHODS
     const char* name() { return TOP.name(); }

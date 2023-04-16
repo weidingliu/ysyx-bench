@@ -1,6 +1,10 @@
-package Pipline_CPU
+package Pipline_CPU.frontend
+import Pipline_CPU._
+import Pipline_CPU.utils._
+import Pipline_CPU.isa._
 import chisel3._
 import chisel3.util._
+import backend.ALUOPType
 object InstrType{
   def InstrI = "b1000".U
   def InstrR = "b0101".U
@@ -33,15 +37,18 @@ object SRCType{
 
 class ID extends Module with Paramete{
   val io = IO(new Bundle() {
-    val in = Decoupled(Flipped(new CtrlFlowIO))
+    val in = Flipped(Decoupled(new FetchIO))
+
+    val REG1 = Input(UInt(xlen.W))
+    val REG2 = Input(UInt(xlen.W))
 
     val out = Decoupled(new DecoderIO)
 
 //    val rf_bus = Output(UInt(5.W))
 //    val rf_bus = Output(UInt(5.W))
   })
-  val (rs, rt, rd) = (io.in.bits.inst(19, 15), io.in.bits.inst(24, 20), io.in.bits.inst(11, 7))
-  val Inst_decode = ListLookup(io.in.bits.inst, Instruction.Decoderfault, Instruction.Decodertable)
+  val (rs, rt, rd) = (io.in.bits.Inst(19, 15), io.in.bits.Inst(24, 20), io.in.bits.Inst(11, 7))
+  val Inst_decode = ListLookup(io.in.bits.Inst, Instruction.Decoderfault, Instruction.Decodertable)
   //  println(Inst_decode)
   val instrtype :: futype :: aluoptype :: en :: Nil = Inst_decode
 
@@ -61,11 +68,11 @@ class ID extends Module with Paramete{
   val srctype2 = LookupTree(instrtype, srctype_list.map(p => (p._1, p._2._2)))
   // Imm decoder
   val immtable = List(
-    InstrType.InstrI -> (SIgEXtend(io.in.bits.inst(31, 20), xlen)),
-    InstrType.InstrJ -> (SIgEXtend(Cat(io.in.bits.inst(19, 12), io.in.bits.inst(20), io.in.bits.inst(30, 21), Fill(1, 0.U)), xlen)),
-    InstrType.InstrU -> (SIgEXtend(Cat(io.in.bits.inst(31, 12), Fill(12, 0.U)), xlen)),
-    InstrType.InstrS -> (SIgEXtend(Cat(io.in.bits.inst(31, 25), io.in.bits.inst(11, 7)), xlen)),
-    InstrType.InstrB -> (SIgEXtend(Cat(io.in.bits.inst(31, 31), io.in.bits.inst(7, 7), io.in.bits.inst(30, 25), io.in.bits.inst(11, 8), Fill(1, 0.U)), xlen)),
+    InstrType.InstrI -> (SIgEXtend(io.in.bits.Inst(31, 20), xlen)),
+    InstrType.InstrJ -> (SIgEXtend(Cat(io.in.bits.Inst(19, 12), io.in.bits.Inst(20), io.in.bits.Inst(30, 21), Fill(1, 0.U)), xlen)),
+    InstrType.InstrU -> (SIgEXtend(Cat(io.in.bits.Inst(31, 12), Fill(12, 0.U)), xlen)),
+    InstrType.InstrS -> (SIgEXtend(Cat(io.in.bits.Inst(31, 25), io.in.bits.Inst(11, 7)), xlen)),
+    InstrType.InstrB -> (SIgEXtend(Cat(io.in.bits.Inst(31, 31), io.in.bits.Inst(7, 7), io.in.bits.Inst(30, 25), io.in.bits.Inst(11, 8), Fill(1, 0.U)), xlen)),
   )
   val imm = LookupTree(instrtype, immtable.map(p => (p._1, p._2)))
 
@@ -79,13 +86,20 @@ class ID extends Module with Paramete{
   io.out.bits.ctrl_signal.rfSrc2 := rt
   io.out.bits.ctrl_signal.src1Type := srctype1
   io.out.bits.ctrl_signal.src2Type := srctype2
-  io.out.bits.ctrl_signal.inst_valid := 1.U
+  io.out.bits.ctrl_signal.inst_valid := Mux(aluoptype === ALUOPType.NOP,0.U,1.U)
   io.out.bits.ctrl_signal.rfDest := rd
 
-  io.out.bits.ctrl_flow <> io.in.bits
+  io.out.bits.ctrl_flow.PC := io.in.bits.PC
+  io.out.bits.ctrl_flow.inst := io.in.bits.Inst
 
   io.out.bits.ctrl_data.Imm := imm
+
+  io.out.bits.ctrl_data.src1 := io.REG1
+  io.out.bits.ctrl_data.src2 := io.REG2
 //  io.out.bits.ctrl_data.src1 :=
 //    io.out.bits.ctrl_data.src2 :=
 
+  io.out.valid := 1.U
+  io.in.ready := io.out.ready
+  //println(io.out.bits.ctrl_signal.inst_valid)
 }

@@ -2,10 +2,10 @@
 #include <iostream>
 #include <verilated.h>
 #include <verilated_vcd_c.h>
-#include "VCPUTop.h"
-#include "VCPUTop___024root.h"
+#include "VCoreTop.h"
+#include "VCoreTop___024root.h"
 #include <svdpi.h>
-#include "VCPUTop__Dpi.h"
+#include "VCoreTop__Dpi.h"
 #include "verilated_dpi.h"
 
 #include <readline/readline.h>
@@ -45,6 +45,8 @@ uint8_t mem[MAX_MEM] __attribute((aligned(4096))) = {};
 uint32_t mem_size;
 uint32_t *Inst;
 uint64_t *CSR;
+uint64_t pc;
+uint32_t inst_valid=0;
 
 uint32_t state=RUN;
 
@@ -67,6 +69,8 @@ extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
 extern "C" void set_pc( const svOpenArrayHandle inst){
 
     Inst=(uint32_t *)(((VerilatedDpiOpenVar*)inst)->datap());
+    pc = (uint64_t)Inst[1]+((uint64_t)Inst[2]<<32);
+    inst_valid=Inst[3];
 
 }
 extern "C" void set_csr( const svOpenArrayHandle inst){
@@ -138,9 +142,10 @@ uint32_t pem_read(uint64_t pc){
 } 
 //extern "C" void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
 
-void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
+void exe_once(VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     char p[128];
     uint32_t inst;
+    
     //printf("%d\n",s->clock);
     for(int i=0;i<2 && (! contextp->gotFinish());i++){
         s->clock ^=1;
@@ -149,20 +154,21 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
         
         if(sim_time % 1==0) {
             
-            inst = pem_read(s->io_pc);
+            inst = Inst[0];
+            
             #ifdef ITRACE
 
             void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
             if(i==0){
-                disassemble(p,96,s->io_pc,(uint8_t *)&inst,4);
+                disassemble(p,96,pc,(uint8_t *)&inst,4);
                 //cpu->reg=cpu_gpr;
                 
       
                 if(s->reset==0 && step_print_inst){
-                    printf("Addr: %08lx\t %08x\t Inst: %-16s\t\n",s->io_pc,Inst[0],p);
+                    printf("Addr: %08lx\t %08x\t Inst: %-16s\t\n",pc,Inst[0],p);
                 }
                 
-                sprintf(ibuf[irbuf_point],"Addr: %08lx\t  %08x\t Inst: %-16s\t\n",s->io_pc,inst,p);
+                sprintf(ibuf[irbuf_point],"Addr: %08lx\t  %08x\t Inst: %-16s\t\n",pc,inst,p);
     
     
                 irbuf_point=(irbuf_point+1)%IRTRACE;
@@ -177,32 +183,33 @@ void exe_once(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
         m_trace->dump(sim_time);
         #endif
         sim_time++;
-        if(s->io_time_int ==1 || Inst[0]==0b00000000000000000000000001110011) {is_skip_ref=1;}
+        //if(s->io_time_int ==1 || Inst[0]==0b00000000000000000000000001110011) {is_skip_ref=1;}
         //if(Inst[0]==0b00000000000000000000000001110011){ref_is_irq=true; difftest_irq(0);}
     }
 //////to ref
     #ifdef DIFFTEST 
     	memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
-    	cpu.pc=s->io_pc;
-    
-    	cpu.mepc=CSR[0];
+    	cpu.pc=pc;
+        //printf("%lx\n",s->io_pc);
+    	/*cpu.mepc=CSR[0];
     	cpu.mcause=CSR[1];
     	cpu.mstatus=CSR[2];
-    	cpu.mtvec=CSR[3];
+    	cpu.mtvec=CSR[3];*/
     #endif
     //printf("---------%016lx  %016lx\n",cpu_gpr[8],cpu_gpr[15]);
     
     
 }
 
-void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uint64_t n){
+void execute(VCoreTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uint64_t n){
     step_print_inst = (n<MAX_PRINT_STEP);
     while(n--!=0 &&((!contextp->gotFinish()))){
         exe_once(dut,contextp,m_trace);
         //printf("-----%d\n",is_skip_ref);
         #ifdef DIFFTEST 
-        if(!ref_is_irq){
-            bool flag=difftest_step(dut->io_pc);
+        printf("%d %lx\n",inst_valid,pc);
+        if(!ref_is_irq && inst_valid==1){
+            bool flag=difftest_step(pc);
         
             if(!flag) {state=ABORT; break;}
         }
@@ -221,11 +228,10 @@ void execute(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uint
 
 
 
-void Reset(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
-    
+void Reset(VCoreTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
+
     while(sim_time<3){
         dut->clock ^= 1;
-        dut->io_inst=0; 
         dut->reset = 1;
         
         
@@ -237,15 +243,16 @@ void Reset(VCPUTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     }
     //reset ref
     //printf("%lx\n",dut->io_pc);
-    
+
     #ifdef DIFFTEST 
     memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
     cpu.pc=dut->io_pc;
-    cpu.mepc=CSR[0];
+    //printf("%lx\n",cpu.pc);
+    /*cpu.mepc=CSR[0];
     cpu.mcause=CSR[1];
     cpu.mstatus=CSR[2];
-    cpu.mtvec=CSR[3];
-
+    cpu.mtvec=CSR[3];*/
+    
     #endif
 
     
@@ -277,20 +284,20 @@ for (i =len-1 ; i >=0;i--)
 return nTmpRes;
 }
 
-static int cmd_c(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace) {
+static int cmd_c(char *args,VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace) {
   execute(s,contextp,m_trace,-1);
   return 0;
 }
-static int cmd_q(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace) {
+static int cmd_q(char *args,VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace) {
   
   return -1;
 }
 
-static int cmd_help(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace);
+static int cmd_help(char *args,VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace);
 
-static int cmd_si(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace);
+static int cmd_si(char *args,VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace);
 
-static int cmd_info(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace);
+static int cmd_info(char *args,VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace);
 
 //static int cmd_x(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace);
 
@@ -298,7 +305,7 @@ static int cmd_info(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVc
 static struct {
   const char *name;
   const char *description;
-  int (*handler) (char *,VCPUTop *,VerilatedContext* ,VerilatedVcdC *);
+  int (*handler) (char *,VCoreTop *,VerilatedContext* ,VerilatedVcdC *);
 } cmd_table [] = {
   { "help", "Display information about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
@@ -313,7 +320,7 @@ static struct {
 
 #define NR_CMD 5
 
-static int cmd_help(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace) {
+static int cmd_help(char *args,VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace) {
   /* extract the first argument */
   char *arg = strtok(NULL, " ");
   int i;
@@ -336,7 +343,7 @@ static int cmd_help(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVc
   return 0;
 }
 
-static int cmd_si(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
+static int cmd_si(char *args,VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     //cpu_exec(n);
     
     char *arg = strtok(NULL, " ");
@@ -354,7 +361,7 @@ static int cmd_si(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC
     return 0;
 }
 
-static int cmd_info(char *args,VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
+static int cmd_info(char *args,VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
 	char *arg = strtok(NULL, " ");
 	if(arg == NULL){
 	    printf("need parameter!\n");
@@ -405,7 +412,7 @@ static char* rl_gets() {
   return line_read;
 }
 
-void sdb_main_loop(VCPUTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
+void sdb_main_loop(VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     if (is_batch_mode) {
     cmd_c(NULL,s,contextp,m_trace);
     return;
@@ -448,16 +455,18 @@ int main(int argc, char** argv) {
 
 VerilatedContext* contextp = new VerilatedContext;
 contextp->commandArgs(argc, argv);
-VCPUTop *dut = new VCPUTop;
+VCoreTop *dut = new VCoreTop;
 #ifdef WTRACE
 Verilated::traceEverOn(true);
 VerilatedVcdC *m_trace = new VerilatedVcdC;
 dut->trace(m_trace,5);
 m_trace->open("waveform.vcd");
 #endif
+
 // init inst memory
 init_mem(argv[1]);
 init_device();
+
 //printf("%s\n",argv[2]);
 #ifdef WTRACE
 Reset(dut,contextp,m_trace);//reset rtl
@@ -465,10 +474,10 @@ Reset(dut,contextp,m_trace);//reset rtl
 #ifndef WTRACE
 Reset(dut,contextp,NULL);//reset rtl
 #endif
+
 #ifdef DIFFTEST 
 init_difftest(argv[2],mem_size,1,mem);
 #endif
-
 init_disasm("riscv64" "-pc-linux-gnu");
 //reset rtl
 
@@ -496,7 +505,7 @@ if(state==ABORT){
     #endif
     
     
-    printf("\033[40;31mABORT at pc = \033[0m \033[40;31m0x%016lx\033[0m\n",dut->io_pc-4);
+    printf("\033[40;31mABORT at pc = \033[0m \033[40;31m0x%016lx\033[0m\n",pc-4);
 }
 else if(cpu_gpr[10] !=0) {
     dump_gpr(); 
@@ -504,9 +513,9 @@ else if(cpu_gpr[10] !=0) {
     #ifdef ITRACE
     display_iringbuf();
     #endif
-    printf("\033[40;31mHIT BAD TRAP at pc = \033[0m \033[40;31m0x%016lx\033[0m\n",dut->io_pc);
+    printf("\033[40;31mHIT BAD TRAP at pc = \033[0m \033[40;31m0x%016lx\033[0m\n",pc);
 }
-else printf("\033[40;32mHIT GOOD TRAP at pc = \033[0m \033[40;32m0x%016lx\033[0m\n",dut->io_pc);
+else printf("\033[40;32mHIT GOOD TRAP at pc = \033[0m \033[40;32m0x%016lx\033[0m\n",pc);
 #ifdef WTRACE
 m_trace->close();
 #endif

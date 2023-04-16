@@ -9,7 +9,7 @@ test:
 verilog: $(SCSRC)
 	$(call git_commit, "generate verilog")
 	mkdir -p $(BUILD_DIR)
-	mill -i __.test.runMain One_cycle.Spec -td $(BUILD_DIR)
+	mill -i __.test.runMain Pipline_CPU.Spec -td $(BUILD_DIR)
 
 help:
 	mill -i __.test.runMain Elaborate --help
@@ -35,14 +35,14 @@ clean:
 
 sim: verilog
 	#$(MAKE) -C $(BPATH) 
-	cp -f ./build/CPUTop.v ./verilator/vsrc
+	cp -f ./build/CoreTop.v ./verilator/vsrc
 	$(info  $(IMG))
 	$(MAKE) -C ./verilator IMG=$(IMG) WTRACE=$(WTRACE)
-	 
+	
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 	@echo "Write this Makefile by yourself."
 
-wave: 
+wave:
 	cd verilator;\
 	gtkwave waveform.vcd
 all: wave

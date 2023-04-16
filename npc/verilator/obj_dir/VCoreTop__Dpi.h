@@ -5,8 +5,8 @@
 // Manually include this file where DPI .c import functions are declared to ensure
 // the C functions match the expectations of the DPI imports.
 
-#ifndef VERILATED_VCPUTOP__DPI_H_
-#define VERILATED_VCPUTOP__DPI_H_  // guard
+#ifndef VERILATED_VCORETOP__DPI_H_
+#define VERILATED_VCORETOP__DPI_H_  // guard
 
 #include "svdpi.h"
 

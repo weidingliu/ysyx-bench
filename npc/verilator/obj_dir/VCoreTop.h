@@ -5,23 +5,23 @@
 // The class here is then constructed to instantiate the design.
 // See the Verilator manual for examples.
 
-#ifndef VERILATED_VCPUTOP_H_
-#define VERILATED_VCPUTOP_H_  // guard
+#ifndef VERILATED_VCORETOP_H_
+#define VERILATED_VCORETOP_H_  // guard
 
 #include "verilated.h"
 #include "svdpi.h"
 
-class VCPUTop__Syms;
-class VCPUTop___024root;
+class VCoreTop__Syms;
+class VCoreTop___024root;
 class VerilatedVcdC;
-class VCPUTop___024unit;
+class VCoreTop___024unit;
 
 
 // This class is the main interface to the Verilated model
-class VCPUTop VL_NOT_FINAL : public VerilatedModel {
+class VCoreTop VL_NOT_FINAL : public VerilatedModel {
   private:
     // Symbol table holding complete model state (owned by this class)
-    VCPUTop__Syms* const vlSymsp;
+    VCoreTop__Syms* const vlSymsp;
 
   public:
 
@@ -30,31 +30,29 @@ class VCPUTop VL_NOT_FINAL : public VerilatedModel {
     // propagate new values into/out from the Verilated model.
     VL_IN8(&clock,0,0);
     VL_IN8(&reset,0,0);
-    VL_OUT8(&io_time_int,0,0);
-    VL_IN(&io_inst,31,0);
+    VL_OUT(&io_inst,31,0);
     VL_OUT64(&io_pc,63,0);
-    VL_OUT64(&io_result,63,0);
 
     // CELLS
     // Public to allow access to /* verilator public */ items.
     // Otherwise the application code can consider these internals.
-    VCPUTop___024unit* const __PVT____024unit;
+    VCoreTop___024unit* const __PVT____024unit;
 
     // Root instance pointer to allow access to model internals,
     // including inlined /* verilator public_flat_* */ items.
-    VCPUTop___024root* const rootp;
+    VCoreTop___024root* const rootp;
 
     // CONSTRUCTORS
     /// Construct the model; called by application code
     /// If contextp is null, then the model will use the default global context
     /// If name is "", then makes a wrapper with a
     /// single model invisible with respect to DPI scope names.
-    explicit VCPUTop(VerilatedContext* contextp, const char* name = "TOP");
-    explicit VCPUTop(const char* name = "TOP");
+    explicit VCoreTop(VerilatedContext* contextp, const char* name = "TOP");
+    explicit VCoreTop(const char* name = "TOP");
     /// Destroy the model; called (often implicitly) by application code
-    virtual ~VCPUTop();
+    virtual ~VCoreTop();
   private:
-    VL_UNCOPYABLE(VCPUTop);  ///< Copying not allowed
+    VL_UNCOPYABLE(VCoreTop);  ///< Copying not allowed
 
   public:
     // API METHODS
