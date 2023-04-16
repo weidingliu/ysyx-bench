@@ -98,9 +98,10 @@ VL_ATTR_COLD void VCoreTop___024root___settle__TOP__0(VCoreTop___024root* vlSelf
     if ((1U & (~ ((IData)(vlSelf->reset) | (IData)(vlSelf->clock))))) {
         if (VL_UNLIKELY((0ULL == vlSelf->CoreTop__DOT__IF__DOT__temp))) {
             VL_FINISH_MT("vsrc/ifm.v", 17, "");
+        } else {
+            VCoreTop___024unit____Vdpiimwrap_pmem_read_TOP____024unit(vlSelf->CoreTop__DOT__IF__DOT__temp, vlSelf->__Vtask_pmem_read__0__rdata);
+            vlSelf->CoreTop__DOT__IFM__DOT__rdata = vlSelf->__Vtask_pmem_read__0__rdata;
         }
-        VCoreTop___024unit____Vdpiimwrap_pmem_read_TOP____024unit(vlSelf->CoreTop__DOT__IF__DOT__temp, vlSelf->__Vtask_pmem_read__0__rdata);
-        vlSelf->CoreTop__DOT__IFM__DOT__rdata = vlSelf->__Vtask_pmem_read__0__rdata;
     }
     vlSelf->CoreTop__DOT__ID__DOT___Inst_decode_T_363 
         = ((0x501bU == (0xfc00707fU & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst)) 
