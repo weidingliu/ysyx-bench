@@ -43,13 +43,6 @@ input wire [63:0]pc
 
 );
 
-always @(*) begin 
-    if(is_break==1'b1) begin 
-        //ebreak();
-        $finish;
-    end
-
-end
 
 
 wire [63:0]rf[31:0];
@@ -92,11 +85,15 @@ assign IN[1]=pc[31:0];
 assign IN[2]=pc[63:32];
 assign IN[3]={31'h0,inst_valid};
 
-initial begin 
-$display("%h--------------",inst_valid);
-set_pc(IN);
-set_gpr_ptr(rf);  // rf为通用寄存器的二维数组变量
+always @(*) begin 
+    if(is_break==1'b1) begin 
+        //ebreak();
+        $finish;
+    end
+    set_pc(IN);
+    set_gpr_ptr(rf);  // rf为通用寄存器的二维数组变量
 
 end
+
 
 endmodule 
