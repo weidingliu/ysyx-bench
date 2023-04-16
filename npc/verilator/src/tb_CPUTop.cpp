@@ -141,6 +141,7 @@ uint32_t pem_read(uint64_t pc){
 void exe_once(VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     char p[128];
     uint32_t inst;
+    uint64_t pc = inst[1]+(inst[2]<<32);
     //printf("%d\n",s->clock);
     for(int i=0;i<2 && (! contextp->gotFinish());i++){
         s->clock ^=1;
@@ -149,20 +150,21 @@ void exe_once(VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
         
         if(sim_time % 1==0) {
             
-            inst = s->io_inst;
+            inst = Inst[0];
+            
             #ifdef ITRACE
 
             void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
             if(i==0){
-                disassemble(p,96,s->io_pc,(uint8_t *)&inst,4);
+                disassemble(p,96,pc,(uint8_t *)&inst,4);
                 //cpu->reg=cpu_gpr;
                 
       
                 if(s->reset==0 && step_print_inst){
-                    printf("Addr: %08lx\t %08x\t Inst: %-16s\t\n",s->io_pc,Inst[0],p);
+                    printf("Addr: %08lx\t %08x\t Inst: %-16s\t\n",pc,Inst[0],p);
                 }
                 
-                sprintf(ibuf[irbuf_point],"Addr: %08lx\t  %08x\t Inst: %-16s\t\n",s->io_pc,inst,p);
+                sprintf(ibuf[irbuf_point],"Addr: %08lx\t  %08x\t Inst: %-16s\t\n",pc,inst,p);
     
     
                 irbuf_point=(irbuf_point+1)%IRTRACE;
@@ -201,8 +203,8 @@ void execute(VCoreTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uin
         exe_once(dut,contextp,m_trace);
         //printf("-----%d\n",is_skip_ref);
         #ifdef DIFFTEST 
-        printf("%d\n",dut->io_inst_valid);
-        if(!ref_is_irq && dut->io_inst_valid){
+        //printf("%d\n",dut->io_inst_valid);
+        if(!ref_is_irq && Inst[3]){
             bool flag=difftest_step(dut->io_pc);
         
             if(!flag) {state=ABORT; break;}

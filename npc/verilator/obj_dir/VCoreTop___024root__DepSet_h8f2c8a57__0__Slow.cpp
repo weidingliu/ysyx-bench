@@ -68,6 +68,7 @@ VL_ATTR_COLD void VCoreTop___024root___ctor_var_reset(VCoreTop___024root* vlSelf
     vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_fuType = VL_RAND_RESET_I(3);
     vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_inst_valid = VL_RAND_RESET_I(1);
     vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_aluoptype = VL_RAND_RESET_I(7);
+    vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_flow_PC = VL_RAND_RESET_Q(64);
     vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_flow_inst = VL_RAND_RESET_I(32);
     vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_rf_rfDest = VL_RAND_RESET_I(5);
     vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_rf_rfWen = VL_RAND_RESET_I(1);
@@ -76,6 +77,7 @@ VL_ATTR_COLD void VCoreTop___024root___ctor_var_reset(VCoreTop___024root* vlSelf
     vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_data_src2 = VL_RAND_RESET_Q(64);
     vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_data_Imm = VL_RAND_RESET_Q(64);
     vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_signal_inst_valid = VL_RAND_RESET_I(1);
+    vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_flow_PC = VL_RAND_RESET_Q(64);
     vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_flow_inst = VL_RAND_RESET_I(32);
     vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_rf_rfDest = VL_RAND_RESET_I(5);
     vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_rf_rfWen = VL_RAND_RESET_I(1);
@@ -115,6 +117,7 @@ VL_ATTR_COLD void VCoreTop___024root___ctor_var_reset(VCoreTop___024root* vlSelf
     vlSelf->CoreTop__DOT__DIP_io_inst_REG = VL_RAND_RESET_I(32);
     vlSelf->CoreTop__DOT__io_inst_valid_REG = VL_RAND_RESET_I(1);
     vlSelf->CoreTop__DOT__io_inst_REG = VL_RAND_RESET_I(32);
+    vlSelf->CoreTop__DOT__io_pc_REG = VL_RAND_RESET_Q(64);
     vlSelf->CoreTop__DOT__IF__DOT__temp = VL_RAND_RESET_Q(64);
     vlSelf->CoreTop__DOT__IF__DOT___temp_T_2 = VL_RAND_RESET_Q(64);
     vlSelf->CoreTop__DOT__IFM__DOT__rdata = VL_RAND_RESET_Q(64);

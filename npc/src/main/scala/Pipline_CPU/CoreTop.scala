@@ -10,7 +10,8 @@ class DIP_model extends BlackBox{
     val is_break = Input(Bool())
     val rf=Input(Vec(32,UInt(64.W)))
     val inst=Input(UInt(32.W))
-
+    val pc = Input(UInt(64.W))
+    val inst_valid = Input(Bool())
 
   })
 }
@@ -101,12 +102,10 @@ class CoreTop extends Module with Paramete{
     DIP.io.rf(i) := RegNext(Reg.rf(i))
   }
   DIP.io.inst := RegNext(WB.io.out.bits.ctrl_flow.inst)
-  io.inst_valid := RegNext(WB.io.out.bits.ctrl_signal.inst_valid)
+  DIP.io.inst_valid := RegNext(WB.io.out.bits.ctrl_signal.inst_valid)
+  DIP.io.pc := RegNext(WB.io.out.bits.ctrl_flow.PC)
   io.inst := RegNext(WB.io.out.bits.ctrl_flow.inst)
-  io.pc := RegNext(WB.io.out.bits.ctrl_flow.PC)
-  //io.pc := RegNext(WB.io.out.bits.ctrl_flow.PC)
-
-
+  io.pc := IF.io.out.bits.PC
 
 }
 
