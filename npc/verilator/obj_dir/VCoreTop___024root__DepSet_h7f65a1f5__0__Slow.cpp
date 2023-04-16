@@ -34,7 +34,6 @@ VL_ATTR_COLD void VCoreTop___024root___settle__TOP__0(VCoreTop___024root* vlSelf
     VlWide<4>/*127:0*/ __Vtemp_h8f494c00__0;
     VlWide<4>/*127:0*/ __Vtemp_hf56a95e4__0;
     // Body
-    vlSelf->io_pc = vlSelf->CoreTop__DOT__io_pc_REG;
     vlSelf->io_inst = vlSelf->CoreTop__DOT__io_inst_REG;
     vlSelf->CoreTop__DOT__DIP__DOT__rf[0U] = vlSelf->CoreTop__DOT__DIP_io_rf_0_REG;
     vlSelf->CoreTop__DOT__DIP__DOT__rf[1U] = vlSelf->CoreTop__DOT__DIP_io_rf_1_REG;
@@ -86,6 +85,7 @@ VL_ATTR_COLD void VCoreTop___024root___settle__TOP__0(VCoreTop___024root* vlSelf
     vlSelf->CoreTop__DOT__EX__DOT___GEN_1 = ((2U == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_src1Type))
                                               ? vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_flow_PC
                                               : 0ULL);
+    vlSelf->io_pc = vlSelf->CoreTop__DOT__IF__DOT__temp;
     vlSelf->CoreTop__DOT__IF__DOT___temp_T_2 = (4ULL 
                                                 + vlSelf->CoreTop__DOT__IF__DOT__temp);
     if ((1U & (~ ((IData)(vlSelf->reset) | (~ (IData)(vlSelf->clock)))))) {

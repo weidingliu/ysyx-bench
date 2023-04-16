@@ -73,20 +73,18 @@ class VCoreTop___024root final : public VerilatedModule {
         QData/*63:0*/ CoreTop__DOT__EX_io_in_bits_r_ctrl_data_src2;
         QData/*63:0*/ CoreTop__DOT__EX_io_in_bits_r_ctrl_data_Imm;
         QData/*63:0*/ CoreTop__DOT__EX_io_in_bits_r_ctrl_flow_PC;
-        QData/*63:0*/ CoreTop__DOT__MEM_io_in_bits_r_ctrl_flow_PC;
         QData/*63:0*/ CoreTop__DOT__MEM_io_in_bits_r_ctrl_rf_rfData;
         QData/*63:0*/ CoreTop__DOT__MEM_io_in_bits_r_ctrl_data_src1;
         QData/*63:0*/ CoreTop__DOT__MEM_io_in_bits_r_ctrl_data_src2;
         QData/*63:0*/ CoreTop__DOT__MEM_io_in_bits_r_ctrl_data_Imm;
-        QData/*63:0*/ CoreTop__DOT__WB_io_in_bits_r_ctrl_flow_PC;
         QData/*63:0*/ CoreTop__DOT__WB_io_in_bits_r_ctrl_rf_rfData;
         QData/*63:0*/ CoreTop__DOT__DIP_io_rf_0_REG;
         QData/*63:0*/ CoreTop__DOT__DIP_io_rf_1_REG;
         QData/*63:0*/ CoreTop__DOT__DIP_io_rf_2_REG;
-    };
-    struct {
         QData/*63:0*/ CoreTop__DOT__DIP_io_rf_3_REG;
         QData/*63:0*/ CoreTop__DOT__DIP_io_rf_4_REG;
+    };
+    struct {
         QData/*63:0*/ CoreTop__DOT__DIP_io_rf_5_REG;
         QData/*63:0*/ CoreTop__DOT__DIP_io_rf_6_REG;
         QData/*63:0*/ CoreTop__DOT__DIP_io_rf_7_REG;
@@ -114,7 +112,6 @@ class VCoreTop___024root final : public VerilatedModule {
         QData/*63:0*/ CoreTop__DOT__DIP_io_rf_29_REG;
         QData/*63:0*/ CoreTop__DOT__DIP_io_rf_30_REG;
         QData/*63:0*/ CoreTop__DOT__DIP_io_rf_31_REG;
-        QData/*63:0*/ CoreTop__DOT__io_pc_REG;
         QData/*63:0*/ CoreTop__DOT__IF__DOT__temp;
         QData/*63:0*/ CoreTop__DOT__IF__DOT___temp_T_2;
         QData/*63:0*/ CoreTop__DOT__IFM__DOT__rdata;
