@@ -45,7 +45,7 @@ uint8_t mem[MAX_MEM] __attribute((aligned(4096))) = {};
 uint32_t mem_size;
 uint32_t *Inst;
 uint64_t *CSR;
-uint64_t pc = (uint64_t)Inst[1]+((uint64_t)Inst[2]<<32);
+uint64_t pc;
 
 uint32_t state=RUN;
 
@@ -68,6 +68,7 @@ extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
 extern "C" void set_pc( const svOpenArrayHandle inst){
 
     Inst=(uint32_t *)(((VerilatedDpiOpenVar*)inst)->datap());
+    pc = (uint64_t)Inst[1]+((uint64_t)Inst[2]<<32);
 
 }
 extern "C" void set_csr( const svOpenArrayHandle inst){
