@@ -201,6 +201,7 @@ void execute(VCoreTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uin
         exe_once(dut,contextp,m_trace);
         //printf("-----%d\n",is_skip_ref);
         #ifdef DIFFTEST 
+        printf("%d\n",dut->io_inst_valid);
         if(!ref_is_irq && dut->io_inst_valid){
             bool flag=difftest_step(dut->io_pc);
         
