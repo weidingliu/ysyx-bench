@@ -457,6 +457,7 @@ m_trace->open("waveform.vcd");
 printf("sdfggg\n");
 // init inst memory
 init_mem(argv[1]);
+printf("sdfggg\n");
 init_device();
 printf("sdfggg\n");
 //printf("%s\n",argv[2]);
