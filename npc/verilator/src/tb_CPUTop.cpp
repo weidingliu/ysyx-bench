@@ -244,8 +244,11 @@ void Reset(VCoreTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     cpu.pc=dut->io_pc;
     printf("sdfggg\n");
     cpu.mepc=CSR[0];
+    printf("sdfggg\n");
     cpu.mcause=CSR[1];
+    printf("sdfggg\n");
     cpu.mstatus=CSR[2];
+    printf("sdfggg\n");
     cpu.mtvec=CSR[3];
     
     #endif
