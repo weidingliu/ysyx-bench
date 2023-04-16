@@ -15,6 +15,7 @@ CFLAGS=-CFLAGS "-I $$NPC_HOME/verilator/src/include -I /usr/lib/llvm-13/include"
 
 ifeq ('$(WTRACE)','y')
 CFLAGS+= -CFLAGS "-D WTRACE"
+@echo sdfjgsd
 endif
 ##CFLAGS+=-CFLAGS $(shell llvm-config-13 --cxxflags) -CFLAGS -fPIE
 
