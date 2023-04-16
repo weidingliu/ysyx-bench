@@ -56,7 +56,7 @@ class FetchIO extends Bundle with Paramete{
 class BranchIO extends Bundle with Paramete{
   val is_branch = Output(Bool())
   val is_jump = Output(Bool())
-  val dnpc = Output(xlen.W)
+  val dnpc = Output(UInt(xlen.W))
 }
 
 class DecoderIO extends Bundle with Paramete{
