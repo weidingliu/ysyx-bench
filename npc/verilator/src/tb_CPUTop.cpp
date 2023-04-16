@@ -240,6 +240,7 @@ void Reset(VCoreTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     #ifdef DIFFTEST 
     printf("sdfggg\n");
     memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
+    printf("sdfggg\n");
     cpu.pc=dut->io_pc;
     cpu.mepc=CSR[0];
     cpu.mcause=CSR[1];
