@@ -450,7 +450,6 @@ VerilatedContext* contextp = new VerilatedContext;
 contextp->commandArgs(argc, argv);
 VCoreTop *dut = new VCoreTop;
 #ifdef WTRACE
-printf("sdafffffffffffffffffffffffffffffffffffffff\n");
 Verilated::traceEverOn(true);
 VerilatedVcdC *m_trace = new VerilatedVcdC;
 dut->trace(m_trace,5);
