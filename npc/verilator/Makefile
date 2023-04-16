@@ -13,8 +13,8 @@ CSRC :=$(wildcard src/*.cpp src/util/*.cc src/difftest/*.c src/memory/*.c src/sy
 LDFLAGS=-LDFLAGS "$(shell llvm-config-13 --libs) -ldl" -LDFLAGS -lreadline -LDFLAGS "-lSDL2 -lSDL2_image"
 CFLAGS=-CFLAGS "-I $$NPC_HOME/verilator/src/include -I /usr/lib/llvm-13/include"
 
-ifeq ($(WTRACE),'y')
-CFLAGS+= -CFLAGS "-D WTRACE"
+ifeq ("$(WTRACE)","y")
+CFLAGS += -CFLAGS "-D WTRACE"
 endif
 ##CFLAGS+=-CFLAGS $(shell llvm-config-13 --cxxflags) -CFLAGS -fPIE
 
