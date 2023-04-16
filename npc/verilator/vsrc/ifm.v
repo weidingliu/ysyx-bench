@@ -13,6 +13,9 @@
           
       end
       else begin 
+          if(pc==32'h0)begin 
+              $finish;
+          end
           pmem_read(pc, rdata);
       end
       
