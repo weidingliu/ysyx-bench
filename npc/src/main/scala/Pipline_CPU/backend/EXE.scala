@@ -338,12 +338,13 @@ class EXE extends Module with Paramete{
   io.out.bits.ctrl_data <> io.in.bits.ctrl_data
 
   io.out.bits.ctrl_signal.inst_valid := Mux(io.in.valid,io.in.bits.ctrl_signal.inst_valid,0.U)
+
 //  io.out.bits <> io.in.bits
   io.out.bits.ctrl_data.src1 := src1
   io.out.bits.ctrl_data.src2 := src2
   io.out.bits.ctrl_rf.rfData := result_tem
   io.out.bits.ctrl_rf.rfDest := io.in.bits.ctrl_signal.rfDest
-  io.out.bits.ctrl_rf.rfWen := io.in.bits.ctrl_signal.rfWen
+  io.out.bits.ctrl_rf.rfWen := Mux(io.in.valid,io.in.bits.ctrl_signal.rfWen,0.U)
   io.out.bits.ctrl_flow.Dnpc := dnpc
   io.branchIO.dnpc := dnpc//Mux(time_int === 1.U, csr.read(CSR_index.mtvec), dnpc)
   io.branchIO.is_branch := branch_flag & io.in.valid//Mux(time_int === 1.U, 1.U, branch_flag)
