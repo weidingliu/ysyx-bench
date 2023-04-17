@@ -82,15 +82,18 @@ class VCoreTop___024root final : public VerilatedModule {
         QData/*63:0*/ CoreTop__DOT__EX_io_in_bits_r_ctrl_data_Imm;
         QData/*63:0*/ CoreTop__DOT__EX_io_in_bits_r_ctrl_flow_PC;
         QData/*63:0*/ CoreTop__DOT__MEM_io_in_bits_r_ctrl_flow_PC;
-        QData/*63:0*/ CoreTop__DOT__MEM_io_in_bits_r_ctrl_rf_rfData;
+        QData/*63:0*/ CoreTop__DOT__MEM_io_in_bits_r_ctrl_flow_Dnpc;
     };
     struct {
+        QData/*63:0*/ CoreTop__DOT__MEM_io_in_bits_r_ctrl_rf_rfData;
         QData/*63:0*/ CoreTop__DOT__MEM_io_in_bits_r_ctrl_data_src1;
         QData/*63:0*/ CoreTop__DOT__MEM_io_in_bits_r_ctrl_data_src2;
         QData/*63:0*/ CoreTop__DOT__MEM_io_in_bits_r_ctrl_data_Imm;
         QData/*63:0*/ CoreTop__DOT__WB_io_in_bits_r_ctrl_flow_PC;
+        QData/*63:0*/ CoreTop__DOT__WB_io_in_bits_r_ctrl_flow_Dnpc;
         QData/*63:0*/ CoreTop__DOT__WB_io_in_bits_r_ctrl_rf_rfData;
         QData/*63:0*/ CoreTop__DOT__DIP_io_pc_REG;
+        QData/*63:0*/ CoreTop__DOT__DIP_io_dnpc_REG;
         QData/*63:0*/ CoreTop__DOT__IF__DOT__temp;
         QData/*63:0*/ CoreTop__DOT__IF__DOT___temp_T_2;
         QData/*63:0*/ CoreTop__DOT__IFM__DOT__rdata;
@@ -107,7 +110,8 @@ class VCoreTop___024root final : public VerilatedModule {
         QData/*63:0*/ CoreTop__DOT__EX__DOT___shift_result_T_35;
         QData/*63:0*/ CoreTop__DOT__EX__DOT___GEN_36;
         QData/*63:0*/ CoreTop__DOT__EX__DOT___branch_result_T_1;
-        QData/*63:0*/ CoreTop__DOT__EX__DOT___dnpc_T_9;
+        QData/*63:0*/ CoreTop__DOT__EX__DOT___dnpc_T_11;
+        QData/*63:0*/ CoreTop__DOT__EX__DOT___GEN_60;
         QData/*63:0*/ CoreTop__DOT__MEM__DOT___addr_temp_T_1;
         QData/*63:0*/ CoreTop__DOT__MEM__DOT___addr_temp_T_3;
         QData/*63:0*/ CoreTop__DOT__MEM__DOT___GEN_16;
@@ -117,7 +121,7 @@ class VCoreTop___024root final : public VerilatedModule {
         QData/*63:0*/ __Vtask_pmem_read__4__rdata;
         VlUnpacked<QData/*63:0*/, 32> CoreTop__DOT__rf;
         VlUnpacked<QData/*63:0*/, 32> CoreTop__DOT__DIP__DOT__rf;
-        VlUnpacked<IData/*31:0*/, 4> CoreTop__DOT__DIP__DOT__IN;
+        VlUnpacked<IData/*31:0*/, 6> CoreTop__DOT__DIP__DOT__IN;
         VlUnpacked<CData/*0:0*/, 3> __Vm_traceActivity;
     };
 
