@@ -37,7 +37,6 @@ VL_ATTR_COLD void VCoreTop___024root__trace_init_sub__TOP__0(VCoreTop___024root*
     tracep->declBus(c+10,"ID_io_in_bits_Inst", false,-1, 31,0);
     tracep->declQuad(c+348,"ID_io_REG1", false,-1, 63,0);
     tracep->declQuad(c+350,"ID_io_REG2", false,-1, 63,0);
-    tracep->declBit(c+354,"ID_io_out_ready", false,-1);
     tracep->declBit(c+7,"ID_io_out_valid", false,-1);
     tracep->declBus(c+11,"ID_io_out_bits_ctrl_signal_src1Type", false,-1, 2,0);
     tracep->declBus(c+12,"ID_io_out_bits_ctrl_signal_src2Type", false,-1, 2,0);
@@ -441,7 +440,6 @@ VL_ATTR_COLD void VCoreTop___024root__trace_init_sub__TOP__0(VCoreTop___024root*
     tracep->declBus(c+10,"io_in_bits_Inst", false,-1, 31,0);
     tracep->declQuad(c+348,"io_REG1", false,-1, 63,0);
     tracep->declQuad(c+350,"io_REG2", false,-1, 63,0);
-    tracep->declBit(c+354,"io_out_ready", false,-1);
     tracep->declBit(c+7,"io_out_valid", false,-1);
     tracep->declBus(c+11,"io_out_bits_ctrl_signal_src1Type", false,-1, 2,0);
     tracep->declBus(c+12,"io_out_bits_ctrl_signal_src2Type", false,-1, 2,0);

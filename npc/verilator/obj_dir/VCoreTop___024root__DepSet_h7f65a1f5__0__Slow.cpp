@@ -120,18 +120,19 @@ VL_ATTR_COLD void VCoreTop___024root___settle__TOP__0(VCoreTop___024root* vlSelf
     vlSelf->CoreTop__DOT__EX__DOT___GEN_3 = ((1U == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_src2Type))
                                               ? vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_data_Imm
                                               : 0ULL);
-    vlSelf->CoreTop__DOT__MEM_io_in_valid = vlSelf->CoreTop__DOT__valid_2;
     vlSelf->CoreTop__DOT__EX__DOT___branch_result_T_1 
         = (vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_flow_PC 
            + vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_data_Imm);
     vlSelf->CoreTop__DOT__EX__DOT___GEN_1 = ((2U == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_src1Type))
                                               ? vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_flow_PC
                                               : 0ULL);
-    vlSelf->CoreTop__DOT__EX_io_in_valid = vlSelf->CoreTop__DOT__valid_1;
+    vlSelf->CoreTop__DOT___GEN_24 = ((IData)(vlSelf->CoreTop__DOT__valid_1) 
+                                     | (IData)(vlSelf->CoreTop__DOT__valid_2));
     vlSelf->io_pc = vlSelf->CoreTop__DOT__IF__DOT__temp;
-    vlSelf->CoreTop__DOT__ID_io_in_valid = vlSelf->CoreTop__DOT__valid;
     vlSelf->CoreTop__DOT__IF__DOT___temp_T_2 = (4ULL 
                                                 + vlSelf->CoreTop__DOT__IF__DOT__temp);
+    vlSelf->CoreTop__DOT___GEN_6 = ((IData)(vlSelf->CoreTop__DOT__valid) 
+                                    | (IData)(vlSelf->CoreTop__DOT__valid_1));
     if ((1U & (~ ((IData)(vlSelf->reset) | (IData)(vlSelf->clock))))) {
         if (VL_UNLIKELY((0ULL == vlSelf->CoreTop__DOT__IF__DOT__temp))) {
             VL_FINISH_MT("vsrc/ifm.v", 17, "");
