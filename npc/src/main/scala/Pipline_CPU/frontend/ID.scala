@@ -41,7 +41,7 @@ class ID extends Module with Paramete{
 
     val REG1 = Input(UInt(xlen.W))
     val REG2 = Input(UInt(xlen.W))
-    val flush = Input(Bool())
+//    val flush = Input(Bool())
 
     val out = Decoupled(new DecoderIO)
 
@@ -101,7 +101,7 @@ class ID extends Module with Paramete{
 //  io.out.bits.ctrl_data.src1 :=
 //    io.out.bits.ctrl_data.src2 :=
 
-  io.out.valid := Mux(io.flush,0.U,1.U)
+//  io.out.valid := Mux(io.flush,0.U,1.U)
   io.in.ready := io.out.ready
   //println(io.out.bits.ctrl_signal.inst_valid)
 }
