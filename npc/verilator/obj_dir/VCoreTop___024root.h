@@ -22,7 +22,6 @@ class VCoreTop___024root final : public VerilatedModule {
         VL_IN8(clock,0,0);
         VL_IN8(reset,0,0);
         CData/*0:0*/ CoreTop__DOT__ID_io_out_bits_ctrl_signal_rfWen;
-        CData/*0:0*/ CoreTop__DOT__EX_io_is_flush;
         CData/*2:0*/ CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_src1Type;
         CData/*2:0*/ CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_src2Type;
         CData/*2:0*/ CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_fuType;
@@ -54,7 +53,6 @@ class VCoreTop___024root final : public VerilatedModule {
         CData/*6:0*/ CoreTop__DOT__ID__DOT___Inst_decode_T_316;
         CData/*0:0*/ CoreTop__DOT__ID__DOT___Inst_decode_T_363;
         CData/*0:0*/ CoreTop__DOT__EX__DOT___GEN_51;
-        CData/*0:0*/ CoreTop__DOT__EX__DOT__branch_flag;
         CData/*7:0*/ CoreTop__DOT__MEM__DOT___GEN_32;
         CData/*7:0*/ CoreTop__DOT__MEM__DOT___mem_result_T_27;
         CData/*0:0*/ __Vclklast__TOP__clock;
@@ -83,10 +81,10 @@ class VCoreTop___024root final : public VerilatedModule {
         QData/*63:0*/ CoreTop__DOT__EX_io_in_bits_r_ctrl_data_src2;
         QData/*63:0*/ CoreTop__DOT__EX_io_in_bits_r_ctrl_data_Imm;
         QData/*63:0*/ CoreTop__DOT__EX_io_in_bits_r_ctrl_flow_PC;
-    };
-    struct {
         QData/*63:0*/ CoreTop__DOT__MEM_io_in_bits_r_ctrl_flow_PC;
         QData/*63:0*/ CoreTop__DOT__MEM_io_in_bits_r_ctrl_flow_Dnpc;
+    };
+    struct {
         QData/*63:0*/ CoreTop__DOT__MEM_io_in_bits_r_ctrl_rf_rfData;
         QData/*63:0*/ CoreTop__DOT__MEM_io_in_bits_r_ctrl_data_src1;
         QData/*63:0*/ CoreTop__DOT__MEM_io_in_bits_r_ctrl_data_src2;
