@@ -52,7 +52,7 @@ class MEM_stage extends Module with Paramete {
 
   switch(io.in.bits.ctrl_signal.aluoptype) {
     is(ALUOPType.ld) {
-      addr_temp := src1 + src2
+      addr_temp := src1 + Imm
     }
     is(ALUOPType.sd) {
       addr_temp := src1 + Imm
