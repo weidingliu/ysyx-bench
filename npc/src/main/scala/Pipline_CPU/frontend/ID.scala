@@ -91,6 +91,7 @@ class ID extends Module with Paramete{
 
   io.out.bits.ctrl_flow.PC := io.in.bits.PC
   io.out.bits.ctrl_flow.inst := io.in.bits.Inst
+  io.out.bits.ctrl_flow.Dnpc := 0.U(xlen.W)
 
   io.out.bits.ctrl_data.Imm := imm
 
