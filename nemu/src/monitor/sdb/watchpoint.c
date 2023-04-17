@@ -57,7 +57,7 @@ void new_wp(word_t value,char *argv){
         head=temp;
         
         head->value=value;
-        strncpy(head->exp,argv,strlen(argv));
+        strcpy(head->exp,argv);
     }
     return;
 }
