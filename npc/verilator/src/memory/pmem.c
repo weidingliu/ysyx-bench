@@ -48,6 +48,11 @@ extern "C" void pmem_read(long long addr, long long *rdata) {
 //     is_skip_ref=1;
 //     return;
 //   }
+  if(addr>0x80000034){
+      state=ABORT;
+      return;
+  }
+  
   
   long long temp;
   //printf("%llx\n",((addr & ~0x7ull)));
