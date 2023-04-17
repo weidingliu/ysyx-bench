@@ -142,7 +142,6 @@ VL_ATTR_COLD void VCoreTop___024root___ctor_var_reset(VCoreTop___024root* vlSelf
         vlSelf->CoreTop__DOT__DIP__DOT__IN[__Vi0] = VL_RAND_RESET_I(32);
     }
     vlSelf->CoreTop__DOT__MEM__DOT___addr_temp_T_1 = VL_RAND_RESET_Q(64);
-    vlSelf->CoreTop__DOT__MEM__DOT___addr_temp_T_3 = VL_RAND_RESET_Q(64);
     vlSelf->CoreTop__DOT__MEM__DOT___GEN_16 = VL_RAND_RESET_Q(64);
     vlSelf->CoreTop__DOT__MEM__DOT__addr_temp = VL_RAND_RESET_Q(64);
     vlSelf->CoreTop__DOT__MEM__DOT___wdata_temp_T_21 = VL_RAND_RESET_Q(64);

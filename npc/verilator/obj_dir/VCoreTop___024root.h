@@ -119,7 +119,6 @@ class VCoreTop___024root final : public VerilatedModule {
         QData/*63:0*/ CoreTop__DOT__EX__DOT___dnpc_T_11;
         QData/*63:0*/ CoreTop__DOT__EX__DOT___GEN_60;
         QData/*63:0*/ CoreTop__DOT__MEM__DOT___addr_temp_T_1;
-        QData/*63:0*/ CoreTop__DOT__MEM__DOT___addr_temp_T_3;
         QData/*63:0*/ CoreTop__DOT__MEM__DOT___GEN_16;
         QData/*63:0*/ CoreTop__DOT__MEM__DOT__addr_temp;
         QData/*63:0*/ CoreTop__DOT__MEM__DOT___wdata_temp_T_21;
