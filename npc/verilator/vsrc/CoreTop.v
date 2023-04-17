@@ -782,6 +782,7 @@ module MEM_stage(
   assign io_mem_we = 7'h45 == io_in_bits_ctrl_signal_aluoptype ? 1'h0 : _GEN_17; // @[MEM.scala 53:44]
 endmodule
 module WB(
+  input         io_in_valid,
   input         io_in_bits_ctrl_signal_inst_valid,
   input  [63:0] io_in_bits_ctrl_flow_PC,
   input  [31:0] io_in_bits_ctrl_flow_inst,
@@ -789,6 +790,8 @@ module WB(
   input  [4:0]  io_in_bits_ctrl_rf_rfDest,
   input         io_in_bits_ctrl_rf_rfWen,
   input  [63:0] io_in_bits_ctrl_rf_rfData,
+  input         io_out_ready,
+  output        io_out_valid,
   output        io_out_bits_ctrl_signal_inst_valid,
   output [63:0] io_out_bits_ctrl_flow_PC,
   output [31:0] io_out_bits_ctrl_flow_inst,
@@ -797,6 +800,7 @@ module WB(
   output        io_out_bits_ctrl_rf_rfWen,
   output [63:0] io_out_bits_ctrl_rf_rfData
 );
+  assign io_out_valid = io_in_valid; // @[WB.scala 15:36]
   assign io_out_bits_ctrl_signal_inst_valid = io_in_bits_ctrl_signal_inst_valid; // @[WB.scala 13:15]
   assign io_out_bits_ctrl_flow_PC = io_in_bits_ctrl_flow_PC; // @[WB.scala 13:15]
   assign io_out_bits_ctrl_flow_inst = io_in_bits_ctrl_flow_inst; // @[WB.scala 13:15]
@@ -869,17 +873,18 @@ module CoreTop(
   reg [63:0] _RAND_28;
   reg [63:0] _RAND_29;
   reg [31:0] _RAND_30;
-  reg [63:0] _RAND_31;
-  reg [31:0] _RAND_32;
-  reg [63:0] _RAND_33;
-  reg [31:0] _RAND_34;
+  reg [31:0] _RAND_31;
+  reg [63:0] _RAND_32;
+  reg [31:0] _RAND_33;
+  reg [63:0] _RAND_34;
   reg [31:0] _RAND_35;
-  reg [63:0] _RAND_36;
-  reg [31:0] _RAND_37;
+  reg [31:0] _RAND_36;
+  reg [63:0] _RAND_37;
   reg [31:0] _RAND_38;
-  reg [63:0] _RAND_39;
+  reg [31:0] _RAND_39;
   reg [63:0] _RAND_40;
-  reg [31:0] _RAND_41;
+  reg [63:0] _RAND_41;
+  reg [31:0] _RAND_42;
 `endif // RANDOMIZE_REG_INIT
   wire  IF_clock; // @[CoreTop.scala 51:18]
   wire  IF_reset; // @[CoreTop.scala 51:18]
@@ -1125,6 +1130,7 @@ module CoreTop(
   wire [7:0] MEM_io_mem_wmask; // @[CoreTop.scala 65:19]
   wire  MEM_io_mem_ce; // @[CoreTop.scala 65:19]
   wire  MEM_io_mem_we; // @[CoreTop.scala 65:19]
+  wire  WB_io_in_valid; // @[CoreTop.scala 67:18]
   wire  WB_io_in_bits_ctrl_signal_inst_valid; // @[CoreTop.scala 67:18]
   wire [63:0] WB_io_in_bits_ctrl_flow_PC; // @[CoreTop.scala 67:18]
   wire [31:0] WB_io_in_bits_ctrl_flow_inst; // @[CoreTop.scala 67:18]
@@ -1132,6 +1138,8 @@ module CoreTop(
   wire [4:0] WB_io_in_bits_ctrl_rf_rfDest; // @[CoreTop.scala 67:18]
   wire  WB_io_in_bits_ctrl_rf_rfWen; // @[CoreTop.scala 67:18]
   wire [63:0] WB_io_in_bits_ctrl_rf_rfData; // @[CoreTop.scala 67:18]
+  wire  WB_io_out_ready; // @[CoreTop.scala 67:18]
+  wire  WB_io_out_valid; // @[CoreTop.scala 67:18]
   wire  WB_io_out_bits_ctrl_signal_inst_valid; // @[CoreTop.scala 67:18]
   wire [63:0] WB_io_out_bits_ctrl_flow_PC; // @[CoreTop.scala 67:18]
   wire [31:0] WB_io_out_bits_ctrl_flow_inst; // @[CoreTop.scala 67:18]
@@ -1191,7 +1199,11 @@ module CoreTop(
   reg [63:0] MEM_io_in_bits_r_ctrl_data_src1; // @[Reg.scala 16:16]
   reg [63:0] MEM_io_in_bits_r_ctrl_data_src2; // @[Reg.scala 16:16]
   reg [63:0] MEM_io_in_bits_r_ctrl_data_Imm; // @[Reg.scala 16:16]
+  wire  _T_12 = WB_io_out_ready & WB_io_out_valid; // @[Decoupled.scala 50:35]
+  reg  valid_3; // @[Pipline.scala 8:24]
+  wire  _GEN_44 = ~_T_12 ? 1'h0 : valid_3; // @[Pipline.scala 10:13 9:23 8:24]
   wire  _T_14 = MEM_io_out_valid; // @[Pipline.scala 12:21]
+  wire  _GEN_45 = MEM_io_out_valid | _GEN_44; // @[Pipline.scala 12:37 13:13]
   reg  WB_io_in_bits_r_ctrl_signal_inst_valid; // @[Reg.scala 16:16]
   reg [63:0] WB_io_in_bits_r_ctrl_flow_PC; // @[Reg.scala 16:16]
   reg [31:0] WB_io_in_bits_r_ctrl_flow_inst; // @[Reg.scala 16:16]
@@ -1358,6 +1370,7 @@ module CoreTop(
     .io_mem_we(MEM_io_mem_we)
   );
   WB WB ( // @[CoreTop.scala 67:18]
+    .io_in_valid(WB_io_in_valid),
     .io_in_bits_ctrl_signal_inst_valid(WB_io_in_bits_ctrl_signal_inst_valid),
     .io_in_bits_ctrl_flow_PC(WB_io_in_bits_ctrl_flow_PC),
     .io_in_bits_ctrl_flow_inst(WB_io_in_bits_ctrl_flow_inst),
@@ -1365,6 +1378,8 @@ module CoreTop(
     .io_in_bits_ctrl_rf_rfDest(WB_io_in_bits_ctrl_rf_rfDest),
     .io_in_bits_ctrl_rf_rfWen(WB_io_in_bits_ctrl_rf_rfWen),
     .io_in_bits_ctrl_rf_rfData(WB_io_in_bits_ctrl_rf_rfData),
+    .io_out_ready(WB_io_out_ready),
+    .io_out_valid(WB_io_out_valid),
     .io_out_bits_ctrl_signal_inst_valid(WB_io_out_bits_ctrl_signal_inst_valid),
     .io_out_bits_ctrl_flow_PC(WB_io_out_bits_ctrl_flow_PC),
     .io_out_bits_ctrl_flow_inst(WB_io_out_bits_ctrl_flow_inst),
@@ -1585,6 +1600,7 @@ module CoreTop(
   assign MEM_io_in_bits_ctrl_data_Imm = MEM_io_in_bits_r_ctrl_data_Imm; // @[Pipline.scala 20:16]
   assign MEM_io_out_ready = 1'h1; // @[Pipline.scala 19:16]
   assign MEM_io_mem_rdata = mem_rdata; // @[CoreTop.scala 96:20]
+  assign WB_io_in_valid = valid_3; // @[Pipline.scala 21:17]
   assign WB_io_in_bits_ctrl_signal_inst_valid = WB_io_in_bits_r_ctrl_signal_inst_valid; // @[Pipline.scala 20:16]
   assign WB_io_in_bits_ctrl_flow_PC = WB_io_in_bits_r_ctrl_flow_PC; // @[Pipline.scala 20:16]
   assign WB_io_in_bits_ctrl_flow_inst = WB_io_in_bits_r_ctrl_flow_inst; // @[Pipline.scala 20:16]
@@ -1592,6 +1608,7 @@ module CoreTop(
   assign WB_io_in_bits_ctrl_rf_rfDest = WB_io_in_bits_r_ctrl_rf_rfDest; // @[Pipline.scala 20:16]
   assign WB_io_in_bits_ctrl_rf_rfWen = WB_io_in_bits_r_ctrl_rf_rfWen; // @[Pipline.scala 20:16]
   assign WB_io_in_bits_ctrl_rf_rfData = WB_io_in_bits_r_ctrl_rf_rfData; // @[Pipline.scala 20:16]
+  assign WB_io_out_ready = 1'h1; // @[CoreTop.scala 111:19]
   assign bypass_io_EX_rf_rfDest = EX_io_out_bits_ctrl_rf_rfDest; // @[CoreTop.scala 92:19]
   assign bypass_io_EX_rf_rfWen = EX_io_out_bits_ctrl_rf_rfWen; // @[CoreTop.scala 92:19]
   assign bypass_io_EX_rf_rfData = EX_io_out_bits_ctrl_rf_rfData; // @[CoreTop.scala 92:19]
@@ -1702,6 +1719,11 @@ module CoreTop(
     if (_T_10) begin // @[Reg.scala 17:18]
       MEM_io_in_bits_r_ctrl_data_Imm <= EX_io_out_bits_ctrl_data_Imm; // @[Reg.scala 17:22]
     end
+    if (reset) begin // @[Pipline.scala 8:24]
+      valid_3 <= 1'h0; // @[Pipline.scala 8:24]
+    end else begin
+      valid_3 <= _GEN_45;
+    end
     if (_T_14) begin // @[Reg.scala 17:18]
       WB_io_in_bits_r_ctrl_signal_inst_valid <= MEM_io_out_bits_ctrl_signal_inst_valid; // @[Reg.scala 17:22]
     end
@@ -1724,7 +1746,7 @@ module CoreTop(
       WB_io_in_bits_r_ctrl_rf_rfData <= MEM_io_out_bits_ctrl_rf_rfData; // @[Reg.scala 17:22]
     end
     DIP_io_inst_REG <= WB_io_out_bits_ctrl_flow_inst; // @[CoreTop.scala 119:25]
-    DIP_io_inst_valid_REG <= WB_io_out_bits_ctrl_signal_inst_valid; // @[CoreTop.scala 120:31]
+    DIP_io_inst_valid_REG <= WB_io_in_valid & WB_io_out_bits_ctrl_signal_inst_valid; // @[CoreTop.scala 120:35]
     DIP_io_pc_REG <= WB_io_out_bits_ctrl_flow_PC; // @[CoreTop.scala 121:23]
     DIP_io_dnpc_REG <= WB_io_out_bits_ctrl_flow_Dnpc; // @[CoreTop.scala 122:25]
     io_inst_REG <= WB_io_out_bits_ctrl_flow_inst; // @[CoreTop.scala 123:21]
@@ -1829,29 +1851,31 @@ initial begin
   _RAND_29 = {2{`RANDOM}};
   MEM_io_in_bits_r_ctrl_data_Imm = _RAND_29[63:0];
   _RAND_30 = {1{`RANDOM}};
-  WB_io_in_bits_r_ctrl_signal_inst_valid = _RAND_30[0:0];
-  _RAND_31 = {2{`RANDOM}};
-  WB_io_in_bits_r_ctrl_flow_PC = _RAND_31[63:0];
-  _RAND_32 = {1{`RANDOM}};
-  WB_io_in_bits_r_ctrl_flow_inst = _RAND_32[31:0];
-  _RAND_33 = {2{`RANDOM}};
-  WB_io_in_bits_r_ctrl_flow_Dnpc = _RAND_33[63:0];
-  _RAND_34 = {1{`RANDOM}};
-  WB_io_in_bits_r_ctrl_rf_rfDest = _RAND_34[4:0];
+  valid_3 = _RAND_30[0:0];
+  _RAND_31 = {1{`RANDOM}};
+  WB_io_in_bits_r_ctrl_signal_inst_valid = _RAND_31[0:0];
+  _RAND_32 = {2{`RANDOM}};
+  WB_io_in_bits_r_ctrl_flow_PC = _RAND_32[63:0];
+  _RAND_33 = {1{`RANDOM}};
+  WB_io_in_bits_r_ctrl_flow_inst = _RAND_33[31:0];
+  _RAND_34 = {2{`RANDOM}};
+  WB_io_in_bits_r_ctrl_flow_Dnpc = _RAND_34[63:0];
   _RAND_35 = {1{`RANDOM}};
-  WB_io_in_bits_r_ctrl_rf_rfWen = _RAND_35[0:0];
-  _RAND_36 = {2{`RANDOM}};
-  WB_io_in_bits_r_ctrl_rf_rfData = _RAND_36[63:0];
-  _RAND_37 = {1{`RANDOM}};
-  DIP_io_inst_REG = _RAND_37[31:0];
+  WB_io_in_bits_r_ctrl_rf_rfDest = _RAND_35[4:0];
+  _RAND_36 = {1{`RANDOM}};
+  WB_io_in_bits_r_ctrl_rf_rfWen = _RAND_36[0:0];
+  _RAND_37 = {2{`RANDOM}};
+  WB_io_in_bits_r_ctrl_rf_rfData = _RAND_37[63:0];
   _RAND_38 = {1{`RANDOM}};
-  DIP_io_inst_valid_REG = _RAND_38[0:0];
-  _RAND_39 = {2{`RANDOM}};
-  DIP_io_pc_REG = _RAND_39[63:0];
+  DIP_io_inst_REG = _RAND_38[31:0];
+  _RAND_39 = {1{`RANDOM}};
+  DIP_io_inst_valid_REG = _RAND_39[0:0];
   _RAND_40 = {2{`RANDOM}};
-  DIP_io_dnpc_REG = _RAND_40[63:0];
-  _RAND_41 = {1{`RANDOM}};
-  io_inst_REG = _RAND_41[31:0];
+  DIP_io_pc_REG = _RAND_40[63:0];
+  _RAND_41 = {2{`RANDOM}};
+  DIP_io_dnpc_REG = _RAND_41[63:0];
+  _RAND_42 = {1{`RANDOM}};
+  io_inst_REG = _RAND_42[31:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
