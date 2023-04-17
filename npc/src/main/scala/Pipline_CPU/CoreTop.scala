@@ -65,18 +65,30 @@ class CoreTop extends Module with Paramete{
 
   val WB = Module(new WB)
 
+  val bypass = Module(new Bypass)
+
 //  io.pc := IF.io.out.bits.PC
+  // bypass
+ bypass.io.Reg1 := Reg.read(ID.io.out.bits.ctrl_signal.rfSrc1)
+ bypass.io.Reg2 := Reg.read(ID.io.out.bits.ctrl_signal.rfSrc2)
+  bypass.io.reg_index1 := ID.io.out.bits.ctrl_signal.rfSrc1
+  bypass.io.reg_index2 := ID.io.out.bits.ctrl_signal.rfSrc2
+
 
   // fetch inst
   IFM.io.pc := IF.io.out.bits.PC
   IF.io.inst := IFM.io.inst
-
+  IFM.io.reset := reset
+  IFM.io.clk := clock
+  //ID
   Pipline_Connect(IF.io.out,ID.io.in,ID.io.out.fire,EX.io.is_flush)
-  ID.io.REG1 := Reg.read(ID.io.out.bits.ctrl_signal.rfSrc1)
-  ID.io.REG2 := Reg.read(ID.io.out.bits.ctrl_signal.rfSrc1)
+  ID.io.REG1 := bypass.io.Bypass_REG1
+  ID.io.REG2 := bypass.io.Bypass_REG2
+  //EXE
   Pipline_Connect(ID.io.out,EX.io.in,EX.io.out.fire,EX.io.is_flush)
   IF.io.branch_io <> EX.io.branchIO
-
+  bypass.io.EX_rf <> EX.io.out.bits.ctrl_rf
+//MEM
   Pipline_Connect(EX.io.out,MEM.io.in,MEM.io.out.fire,0.B)
   MEM.io.mem.rdata := mem.io.rdata
   mem.io.wdata := MEM.io.mem.wdata
@@ -84,18 +96,21 @@ class CoreTop extends Module with Paramete{
   mem.io.wmask := MEM.io.mem.wmask
   mem.io.ce := MEM.io.mem.ce
   mem.io.we := MEM.io.mem.we
+  mem.io.clk := clock
+  mem.io.reset := reset
+  bypass.io.MEM_rf <> MEM.io.out.bits.ctrl_rf
 
+//WB
   Pipline_Connect(MEM.io.out,WB.io.in,WB.io.out.fire,0.B)
   when((WB.io.out.bits.ctrl_rf.rfWen === RD.write)) {
     Reg.write(WB.io.out.bits.ctrl_rf.rfDest, WB.io.out.bits.ctrl_rf.rfData)
   }
-
   WB.io.out.ready := 1.U
+  bypass.io.WB_rf <> WB.io.out.bits.ctrl_rf
 
-  mem.io.reset := reset
-  IFM.io.reset := reset
-  mem.io.clk := clock
-  IFM.io.clk := clock
+
+
+
 
 
   DIP.io.is_break := EX.io.is_break
