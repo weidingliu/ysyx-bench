@@ -336,6 +336,8 @@ class EXE extends Module with Paramete{
   io.out.bits.ctrl_signal <> io.in.bits.ctrl_signal
   io.out.bits.ctrl_flow <> io.in.bits.ctrl_flow
   io.out.bits.ctrl_data <> io.in.bits.ctrl_data
+
+  io.out.bits.ctrl_signal.inst_valid := Mux(io.in.valid,io.in.bits.ctrl_signal.inst_valid,0.U)
 //  io.out.bits <> io.in.bits
   io.out.bits.ctrl_data.src1 := src1
   io.out.bits.ctrl_data.src2 := src2

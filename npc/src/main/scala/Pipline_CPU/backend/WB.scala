@@ -11,7 +11,8 @@ class WB extends Module with Paramete{
   })
 
   io.out.bits <> io.in.bits
-
+  
+  io.out.bits.ctrl_signal.inst_valid := Mux(io.in.valid,io.in.bits.ctrl_signal.inst_valid,0.U)
   io.out.valid := Mux(io.out.ready && io.in.valid ,1.U,0.U)
   io.in.ready := io.out.ready
 
