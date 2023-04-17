@@ -68,7 +68,6 @@ VL_ATTR_COLD void VCoreTop___024root__trace_init_sub__TOP__0(VCoreTop___024root*
     tracep->declBit(c+1,"EX_io_branchIO_is_branch", false,-1);
     tracep->declBit(c+2,"EX_io_branchIO_is_jump", false,-1);
     tracep->declQuad(c+3,"EX_io_branchIO_dnpc", false,-1, 63,0);
-    tracep->declBit(c+355,"EX_io_out_ready", false,-1);
     tracep->declBit(c+22,"EX_io_out_valid", false,-1);
     tracep->declBus(c+25,"EX_io_out_bits_ctrl_signal_fuType", false,-1, 2,0);
     tracep->declBit(c+26,"EX_io_out_bits_ctrl_signal_inst_valid", false,-1);
@@ -251,7 +250,6 @@ VL_ATTR_COLD void VCoreTop___024root__trace_init_sub__TOP__0(VCoreTop___024root*
     tracep->declQuad(c+209,"MEM_io_in_bits_ctrl_data_src1", false,-1, 63,0);
     tracep->declQuad(c+211,"MEM_io_in_bits_ctrl_data_src2", false,-1, 63,0);
     tracep->declQuad(c+213,"MEM_io_in_bits_ctrl_data_Imm", false,-1, 63,0);
-    tracep->declBit(c+355,"MEM_io_out_ready", false,-1);
     tracep->declBit(c+196,"MEM_io_out_valid", false,-1);
     tracep->declBit(c+198,"MEM_io_out_bits_ctrl_signal_inst_valid", false,-1);
     tracep->declQuad(c+200,"MEM_io_out_bits_ctrl_flow_PC", false,-1, 63,0);
@@ -274,8 +272,6 @@ VL_ATTR_COLD void VCoreTop___024root__trace_init_sub__TOP__0(VCoreTop___024root*
     tracep->declBus(c+187,"WB_io_in_bits_ctrl_rf_rfDest", false,-1, 4,0);
     tracep->declBit(c+188,"WB_io_in_bits_ctrl_rf_rfWen", false,-1);
     tracep->declQuad(c+222,"WB_io_in_bits_ctrl_rf_rfData", false,-1, 63,0);
-    tracep->declBit(c+355,"WB_io_out_ready", false,-1);
-    tracep->declBit(c+215,"WB_io_out_valid", false,-1);
     tracep->declBit(c+216,"WB_io_out_bits_ctrl_signal_inst_valid", false,-1);
     tracep->declQuad(c+217,"WB_io_out_bits_ctrl_flow_PC", false,-1, 63,0);
     tracep->declBus(c+219,"WB_io_out_bits_ctrl_flow_inst", false,-1, 31,0);
@@ -402,7 +398,6 @@ VL_ATTR_COLD void VCoreTop___024root__trace_init_sub__TOP__0(VCoreTop___024root*
     tracep->declBit(c+1,"io_branchIO_is_branch", false,-1);
     tracep->declBit(c+2,"io_branchIO_is_jump", false,-1);
     tracep->declQuad(c+3,"io_branchIO_dnpc", false,-1, 63,0);
-    tracep->declBit(c+355,"io_out_ready", false,-1);
     tracep->declBit(c+22,"io_out_valid", false,-1);
     tracep->declBus(c+25,"io_out_bits_ctrl_signal_fuType", false,-1, 2,0);
     tracep->declBit(c+26,"io_out_bits_ctrl_signal_inst_valid", false,-1);
@@ -502,7 +497,6 @@ VL_ATTR_COLD void VCoreTop___024root__trace_init_sub__TOP__0(VCoreTop___024root*
     tracep->declQuad(c+209,"io_in_bits_ctrl_data_src1", false,-1, 63,0);
     tracep->declQuad(c+211,"io_in_bits_ctrl_data_src2", false,-1, 63,0);
     tracep->declQuad(c+213,"io_in_bits_ctrl_data_Imm", false,-1, 63,0);
-    tracep->declBit(c+355,"io_out_ready", false,-1);
     tracep->declBit(c+196,"io_out_valid", false,-1);
     tracep->declBit(c+198,"io_out_bits_ctrl_signal_inst_valid", false,-1);
     tracep->declQuad(c+200,"io_out_bits_ctrl_flow_PC", false,-1, 63,0);
@@ -533,8 +527,6 @@ VL_ATTR_COLD void VCoreTop___024root__trace_init_sub__TOP__0(VCoreTop___024root*
     tracep->declBus(c+187,"io_in_bits_ctrl_rf_rfDest", false,-1, 4,0);
     tracep->declBit(c+188,"io_in_bits_ctrl_rf_rfWen", false,-1);
     tracep->declQuad(c+222,"io_in_bits_ctrl_rf_rfData", false,-1, 63,0);
-    tracep->declBit(c+355,"io_out_ready", false,-1);
-    tracep->declBit(c+215,"io_out_valid", false,-1);
     tracep->declBit(c+216,"io_out_bits_ctrl_signal_inst_valid", false,-1);
     tracep->declQuad(c+217,"io_out_bits_ctrl_flow_PC", false,-1, 63,0);
     tracep->declBus(c+219,"io_out_bits_ctrl_flow_inst", false,-1, 31,0);

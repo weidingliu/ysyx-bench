@@ -25,7 +25,6 @@ class VCoreTop___024root final : public VerilatedModule {
         CData/*0:0*/ CoreTop__DOT__EX_io_is_flush;
         CData/*0:0*/ CoreTop__DOT__valid;
         CData/*0:0*/ CoreTop__DOT__valid_1;
-        CData/*0:0*/ CoreTop__DOT___GEN_6;
         CData/*2:0*/ CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_src1Type;
         CData/*2:0*/ CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_src2Type;
         CData/*2:0*/ CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_fuType;
@@ -34,14 +33,12 @@ class VCoreTop___024root final : public VerilatedModule {
         CData/*6:0*/ CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype;
         CData/*4:0*/ CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_rfDest;
         CData/*0:0*/ CoreTop__DOT__valid_2;
-        CData/*0:0*/ CoreTop__DOT___GEN_24;
         CData/*2:0*/ CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_fuType;
         CData/*0:0*/ CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_inst_valid;
         CData/*6:0*/ CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_aluoptype;
         CData/*4:0*/ CoreTop__DOT__MEM_io_in_bits_r_ctrl_rf_rfDest;
         CData/*0:0*/ CoreTop__DOT__MEM_io_in_bits_r_ctrl_rf_rfWen;
         CData/*0:0*/ CoreTop__DOT__valid_3;
-        CData/*0:0*/ CoreTop__DOT___GEN_45;
         CData/*0:0*/ CoreTop__DOT__WB_io_in_bits_r_ctrl_signal_inst_valid;
         CData/*4:0*/ CoreTop__DOT__WB_io_in_bits_r_ctrl_rf_rfDest;
         CData/*0:0*/ CoreTop__DOT__WB_io_in_bits_r_ctrl_rf_rfWen;
@@ -83,11 +80,11 @@ class VCoreTop___024root final : public VerilatedModule {
         IData/*31:0*/ CoreTop__DOT__EX__DOT___shift_result_T_31;
         VL_OUT64(io_pc,63,0);
         QData/*63:0*/ CoreTop__DOT__EX_io_out_bits_ctrl_rf_rfData;
-    };
-    struct {
         QData/*63:0*/ CoreTop__DOT__mem_rdata;
         QData/*63:0*/ CoreTop__DOT__MEM_io_out_bits_ctrl_rf_rfData;
         QData/*63:0*/ CoreTop__DOT__ID_io_in_bits_r_PC;
+    };
+    struct {
         QData/*63:0*/ CoreTop__DOT__EX_io_in_bits_r_ctrl_data_src1;
         QData/*63:0*/ CoreTop__DOT__EX_io_in_bits_r_ctrl_data_src2;
         QData/*63:0*/ CoreTop__DOT__EX_io_in_bits_r_ctrl_data_Imm;
