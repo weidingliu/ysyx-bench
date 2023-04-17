@@ -113,7 +113,7 @@ class EXE extends Module with Paramete{
 
 
   val alu_result = WireDefault(0.U(xlen.W))
-  val dnpc = WireDefault(0.U(xlen.W))
+  val dnpc = WireDefault(io.in.bits.ctrl_flow.PC+4.U(xlen.W))
 
   switch(io.in.bits.ctrl_signal.aluoptype) {
     is(ALUOPType.add) {
@@ -342,6 +342,7 @@ class EXE extends Module with Paramete{
   io.out.bits.ctrl_rf.rfData := result_tem
   io.out.bits.ctrl_rf.rfDest := io.in.bits.ctrl_signal.rfDest
   io.out.bits.ctrl_rf.rfWen := io.in.bits.ctrl_signal.rfWen
+  io.out.bits.ctrl_flow.Dnpc := dnpc
   io.branchIO.dnpc := dnpc//Mux(time_int === 1.U, csr.read(CSR_index.mtvec), dnpc)
   io.branchIO.is_branch := branch_flag//Mux(time_int === 1.U, 1.U, branch_flag)
   io.branchIO.is_jump := Mux(io.in.bits.ctrl_signal.fuType === FUType.jump, 1.U, 0.U)

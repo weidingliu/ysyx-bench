@@ -27,6 +27,7 @@ class DataSrcIO extends Bundle with Paramete{
 class CtrlFlowIO extends Bundle with Paramete{
   val PC = Output(UInt(xlen.W))
   val inst = Output(UInt(instlen.W))
+  val Dnpc = Output(UInt(xlen.W))
 }
 
 class MEMCtrlIO extends Bundle with Paramete{

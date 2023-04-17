@@ -39,7 +39,8 @@ input wire [63:0]rf_29,
 input wire [63:0]rf_30,
 input wire [63:0]rf_31,
 input wire inst_valid,
-input wire [63:0]pc
+input wire [63:0]pc,
+input wire [63:0]dnpc
 
 );
 
@@ -79,12 +80,13 @@ assign rf[28]=rf_28;
 assign rf[29]=rf_29;
 assign rf[30]=rf_30;
 assign rf[31]=rf_31;
-wire [31:0]IN[3:0];
+wire [31:0]IN[5:0];
 assign IN[0]=inst;
 assign IN[1]=pc[31:0];
 assign IN[2]=pc[63:32];
 assign IN[3]={31'h0,inst_valid};
-
+assign IN[4]=dnpc[31:0];
+assign IN[5]=dnpc[63:32];
 always @(*) begin 
     if(is_break==1'b1) begin 
         //ebreak();
