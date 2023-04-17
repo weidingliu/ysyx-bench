@@ -12,7 +12,7 @@ class WB extends Module with Paramete{
 
   io.out.bits <> io.in.bits
 
-  io.out.valid := 1.U
+  io.out.valid := Mux(io.out.ready && io.in.valid ,1.U,0.U)
   io.in.ready := io.out.ready
 
 }

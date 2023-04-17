@@ -21,7 +21,7 @@ object Pipline_Connect {
 
 
     left.ready := right.ready
-    right.bits := RegEnable(left.bits,  !flush && left.valid && right.ready)
+    right.bits := RegEnable(left.bits, left.valid && right.ready)
     right.valid := valid
   }
 }

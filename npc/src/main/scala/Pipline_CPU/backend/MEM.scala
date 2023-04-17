@@ -176,7 +176,7 @@ class MEM_stage extends Module with Paramete {
   io.mem.wdata := wdata_temp
   io.mem.wmask := wmask_temp
 
-  io.out.valid := 1.U
+  io.out.valid := Mux(io.out.ready && io.in.valid ,1.U,0.U)
   io.in.ready := io.out.ready
 
   io.mem.ce := Mux(io.in.bits.ctrl_signal.fuType === FUType.mem,1.U,0.U)
