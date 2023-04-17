@@ -86,7 +86,7 @@ class CoreTop extends Module with Paramete{
   mem.io.we := MEM.io.mem.we
 
   Pipline_Connect(MEM.io.out,WB.io.in,WB.io.out.fire,0.B)
-  when((WB.io.out.bits.ctrl_rf.rfWen === RD.write  && WB.io.out.bits.ctrl_signal.inst_valid)) {
+  when((WB.io.out.bits.ctrl_rf.rfWen === RD.write)) {
     Reg.write(WB.io.out.bits.ctrl_rf.rfDest, WB.io.out.bits.ctrl_rf.rfData)
   }
 
@@ -100,7 +100,7 @@ class CoreTop extends Module with Paramete{
 
   DIP.io.is_break := EX.io.is_break
   for (i <- 0 until NReg) {
-    DIP.io.rf(i) := RegNext(Reg.rf(i))
+    DIP.io.rf(i) := Reg.rf(i)
   }
   DIP.io.inst := RegNext(WB.io.out.bits.ctrl_flow.inst)
   DIP.io.inst_valid := RegNext(WB.io.out.bits.ctrl_signal.inst_valid)
