@@ -765,6 +765,7 @@ module MEM_stage(
   wire [63:0] _GEN_40 = _T_66 ? _mem_result_T_19 : _GEN_39; // @[MEM.scala 145:44 153:18]
   wire [63:0] _GEN_41 = _T_65 ? _mem_result_T_10 : _GEN_40; // @[MEM.scala 145:44 150:18]
   wire [63:0] mem_result = _T_62 ? io_mem_rdata : _GEN_41; // @[MEM.scala 145:44 147:18]
+  wire  _io_out_bits_ctrl_rf_rfData_T = io_in_bits_ctrl_signal_fuType == 3'h4; // @[MEM.scala 174:67]
   assign io_out_valid = io_in_valid; // @[MEM.scala 180:36]
   assign io_out_bits_ctrl_signal_inst_valid = io_in_valid & io_in_bits_ctrl_signal_inst_valid; // @[MEM.scala 173:44]
   assign io_out_bits_ctrl_flow_PC = io_in_bits_ctrl_flow_PC; // @[MEM.scala 171:25]
@@ -776,7 +777,7 @@ module MEM_stage(
   assign io_mem_addr = 7'h45 == io_in_bits_ctrl_signal_aluoptype ? _addr_temp_T_1 : _GEN_16; // @[MEM.scala 53:44 55:17]
   assign io_mem_wdata = _T_63 ? io_in_bits_ctrl_data_src2 : _GEN_33; // @[MEM.scala 92:44 96:18]
   assign io_mem_wmask = _T_63 ? 8'hff : _GEN_32; // @[MEM.scala 92:44 95:18]
-  assign io_mem_ce = io_in_bits_ctrl_signal_fuType == 3'h4; // @[MEM.scala 183:50]
+  assign io_mem_ce = _io_out_bits_ctrl_rf_rfData_T & io_in_valid; // @[MEM.scala 183:65]
   assign io_mem_we = 7'h45 == io_in_bits_ctrl_signal_aluoptype ? 1'h0 : _GEN_17; // @[MEM.scala 53:44]
 endmodule
 module WB(

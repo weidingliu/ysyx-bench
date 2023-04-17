@@ -372,7 +372,8 @@ void VCoreTop___024root__trace_chg_sub_0(VCoreTop___024root* vlSelf, VerilatedVc
                                                       == (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_aluoptype)) 
                                                      | (0x77U 
                                                         == (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_aluoptype))))))))))));
-        bufp->chgBit(oldp+192,((4U == (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_fuType))));
+        bufp->chgBit(oldp+192,(((4U == (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_fuType)) 
+                                & (IData)(vlSelf->CoreTop__DOT__valid_2))));
         bufp->chgQData(oldp+193,(((0x46U == (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_aluoptype))
                                    ? vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_data_src2
                                    : ((0x70U == (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_aluoptype))
