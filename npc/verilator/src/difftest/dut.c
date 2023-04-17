@@ -49,6 +49,7 @@ static bool check_reg(cpu_state *ref_cpu,uint64_t dnpc){
     //printf("%016lx  %016lx\n",pc,ref_cpu->pc);
     if(dnpc != ref_cpu->pc){
         //printf("her\n");
+        printf("%016lx  %016lx\n",dnpc,ref_cpu->pc);
         printf("PC fail!\n");
         
         return false;
