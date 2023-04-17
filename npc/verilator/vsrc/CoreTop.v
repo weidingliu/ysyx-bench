@@ -822,18 +822,19 @@ module Bypass(
   output [63:0] io_Bypass_REG1,
   output [63:0] io_Bypass_REG2
 );
-  wire  _reg1_temp_T_2 = io_EX_rf_rfWen & io_EX_rf_rfDest == io_reg_index1; // @[Bypass.scala 26:36]
-  wire  _reg1_temp_T_5 = io_MEM_rf_rfWen & io_MEM_rf_rfDest == io_reg_index1; // @[Bypass.scala 27:37]
-  wire  _reg1_temp_T_8 = io_WB_rf_rfWen & io_WB_rf_rfDest == io_reg_index1; // @[Bypass.scala 28:36]
-  wire [63:0] _reg1_temp_T_9 = _reg1_temp_T_8 ? io_WB_rf_rfData : io_Reg1; // @[Mux.scala 47:70]
-  wire [63:0] _reg1_temp_T_10 = _reg1_temp_T_5 ? io_MEM_rf_rfData : _reg1_temp_T_9; // @[Mux.scala 47:70]
-  wire  _reg2_temp_T_2 = io_EX_rf_rfWen & io_EX_rf_rfDest == io_reg_index2; // @[Bypass.scala 34:36]
-  wire  _reg2_temp_T_5 = io_MEM_rf_rfWen & io_MEM_rf_rfDest == io_reg_index2; // @[Bypass.scala 35:37]
-  wire  _reg2_temp_T_8 = io_WB_rf_rfWen & io_WB_rf_rfDest == io_reg_index2; // @[Bypass.scala 36:36]
-  wire [63:0] _reg2_temp_T_9 = _reg2_temp_T_8 ? io_WB_rf_rfData : io_Reg2; // @[Mux.scala 47:70]
-  wire [63:0] _reg2_temp_T_10 = _reg2_temp_T_5 ? io_MEM_rf_rfData : _reg2_temp_T_9; // @[Mux.scala 47:70]
-  assign io_Bypass_REG1 = _reg1_temp_T_2 ? io_EX_rf_rfData : _reg1_temp_T_10; // @[Mux.scala 47:70]
-  assign io_Bypass_REG2 = _reg2_temp_T_2 ? io_EX_rf_rfData : _reg2_temp_T_10; // @[Mux.scala 47:70]
+  wire  _reg1_temp_T_3 = io_EX_rf_rfDest != 5'h0; // @[Bypass.scala 26:92]
+  wire  _reg1_temp_T_4 = io_EX_rf_rfWen & io_EX_rf_rfDest == io_reg_index1 & io_EX_rf_rfDest != 5'h0; // @[Bypass.scala 26:73]
+  wire  _reg1_temp_T_9 = io_MEM_rf_rfWen & io_MEM_rf_rfDest == io_reg_index1 & _reg1_temp_T_3; // @[Bypass.scala 27:75]
+  wire  _reg1_temp_T_14 = io_WB_rf_rfWen & io_WB_rf_rfDest == io_reg_index1 & _reg1_temp_T_3; // @[Bypass.scala 28:73]
+  wire [63:0] _reg1_temp_T_15 = _reg1_temp_T_14 ? io_WB_rf_rfData : io_Reg1; // @[Mux.scala 47:70]
+  wire [63:0] _reg1_temp_T_16 = _reg1_temp_T_9 ? io_MEM_rf_rfData : _reg1_temp_T_15; // @[Mux.scala 47:70]
+  wire  _reg2_temp_T_4 = io_EX_rf_rfWen & io_EX_rf_rfDest == io_reg_index2 & _reg1_temp_T_3; // @[Bypass.scala 34:73]
+  wire  _reg2_temp_T_9 = io_MEM_rf_rfWen & io_MEM_rf_rfDest == io_reg_index2 & _reg1_temp_T_3; // @[Bypass.scala 35:75]
+  wire  _reg2_temp_T_14 = io_WB_rf_rfWen & io_WB_rf_rfDest == io_reg_index2 & _reg1_temp_T_3; // @[Bypass.scala 36:73]
+  wire [63:0] _reg2_temp_T_15 = _reg2_temp_T_14 ? io_WB_rf_rfData : io_Reg2; // @[Mux.scala 47:70]
+  wire [63:0] _reg2_temp_T_16 = _reg2_temp_T_9 ? io_MEM_rf_rfData : _reg2_temp_T_15; // @[Mux.scala 47:70]
+  assign io_Bypass_REG1 = _reg1_temp_T_4 ? io_EX_rf_rfData : _reg1_temp_T_16; // @[Mux.scala 47:70]
+  assign io_Bypass_REG2 = _reg2_temp_T_4 ? io_EX_rf_rfData : _reg2_temp_T_16; // @[Mux.scala 47:70]
 endmodule
 module CoreTop(
   input         clock,
