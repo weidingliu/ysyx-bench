@@ -24,16 +24,16 @@ class Bypass extends Module with Paramete{
   reg1_temp := PriorityMux(
     Seq(
       (io.EX_rf.rfWen === RD.write && io.EX_rf.rfDest === io.reg_index1 && io.EX_rf.rfDest =/= 0.U) -> io.EX_rf.rfData,
-      (io.MEM_rf.rfWen === RD.write && io.MEM_rf.rfDest === io.reg_index1 && io.EX_rf.rfDest =/= 0.U) -> io.MEM_rf.rfData,
-      (io.WB_rf.rfWen === RD.write && io.WB_rf.rfDest === io.reg_index1 && io.EX_rf.rfDest =/= 0.U) -> io.WB_rf.rfData,
+      (io.MEM_rf.rfWen === RD.write && io.MEM_rf.rfDest === io.reg_index1 && io.MEM_rf.rfDest =/= 0.U) -> io.MEM_rf.rfData,
+      (io.WB_rf.rfWen === RD.write && io.WB_rf.rfDest === io.reg_index1 && io.WB_rf.rfDest =/= 0.U) -> io.WB_rf.rfData,
       (1.B) -> io.Reg1
     )
   )
   reg2_temp := PriorityMux(
     Seq(
       (io.EX_rf.rfWen === RD.write && io.EX_rf.rfDest === io.reg_index2 && io.EX_rf.rfDest =/= 0.U) -> io.EX_rf.rfData,
-      (io.MEM_rf.rfWen === RD.write && io.MEM_rf.rfDest === io.reg_index2 && io.EX_rf.rfDest =/= 0.U) -> io.MEM_rf.rfData,
-      (io.WB_rf.rfWen === RD.write && io.WB_rf.rfDest === io.reg_index2 && io.EX_rf.rfDest =/= 0.U) -> io.WB_rf.rfData,
+      (io.MEM_rf.rfWen === RD.write && io.MEM_rf.rfDest === io.reg_index2 && io.MEM_rf.rfDest =/= 0.U) -> io.MEM_rf.rfData,
+      (io.WB_rf.rfWen === RD.write && io.WB_rf.rfDest === io.reg_index2 && io.WB_rf.rfDest =/= 0.U) -> io.WB_rf.rfData,
       (1.B) -> io.Reg2
     )
   )
