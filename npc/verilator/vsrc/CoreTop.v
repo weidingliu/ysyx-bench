@@ -1637,8 +1637,6 @@ module CoreTop(
     ID_io_in_bits_r_Inst <= IF_io_out_bits_Inst; // @[Reg.scala 16:16 17:{18,22}]
     if (reset) begin // @[Pipline.scala 8:24]
       valid_1 <= 1'h0; // @[Pipline.scala 8:24]
-    end else if (EX_io_is_flush) begin // @[Pipline.scala 15:25]
-      valid_1 <= 1'h0; // @[Pipline.scala 16:13]
     end else begin
       valid_1 <= _GEN_6;
     end

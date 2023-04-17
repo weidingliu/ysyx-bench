@@ -821,7 +821,8 @@ VL_ATTR_COLD void VCoreTop___024root__trace_full_sub_0(VCoreTop___024root* vlSel
                                ? vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_data_src2
                                : vlSelf->CoreTop__DOT__EX__DOT___GEN_3)),64);
     bufp->fullBit(oldp+45,((0x42U == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))));
-    bufp->fullBit(oldp+46,(vlSelf->CoreTop__DOT__EX_io_is_flush));
+    bufp->fullBit(oldp+46,(((IData)(vlSelf->CoreTop__DOT__EX__DOT__branch_flag) 
+                            | (3U == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_fuType)))));
     bufp->fullQData(oldp+47,(vlSelf->CoreTop__DOT__rf
                              [0U]),64);
     bufp->fullQData(oldp+49,(vlSelf->CoreTop__DOT__rf
