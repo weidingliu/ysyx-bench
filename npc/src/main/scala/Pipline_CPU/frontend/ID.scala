@@ -87,7 +87,7 @@ class ID extends Module with Paramete{
   io.out.bits.ctrl_signal.rfSrc2 := rt
   io.out.bits.ctrl_signal.src1Type := srctype1
   io.out.bits.ctrl_signal.src2Type := srctype2
-  io.out.bits.ctrl_signal.inst_valid := Mux(aluoptype === ALUOPType.NOP || io.flush,0.U,1.U)
+  io.out.bits.ctrl_signal.inst_valid := Mux(aluoptype === ALUOPType.NOP,0.U,1.U)
   io.out.bits.ctrl_signal.rfDest := rd
 
   io.out.bits.ctrl_flow.PC := io.in.bits.PC
