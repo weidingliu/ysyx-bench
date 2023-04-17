@@ -812,17 +812,28 @@ module Bypass(
   input  [4:0]  io_MEM_rf_rfDest,
   input         io_MEM_rf_rfWen,
   input  [63:0] io_MEM_rf_rfData,
+  input  [4:0]  io_WB_rf_rfDest,
+  input         io_WB_rf_rfWen,
   input  [63:0] io_WB_rf_rfData,
+  input  [63:0] io_Reg1,
+  input  [4:0]  io_reg_index1,
   input  [63:0] io_Reg2,
   input  [4:0]  io_reg_index2,
   output [63:0] io_Bypass_REG1,
   output [63:0] io_Bypass_REG2
 );
-  wire  _reg1_temp_T_13 = io_EX_rf_rfWen & io_EX_rf_rfDest == io_reg_index2; // @[Bypass.scala 33:36]
-  wire  _reg1_temp_T_16 = io_MEM_rf_rfWen & io_MEM_rf_rfDest == io_reg_index2; // @[Bypass.scala 34:37]
-  wire [63:0] _reg1_temp_T_20 = _reg1_temp_T_16 ? io_MEM_rf_rfData : io_WB_rf_rfData; // @[Mux.scala 47:70]
-  assign io_Bypass_REG1 = _reg1_temp_T_13 ? io_EX_rf_rfData : _reg1_temp_T_20; // @[Mux.scala 47:70]
-  assign io_Bypass_REG2 = io_Reg2; // @[Bypass.scala 41:18]
+  wire  _reg1_temp_T_2 = io_EX_rf_rfWen & io_EX_rf_rfDest == io_reg_index1; // @[Bypass.scala 26:36]
+  wire  _reg1_temp_T_5 = io_MEM_rf_rfWen & io_MEM_rf_rfDest == io_reg_index1; // @[Bypass.scala 27:37]
+  wire  _reg1_temp_T_8 = io_WB_rf_rfWen & io_WB_rf_rfDest == io_reg_index1; // @[Bypass.scala 28:36]
+  wire [63:0] _reg1_temp_T_9 = _reg1_temp_T_8 ? io_WB_rf_rfData : io_Reg1; // @[Mux.scala 47:70]
+  wire [63:0] _reg1_temp_T_10 = _reg1_temp_T_5 ? io_MEM_rf_rfData : _reg1_temp_T_9; // @[Mux.scala 47:70]
+  wire  _reg2_temp_T_2 = io_EX_rf_rfWen & io_EX_rf_rfDest == io_reg_index2; // @[Bypass.scala 34:36]
+  wire  _reg2_temp_T_5 = io_MEM_rf_rfWen & io_MEM_rf_rfDest == io_reg_index2; // @[Bypass.scala 35:37]
+  wire  _reg2_temp_T_8 = io_WB_rf_rfWen & io_WB_rf_rfDest == io_reg_index2; // @[Bypass.scala 36:36]
+  wire [63:0] _reg2_temp_T_9 = _reg2_temp_T_8 ? io_WB_rf_rfData : io_Reg2; // @[Mux.scala 47:70]
+  wire [63:0] _reg2_temp_T_10 = _reg2_temp_T_5 ? io_MEM_rf_rfData : _reg2_temp_T_9; // @[Mux.scala 47:70]
+  assign io_Bypass_REG1 = _reg1_temp_T_2 ? io_EX_rf_rfData : _reg1_temp_T_10; // @[Mux.scala 47:70]
+  assign io_Bypass_REG2 = _reg2_temp_T_2 ? io_EX_rf_rfData : _reg2_temp_T_10; // @[Mux.scala 47:70]
 endmodule
 module CoreTop(
   input         clock,
@@ -1140,7 +1151,11 @@ module CoreTop(
   wire [4:0] bypass_io_MEM_rf_rfDest; // @[CoreTop.scala 69:22]
   wire  bypass_io_MEM_rf_rfWen; // @[CoreTop.scala 69:22]
   wire [63:0] bypass_io_MEM_rf_rfData; // @[CoreTop.scala 69:22]
+  wire [4:0] bypass_io_WB_rf_rfDest; // @[CoreTop.scala 69:22]
+  wire  bypass_io_WB_rf_rfWen; // @[CoreTop.scala 69:22]
   wire [63:0] bypass_io_WB_rf_rfData; // @[CoreTop.scala 69:22]
+  wire [63:0] bypass_io_Reg1; // @[CoreTop.scala 69:22]
+  wire [4:0] bypass_io_reg_index1; // @[CoreTop.scala 69:22]
   wire [63:0] bypass_io_Reg2; // @[CoreTop.scala 69:22]
   wire [4:0] bypass_io_reg_index2; // @[CoreTop.scala 69:22]
   wire [63:0] bypass_io_Bypass_REG1; // @[CoreTop.scala 69:22]
@@ -1365,7 +1380,11 @@ module CoreTop(
     .io_MEM_rf_rfDest(bypass_io_MEM_rf_rfDest),
     .io_MEM_rf_rfWen(bypass_io_MEM_rf_rfWen),
     .io_MEM_rf_rfData(bypass_io_MEM_rf_rfData),
+    .io_WB_rf_rfDest(bypass_io_WB_rf_rfDest),
+    .io_WB_rf_rfWen(bypass_io_WB_rf_rfWen),
     .io_WB_rf_rfData(bypass_io_WB_rf_rfData),
+    .io_Reg1(bypass_io_Reg1),
+    .io_reg_index1(bypass_io_reg_index1),
     .io_Reg2(bypass_io_Reg2),
     .io_reg_index2(bypass_io_reg_index2),
     .io_Bypass_REG1(bypass_io_Bypass_REG1),
@@ -1578,7 +1597,11 @@ module CoreTop(
   assign bypass_io_MEM_rf_rfDest = MEM_io_out_bits_ctrl_rf_rfDest; // @[CoreTop.scala 104:20]
   assign bypass_io_MEM_rf_rfWen = MEM_io_out_bits_ctrl_rf_rfWen; // @[CoreTop.scala 104:20]
   assign bypass_io_MEM_rf_rfData = MEM_io_out_bits_ctrl_rf_rfData; // @[CoreTop.scala 104:20]
+  assign bypass_io_WB_rf_rfDest = WB_io_out_bits_ctrl_rf_rfDest; // @[CoreTop.scala 112:19]
+  assign bypass_io_WB_rf_rfWen = WB_io_out_bits_ctrl_rf_rfWen; // @[CoreTop.scala 112:19]
   assign bypass_io_WB_rf_rfData = WB_io_out_bits_ctrl_rf_rfData; // @[CoreTop.scala 112:19]
+  assign bypass_io_Reg1 = ID_io_out_bits_ctrl_signal_rfSrc1 == 5'h0 ? 64'h0 : rf_bypass_io_Reg1_MPORT_data; // @[RF.scala 8:37]
+  assign bypass_io_reg_index1 = ID_io_out_bits_ctrl_signal_rfSrc1; // @[CoreTop.scala 75:24]
   assign bypass_io_Reg2 = ID_io_out_bits_ctrl_signal_rfSrc2 == 5'h0 ? 64'h0 : rf_bypass_io_Reg2_MPORT_data; // @[RF.scala 8:37]
   assign bypass_io_reg_index2 = ID_io_out_bits_ctrl_signal_rfSrc2; // @[CoreTop.scala 76:24]
   always @(posedge clock) begin
