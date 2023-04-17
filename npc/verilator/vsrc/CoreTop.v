@@ -12,13 +12,13 @@ module IF(
   reg [63:0] _RAND_0;
 `endif // RANDOMIZE_REG_INIT
   reg [63:0] temp; // @[IF.scala 16:21]
-  wire [63:0] _temp_T_2 = temp + 64'h4; // @[IF.scala 18:87]
+  wire [63:0] _temp_T_2 = temp + 64'h4; // @[IF.scala 17:104]
   assign io_out_bits_PC = temp; // @[IF.scala 19:18]
   assign io_out_bits_Inst = io_inst; // @[IF.scala 20:20]
   always @(posedge clock) begin
     if (reset) begin // @[IF.scala 16:21]
       temp <= 64'h80000000; // @[IF.scala 16:21]
-    end else if (io_branch_io_is_jump | io_branch_io_is_branch) begin // @[IF.scala 18:14]
+    end else if (io_branch_io_is_jump | io_branch_io_is_branch) begin // @[IF.scala 17:14]
       temp <= io_branch_io_dnpc;
     end else begin
       temp <= _temp_T_2;
