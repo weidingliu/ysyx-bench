@@ -113,7 +113,7 @@ class EXE extends Module with Paramete{
 
 
   val alu_result = WireDefault(0.U(xlen.W))
-  val dnpc = WireDefault(0.U(xlen.W))
+  val dnpc = WireDefault(io.in.bits.ctrl_flow.PC+4.U(xlen.W))
 
   switch(io.in.bits.ctrl_signal.aluoptype) {
     is(ALUOPType.add) {
@@ -330,22 +330,26 @@ class EXE extends Module with Paramete{
 //    csr.write(CSR_index.mstatus, csr.read(CSR_index.mstatus) & "hfffffffffffffff7".U(xlen.W))
 //  }
 
-  io.is_flush := Mux(branch_flag === 1.U || io.in.bits.ctrl_signal.fuType === FUType.jump,1.U,0.U)
+  io.is_flush := Mux((branch_flag === 1.U || io.branchIO.is_jump === 1.U) && io.in.valid,1.U,0.U)
   io.is_break := Mux((io.in.bits.ctrl_signal.aluoptype === ALUOPType.ebreak), 1.U, 0.U)
 
   io.out.bits.ctrl_signal <> io.in.bits.ctrl_signal
   io.out.bits.ctrl_flow <> io.in.bits.ctrl_flow
   io.out.bits.ctrl_data <> io.in.bits.ctrl_data
+
+  io.out.bits.ctrl_signal.inst_valid := Mux(io.in.valid,io.in.bits.ctrl_signal.inst_valid,0.U)
+
 //  io.out.bits <> io.in.bits
   io.out.bits.ctrl_data.src1 := src1
   io.out.bits.ctrl_data.src2 := src2
   io.out.bits.ctrl_rf.rfData := result_tem
   io.out.bits.ctrl_rf.rfDest := io.in.bits.ctrl_signal.rfDest
-  io.out.bits.ctrl_rf.rfWen := io.in.bits.ctrl_signal.rfWen
+  io.out.bits.ctrl_rf.rfWen := Mux(io.in.valid,io.in.bits.ctrl_signal.rfWen,0.U)
+  io.out.bits.ctrl_flow.Dnpc := dnpc
   io.branchIO.dnpc := dnpc//Mux(time_int === 1.U, csr.read(CSR_index.mtvec), dnpc)
-  io.branchIO.is_branch := branch_flag//Mux(time_int === 1.U, 1.U, branch_flag)
-  io.branchIO.is_jump := Mux(io.in.bits.ctrl_signal.fuType === FUType.jump, 1.U, 0.U)
+  io.branchIO.is_branch := branch_flag & io.in.valid//Mux(time_int === 1.U, 1.U, branch_flag)
+  io.branchIO.is_jump := Mux(io.in.bits.ctrl_signal.fuType === FUType.jump && io.in.valid, 1.U, 0.U)
 
-  io.out.valid := 1.U
+  io.out.valid := Mux(io.out.ready && io.in.valid ,1.U,0.U)
   io.in.ready := io.out.ready
 }

@@ -52,7 +52,7 @@ class MEM_stage extends Module with Paramete {
 
   switch(io.in.bits.ctrl_signal.aluoptype) {
     is(ALUOPType.ld) {
-      addr_temp := src1 + src2
+      addr_temp := src1 + Imm
     }
     is(ALUOPType.sd) {
       addr_temp := src1 + Imm
@@ -170,16 +170,18 @@ class MEM_stage extends Module with Paramete {
   io.out.bits.ctrl_signal <> io.in.bits.ctrl_signal
   io.out.bits.ctrl_flow <> io.in.bits.ctrl_flow
   io.out.bits.ctrl_rf <> io.in.bits.ctrl_rf
+  io.out.bits.ctrl_signal.inst_valid := Mux(io.in.valid,io.in.bits.ctrl_signal.inst_valid,0.U)
   io.out.bits.ctrl_rf.rfData := Mux(io.in.bits.ctrl_signal.fuType === FUType.mem,mem_result,io.in.bits.ctrl_rf.rfData)
+  io.out.bits.ctrl_rf.rfWen := Mux(io.in.valid,io.in.bits.ctrl_signal.rfWen,0.U)
 
   io.mem.addr := addr_temp
   io.mem.wdata := wdata_temp
   io.mem.wmask := wmask_temp
 
-  io.out.valid := 1.U
+  io.out.valid := Mux(io.out.ready && io.in.valid ,1.U,0.U)
   io.in.ready := io.out.ready
 
-  io.mem.ce := Mux(io.in.bits.ctrl_signal.fuType === FUType.mem,1.U,0.U)
+  io.mem.ce := Mux(io.in.bits.ctrl_signal.fuType === FUType.mem && io.in.valid,1.U,0.U)
   io.mem.we := we
 
 }

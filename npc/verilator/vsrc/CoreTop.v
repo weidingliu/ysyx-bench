@@ -11,14 +11,14 @@ module IF(
 `ifdef RANDOMIZE_REG_INIT
   reg [63:0] _RAND_0;
 `endif // RANDOMIZE_REG_INIT
-  reg [63:0] temp; // @[IF.scala 14:21]
-  wire [63:0] _temp_T_2 = temp + 64'h4; // @[IF.scala 15:87]
-  assign io_out_bits_PC = temp; // @[IF.scala 16:18]
-  assign io_out_bits_Inst = io_inst; // @[IF.scala 17:20]
+  reg [63:0] temp; // @[IF.scala 16:21]
+  wire [63:0] _temp_T_2 = temp + 64'h4; // @[IF.scala 17:104]
+  assign io_out_bits_PC = temp; // @[IF.scala 19:18]
+  assign io_out_bits_Inst = io_inst; // @[IF.scala 20:20]
   always @(posedge clock) begin
-    if (reset) begin // @[IF.scala 14:21]
-      temp <= 64'h80000000; // @[IF.scala 14:21]
-    end else if (io_branch_io_is_jump | io_branch_io_is_branch) begin // @[IF.scala 15:14]
+    if (reset) begin // @[IF.scala 16:21]
+      temp <= 64'h80000000; // @[IF.scala 16:21]
+    end else if (io_branch_io_is_jump | io_branch_io_is_branch) begin // @[IF.scala 17:14]
       temp <= io_branch_io_dnpc;
     end else begin
       temp <= _temp_T_2;
@@ -71,15 +71,18 @@ end // initial
 `endif // SYNTHESIS
 endmodule
 module ID(
+  input         io_in_valid,
   input  [63:0] io_in_bits_PC,
   input  [31:0] io_in_bits_Inst,
   input  [63:0] io_REG1,
   input  [63:0] io_REG2,
+  output        io_out_valid,
   output [2:0]  io_out_bits_ctrl_signal_src1Type,
   output [2:0]  io_out_bits_ctrl_signal_src2Type,
   output [2:0]  io_out_bits_ctrl_signal_fuType,
   output        io_out_bits_ctrl_signal_inst_valid,
   output [4:0]  io_out_bits_ctrl_signal_rfSrc1,
+  output [4:0]  io_out_bits_ctrl_signal_rfSrc2,
   output        io_out_bits_ctrl_signal_rfWen,
   output [6:0]  io_out_bits_ctrl_signal_aluoptype,
   output [4:0]  io_out_bits_ctrl_signal_rfDest,
@@ -89,7 +92,7 @@ module ID(
   output [63:0] io_out_bits_ctrl_flow_PC,
   output [31:0] io_out_bits_ctrl_flow_inst
 );
-  wire [4:0] rd = io_in_bits_Inst[11:7]; // @[ID.scala 50:88]
+  wire [4:0] rd = io_in_bits_Inst[11:7]; // @[ID.scala 51:88]
   wire [31:0] _Inst_decode_T = io_in_bits_Inst & 32'h707f; // @[Lookup.scala 31:38]
   wire  _Inst_decode_T_1 = 32'h13 == _Inst_decode_T; // @[Lookup.scala 31:38]
   wire [31:0] _Inst_decode_T_2 = io_in_bits_Inst & 32'hfc00707f; // @[Lookup.scala 31:38]
@@ -361,6 +364,10 @@ module ID(
     _Inst_decode_T_73 | (_Inst_decode_T_75 | (_Inst_decode_T_77 | (_Inst_decode_T_79 | (_Inst_decode_T_81 | (
     _Inst_decode_T_83 | (_Inst_decode_T_85 | (_Inst_decode_T_87 | (_Inst_decode_T_89 | (_Inst_decode_T_91 | (
     _Inst_decode_T_93 | _Inst_decode_T_333))))))))))))))))))))))))))))); // @[Lookup.scala 34:39]
+  wire  Inst_decode_3 = _Inst_decode_T_1 | (_Inst_decode_T_3 | (_Inst_decode_T_5 | (_Inst_decode_T_7 | (_Inst_decode_T_9
+     | (_Inst_decode_T_11 | (_Inst_decode_T_13 | (_Inst_decode_T_15 | (_Inst_decode_T_17 | (_Inst_decode_T_19 | (
+    _Inst_decode_T_21 | (_Inst_decode_T_23 | (_Inst_decode_T_25 | (_Inst_decode_T_27 | (_Inst_decode_T_29 | (
+    _Inst_decode_T_31 | (_Inst_decode_T_33 | _Inst_decode_T_363)))))))))))))))); // @[Lookup.scala 34:39]
   wire  _srctype1_T = 4'h8 == Inst_decode_0; // @[util.scala 31:32]
   wire  _srctype1_T_2 = 4'h9 == Inst_decode_0; // @[util.scala 31:32]
   wire  _srctype1_T_3 = 4'hb == Inst_decode_0; // @[util.scala 31:32]
@@ -397,24 +404,24 @@ module ID(
   wire [63:0] _imm_T_10 = _imm_T_5 | _imm_T_6; // @[Mux.scala 27:73]
   wire [63:0] _imm_T_11 = _imm_T_10 | _imm_T_7; // @[Mux.scala 27:73]
   wire [63:0] _imm_T_12 = _imm_T_11 | _imm_T_8; // @[Mux.scala 27:73]
-  assign io_out_bits_ctrl_signal_src1Type = {{1'd0}, srctype1}; // @[ID.scala 87:36]
-  assign io_out_bits_ctrl_signal_src2Type = {{2'd0}, srctype2}; // @[ID.scala 88:36]
+  assign io_out_valid = io_in_valid; // @[ID.scala 105:36]
+  assign io_out_bits_ctrl_signal_src1Type = {{1'd0}, srctype1}; // @[ID.scala 88:36]
+  assign io_out_bits_ctrl_signal_src2Type = {{2'd0}, srctype2}; // @[ID.scala 89:36]
   assign io_out_bits_ctrl_signal_fuType = _Inst_decode_T_1 ? 3'h0 : _Inst_decode_T_253; // @[Lookup.scala 34:39]
-  assign io_out_bits_ctrl_signal_inst_valid = Inst_decode_2 == 7'h0 ? 1'h0 : 1'h1; // @[ID.scala 89:44]
-  assign io_out_bits_ctrl_signal_rfSrc1 = io_in_bits_Inst[19:15]; // @[ID.scala 50:38]
-  assign io_out_bits_ctrl_signal_rfWen = _Inst_decode_T_1 | (_Inst_decode_T_3 | (_Inst_decode_T_5 | (_Inst_decode_T_7 |
-    (_Inst_decode_T_9 | (_Inst_decode_T_11 | (_Inst_decode_T_13 | (_Inst_decode_T_15 | (_Inst_decode_T_17 | (
-    _Inst_decode_T_19 | (_Inst_decode_T_21 | (_Inst_decode_T_23 | (_Inst_decode_T_25 | (_Inst_decode_T_27 | (
-    _Inst_decode_T_29 | (_Inst_decode_T_31 | (_Inst_decode_T_33 | _Inst_decode_T_363)))))))))))))))); // @[Lookup.scala 34:39]
+  assign io_out_bits_ctrl_signal_inst_valid = Inst_decode_2 == 7'h0 | ~io_in_valid ? 1'h0 : 1'h1; // @[ID.scala 90:44]
+  assign io_out_bits_ctrl_signal_rfSrc1 = io_in_bits_Inst[19:15]; // @[ID.scala 51:38]
+  assign io_out_bits_ctrl_signal_rfSrc2 = io_in_bits_Inst[24:20]; // @[ID.scala 51:63]
+  assign io_out_bits_ctrl_signal_rfWen = io_in_valid & Inst_decode_3; // @[ID.scala 85:40]
   assign io_out_bits_ctrl_signal_aluoptype = _Inst_decode_T_1 ? 7'h40 : _Inst_decode_T_316; // @[Lookup.scala 34:39]
-  assign io_out_bits_ctrl_signal_rfDest = io_in_bits_Inst[11:7]; // @[ID.scala 50:88]
-  assign io_out_bits_ctrl_data_src1 = io_REG1; // @[ID.scala 97:30]
-  assign io_out_bits_ctrl_data_src2 = io_REG2; // @[ID.scala 98:30]
+  assign io_out_bits_ctrl_signal_rfDest = io_in_bits_Inst[11:7]; // @[ID.scala 51:88]
+  assign io_out_bits_ctrl_data_src1 = io_REG1; // @[ID.scala 99:30]
+  assign io_out_bits_ctrl_data_src2 = io_REG2; // @[ID.scala 100:30]
   assign io_out_bits_ctrl_data_Imm = _imm_T_12 | _imm_T_9; // @[Mux.scala 27:73]
-  assign io_out_bits_ctrl_flow_PC = io_in_bits_PC; // @[ID.scala 92:28]
-  assign io_out_bits_ctrl_flow_inst = io_in_bits_Inst; // @[ID.scala 93:30]
+  assign io_out_bits_ctrl_flow_PC = io_in_bits_PC; // @[ID.scala 93:28]
+  assign io_out_bits_ctrl_flow_inst = io_in_bits_Inst; // @[ID.scala 94:30]
 endmodule
 module EXE(
+  input         io_in_valid,
   input  [2:0]  io_in_bits_ctrl_signal_src1Type,
   input  [2:0]  io_in_bits_ctrl_signal_src2Type,
   input  [2:0]  io_in_bits_ctrl_signal_fuType,
@@ -430,23 +437,28 @@ module EXE(
   output        io_branchIO_is_branch,
   output        io_branchIO_is_jump,
   output [63:0] io_branchIO_dnpc,
+  output        io_out_valid,
   output [2:0]  io_out_bits_ctrl_signal_fuType,
   output        io_out_bits_ctrl_signal_inst_valid,
+  output        io_out_bits_ctrl_signal_rfWen,
   output [6:0]  io_out_bits_ctrl_signal_aluoptype,
   output [63:0] io_out_bits_ctrl_flow_PC,
   output [31:0] io_out_bits_ctrl_flow_inst,
+  output [63:0] io_out_bits_ctrl_flow_Dnpc,
   output [4:0]  io_out_bits_ctrl_rf_rfDest,
   output        io_out_bits_ctrl_rf_rfWen,
   output [63:0] io_out_bits_ctrl_rf_rfData,
   output [63:0] io_out_bits_ctrl_data_src1,
   output [63:0] io_out_bits_ctrl_data_src2,
   output [63:0] io_out_bits_ctrl_data_Imm,
-  output        io_is_break
+  output        io_is_break,
+  output        io_is_flush
 );
   wire [63:0] _GEN_1 = 3'h2 == io_in_bits_ctrl_signal_src1Type ? io_in_bits_ctrl_flow_PC : 64'h0; // @[EXE.scala 94:43 99:12]
   wire [63:0] src1 = 3'h0 == io_in_bits_ctrl_signal_src1Type ? io_in_bits_ctrl_data_src1 : _GEN_1; // @[EXE.scala 94:43 96:12]
   wire [63:0] _GEN_3 = 3'h1 == io_in_bits_ctrl_signal_src2Type ? io_in_bits_ctrl_data_Imm : 64'h0; // @[EXE.scala 105:43 110:12]
   wire [63:0] src2 = 3'h0 == io_in_bits_ctrl_signal_src2Type ? io_in_bits_ctrl_data_src2 : _GEN_3; // @[EXE.scala 105:43 107:12]
+  wire [63:0] _dnpc_T_1 = io_in_bits_ctrl_flow_PC + 64'h4; // @[EXE.scala 116:49]
   wire [63:0] _alu_result_T_1 = src1 + src2; // @[EXE.scala 120:26]
   wire  alu_result_sign = _alu_result_T_1[31]; // @[util.scala 10:19]
   wire [31:0] _alu_result_T_6 = alu_result_sign ? 32'hffffffff : 32'h0; // @[Bitwise.scala 74:12]
@@ -545,8 +557,8 @@ module EXE(
   wire [63:0] _compar_result_T_5 = $signed(_alu_result_T_58) < $signed(_alu_result_T_59) ? 64'h1 : 64'h0; // @[EXE.scala 225:27]
   wire [63:0] _GEN_33 = 7'h2 == io_in_bits_ctrl_signal_aluoptype ? _compar_result_T_5 : 64'h0; // @[EXE.scala 220:44 225:21]
   wire [63:0] compar_result = 7'h6a == io_in_bits_ctrl_signal_aluoptype ? _compar_result_T_1 : _GEN_33; // @[EXE.scala 220:44 222:21]
-  wire [63:0] _jump_result_T_2 = io_in_bits_ctrl_flow_PC + 64'h4; // @[EXE.scala 230:72]
-  wire [63:0] jump_result = io_in_bits_ctrl_signal_fuType == 3'h3 ? _jump_result_T_2 : 64'h0; // @[EXE.scala 230:21]
+  wire  _jump_result_T = io_in_bits_ctrl_signal_fuType == 3'h3; // @[EXE.scala 230:52]
+  wire [63:0] jump_result = io_in_bits_ctrl_signal_fuType == 3'h3 ? _dnpc_T_1 : 64'h0; // @[EXE.scala 230:21]
   wire [63:0] _GEN_35 = 3'h5 == io_in_bits_ctrl_signal_fuType ? compar_result : 64'h0; // @[EXE.scala 233:41 247:18]
   wire [63:0] shift_result = _GEN_32[63:0];
   wire [63:0] _GEN_36 = 3'h1 == io_in_bits_ctrl_signal_fuType ? shift_result : _GEN_35; // @[EXE.scala 233:41 244:18]
@@ -573,46 +585,55 @@ module EXE(
   wire  _GEN_51 = 7'h6c == io_in_bits_ctrl_signal_aluoptype ? src1 != src2 : _GEN_49; // @[EXE.scala 255:44 262:19]
   wire [63:0] branch_result = 7'h6b == io_in_bits_ctrl_signal_aluoptype ? _branch_result_T_1 : _GEN_50; // @[EXE.scala 255:44 257:21]
   wire  branch_flag = 7'h6b == io_in_bits_ctrl_signal_aluoptype ? src1 == src2 : _GEN_51; // @[EXE.scala 255:44 258:19]
-  wire [63:0] _dnpc_T_5 = {_alu_result_T_1[63:1],1'h0}; // @[Cat.scala 31:58]
-  wire [63:0] _dnpc_T_9 = branch_flag ? branch_result : _jump_result_T_2; // @[EXE.scala 297:18]
-  wire [63:0] _GEN_54 = _T_44 ? _dnpc_T_9 : 64'h0; // @[EXE.scala 289:44 313:12]
-  wire [63:0] _GEN_55 = _T_43 ? _dnpc_T_9 : _GEN_54; // @[EXE.scala 289:44 310:12]
-  wire [63:0] _GEN_56 = _T_45 ? _dnpc_T_9 : _GEN_55; // @[EXE.scala 289:44 307:12]
-  wire [63:0] _GEN_57 = _T_42 ? _dnpc_T_9 : _GEN_56; // @[EXE.scala 289:44 304:12]
-  wire [63:0] _GEN_58 = _T_41 ? _dnpc_T_9 : _GEN_57; // @[EXE.scala 289:44 301:12]
-  wire [63:0] _GEN_59 = _T_40 ? _dnpc_T_9 : _GEN_58; // @[EXE.scala 289:44 297:12]
-  wire [63:0] _GEN_60 = 7'h48 == io_in_bits_ctrl_signal_aluoptype ? _dnpc_T_5 : _GEN_59; // @[EXE.scala 289:44 294:12]
-  assign io_branchIO_is_branch = 7'h6b == io_in_bits_ctrl_signal_aluoptype ? src1 == src2 : _GEN_51; // @[EXE.scala 255:44 258:19]
-  assign io_branchIO_is_jump = io_in_bits_ctrl_signal_fuType == 3'h3; // @[EXE.scala 347:60]
+  wire [63:0] _dnpc_T_7 = {_alu_result_T_1[63:1],1'h0}; // @[Cat.scala 31:58]
+  wire [63:0] _dnpc_T_11 = branch_flag ? branch_result : _dnpc_T_1; // @[EXE.scala 297:18]
+  wire [63:0] _GEN_54 = _T_44 ? _dnpc_T_11 : _dnpc_T_1; // @[EXE.scala 289:44 313:12]
+  wire [63:0] _GEN_55 = _T_43 ? _dnpc_T_11 : _GEN_54; // @[EXE.scala 289:44 310:12]
+  wire [63:0] _GEN_56 = _T_45 ? _dnpc_T_11 : _GEN_55; // @[EXE.scala 289:44 307:12]
+  wire [63:0] _GEN_57 = _T_42 ? _dnpc_T_11 : _GEN_56; // @[EXE.scala 289:44 304:12]
+  wire [63:0] _GEN_58 = _T_41 ? _dnpc_T_11 : _GEN_57; // @[EXE.scala 289:44 301:12]
+  wire [63:0] _GEN_59 = _T_40 ? _dnpc_T_11 : _GEN_58; // @[EXE.scala 289:44 297:12]
+  wire [63:0] _GEN_60 = 7'h48 == io_in_bits_ctrl_signal_aluoptype ? _dnpc_T_7 : _GEN_59; // @[EXE.scala 289:44 294:12]
+  assign io_branchIO_is_branch = branch_flag & io_in_valid; // @[EXE.scala 350:40]
+  assign io_branchIO_is_jump = _jump_result_T & io_in_valid; // @[EXE.scala 351:76]
   assign io_branchIO_dnpc = 7'h19 == io_in_bits_ctrl_signal_aluoptype ? _alu_result_T_1 : _GEN_60; // @[EXE.scala 289:44 291:12]
+  assign io_out_valid = io_in_valid; // @[EXE.scala 353:36]
   assign io_out_bits_ctrl_signal_fuType = io_in_bits_ctrl_signal_fuType; // @[EXE.scala 336:27]
-  assign io_out_bits_ctrl_signal_inst_valid = io_in_bits_ctrl_signal_inst_valid; // @[EXE.scala 336:27]
+  assign io_out_bits_ctrl_signal_inst_valid = io_in_valid & io_in_bits_ctrl_signal_inst_valid; // @[EXE.scala 340:44]
+  assign io_out_bits_ctrl_signal_rfWen = io_in_bits_ctrl_signal_rfWen; // @[EXE.scala 336:27]
   assign io_out_bits_ctrl_signal_aluoptype = io_in_bits_ctrl_signal_aluoptype; // @[EXE.scala 336:27]
   assign io_out_bits_ctrl_flow_PC = io_in_bits_ctrl_flow_PC; // @[EXE.scala 337:25]
   assign io_out_bits_ctrl_flow_inst = io_in_bits_ctrl_flow_inst; // @[EXE.scala 337:25]
-  assign io_out_bits_ctrl_rf_rfDest = io_in_bits_ctrl_signal_rfDest; // @[EXE.scala 343:30]
-  assign io_out_bits_ctrl_rf_rfWen = io_in_bits_ctrl_signal_rfWen; // @[EXE.scala 344:29]
+  assign io_out_bits_ctrl_flow_Dnpc = 7'h19 == io_in_bits_ctrl_signal_aluoptype ? _alu_result_T_1 : _GEN_60; // @[EXE.scala 289:44 291:12]
+  assign io_out_bits_ctrl_rf_rfDest = io_in_bits_ctrl_signal_rfDest; // @[EXE.scala 346:30]
+  assign io_out_bits_ctrl_rf_rfWen = io_in_valid & io_in_bits_ctrl_signal_rfWen; // @[EXE.scala 347:35]
   assign io_out_bits_ctrl_rf_rfData = 3'h0 == io_in_bits_ctrl_signal_fuType ? alu_result : _GEN_38; // @[EXE.scala 233:41 235:18]
   assign io_out_bits_ctrl_data_src1 = 3'h0 == io_in_bits_ctrl_signal_src1Type ? io_in_bits_ctrl_data_src1 : _GEN_1; // @[EXE.scala 94:43 96:12]
   assign io_out_bits_ctrl_data_src2 = 3'h0 == io_in_bits_ctrl_signal_src2Type ? io_in_bits_ctrl_data_src2 : _GEN_3; // @[EXE.scala 105:43 107:12]
   assign io_out_bits_ctrl_data_Imm = io_in_bits_ctrl_data_Imm; // @[EXE.scala 338:25]
   assign io_is_break = io_in_bits_ctrl_signal_aluoptype == 7'h42; // @[EXE.scala 334:56]
+  assign io_is_flush = (branch_flag | io_branchIO_is_jump) & io_in_valid; // @[EXE.scala 333:75]
 endmodule
 module MEM_stage(
+  input         io_in_valid,
   input  [2:0]  io_in_bits_ctrl_signal_fuType,
   input         io_in_bits_ctrl_signal_inst_valid,
+  input         io_in_bits_ctrl_signal_rfWen,
   input  [6:0]  io_in_bits_ctrl_signal_aluoptype,
   input  [63:0] io_in_bits_ctrl_flow_PC,
   input  [31:0] io_in_bits_ctrl_flow_inst,
+  input  [63:0] io_in_bits_ctrl_flow_Dnpc,
   input  [4:0]  io_in_bits_ctrl_rf_rfDest,
-  input         io_in_bits_ctrl_rf_rfWen,
   input  [63:0] io_in_bits_ctrl_rf_rfData,
   input  [63:0] io_in_bits_ctrl_data_src1,
   input  [63:0] io_in_bits_ctrl_data_src2,
   input  [63:0] io_in_bits_ctrl_data_Imm,
+  output        io_out_valid,
   output        io_out_bits_ctrl_signal_inst_valid,
+  output        io_out_bits_ctrl_signal_rfWen,
   output [63:0] io_out_bits_ctrl_flow_PC,
   output [31:0] io_out_bits_ctrl_flow_inst,
+  output [63:0] io_out_bits_ctrl_flow_Dnpc,
   output [4:0]  io_out_bits_ctrl_rf_rfDest,
   output        io_out_bits_ctrl_rf_rfWen,
   output [63:0] io_out_bits_ctrl_rf_rfData,
@@ -624,9 +645,8 @@ module MEM_stage(
   output        io_mem_we
 );
   wire  _T_62 = 7'h45 == io_in_bits_ctrl_signal_aluoptype; // @[MEM.scala 53:44]
-  wire [63:0] _addr_temp_T_1 = io_in_bits_ctrl_data_src1 + io_in_bits_ctrl_data_src2; // @[MEM.scala 55:25]
+  wire [63:0] _addr_temp_T_1 = io_in_bits_ctrl_data_src1 + io_in_bits_ctrl_data_Imm; // @[MEM.scala 55:25]
   wire  _T_63 = 7'h46 == io_in_bits_ctrl_signal_aluoptype; // @[MEM.scala 53:44]
-  wire [63:0] _addr_temp_T_3 = io_in_bits_ctrl_data_src1 + io_in_bits_ctrl_data_Imm; // @[MEM.scala 58:25]
   wire  _T_64 = 7'h70 == io_in_bits_ctrl_signal_aluoptype; // @[MEM.scala 53:44]
   wire  _T_65 = 7'h47 == io_in_bits_ctrl_signal_aluoptype; // @[MEM.scala 53:44]
   wire  _T_66 = 7'h11 == io_in_bits_ctrl_signal_aluoptype; // @[MEM.scala 53:44]
@@ -636,16 +656,16 @@ module MEM_stage(
   wire  _T_70 = 7'h77 == io_in_bits_ctrl_signal_aluoptype; // @[MEM.scala 53:44]
   wire  _T_71 = 7'h3 == io_in_bits_ctrl_signal_aluoptype; // @[MEM.scala 53:44]
   wire  _T_72 = 7'h4 == io_in_bits_ctrl_signal_aluoptype; // @[MEM.scala 53:44]
-  wire [63:0] _GEN_0 = 7'h4 == io_in_bits_ctrl_signal_aluoptype ? _addr_temp_T_3 : 64'h0; // @[MEM.scala 53:44 89:17]
-  wire [63:0] _GEN_1 = 7'h3 == io_in_bits_ctrl_signal_aluoptype ? _addr_temp_T_3 : _GEN_0; // @[MEM.scala 53:44 86:17]
-  wire [63:0] _GEN_2 = 7'h77 == io_in_bits_ctrl_signal_aluoptype ? _addr_temp_T_3 : _GEN_1; // @[MEM.scala 53:44 82:17]
-  wire [63:0] _GEN_4 = 7'h74 == io_in_bits_ctrl_signal_aluoptype ? _addr_temp_T_3 : _GEN_2; // @[MEM.scala 53:44 78:17]
-  wire [63:0] _GEN_6 = 7'he == io_in_bits_ctrl_signal_aluoptype ? _addr_temp_T_3 : _GEN_4; // @[MEM.scala 53:44 75:17]
-  wire [63:0] _GEN_8 = 7'h6f == io_in_bits_ctrl_signal_aluoptype ? _addr_temp_T_3 : _GEN_6; // @[MEM.scala 53:44 72:17]
-  wire [63:0] _GEN_10 = 7'h11 == io_in_bits_ctrl_signal_aluoptype ? _addr_temp_T_3 : _GEN_8; // @[MEM.scala 53:44 69:17]
-  wire [63:0] _GEN_12 = 7'h47 == io_in_bits_ctrl_signal_aluoptype ? _addr_temp_T_3 : _GEN_10; // @[MEM.scala 53:44 66:17]
-  wire [63:0] _GEN_14 = 7'h70 == io_in_bits_ctrl_signal_aluoptype ? _addr_temp_T_3 : _GEN_12; // @[MEM.scala 53:44 62:17]
-  wire [63:0] _GEN_16 = 7'h46 == io_in_bits_ctrl_signal_aluoptype ? _addr_temp_T_3 : _GEN_14; // @[MEM.scala 53:44 58:17]
+  wire [63:0] _GEN_0 = 7'h4 == io_in_bits_ctrl_signal_aluoptype ? _addr_temp_T_1 : 64'h0; // @[MEM.scala 53:44 89:17]
+  wire [63:0] _GEN_1 = 7'h3 == io_in_bits_ctrl_signal_aluoptype ? _addr_temp_T_1 : _GEN_0; // @[MEM.scala 53:44 86:17]
+  wire [63:0] _GEN_2 = 7'h77 == io_in_bits_ctrl_signal_aluoptype ? _addr_temp_T_1 : _GEN_1; // @[MEM.scala 53:44 82:17]
+  wire [63:0] _GEN_4 = 7'h74 == io_in_bits_ctrl_signal_aluoptype ? _addr_temp_T_1 : _GEN_2; // @[MEM.scala 53:44 78:17]
+  wire [63:0] _GEN_6 = 7'he == io_in_bits_ctrl_signal_aluoptype ? _addr_temp_T_1 : _GEN_4; // @[MEM.scala 53:44 75:17]
+  wire [63:0] _GEN_8 = 7'h6f == io_in_bits_ctrl_signal_aluoptype ? _addr_temp_T_1 : _GEN_6; // @[MEM.scala 53:44 72:17]
+  wire [63:0] _GEN_10 = 7'h11 == io_in_bits_ctrl_signal_aluoptype ? _addr_temp_T_1 : _GEN_8; // @[MEM.scala 53:44 69:17]
+  wire [63:0] _GEN_12 = 7'h47 == io_in_bits_ctrl_signal_aluoptype ? _addr_temp_T_1 : _GEN_10; // @[MEM.scala 53:44 66:17]
+  wire [63:0] _GEN_14 = 7'h70 == io_in_bits_ctrl_signal_aluoptype ? _addr_temp_T_1 : _GEN_12; // @[MEM.scala 53:44 62:17]
+  wire [63:0] _GEN_16 = 7'h46 == io_in_bits_ctrl_signal_aluoptype ? _addr_temp_T_1 : _GEN_14; // @[MEM.scala 53:44 58:17]
   wire [63:0] addr_temp = 7'h45 == io_in_bits_ctrl_signal_aluoptype ? _addr_temp_T_1 : _GEN_16; // @[MEM.scala 53:44 55:17]
   wire  _T_1 = addr_temp[2:0] == 3'h0; // @[MEM.scala 33:22]
   wire  _T_3 = addr_temp[2:0] == 3'h1; // @[MEM.scala 34:22]
@@ -749,38 +769,79 @@ module MEM_stage(
   wire [63:0] _GEN_40 = _T_66 ? _mem_result_T_19 : _GEN_39; // @[MEM.scala 145:44 153:18]
   wire [63:0] _GEN_41 = _T_65 ? _mem_result_T_10 : _GEN_40; // @[MEM.scala 145:44 150:18]
   wire [63:0] mem_result = _T_62 ? io_mem_rdata : _GEN_41; // @[MEM.scala 145:44 147:18]
-  assign io_out_bits_ctrl_signal_inst_valid = io_in_bits_ctrl_signal_inst_valid; // @[MEM.scala 170:27]
+  wire  _io_out_bits_ctrl_rf_rfData_T = io_in_bits_ctrl_signal_fuType == 3'h4; // @[MEM.scala 174:67]
+  assign io_out_valid = io_in_valid; // @[MEM.scala 181:36]
+  assign io_out_bits_ctrl_signal_inst_valid = io_in_valid & io_in_bits_ctrl_signal_inst_valid; // @[MEM.scala 173:44]
+  assign io_out_bits_ctrl_signal_rfWen = io_in_bits_ctrl_signal_rfWen; // @[MEM.scala 170:27]
   assign io_out_bits_ctrl_flow_PC = io_in_bits_ctrl_flow_PC; // @[MEM.scala 171:25]
   assign io_out_bits_ctrl_flow_inst = io_in_bits_ctrl_flow_inst; // @[MEM.scala 171:25]
+  assign io_out_bits_ctrl_flow_Dnpc = io_in_bits_ctrl_flow_Dnpc; // @[MEM.scala 171:25]
   assign io_out_bits_ctrl_rf_rfDest = io_in_bits_ctrl_rf_rfDest; // @[MEM.scala 172:23]
-  assign io_out_bits_ctrl_rf_rfWen = io_in_bits_ctrl_rf_rfWen; // @[MEM.scala 172:23]
-  assign io_out_bits_ctrl_rf_rfData = io_in_bits_ctrl_signal_fuType == 3'h4 ? mem_result : io_in_bits_ctrl_rf_rfData; // @[MEM.scala 173:36]
+  assign io_out_bits_ctrl_rf_rfWen = io_in_valid & io_in_bits_ctrl_signal_rfWen; // @[MEM.scala 175:35]
+  assign io_out_bits_ctrl_rf_rfData = io_in_bits_ctrl_signal_fuType == 3'h4 ? mem_result : io_in_bits_ctrl_rf_rfData; // @[MEM.scala 174:36]
   assign io_mem_addr = 7'h45 == io_in_bits_ctrl_signal_aluoptype ? _addr_temp_T_1 : _GEN_16; // @[MEM.scala 53:44 55:17]
   assign io_mem_wdata = _T_63 ? io_in_bits_ctrl_data_src2 : _GEN_33; // @[MEM.scala 92:44 96:18]
   assign io_mem_wmask = _T_63 ? 8'hff : _GEN_32; // @[MEM.scala 92:44 95:18]
-  assign io_mem_ce = io_in_bits_ctrl_signal_fuType == 3'h4; // @[MEM.scala 182:50]
+  assign io_mem_ce = _io_out_bits_ctrl_rf_rfData_T & io_in_valid; // @[MEM.scala 184:65]
   assign io_mem_we = 7'h45 == io_in_bits_ctrl_signal_aluoptype ? 1'h0 : _GEN_17; // @[MEM.scala 53:44]
 endmodule
 module WB(
+  input         io_in_valid,
   input         io_in_bits_ctrl_signal_inst_valid,
+  input         io_in_bits_ctrl_signal_rfWen,
   input  [63:0] io_in_bits_ctrl_flow_PC,
   input  [31:0] io_in_bits_ctrl_flow_inst,
+  input  [63:0] io_in_bits_ctrl_flow_Dnpc,
   input  [4:0]  io_in_bits_ctrl_rf_rfDest,
-  input         io_in_bits_ctrl_rf_rfWen,
   input  [63:0] io_in_bits_ctrl_rf_rfData,
   output        io_out_bits_ctrl_signal_inst_valid,
   output [63:0] io_out_bits_ctrl_flow_PC,
   output [31:0] io_out_bits_ctrl_flow_inst,
+  output [63:0] io_out_bits_ctrl_flow_Dnpc,
   output [4:0]  io_out_bits_ctrl_rf_rfDest,
   output        io_out_bits_ctrl_rf_rfWen,
   output [63:0] io_out_bits_ctrl_rf_rfData
 );
-  assign io_out_bits_ctrl_signal_inst_valid = io_in_bits_ctrl_signal_inst_valid; // @[WB.scala 13:15]
+  assign io_out_bits_ctrl_signal_inst_valid = io_in_valid & io_in_bits_ctrl_signal_inst_valid; // @[WB.scala 15:44]
   assign io_out_bits_ctrl_flow_PC = io_in_bits_ctrl_flow_PC; // @[WB.scala 13:15]
   assign io_out_bits_ctrl_flow_inst = io_in_bits_ctrl_flow_inst; // @[WB.scala 13:15]
+  assign io_out_bits_ctrl_flow_Dnpc = io_in_bits_ctrl_flow_Dnpc; // @[WB.scala 13:15]
   assign io_out_bits_ctrl_rf_rfDest = io_in_bits_ctrl_rf_rfDest; // @[WB.scala 13:15]
-  assign io_out_bits_ctrl_rf_rfWen = io_in_bits_ctrl_rf_rfWen; // @[WB.scala 13:15]
+  assign io_out_bits_ctrl_rf_rfWen = io_in_valid & io_in_bits_ctrl_signal_rfWen; // @[WB.scala 16:35]
   assign io_out_bits_ctrl_rf_rfData = io_in_bits_ctrl_rf_rfData; // @[WB.scala 13:15]
+endmodule
+module Bypass(
+  input  [4:0]  io_EX_rf_rfDest,
+  input         io_EX_rf_rfWen,
+  input  [63:0] io_EX_rf_rfData,
+  input  [4:0]  io_MEM_rf_rfDest,
+  input         io_MEM_rf_rfWen,
+  input  [63:0] io_MEM_rf_rfData,
+  input  [4:0]  io_WB_rf_rfDest,
+  input         io_WB_rf_rfWen,
+  input  [63:0] io_WB_rf_rfData,
+  input  [63:0] io_Reg1,
+  input  [4:0]  io_reg_index1,
+  input  [63:0] io_Reg2,
+  input  [4:0]  io_reg_index2,
+  output [63:0] io_Bypass_REG1,
+  output [63:0] io_Bypass_REG2
+);
+  wire  _reg1_temp_T_3 = io_EX_rf_rfDest != 5'h0; // @[Bypass.scala 26:92]
+  wire  _reg1_temp_T_4 = io_EX_rf_rfWen & io_EX_rf_rfDest == io_reg_index1 & io_EX_rf_rfDest != 5'h0; // @[Bypass.scala 26:73]
+  wire  _reg1_temp_T_8 = io_MEM_rf_rfDest != 5'h0; // @[Bypass.scala 27:95]
+  wire  _reg1_temp_T_9 = io_MEM_rf_rfWen & io_MEM_rf_rfDest == io_reg_index1 & io_MEM_rf_rfDest != 5'h0; // @[Bypass.scala 27:75]
+  wire  _reg1_temp_T_13 = io_WB_rf_rfDest != 5'h0; // @[Bypass.scala 28:92]
+  wire  _reg1_temp_T_14 = io_WB_rf_rfWen & io_WB_rf_rfDest == io_reg_index1 & io_WB_rf_rfDest != 5'h0; // @[Bypass.scala 28:73]
+  wire [63:0] _reg1_temp_T_15 = _reg1_temp_T_14 ? io_WB_rf_rfData : io_Reg1; // @[Mux.scala 47:70]
+  wire [63:0] _reg1_temp_T_16 = _reg1_temp_T_9 ? io_MEM_rf_rfData : _reg1_temp_T_15; // @[Mux.scala 47:70]
+  wire  _reg2_temp_T_4 = io_EX_rf_rfWen & io_EX_rf_rfDest == io_reg_index2 & _reg1_temp_T_3; // @[Bypass.scala 34:73]
+  wire  _reg2_temp_T_9 = io_MEM_rf_rfWen & io_MEM_rf_rfDest == io_reg_index2 & _reg1_temp_T_8; // @[Bypass.scala 35:75]
+  wire  _reg2_temp_T_14 = io_WB_rf_rfWen & io_WB_rf_rfDest == io_reg_index2 & _reg1_temp_T_13; // @[Bypass.scala 36:73]
+  wire [63:0] _reg2_temp_T_15 = _reg2_temp_T_14 ? io_WB_rf_rfData : io_Reg2; // @[Mux.scala 47:70]
+  wire [63:0] _reg2_temp_T_16 = _reg2_temp_T_9 ? io_MEM_rf_rfData : _reg2_temp_T_15; // @[Mux.scala 47:70]
+  assign io_Bypass_REG1 = _reg1_temp_T_4 ? io_EX_rf_rfData : _reg1_temp_T_16; // @[Mux.scala 47:70]
+  assign io_Bypass_REG2 = _reg2_temp_T_4 ? io_EX_rf_rfData : _reg2_temp_T_16; // @[Mux.scala 47:70]
 endmodule
 module CoreTop(
   input         clock,
@@ -792,8 +853,8 @@ module CoreTop(
   reg [63:0] _RAND_0;
 `endif // RANDOMIZE_MEM_INIT
 `ifdef RANDOMIZE_REG_INIT
-  reg [63:0] _RAND_1;
-  reg [31:0] _RAND_2;
+  reg [31:0] _RAND_1;
+  reg [63:0] _RAND_2;
   reg [31:0] _RAND_3;
   reg [31:0] _RAND_4;
   reg [31:0] _RAND_5;
@@ -801,164 +862,148 @@ module CoreTop(
   reg [31:0] _RAND_7;
   reg [31:0] _RAND_8;
   reg [31:0] _RAND_9;
-  reg [63:0] _RAND_10;
-  reg [63:0] _RAND_11;
+  reg [31:0] _RAND_10;
+  reg [31:0] _RAND_11;
   reg [63:0] _RAND_12;
   reg [63:0] _RAND_13;
-  reg [31:0] _RAND_14;
-  reg [31:0] _RAND_15;
+  reg [63:0] _RAND_14;
+  reg [63:0] _RAND_15;
   reg [31:0] _RAND_16;
   reg [31:0] _RAND_17;
-  reg [63:0] _RAND_18;
+  reg [31:0] _RAND_18;
   reg [31:0] _RAND_19;
   reg [31:0] _RAND_20;
   reg [31:0] _RAND_21;
   reg [63:0] _RAND_22;
-  reg [63:0] _RAND_23;
+  reg [31:0] _RAND_23;
   reg [63:0] _RAND_24;
-  reg [63:0] _RAND_25;
-  reg [31:0] _RAND_26;
+  reg [31:0] _RAND_25;
+  reg [63:0] _RAND_26;
   reg [63:0] _RAND_27;
-  reg [31:0] _RAND_28;
-  reg [31:0] _RAND_29;
+  reg [63:0] _RAND_28;
+  reg [63:0] _RAND_29;
   reg [31:0] _RAND_30;
-  reg [63:0] _RAND_31;
-  reg [63:0] _RAND_32;
+  reg [31:0] _RAND_31;
+  reg [31:0] _RAND_32;
   reg [63:0] _RAND_33;
-  reg [63:0] _RAND_34;
+  reg [31:0] _RAND_34;
   reg [63:0] _RAND_35;
-  reg [63:0] _RAND_36;
+  reg [31:0] _RAND_36;
   reg [63:0] _RAND_37;
-  reg [63:0] _RAND_38;
-  reg [63:0] _RAND_39;
+  reg [31:0] _RAND_38;
+  reg [31:0] _RAND_39;
   reg [63:0] _RAND_40;
   reg [63:0] _RAND_41;
-  reg [63:0] _RAND_42;
-  reg [63:0] _RAND_43;
-  reg [63:0] _RAND_44;
-  reg [63:0] _RAND_45;
-  reg [63:0] _RAND_46;
-  reg [63:0] _RAND_47;
-  reg [63:0] _RAND_48;
-  reg [63:0] _RAND_49;
-  reg [63:0] _RAND_50;
-  reg [63:0] _RAND_51;
-  reg [63:0] _RAND_52;
-  reg [63:0] _RAND_53;
-  reg [63:0] _RAND_54;
-  reg [63:0] _RAND_55;
-  reg [63:0] _RAND_56;
-  reg [63:0] _RAND_57;
-  reg [63:0] _RAND_58;
-  reg [63:0] _RAND_59;
-  reg [63:0] _RAND_60;
-  reg [63:0] _RAND_61;
-  reg [63:0] _RAND_62;
-  reg [63:0] _RAND_63;
-  reg [31:0] _RAND_64;
-  reg [31:0] _RAND_65;
-  reg [63:0] _RAND_66;
-  reg [31:0] _RAND_67;
+  reg [31:0] _RAND_42;
 `endif // RANDOMIZE_REG_INIT
-  wire  IF_clock; // @[CoreTop.scala 50:18]
-  wire  IF_reset; // @[CoreTop.scala 50:18]
-  wire  IF_io_branch_io_is_branch; // @[CoreTop.scala 50:18]
-  wire  IF_io_branch_io_is_jump; // @[CoreTop.scala 50:18]
-  wire [63:0] IF_io_branch_io_dnpc; // @[CoreTop.scala 50:18]
-  wire [31:0] IF_io_inst; // @[CoreTop.scala 50:18]
-  wire [63:0] IF_io_out_bits_PC; // @[CoreTop.scala 50:18]
-  wire [31:0] IF_io_out_bits_Inst; // @[CoreTop.scala 50:18]
-  wire  IFM_reset; // @[CoreTop.scala 52:19]
-  wire  IFM_clk; // @[CoreTop.scala 52:19]
-  wire [63:0] IFM_pc; // @[CoreTop.scala 52:19]
-  wire [31:0] IFM_inst; // @[CoreTop.scala 52:19]
-  wire [63:0] ID_io_in_bits_PC; // @[CoreTop.scala 54:18]
-  wire [31:0] ID_io_in_bits_Inst; // @[CoreTop.scala 54:18]
-  wire [63:0] ID_io_REG1; // @[CoreTop.scala 54:18]
-  wire [63:0] ID_io_REG2; // @[CoreTop.scala 54:18]
-  wire [2:0] ID_io_out_bits_ctrl_signal_src1Type; // @[CoreTop.scala 54:18]
-  wire [2:0] ID_io_out_bits_ctrl_signal_src2Type; // @[CoreTop.scala 54:18]
-  wire [2:0] ID_io_out_bits_ctrl_signal_fuType; // @[CoreTop.scala 54:18]
-  wire  ID_io_out_bits_ctrl_signal_inst_valid; // @[CoreTop.scala 54:18]
-  wire [4:0] ID_io_out_bits_ctrl_signal_rfSrc1; // @[CoreTop.scala 54:18]
-  wire  ID_io_out_bits_ctrl_signal_rfWen; // @[CoreTop.scala 54:18]
-  wire [6:0] ID_io_out_bits_ctrl_signal_aluoptype; // @[CoreTop.scala 54:18]
-  wire [4:0] ID_io_out_bits_ctrl_signal_rfDest; // @[CoreTop.scala 54:18]
-  wire [63:0] ID_io_out_bits_ctrl_data_src1; // @[CoreTop.scala 54:18]
-  wire [63:0] ID_io_out_bits_ctrl_data_src2; // @[CoreTop.scala 54:18]
-  wire [63:0] ID_io_out_bits_ctrl_data_Imm; // @[CoreTop.scala 54:18]
-  wire [63:0] ID_io_out_bits_ctrl_flow_PC; // @[CoreTop.scala 54:18]
-  wire [31:0] ID_io_out_bits_ctrl_flow_inst; // @[CoreTop.scala 54:18]
-  wire [2:0] EX_io_in_bits_ctrl_signal_src1Type; // @[CoreTop.scala 56:18]
-  wire [2:0] EX_io_in_bits_ctrl_signal_src2Type; // @[CoreTop.scala 56:18]
-  wire [2:0] EX_io_in_bits_ctrl_signal_fuType; // @[CoreTop.scala 56:18]
-  wire  EX_io_in_bits_ctrl_signal_inst_valid; // @[CoreTop.scala 56:18]
-  wire  EX_io_in_bits_ctrl_signal_rfWen; // @[CoreTop.scala 56:18]
-  wire [6:0] EX_io_in_bits_ctrl_signal_aluoptype; // @[CoreTop.scala 56:18]
-  wire [4:0] EX_io_in_bits_ctrl_signal_rfDest; // @[CoreTop.scala 56:18]
-  wire [63:0] EX_io_in_bits_ctrl_data_src1; // @[CoreTop.scala 56:18]
-  wire [63:0] EX_io_in_bits_ctrl_data_src2; // @[CoreTop.scala 56:18]
-  wire [63:0] EX_io_in_bits_ctrl_data_Imm; // @[CoreTop.scala 56:18]
-  wire [63:0] EX_io_in_bits_ctrl_flow_PC; // @[CoreTop.scala 56:18]
-  wire [31:0] EX_io_in_bits_ctrl_flow_inst; // @[CoreTop.scala 56:18]
-  wire  EX_io_branchIO_is_branch; // @[CoreTop.scala 56:18]
-  wire  EX_io_branchIO_is_jump; // @[CoreTop.scala 56:18]
-  wire [63:0] EX_io_branchIO_dnpc; // @[CoreTop.scala 56:18]
-  wire [2:0] EX_io_out_bits_ctrl_signal_fuType; // @[CoreTop.scala 56:18]
-  wire  EX_io_out_bits_ctrl_signal_inst_valid; // @[CoreTop.scala 56:18]
-  wire [6:0] EX_io_out_bits_ctrl_signal_aluoptype; // @[CoreTop.scala 56:18]
-  wire [63:0] EX_io_out_bits_ctrl_flow_PC; // @[CoreTop.scala 56:18]
-  wire [31:0] EX_io_out_bits_ctrl_flow_inst; // @[CoreTop.scala 56:18]
-  wire [4:0] EX_io_out_bits_ctrl_rf_rfDest; // @[CoreTop.scala 56:18]
-  wire  EX_io_out_bits_ctrl_rf_rfWen; // @[CoreTop.scala 56:18]
-  wire [63:0] EX_io_out_bits_ctrl_rf_rfData; // @[CoreTop.scala 56:18]
-  wire [63:0] EX_io_out_bits_ctrl_data_src1; // @[CoreTop.scala 56:18]
-  wire [63:0] EX_io_out_bits_ctrl_data_src2; // @[CoreTop.scala 56:18]
-  wire [63:0] EX_io_out_bits_ctrl_data_Imm; // @[CoreTop.scala 56:18]
-  wire  EX_io_is_break; // @[CoreTop.scala 56:18]
-  wire  DIP_is_break; // @[CoreTop.scala 58:19]
-  wire [63:0] DIP_rf_0; // @[CoreTop.scala 58:19]
-  wire [63:0] DIP_rf_1; // @[CoreTop.scala 58:19]
-  wire [63:0] DIP_rf_2; // @[CoreTop.scala 58:19]
-  wire [63:0] DIP_rf_3; // @[CoreTop.scala 58:19]
-  wire [63:0] DIP_rf_4; // @[CoreTop.scala 58:19]
-  wire [63:0] DIP_rf_5; // @[CoreTop.scala 58:19]
-  wire [63:0] DIP_rf_6; // @[CoreTop.scala 58:19]
-  wire [63:0] DIP_rf_7; // @[CoreTop.scala 58:19]
-  wire [63:0] DIP_rf_8; // @[CoreTop.scala 58:19]
-  wire [63:0] DIP_rf_9; // @[CoreTop.scala 58:19]
-  wire [63:0] DIP_rf_10; // @[CoreTop.scala 58:19]
-  wire [63:0] DIP_rf_11; // @[CoreTop.scala 58:19]
-  wire [63:0] DIP_rf_12; // @[CoreTop.scala 58:19]
-  wire [63:0] DIP_rf_13; // @[CoreTop.scala 58:19]
-  wire [63:0] DIP_rf_14; // @[CoreTop.scala 58:19]
-  wire [63:0] DIP_rf_15; // @[CoreTop.scala 58:19]
-  wire [63:0] DIP_rf_16; // @[CoreTop.scala 58:19]
-  wire [63:0] DIP_rf_17; // @[CoreTop.scala 58:19]
-  wire [63:0] DIP_rf_18; // @[CoreTop.scala 58:19]
-  wire [63:0] DIP_rf_19; // @[CoreTop.scala 58:19]
-  wire [63:0] DIP_rf_20; // @[CoreTop.scala 58:19]
-  wire [63:0] DIP_rf_21; // @[CoreTop.scala 58:19]
-  wire [63:0] DIP_rf_22; // @[CoreTop.scala 58:19]
-  wire [63:0] DIP_rf_23; // @[CoreTop.scala 58:19]
-  wire [63:0] DIP_rf_24; // @[CoreTop.scala 58:19]
-  wire [63:0] DIP_rf_25; // @[CoreTop.scala 58:19]
-  wire [63:0] DIP_rf_26; // @[CoreTop.scala 58:19]
-  wire [63:0] DIP_rf_27; // @[CoreTop.scala 58:19]
-  wire [63:0] DIP_rf_28; // @[CoreTop.scala 58:19]
-  wire [63:0] DIP_rf_29; // @[CoreTop.scala 58:19]
-  wire [63:0] DIP_rf_30; // @[CoreTop.scala 58:19]
-  wire [63:0] DIP_rf_31; // @[CoreTop.scala 58:19]
-  wire [31:0] DIP_inst; // @[CoreTop.scala 58:19]
-  wire [63:0] DIP_pc; // @[CoreTop.scala 58:19]
-  wire  DIP_inst_valid; // @[CoreTop.scala 58:19]
+  wire  IF_clock; // @[CoreTop.scala 51:18]
+  wire  IF_reset; // @[CoreTop.scala 51:18]
+  wire  IF_io_branch_io_is_branch; // @[CoreTop.scala 51:18]
+  wire  IF_io_branch_io_is_jump; // @[CoreTop.scala 51:18]
+  wire [63:0] IF_io_branch_io_dnpc; // @[CoreTop.scala 51:18]
+  wire [31:0] IF_io_inst; // @[CoreTop.scala 51:18]
+  wire [63:0] IF_io_out_bits_PC; // @[CoreTop.scala 51:18]
+  wire [31:0] IF_io_out_bits_Inst; // @[CoreTop.scala 51:18]
+  wire  IFM_reset; // @[CoreTop.scala 53:19]
+  wire  IFM_clk; // @[CoreTop.scala 53:19]
+  wire [63:0] IFM_pc; // @[CoreTop.scala 53:19]
+  wire [31:0] IFM_inst; // @[CoreTop.scala 53:19]
+  wire  ID_io_in_valid; // @[CoreTop.scala 55:18]
+  wire [63:0] ID_io_in_bits_PC; // @[CoreTop.scala 55:18]
+  wire [31:0] ID_io_in_bits_Inst; // @[CoreTop.scala 55:18]
+  wire [63:0] ID_io_REG1; // @[CoreTop.scala 55:18]
+  wire [63:0] ID_io_REG2; // @[CoreTop.scala 55:18]
+  wire  ID_io_out_valid; // @[CoreTop.scala 55:18]
+  wire [2:0] ID_io_out_bits_ctrl_signal_src1Type; // @[CoreTop.scala 55:18]
+  wire [2:0] ID_io_out_bits_ctrl_signal_src2Type; // @[CoreTop.scala 55:18]
+  wire [2:0] ID_io_out_bits_ctrl_signal_fuType; // @[CoreTop.scala 55:18]
+  wire  ID_io_out_bits_ctrl_signal_inst_valid; // @[CoreTop.scala 55:18]
+  wire [4:0] ID_io_out_bits_ctrl_signal_rfSrc1; // @[CoreTop.scala 55:18]
+  wire [4:0] ID_io_out_bits_ctrl_signal_rfSrc2; // @[CoreTop.scala 55:18]
+  wire  ID_io_out_bits_ctrl_signal_rfWen; // @[CoreTop.scala 55:18]
+  wire [6:0] ID_io_out_bits_ctrl_signal_aluoptype; // @[CoreTop.scala 55:18]
+  wire [4:0] ID_io_out_bits_ctrl_signal_rfDest; // @[CoreTop.scala 55:18]
+  wire [63:0] ID_io_out_bits_ctrl_data_src1; // @[CoreTop.scala 55:18]
+  wire [63:0] ID_io_out_bits_ctrl_data_src2; // @[CoreTop.scala 55:18]
+  wire [63:0] ID_io_out_bits_ctrl_data_Imm; // @[CoreTop.scala 55:18]
+  wire [63:0] ID_io_out_bits_ctrl_flow_PC; // @[CoreTop.scala 55:18]
+  wire [31:0] ID_io_out_bits_ctrl_flow_inst; // @[CoreTop.scala 55:18]
+  wire  EX_io_in_valid; // @[CoreTop.scala 57:18]
+  wire [2:0] EX_io_in_bits_ctrl_signal_src1Type; // @[CoreTop.scala 57:18]
+  wire [2:0] EX_io_in_bits_ctrl_signal_src2Type; // @[CoreTop.scala 57:18]
+  wire [2:0] EX_io_in_bits_ctrl_signal_fuType; // @[CoreTop.scala 57:18]
+  wire  EX_io_in_bits_ctrl_signal_inst_valid; // @[CoreTop.scala 57:18]
+  wire  EX_io_in_bits_ctrl_signal_rfWen; // @[CoreTop.scala 57:18]
+  wire [6:0] EX_io_in_bits_ctrl_signal_aluoptype; // @[CoreTop.scala 57:18]
+  wire [4:0] EX_io_in_bits_ctrl_signal_rfDest; // @[CoreTop.scala 57:18]
+  wire [63:0] EX_io_in_bits_ctrl_data_src1; // @[CoreTop.scala 57:18]
+  wire [63:0] EX_io_in_bits_ctrl_data_src2; // @[CoreTop.scala 57:18]
+  wire [63:0] EX_io_in_bits_ctrl_data_Imm; // @[CoreTop.scala 57:18]
+  wire [63:0] EX_io_in_bits_ctrl_flow_PC; // @[CoreTop.scala 57:18]
+  wire [31:0] EX_io_in_bits_ctrl_flow_inst; // @[CoreTop.scala 57:18]
+  wire  EX_io_branchIO_is_branch; // @[CoreTop.scala 57:18]
+  wire  EX_io_branchIO_is_jump; // @[CoreTop.scala 57:18]
+  wire [63:0] EX_io_branchIO_dnpc; // @[CoreTop.scala 57:18]
+  wire  EX_io_out_valid; // @[CoreTop.scala 57:18]
+  wire [2:0] EX_io_out_bits_ctrl_signal_fuType; // @[CoreTop.scala 57:18]
+  wire  EX_io_out_bits_ctrl_signal_inst_valid; // @[CoreTop.scala 57:18]
+  wire  EX_io_out_bits_ctrl_signal_rfWen; // @[CoreTop.scala 57:18]
+  wire [6:0] EX_io_out_bits_ctrl_signal_aluoptype; // @[CoreTop.scala 57:18]
+  wire [63:0] EX_io_out_bits_ctrl_flow_PC; // @[CoreTop.scala 57:18]
+  wire [31:0] EX_io_out_bits_ctrl_flow_inst; // @[CoreTop.scala 57:18]
+  wire [63:0] EX_io_out_bits_ctrl_flow_Dnpc; // @[CoreTop.scala 57:18]
+  wire [4:0] EX_io_out_bits_ctrl_rf_rfDest; // @[CoreTop.scala 57:18]
+  wire  EX_io_out_bits_ctrl_rf_rfWen; // @[CoreTop.scala 57:18]
+  wire [63:0] EX_io_out_bits_ctrl_rf_rfData; // @[CoreTop.scala 57:18]
+  wire [63:0] EX_io_out_bits_ctrl_data_src1; // @[CoreTop.scala 57:18]
+  wire [63:0] EX_io_out_bits_ctrl_data_src2; // @[CoreTop.scala 57:18]
+  wire [63:0] EX_io_out_bits_ctrl_data_Imm; // @[CoreTop.scala 57:18]
+  wire  EX_io_is_break; // @[CoreTop.scala 57:18]
+  wire  EX_io_is_flush; // @[CoreTop.scala 57:18]
+  wire  DIP_is_break; // @[CoreTop.scala 59:19]
+  wire [63:0] DIP_rf_0; // @[CoreTop.scala 59:19]
+  wire [63:0] DIP_rf_1; // @[CoreTop.scala 59:19]
+  wire [63:0] DIP_rf_2; // @[CoreTop.scala 59:19]
+  wire [63:0] DIP_rf_3; // @[CoreTop.scala 59:19]
+  wire [63:0] DIP_rf_4; // @[CoreTop.scala 59:19]
+  wire [63:0] DIP_rf_5; // @[CoreTop.scala 59:19]
+  wire [63:0] DIP_rf_6; // @[CoreTop.scala 59:19]
+  wire [63:0] DIP_rf_7; // @[CoreTop.scala 59:19]
+  wire [63:0] DIP_rf_8; // @[CoreTop.scala 59:19]
+  wire [63:0] DIP_rf_9; // @[CoreTop.scala 59:19]
+  wire [63:0] DIP_rf_10; // @[CoreTop.scala 59:19]
+  wire [63:0] DIP_rf_11; // @[CoreTop.scala 59:19]
+  wire [63:0] DIP_rf_12; // @[CoreTop.scala 59:19]
+  wire [63:0] DIP_rf_13; // @[CoreTop.scala 59:19]
+  wire [63:0] DIP_rf_14; // @[CoreTop.scala 59:19]
+  wire [63:0] DIP_rf_15; // @[CoreTop.scala 59:19]
+  wire [63:0] DIP_rf_16; // @[CoreTop.scala 59:19]
+  wire [63:0] DIP_rf_17; // @[CoreTop.scala 59:19]
+  wire [63:0] DIP_rf_18; // @[CoreTop.scala 59:19]
+  wire [63:0] DIP_rf_19; // @[CoreTop.scala 59:19]
+  wire [63:0] DIP_rf_20; // @[CoreTop.scala 59:19]
+  wire [63:0] DIP_rf_21; // @[CoreTop.scala 59:19]
+  wire [63:0] DIP_rf_22; // @[CoreTop.scala 59:19]
+  wire [63:0] DIP_rf_23; // @[CoreTop.scala 59:19]
+  wire [63:0] DIP_rf_24; // @[CoreTop.scala 59:19]
+  wire [63:0] DIP_rf_25; // @[CoreTop.scala 59:19]
+  wire [63:0] DIP_rf_26; // @[CoreTop.scala 59:19]
+  wire [63:0] DIP_rf_27; // @[CoreTop.scala 59:19]
+  wire [63:0] DIP_rf_28; // @[CoreTop.scala 59:19]
+  wire [63:0] DIP_rf_29; // @[CoreTop.scala 59:19]
+  wire [63:0] DIP_rf_30; // @[CoreTop.scala 59:19]
+  wire [63:0] DIP_rf_31; // @[CoreTop.scala 59:19]
+  wire [31:0] DIP_inst; // @[CoreTop.scala 59:19]
+  wire [63:0] DIP_pc; // @[CoreTop.scala 59:19]
+  wire  DIP_inst_valid; // @[CoreTop.scala 59:19]
+  wire [63:0] DIP_dnpc; // @[CoreTop.scala 59:19]
   reg [63:0] rf [0:31]; // @[RF.scala 7:15]
-  wire  rf_ID_io_REG1_MPORT_en; // @[RF.scala 7:15]
-  wire [4:0] rf_ID_io_REG1_MPORT_addr; // @[RF.scala 7:15]
-  wire [63:0] rf_ID_io_REG1_MPORT_data; // @[RF.scala 7:15]
-  wire  rf_ID_io_REG2_MPORT_en; // @[RF.scala 7:15]
-  wire [4:0] rf_ID_io_REG2_MPORT_addr; // @[RF.scala 7:15]
-  wire [63:0] rf_ID_io_REG2_MPORT_data; // @[RF.scala 7:15]
+  wire  rf_bypass_io_Reg1_MPORT_en; // @[RF.scala 7:15]
+  wire [4:0] rf_bypass_io_Reg1_MPORT_addr; // @[RF.scala 7:15]
+  wire [63:0] rf_bypass_io_Reg1_MPORT_data; // @[RF.scala 7:15]
+  wire  rf_bypass_io_Reg2_MPORT_en; // @[RF.scala 7:15]
+  wire [4:0] rf_bypass_io_Reg2_MPORT_addr; // @[RF.scala 7:15]
+  wire [63:0] rf_bypass_io_Reg2_MPORT_data; // @[RF.scala 7:15]
   wire  rf_DIP_io_rf_0_MPORT_en; // @[RF.scala 7:15]
   wire [4:0] rf_DIP_io_rf_0_MPORT_addr; // @[RF.scala 7:15]
   wire [63:0] rf_DIP_io_rf_0_MPORT_data; // @[RF.scala 7:15]
@@ -1059,51 +1104,77 @@ module CoreTop(
   wire [4:0] rf_MPORT_addr; // @[RF.scala 7:15]
   wire  rf_MPORT_mask; // @[RF.scala 7:15]
   wire  rf_MPORT_en; // @[RF.scala 7:15]
-  wire [63:0] mem_addr; // @[CoreTop.scala 62:19]
-  wire  mem_reset; // @[CoreTop.scala 62:19]
-  wire  mem_clk; // @[CoreTop.scala 62:19]
-  wire  mem_we; // @[CoreTop.scala 62:19]
-  wire  mem_ce; // @[CoreTop.scala 62:19]
-  wire [63:0] mem_wdata; // @[CoreTop.scala 62:19]
-  wire [63:0] mem_rdata; // @[CoreTop.scala 62:19]
-  wire [7:0] mem_wmask; // @[CoreTop.scala 62:19]
-  wire [2:0] MEM_io_in_bits_ctrl_signal_fuType; // @[CoreTop.scala 64:19]
-  wire  MEM_io_in_bits_ctrl_signal_inst_valid; // @[CoreTop.scala 64:19]
-  wire [6:0] MEM_io_in_bits_ctrl_signal_aluoptype; // @[CoreTop.scala 64:19]
-  wire [63:0] MEM_io_in_bits_ctrl_flow_PC; // @[CoreTop.scala 64:19]
-  wire [31:0] MEM_io_in_bits_ctrl_flow_inst; // @[CoreTop.scala 64:19]
-  wire [4:0] MEM_io_in_bits_ctrl_rf_rfDest; // @[CoreTop.scala 64:19]
-  wire  MEM_io_in_bits_ctrl_rf_rfWen; // @[CoreTop.scala 64:19]
-  wire [63:0] MEM_io_in_bits_ctrl_rf_rfData; // @[CoreTop.scala 64:19]
-  wire [63:0] MEM_io_in_bits_ctrl_data_src1; // @[CoreTop.scala 64:19]
-  wire [63:0] MEM_io_in_bits_ctrl_data_src2; // @[CoreTop.scala 64:19]
-  wire [63:0] MEM_io_in_bits_ctrl_data_Imm; // @[CoreTop.scala 64:19]
-  wire  MEM_io_out_bits_ctrl_signal_inst_valid; // @[CoreTop.scala 64:19]
-  wire [63:0] MEM_io_out_bits_ctrl_flow_PC; // @[CoreTop.scala 64:19]
-  wire [31:0] MEM_io_out_bits_ctrl_flow_inst; // @[CoreTop.scala 64:19]
-  wire [4:0] MEM_io_out_bits_ctrl_rf_rfDest; // @[CoreTop.scala 64:19]
-  wire  MEM_io_out_bits_ctrl_rf_rfWen; // @[CoreTop.scala 64:19]
-  wire [63:0] MEM_io_out_bits_ctrl_rf_rfData; // @[CoreTop.scala 64:19]
-  wire [63:0] MEM_io_mem_addr; // @[CoreTop.scala 64:19]
-  wire [63:0] MEM_io_mem_rdata; // @[CoreTop.scala 64:19]
-  wire [63:0] MEM_io_mem_wdata; // @[CoreTop.scala 64:19]
-  wire [7:0] MEM_io_mem_wmask; // @[CoreTop.scala 64:19]
-  wire  MEM_io_mem_ce; // @[CoreTop.scala 64:19]
-  wire  MEM_io_mem_we; // @[CoreTop.scala 64:19]
-  wire  WB_io_in_bits_ctrl_signal_inst_valid; // @[CoreTop.scala 66:18]
-  wire [63:0] WB_io_in_bits_ctrl_flow_PC; // @[CoreTop.scala 66:18]
-  wire [31:0] WB_io_in_bits_ctrl_flow_inst; // @[CoreTop.scala 66:18]
-  wire [4:0] WB_io_in_bits_ctrl_rf_rfDest; // @[CoreTop.scala 66:18]
-  wire  WB_io_in_bits_ctrl_rf_rfWen; // @[CoreTop.scala 66:18]
-  wire [63:0] WB_io_in_bits_ctrl_rf_rfData; // @[CoreTop.scala 66:18]
-  wire  WB_io_out_bits_ctrl_signal_inst_valid; // @[CoreTop.scala 66:18]
-  wire [63:0] WB_io_out_bits_ctrl_flow_PC; // @[CoreTop.scala 66:18]
-  wire [31:0] WB_io_out_bits_ctrl_flow_inst; // @[CoreTop.scala 66:18]
-  wire [4:0] WB_io_out_bits_ctrl_rf_rfDest; // @[CoreTop.scala 66:18]
-  wire  WB_io_out_bits_ctrl_rf_rfWen; // @[CoreTop.scala 66:18]
-  wire [63:0] WB_io_out_bits_ctrl_rf_rfData; // @[CoreTop.scala 66:18]
+  wire [63:0] mem_addr; // @[CoreTop.scala 63:19]
+  wire  mem_reset; // @[CoreTop.scala 63:19]
+  wire  mem_clk; // @[CoreTop.scala 63:19]
+  wire  mem_we; // @[CoreTop.scala 63:19]
+  wire  mem_ce; // @[CoreTop.scala 63:19]
+  wire [63:0] mem_wdata; // @[CoreTop.scala 63:19]
+  wire [63:0] mem_rdata; // @[CoreTop.scala 63:19]
+  wire [7:0] mem_wmask; // @[CoreTop.scala 63:19]
+  wire  MEM_io_in_valid; // @[CoreTop.scala 65:19]
+  wire [2:0] MEM_io_in_bits_ctrl_signal_fuType; // @[CoreTop.scala 65:19]
+  wire  MEM_io_in_bits_ctrl_signal_inst_valid; // @[CoreTop.scala 65:19]
+  wire  MEM_io_in_bits_ctrl_signal_rfWen; // @[CoreTop.scala 65:19]
+  wire [6:0] MEM_io_in_bits_ctrl_signal_aluoptype; // @[CoreTop.scala 65:19]
+  wire [63:0] MEM_io_in_bits_ctrl_flow_PC; // @[CoreTop.scala 65:19]
+  wire [31:0] MEM_io_in_bits_ctrl_flow_inst; // @[CoreTop.scala 65:19]
+  wire [63:0] MEM_io_in_bits_ctrl_flow_Dnpc; // @[CoreTop.scala 65:19]
+  wire [4:0] MEM_io_in_bits_ctrl_rf_rfDest; // @[CoreTop.scala 65:19]
+  wire [63:0] MEM_io_in_bits_ctrl_rf_rfData; // @[CoreTop.scala 65:19]
+  wire [63:0] MEM_io_in_bits_ctrl_data_src1; // @[CoreTop.scala 65:19]
+  wire [63:0] MEM_io_in_bits_ctrl_data_src2; // @[CoreTop.scala 65:19]
+  wire [63:0] MEM_io_in_bits_ctrl_data_Imm; // @[CoreTop.scala 65:19]
+  wire  MEM_io_out_valid; // @[CoreTop.scala 65:19]
+  wire  MEM_io_out_bits_ctrl_signal_inst_valid; // @[CoreTop.scala 65:19]
+  wire  MEM_io_out_bits_ctrl_signal_rfWen; // @[CoreTop.scala 65:19]
+  wire [63:0] MEM_io_out_bits_ctrl_flow_PC; // @[CoreTop.scala 65:19]
+  wire [31:0] MEM_io_out_bits_ctrl_flow_inst; // @[CoreTop.scala 65:19]
+  wire [63:0] MEM_io_out_bits_ctrl_flow_Dnpc; // @[CoreTop.scala 65:19]
+  wire [4:0] MEM_io_out_bits_ctrl_rf_rfDest; // @[CoreTop.scala 65:19]
+  wire  MEM_io_out_bits_ctrl_rf_rfWen; // @[CoreTop.scala 65:19]
+  wire [63:0] MEM_io_out_bits_ctrl_rf_rfData; // @[CoreTop.scala 65:19]
+  wire [63:0] MEM_io_mem_addr; // @[CoreTop.scala 65:19]
+  wire [63:0] MEM_io_mem_rdata; // @[CoreTop.scala 65:19]
+  wire [63:0] MEM_io_mem_wdata; // @[CoreTop.scala 65:19]
+  wire [7:0] MEM_io_mem_wmask; // @[CoreTop.scala 65:19]
+  wire  MEM_io_mem_ce; // @[CoreTop.scala 65:19]
+  wire  MEM_io_mem_we; // @[CoreTop.scala 65:19]
+  wire  WB_io_in_valid; // @[CoreTop.scala 67:18]
+  wire  WB_io_in_bits_ctrl_signal_inst_valid; // @[CoreTop.scala 67:18]
+  wire  WB_io_in_bits_ctrl_signal_rfWen; // @[CoreTop.scala 67:18]
+  wire [63:0] WB_io_in_bits_ctrl_flow_PC; // @[CoreTop.scala 67:18]
+  wire [31:0] WB_io_in_bits_ctrl_flow_inst; // @[CoreTop.scala 67:18]
+  wire [63:0] WB_io_in_bits_ctrl_flow_Dnpc; // @[CoreTop.scala 67:18]
+  wire [4:0] WB_io_in_bits_ctrl_rf_rfDest; // @[CoreTop.scala 67:18]
+  wire [63:0] WB_io_in_bits_ctrl_rf_rfData; // @[CoreTop.scala 67:18]
+  wire  WB_io_out_bits_ctrl_signal_inst_valid; // @[CoreTop.scala 67:18]
+  wire [63:0] WB_io_out_bits_ctrl_flow_PC; // @[CoreTop.scala 67:18]
+  wire [31:0] WB_io_out_bits_ctrl_flow_inst; // @[CoreTop.scala 67:18]
+  wire [63:0] WB_io_out_bits_ctrl_flow_Dnpc; // @[CoreTop.scala 67:18]
+  wire [4:0] WB_io_out_bits_ctrl_rf_rfDest; // @[CoreTop.scala 67:18]
+  wire  WB_io_out_bits_ctrl_rf_rfWen; // @[CoreTop.scala 67:18]
+  wire [63:0] WB_io_out_bits_ctrl_rf_rfData; // @[CoreTop.scala 67:18]
+  wire [4:0] bypass_io_EX_rf_rfDest; // @[CoreTop.scala 69:22]
+  wire  bypass_io_EX_rf_rfWen; // @[CoreTop.scala 69:22]
+  wire [63:0] bypass_io_EX_rf_rfData; // @[CoreTop.scala 69:22]
+  wire [4:0] bypass_io_MEM_rf_rfDest; // @[CoreTop.scala 69:22]
+  wire  bypass_io_MEM_rf_rfWen; // @[CoreTop.scala 69:22]
+  wire [63:0] bypass_io_MEM_rf_rfData; // @[CoreTop.scala 69:22]
+  wire [4:0] bypass_io_WB_rf_rfDest; // @[CoreTop.scala 69:22]
+  wire  bypass_io_WB_rf_rfWen; // @[CoreTop.scala 69:22]
+  wire [63:0] bypass_io_WB_rf_rfData; // @[CoreTop.scala 69:22]
+  wire [63:0] bypass_io_Reg1; // @[CoreTop.scala 69:22]
+  wire [4:0] bypass_io_reg_index1; // @[CoreTop.scala 69:22]
+  wire [63:0] bypass_io_Reg2; // @[CoreTop.scala 69:22]
+  wire [4:0] bypass_io_reg_index2; // @[CoreTop.scala 69:22]
+  wire [63:0] bypass_io_Bypass_REG1; // @[CoreTop.scala 69:22]
+  wire [63:0] bypass_io_Bypass_REG2; // @[CoreTop.scala 69:22]
+  reg  valid; // @[Pipline.scala 8:24]
   reg [63:0] ID_io_in_bits_r_PC; // @[Reg.scala 16:16]
   reg [31:0] ID_io_in_bits_r_Inst; // @[Reg.scala 16:16]
+  reg  valid_1; // @[Pipline.scala 8:24]
+  wire  _T_6 = ID_io_out_valid; // @[Pipline.scala 12:21]
   reg [2:0] EX_io_in_bits_r_ctrl_signal_src1Type; // @[Reg.scala 16:16]
   reg [2:0] EX_io_in_bits_r_ctrl_signal_src2Type; // @[Reg.scala 16:16]
   reg [2:0] EX_io_in_bits_r_ctrl_signal_fuType; // @[Reg.scala 16:16]
@@ -1116,62 +1187,37 @@ module CoreTop(
   reg [63:0] EX_io_in_bits_r_ctrl_data_Imm; // @[Reg.scala 16:16]
   reg [63:0] EX_io_in_bits_r_ctrl_flow_PC; // @[Reg.scala 16:16]
   reg [31:0] EX_io_in_bits_r_ctrl_flow_inst; // @[Reg.scala 16:16]
+  reg  valid_2; // @[Pipline.scala 8:24]
+  wire  _T_10 = EX_io_out_valid; // @[Pipline.scala 12:21]
   reg [2:0] MEM_io_in_bits_r_ctrl_signal_fuType; // @[Reg.scala 16:16]
   reg  MEM_io_in_bits_r_ctrl_signal_inst_valid; // @[Reg.scala 16:16]
+  reg  MEM_io_in_bits_r_ctrl_signal_rfWen; // @[Reg.scala 16:16]
   reg [6:0] MEM_io_in_bits_r_ctrl_signal_aluoptype; // @[Reg.scala 16:16]
   reg [63:0] MEM_io_in_bits_r_ctrl_flow_PC; // @[Reg.scala 16:16]
   reg [31:0] MEM_io_in_bits_r_ctrl_flow_inst; // @[Reg.scala 16:16]
+  reg [63:0] MEM_io_in_bits_r_ctrl_flow_Dnpc; // @[Reg.scala 16:16]
   reg [4:0] MEM_io_in_bits_r_ctrl_rf_rfDest; // @[Reg.scala 16:16]
-  reg  MEM_io_in_bits_r_ctrl_rf_rfWen; // @[Reg.scala 16:16]
   reg [63:0] MEM_io_in_bits_r_ctrl_rf_rfData; // @[Reg.scala 16:16]
   reg [63:0] MEM_io_in_bits_r_ctrl_data_src1; // @[Reg.scala 16:16]
   reg [63:0] MEM_io_in_bits_r_ctrl_data_src2; // @[Reg.scala 16:16]
   reg [63:0] MEM_io_in_bits_r_ctrl_data_Imm; // @[Reg.scala 16:16]
+  reg  valid_3; // @[Pipline.scala 8:24]
+  wire  _T_14 = MEM_io_out_valid; // @[Pipline.scala 12:21]
   reg  WB_io_in_bits_r_ctrl_signal_inst_valid; // @[Reg.scala 16:16]
+  reg  WB_io_in_bits_r_ctrl_signal_rfWen; // @[Reg.scala 16:16]
   reg [63:0] WB_io_in_bits_r_ctrl_flow_PC; // @[Reg.scala 16:16]
   reg [31:0] WB_io_in_bits_r_ctrl_flow_inst; // @[Reg.scala 16:16]
+  reg [63:0] WB_io_in_bits_r_ctrl_flow_Dnpc; // @[Reg.scala 16:16]
   reg [4:0] WB_io_in_bits_r_ctrl_rf_rfDest; // @[Reg.scala 16:16]
-  reg  WB_io_in_bits_r_ctrl_rf_rfWen; // @[Reg.scala 16:16]
   reg [63:0] WB_io_in_bits_r_ctrl_rf_rfData; // @[Reg.scala 16:16]
   wire  _T_17 = WB_io_out_bits_ctrl_rf_rfDest == 5'h0; // @[RF.scala 9:61]
   wire [63:0] _T_18 = WB_io_out_bits_ctrl_rf_rfData; // @[RF.scala 9:78]
-  reg [63:0] DIP_io_rf_0_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_1_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_2_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_3_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_4_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_5_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_6_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_7_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_8_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_9_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_10_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_11_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_12_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_13_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_14_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_15_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_16_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_17_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_18_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_19_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_20_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_21_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_22_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_23_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_24_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_25_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_26_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_27_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_28_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_29_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_30_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_31_REG; // @[CoreTop.scala 103:28]
-  reg [31:0] DIP_io_inst_REG; // @[CoreTop.scala 105:25]
-  reg  DIP_io_inst_valid_REG; // @[CoreTop.scala 106:31]
-  reg [63:0] DIP_io_pc_REG; // @[CoreTop.scala 107:23]
-  reg [31:0] io_inst_REG; // @[CoreTop.scala 108:21]
-  IF IF ( // @[CoreTop.scala 50:18]
+  reg [31:0] DIP_io_inst_REG; // @[CoreTop.scala 119:25]
+  reg  DIP_io_inst_valid_REG; // @[CoreTop.scala 120:31]
+  reg [63:0] DIP_io_pc_REG; // @[CoreTop.scala 121:23]
+  reg [63:0] DIP_io_dnpc_REG; // @[CoreTop.scala 122:25]
+  reg [31:0] io_inst_REG; // @[CoreTop.scala 123:21]
+  IF IF ( // @[CoreTop.scala 51:18]
     .clock(IF_clock),
     .reset(IF_reset),
     .io_branch_io_is_branch(IF_io_branch_io_is_branch),
@@ -1181,22 +1227,25 @@ module CoreTop(
     .io_out_bits_PC(IF_io_out_bits_PC),
     .io_out_bits_Inst(IF_io_out_bits_Inst)
   );
-  ifm IFM ( // @[CoreTop.scala 52:19]
+  ifm IFM ( // @[CoreTop.scala 53:19]
     .reset(IFM_reset),
     .clk(IFM_clk),
     .pc(IFM_pc),
     .inst(IFM_inst)
   );
-  ID ID ( // @[CoreTop.scala 54:18]
+  ID ID ( // @[CoreTop.scala 55:18]
+    .io_in_valid(ID_io_in_valid),
     .io_in_bits_PC(ID_io_in_bits_PC),
     .io_in_bits_Inst(ID_io_in_bits_Inst),
     .io_REG1(ID_io_REG1),
     .io_REG2(ID_io_REG2),
+    .io_out_valid(ID_io_out_valid),
     .io_out_bits_ctrl_signal_src1Type(ID_io_out_bits_ctrl_signal_src1Type),
     .io_out_bits_ctrl_signal_src2Type(ID_io_out_bits_ctrl_signal_src2Type),
     .io_out_bits_ctrl_signal_fuType(ID_io_out_bits_ctrl_signal_fuType),
     .io_out_bits_ctrl_signal_inst_valid(ID_io_out_bits_ctrl_signal_inst_valid),
     .io_out_bits_ctrl_signal_rfSrc1(ID_io_out_bits_ctrl_signal_rfSrc1),
+    .io_out_bits_ctrl_signal_rfSrc2(ID_io_out_bits_ctrl_signal_rfSrc2),
     .io_out_bits_ctrl_signal_rfWen(ID_io_out_bits_ctrl_signal_rfWen),
     .io_out_bits_ctrl_signal_aluoptype(ID_io_out_bits_ctrl_signal_aluoptype),
     .io_out_bits_ctrl_signal_rfDest(ID_io_out_bits_ctrl_signal_rfDest),
@@ -1206,7 +1255,8 @@ module CoreTop(
     .io_out_bits_ctrl_flow_PC(ID_io_out_bits_ctrl_flow_PC),
     .io_out_bits_ctrl_flow_inst(ID_io_out_bits_ctrl_flow_inst)
   );
-  EXE EX ( // @[CoreTop.scala 56:18]
+  EXE EX ( // @[CoreTop.scala 57:18]
+    .io_in_valid(EX_io_in_valid),
     .io_in_bits_ctrl_signal_src1Type(EX_io_in_bits_ctrl_signal_src1Type),
     .io_in_bits_ctrl_signal_src2Type(EX_io_in_bits_ctrl_signal_src2Type),
     .io_in_bits_ctrl_signal_fuType(EX_io_in_bits_ctrl_signal_fuType),
@@ -1222,20 +1272,24 @@ module CoreTop(
     .io_branchIO_is_branch(EX_io_branchIO_is_branch),
     .io_branchIO_is_jump(EX_io_branchIO_is_jump),
     .io_branchIO_dnpc(EX_io_branchIO_dnpc),
+    .io_out_valid(EX_io_out_valid),
     .io_out_bits_ctrl_signal_fuType(EX_io_out_bits_ctrl_signal_fuType),
     .io_out_bits_ctrl_signal_inst_valid(EX_io_out_bits_ctrl_signal_inst_valid),
+    .io_out_bits_ctrl_signal_rfWen(EX_io_out_bits_ctrl_signal_rfWen),
     .io_out_bits_ctrl_signal_aluoptype(EX_io_out_bits_ctrl_signal_aluoptype),
     .io_out_bits_ctrl_flow_PC(EX_io_out_bits_ctrl_flow_PC),
     .io_out_bits_ctrl_flow_inst(EX_io_out_bits_ctrl_flow_inst),
+    .io_out_bits_ctrl_flow_Dnpc(EX_io_out_bits_ctrl_flow_Dnpc),
     .io_out_bits_ctrl_rf_rfDest(EX_io_out_bits_ctrl_rf_rfDest),
     .io_out_bits_ctrl_rf_rfWen(EX_io_out_bits_ctrl_rf_rfWen),
     .io_out_bits_ctrl_rf_rfData(EX_io_out_bits_ctrl_rf_rfData),
     .io_out_bits_ctrl_data_src1(EX_io_out_bits_ctrl_data_src1),
     .io_out_bits_ctrl_data_src2(EX_io_out_bits_ctrl_data_src2),
     .io_out_bits_ctrl_data_Imm(EX_io_out_bits_ctrl_data_Imm),
-    .io_is_break(EX_io_is_break)
+    .io_is_break(EX_io_is_break),
+    .io_is_flush(EX_io_is_flush)
   );
-  DIP_model DIP ( // @[CoreTop.scala 58:19]
+  DIP_model DIP ( // @[CoreTop.scala 59:19]
     .is_break(DIP_is_break),
     .rf_0(DIP_rf_0),
     .rf_1(DIP_rf_1),
@@ -1271,9 +1325,10 @@ module CoreTop(
     .rf_31(DIP_rf_31),
     .inst(DIP_inst),
     .pc(DIP_pc),
-    .inst_valid(DIP_inst_valid)
+    .inst_valid(DIP_inst_valid),
+    .dnpc(DIP_dnpc)
   );
-  MEM mem ( // @[CoreTop.scala 62:19]
+  MEM mem ( // @[CoreTop.scala 63:19]
     .addr(mem_addr),
     .reset(mem_reset),
     .clk(mem_clk),
@@ -1283,21 +1338,26 @@ module CoreTop(
     .rdata(mem_rdata),
     .wmask(mem_wmask)
   );
-  MEM_stage MEM ( // @[CoreTop.scala 64:19]
+  MEM_stage MEM ( // @[CoreTop.scala 65:19]
+    .io_in_valid(MEM_io_in_valid),
     .io_in_bits_ctrl_signal_fuType(MEM_io_in_bits_ctrl_signal_fuType),
     .io_in_bits_ctrl_signal_inst_valid(MEM_io_in_bits_ctrl_signal_inst_valid),
+    .io_in_bits_ctrl_signal_rfWen(MEM_io_in_bits_ctrl_signal_rfWen),
     .io_in_bits_ctrl_signal_aluoptype(MEM_io_in_bits_ctrl_signal_aluoptype),
     .io_in_bits_ctrl_flow_PC(MEM_io_in_bits_ctrl_flow_PC),
     .io_in_bits_ctrl_flow_inst(MEM_io_in_bits_ctrl_flow_inst),
+    .io_in_bits_ctrl_flow_Dnpc(MEM_io_in_bits_ctrl_flow_Dnpc),
     .io_in_bits_ctrl_rf_rfDest(MEM_io_in_bits_ctrl_rf_rfDest),
-    .io_in_bits_ctrl_rf_rfWen(MEM_io_in_bits_ctrl_rf_rfWen),
     .io_in_bits_ctrl_rf_rfData(MEM_io_in_bits_ctrl_rf_rfData),
     .io_in_bits_ctrl_data_src1(MEM_io_in_bits_ctrl_data_src1),
     .io_in_bits_ctrl_data_src2(MEM_io_in_bits_ctrl_data_src2),
     .io_in_bits_ctrl_data_Imm(MEM_io_in_bits_ctrl_data_Imm),
+    .io_out_valid(MEM_io_out_valid),
     .io_out_bits_ctrl_signal_inst_valid(MEM_io_out_bits_ctrl_signal_inst_valid),
+    .io_out_bits_ctrl_signal_rfWen(MEM_io_out_bits_ctrl_signal_rfWen),
     .io_out_bits_ctrl_flow_PC(MEM_io_out_bits_ctrl_flow_PC),
     .io_out_bits_ctrl_flow_inst(MEM_io_out_bits_ctrl_flow_inst),
+    .io_out_bits_ctrl_flow_Dnpc(MEM_io_out_bits_ctrl_flow_Dnpc),
     .io_out_bits_ctrl_rf_rfDest(MEM_io_out_bits_ctrl_rf_rfDest),
     .io_out_bits_ctrl_rf_rfWen(MEM_io_out_bits_ctrl_rf_rfWen),
     .io_out_bits_ctrl_rf_rfData(MEM_io_out_bits_ctrl_rf_rfData),
@@ -1308,26 +1368,46 @@ module CoreTop(
     .io_mem_ce(MEM_io_mem_ce),
     .io_mem_we(MEM_io_mem_we)
   );
-  WB WB ( // @[CoreTop.scala 66:18]
+  WB WB ( // @[CoreTop.scala 67:18]
+    .io_in_valid(WB_io_in_valid),
     .io_in_bits_ctrl_signal_inst_valid(WB_io_in_bits_ctrl_signal_inst_valid),
+    .io_in_bits_ctrl_signal_rfWen(WB_io_in_bits_ctrl_signal_rfWen),
     .io_in_bits_ctrl_flow_PC(WB_io_in_bits_ctrl_flow_PC),
     .io_in_bits_ctrl_flow_inst(WB_io_in_bits_ctrl_flow_inst),
+    .io_in_bits_ctrl_flow_Dnpc(WB_io_in_bits_ctrl_flow_Dnpc),
     .io_in_bits_ctrl_rf_rfDest(WB_io_in_bits_ctrl_rf_rfDest),
-    .io_in_bits_ctrl_rf_rfWen(WB_io_in_bits_ctrl_rf_rfWen),
     .io_in_bits_ctrl_rf_rfData(WB_io_in_bits_ctrl_rf_rfData),
     .io_out_bits_ctrl_signal_inst_valid(WB_io_out_bits_ctrl_signal_inst_valid),
     .io_out_bits_ctrl_flow_PC(WB_io_out_bits_ctrl_flow_PC),
     .io_out_bits_ctrl_flow_inst(WB_io_out_bits_ctrl_flow_inst),
+    .io_out_bits_ctrl_flow_Dnpc(WB_io_out_bits_ctrl_flow_Dnpc),
     .io_out_bits_ctrl_rf_rfDest(WB_io_out_bits_ctrl_rf_rfDest),
     .io_out_bits_ctrl_rf_rfWen(WB_io_out_bits_ctrl_rf_rfWen),
     .io_out_bits_ctrl_rf_rfData(WB_io_out_bits_ctrl_rf_rfData)
   );
-  assign rf_ID_io_REG1_MPORT_en = 1'h1;
-  assign rf_ID_io_REG1_MPORT_addr = ID_io_out_bits_ctrl_signal_rfSrc1;
-  assign rf_ID_io_REG1_MPORT_data = rf[rf_ID_io_REG1_MPORT_addr]; // @[RF.scala 7:15]
-  assign rf_ID_io_REG2_MPORT_en = 1'h1;
-  assign rf_ID_io_REG2_MPORT_addr = ID_io_out_bits_ctrl_signal_rfSrc1;
-  assign rf_ID_io_REG2_MPORT_data = rf[rf_ID_io_REG2_MPORT_addr]; // @[RF.scala 7:15]
+  Bypass bypass ( // @[CoreTop.scala 69:22]
+    .io_EX_rf_rfDest(bypass_io_EX_rf_rfDest),
+    .io_EX_rf_rfWen(bypass_io_EX_rf_rfWen),
+    .io_EX_rf_rfData(bypass_io_EX_rf_rfData),
+    .io_MEM_rf_rfDest(bypass_io_MEM_rf_rfDest),
+    .io_MEM_rf_rfWen(bypass_io_MEM_rf_rfWen),
+    .io_MEM_rf_rfData(bypass_io_MEM_rf_rfData),
+    .io_WB_rf_rfDest(bypass_io_WB_rf_rfDest),
+    .io_WB_rf_rfWen(bypass_io_WB_rf_rfWen),
+    .io_WB_rf_rfData(bypass_io_WB_rf_rfData),
+    .io_Reg1(bypass_io_Reg1),
+    .io_reg_index1(bypass_io_reg_index1),
+    .io_Reg2(bypass_io_Reg2),
+    .io_reg_index2(bypass_io_reg_index2),
+    .io_Bypass_REG1(bypass_io_Bypass_REG1),
+    .io_Bypass_REG2(bypass_io_Bypass_REG2)
+  );
+  assign rf_bypass_io_Reg1_MPORT_en = 1'h1;
+  assign rf_bypass_io_Reg1_MPORT_addr = ID_io_out_bits_ctrl_signal_rfSrc1;
+  assign rf_bypass_io_Reg1_MPORT_data = rf[rf_bypass_io_Reg1_MPORT_addr]; // @[RF.scala 7:15]
+  assign rf_bypass_io_Reg2_MPORT_en = 1'h1;
+  assign rf_bypass_io_Reg2_MPORT_addr = ID_io_out_bits_ctrl_signal_rfSrc2;
+  assign rf_bypass_io_Reg2_MPORT_data = rf[rf_bypass_io_Reg2_MPORT_addr]; // @[RF.scala 7:15]
   assign rf_DIP_io_rf_0_MPORT_en = 1'h1;
   assign rf_DIP_io_rf_0_MPORT_addr = 5'h0;
   assign rf_DIP_io_rf_0_MPORT_data = rf[rf_DIP_io_rf_0_MPORT_addr]; // @[RF.scala 7:15]
@@ -1428,165 +1508,242 @@ module CoreTop(
   assign rf_MPORT_addr = WB_io_out_bits_ctrl_rf_rfDest;
   assign rf_MPORT_mask = 1'h1;
   assign rf_MPORT_en = WB_io_out_bits_ctrl_rf_rfWen;
-  assign io_pc = IF_io_out_bits_PC; // @[CoreTop.scala 109:9]
-  assign io_inst = io_inst_REG; // @[CoreTop.scala 108:11]
+  assign io_pc = IF_io_out_bits_PC; // @[CoreTop.scala 124:9]
+  assign io_inst = io_inst_REG; // @[CoreTop.scala 123:11]
   assign IF_clock = clock;
   assign IF_reset = reset;
-  assign IF_io_branch_io_is_branch = EX_io_branchIO_is_branch; // @[CoreTop.scala 78:19]
-  assign IF_io_branch_io_is_jump = EX_io_branchIO_is_jump; // @[CoreTop.scala 78:19]
-  assign IF_io_branch_io_dnpc = EX_io_branchIO_dnpc; // @[CoreTop.scala 78:19]
-  assign IF_io_inst = IFM_inst; // @[CoreTop.scala 72:14]
-  assign IFM_reset = reset; // @[CoreTop.scala 96:16]
-  assign IFM_clk = clock; // @[CoreTop.scala 98:14]
-  assign IFM_pc = IF_io_out_bits_PC; // @[CoreTop.scala 71:13]
-  assign ID_io_in_bits_PC = ID_io_in_bits_r_PC; // @[Pipline.scala 20:16]
-  assign ID_io_in_bits_Inst = ID_io_in_bits_r_Inst; // @[Pipline.scala 20:16]
-  assign ID_io_REG1 = ID_io_out_bits_ctrl_signal_rfSrc1 == 5'h0 ? 64'h0 : rf_ID_io_REG1_MPORT_data; // @[RF.scala 8:37]
-  assign ID_io_REG2 = ID_io_out_bits_ctrl_signal_rfSrc1 == 5'h0 ? 64'h0 : rf_ID_io_REG2_MPORT_data; // @[RF.scala 8:37]
-  assign EX_io_in_bits_ctrl_signal_src1Type = EX_io_in_bits_r_ctrl_signal_src1Type; // @[Pipline.scala 20:16]
-  assign EX_io_in_bits_ctrl_signal_src2Type = EX_io_in_bits_r_ctrl_signal_src2Type; // @[Pipline.scala 20:16]
-  assign EX_io_in_bits_ctrl_signal_fuType = EX_io_in_bits_r_ctrl_signal_fuType; // @[Pipline.scala 20:16]
-  assign EX_io_in_bits_ctrl_signal_inst_valid = EX_io_in_bits_r_ctrl_signal_inst_valid; // @[Pipline.scala 20:16]
-  assign EX_io_in_bits_ctrl_signal_rfWen = EX_io_in_bits_r_ctrl_signal_rfWen; // @[Pipline.scala 20:16]
-  assign EX_io_in_bits_ctrl_signal_aluoptype = EX_io_in_bits_r_ctrl_signal_aluoptype; // @[Pipline.scala 20:16]
-  assign EX_io_in_bits_ctrl_signal_rfDest = EX_io_in_bits_r_ctrl_signal_rfDest; // @[Pipline.scala 20:16]
-  assign EX_io_in_bits_ctrl_data_src1 = EX_io_in_bits_r_ctrl_data_src1; // @[Pipline.scala 20:16]
-  assign EX_io_in_bits_ctrl_data_src2 = EX_io_in_bits_r_ctrl_data_src2; // @[Pipline.scala 20:16]
-  assign EX_io_in_bits_ctrl_data_Imm = EX_io_in_bits_r_ctrl_data_Imm; // @[Pipline.scala 20:16]
-  assign EX_io_in_bits_ctrl_flow_PC = EX_io_in_bits_r_ctrl_flow_PC; // @[Pipline.scala 20:16]
-  assign EX_io_in_bits_ctrl_flow_inst = EX_io_in_bits_r_ctrl_flow_inst; // @[Pipline.scala 20:16]
-  assign DIP_is_break = EX_io_is_break; // @[CoreTop.scala 101:19]
-  assign DIP_rf_0 = DIP_io_rf_0_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_1 = DIP_io_rf_1_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_2 = DIP_io_rf_2_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_3 = DIP_io_rf_3_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_4 = DIP_io_rf_4_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_5 = DIP_io_rf_5_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_6 = DIP_io_rf_6_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_7 = DIP_io_rf_7_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_8 = DIP_io_rf_8_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_9 = DIP_io_rf_9_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_10 = DIP_io_rf_10_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_11 = DIP_io_rf_11_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_12 = DIP_io_rf_12_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_13 = DIP_io_rf_13_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_14 = DIP_io_rf_14_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_15 = DIP_io_rf_15_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_16 = DIP_io_rf_16_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_17 = DIP_io_rf_17_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_18 = DIP_io_rf_18_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_19 = DIP_io_rf_19_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_20 = DIP_io_rf_20_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_21 = DIP_io_rf_21_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_22 = DIP_io_rf_22_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_23 = DIP_io_rf_23_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_24 = DIP_io_rf_24_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_25 = DIP_io_rf_25_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_26 = DIP_io_rf_26_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_27 = DIP_io_rf_27_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_28 = DIP_io_rf_28_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_29 = DIP_io_rf_29_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_30 = DIP_io_rf_30_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_31 = DIP_io_rf_31_REG; // @[CoreTop.scala 103:18]
-  assign DIP_inst = DIP_io_inst_REG; // @[CoreTop.scala 105:15]
-  assign DIP_pc = DIP_io_pc_REG; // @[CoreTop.scala 107:13]
-  assign DIP_inst_valid = DIP_io_inst_valid_REG; // @[CoreTop.scala 106:21]
-  assign mem_addr = MEM_io_mem_addr; // @[CoreTop.scala 83:15]
-  assign mem_reset = reset; // @[CoreTop.scala 95:16]
-  assign mem_clk = clock; // @[CoreTop.scala 97:14]
-  assign mem_we = MEM_io_mem_we; // @[CoreTop.scala 86:13]
-  assign mem_ce = MEM_io_mem_ce; // @[CoreTop.scala 85:13]
-  assign mem_wdata = MEM_io_mem_wdata; // @[CoreTop.scala 82:16]
-  assign mem_wmask = MEM_io_mem_wmask; // @[CoreTop.scala 84:16]
-  assign MEM_io_in_bits_ctrl_signal_fuType = MEM_io_in_bits_r_ctrl_signal_fuType; // @[Pipline.scala 20:16]
-  assign MEM_io_in_bits_ctrl_signal_inst_valid = MEM_io_in_bits_r_ctrl_signal_inst_valid; // @[Pipline.scala 20:16]
-  assign MEM_io_in_bits_ctrl_signal_aluoptype = MEM_io_in_bits_r_ctrl_signal_aluoptype; // @[Pipline.scala 20:16]
-  assign MEM_io_in_bits_ctrl_flow_PC = MEM_io_in_bits_r_ctrl_flow_PC; // @[Pipline.scala 20:16]
-  assign MEM_io_in_bits_ctrl_flow_inst = MEM_io_in_bits_r_ctrl_flow_inst; // @[Pipline.scala 20:16]
-  assign MEM_io_in_bits_ctrl_rf_rfDest = MEM_io_in_bits_r_ctrl_rf_rfDest; // @[Pipline.scala 20:16]
-  assign MEM_io_in_bits_ctrl_rf_rfWen = MEM_io_in_bits_r_ctrl_rf_rfWen; // @[Pipline.scala 20:16]
-  assign MEM_io_in_bits_ctrl_rf_rfData = MEM_io_in_bits_r_ctrl_rf_rfData; // @[Pipline.scala 20:16]
-  assign MEM_io_in_bits_ctrl_data_src1 = MEM_io_in_bits_r_ctrl_data_src1; // @[Pipline.scala 20:16]
-  assign MEM_io_in_bits_ctrl_data_src2 = MEM_io_in_bits_r_ctrl_data_src2; // @[Pipline.scala 20:16]
-  assign MEM_io_in_bits_ctrl_data_Imm = MEM_io_in_bits_r_ctrl_data_Imm; // @[Pipline.scala 20:16]
-  assign MEM_io_mem_rdata = mem_rdata; // @[CoreTop.scala 81:20]
-  assign WB_io_in_bits_ctrl_signal_inst_valid = WB_io_in_bits_r_ctrl_signal_inst_valid; // @[Pipline.scala 20:16]
-  assign WB_io_in_bits_ctrl_flow_PC = WB_io_in_bits_r_ctrl_flow_PC; // @[Pipline.scala 20:16]
-  assign WB_io_in_bits_ctrl_flow_inst = WB_io_in_bits_r_ctrl_flow_inst; // @[Pipline.scala 20:16]
-  assign WB_io_in_bits_ctrl_rf_rfDest = WB_io_in_bits_r_ctrl_rf_rfDest; // @[Pipline.scala 20:16]
-  assign WB_io_in_bits_ctrl_rf_rfWen = WB_io_in_bits_r_ctrl_rf_rfWen; // @[Pipline.scala 20:16]
-  assign WB_io_in_bits_ctrl_rf_rfData = WB_io_in_bits_r_ctrl_rf_rfData; // @[Pipline.scala 20:16]
+  assign IF_io_branch_io_is_branch = EX_io_branchIO_is_branch; // @[CoreTop.scala 91:19]
+  assign IF_io_branch_io_is_jump = EX_io_branchIO_is_jump; // @[CoreTop.scala 91:19]
+  assign IF_io_branch_io_dnpc = EX_io_branchIO_dnpc; // @[CoreTop.scala 91:19]
+  assign IF_io_inst = IFM_inst; // @[CoreTop.scala 81:14]
+  assign IFM_reset = reset; // @[CoreTop.scala 82:16]
+  assign IFM_clk = clock; // @[CoreTop.scala 83:14]
+  assign IFM_pc = IF_io_out_bits_PC; // @[CoreTop.scala 80:13]
+  assign ID_io_in_valid = valid; // @[Pipline.scala 24:17]
+  assign ID_io_in_bits_PC = ID_io_in_bits_r_PC; // @[Pipline.scala 23:16]
+  assign ID_io_in_bits_Inst = ID_io_in_bits_r_Inst; // @[Pipline.scala 23:16]
+  assign ID_io_REG1 = bypass_io_Bypass_REG1; // @[CoreTop.scala 87:14]
+  assign ID_io_REG2 = bypass_io_Bypass_REG2; // @[CoreTop.scala 88:14]
+  assign EX_io_in_valid = valid_1; // @[Pipline.scala 24:17]
+  assign EX_io_in_bits_ctrl_signal_src1Type = EX_io_in_bits_r_ctrl_signal_src1Type; // @[Pipline.scala 23:16]
+  assign EX_io_in_bits_ctrl_signal_src2Type = EX_io_in_bits_r_ctrl_signal_src2Type; // @[Pipline.scala 23:16]
+  assign EX_io_in_bits_ctrl_signal_fuType = EX_io_in_bits_r_ctrl_signal_fuType; // @[Pipline.scala 23:16]
+  assign EX_io_in_bits_ctrl_signal_inst_valid = EX_io_in_bits_r_ctrl_signal_inst_valid; // @[Pipline.scala 23:16]
+  assign EX_io_in_bits_ctrl_signal_rfWen = EX_io_in_bits_r_ctrl_signal_rfWen; // @[Pipline.scala 23:16]
+  assign EX_io_in_bits_ctrl_signal_aluoptype = EX_io_in_bits_r_ctrl_signal_aluoptype; // @[Pipline.scala 23:16]
+  assign EX_io_in_bits_ctrl_signal_rfDest = EX_io_in_bits_r_ctrl_signal_rfDest; // @[Pipline.scala 23:16]
+  assign EX_io_in_bits_ctrl_data_src1 = EX_io_in_bits_r_ctrl_data_src1; // @[Pipline.scala 23:16]
+  assign EX_io_in_bits_ctrl_data_src2 = EX_io_in_bits_r_ctrl_data_src2; // @[Pipline.scala 23:16]
+  assign EX_io_in_bits_ctrl_data_Imm = EX_io_in_bits_r_ctrl_data_Imm; // @[Pipline.scala 23:16]
+  assign EX_io_in_bits_ctrl_flow_PC = EX_io_in_bits_r_ctrl_flow_PC; // @[Pipline.scala 23:16]
+  assign EX_io_in_bits_ctrl_flow_inst = EX_io_in_bits_r_ctrl_flow_inst; // @[Pipline.scala 23:16]
+  assign DIP_is_break = EX_io_is_break; // @[CoreTop.scala 115:19]
+  assign DIP_rf_0 = rf_DIP_io_rf_0_MPORT_data; // @[CoreTop.scala 117:18]
+  assign DIP_rf_1 = rf_DIP_io_rf_1_MPORT_data; // @[CoreTop.scala 117:18]
+  assign DIP_rf_2 = rf_DIP_io_rf_2_MPORT_data; // @[CoreTop.scala 117:18]
+  assign DIP_rf_3 = rf_DIP_io_rf_3_MPORT_data; // @[CoreTop.scala 117:18]
+  assign DIP_rf_4 = rf_DIP_io_rf_4_MPORT_data; // @[CoreTop.scala 117:18]
+  assign DIP_rf_5 = rf_DIP_io_rf_5_MPORT_data; // @[CoreTop.scala 117:18]
+  assign DIP_rf_6 = rf_DIP_io_rf_6_MPORT_data; // @[CoreTop.scala 117:18]
+  assign DIP_rf_7 = rf_DIP_io_rf_7_MPORT_data; // @[CoreTop.scala 117:18]
+  assign DIP_rf_8 = rf_DIP_io_rf_8_MPORT_data; // @[CoreTop.scala 117:18]
+  assign DIP_rf_9 = rf_DIP_io_rf_9_MPORT_data; // @[CoreTop.scala 117:18]
+  assign DIP_rf_10 = rf_DIP_io_rf_10_MPORT_data; // @[CoreTop.scala 117:18]
+  assign DIP_rf_11 = rf_DIP_io_rf_11_MPORT_data; // @[CoreTop.scala 117:18]
+  assign DIP_rf_12 = rf_DIP_io_rf_12_MPORT_data; // @[CoreTop.scala 117:18]
+  assign DIP_rf_13 = rf_DIP_io_rf_13_MPORT_data; // @[CoreTop.scala 117:18]
+  assign DIP_rf_14 = rf_DIP_io_rf_14_MPORT_data; // @[CoreTop.scala 117:18]
+  assign DIP_rf_15 = rf_DIP_io_rf_15_MPORT_data; // @[CoreTop.scala 117:18]
+  assign DIP_rf_16 = rf_DIP_io_rf_16_MPORT_data; // @[CoreTop.scala 117:18]
+  assign DIP_rf_17 = rf_DIP_io_rf_17_MPORT_data; // @[CoreTop.scala 117:18]
+  assign DIP_rf_18 = rf_DIP_io_rf_18_MPORT_data; // @[CoreTop.scala 117:18]
+  assign DIP_rf_19 = rf_DIP_io_rf_19_MPORT_data; // @[CoreTop.scala 117:18]
+  assign DIP_rf_20 = rf_DIP_io_rf_20_MPORT_data; // @[CoreTop.scala 117:18]
+  assign DIP_rf_21 = rf_DIP_io_rf_21_MPORT_data; // @[CoreTop.scala 117:18]
+  assign DIP_rf_22 = rf_DIP_io_rf_22_MPORT_data; // @[CoreTop.scala 117:18]
+  assign DIP_rf_23 = rf_DIP_io_rf_23_MPORT_data; // @[CoreTop.scala 117:18]
+  assign DIP_rf_24 = rf_DIP_io_rf_24_MPORT_data; // @[CoreTop.scala 117:18]
+  assign DIP_rf_25 = rf_DIP_io_rf_25_MPORT_data; // @[CoreTop.scala 117:18]
+  assign DIP_rf_26 = rf_DIP_io_rf_26_MPORT_data; // @[CoreTop.scala 117:18]
+  assign DIP_rf_27 = rf_DIP_io_rf_27_MPORT_data; // @[CoreTop.scala 117:18]
+  assign DIP_rf_28 = rf_DIP_io_rf_28_MPORT_data; // @[CoreTop.scala 117:18]
+  assign DIP_rf_29 = rf_DIP_io_rf_29_MPORT_data; // @[CoreTop.scala 117:18]
+  assign DIP_rf_30 = rf_DIP_io_rf_30_MPORT_data; // @[CoreTop.scala 117:18]
+  assign DIP_rf_31 = rf_DIP_io_rf_31_MPORT_data; // @[CoreTop.scala 117:18]
+  assign DIP_inst = DIP_io_inst_REG; // @[CoreTop.scala 119:15]
+  assign DIP_pc = DIP_io_pc_REG; // @[CoreTop.scala 121:13]
+  assign DIP_inst_valid = DIP_io_inst_valid_REG; // @[CoreTop.scala 120:21]
+  assign DIP_dnpc = DIP_io_dnpc_REG; // @[CoreTop.scala 122:15]
+  assign mem_addr = MEM_io_mem_addr; // @[CoreTop.scala 98:15]
+  assign mem_reset = reset; // @[CoreTop.scala 103:16]
+  assign mem_clk = clock; // @[CoreTop.scala 102:14]
+  assign mem_we = MEM_io_mem_we; // @[CoreTop.scala 101:13]
+  assign mem_ce = MEM_io_mem_ce; // @[CoreTop.scala 100:13]
+  assign mem_wdata = MEM_io_mem_wdata; // @[CoreTop.scala 97:16]
+  assign mem_wmask = MEM_io_mem_wmask; // @[CoreTop.scala 99:16]
+  assign MEM_io_in_valid = valid_2; // @[Pipline.scala 24:17]
+  assign MEM_io_in_bits_ctrl_signal_fuType = MEM_io_in_bits_r_ctrl_signal_fuType; // @[Pipline.scala 23:16]
+  assign MEM_io_in_bits_ctrl_signal_inst_valid = MEM_io_in_bits_r_ctrl_signal_inst_valid; // @[Pipline.scala 23:16]
+  assign MEM_io_in_bits_ctrl_signal_rfWen = MEM_io_in_bits_r_ctrl_signal_rfWen; // @[Pipline.scala 23:16]
+  assign MEM_io_in_bits_ctrl_signal_aluoptype = MEM_io_in_bits_r_ctrl_signal_aluoptype; // @[Pipline.scala 23:16]
+  assign MEM_io_in_bits_ctrl_flow_PC = MEM_io_in_bits_r_ctrl_flow_PC; // @[Pipline.scala 23:16]
+  assign MEM_io_in_bits_ctrl_flow_inst = MEM_io_in_bits_r_ctrl_flow_inst; // @[Pipline.scala 23:16]
+  assign MEM_io_in_bits_ctrl_flow_Dnpc = MEM_io_in_bits_r_ctrl_flow_Dnpc; // @[Pipline.scala 23:16]
+  assign MEM_io_in_bits_ctrl_rf_rfDest = MEM_io_in_bits_r_ctrl_rf_rfDest; // @[Pipline.scala 23:16]
+  assign MEM_io_in_bits_ctrl_rf_rfData = MEM_io_in_bits_r_ctrl_rf_rfData; // @[Pipline.scala 23:16]
+  assign MEM_io_in_bits_ctrl_data_src1 = MEM_io_in_bits_r_ctrl_data_src1; // @[Pipline.scala 23:16]
+  assign MEM_io_in_bits_ctrl_data_src2 = MEM_io_in_bits_r_ctrl_data_src2; // @[Pipline.scala 23:16]
+  assign MEM_io_in_bits_ctrl_data_Imm = MEM_io_in_bits_r_ctrl_data_Imm; // @[Pipline.scala 23:16]
+  assign MEM_io_mem_rdata = mem_rdata; // @[CoreTop.scala 96:20]
+  assign WB_io_in_valid = valid_3; // @[Pipline.scala 24:17]
+  assign WB_io_in_bits_ctrl_signal_inst_valid = WB_io_in_bits_r_ctrl_signal_inst_valid; // @[Pipline.scala 23:16]
+  assign WB_io_in_bits_ctrl_signal_rfWen = WB_io_in_bits_r_ctrl_signal_rfWen; // @[Pipline.scala 23:16]
+  assign WB_io_in_bits_ctrl_flow_PC = WB_io_in_bits_r_ctrl_flow_PC; // @[Pipline.scala 23:16]
+  assign WB_io_in_bits_ctrl_flow_inst = WB_io_in_bits_r_ctrl_flow_inst; // @[Pipline.scala 23:16]
+  assign WB_io_in_bits_ctrl_flow_Dnpc = WB_io_in_bits_r_ctrl_flow_Dnpc; // @[Pipline.scala 23:16]
+  assign WB_io_in_bits_ctrl_rf_rfDest = WB_io_in_bits_r_ctrl_rf_rfDest; // @[Pipline.scala 23:16]
+  assign WB_io_in_bits_ctrl_rf_rfData = WB_io_in_bits_r_ctrl_rf_rfData; // @[Pipline.scala 23:16]
+  assign bypass_io_EX_rf_rfDest = EX_io_out_bits_ctrl_rf_rfDest; // @[CoreTop.scala 92:19]
+  assign bypass_io_EX_rf_rfWen = EX_io_out_bits_ctrl_rf_rfWen; // @[CoreTop.scala 92:19]
+  assign bypass_io_EX_rf_rfData = EX_io_out_bits_ctrl_rf_rfData; // @[CoreTop.scala 92:19]
+  assign bypass_io_MEM_rf_rfDest = MEM_io_out_bits_ctrl_rf_rfDest; // @[CoreTop.scala 104:20]
+  assign bypass_io_MEM_rf_rfWen = MEM_io_out_bits_ctrl_rf_rfWen; // @[CoreTop.scala 104:20]
+  assign bypass_io_MEM_rf_rfData = MEM_io_out_bits_ctrl_rf_rfData; // @[CoreTop.scala 104:20]
+  assign bypass_io_WB_rf_rfDest = WB_io_out_bits_ctrl_rf_rfDest; // @[CoreTop.scala 112:19]
+  assign bypass_io_WB_rf_rfWen = WB_io_out_bits_ctrl_rf_rfWen; // @[CoreTop.scala 112:19]
+  assign bypass_io_WB_rf_rfData = WB_io_out_bits_ctrl_rf_rfData; // @[CoreTop.scala 112:19]
+  assign bypass_io_Reg1 = ID_io_out_bits_ctrl_signal_rfSrc1 == 5'h0 ? 64'h0 : rf_bypass_io_Reg1_MPORT_data; // @[RF.scala 8:37]
+  assign bypass_io_reg_index1 = ID_io_out_bits_ctrl_signal_rfSrc1; // @[CoreTop.scala 75:24]
+  assign bypass_io_Reg2 = ID_io_out_bits_ctrl_signal_rfSrc2 == 5'h0 ? 64'h0 : rf_bypass_io_Reg2_MPORT_data; // @[RF.scala 8:37]
+  assign bypass_io_reg_index2 = ID_io_out_bits_ctrl_signal_rfSrc2; // @[CoreTop.scala 76:24]
   always @(posedge clock) begin
     if (rf_MPORT_en & rf_MPORT_mask) begin
       rf[rf_MPORT_addr] <= rf_MPORT_data; // @[RF.scala 7:15]
     end
+    if (reset) begin // @[Pipline.scala 8:24]
+      valid <= 1'h0; // @[Pipline.scala 8:24]
+    end else if (EX_io_is_flush) begin // @[Pipline.scala 18:25]
+      valid <= 1'h0; // @[Pipline.scala 19:13]
+    end else begin
+      valid <= 1'h1;
+    end
     ID_io_in_bits_r_PC <= IF_io_out_bits_PC; // @[Reg.scala 16:16 17:{18,22}]
     ID_io_in_bits_r_Inst <= IF_io_out_bits_Inst; // @[Reg.scala 16:16 17:{18,22}]
-    EX_io_in_bits_r_ctrl_signal_src1Type <= ID_io_out_bits_ctrl_signal_src1Type; // @[Reg.scala 16:16 17:{18,22}]
-    EX_io_in_bits_r_ctrl_signal_src2Type <= ID_io_out_bits_ctrl_signal_src2Type; // @[Reg.scala 16:16 17:{18,22}]
-    EX_io_in_bits_r_ctrl_signal_fuType <= ID_io_out_bits_ctrl_signal_fuType; // @[Reg.scala 16:16 17:{18,22}]
-    EX_io_in_bits_r_ctrl_signal_inst_valid <= ID_io_out_bits_ctrl_signal_inst_valid; // @[Reg.scala 16:16 17:{18,22}]
-    EX_io_in_bits_r_ctrl_signal_rfWen <= ID_io_out_bits_ctrl_signal_rfWen; // @[Reg.scala 16:16 17:{18,22}]
-    EX_io_in_bits_r_ctrl_signal_aluoptype <= ID_io_out_bits_ctrl_signal_aluoptype; // @[Reg.scala 16:16 17:{18,22}]
-    EX_io_in_bits_r_ctrl_signal_rfDest <= ID_io_out_bits_ctrl_signal_rfDest; // @[Reg.scala 16:16 17:{18,22}]
-    EX_io_in_bits_r_ctrl_data_src1 <= ID_io_out_bits_ctrl_data_src1; // @[Reg.scala 16:16 17:{18,22}]
-    EX_io_in_bits_r_ctrl_data_src2 <= ID_io_out_bits_ctrl_data_src2; // @[Reg.scala 16:16 17:{18,22}]
-    EX_io_in_bits_r_ctrl_data_Imm <= ID_io_out_bits_ctrl_data_Imm; // @[Reg.scala 16:16 17:{18,22}]
-    EX_io_in_bits_r_ctrl_flow_PC <= ID_io_out_bits_ctrl_flow_PC; // @[Reg.scala 16:16 17:{18,22}]
-    EX_io_in_bits_r_ctrl_flow_inst <= ID_io_out_bits_ctrl_flow_inst; // @[Reg.scala 16:16 17:{18,22}]
-    MEM_io_in_bits_r_ctrl_signal_fuType <= EX_io_out_bits_ctrl_signal_fuType; // @[Reg.scala 16:16 17:{18,22}]
-    MEM_io_in_bits_r_ctrl_signal_inst_valid <= EX_io_out_bits_ctrl_signal_inst_valid; // @[Reg.scala 16:16 17:{18,22}]
-    MEM_io_in_bits_r_ctrl_signal_aluoptype <= EX_io_out_bits_ctrl_signal_aluoptype; // @[Reg.scala 16:16 17:{18,22}]
-    MEM_io_in_bits_r_ctrl_flow_PC <= EX_io_out_bits_ctrl_flow_PC; // @[Reg.scala 16:16 17:{18,22}]
-    MEM_io_in_bits_r_ctrl_flow_inst <= EX_io_out_bits_ctrl_flow_inst; // @[Reg.scala 16:16 17:{18,22}]
-    MEM_io_in_bits_r_ctrl_rf_rfDest <= EX_io_out_bits_ctrl_rf_rfDest; // @[Reg.scala 16:16 17:{18,22}]
-    MEM_io_in_bits_r_ctrl_rf_rfWen <= EX_io_out_bits_ctrl_rf_rfWen; // @[Reg.scala 16:16 17:{18,22}]
-    MEM_io_in_bits_r_ctrl_rf_rfData <= EX_io_out_bits_ctrl_rf_rfData; // @[Reg.scala 16:16 17:{18,22}]
-    MEM_io_in_bits_r_ctrl_data_src1 <= EX_io_out_bits_ctrl_data_src1; // @[Reg.scala 16:16 17:{18,22}]
-    MEM_io_in_bits_r_ctrl_data_src2 <= EX_io_out_bits_ctrl_data_src2; // @[Reg.scala 16:16 17:{18,22}]
-    MEM_io_in_bits_r_ctrl_data_Imm <= EX_io_out_bits_ctrl_data_Imm; // @[Reg.scala 16:16 17:{18,22}]
-    WB_io_in_bits_r_ctrl_signal_inst_valid <= MEM_io_out_bits_ctrl_signal_inst_valid; // @[Reg.scala 16:16 17:{18,22}]
-    WB_io_in_bits_r_ctrl_flow_PC <= MEM_io_out_bits_ctrl_flow_PC; // @[Reg.scala 16:16 17:{18,22}]
-    WB_io_in_bits_r_ctrl_flow_inst <= MEM_io_out_bits_ctrl_flow_inst; // @[Reg.scala 16:16 17:{18,22}]
-    WB_io_in_bits_r_ctrl_rf_rfDest <= MEM_io_out_bits_ctrl_rf_rfDest; // @[Reg.scala 16:16 17:{18,22}]
-    WB_io_in_bits_r_ctrl_rf_rfWen <= MEM_io_out_bits_ctrl_rf_rfWen; // @[Reg.scala 16:16 17:{18,22}]
-    WB_io_in_bits_r_ctrl_rf_rfData <= MEM_io_out_bits_ctrl_rf_rfData; // @[Reg.scala 16:16 17:{18,22}]
-    DIP_io_rf_0_REG <= rf_DIP_io_rf_0_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_1_REG <= rf_DIP_io_rf_1_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_2_REG <= rf_DIP_io_rf_2_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_3_REG <= rf_DIP_io_rf_3_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_4_REG <= rf_DIP_io_rf_4_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_5_REG <= rf_DIP_io_rf_5_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_6_REG <= rf_DIP_io_rf_6_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_7_REG <= rf_DIP_io_rf_7_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_8_REG <= rf_DIP_io_rf_8_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_9_REG <= rf_DIP_io_rf_9_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_10_REG <= rf_DIP_io_rf_10_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_11_REG <= rf_DIP_io_rf_11_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_12_REG <= rf_DIP_io_rf_12_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_13_REG <= rf_DIP_io_rf_13_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_14_REG <= rf_DIP_io_rf_14_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_15_REG <= rf_DIP_io_rf_15_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_16_REG <= rf_DIP_io_rf_16_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_17_REG <= rf_DIP_io_rf_17_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_18_REG <= rf_DIP_io_rf_18_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_19_REG <= rf_DIP_io_rf_19_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_20_REG <= rf_DIP_io_rf_20_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_21_REG <= rf_DIP_io_rf_21_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_22_REG <= rf_DIP_io_rf_22_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_23_REG <= rf_DIP_io_rf_23_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_24_REG <= rf_DIP_io_rf_24_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_25_REG <= rf_DIP_io_rf_25_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_26_REG <= rf_DIP_io_rf_26_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_27_REG <= rf_DIP_io_rf_27_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_28_REG <= rf_DIP_io_rf_28_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_29_REG <= rf_DIP_io_rf_29_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_30_REG <= rf_DIP_io_rf_30_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_31_REG <= rf_DIP_io_rf_31_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_inst_REG <= WB_io_out_bits_ctrl_flow_inst; // @[CoreTop.scala 105:25]
-    DIP_io_inst_valid_REG <= WB_io_out_bits_ctrl_signal_inst_valid; // @[CoreTop.scala 106:31]
-    DIP_io_pc_REG <= WB_io_out_bits_ctrl_flow_PC; // @[CoreTop.scala 107:23]
-    io_inst_REG <= WB_io_out_bits_ctrl_flow_inst; // @[CoreTop.scala 108:21]
+    if (reset) begin // @[Pipline.scala 8:24]
+      valid_1 <= 1'h0; // @[Pipline.scala 8:24]
+    end else if (EX_io_is_flush) begin // @[Pipline.scala 18:25]
+      valid_1 <= 1'h0; // @[Pipline.scala 19:13]
+    end else begin
+      valid_1 <= _T_6;
+    end
+    if (_T_6) begin // @[Reg.scala 17:18]
+      EX_io_in_bits_r_ctrl_signal_src1Type <= ID_io_out_bits_ctrl_signal_src1Type; // @[Reg.scala 17:22]
+    end
+    if (_T_6) begin // @[Reg.scala 17:18]
+      EX_io_in_bits_r_ctrl_signal_src2Type <= ID_io_out_bits_ctrl_signal_src2Type; // @[Reg.scala 17:22]
+    end
+    if (_T_6) begin // @[Reg.scala 17:18]
+      EX_io_in_bits_r_ctrl_signal_fuType <= ID_io_out_bits_ctrl_signal_fuType; // @[Reg.scala 17:22]
+    end
+    if (_T_6) begin // @[Reg.scala 17:18]
+      EX_io_in_bits_r_ctrl_signal_inst_valid <= ID_io_out_bits_ctrl_signal_inst_valid; // @[Reg.scala 17:22]
+    end
+    if (_T_6) begin // @[Reg.scala 17:18]
+      EX_io_in_bits_r_ctrl_signal_rfWen <= ID_io_out_bits_ctrl_signal_rfWen; // @[Reg.scala 17:22]
+    end
+    if (_T_6) begin // @[Reg.scala 17:18]
+      EX_io_in_bits_r_ctrl_signal_aluoptype <= ID_io_out_bits_ctrl_signal_aluoptype; // @[Reg.scala 17:22]
+    end
+    if (_T_6) begin // @[Reg.scala 17:18]
+      EX_io_in_bits_r_ctrl_signal_rfDest <= ID_io_out_bits_ctrl_signal_rfDest; // @[Reg.scala 17:22]
+    end
+    if (_T_6) begin // @[Reg.scala 17:18]
+      EX_io_in_bits_r_ctrl_data_src1 <= ID_io_out_bits_ctrl_data_src1; // @[Reg.scala 17:22]
+    end
+    if (_T_6) begin // @[Reg.scala 17:18]
+      EX_io_in_bits_r_ctrl_data_src2 <= ID_io_out_bits_ctrl_data_src2; // @[Reg.scala 17:22]
+    end
+    if (_T_6) begin // @[Reg.scala 17:18]
+      EX_io_in_bits_r_ctrl_data_Imm <= ID_io_out_bits_ctrl_data_Imm; // @[Reg.scala 17:22]
+    end
+    if (_T_6) begin // @[Reg.scala 17:18]
+      EX_io_in_bits_r_ctrl_flow_PC <= ID_io_out_bits_ctrl_flow_PC; // @[Reg.scala 17:22]
+    end
+    if (_T_6) begin // @[Reg.scala 17:18]
+      EX_io_in_bits_r_ctrl_flow_inst <= ID_io_out_bits_ctrl_flow_inst; // @[Reg.scala 17:22]
+    end
+    if (reset) begin // @[Pipline.scala 8:24]
+      valid_2 <= 1'h0; // @[Pipline.scala 8:24]
+    end else begin
+      valid_2 <= _T_10;
+    end
+    if (_T_10) begin // @[Reg.scala 17:18]
+      MEM_io_in_bits_r_ctrl_signal_fuType <= EX_io_out_bits_ctrl_signal_fuType; // @[Reg.scala 17:22]
+    end
+    if (_T_10) begin // @[Reg.scala 17:18]
+      MEM_io_in_bits_r_ctrl_signal_inst_valid <= EX_io_out_bits_ctrl_signal_inst_valid; // @[Reg.scala 17:22]
+    end
+    if (_T_10) begin // @[Reg.scala 17:18]
+      MEM_io_in_bits_r_ctrl_signal_rfWen <= EX_io_out_bits_ctrl_signal_rfWen; // @[Reg.scala 17:22]
+    end
+    if (_T_10) begin // @[Reg.scala 17:18]
+      MEM_io_in_bits_r_ctrl_signal_aluoptype <= EX_io_out_bits_ctrl_signal_aluoptype; // @[Reg.scala 17:22]
+    end
+    if (_T_10) begin // @[Reg.scala 17:18]
+      MEM_io_in_bits_r_ctrl_flow_PC <= EX_io_out_bits_ctrl_flow_PC; // @[Reg.scala 17:22]
+    end
+    if (_T_10) begin // @[Reg.scala 17:18]
+      MEM_io_in_bits_r_ctrl_flow_inst <= EX_io_out_bits_ctrl_flow_inst; // @[Reg.scala 17:22]
+    end
+    if (_T_10) begin // @[Reg.scala 17:18]
+      MEM_io_in_bits_r_ctrl_flow_Dnpc <= EX_io_out_bits_ctrl_flow_Dnpc; // @[Reg.scala 17:22]
+    end
+    if (_T_10) begin // @[Reg.scala 17:18]
+      MEM_io_in_bits_r_ctrl_rf_rfDest <= EX_io_out_bits_ctrl_rf_rfDest; // @[Reg.scala 17:22]
+    end
+    if (_T_10) begin // @[Reg.scala 17:18]
+      MEM_io_in_bits_r_ctrl_rf_rfData <= EX_io_out_bits_ctrl_rf_rfData; // @[Reg.scala 17:22]
+    end
+    if (_T_10) begin // @[Reg.scala 17:18]
+      MEM_io_in_bits_r_ctrl_data_src1 <= EX_io_out_bits_ctrl_data_src1; // @[Reg.scala 17:22]
+    end
+    if (_T_10) begin // @[Reg.scala 17:18]
+      MEM_io_in_bits_r_ctrl_data_src2 <= EX_io_out_bits_ctrl_data_src2; // @[Reg.scala 17:22]
+    end
+    if (_T_10) begin // @[Reg.scala 17:18]
+      MEM_io_in_bits_r_ctrl_data_Imm <= EX_io_out_bits_ctrl_data_Imm; // @[Reg.scala 17:22]
+    end
+    if (reset) begin // @[Pipline.scala 8:24]
+      valid_3 <= 1'h0; // @[Pipline.scala 8:24]
+    end else begin
+      valid_3 <= _T_14;
+    end
+    if (_T_14) begin // @[Reg.scala 17:18]
+      WB_io_in_bits_r_ctrl_signal_inst_valid <= MEM_io_out_bits_ctrl_signal_inst_valid; // @[Reg.scala 17:22]
+    end
+    if (_T_14) begin // @[Reg.scala 17:18]
+      WB_io_in_bits_r_ctrl_signal_rfWen <= MEM_io_out_bits_ctrl_signal_rfWen; // @[Reg.scala 17:22]
+    end
+    if (_T_14) begin // @[Reg.scala 17:18]
+      WB_io_in_bits_r_ctrl_flow_PC <= MEM_io_out_bits_ctrl_flow_PC; // @[Reg.scala 17:22]
+    end
+    if (_T_14) begin // @[Reg.scala 17:18]
+      WB_io_in_bits_r_ctrl_flow_inst <= MEM_io_out_bits_ctrl_flow_inst; // @[Reg.scala 17:22]
+    end
+    if (_T_14) begin // @[Reg.scala 17:18]
+      WB_io_in_bits_r_ctrl_flow_Dnpc <= MEM_io_out_bits_ctrl_flow_Dnpc; // @[Reg.scala 17:22]
+    end
+    if (_T_14) begin // @[Reg.scala 17:18]
+      WB_io_in_bits_r_ctrl_rf_rfDest <= MEM_io_out_bits_ctrl_rf_rfDest; // @[Reg.scala 17:22]
+    end
+    if (_T_14) begin // @[Reg.scala 17:18]
+      WB_io_in_bits_r_ctrl_rf_rfData <= MEM_io_out_bits_ctrl_rf_rfData; // @[Reg.scala 17:22]
+    end
+    DIP_io_inst_REG <= WB_io_out_bits_ctrl_flow_inst; // @[CoreTop.scala 119:25]
+    DIP_io_inst_valid_REG <= WB_io_in_valid & WB_io_out_bits_ctrl_signal_inst_valid; // @[CoreTop.scala 120:35]
+    DIP_io_pc_REG <= WB_io_out_bits_ctrl_flow_PC; // @[CoreTop.scala 121:23]
+    DIP_io_dnpc_REG <= WB_io_out_bits_ctrl_flow_Dnpc; // @[CoreTop.scala 122:25]
+    io_inst_REG <= WB_io_out_bits_ctrl_flow_inst; // @[CoreTop.scala 123:21]
   end
 // Register and memory initialization
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
@@ -1629,140 +1786,90 @@ initial begin
     rf[initvar] = _RAND_0[63:0];
 `endif // RANDOMIZE_MEM_INIT
 `ifdef RANDOMIZE_REG_INIT
-  _RAND_1 = {2{`RANDOM}};
-  ID_io_in_bits_r_PC = _RAND_1[63:0];
-  _RAND_2 = {1{`RANDOM}};
-  ID_io_in_bits_r_Inst = _RAND_2[31:0];
+  _RAND_1 = {1{`RANDOM}};
+  valid = _RAND_1[0:0];
+  _RAND_2 = {2{`RANDOM}};
+  ID_io_in_bits_r_PC = _RAND_2[63:0];
   _RAND_3 = {1{`RANDOM}};
-  EX_io_in_bits_r_ctrl_signal_src1Type = _RAND_3[2:0];
+  ID_io_in_bits_r_Inst = _RAND_3[31:0];
   _RAND_4 = {1{`RANDOM}};
-  EX_io_in_bits_r_ctrl_signal_src2Type = _RAND_4[2:0];
+  valid_1 = _RAND_4[0:0];
   _RAND_5 = {1{`RANDOM}};
-  EX_io_in_bits_r_ctrl_signal_fuType = _RAND_5[2:0];
+  EX_io_in_bits_r_ctrl_signal_src1Type = _RAND_5[2:0];
   _RAND_6 = {1{`RANDOM}};
-  EX_io_in_bits_r_ctrl_signal_inst_valid = _RAND_6[0:0];
+  EX_io_in_bits_r_ctrl_signal_src2Type = _RAND_6[2:0];
   _RAND_7 = {1{`RANDOM}};
-  EX_io_in_bits_r_ctrl_signal_rfWen = _RAND_7[0:0];
+  EX_io_in_bits_r_ctrl_signal_fuType = _RAND_7[2:0];
   _RAND_8 = {1{`RANDOM}};
-  EX_io_in_bits_r_ctrl_signal_aluoptype = _RAND_8[6:0];
+  EX_io_in_bits_r_ctrl_signal_inst_valid = _RAND_8[0:0];
   _RAND_9 = {1{`RANDOM}};
-  EX_io_in_bits_r_ctrl_signal_rfDest = _RAND_9[4:0];
-  _RAND_10 = {2{`RANDOM}};
-  EX_io_in_bits_r_ctrl_data_src1 = _RAND_10[63:0];
-  _RAND_11 = {2{`RANDOM}};
-  EX_io_in_bits_r_ctrl_data_src2 = _RAND_11[63:0];
+  EX_io_in_bits_r_ctrl_signal_rfWen = _RAND_9[0:0];
+  _RAND_10 = {1{`RANDOM}};
+  EX_io_in_bits_r_ctrl_signal_aluoptype = _RAND_10[6:0];
+  _RAND_11 = {1{`RANDOM}};
+  EX_io_in_bits_r_ctrl_signal_rfDest = _RAND_11[4:0];
   _RAND_12 = {2{`RANDOM}};
-  EX_io_in_bits_r_ctrl_data_Imm = _RAND_12[63:0];
+  EX_io_in_bits_r_ctrl_data_src1 = _RAND_12[63:0];
   _RAND_13 = {2{`RANDOM}};
-  EX_io_in_bits_r_ctrl_flow_PC = _RAND_13[63:0];
-  _RAND_14 = {1{`RANDOM}};
-  EX_io_in_bits_r_ctrl_flow_inst = _RAND_14[31:0];
-  _RAND_15 = {1{`RANDOM}};
-  MEM_io_in_bits_r_ctrl_signal_fuType = _RAND_15[2:0];
+  EX_io_in_bits_r_ctrl_data_src2 = _RAND_13[63:0];
+  _RAND_14 = {2{`RANDOM}};
+  EX_io_in_bits_r_ctrl_data_Imm = _RAND_14[63:0];
+  _RAND_15 = {2{`RANDOM}};
+  EX_io_in_bits_r_ctrl_flow_PC = _RAND_15[63:0];
   _RAND_16 = {1{`RANDOM}};
-  MEM_io_in_bits_r_ctrl_signal_inst_valid = _RAND_16[0:0];
+  EX_io_in_bits_r_ctrl_flow_inst = _RAND_16[31:0];
   _RAND_17 = {1{`RANDOM}};
-  MEM_io_in_bits_r_ctrl_signal_aluoptype = _RAND_17[6:0];
-  _RAND_18 = {2{`RANDOM}};
-  MEM_io_in_bits_r_ctrl_flow_PC = _RAND_18[63:0];
+  valid_2 = _RAND_17[0:0];
+  _RAND_18 = {1{`RANDOM}};
+  MEM_io_in_bits_r_ctrl_signal_fuType = _RAND_18[2:0];
   _RAND_19 = {1{`RANDOM}};
-  MEM_io_in_bits_r_ctrl_flow_inst = _RAND_19[31:0];
+  MEM_io_in_bits_r_ctrl_signal_inst_valid = _RAND_19[0:0];
   _RAND_20 = {1{`RANDOM}};
-  MEM_io_in_bits_r_ctrl_rf_rfDest = _RAND_20[4:0];
+  MEM_io_in_bits_r_ctrl_signal_rfWen = _RAND_20[0:0];
   _RAND_21 = {1{`RANDOM}};
-  MEM_io_in_bits_r_ctrl_rf_rfWen = _RAND_21[0:0];
+  MEM_io_in_bits_r_ctrl_signal_aluoptype = _RAND_21[6:0];
   _RAND_22 = {2{`RANDOM}};
-  MEM_io_in_bits_r_ctrl_rf_rfData = _RAND_22[63:0];
-  _RAND_23 = {2{`RANDOM}};
-  MEM_io_in_bits_r_ctrl_data_src1 = _RAND_23[63:0];
+  MEM_io_in_bits_r_ctrl_flow_PC = _RAND_22[63:0];
+  _RAND_23 = {1{`RANDOM}};
+  MEM_io_in_bits_r_ctrl_flow_inst = _RAND_23[31:0];
   _RAND_24 = {2{`RANDOM}};
-  MEM_io_in_bits_r_ctrl_data_src2 = _RAND_24[63:0];
-  _RAND_25 = {2{`RANDOM}};
-  MEM_io_in_bits_r_ctrl_data_Imm = _RAND_25[63:0];
-  _RAND_26 = {1{`RANDOM}};
-  WB_io_in_bits_r_ctrl_signal_inst_valid = _RAND_26[0:0];
+  MEM_io_in_bits_r_ctrl_flow_Dnpc = _RAND_24[63:0];
+  _RAND_25 = {1{`RANDOM}};
+  MEM_io_in_bits_r_ctrl_rf_rfDest = _RAND_25[4:0];
+  _RAND_26 = {2{`RANDOM}};
+  MEM_io_in_bits_r_ctrl_rf_rfData = _RAND_26[63:0];
   _RAND_27 = {2{`RANDOM}};
-  WB_io_in_bits_r_ctrl_flow_PC = _RAND_27[63:0];
-  _RAND_28 = {1{`RANDOM}};
-  WB_io_in_bits_r_ctrl_flow_inst = _RAND_28[31:0];
-  _RAND_29 = {1{`RANDOM}};
-  WB_io_in_bits_r_ctrl_rf_rfDest = _RAND_29[4:0];
+  MEM_io_in_bits_r_ctrl_data_src1 = _RAND_27[63:0];
+  _RAND_28 = {2{`RANDOM}};
+  MEM_io_in_bits_r_ctrl_data_src2 = _RAND_28[63:0];
+  _RAND_29 = {2{`RANDOM}};
+  MEM_io_in_bits_r_ctrl_data_Imm = _RAND_29[63:0];
   _RAND_30 = {1{`RANDOM}};
-  WB_io_in_bits_r_ctrl_rf_rfWen = _RAND_30[0:0];
-  _RAND_31 = {2{`RANDOM}};
-  WB_io_in_bits_r_ctrl_rf_rfData = _RAND_31[63:0];
-  _RAND_32 = {2{`RANDOM}};
-  DIP_io_rf_0_REG = _RAND_32[63:0];
+  valid_3 = _RAND_30[0:0];
+  _RAND_31 = {1{`RANDOM}};
+  WB_io_in_bits_r_ctrl_signal_inst_valid = _RAND_31[0:0];
+  _RAND_32 = {1{`RANDOM}};
+  WB_io_in_bits_r_ctrl_signal_rfWen = _RAND_32[0:0];
   _RAND_33 = {2{`RANDOM}};
-  DIP_io_rf_1_REG = _RAND_33[63:0];
-  _RAND_34 = {2{`RANDOM}};
-  DIP_io_rf_2_REG = _RAND_34[63:0];
+  WB_io_in_bits_r_ctrl_flow_PC = _RAND_33[63:0];
+  _RAND_34 = {1{`RANDOM}};
+  WB_io_in_bits_r_ctrl_flow_inst = _RAND_34[31:0];
   _RAND_35 = {2{`RANDOM}};
-  DIP_io_rf_3_REG = _RAND_35[63:0];
-  _RAND_36 = {2{`RANDOM}};
-  DIP_io_rf_4_REG = _RAND_36[63:0];
+  WB_io_in_bits_r_ctrl_flow_Dnpc = _RAND_35[63:0];
+  _RAND_36 = {1{`RANDOM}};
+  WB_io_in_bits_r_ctrl_rf_rfDest = _RAND_36[4:0];
   _RAND_37 = {2{`RANDOM}};
-  DIP_io_rf_5_REG = _RAND_37[63:0];
-  _RAND_38 = {2{`RANDOM}};
-  DIP_io_rf_6_REG = _RAND_38[63:0];
-  _RAND_39 = {2{`RANDOM}};
-  DIP_io_rf_7_REG = _RAND_39[63:0];
+  WB_io_in_bits_r_ctrl_rf_rfData = _RAND_37[63:0];
+  _RAND_38 = {1{`RANDOM}};
+  DIP_io_inst_REG = _RAND_38[31:0];
+  _RAND_39 = {1{`RANDOM}};
+  DIP_io_inst_valid_REG = _RAND_39[0:0];
   _RAND_40 = {2{`RANDOM}};
-  DIP_io_rf_8_REG = _RAND_40[63:0];
+  DIP_io_pc_REG = _RAND_40[63:0];
   _RAND_41 = {2{`RANDOM}};
-  DIP_io_rf_9_REG = _RAND_41[63:0];
-  _RAND_42 = {2{`RANDOM}};
-  DIP_io_rf_10_REG = _RAND_42[63:0];
-  _RAND_43 = {2{`RANDOM}};
-  DIP_io_rf_11_REG = _RAND_43[63:0];
-  _RAND_44 = {2{`RANDOM}};
-  DIP_io_rf_12_REG = _RAND_44[63:0];
-  _RAND_45 = {2{`RANDOM}};
-  DIP_io_rf_13_REG = _RAND_45[63:0];
-  _RAND_46 = {2{`RANDOM}};
-  DIP_io_rf_14_REG = _RAND_46[63:0];
-  _RAND_47 = {2{`RANDOM}};
-  DIP_io_rf_15_REG = _RAND_47[63:0];
-  _RAND_48 = {2{`RANDOM}};
-  DIP_io_rf_16_REG = _RAND_48[63:0];
-  _RAND_49 = {2{`RANDOM}};
-  DIP_io_rf_17_REG = _RAND_49[63:0];
-  _RAND_50 = {2{`RANDOM}};
-  DIP_io_rf_18_REG = _RAND_50[63:0];
-  _RAND_51 = {2{`RANDOM}};
-  DIP_io_rf_19_REG = _RAND_51[63:0];
-  _RAND_52 = {2{`RANDOM}};
-  DIP_io_rf_20_REG = _RAND_52[63:0];
-  _RAND_53 = {2{`RANDOM}};
-  DIP_io_rf_21_REG = _RAND_53[63:0];
-  _RAND_54 = {2{`RANDOM}};
-  DIP_io_rf_22_REG = _RAND_54[63:0];
-  _RAND_55 = {2{`RANDOM}};
-  DIP_io_rf_23_REG = _RAND_55[63:0];
-  _RAND_56 = {2{`RANDOM}};
-  DIP_io_rf_24_REG = _RAND_56[63:0];
-  _RAND_57 = {2{`RANDOM}};
-  DIP_io_rf_25_REG = _RAND_57[63:0];
-  _RAND_58 = {2{`RANDOM}};
-  DIP_io_rf_26_REG = _RAND_58[63:0];
-  _RAND_59 = {2{`RANDOM}};
-  DIP_io_rf_27_REG = _RAND_59[63:0];
-  _RAND_60 = {2{`RANDOM}};
-  DIP_io_rf_28_REG = _RAND_60[63:0];
-  _RAND_61 = {2{`RANDOM}};
-  DIP_io_rf_29_REG = _RAND_61[63:0];
-  _RAND_62 = {2{`RANDOM}};
-  DIP_io_rf_30_REG = _RAND_62[63:0];
-  _RAND_63 = {2{`RANDOM}};
-  DIP_io_rf_31_REG = _RAND_63[63:0];
-  _RAND_64 = {1{`RANDOM}};
-  DIP_io_inst_REG = _RAND_64[31:0];
-  _RAND_65 = {1{`RANDOM}};
-  DIP_io_inst_valid_REG = _RAND_65[0:0];
-  _RAND_66 = {2{`RANDOM}};
-  DIP_io_pc_REG = _RAND_66[63:0];
-  _RAND_67 = {1{`RANDOM}};
-  io_inst_REG = _RAND_67[31:0];
+  DIP_io_dnpc_REG = _RAND_41[63:0];
+  _RAND_42 = {1{`RANDOM}};
+  io_inst_REG = _RAND_42[31:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
