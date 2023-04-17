@@ -823,42 +823,10 @@ module CoreTop(
   reg [31:0] _RAND_29;
   reg [31:0] _RAND_30;
   reg [63:0] _RAND_31;
-  reg [63:0] _RAND_32;
-  reg [63:0] _RAND_33;
+  reg [31:0] _RAND_32;
+  reg [31:0] _RAND_33;
   reg [63:0] _RAND_34;
-  reg [63:0] _RAND_35;
-  reg [63:0] _RAND_36;
-  reg [63:0] _RAND_37;
-  reg [63:0] _RAND_38;
-  reg [63:0] _RAND_39;
-  reg [63:0] _RAND_40;
-  reg [63:0] _RAND_41;
-  reg [63:0] _RAND_42;
-  reg [63:0] _RAND_43;
-  reg [63:0] _RAND_44;
-  reg [63:0] _RAND_45;
-  reg [63:0] _RAND_46;
-  reg [63:0] _RAND_47;
-  reg [63:0] _RAND_48;
-  reg [63:0] _RAND_49;
-  reg [63:0] _RAND_50;
-  reg [63:0] _RAND_51;
-  reg [63:0] _RAND_52;
-  reg [63:0] _RAND_53;
-  reg [63:0] _RAND_54;
-  reg [63:0] _RAND_55;
-  reg [63:0] _RAND_56;
-  reg [63:0] _RAND_57;
-  reg [63:0] _RAND_58;
-  reg [63:0] _RAND_59;
-  reg [63:0] _RAND_60;
-  reg [63:0] _RAND_61;
-  reg [63:0] _RAND_62;
-  reg [63:0] _RAND_63;
-  reg [31:0] _RAND_64;
-  reg [31:0] _RAND_65;
-  reg [63:0] _RAND_66;
-  reg [31:0] _RAND_67;
+  reg [31:0] _RAND_35;
 `endif // RANDOMIZE_REG_INIT
   wire  IF_clock; // @[CoreTop.scala 50:18]
   wire  IF_reset; // @[CoreTop.scala 50:18]
@@ -1133,41 +1101,8 @@ module CoreTop(
   reg [4:0] WB_io_in_bits_r_ctrl_rf_rfDest; // @[Reg.scala 16:16]
   reg  WB_io_in_bits_r_ctrl_rf_rfWen; // @[Reg.scala 16:16]
   reg [63:0] WB_io_in_bits_r_ctrl_rf_rfData; // @[Reg.scala 16:16]
-  wire  _T_16 = WB_io_out_bits_ctrl_rf_rfWen; // @[CoreTop.scala 89:38]
-  wire  _T_18 = WB_io_out_bits_ctrl_rf_rfDest == 5'h0; // @[RF.scala 9:61]
-  wire [63:0] _T_19 = WB_io_out_bits_ctrl_rf_rfData; // @[RF.scala 9:78]
-  reg [63:0] DIP_io_rf_0_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_1_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_2_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_3_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_4_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_5_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_6_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_7_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_8_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_9_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_10_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_11_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_12_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_13_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_14_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_15_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_16_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_17_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_18_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_19_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_20_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_21_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_22_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_23_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_24_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_25_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_26_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_27_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_28_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_29_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_30_REG; // @[CoreTop.scala 103:28]
-  reg [63:0] DIP_io_rf_31_REG; // @[CoreTop.scala 103:28]
+  wire  _T_17 = WB_io_out_bits_ctrl_rf_rfDest == 5'h0; // @[RF.scala 9:61]
+  wire [63:0] _T_18 = WB_io_out_bits_ctrl_rf_rfData; // @[RF.scala 9:78]
   reg [31:0] DIP_io_inst_REG; // @[CoreTop.scala 105:25]
   reg  DIP_io_inst_valid_REG; // @[CoreTop.scala 106:31]
   reg [63:0] DIP_io_pc_REG; // @[CoreTop.scala 107:23]
@@ -1425,10 +1360,10 @@ module CoreTop(
   assign rf_DIP_io_rf_31_MPORT_en = 1'h1;
   assign rf_DIP_io_rf_31_MPORT_addr = 5'h1f;
   assign rf_DIP_io_rf_31_MPORT_data = rf[rf_DIP_io_rf_31_MPORT_addr]; // @[RF.scala 7:15]
-  assign rf_MPORT_data = _T_18 ? 64'h0 : _T_19;
+  assign rf_MPORT_data = _T_17 ? 64'h0 : _T_18;
   assign rf_MPORT_addr = WB_io_out_bits_ctrl_rf_rfDest;
   assign rf_MPORT_mask = 1'h1;
-  assign rf_MPORT_en = _T_16 & WB_io_out_bits_ctrl_signal_inst_valid;
+  assign rf_MPORT_en = WB_io_out_bits_ctrl_rf_rfWen;
   assign io_pc = IF_io_out_bits_PC; // @[CoreTop.scala 109:9]
   assign io_inst = io_inst_REG; // @[CoreTop.scala 108:11]
   assign IF_clock = clock;
@@ -1457,38 +1392,38 @@ module CoreTop(
   assign EX_io_in_bits_ctrl_flow_PC = EX_io_in_bits_r_ctrl_flow_PC; // @[Pipline.scala 20:16]
   assign EX_io_in_bits_ctrl_flow_inst = EX_io_in_bits_r_ctrl_flow_inst; // @[Pipline.scala 20:16]
   assign DIP_is_break = EX_io_is_break; // @[CoreTop.scala 101:19]
-  assign DIP_rf_0 = DIP_io_rf_0_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_1 = DIP_io_rf_1_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_2 = DIP_io_rf_2_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_3 = DIP_io_rf_3_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_4 = DIP_io_rf_4_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_5 = DIP_io_rf_5_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_6 = DIP_io_rf_6_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_7 = DIP_io_rf_7_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_8 = DIP_io_rf_8_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_9 = DIP_io_rf_9_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_10 = DIP_io_rf_10_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_11 = DIP_io_rf_11_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_12 = DIP_io_rf_12_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_13 = DIP_io_rf_13_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_14 = DIP_io_rf_14_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_15 = DIP_io_rf_15_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_16 = DIP_io_rf_16_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_17 = DIP_io_rf_17_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_18 = DIP_io_rf_18_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_19 = DIP_io_rf_19_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_20 = DIP_io_rf_20_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_21 = DIP_io_rf_21_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_22 = DIP_io_rf_22_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_23 = DIP_io_rf_23_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_24 = DIP_io_rf_24_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_25 = DIP_io_rf_25_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_26 = DIP_io_rf_26_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_27 = DIP_io_rf_27_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_28 = DIP_io_rf_28_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_29 = DIP_io_rf_29_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_30 = DIP_io_rf_30_REG; // @[CoreTop.scala 103:18]
-  assign DIP_rf_31 = DIP_io_rf_31_REG; // @[CoreTop.scala 103:18]
+  assign DIP_rf_0 = rf_DIP_io_rf_0_MPORT_data; // @[CoreTop.scala 103:18]
+  assign DIP_rf_1 = rf_DIP_io_rf_1_MPORT_data; // @[CoreTop.scala 103:18]
+  assign DIP_rf_2 = rf_DIP_io_rf_2_MPORT_data; // @[CoreTop.scala 103:18]
+  assign DIP_rf_3 = rf_DIP_io_rf_3_MPORT_data; // @[CoreTop.scala 103:18]
+  assign DIP_rf_4 = rf_DIP_io_rf_4_MPORT_data; // @[CoreTop.scala 103:18]
+  assign DIP_rf_5 = rf_DIP_io_rf_5_MPORT_data; // @[CoreTop.scala 103:18]
+  assign DIP_rf_6 = rf_DIP_io_rf_6_MPORT_data; // @[CoreTop.scala 103:18]
+  assign DIP_rf_7 = rf_DIP_io_rf_7_MPORT_data; // @[CoreTop.scala 103:18]
+  assign DIP_rf_8 = rf_DIP_io_rf_8_MPORT_data; // @[CoreTop.scala 103:18]
+  assign DIP_rf_9 = rf_DIP_io_rf_9_MPORT_data; // @[CoreTop.scala 103:18]
+  assign DIP_rf_10 = rf_DIP_io_rf_10_MPORT_data; // @[CoreTop.scala 103:18]
+  assign DIP_rf_11 = rf_DIP_io_rf_11_MPORT_data; // @[CoreTop.scala 103:18]
+  assign DIP_rf_12 = rf_DIP_io_rf_12_MPORT_data; // @[CoreTop.scala 103:18]
+  assign DIP_rf_13 = rf_DIP_io_rf_13_MPORT_data; // @[CoreTop.scala 103:18]
+  assign DIP_rf_14 = rf_DIP_io_rf_14_MPORT_data; // @[CoreTop.scala 103:18]
+  assign DIP_rf_15 = rf_DIP_io_rf_15_MPORT_data; // @[CoreTop.scala 103:18]
+  assign DIP_rf_16 = rf_DIP_io_rf_16_MPORT_data; // @[CoreTop.scala 103:18]
+  assign DIP_rf_17 = rf_DIP_io_rf_17_MPORT_data; // @[CoreTop.scala 103:18]
+  assign DIP_rf_18 = rf_DIP_io_rf_18_MPORT_data; // @[CoreTop.scala 103:18]
+  assign DIP_rf_19 = rf_DIP_io_rf_19_MPORT_data; // @[CoreTop.scala 103:18]
+  assign DIP_rf_20 = rf_DIP_io_rf_20_MPORT_data; // @[CoreTop.scala 103:18]
+  assign DIP_rf_21 = rf_DIP_io_rf_21_MPORT_data; // @[CoreTop.scala 103:18]
+  assign DIP_rf_22 = rf_DIP_io_rf_22_MPORT_data; // @[CoreTop.scala 103:18]
+  assign DIP_rf_23 = rf_DIP_io_rf_23_MPORT_data; // @[CoreTop.scala 103:18]
+  assign DIP_rf_24 = rf_DIP_io_rf_24_MPORT_data; // @[CoreTop.scala 103:18]
+  assign DIP_rf_25 = rf_DIP_io_rf_25_MPORT_data; // @[CoreTop.scala 103:18]
+  assign DIP_rf_26 = rf_DIP_io_rf_26_MPORT_data; // @[CoreTop.scala 103:18]
+  assign DIP_rf_27 = rf_DIP_io_rf_27_MPORT_data; // @[CoreTop.scala 103:18]
+  assign DIP_rf_28 = rf_DIP_io_rf_28_MPORT_data; // @[CoreTop.scala 103:18]
+  assign DIP_rf_29 = rf_DIP_io_rf_29_MPORT_data; // @[CoreTop.scala 103:18]
+  assign DIP_rf_30 = rf_DIP_io_rf_30_MPORT_data; // @[CoreTop.scala 103:18]
+  assign DIP_rf_31 = rf_DIP_io_rf_31_MPORT_data; // @[CoreTop.scala 103:18]
   assign DIP_inst = DIP_io_inst_REG; // @[CoreTop.scala 105:15]
   assign DIP_pc = DIP_io_pc_REG; // @[CoreTop.scala 107:13]
   assign DIP_inst_valid = DIP_io_inst_valid_REG; // @[CoreTop.scala 106:21]
@@ -1552,38 +1487,6 @@ module CoreTop(
     WB_io_in_bits_r_ctrl_rf_rfDest <= MEM_io_out_bits_ctrl_rf_rfDest; // @[Reg.scala 16:16 17:{18,22}]
     WB_io_in_bits_r_ctrl_rf_rfWen <= MEM_io_out_bits_ctrl_rf_rfWen; // @[Reg.scala 16:16 17:{18,22}]
     WB_io_in_bits_r_ctrl_rf_rfData <= MEM_io_out_bits_ctrl_rf_rfData; // @[Reg.scala 16:16 17:{18,22}]
-    DIP_io_rf_0_REG <= rf_DIP_io_rf_0_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_1_REG <= rf_DIP_io_rf_1_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_2_REG <= rf_DIP_io_rf_2_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_3_REG <= rf_DIP_io_rf_3_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_4_REG <= rf_DIP_io_rf_4_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_5_REG <= rf_DIP_io_rf_5_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_6_REG <= rf_DIP_io_rf_6_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_7_REG <= rf_DIP_io_rf_7_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_8_REG <= rf_DIP_io_rf_8_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_9_REG <= rf_DIP_io_rf_9_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_10_REG <= rf_DIP_io_rf_10_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_11_REG <= rf_DIP_io_rf_11_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_12_REG <= rf_DIP_io_rf_12_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_13_REG <= rf_DIP_io_rf_13_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_14_REG <= rf_DIP_io_rf_14_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_15_REG <= rf_DIP_io_rf_15_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_16_REG <= rf_DIP_io_rf_16_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_17_REG <= rf_DIP_io_rf_17_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_18_REG <= rf_DIP_io_rf_18_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_19_REG <= rf_DIP_io_rf_19_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_20_REG <= rf_DIP_io_rf_20_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_21_REG <= rf_DIP_io_rf_21_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_22_REG <= rf_DIP_io_rf_22_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_23_REG <= rf_DIP_io_rf_23_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_24_REG <= rf_DIP_io_rf_24_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_25_REG <= rf_DIP_io_rf_25_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_26_REG <= rf_DIP_io_rf_26_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_27_REG <= rf_DIP_io_rf_27_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_28_REG <= rf_DIP_io_rf_28_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_29_REG <= rf_DIP_io_rf_29_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_30_REG <= rf_DIP_io_rf_30_MPORT_data; // @[CoreTop.scala 103:28]
-    DIP_io_rf_31_REG <= rf_DIP_io_rf_31_MPORT_data; // @[CoreTop.scala 103:28]
     DIP_io_inst_REG <= WB_io_out_bits_ctrl_flow_inst; // @[CoreTop.scala 105:25]
     DIP_io_inst_valid_REG <= WB_io_out_bits_ctrl_signal_inst_valid; // @[CoreTop.scala 106:31]
     DIP_io_pc_REG <= WB_io_out_bits_ctrl_flow_PC; // @[CoreTop.scala 107:23]
@@ -1692,78 +1595,14 @@ initial begin
   WB_io_in_bits_r_ctrl_rf_rfWen = _RAND_30[0:0];
   _RAND_31 = {2{`RANDOM}};
   WB_io_in_bits_r_ctrl_rf_rfData = _RAND_31[63:0];
-  _RAND_32 = {2{`RANDOM}};
-  DIP_io_rf_0_REG = _RAND_32[63:0];
-  _RAND_33 = {2{`RANDOM}};
-  DIP_io_rf_1_REG = _RAND_33[63:0];
+  _RAND_32 = {1{`RANDOM}};
+  DIP_io_inst_REG = _RAND_32[31:0];
+  _RAND_33 = {1{`RANDOM}};
+  DIP_io_inst_valid_REG = _RAND_33[0:0];
   _RAND_34 = {2{`RANDOM}};
-  DIP_io_rf_2_REG = _RAND_34[63:0];
-  _RAND_35 = {2{`RANDOM}};
-  DIP_io_rf_3_REG = _RAND_35[63:0];
-  _RAND_36 = {2{`RANDOM}};
-  DIP_io_rf_4_REG = _RAND_36[63:0];
-  _RAND_37 = {2{`RANDOM}};
-  DIP_io_rf_5_REG = _RAND_37[63:0];
-  _RAND_38 = {2{`RANDOM}};
-  DIP_io_rf_6_REG = _RAND_38[63:0];
-  _RAND_39 = {2{`RANDOM}};
-  DIP_io_rf_7_REG = _RAND_39[63:0];
-  _RAND_40 = {2{`RANDOM}};
-  DIP_io_rf_8_REG = _RAND_40[63:0];
-  _RAND_41 = {2{`RANDOM}};
-  DIP_io_rf_9_REG = _RAND_41[63:0];
-  _RAND_42 = {2{`RANDOM}};
-  DIP_io_rf_10_REG = _RAND_42[63:0];
-  _RAND_43 = {2{`RANDOM}};
-  DIP_io_rf_11_REG = _RAND_43[63:0];
-  _RAND_44 = {2{`RANDOM}};
-  DIP_io_rf_12_REG = _RAND_44[63:0];
-  _RAND_45 = {2{`RANDOM}};
-  DIP_io_rf_13_REG = _RAND_45[63:0];
-  _RAND_46 = {2{`RANDOM}};
-  DIP_io_rf_14_REG = _RAND_46[63:0];
-  _RAND_47 = {2{`RANDOM}};
-  DIP_io_rf_15_REG = _RAND_47[63:0];
-  _RAND_48 = {2{`RANDOM}};
-  DIP_io_rf_16_REG = _RAND_48[63:0];
-  _RAND_49 = {2{`RANDOM}};
-  DIP_io_rf_17_REG = _RAND_49[63:0];
-  _RAND_50 = {2{`RANDOM}};
-  DIP_io_rf_18_REG = _RAND_50[63:0];
-  _RAND_51 = {2{`RANDOM}};
-  DIP_io_rf_19_REG = _RAND_51[63:0];
-  _RAND_52 = {2{`RANDOM}};
-  DIP_io_rf_20_REG = _RAND_52[63:0];
-  _RAND_53 = {2{`RANDOM}};
-  DIP_io_rf_21_REG = _RAND_53[63:0];
-  _RAND_54 = {2{`RANDOM}};
-  DIP_io_rf_22_REG = _RAND_54[63:0];
-  _RAND_55 = {2{`RANDOM}};
-  DIP_io_rf_23_REG = _RAND_55[63:0];
-  _RAND_56 = {2{`RANDOM}};
-  DIP_io_rf_24_REG = _RAND_56[63:0];
-  _RAND_57 = {2{`RANDOM}};
-  DIP_io_rf_25_REG = _RAND_57[63:0];
-  _RAND_58 = {2{`RANDOM}};
-  DIP_io_rf_26_REG = _RAND_58[63:0];
-  _RAND_59 = {2{`RANDOM}};
-  DIP_io_rf_27_REG = _RAND_59[63:0];
-  _RAND_60 = {2{`RANDOM}};
-  DIP_io_rf_28_REG = _RAND_60[63:0];
-  _RAND_61 = {2{`RANDOM}};
-  DIP_io_rf_29_REG = _RAND_61[63:0];
-  _RAND_62 = {2{`RANDOM}};
-  DIP_io_rf_30_REG = _RAND_62[63:0];
-  _RAND_63 = {2{`RANDOM}};
-  DIP_io_rf_31_REG = _RAND_63[63:0];
-  _RAND_64 = {1{`RANDOM}};
-  DIP_io_inst_REG = _RAND_64[31:0];
-  _RAND_65 = {1{`RANDOM}};
-  DIP_io_inst_valid_REG = _RAND_65[0:0];
-  _RAND_66 = {2{`RANDOM}};
-  DIP_io_pc_REG = _RAND_66[63:0];
-  _RAND_67 = {1{`RANDOM}};
-  io_inst_REG = _RAND_67[31:0];
+  DIP_io_pc_REG = _RAND_34[63:0];
+  _RAND_35 = {1{`RANDOM}};
+  io_inst_REG = _RAND_35[31:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
