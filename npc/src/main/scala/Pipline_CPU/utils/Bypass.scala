@@ -19,23 +19,25 @@ class Bypass extends Module with Paramete{
     val Bypass_REG1 = Output(UInt(xlen.W))
     val Bypass_REG2 = Output(UInt(xlen.W))
   })
-  val reg1_temp = WireDefault(io.Reg1)
-  val reg2_temp = WireDefault(io.Reg2)
+  val reg1_temp = WireDefault(0.U)
+  val reg2_temp = WireDefault(0.U)
   reg1_temp := PriorityMux(
     Seq(
       (io.EX_rf.rfWen === RD.write && io.EX_rf.rfDest === io.reg_index1) -> io.EX_rf.rfData,
       (io.MEM_rf.rfWen === RD.write && io.MEM_rf.rfDest === io.reg_index1) -> io.MEM_rf.rfData,
       (io.WB_rf.rfWen === RD.write && io.WB_rf.rfDest === io.reg_index1) -> io.WB_rf.rfData,
+      (1.B) -> io.Reg1
     )
   )
-  reg1_temp := PriorityMux(
+  reg2_temp := PriorityMux(
     Seq(
       (io.EX_rf.rfWen === RD.write && io.EX_rf.rfDest === io.reg_index2) -> io.EX_rf.rfData,
       (io.MEM_rf.rfWen === RD.write && io.MEM_rf.rfDest === io.reg_index2) -> io.MEM_rf.rfData,
       (io.WB_rf.rfWen === RD.write && io.WB_rf.rfDest === io.reg_index2) -> io.WB_rf.rfData,
+      (1.B) -> io.Reg2
     )
   )
-  
+
 
   io.Bypass_REG1 := reg1_temp
   io.Bypass_REG2 := reg2_temp
