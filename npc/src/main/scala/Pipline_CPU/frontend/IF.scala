@@ -12,7 +12,7 @@ class IF extends Module with Paramete{
   })
 
   val temp = RegInit("h80000000".U(xlen.W))
-  temp := Mux(io.branch_io.is_jump || io.branch_io.is_branch, io.branch_io.dnpc, temp + 4.U(xlen.W))
+  temp := Mux(io.branch_io.is_jump || io.branch_io.is_branch, io.branch_io.dnpc, Mux(io.out.ready,temp + 4.U(xlen.W),temp))
   io.out.bits.PC := temp
   io.out.bits.Inst := io.inst
 

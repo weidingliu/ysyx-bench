@@ -348,5 +348,5 @@ class EXE extends Module with Paramete{
   io.branchIO.is_jump := Mux(io.in.bits.ctrl_signal.fuType === FUType.jump, 1.U, 0.U)
 
   io.out.valid := 1.U
-  io.in.ready := io.out.ready && !(io.in.bits.ctrl_signal.fuType === FUType.jump)
+  io.in.ready := io.out.ready
 }
