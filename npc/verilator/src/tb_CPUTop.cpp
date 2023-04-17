@@ -216,6 +216,7 @@ void execute(VCoreTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uin
             if(!flag) {state=ABORT; break;}
         }
         #endif
+        if(state==ABORT) break;
         device_update();
     }
     
