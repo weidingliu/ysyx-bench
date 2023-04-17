@@ -180,7 +180,7 @@ class MEM_stage extends Module with Paramete {
   io.out.valid := Mux(io.out.ready && io.in.valid ,1.U,0.U)
   io.in.ready := io.out.ready
 
-  io.mem.ce := Mux(io.in.bits.ctrl_signal.fuType === FUType.mem,1.U,0.U)
+  io.mem.ce := Mux(io.in.bits.ctrl_signal.fuType === FUType.mem && io.in.valid,1.U,0.U)
   io.mem.we := we
 
 }
