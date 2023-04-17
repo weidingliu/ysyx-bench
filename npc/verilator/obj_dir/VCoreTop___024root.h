@@ -22,6 +22,7 @@ class VCoreTop___024root final : public VerilatedModule {
         VL_IN8(clock,0,0);
         VL_IN8(reset,0,0);
         CData/*0:0*/ CoreTop__DOT__ID_io_out_bits_ctrl_signal_rfWen;
+        CData/*0:0*/ CoreTop__DOT__EX_io_is_flush;
         CData/*0:0*/ CoreTop__DOT__valid;
         CData/*0:0*/ CoreTop__DOT__valid_1;
         CData/*0:0*/ CoreTop__DOT___GEN_6;
@@ -82,9 +83,9 @@ class VCoreTop___024root final : public VerilatedModule {
         IData/*31:0*/ CoreTop__DOT__EX__DOT___shift_result_T_31;
         VL_OUT64(io_pc,63,0);
         QData/*63:0*/ CoreTop__DOT__EX_io_out_bits_ctrl_rf_rfData;
-        QData/*63:0*/ CoreTop__DOT__mem_rdata;
     };
     struct {
+        QData/*63:0*/ CoreTop__DOT__mem_rdata;
         QData/*63:0*/ CoreTop__DOT__MEM_io_out_bits_ctrl_rf_rfData;
         QData/*63:0*/ CoreTop__DOT__ID_io_in_bits_r_PC;
         QData/*63:0*/ CoreTop__DOT__EX_io_in_bits_r_ctrl_data_src1;

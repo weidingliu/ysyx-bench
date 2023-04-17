@@ -244,8 +244,7 @@ void VCoreTop___024root__trace_chg_sub_0(VCoreTop___024root* vlSelf, VerilatedVc
                                   ? vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_data_src2
                                   : vlSelf->CoreTop__DOT__EX__DOT___GEN_3)),64);
         bufp->chgBit(oldp+44,((0x42U == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))));
-        bufp->chgBit(oldp+45,(((IData)(vlSelf->CoreTop__DOT__EX__DOT__branch_flag) 
-                               | (3U == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_fuType)))));
+        bufp->chgBit(oldp+45,(vlSelf->CoreTop__DOT__EX_io_is_flush));
         bufp->chgQData(oldp+46,(vlSelf->CoreTop__DOT__rf
                                 [0U]),64);
         bufp->chgQData(oldp+48,(vlSelf->CoreTop__DOT__rf
