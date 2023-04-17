@@ -82,7 +82,7 @@ class ID extends Module with Paramete{
 
   io.out.bits.ctrl_signal.aluoptype := aluoptype
   io.out.bits.ctrl_signal.fuType := futype
-  io.out.bits.ctrl_signal.rfWen :=  Mux(io.in.valid,en.rfWen,0.U)
+  io.out.bits.ctrl_signal.rfWen :=  Mux(io.in.valid,en,0.U)
   io.out.bits.ctrl_signal.rfSrc1 := rs
   io.out.bits.ctrl_signal.rfSrc2 := rt
   io.out.bits.ctrl_signal.src1Type := srctype1
