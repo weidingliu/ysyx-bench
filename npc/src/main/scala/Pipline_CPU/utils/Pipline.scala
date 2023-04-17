@@ -15,7 +15,7 @@ object Pipline_Connect {
     when(flush === 1.U) {
       valid := false.B
     }
-    
+
     left.ready := right.ready
     right.bits := RegEnable(left.bits, left.valid && right.ready)
     right.valid := valid
