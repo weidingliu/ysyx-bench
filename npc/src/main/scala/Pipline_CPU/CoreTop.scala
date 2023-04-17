@@ -86,7 +86,7 @@ class CoreTop extends Module with Paramete{
   mem.io.we := MEM.io.mem.we
 
   Pipline_Connect(MEM.io.out,WB.io.in,WB.io.out.fire,0.B)
-  when((WB.io.out.bits.ctrl_rf.rfWen === RD.write)) {
+  when((WB.io.out.bits.ctrl_rf.rfWen === RD.write  && WB.io.out.bits.ctrl_signal.inst_valid)) {
     Reg.write(WB.io.out.bits.ctrl_rf.rfDest, WB.io.out.bits.ctrl_rf.rfData)
   }
 
