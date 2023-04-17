@@ -505,7 +505,7 @@ if(state==ABORT){
     #endif
     
     
-    printf("\033[40;31mABORT at pc = \033[0m \033[40;31m0x%016lx\033[0m\n",pc-4);
+    printf("\033[40;31mABORT at pc = \033[0m \033[40;31m0x%016lx\033[0m\n",pc);
 }
 else if(cpu_gpr[10] !=0) {
     dump_gpr(); 
