@@ -9,17 +9,13 @@ object Pipline_Connect {
     when(!right_fire) {
       valid := false.B
     }
-    .elsewhen(flush === 1.U) {
-      valid := false.B
-    }
-    .elsewhen (left.valid && right.ready) {
+    when(left.valid && right.ready) {
       valid := true.B
     }
-    .otherwise{
+    when(flush === 1.U) {
       valid := false.B
-      }
-
-
+    }
+    
     left.ready := right.ready
     right.bits := RegEnable(left.bits, left.valid && right.ready)
     right.valid := valid
