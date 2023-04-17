@@ -8,6 +8,8 @@ class IF extends Module with Paramete{
     val branch_io = Flipped(new BranchIO)
     val inst = Input(UInt(instlen.W))
     val out = Decoupled(new FetchIO)
+    val flush = Input(Bool())
+
 
   })
 
@@ -16,6 +18,6 @@ class IF extends Module with Paramete{
   io.out.bits.PC := temp
   io.out.bits.Inst := io.inst
 
-  io.out.valid := 1.U
+  io.out.valid := Mux(io.flush,0.U,1.U)
 
 }
