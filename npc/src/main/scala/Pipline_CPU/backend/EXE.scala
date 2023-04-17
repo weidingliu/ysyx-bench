@@ -330,7 +330,7 @@ class EXE extends Module with Paramete{
 //    csr.write(CSR_index.mstatus, csr.read(CSR_index.mstatus) & "hfffffffffffffff7".U(xlen.W))
 //  }
 
-  io.is_flush := Mux((branch_flag === 1.U || io.branchIO.is_jump === 1.U),1.U,0.U)
+  io.is_flush := Mux((branch_flag === 1.U || io.branchIO.is_jump === 1.U) && io.in.valid,1.U,0.U)
   io.is_break := Mux((io.in.bits.ctrl_signal.aluoptype === ALUOPType.ebreak), 1.U, 0.U)
 
   io.out.bits.ctrl_signal <> io.in.bits.ctrl_signal
@@ -344,8 +344,8 @@ class EXE extends Module with Paramete{
   io.out.bits.ctrl_rf.rfWen := io.in.bits.ctrl_signal.rfWen
   io.out.bits.ctrl_flow.Dnpc := dnpc
   io.branchIO.dnpc := dnpc//Mux(time_int === 1.U, csr.read(CSR_index.mtvec), dnpc)
-  io.branchIO.is_branch := branch_flag//Mux(time_int === 1.U, 1.U, branch_flag)
-  io.branchIO.is_jump := Mux(io.in.bits.ctrl_signal.fuType === FUType.jump, 1.U, 0.U)
+  io.branchIO.is_branch := branch_flag & io.in.valid//Mux(time_int === 1.U, 1.U, branch_flag)
+  io.branchIO.is_jump := Mux(io.in.bits.ctrl_signal.fuType === FUType.jump && io.in.valid, 1.U, 0.U)
 
   io.out.valid := Mux(io.out.ready && io.in.valid ,1.U,0.U)
   io.in.ready := io.out.ready
