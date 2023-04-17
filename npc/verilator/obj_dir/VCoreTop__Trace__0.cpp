@@ -29,11 +29,9 @@ void VCoreTop___024root__trace_chg_sub_0(VCoreTop___024root* vlSelf, VerilatedVc
     VlWide<4>/*127:0*/ __Vtemp_h47580cf4__0;
     // Body
     if (VL_UNLIKELY(vlSelf->__Vm_traceActivity[1U])) {
-        bufp->chgBit(oldp+0,(((0x6bU == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
-                               ? (vlSelf->CoreTop__DOT__EX__DOT___alu_result_T_58 
-                                  == vlSelf->CoreTop__DOT__EX__DOT__src2)
-                               : (IData)(vlSelf->CoreTop__DOT__EX__DOT___GEN_51))));
-        bufp->chgBit(oldp+1,((3U == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_fuType))));
+        bufp->chgBit(oldp+0,(((IData)(vlSelf->CoreTop__DOT__EX__DOT__branch_flag) 
+                              & (IData)(vlSelf->CoreTop__DOT__valid_1))));
+        bufp->chgBit(oldp+1,(vlSelf->CoreTop__DOT__EX_io_branchIO_is_jump));
         bufp->chgQData(oldp+2,(((0x19U == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
                                  ? vlSelf->CoreTop__DOT__EX__DOT___alu_result_T_1
                                  : vlSelf->CoreTop__DOT__EX__DOT___GEN_60)),64);

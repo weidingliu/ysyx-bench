@@ -609,11 +609,9 @@ VL_ATTR_COLD void VCoreTop___024root__trace_full_sub_0(VCoreTop___024root* vlSel
     VlWide<4>/*127:0*/ __Vtemp_h400e05cb__0;
     VlWide<4>/*127:0*/ __Vtemp_h47580cf4__0;
     // Body
-    bufp->fullBit(oldp+1,(((0x6bU == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
-                            ? (vlSelf->CoreTop__DOT__EX__DOT___alu_result_T_58 
-                               == vlSelf->CoreTop__DOT__EX__DOT__src2)
-                            : (IData)(vlSelf->CoreTop__DOT__EX__DOT___GEN_51))));
-    bufp->fullBit(oldp+2,((3U == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_fuType))));
+    bufp->fullBit(oldp+1,(((IData)(vlSelf->CoreTop__DOT__EX__DOT__branch_flag) 
+                           & (IData)(vlSelf->CoreTop__DOT__valid_1))));
+    bufp->fullBit(oldp+2,(vlSelf->CoreTop__DOT__EX_io_branchIO_is_jump));
     bufp->fullQData(oldp+3,(((0x19U == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
                               ? vlSelf->CoreTop__DOT__EX__DOT___alu_result_T_1
                               : vlSelf->CoreTop__DOT__EX__DOT___GEN_60)),64);

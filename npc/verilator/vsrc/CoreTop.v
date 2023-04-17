@@ -555,6 +555,7 @@ module EXE(
   wire [63:0] _compar_result_T_5 = $signed(_alu_result_T_58) < $signed(_alu_result_T_59) ? 64'h1 : 64'h0; // @[EXE.scala 225:27]
   wire [63:0] _GEN_33 = 7'h2 == io_in_bits_ctrl_signal_aluoptype ? _compar_result_T_5 : 64'h0; // @[EXE.scala 220:44 225:21]
   wire [63:0] compar_result = 7'h6a == io_in_bits_ctrl_signal_aluoptype ? _compar_result_T_1 : _GEN_33; // @[EXE.scala 220:44 222:21]
+  wire  _jump_result_T = io_in_bits_ctrl_signal_fuType == 3'h3; // @[EXE.scala 230:52]
   wire [63:0] jump_result = io_in_bits_ctrl_signal_fuType == 3'h3 ? _dnpc_T_1 : 64'h0; // @[EXE.scala 230:21]
   wire [63:0] _GEN_35 = 3'h5 == io_in_bits_ctrl_signal_fuType ? compar_result : 64'h0; // @[EXE.scala 233:41 247:18]
   wire [63:0] shift_result = _GEN_32[63:0];
@@ -591,8 +592,8 @@ module EXE(
   wire [63:0] _GEN_58 = _T_41 ? _dnpc_T_11 : _GEN_57; // @[EXE.scala 289:44 301:12]
   wire [63:0] _GEN_59 = _T_40 ? _dnpc_T_11 : _GEN_58; // @[EXE.scala 289:44 297:12]
   wire [63:0] _GEN_60 = 7'h48 == io_in_bits_ctrl_signal_aluoptype ? _dnpc_T_7 : _GEN_59; // @[EXE.scala 289:44 294:12]
-  assign io_branchIO_is_branch = 7'h6b == io_in_bits_ctrl_signal_aluoptype ? src1 == src2 : _GEN_51; // @[EXE.scala 255:44 258:19]
-  assign io_branchIO_is_jump = io_in_bits_ctrl_signal_fuType == 3'h3; // @[EXE.scala 348:60]
+  assign io_branchIO_is_branch = branch_flag & io_in_valid; // @[EXE.scala 347:40]
+  assign io_branchIO_is_jump = _jump_result_T & io_in_valid; // @[EXE.scala 348:76]
   assign io_branchIO_dnpc = 7'h19 == io_in_bits_ctrl_signal_aluoptype ? _alu_result_T_1 : _GEN_60; // @[EXE.scala 289:44 291:12]
   assign io_out_valid = io_in_valid; // @[EXE.scala 350:36]
   assign io_out_bits_ctrl_signal_fuType = io_in_bits_ctrl_signal_fuType; // @[EXE.scala 336:27]
@@ -608,7 +609,7 @@ module EXE(
   assign io_out_bits_ctrl_data_src2 = 3'h0 == io_in_bits_ctrl_signal_src2Type ? io_in_bits_ctrl_data_src2 : _GEN_3; // @[EXE.scala 105:43 107:12]
   assign io_out_bits_ctrl_data_Imm = io_in_bits_ctrl_data_Imm; // @[EXE.scala 338:25]
   assign io_is_break = io_in_bits_ctrl_signal_aluoptype == 7'h42; // @[EXE.scala 334:56]
-  assign io_is_flush = branch_flag | io_branchIO_is_jump; // @[EXE.scala 333:43]
+  assign io_is_flush = (branch_flag | io_branchIO_is_jump) & io_in_valid; // @[EXE.scala 333:75]
 endmodule
 module MEM_stage(
   input         io_in_valid,
