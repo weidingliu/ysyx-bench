@@ -444,7 +444,8 @@ module EXE(
   output [63:0] io_out_bits_ctrl_data_src1,
   output [63:0] io_out_bits_ctrl_data_src2,
   output [63:0] io_out_bits_ctrl_data_Imm,
-  output        io_is_break
+  output        io_is_break,
+  output        io_is_flush
 );
   wire [63:0] _GEN_1 = 3'h2 == io_in_bits_ctrl_signal_src1Type ? io_in_bits_ctrl_flow_PC : 64'h0; // @[EXE.scala 94:43 99:12]
   wire [63:0] src1 = 3'h0 == io_in_bits_ctrl_signal_src1Type ? io_in_bits_ctrl_data_src1 : _GEN_1; // @[EXE.scala 94:43 96:12]
@@ -601,6 +602,7 @@ module EXE(
   assign io_out_bits_ctrl_data_src2 = 3'h0 == io_in_bits_ctrl_signal_src2Type ? io_in_bits_ctrl_data_src2 : _GEN_3; // @[EXE.scala 105:43 107:12]
   assign io_out_bits_ctrl_data_Imm = io_in_bits_ctrl_data_Imm; // @[EXE.scala 338:25]
   assign io_is_break = io_in_bits_ctrl_signal_aluoptype == 7'h42; // @[EXE.scala 334:56]
+  assign io_is_flush = branch_flag | io_branchIO_is_jump; // @[EXE.scala 333:43]
 endmodule
 module MEM_stage(
   input  [2:0]  io_in_bits_ctrl_signal_fuType,
@@ -923,6 +925,7 @@ module CoreTop(
   wire [63:0] EX_io_out_bits_ctrl_data_src2; // @[CoreTop.scala 57:18]
   wire [63:0] EX_io_out_bits_ctrl_data_Imm; // @[CoreTop.scala 57:18]
   wire  EX_io_is_break; // @[CoreTop.scala 57:18]
+  wire  EX_io_is_flush; // @[CoreTop.scala 57:18]
   wire  DIP_is_break; // @[CoreTop.scala 59:19]
   wire [63:0] DIP_rf_0; // @[CoreTop.scala 59:19]
   wire [63:0] DIP_rf_1; // @[CoreTop.scala 59:19]
@@ -1129,6 +1132,7 @@ module CoreTop(
   wire [4:0] bypass_io_reg_index2; // @[CoreTop.scala 69:22]
   wire [63:0] bypass_io_Bypass_REG1; // @[CoreTop.scala 69:22]
   wire [63:0] bypass_io_Bypass_REG2; // @[CoreTop.scala 69:22]
+  wire  _ID_io_in_bits_T = ~EX_io_is_flush; // @[Pipline.scala 24:41]
   reg [63:0] ID_io_in_bits_r_PC; // @[Reg.scala 16:16]
   reg [31:0] ID_io_in_bits_r_Inst; // @[Reg.scala 16:16]
   reg [2:0] EX_io_in_bits_r_ctrl_signal_src1Type; // @[Reg.scala 16:16]
@@ -1233,7 +1237,8 @@ module CoreTop(
     .io_out_bits_ctrl_data_src1(EX_io_out_bits_ctrl_data_src1),
     .io_out_bits_ctrl_data_src2(EX_io_out_bits_ctrl_data_src2),
     .io_out_bits_ctrl_data_Imm(EX_io_out_bits_ctrl_data_Imm),
-    .io_is_break(EX_io_is_break)
+    .io_is_break(EX_io_is_break),
+    .io_is_flush(EX_io_is_flush)
   );
   DIP_model DIP ( // @[CoreTop.scala 59:19]
     .is_break(DIP_is_break),
@@ -1558,20 +1563,48 @@ module CoreTop(
     if (rf_MPORT_en & rf_MPORT_mask) begin
       rf[rf_MPORT_addr] <= rf_MPORT_data; // @[RF.scala 7:15]
     end
-    ID_io_in_bits_r_PC <= IF_io_out_bits_PC; // @[Reg.scala 16:16 17:{18,22}]
-    ID_io_in_bits_r_Inst <= IF_io_out_bits_Inst; // @[Reg.scala 16:16 17:{18,22}]
-    EX_io_in_bits_r_ctrl_signal_src1Type <= ID_io_out_bits_ctrl_signal_src1Type; // @[Reg.scala 16:16 17:{18,22}]
-    EX_io_in_bits_r_ctrl_signal_src2Type <= ID_io_out_bits_ctrl_signal_src2Type; // @[Reg.scala 16:16 17:{18,22}]
-    EX_io_in_bits_r_ctrl_signal_fuType <= ID_io_out_bits_ctrl_signal_fuType; // @[Reg.scala 16:16 17:{18,22}]
-    EX_io_in_bits_r_ctrl_signal_inst_valid <= ID_io_out_bits_ctrl_signal_inst_valid; // @[Reg.scala 16:16 17:{18,22}]
-    EX_io_in_bits_r_ctrl_signal_rfWen <= ID_io_out_bits_ctrl_signal_rfWen; // @[Reg.scala 16:16 17:{18,22}]
-    EX_io_in_bits_r_ctrl_signal_aluoptype <= ID_io_out_bits_ctrl_signal_aluoptype; // @[Reg.scala 16:16 17:{18,22}]
-    EX_io_in_bits_r_ctrl_signal_rfDest <= ID_io_out_bits_ctrl_signal_rfDest; // @[Reg.scala 16:16 17:{18,22}]
-    EX_io_in_bits_r_ctrl_data_src1 <= ID_io_out_bits_ctrl_data_src1; // @[Reg.scala 16:16 17:{18,22}]
-    EX_io_in_bits_r_ctrl_data_src2 <= ID_io_out_bits_ctrl_data_src2; // @[Reg.scala 16:16 17:{18,22}]
-    EX_io_in_bits_r_ctrl_data_Imm <= ID_io_out_bits_ctrl_data_Imm; // @[Reg.scala 16:16 17:{18,22}]
-    EX_io_in_bits_r_ctrl_flow_PC <= ID_io_out_bits_ctrl_flow_PC; // @[Reg.scala 16:16 17:{18,22}]
-    EX_io_in_bits_r_ctrl_flow_inst <= ID_io_out_bits_ctrl_flow_inst; // @[Reg.scala 16:16 17:{18,22}]
+    if (_ID_io_in_bits_T) begin // @[Reg.scala 17:18]
+      ID_io_in_bits_r_PC <= IF_io_out_bits_PC; // @[Reg.scala 17:22]
+    end
+    if (_ID_io_in_bits_T) begin // @[Reg.scala 17:18]
+      ID_io_in_bits_r_Inst <= IF_io_out_bits_Inst; // @[Reg.scala 17:22]
+    end
+    if (_ID_io_in_bits_T) begin // @[Reg.scala 17:18]
+      EX_io_in_bits_r_ctrl_signal_src1Type <= ID_io_out_bits_ctrl_signal_src1Type; // @[Reg.scala 17:22]
+    end
+    if (_ID_io_in_bits_T) begin // @[Reg.scala 17:18]
+      EX_io_in_bits_r_ctrl_signal_src2Type <= ID_io_out_bits_ctrl_signal_src2Type; // @[Reg.scala 17:22]
+    end
+    if (_ID_io_in_bits_T) begin // @[Reg.scala 17:18]
+      EX_io_in_bits_r_ctrl_signal_fuType <= ID_io_out_bits_ctrl_signal_fuType; // @[Reg.scala 17:22]
+    end
+    if (_ID_io_in_bits_T) begin // @[Reg.scala 17:18]
+      EX_io_in_bits_r_ctrl_signal_inst_valid <= ID_io_out_bits_ctrl_signal_inst_valid; // @[Reg.scala 17:22]
+    end
+    if (_ID_io_in_bits_T) begin // @[Reg.scala 17:18]
+      EX_io_in_bits_r_ctrl_signal_rfWen <= ID_io_out_bits_ctrl_signal_rfWen; // @[Reg.scala 17:22]
+    end
+    if (_ID_io_in_bits_T) begin // @[Reg.scala 17:18]
+      EX_io_in_bits_r_ctrl_signal_aluoptype <= ID_io_out_bits_ctrl_signal_aluoptype; // @[Reg.scala 17:22]
+    end
+    if (_ID_io_in_bits_T) begin // @[Reg.scala 17:18]
+      EX_io_in_bits_r_ctrl_signal_rfDest <= ID_io_out_bits_ctrl_signal_rfDest; // @[Reg.scala 17:22]
+    end
+    if (_ID_io_in_bits_T) begin // @[Reg.scala 17:18]
+      EX_io_in_bits_r_ctrl_data_src1 <= ID_io_out_bits_ctrl_data_src1; // @[Reg.scala 17:22]
+    end
+    if (_ID_io_in_bits_T) begin // @[Reg.scala 17:18]
+      EX_io_in_bits_r_ctrl_data_src2 <= ID_io_out_bits_ctrl_data_src2; // @[Reg.scala 17:22]
+    end
+    if (_ID_io_in_bits_T) begin // @[Reg.scala 17:18]
+      EX_io_in_bits_r_ctrl_data_Imm <= ID_io_out_bits_ctrl_data_Imm; // @[Reg.scala 17:22]
+    end
+    if (_ID_io_in_bits_T) begin // @[Reg.scala 17:18]
+      EX_io_in_bits_r_ctrl_flow_PC <= ID_io_out_bits_ctrl_flow_PC; // @[Reg.scala 17:22]
+    end
+    if (_ID_io_in_bits_T) begin // @[Reg.scala 17:18]
+      EX_io_in_bits_r_ctrl_flow_inst <= ID_io_out_bits_ctrl_flow_inst; // @[Reg.scala 17:22]
+    end
     MEM_io_in_bits_r_ctrl_signal_fuType <= EX_io_out_bits_ctrl_signal_fuType; // @[Reg.scala 16:16 17:{18,22}]
     MEM_io_in_bits_r_ctrl_signal_inst_valid <= EX_io_out_bits_ctrl_signal_inst_valid; // @[Reg.scala 16:16 17:{18,22}]
     MEM_io_in_bits_r_ctrl_signal_aluoptype <= EX_io_out_bits_ctrl_signal_aluoptype; // @[Reg.scala 16:16 17:{18,22}]
