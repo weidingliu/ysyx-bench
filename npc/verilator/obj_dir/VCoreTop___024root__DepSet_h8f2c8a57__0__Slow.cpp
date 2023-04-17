@@ -43,7 +43,6 @@ VL_ATTR_COLD void VCoreTop___024root___ctor_var_reset(VCoreTop___024root* vlSelf
     vlSelf->reset = VL_RAND_RESET_I(1);
     vlSelf->io_pc = VL_RAND_RESET_Q(64);
     vlSelf->io_inst = VL_RAND_RESET_I(32);
-    vlSelf->CoreTop__DOT__ID_io_out_bits_ctrl_signal_rfWen = VL_RAND_RESET_I(1);
     vlSelf->CoreTop__DOT__EX_io_branchIO_is_jump = VL_RAND_RESET_I(1);
     vlSelf->CoreTop__DOT__EX_io_out_bits_ctrl_rf_rfWen = VL_RAND_RESET_I(1);
     vlSelf->CoreTop__DOT__EX_io_out_bits_ctrl_rf_rfData = VL_RAND_RESET_Q(64);
@@ -114,6 +113,7 @@ VL_ATTR_COLD void VCoreTop___024root___ctor_var_reset(VCoreTop___024root* vlSelf
     vlSelf->CoreTop__DOT__ID__DOT___Inst_decode_T_313 = VL_RAND_RESET_I(7);
     vlSelf->CoreTop__DOT__ID__DOT___Inst_decode_T_316 = VL_RAND_RESET_I(7);
     vlSelf->CoreTop__DOT__ID__DOT___Inst_decode_T_363 = VL_RAND_RESET_I(1);
+    vlSelf->CoreTop__DOT__ID__DOT__Inst_decode_3 = VL_RAND_RESET_I(1);
     vlSelf->CoreTop__DOT__EX__DOT___GEN_1 = VL_RAND_RESET_Q(64);
     vlSelf->CoreTop__DOT__EX__DOT___GEN_3 = VL_RAND_RESET_Q(64);
     vlSelf->CoreTop__DOT__EX__DOT__src2 = VL_RAND_RESET_Q(64);
