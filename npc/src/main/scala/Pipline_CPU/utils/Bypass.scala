@@ -21,21 +21,21 @@ class Bypass extends Module with Paramete{
   })
   val reg1_temp = WireDefault(io.Reg1)
   val reg2_temp = WireDefault(io.Reg2)
- when(io.EX_rf.rfWen === RD.write && io.EX_rf.rfDest === io.reg_index1){
-    reg1_temp := io.EX_rf.rfData
- }.elsewhen(io.MEM_rf.rfWen === RD.write && io.MEM_rf.rfDest === io.reg_index1){
-   reg1_temp := io.MEM_rf.rfData
- }.elsewhen(io.WB_rf.rfWen === RD.write && io.WB_rf.rfDest === io.reg_index1){
-   reg1_temp := io.WB_rf.rfData
- }
-
-  when(io.EX_rf.rfWen === RD.write && io.EX_rf.rfDest === io.reg_index2) {
-    reg2_temp := io.EX_rf.rfData
-  }.elsewhen(io.MEM_rf.rfWen === RD.write && io.MEM_rf.rfDest === io.reg_index2) {
-    reg2_temp := io.MEM_rf.rfData
-  }.elsewhen(io.WB_rf.rfWen === RD.write && io.WB_rf.rfDest === io.reg_index2) {
-    reg2_temp := io.WB_rf.rfData
-  }
+  reg1_temp := PriorityMux(
+    Seq(
+      (io.EX_rf.rfWen === RD.write && io.EX_rf.rfDest === io.reg_index1) -> io.EX_rf.rfData,
+      (io.MEM_rf.rfWen === RD.write && io.MEM_rf.rfDest === io.reg_index1) -> io.MEM_rf.rfData,
+      (io.WB_rf.rfWen === RD.write && io.WB_rf.rfDest === io.reg_index1) -> io.WB_rf.rfData,
+    )
+  )
+  reg1_temp := PriorityMux(
+    Seq(
+      (io.EX_rf.rfWen === RD.write && io.EX_rf.rfDest === io.reg_index2) -> io.EX_rf.rfData,
+      (io.MEM_rf.rfWen === RD.write && io.MEM_rf.rfDest === io.reg_index2) -> io.MEM_rf.rfData,
+      (io.WB_rf.rfWen === RD.write && io.WB_rf.rfDest === io.reg_index2) -> io.WB_rf.rfData,
+    )
+  )
+  
 
   io.Bypass_REG1 := reg1_temp
   io.Bypass_REG2 := reg2_temp
