@@ -70,7 +70,8 @@ VL_INLINE_OPT void VCoreTop___024root___sequent__TOP__0(VCoreTop___024root* vlSe
         vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_flow_inst 
             = vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_flow_inst;
         vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_signal_inst_valid 
-            = vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_inst_valid;
+            = ((IData)(vlSelf->CoreTop__DOT__valid_2) 
+               & (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_inst_valid));
         vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_flow_Dnpc 
             = vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_flow_Dnpc;
         vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_flow_PC 
@@ -101,7 +102,8 @@ VL_INLINE_OPT void VCoreTop___024root___sequent__TOP__0(VCoreTop___024root* vlSe
         vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_flow_inst 
             = vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_flow_inst;
         vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_inst_valid 
-            = vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_inst_valid;
+            = ((IData)(vlSelf->CoreTop__DOT__valid_1) 
+               & (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_inst_valid));
         vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_flow_Dnpc 
             = ((0x19U == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
                 ? vlSelf->CoreTop__DOT__EX__DOT___alu_result_T_1
