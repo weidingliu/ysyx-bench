@@ -156,7 +156,8 @@ VL_INLINE_OPT void VCoreTop___024root___sequent__TOP__0(VCoreTop___024root* vlSe
     vlSelf->CoreTop__DOT__DIP_io_pc_REG = vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_flow_PC;
     vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_data_Imm 
         = vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_data_Imm;
-    if (vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_rf_rfWen) {
+    if (((IData)(vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_rf_rfWen) 
+         & (IData)(vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_signal_inst_valid))) {
         __Vdlyvval__CoreTop__DOT__rf__v0 = ((0U == (IData)(vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_rf_rfDest))
                                              ? 0ULL
                                              : vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_rf_rfData);
@@ -200,8 +201,6 @@ VL_INLINE_OPT void VCoreTop___024root___sequent__TOP__0(VCoreTop___024root* vlSe
     vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_flow_inst 
         = vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_flow_inst;
     vlSelf->CoreTop__DOT__DIP__DOT__IN[3U] = vlSelf->CoreTop__DOT__DIP_io_inst_valid_REG;
-    vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_signal_inst_valid 
-        = vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_inst_valid;
     vlSelf->CoreTop__DOT__DIP__DOT__IN[1U] = (IData)(vlSelf->CoreTop__DOT__DIP_io_pc_REG);
     vlSelf->CoreTop__DOT__DIP__DOT__IN[2U] = (IData)(
                                                      (vlSelf->CoreTop__DOT__DIP_io_pc_REG 
@@ -276,6 +275,8 @@ VL_INLINE_OPT void VCoreTop___024root___sequent__TOP__0(VCoreTop___024root* vlSe
         = vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_rf_rfWen;
     vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_rf_rfDest 
         = vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_rf_rfDest;
+    vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_signal_inst_valid 
+        = vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_inst_valid;
     vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_rf_rfData 
         = ((4U == (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_fuType))
             ? ((0x45U == (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_aluoptype))
@@ -344,8 +345,6 @@ VL_INLINE_OPT void VCoreTop___024root___sequent__TOP__0(VCoreTop___024root* vlSe
     }
     vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_flow_inst 
         = vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_flow_inst;
-    vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_inst_valid 
-        = vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_inst_valid;
     vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_flow_PC 
         = vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_flow_PC;
     vlSelf->CoreTop__DOT__EX__DOT___GEN_3 = ((1U == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_src2Type))
@@ -355,6 +354,8 @@ VL_INLINE_OPT void VCoreTop___024root___sequent__TOP__0(VCoreTop___024root* vlSe
         = vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_rfWen;
     vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_rf_rfDest 
         = vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_rfDest;
+    vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_inst_valid 
+        = vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_inst_valid;
     vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_fuType 
         = vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_fuType;
     vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_aluoptype 
@@ -398,14 +399,14 @@ VL_INLINE_OPT void VCoreTop___024root___sequent__TOP__0(VCoreTop___024root* vlSe
                                             : vlSelf->CoreTop__DOT__EX__DOT___GEN_3);
     vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_flow_inst 
         = vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst;
-    vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_inst_valid 
-        = (0U != ((0x13U == (0x707fU & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                   ? 0x40U : (IData)(vlSelf->CoreTop__DOT__ID__DOT___Inst_decode_T_316)));
     vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_rfWen 
         = vlSelf->CoreTop__DOT__ID_io_out_bits_ctrl_signal_rfWen;
     vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_rfDest 
         = (0x1fU & (vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
                     >> 7U));
+    vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_inst_valid 
+        = (0U != ((0x13U == (0x707fU & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                   ? 0x40U : (IData)(vlSelf->CoreTop__DOT__ID__DOT___Inst_decode_T_316)));
     vlSelf->CoreTop__DOT__MEM__DOT___GEN_16 = ((0x46U 
                                                 == (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_aluoptype))
                                                 ? vlSelf->CoreTop__DOT__MEM__DOT___addr_temp_T_3
