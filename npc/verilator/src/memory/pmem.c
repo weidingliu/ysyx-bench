@@ -49,10 +49,10 @@ extern "C" void pmem_read(long long addr, long long *rdata) {
 //     return;
 //   }
 //printf("%016llx\n",(addr & ~0x7ull));
-  if(addr>0x80000018){
+  /*if(addr>0x80000018){
       state=ABORT;
       return;
-  }
+  }*/
   
   
   long long temp;
