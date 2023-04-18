@@ -57,11 +57,8 @@ void new_wp(word_t value,char *argv){
         head=temp;
         
         head->value=value;
-<<<<<<< HEAD
-        strncpy(head->exp,argv,strlen(argv));
-=======
         strcpy(head->exp,argv);
->>>>>>> tracer-ysyx2204
+
     }
     return;
 }
