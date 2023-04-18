@@ -149,6 +149,7 @@ void exe_once(VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     uint32_t inst;
     
     //printf("%d\n",s->clock);
+    
     for(int i=0;i<2 && (! contextp->gotFinish());i++){
         s->clock ^=1;
         
@@ -204,7 +205,9 @@ void exe_once(VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
 void execute(VCoreTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uint64_t n){
     step_print_inst = (n<MAX_PRINT_STEP);
     while(n--!=0 &&((!contextp->gotFinish()))){
+        printf("asdfdfgg\n");
         exe_once(dut,contextp,m_trace);
+        printf("feretrt\n");
         //printf("-----%d\n",is_skip_ref);
         #ifdef DIFFTEST 
         //printf("%d %lx\n",inst_valid,pc);
