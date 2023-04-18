@@ -146,20 +146,24 @@ uint32_t pem_read(uint64_t pc){
 
 void exe_once(VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     char p[128];
-    uint32_t inst;
+    uint32_t inst= Inst[0];;
     
     //printf("%d\n",s->clock);
-    
-    for(int i=0;i<2 && (! contextp->gotFinish());i++){
-        s->clock ^=1;
+    do{
+        for(int i=0;i<2 && (! contextp->gotFinish());i++){
+            s->clock ^=1;
         
-        s->reset = 0;
+            s->reset = 0;
         
-        if(sim_time % 1==0) {
-            
-            inst = Inst[0];
-            
-            #ifdef ITRACE
+        
+            s->eval();
+            #ifdef WTRACE
+            m_trace->dump(sim_time);
+            #endif
+            sim_time++;
+        }
+    }while(inst_valid == 1 && (! contextp->gotFinish()));
+    #ifdef ITRACE
 
             void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
             if(i==0){
@@ -178,15 +182,7 @@ void exe_once(VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
             }
             
             #endif
-            
-        }
-        
-        s->eval();
-        #ifdef WTRACE
-        m_trace->dump(sim_time);
-        #endif
-        sim_time++;
-    }
+    
 //////to ref
     #ifdef DIFFTEST 
     	memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
@@ -205,9 +201,7 @@ void exe_once(VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
 void execute(VCoreTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uint64_t n){
     step_print_inst = (n<MAX_PRINT_STEP);
     while(n--!=0 &&((!contextp->gotFinish()))){
-        printf("asdfdfgg\n");
-        exe_once(dut,contextp,m_trace);
-        printf("feretrt\n");
+        exe_once(dut,contextp,m_trace); 
         //printf("-----%d\n",is_skip_ref);
         #ifdef DIFFTEST 
         //printf("%d %lx\n",inst_valid,pc);
