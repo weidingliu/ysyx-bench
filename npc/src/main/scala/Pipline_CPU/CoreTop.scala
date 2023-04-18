@@ -99,8 +99,8 @@ class CoreTop extends Module with Paramete{
   mem_bypass.io.reg_index1 := EX.io.in.bits.ctrl_signal.rfSrc1
   mem_bypass.io.reg_index2 := EX.io.in.bits.ctrl_signal.rfSrc2
 
-  EX.io.in.bits.ctrl_data.src1 := mem_bypass.io.Bypass_REG1
-  EX.io.in.bits.ctrl_data.src2 := mem_bypass.io.Bypass_REG2
+  EX.io.src1 := mem_bypass.io.Bypass_REG1
+  EX.io.src2 := mem_bypass.io.Bypass_REG2
 //  ID.io.flush := EX.io.is_flush
 //MEM
   Pipline_Connect(EX.io.out,MEM.io.in,MEM.io.out.fire,0.B)

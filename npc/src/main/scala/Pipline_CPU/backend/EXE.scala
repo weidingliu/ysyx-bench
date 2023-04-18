@@ -74,6 +74,8 @@ object RD{
 class EXE extends Module with Paramete{
   val io = IO(new Bundle() {
    val in = Flipped(Decoupled(new DecoderIO))
+    val src1 = Input(UInt(xlen.W))
+    val src2 = Input(UInt(xlen.W))
    val branchIO = new BranchIO
     val out = Decoupled(new MEMIO)
     val is_break = Output(Bool())
@@ -93,7 +95,7 @@ class EXE extends Module with Paramete{
 
   switch(io.in.bits.ctrl_signal.src1Type) {
     is(SRCType.R) {
-      src1 := io.in.bits.ctrl_data.src1
+      src1 := io.src1
     }
     is(SRCType.PC) {
       src1 := PC
@@ -104,7 +106,7 @@ class EXE extends Module with Paramete{
   }
   switch(io.in.bits.ctrl_signal.src2Type) {
     is(SRCType.R) {
-      src2 := io.in.bits.ctrl_data.src2
+      src2 := io.src2
     }
     is(SRCType.imm) {
       src2 := Imm
