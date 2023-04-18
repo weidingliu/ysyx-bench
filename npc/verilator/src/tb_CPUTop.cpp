@@ -162,7 +162,7 @@ void exe_once(VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
             #endif
             sim_time++;
         }
-        printf("dfgghhhh %d\n",inst_valid);
+       // printf("dfgghhhh %d\n",inst_valid);
     }while(inst_valid == 1 && (! contextp->gotFinish()));
     #ifdef ITRACE
 
@@ -195,7 +195,7 @@ void exe_once(VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     	cpu.mtvec=CSR[3];*/
     #endif
     //printf("---------%016lx  %016lx\n",cpu_gpr[8],cpu_gpr[15]);
-    printf("esatfdggg\n");
+    //printf("esatfdggg\n");
     
 }
 
