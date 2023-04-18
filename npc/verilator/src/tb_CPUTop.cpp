@@ -162,6 +162,7 @@ void exe_once(VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
             #endif
             sim_time++;
         }
+        printf("dfgghhhh\n");
     }while(inst_valid == 1 && (! contextp->gotFinish()));
     #ifdef ITRACE
 
