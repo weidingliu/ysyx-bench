@@ -163,7 +163,7 @@ void exe_once(VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
             sim_time++;
         }
        // printf("dfgghhhh %d\n",inst_valid);
-    }while(inst_valid == 1 && (! contextp->gotFinish()));
+    }while(inst_valid == 0 && (! contextp->gotFinish()));
     #ifdef ITRACE
 
             void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
