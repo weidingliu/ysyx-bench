@@ -62,6 +62,7 @@ object ALUOPType{
   def csrrw ="b0010110".U
   def ecall ="b0010111".U
   def mret ="b0011000".U
+  def lui = "b0011010".U
   def apply() = UInt(7.W)
 }
 object RD{
@@ -112,7 +113,6 @@ class EXE extends Module with Paramete{
     is(SRCType.R) {
 
       src2 := io.src2
-
     }
     is(SRCType.imm) {
       src2 := Imm
@@ -126,6 +126,9 @@ class EXE extends Module with Paramete{
   switch(io.in.bits.ctrl_signal.aluoptype) {
     is(ALUOPType.add) {
       alu_result := src1 + src2
+    }
+    is(ALUOPType.lui){
+      alu_result := src2
     }
     is(ALUOPType.addw) {
       alu_result := SIgEXtend((src1 + src2) (31, 0), xlen)

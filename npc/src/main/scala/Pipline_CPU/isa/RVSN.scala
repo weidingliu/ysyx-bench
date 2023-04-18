@@ -18,7 +18,7 @@ object RVSN extends Paramete{
 
   val table = Array(
     AUIPC -> List(InstrType.InstrU,FUType.alu,ALUOPType.add,RD.write),
-    LUI -> List(InstrType.InstrU,FUType.alu,ALUOPType.add,RD.write),
+    LUI -> List(InstrType.InstrU,FUType.alu,ALUOPType.lui,RD.write),
     SD -> List(InstrType.InstrS,FUType.mem,ALUOPType.sd,RD.NOP),
     SH -> List(InstrType.InstrS,FUType.mem,ALUOPType.sh,RD.NOP),
     SB -> List(InstrType.InstrS,FUType.mem,ALUOPType.sb,RD.NOP),

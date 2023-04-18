@@ -32,11 +32,8 @@ class VCoreTop___024root final : public VerilatedModule {
         CData/*2:0*/ CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_src2Type;
         CData/*2:0*/ CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_fuType;
         CData/*0:0*/ CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_inst_valid;
-<<<<<<< HEAD
-=======
         CData/*4:0*/ CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_rfSrc1;
         CData/*4:0*/ CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_rfSrc2;
->>>>>>> tracer-ysyx2204
         CData/*0:0*/ CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_rfWen;
         CData/*6:0*/ CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype;
         CData/*4:0*/ CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_rfDest;
@@ -77,32 +74,22 @@ class VCoreTop___024root final : public VerilatedModule {
         IData/*31:0*/ CoreTop__DOT__MEM_io_in_bits_r_ctrl_flow_inst;
         IData/*31:0*/ CoreTop__DOT__WB_io_in_bits_r_ctrl_flow_inst;
         IData/*31:0*/ CoreTop__DOT__DIP_io_inst_REG;
-        IData/*31:0*/ CoreTop__DOT__io_inst_REG;
         VlWide<4>/*127:0*/ CoreTop__DOT__EX__DOT___alu_result_T_19;
         IData/*31:0*/ CoreTop__DOT__EX__DOT___alu_result_T_38;
-        IData/*31:0*/ CoreTop__DOT__EX__DOT___GEN_22;
+        IData/*31:0*/ CoreTop__DOT__EX__DOT___GEN_23;
         IData/*31:0*/ CoreTop__DOT__EX__DOT___alu_result_T_64;
         VlWide<3>/*94:0*/ CoreTop__DOT__EX__DOT___shift_result_T_5;
         VlWide<3>/*94:0*/ CoreTop__DOT__EX__DOT___shift_result_T_16;
         IData/*31:0*/ CoreTop__DOT__EX__DOT___shift_result_T_25;
         IData/*31:0*/ CoreTop__DOT__EX__DOT___shift_result_T_31;
-<<<<<<< HEAD
         VL_OUT64(io_pc,63,0);
-        QData/*63:0*/ CoreTop__DOT__EX_io_out_bits_ctrl_rf_rfData;
     };
     struct {
-        QData/*63:0*/ CoreTop__DOT__mem_rdata;
-        QData/*63:0*/ CoreTop__DOT__MEM_io_out_bits_ctrl_rf_rfData;
-=======
-    };
-    struct {
-        VL_OUT64(io_pc,63,0);
         QData/*63:0*/ CoreTop__DOT__EX_io_out_bits_ctrl_rf_rfData;
         QData/*63:0*/ CoreTop__DOT__mem_rdata;
         QData/*63:0*/ CoreTop__DOT__MEM_io_out_bits_ctrl_rf_rfData;
         QData/*63:0*/ CoreTop__DOT__mem_bypass_io_Bypass_REG1;
         QData/*63:0*/ CoreTop__DOT__mem_bypass_io_Bypass_REG2;
->>>>>>> tracer-ysyx2204
         QData/*63:0*/ CoreTop__DOT__ID_io_in_bits_r_PC;
         QData/*63:0*/ CoreTop__DOT__EX_io_in_bits_r_ctrl_data_src1;
         QData/*63:0*/ CoreTop__DOT__EX_io_in_bits_r_ctrl_data_src2;
@@ -133,10 +120,10 @@ class VCoreTop___024root final : public VerilatedModule {
         QData/*63:0*/ CoreTop__DOT__EX__DOT___GEN_14;
         QData/*63:0*/ CoreTop__DOT__EX__DOT___shift_result_T_28;
         QData/*63:0*/ CoreTop__DOT__EX__DOT___shift_result_T_35;
-        QData/*63:0*/ CoreTop__DOT__EX__DOT___GEN_36;
+        QData/*63:0*/ CoreTop__DOT__EX__DOT___GEN_37;
         QData/*63:0*/ CoreTop__DOT__EX__DOT___branch_result_T_1;
         QData/*63:0*/ CoreTop__DOT__EX__DOT___dnpc_T_11;
-        QData/*63:0*/ CoreTop__DOT__EX__DOT___GEN_60;
+        QData/*63:0*/ CoreTop__DOT__EX__DOT___GEN_61;
         QData/*63:0*/ CoreTop__DOT__MEM__DOT___addr_temp_T_1;
         QData/*63:0*/ CoreTop__DOT__MEM__DOT___GEN_16;
         QData/*63:0*/ CoreTop__DOT__MEM__DOT__addr_temp;

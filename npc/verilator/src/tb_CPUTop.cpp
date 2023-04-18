@@ -147,14 +147,12 @@ uint32_t pem_read(uint64_t pc){
 void exe_once(VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     char p[128];
 
-    uint32_t inst= Inst[0];;
+    
     //printf("%08x %016lx\n",inst,pc);
     //printf("%d\n",s->clock);
     do{
         for(int i=0;i<2 && (! contextp->gotFinish());i++){
             s->clock ^=1;
-        
-            s->reset = 0;
         
             s->eval();
             #ifdef WTRACE
@@ -166,6 +164,8 @@ void exe_once(VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
         //printf("%lx  %lx %d %x\n",pc,dnpc,inst_valid,inst);
        // printf("dfgghhhh %d\n",inst_valid);
     }while(inst_valid == 0 && (! contextp->gotFinish()));
+    uint32_t inst= Inst[0];
+   // printf("%lx  %lx %d %x\n",pc,dnpc,inst_valid,Inst[0]);
     #ifdef ITRACE
 
             void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
@@ -244,7 +244,7 @@ void Reset(VCoreTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     }
     //reset ref
     //printf("%lx\n",dut->io_pc);
-
+    dut->reset = 0;
     #ifdef DIFFTEST 
     memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
     cpu.pc=dut->io_pc;
@@ -507,6 +507,13 @@ if(state==ABORT){
     
     
     printf("\033[40;31mABORT at pc = \033[0m \033[40;31m0x%016lx\033[0m\n",pc);
+    
+    #ifdef WTRACE
+    m_trace->close();
+    #endif
+    delete dut;
+    delete contextp;
+    exit(EXIT_FAILURE);
 }
 else if(cpu_gpr[10] !=0) {
     dump_gpr(); 
@@ -520,6 +527,13 @@ else if(cpu_gpr[10] !=0) {
     #endif
 
     printf("\033[40;31mHIT BAD TRAP at pc = \033[0m \033[40;31m0x%016lx\033[0m\n",pc);
+    
+     #ifdef WTRACE
+    m_trace->close();
+    #endif
+    delete dut;
+    delete contextp;
+    exit(EXIT_FAILURE);
 }
 else printf("\033[40;32mHIT GOOD TRAP at pc = \033[0m \033[40;32m0x%016lx\033[0m\n",pc);
 #ifdef WTRACE
