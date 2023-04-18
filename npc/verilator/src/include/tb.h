@@ -7,7 +7,7 @@
 #define is_batch_mode 1
 //#define mtrace 
  #define DIFFTEST 
-// #define ITRACE 
+ #define ITRACE 
 
 
 #define MAX_SIM_TIME 5000
