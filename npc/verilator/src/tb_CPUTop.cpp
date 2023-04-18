@@ -169,7 +169,7 @@ void exe_once(VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
             void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
                 disassemble(p,96,pc,(uint8_t *)&inst,4);
                 //cpu->reg=cpu_gpr;
-                printf("%d\n",pc);
+                printf("%lx\n",pc);
                 
       
                 if(s->reset==0 && step_print_inst){
