@@ -54,6 +54,11 @@ VL_ATTR_COLD void VCoreTop___024root___ctor_var_reset(VCoreTop___024root* vlSelf
     vlSelf->CoreTop__DOT__MEM_io_out_bits_ctrl_rf_rfWen = VL_RAND_RESET_I(1);
     vlSelf->CoreTop__DOT__MEM_io_out_bits_ctrl_rf_rfData = VL_RAND_RESET_Q(64);
     vlSelf->CoreTop__DOT__WB_io_out_bits_ctrl_rf_rfWen = VL_RAND_RESET_I(1);
+<<<<<<< HEAD
+=======
+    vlSelf->CoreTop__DOT__mem_bypass_io_Bypass_REG1 = VL_RAND_RESET_Q(64);
+    vlSelf->CoreTop__DOT__mem_bypass_io_Bypass_REG2 = VL_RAND_RESET_Q(64);
+>>>>>>> tracer-ysyx2204
     vlSelf->CoreTop__DOT__valid = VL_RAND_RESET_I(1);
     vlSelf->CoreTop__DOT__ID_io_in_bits_r_PC = VL_RAND_RESET_Q(64);
     vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst = VL_RAND_RESET_I(32);
@@ -62,6 +67,11 @@ VL_ATTR_COLD void VCoreTop___024root___ctor_var_reset(VCoreTop___024root* vlSelf
     vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_src2Type = VL_RAND_RESET_I(3);
     vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_fuType = VL_RAND_RESET_I(3);
     vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_inst_valid = VL_RAND_RESET_I(1);
+<<<<<<< HEAD
+=======
+    vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_rfSrc1 = VL_RAND_RESET_I(5);
+    vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_rfSrc2 = VL_RAND_RESET_I(5);
+>>>>>>> tracer-ysyx2204
     vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_rfWen = VL_RAND_RESET_I(1);
     vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype = VL_RAND_RESET_I(7);
     vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_rfDest = VL_RAND_RESET_I(5);

@@ -146,24 +146,32 @@ uint32_t pem_read(uint64_t pc){
 
 void exe_once(VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     char p[128];
-    uint32_t inst;
-    
+
+    uint32_t inst= Inst[0];;
+    //printf("%08x %016lx\n",inst,pc);
     //printf("%d\n",s->clock);
-    for(int i=0;i<2 && (! contextp->gotFinish());i++){
-        s->clock ^=1;
+    do{
+        for(int i=0;i<2 && (! contextp->gotFinish());i++){
+            s->clock ^=1;
         
-        s->reset = 0;
+            s->reset = 0;
         
-        if(sim_time % 1==0) {
+            s->eval();
+            #ifdef WTRACE
+            m_trace->dump(sim_time);
+            #endif
+            sim_time++;
             
-            inst = Inst[0];
-            
-            #ifdef ITRACE
+        }
+        printf("%lx  %lx %d %x\n",pc,dnpc,inst_valid,inst);
+       // printf("dfgghhhh %d\n",inst_valid);
+    }while(inst_valid == 0 && (! contextp->gotFinish()));
+    #ifdef ITRACE
 
             void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
-            if(i==0){
                 disassemble(p,96,pc,(uint8_t *)&inst,4);
                 //cpu->reg=cpu_gpr;
+                
                 
       
                 if(s->reset==0 && step_print_inst){
@@ -174,20 +182,10 @@ void exe_once(VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     
     
                 irbuf_point=(irbuf_point+1)%IRTRACE;
-            }
+
             
-            #endif
-            
-        }
-        
-        s->eval();
-        #ifdef WTRACE
-        m_trace->dump(sim_time);
-        #endif
-        sim_time++;
-        //if(s->io_time_int ==1 || Inst[0]==0b00000000000000000000000001110011) {is_skip_ref=1;}
-        //if(Inst[0]==0b00000000000000000000000001110011){ref_is_irq=true; difftest_irq(0);}
-    }
+    #endif
+    
 //////to ref
     #ifdef DIFFTEST 
     	memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
@@ -200,13 +198,13 @@ void exe_once(VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     #endif
     //printf("---------%016lx  %016lx\n",cpu_gpr[8],cpu_gpr[15]);
     
-    
 }
 
 void execute(VCoreTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uint64_t n){
     step_print_inst = (n<MAX_PRINT_STEP);
     while(n--!=0 &&((!contextp->gotFinish()))){
         exe_once(dut,contextp,m_trace);
+
         //printf("-----%d\n",is_skip_ref);
         #ifdef DIFFTEST 
         //printf("%d %lx\n",inst_valid,pc);
@@ -516,6 +514,11 @@ else if(cpu_gpr[10] !=0) {
     #ifdef ITRACE
     display_iringbuf();
     #endif
+
+     #ifdef DIFFTEST 
+    difftest_print();
+    #endif
+
     printf("\033[40;31mHIT BAD TRAP at pc = \033[0m \033[40;31m0x%016lx\033[0m\n",pc);
 }
 else printf("\033[40;32mHIT GOOD TRAP at pc = \033[0m \033[40;32m0x%016lx\033[0m\n",pc);

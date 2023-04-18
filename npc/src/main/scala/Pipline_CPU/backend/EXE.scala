@@ -74,6 +74,10 @@ object RD{
 class EXE extends Module with Paramete{
   val io = IO(new Bundle() {
    val in = Flipped(Decoupled(new DecoderIO))
+
+    val src1 = Input(UInt(xlen.W))
+    val src2 = Input(UInt(xlen.W))
+
    val branchIO = new BranchIO
     val out = Decoupled(new MEMIO)
     val is_break = Output(Bool())
@@ -93,7 +97,9 @@ class EXE extends Module with Paramete{
 
   switch(io.in.bits.ctrl_signal.src1Type) {
     is(SRCType.R) {
-      src1 := io.in.bits.ctrl_data.src1
+
+      src1 := io.src1
+
     }
     is(SRCType.PC) {
       src1 := PC
@@ -104,7 +110,9 @@ class EXE extends Module with Paramete{
   }
   switch(io.in.bits.ctrl_signal.src2Type) {
     is(SRCType.R) {
-      src2 := io.in.bits.ctrl_data.src2
+
+      src2 := io.src2
+
     }
     is(SRCType.imm) {
       src2 := Imm
@@ -332,6 +340,9 @@ class EXE extends Module with Paramete{
 
   io.is_flush := Mux((branch_flag === 1.U || io.branchIO.is_jump === 1.U) && io.in.valid,1.U,0.U)
   io.is_break := Mux((io.in.bits.ctrl_signal.aluoptype === ALUOPType.ebreak), 1.U, 0.U)
+
+//  io.is_mem := Mux(io.in.bits.ctrl_signal.fuType === FUType.mem,1.B,0.B)
+
 
   io.out.bits.ctrl_signal <> io.in.bits.ctrl_signal
   io.out.bits.ctrl_flow <> io.in.bits.ctrl_flow

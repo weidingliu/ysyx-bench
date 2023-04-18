@@ -112,6 +112,18 @@ extern "C" void pmem_write(long long addr, long long wdata, char wmask) {
 //     is_skip_ref=1;
 //     return;
 //   }
+
+  if((((addr & ~0x7ull)-RESET_VECTOR)>MAX_MEM) ) {
+  	#ifdef DIFFTEST 
+  	difftest_print();
+  	#endif
+  	printf("%016llx\n",(addr & ~0x7ull));
+  	state=ABORT;
+  	return;
+  	//assert(0);
+  }
+
+
   long long *p=&wdata;
   uint8_t *temp=(uint8_t *)p;
   int i=0;

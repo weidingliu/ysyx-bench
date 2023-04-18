@@ -43,5 +43,41 @@ class Bypass extends Module with Paramete{
   io.Bypass_REG2 := reg2_temp
 
 
+}
+
+class MEM_Bypass extends Module with Paramete {
+  val io= IO(new Bundle() {
+    val MEM_rf = Flipped(new RFCtrlIO)
+
+    val Reg1 = Input(UInt(xlen.W))
+    val reg_index1 = Input(UInt(5.W))
+    val Reg2 = Input(UInt(xlen.W))
+    val reg_index2 = Input(UInt(5.W))
+
+    val Bypass_REG1 = Output(UInt(xlen.W))
+    val Bypass_REG2 = Output(UInt(xlen.W))
+
+  })
+  val reg1_temp = WireDefault(0.U)
+  val reg2_temp = WireDefault(0.U)
+
+  reg1_temp := PriorityMux(
+    Seq(
+      (io.MEM_rf.rfWen === RD.write && io.MEM_rf.rfDest === io.reg_index1 && io.MEM_rf.rfDest =/= 0.U) -> io.MEM_rf.rfData,
+      (1.B) -> io.Reg1
+    )
+  )
+  reg2_temp := PriorityMux(
+    Seq(
+      (io.MEM_rf.rfWen === RD.write && io.MEM_rf.rfDest === io.reg_index2 && io.MEM_rf.rfDest =/= 0.U) -> io.MEM_rf.rfData,
+      (1.B) -> io.Reg2
+    )
+  )
+
+
+  io.Bypass_REG1 := reg1_temp
+  io.Bypass_REG2 := reg2_temp
+
+
 
 }
