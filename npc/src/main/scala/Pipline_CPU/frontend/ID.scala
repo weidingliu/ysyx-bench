@@ -108,6 +108,6 @@ class ID extends Module with Paramete{
   stop := io.exe_is_mem && (rs === io.exe_rf.rfDest || rt ===io.exe_rf.rfDest) && io.exe_rf.rfWen
 //  io.out.valid := Mux(io.flush,0.U,1.U)
   io.out.valid := Mux(io.out.ready && io.in.valid && !stop ,1.U,0.U)
-  io.in.ready := io.out.ready
+  io.in.ready := io.out.ready && !stop
   //println(io.out.bits.ctrl_signal.inst_valid)
 }
