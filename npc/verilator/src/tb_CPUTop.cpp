@@ -160,7 +160,7 @@ void exe_once(VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
             m_trace->dump(sim_time);
             #endif
             sim_time++;
-            printf("%lx  %lx %d\n",pc,dnpc,inst_valid);
+            printf("%lx  %lx %d %x\n",pc,dnpc,inst_valid,inst);
         }
        // printf("dfgghhhh %d\n",inst_valid);
     }while(inst_valid == 0 && (! contextp->gotFinish()));
