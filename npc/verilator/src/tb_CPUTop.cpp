@@ -451,7 +451,7 @@ void sdb_main_loop(VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace
 int main(int argc, char** argv) {
 //printf("--------------------%s   %d\n",argv[1],argc);
 //
-
+printf("dfdsagg\n");
 VerilatedContext* contextp = new VerilatedContext;
 contextp->commandArgs(argc, argv);
 VCoreTop *dut = new VCoreTop;
@@ -461,11 +461,11 @@ VerilatedVcdC *m_trace = new VerilatedVcdC;
 dut->trace(m_trace,5);
 m_trace->open("waveform.vcd");
 #endif
-
+printf("dfdsagg\n");
 // init inst memory
 init_mem(argv[1]);
 init_device();
-
+printf("dfdsagg\n");
 //printf("%s\n",argv[2]);
 #ifdef WTRACE
 Reset(dut,contextp,m_trace);//reset rtl
@@ -473,13 +473,13 @@ Reset(dut,contextp,m_trace);//reset rtl
 #ifndef WTRACE
 Reset(dut,contextp,NULL);//reset rtl
 #endif
-
+printf("dfdsagg\n");
 #ifdef DIFFTEST 
 init_difftest(argv[2],mem_size,1,mem);
 #endif
 init_disasm("riscv64" "-pc-linux-gnu");
 //reset rtl
-
+printf("dfdsagg\n");
 //execute 
 //execute(dut,contextp,m_trace,-1);
 #ifdef WTRACE
@@ -489,7 +489,7 @@ sdb_main_loop(dut,contextp,m_trace);
 sdb_main_loop(dut,contextp,NULL);
 #endif
 //printf("Final PC is : 0x%lx\n",dut->io_pc);
-
+printf("dfdsagg\n");
 
 if(state==ABORT){
     dump_gpr(); 
