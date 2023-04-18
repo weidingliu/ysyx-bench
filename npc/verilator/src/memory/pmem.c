@@ -117,7 +117,9 @@ extern "C" void pmem_write(long long addr, long long wdata, char wmask) {
   	difftest_print();
   	#endif
   	printf("%016llx\n",(addr & ~0x7ull));
-  	assert(0);
+  	state=ABORT;
+  	return;
+  	//assert(0);
   }
 
   long long *p=&wdata;
