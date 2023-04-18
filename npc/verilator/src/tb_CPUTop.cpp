@@ -194,7 +194,7 @@ void exe_once(VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     	cpu.mtvec=CSR[3];*/
     #endif
     //printf("---------%016lx  %016lx\n",cpu_gpr[8],cpu_gpr[15]);
-    
+    printf("esatfdggg\n");
     
 }
 
