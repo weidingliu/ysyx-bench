@@ -512,6 +512,9 @@ else if(cpu_gpr[10] !=0) {
     #ifdef ITRACE
     display_iringbuf();
     #endif
+     #ifdef DIFFTEST 
+    difftest_print();
+    #endif
     printf("\033[40;31mHIT BAD TRAP at pc = \033[0m \033[40;31m0x%016lx\033[0m\n",pc);
 }
 else printf("\033[40;32mHIT GOOD TRAP at pc = \033[0m \033[40;32m0x%016lx\033[0m\n",pc);
