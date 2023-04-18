@@ -5,6 +5,8 @@ module IF(
   input         io_branch_io_is_jump,
   input  [63:0] io_branch_io_dnpc,
   input  [31:0] io_inst,
+  input         io_out_ready,
+  output        io_out_valid,
   output [63:0] io_out_bits_PC,
   output [31:0] io_out_bits_Inst
 );
@@ -13,6 +15,7 @@ module IF(
 `endif // RANDOMIZE_REG_INIT
   reg [63:0] temp; // @[IF.scala 16:21]
   wire [63:0] _temp_T_2 = temp + 64'h4; // @[IF.scala 17:104]
+  assign io_out_valid = io_out_ready; // @[IF.scala 22:22]
   assign io_out_bits_PC = temp; // @[IF.scala 19:18]
   assign io_out_bits_Inst = io_inst; // @[IF.scala 20:20]
   always @(posedge clock) begin
@@ -20,7 +23,7 @@ module IF(
       temp <= 64'h80000000; // @[IF.scala 16:21]
     end else if (io_branch_io_is_jump | io_branch_io_is_branch) begin // @[IF.scala 17:14]
       temp <= io_branch_io_dnpc;
-    end else begin
+    end else if (io_out_ready) begin // @[IF.scala 17:85]
       temp <= _temp_T_2;
     end
   end
@@ -71,6 +74,7 @@ end // initial
 `endif // SYNTHESIS
 endmodule
 module ID(
+  output        io_in_ready,
   input         io_in_valid,
   input  [63:0] io_in_bits_PC,
   input  [31:0] io_in_bits_Inst,
@@ -410,6 +414,7 @@ module ID(
   wire [63:0] _imm_T_11 = _imm_T_10 | _imm_T_7; // @[Mux.scala 27:73]
   wire [63:0] _imm_T_12 = _imm_T_11 | _imm_T_8; // @[Mux.scala 27:73]
   wire  stop = io_exe_is_mem & (rs == io_exe_rf_rfDest | rt == io_exe_rf_rfDest) & io_exe_rf_rfWen; // @[ID.scala 108:80]
+  assign io_in_ready = ~stop; // @[ID.scala 111:34]
   assign io_out_valid = io_in_valid & ~stop; // @[ID.scala 110:51]
   assign io_out_bits_ctrl_signal_src1Type = {{1'd0}, srctype1}; // @[ID.scala 91:36]
   assign io_out_bits_ctrl_signal_src2Type = {{2'd0}, srctype2}; // @[ID.scala 92:36]
@@ -910,12 +915,15 @@ module CoreTop(
   wire  IF_io_branch_io_is_jump; // @[CoreTop.scala 51:18]
   wire [63:0] IF_io_branch_io_dnpc; // @[CoreTop.scala 51:18]
   wire [31:0] IF_io_inst; // @[CoreTop.scala 51:18]
+  wire  IF_io_out_ready; // @[CoreTop.scala 51:18]
+  wire  IF_io_out_valid; // @[CoreTop.scala 51:18]
   wire [63:0] IF_io_out_bits_PC; // @[CoreTop.scala 51:18]
   wire [31:0] IF_io_out_bits_Inst; // @[CoreTop.scala 51:18]
   wire  IFM_reset; // @[CoreTop.scala 53:19]
   wire  IFM_clk; // @[CoreTop.scala 53:19]
   wire [63:0] IFM_pc; // @[CoreTop.scala 53:19]
   wire [31:0] IFM_inst; // @[CoreTop.scala 53:19]
+  wire  ID_io_in_ready; // @[CoreTop.scala 55:18]
   wire  ID_io_in_valid; // @[CoreTop.scala 55:18]
   wire [63:0] ID_io_in_bits_PC; // @[CoreTop.scala 55:18]
   wire [31:0] ID_io_in_bits_Inst; // @[CoreTop.scala 55:18]
@@ -1183,6 +1191,7 @@ module CoreTop(
   wire [63:0] bypass_io_Bypass_REG1; // @[CoreTop.scala 69:22]
   wire [63:0] bypass_io_Bypass_REG2; // @[CoreTop.scala 69:22]
   reg  valid; // @[Pipline.scala 8:24]
+  wire  _T_2 = IF_io_out_valid & ID_io_in_ready; // @[Pipline.scala 12:21]
   reg [63:0] ID_io_in_bits_r_PC; // @[Reg.scala 16:16]
   reg [31:0] ID_io_in_bits_r_Inst; // @[Reg.scala 16:16]
   reg  valid_1; // @[Pipline.scala 8:24]
@@ -1236,6 +1245,8 @@ module CoreTop(
     .io_branch_io_is_jump(IF_io_branch_io_is_jump),
     .io_branch_io_dnpc(IF_io_branch_io_dnpc),
     .io_inst(IF_io_inst),
+    .io_out_ready(IF_io_out_ready),
+    .io_out_valid(IF_io_out_valid),
     .io_out_bits_PC(IF_io_out_bits_PC),
     .io_out_bits_Inst(IF_io_out_bits_Inst)
   );
@@ -1246,6 +1257,7 @@ module CoreTop(
     .inst(IFM_inst)
   );
   ID ID ( // @[CoreTop.scala 55:18]
+    .io_in_ready(ID_io_in_ready),
     .io_in_valid(ID_io_in_valid),
     .io_in_bits_PC(ID_io_in_bits_PC),
     .io_in_bits_Inst(ID_io_in_bits_Inst),
@@ -1532,6 +1544,7 @@ module CoreTop(
   assign IF_io_branch_io_is_jump = EX_io_branchIO_is_jump; // @[CoreTop.scala 93:19]
   assign IF_io_branch_io_dnpc = EX_io_branchIO_dnpc; // @[CoreTop.scala 93:19]
   assign IF_io_inst = IFM_inst; // @[CoreTop.scala 81:14]
+  assign IF_io_out_ready = ID_io_in_ready; // @[Pipline.scala 22:16]
   assign IFM_reset = reset; // @[CoreTop.scala 82:16]
   assign IFM_clk = clock; // @[CoreTop.scala 83:14]
   assign IFM_pc = IF_io_out_bits_PC; // @[CoreTop.scala 80:13]
@@ -1644,10 +1657,14 @@ module CoreTop(
     end else if (EX_io_is_flush) begin // @[Pipline.scala 18:25]
       valid <= 1'h0; // @[Pipline.scala 19:13]
     end else begin
-      valid <= 1'h1;
+      valid <= _T_2;
     end
-    ID_io_in_bits_r_PC <= IF_io_out_bits_PC; // @[Reg.scala 16:16 17:{18,22}]
-    ID_io_in_bits_r_Inst <= IF_io_out_bits_Inst; // @[Reg.scala 16:16 17:{18,22}]
+    if (_T_2) begin // @[Reg.scala 17:18]
+      ID_io_in_bits_r_PC <= IF_io_out_bits_PC; // @[Reg.scala 17:22]
+    end
+    if (_T_2) begin // @[Reg.scala 17:18]
+      ID_io_in_bits_r_Inst <= IF_io_out_bits_Inst; // @[Reg.scala 17:22]
+    end
     if (reset) begin // @[Pipline.scala 8:24]
       valid_1 <= 1'h0; // @[Pipline.scala 8:24]
     end else if (EX_io_is_flush) begin // @[Pipline.scala 18:25]
