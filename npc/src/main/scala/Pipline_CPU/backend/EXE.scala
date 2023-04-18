@@ -78,7 +78,6 @@ class EXE extends Module with Paramete{
     val out = Decoupled(new MEMIO)
     val is_break = Output(Bool())
     val is_flush = Output(Bool())
-    val is_mem = Output(Bool())
 
   })
 //  val rf = new RF
@@ -333,7 +332,7 @@ class EXE extends Module with Paramete{
 
   io.is_flush := Mux((branch_flag === 1.U || io.branchIO.is_jump === 1.U) && io.in.valid,1.U,0.U)
   io.is_break := Mux((io.in.bits.ctrl_signal.aluoptype === ALUOPType.ebreak), 1.U, 0.U)
-  io.is_mem := Mux(io.in.bits.ctrl_signal.fuType === FUType.mem,1.B,0.B)
+//  io.is_mem := Mux(io.in.bits.ctrl_signal.fuType === FUType.mem,1.B,0.B)
 
   io.out.bits.ctrl_signal <> io.in.bits.ctrl_signal
   io.out.bits.ctrl_flow <> io.in.bits.ctrl_flow

@@ -68,10 +68,12 @@ class CoreTop extends Module with Paramete{
 
   val bypass = Module(new Bypass)
 
+  val mem_bypass =Module(new MEM_Bypass)
+
 //  io.pc := IF.io.out.bits.PC
   // bypass
- bypass.io.Reg1 := Reg.read(ID.io.out.bits.ctrl_signal.rfSrc1)
- bypass.io.Reg2 := Reg.read(ID.io.out.bits.ctrl_signal.rfSrc2)
+  bypass.io.Reg1 := Reg.read(ID.io.out.bits.ctrl_signal.rfSrc1)
+  bypass.io.Reg2 := Reg.read(ID.io.out.bits.ctrl_signal.rfSrc2)
   bypass.io.reg_index1 := ID.io.out.bits.ctrl_signal.rfSrc1
   bypass.io.reg_index2 := ID.io.out.bits.ctrl_signal.rfSrc2
 
@@ -86,12 +88,19 @@ class CoreTop extends Module with Paramete{
   Pipline_Connect(IF.io.out,ID.io.in,ID.io.out.fire,EX.io.is_flush)
   ID.io.REG1 := bypass.io.Bypass_REG1
   ID.io.REG2 := bypass.io.Bypass_REG2
-  ID.io.exe_is_mem := EX.io.is_mem
-  ID.io.exe_rf <> EX.io.out.bits.ctrl_rf
+//  ID.io.exe_is_mem := EX.io.is_mem
+//  ID.io.exe_rf <> EX.io.out.bits.ctrl_rf
   //EXE
   Pipline_Connect(ID.io.out,EX.io.in,EX.io.out.fire,EX.io.is_flush)
   IF.io.branch_io <> EX.io.branchIO
   bypass.io.EX_rf <> EX.io.out.bits.ctrl_rf
+  mem_bypass.io.Reg1 := EX.io.in.bits.ctrl_data.src1
+  mem_bypass.io.Reg2 := EX.io.in.bits.ctrl_data.src2
+  mem_bypass.io.reg_index1 := EX.io.in.bits.ctrl_signal.rfSrc1
+  mem_bypass.io.reg_index2 := EX.io.in.bits.ctrl_signal.rfSrc2
+
+  EX.io.in.bits.ctrl_data.src1 := mem_bypass.io.Bypass_REG1
+  EX.io.in.bits.ctrl_data.src2 := mem_bypass.io.Bypass_REG2
 //  ID.io.flush := EX.io.is_flush
 //MEM
   Pipline_Connect(EX.io.out,MEM.io.in,MEM.io.out.fire,0.B)
@@ -104,6 +113,7 @@ class CoreTop extends Module with Paramete{
   mem.io.clk := clock
   mem.io.reset := reset
   bypass.io.MEM_rf <> MEM.io.out.bits.ctrl_rf
+  mem_bypass.io.MEM_rf <> MEM.io.out.bits.ctrl_rf
 
 //WB
   Pipline_Connect(MEM.io.out,WB.io.in,WB.io.out.fire,0.B)
