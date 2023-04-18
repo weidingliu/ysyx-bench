@@ -187,6 +187,7 @@ void exe_once(VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
 //////to ref
     #ifdef DIFFTEST 
     	memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
+    	printf("dfghjjjj\n");
     	cpu.pc=dnpc;
         //printf("%lx\n",s->io_pc);
     	/*cpu.mepc=CSR[0];
