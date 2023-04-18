@@ -149,22 +149,14 @@ void exe_once(VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     uint32_t inst;
     
     //printf("%d\n",s->clock);
-    while (inst_valid==0&& (! contextp->gotFinish())){
-        for(int i=0;i<2 && (! contextp->gotFinish());i++){
-            s->clock ^=1;
+    for(int i=0;i<2 && (! contextp->gotFinish());i++){
+        s->clock ^=1;
         
-            s->reset = 0;
+        s->reset = 0;
         
-            s->eval();
-            #ifdef WTRACE
-            m_trace->dump(sim_time);
-            #endif
-            sim_time++;
-        }
-    }
-    
-    
-    inst = Inst[0];
+        if(sim_time % 1==0) {
+            
+            inst = Inst[0];
             
             #ifdef ITRACE
 
@@ -185,8 +177,15 @@ void exe_once(VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
             }
             
             #endif
-    
-    
+            
+        }
+        
+        s->eval();
+        #ifdef WTRACE
+        m_trace->dump(sim_time);
+        #endif
+        sim_time++;
+    }
 //////to ref
     #ifdef DIFFTEST 
     	memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
