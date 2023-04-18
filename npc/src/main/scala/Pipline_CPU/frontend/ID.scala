@@ -42,6 +42,9 @@ class ID extends Module with Paramete{
     val REG1 = Input(UInt(xlen.W))
     val REG2 = Input(UInt(xlen.W))
 //    val flush = Input(Bool())
+    // mem hazird
+    val exe_rf = Flipped(new RFCtrlIO)
+    val exe_is_mem = Input(Bool())
 
     val out = Decoupled(new DecoderIO)
 
@@ -100,9 +103,11 @@ class ID extends Module with Paramete{
   io.out.bits.ctrl_data.src2 := io.REG2
 //  io.out.bits.ctrl_data.src1 :=
 //    io.out.bits.ctrl_data.src2 :=
-
+  //mem RAR harzerd
+  val stop = WireDefault(0.U)
+  stop := io.exe_is_mem && (rs === io.exe_rf.rfDest || rt ===io.exe_rf.rfDest) && io.exe_rf.rfWen
 //  io.out.valid := Mux(io.flush,0.U,1.U)
-  io.out.valid := Mux(io.out.ready && io.in.valid ,1.U,0.U)
+  io.out.valid := Mux(io.out.ready && io.in.valid && !stop ,1.U,0.U)
   io.in.ready := io.out.ready
   //println(io.out.bits.ctrl_signal.inst_valid)
 }

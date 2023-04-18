@@ -86,6 +86,8 @@ class CoreTop extends Module with Paramete{
   Pipline_Connect(IF.io.out,ID.io.in,ID.io.out.fire,EX.io.is_flush)
   ID.io.REG1 := bypass.io.Bypass_REG1
   ID.io.REG2 := bypass.io.Bypass_REG2
+  ID.io.exe_is_mem := EX.io.is_mem
+  ID.io.exe_rf <> EX.io.out.bits.ctrl_rf
   //EXE
   Pipline_Connect(ID.io.out,EX.io.in,EX.io.out.fire,EX.io.is_flush)
   IF.io.branch_io <> EX.io.branchIO
