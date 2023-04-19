@@ -71,6 +71,14 @@ object RD{
   def NOP = "b0".U
   def apply() =UInt(1.W)
 }
+class CSR_DIFF extends BlackBox{
+  val io=IO(new Bundle() {
+    val mepc = Input(UInt(64.W))
+    val mcause = Input(UInt(64.W))
+    val mstatus = Input(UInt(64.W))
+    val mtvec = Input(UInt(64.W))
+  })
+}
 
 class EXE extends Module with Paramete{
   val io = IO(new Bundle() {
@@ -92,6 +100,9 @@ class EXE extends Module with Paramete{
   val src2 = WireDefault(0.U(xlen.W))
   val Imm = WireDefault(0.U(xlen.W))
   val PC = WireDefault(0.U(xlen.W))
+
+  val csr = new CSR
+  val CSRDIFF=Module(new CSR_DIFF)
 
   Imm := io.in.bits.ctrl_data.Imm
   PC := io.in.bits.ctrl_flow.PC
@@ -181,14 +192,14 @@ class EXE extends Module with Paramete{
     is(ALUOPType.div) {
       alu_result := (src1.asSInt / src2.asSInt) (63, 0)
     }
-//    is(ALUOPType.csrrs) {
-//      alu_result := csr.read(io.Imm(11, 0))
-//      csr.write(io.Imm(11, 0), csr.read(io.Imm(11, 0)) | src1)
-//    }
-//    is(ALUOPType.csrrw) {
-//      alu_result := csr.read(io.Imm(11, 0))
-//      csr.write(io.Imm(11, 0), src1)
-//    }
+    is(ALUOPType.csrrs) {
+      alu_result := csr.read(Imm(11, 0))
+      csr.write(Imm(11, 0), csr.read(Imm(11, 0)) | src1)
+    }
+    is(ALUOPType.csrrw) {
+      alu_result := csr.read(Imm(11, 0))
+      csr.write(Imm(11, 0), src1)
+    }
   }
   val shift_result = WireDefault(0.U(xlen.W))
   switch(io.in.bits.ctrl_signal.aluoptype) {
@@ -296,6 +307,19 @@ class EXE extends Module with Paramete{
       branch_flag := 1.U
     }
   }
+
+  val csr_data = WireDefault(0.U(xlen.W))
+  switch(io.in.bits.ctrl_signal.aluoptype) {
+    is(ALUOPType.ecall) {
+      csr_data := csr.read(CSR_index.mtvec)
+      csr.write(CSR_index.mstatus, csr.read(CSR_index.mstatus) & "hfffffffffffffff7".U(xlen.W))
+    }
+    is(ALUOPType.mret) {
+      csr_data := csr.read(CSR_index.mepc)
+      csr.write(CSR_index.mstatus, csr.read(CSR_index.mstatus) | "h0000000000000008".U(xlen.W))
+    }
+  }
+
 // dnpc
   switch(io.in.bits.ctrl_signal.aluoptype) {
     is(ALUOPType.jal) {
@@ -324,13 +348,19 @@ class EXE extends Module with Paramete{
       dnpc := Mux(branch_flag === 1.U, branch_result, PC + 4.U(xlen.W))
     }
 
+    is(ALUOPType.ecall) {
+      dnpc := csr_data
+    }
+    is(ALUOPType.mret) {
+      dnpc := csr_data
+    }
+  }
 
-//    is(ALUOPType.ecall) {
-//      dnpc := csr_data
-//    }
-//    is(ALUOPType.mret) {
-//      dnpc := csr_data
-//    }
+  switch(io.in.bits.ctrl_signal.aluoptype) {
+    is(ALUOPType.ecall) {
+      csr.write(CSR_index.mepc, PC)
+      csr.write(CSR_index.mcause, 11.U)
+    }
   }
 
 //  io1.time_int := time_int
@@ -340,6 +370,11 @@ class EXE extends Module with Paramete{
 //    csr.write(CSR_index.mepc, io1.PC.asUInt)
 //    csr.write(CSR_index.mstatus, csr.read(CSR_index.mstatus) & "hfffffffffffffff7".U(xlen.W))
 //  }
+// CSR difftest
+  CSRDIFF.io.mtvec := (csr.mtvec)
+  CSRDIFF.io.mcause := (csr.mcause)
+  CSRDIFF.io.mepc := (csr.mepc)
+  CSRDIFF.io.mstatus := (csr.mstatus)
 
   io.is_flush := Mux((branch_flag === 1.U || io.branchIO.is_jump === 1.U) && io.in.valid,1.U,0.U)
   io.is_break := Mux((io.in.bits.ctrl_signal.aluoptype === ALUOPType.ebreak), 1.U, 0.U)

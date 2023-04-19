@@ -136,13 +136,6 @@ void init_mem(char *file_path){
     //printf("%x\n",*(uint32_t *)(mem+0x24c));
 }
 
-//void ebreak() {dut->final();return;}
-uint32_t pem_read(uint64_t pc){
-    
-
-    return *(uint32_t *)(mem+pc-0x80000000);
-} 
-//extern "C" void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
 
 void exe_once(VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     char p[128];
@@ -191,10 +184,10 @@ void exe_once(VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     	memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
     	cpu.pc=dnpc;
         //printf("%lx\n",s->io_pc);
-    	/*cpu.mepc=CSR[0];
+    	cpu.mepc=CSR[0];
     	cpu.mcause=CSR[1];
     	cpu.mstatus=CSR[2];
-    	cpu.mtvec=CSR[3];*/
+    	cpu.mtvec=CSR[3];
     #endif
     //printf("---------%016lx  %016lx\n",cpu_gpr[8],cpu_gpr[15]);
     
@@ -217,7 +210,6 @@ void execute(VCoreTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uin
         if(state==ABORT) break;
         device_update();
     }
-    
     
     if(contextp->gotFinish()) state=END;
     switch(state){
@@ -249,10 +241,10 @@ void Reset(VCoreTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     memcpy(cpu.reg,cpu_gpr,sizeof(uint64_t)*32);
     cpu.pc=dut->io_pc;
     //printf("%lx\n",cpu.pc);
-    /*cpu.mepc=CSR[0];
+    cpu.mepc=CSR[0];
     cpu.mcause=CSR[1];
     cpu.mstatus=CSR[2];
-    cpu.mtvec=CSR[3];*/
+    cpu.mtvec=CSR[3];
     
     #endif
 
@@ -492,6 +484,11 @@ sdb_main_loop(dut,contextp,NULL);
 #endif
 //printf("Final PC is : 0x%lx\n",dut->io_pc);
 
+#ifdef WTRACE
+m_trace->close();
+#endif
+delete dut;
+delete contextp;
 
 if(state==ABORT){
     dump_gpr(); 
@@ -505,14 +502,8 @@ if(state==ABORT){
     difftest_print();
     #endif
     
-    
     printf("\033[40;31mABORT at pc = \033[0m \033[40;31m0x%016lx\033[0m\n",pc);
-    
-    #ifdef WTRACE
-    m_trace->close();
-    #endif
-    delete dut;
-    delete contextp;
+
     exit(EXIT_FAILURE);
 }
 else if(cpu_gpr[10] !=0) {
@@ -528,19 +519,10 @@ else if(cpu_gpr[10] !=0) {
 
     printf("\033[40;31mHIT BAD TRAP at pc = \033[0m \033[40;31m0x%016lx\033[0m\n",pc);
     
-     #ifdef WTRACE
-    m_trace->close();
-    #endif
-    delete dut;
-    delete contextp;
     exit(EXIT_FAILURE);
 }
 else printf("\033[40;32mHIT GOOD TRAP at pc = \033[0m \033[40;32m0x%016lx\033[0m\n",pc);
-#ifdef WTRACE
-m_trace->close();
-#endif
-delete dut;
-delete contextp;
+
 exit(EXIT_SUCCESS);
 
 
