@@ -42,5 +42,5 @@ extern uint64_t *CSR;
 
 extern uint32_t state;
 
-extern bool is_skip_ref;
+extern uint32_t is_skip_ref;
 

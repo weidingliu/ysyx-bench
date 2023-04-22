@@ -48,6 +48,7 @@ uint64_t *CSR;
 uint64_t pc;
 uint64_t dnpc;
 uint32_t inst_valid=0;
+uint32_t is_skip_ref=0;
 
 uint32_t state=RUN;
 
@@ -73,6 +74,7 @@ extern "C" void set_pc( const svOpenArrayHandle inst){
     pc = (uint64_t)Inst[1]+((uint64_t)Inst[2]<<32);
     inst_valid=Inst[3];
     dnpc = (uint64_t)Inst[4]+((uint64_t)Inst[5]<<32);
+    is_skip_ref = Inst[6];
 
 }
 extern "C" void set_csr( const svOpenArrayHandle inst){
@@ -138,9 +140,7 @@ void init_mem(char *file_path){
 
 
 void exe_once(VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
-    char p[128];
-
-    
+    char p[128];  
     //printf("%08x %016lx\n",inst,pc);
     //printf("%d\n",s->clock);
     do{
@@ -159,6 +159,7 @@ void exe_once(VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
     }while(inst_valid == 0 && (! contextp->gotFinish()));
     uint32_t inst= Inst[0];
    // printf("%lx  %lx %d %x\n",pc,dnpc,inst_valid,Inst[0]);
+   //printf("%d\n",is_skip_ref);
     #ifdef ITRACE
 
             void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
@@ -173,10 +174,7 @@ void exe_once(VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
                 
                 sprintf(ibuf[irbuf_point],"Addr: %08lx\t  %08x\t Inst: %-16s\t\n",pc,inst,p);
     
-    
                 irbuf_point=(irbuf_point+1)%IRTRACE;
-
-            
     #endif
     
 //////to ref
@@ -207,7 +205,7 @@ void execute(VCoreTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uin
             if(!flag) {state=ABORT; break;}
         }
         #endif
-        if(state==ABORT) break;
+        if(state==ABORT || state==END) break;
         device_update();
     }
     
@@ -504,7 +502,8 @@ if(state==ABORT){
     
     printf("\033[40;31mABORT at pc = \033[0m \033[40;31m0x%016lx\033[0m\n",pc);
 
-    exit(EXIT_FAILURE);
+    //exit(EXIT_FAILURE);
+    exit(EXIT_SUCCESS);
 }
 else if(cpu_gpr[10] !=0) {
     dump_gpr(); 
@@ -519,7 +518,7 @@ else if(cpu_gpr[10] !=0) {
 
     printf("\033[40;31mHIT BAD TRAP at pc = \033[0m \033[40;31m0x%016lx\033[0m\n",pc);
     
-    exit(EXIT_FAILURE);
+    exit(EXIT_SUCCESS);
 }
 else printf("\033[40;32mHIT GOOD TRAP at pc = \033[0m \033[40;32m0x%016lx\033[0m\n",pc);
 

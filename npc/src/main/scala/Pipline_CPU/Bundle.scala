@@ -28,6 +28,7 @@ class CtrlFlowIO extends Bundle with Paramete{
   val PC = Output(UInt(xlen.W))
   val inst = Output(UInt(instlen.W))
   val Dnpc = Output(UInt(xlen.W))
+  val skip = Output(Bool())
 }
 
 class MEMCtrlIO extends Bundle with Paramete{

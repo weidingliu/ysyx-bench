@@ -9,7 +9,7 @@
 
 
 uint64_t boot_time = 0;
-bool is_skip_ref=0;
+//bool is_skip_ref=0;
 
 static uint64_t get_time_internal(){
     struct timeval now;
@@ -33,14 +33,14 @@ extern "C" void pmem_read(long long addr, long long *rdata) {
       uint64_t us=get_time();
       //printf("%ld\n",us);
       *rdata=us;
-      is_skip_ref=1;
+      //is_skip_ref=1;
       //printf("%lld\n",*rdata);
       //printf("here\n");
       return;
   }
   if((addr& ~0x7ull)>=DEVICE_BASE && (addr& ~0x7ull)<=DEVICE_BASE+0x1200000){
       read_device(addr& ~0x7ull,rdata);
-      is_skip_ref=1;
+      //is_skip_ref=1;
       return;
   }
 //   if((addr& ~0x7ull)>=0x83000000){
@@ -80,13 +80,13 @@ extern "C" void pmem_write(long long addr, long long wdata, char wmask) {
       //printf("uart\n");
       unsigned char *p= (unsigned char *)&wdata;
       printf("%c",*p);
-      is_skip_ref=1;
+    //  is_skip_ref=1;
       //is_skip_ref=1;
       return;
   }
   if((addr& ~0x7ull)>=DEVICE_BASE && (addr& ~0x7ull)<=DEVICE_BASE+0x1200000){
       write_device(addr& ~0x7ull,wdata,wmask);
-      is_skip_ref=1;
+      //is_skip_ref=1;
       return;
   }
 //   if((addr& ~0x7ull)>=0x83000000){

@@ -13,6 +13,7 @@ class DIP_model extends BlackBox{
     val pc = Input(UInt(64.W))
     val inst_valid = Input(Bool())
     val dnpc = Input(UInt(64.W))
+    val is_skip=Input(Bool())
 
   })
 }
@@ -67,7 +68,6 @@ class CoreTop extends Module with Paramete{
   val WB = Module(new WB)
 
   val bypass = Module(new Bypass)
-
 
   val mem_bypass =Module(new MEM_Bypass)
 
@@ -136,6 +136,7 @@ class CoreTop extends Module with Paramete{
     DIP.io.rf(i) := Reg.rf(i)
   }
   DIP.io.inst := RegNext(WB.io.out.bits.ctrl_flow.inst)
+  DIP.io.is_skip := RegNext(WB.io.out.bits.ctrl_flow.skip)
   DIP.io.inst_valid := RegNext(Mux(WB.io.out.valid,WB.io.out.bits.ctrl_signal.inst_valid,0.U))
   DIP.io.pc := RegNext(WB.io.out.bits.ctrl_flow.PC)
   DIP.io.dnpc := RegNext(WB.io.out.bits.ctrl_flow.Dnpc)

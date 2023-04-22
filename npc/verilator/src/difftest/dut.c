@@ -86,7 +86,7 @@ bool difftest_step(uint64_t pc){
     if(is_skip_ref){
         //cpu.pc+=4;
         ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
-        is_skip_ref=0;
+        //is_skip_ref=0;
         return true;
     }
 

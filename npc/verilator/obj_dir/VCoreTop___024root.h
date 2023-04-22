@@ -46,7 +46,9 @@ class VCoreTop___024root final : public VerilatedModule {
         CData/*0:0*/ CoreTop__DOT__valid_3;
         CData/*0:0*/ CoreTop__DOT__WB_io_in_bits_r_ctrl_signal_inst_valid;
         CData/*0:0*/ CoreTop__DOT__WB_io_in_bits_r_ctrl_signal_rfWen;
+        CData/*0:0*/ CoreTop__DOT__WB_io_in_bits_r_ctrl_flow_skip;
         CData/*4:0*/ CoreTop__DOT__WB_io_in_bits_r_ctrl_rf_rfDest;
+        CData/*0:0*/ CoreTop__DOT__DIP_io_is_skip_REG;
         CData/*0:0*/ CoreTop__DOT__DIP_io_inst_valid_REG;
         CData/*3:0*/ CoreTop__DOT__ID__DOT___Inst_decode_T_144;
         CData/*3:0*/ CoreTop__DOT__ID__DOT___Inst_decode_T_159;
@@ -81,10 +83,10 @@ class VCoreTop___024root final : public VerilatedModule {
         VlWide<3>/*94:0*/ CoreTop__DOT__EX__DOT___shift_result_T_5;
         VlWide<3>/*94:0*/ CoreTop__DOT__EX__DOT___shift_result_T_16;
         IData/*31:0*/ CoreTop__DOT__EX__DOT___shift_result_T_25;
-        IData/*31:0*/ CoreTop__DOT__EX__DOT___shift_result_T_31;
-        VL_OUT64(io_pc,63,0);
     };
     struct {
+        IData/*31:0*/ CoreTop__DOT__EX__DOT___shift_result_T_31;
+        VL_OUT64(io_pc,63,0);
         QData/*63:0*/ CoreTop__DOT__EX_io_out_bits_ctrl_rf_rfData;
         QData/*63:0*/ CoreTop__DOT__mem_rdata;
         QData/*63:0*/ CoreTop__DOT__MEM_io_out_bits_ctrl_rf_rfData;
@@ -147,10 +149,18 @@ class VCoreTop___024root final : public VerilatedModule {
         QData/*63:0*/ CoreTop__DOT__EX__DOT__csr_data;
         QData/*63:0*/ CoreTop__DOT__EX__DOT___dnpc_T_11;
         QData/*63:0*/ CoreTop__DOT__EX__DOT___GEN_289;
-        QData/*63:0*/ CoreTop__DOT__MEM__DOT___addr_temp_T_1;
-        QData/*63:0*/ CoreTop__DOT__MEM__DOT___GEN_16;
     };
     struct {
+        QData/*63:0*/ CoreTop__DOT__EX__DOT__CSRDIFF_io_mtvec_REG;
+        QData/*63:0*/ CoreTop__DOT__EX__DOT__CSRDIFF_io_mtvec_REG_1;
+        QData/*63:0*/ CoreTop__DOT__EX__DOT__CSRDIFF_io_mcause_REG;
+        QData/*63:0*/ CoreTop__DOT__EX__DOT__CSRDIFF_io_mcause_REG_1;
+        QData/*63:0*/ CoreTop__DOT__EX__DOT__CSRDIFF_io_mepc_REG;
+        QData/*63:0*/ CoreTop__DOT__EX__DOT__CSRDIFF_io_mepc_REG_1;
+        QData/*63:0*/ CoreTop__DOT__EX__DOT__CSRDIFF_io_mstatus_REG;
+        QData/*63:0*/ CoreTop__DOT__EX__DOT__CSRDIFF_io_mstatus_REG_1;
+        QData/*63:0*/ CoreTop__DOT__MEM__DOT___addr_temp_T_1;
+        QData/*63:0*/ CoreTop__DOT__MEM__DOT___GEN_16;
         QData/*63:0*/ CoreTop__DOT__MEM__DOT__addr_temp;
         QData/*63:0*/ CoreTop__DOT__MEM__DOT___wdata_temp_T_21;
         QData/*63:0*/ __Vtask_pmem_read__0__rdata;
@@ -158,7 +168,7 @@ class VCoreTop___024root final : public VerilatedModule {
         VlUnpacked<QData/*63:0*/, 32> CoreTop__DOT__rf;
         VlUnpacked<QData/*63:0*/, 6> CoreTop__DOT__EX__DOT__CSRDIFF__DOT__inst_csr;
         VlUnpacked<QData/*63:0*/, 32> CoreTop__DOT__DIP__DOT__rf;
-        VlUnpacked<IData/*31:0*/, 6> CoreTop__DOT__DIP__DOT__IN;
+        VlUnpacked<IData/*31:0*/, 7> CoreTop__DOT__DIP__DOT__IN;
         VlUnpacked<CData/*0:0*/, 3> __Vm_traceActivity;
     };
 

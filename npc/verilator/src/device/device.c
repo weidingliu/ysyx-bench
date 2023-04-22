@@ -15,14 +15,13 @@ void device_update() {
 //printf("sdfggyuiii\n");
   vga_update_screen();
 
-#ifndef CONFIG_TARGET_AM
   SDL_Event event;
   while (SDL_PollEvent(&event)) {
     switch (event.type) {
       case SDL_QUIT:
+        SDL_Quit(); 
         state = END;
         break;
-#ifdef CONFIG_HAS_KEYBOARD
       // If a key was pressed
       case SDL_KEYDOWN:
       case SDL_KEYUP: {
@@ -31,11 +30,9 @@ void device_update() {
         send_key(k, is_keydown);
         break;
       }
-#endif
       default: break;
     }
   }
-#endif
 }
 
 void init_device(){

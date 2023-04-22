@@ -371,16 +371,15 @@ class EXE extends Module with Paramete{
 //    csr.write(CSR_index.mstatus, csr.read(CSR_index.mstatus) & "hfffffffffffffff7".U(xlen.W))
 //  }
 // CSR difftest
-  CSRDIFF.io.mtvec := (csr.mtvec)
-  CSRDIFF.io.mcause := (csr.mcause)
-  CSRDIFF.io.mepc := (csr.mepc)
-  CSRDIFF.io.mstatus := (csr.mstatus)
+  CSRDIFF.io.mtvec := RegNext(RegNext(csr.mtvec))
+  CSRDIFF.io.mcause := RegNext(RegNext(csr.mcause))
+  CSRDIFF.io.mepc := RegNext(RegNext(csr.mepc))
+  CSRDIFF.io.mstatus := RegNext(RegNext(csr.mstatus))
 
   io.is_flush := Mux((branch_flag === 1.U || io.branchIO.is_jump === 1.U) && io.in.valid,1.U,0.U)
   io.is_break := Mux((io.in.bits.ctrl_signal.aluoptype === ALUOPType.ebreak), 1.U, 0.U)
 
 //  io.is_mem := Mux(io.in.bits.ctrl_signal.fuType === FUType.mem,1.B,0.B)
-
 
   io.out.bits.ctrl_signal <> io.in.bits.ctrl_signal
   io.out.bits.ctrl_flow <> io.in.bits.ctrl_flow
