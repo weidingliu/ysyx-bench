@@ -109,9 +109,7 @@ class EXE extends Module with Paramete{
 
   switch(io.in.bits.ctrl_signal.src1Type) {
     is(SRCType.R) {
-
       src1 := io.src1
-
     }
     is(SRCType.PC) {
       src1 := PC

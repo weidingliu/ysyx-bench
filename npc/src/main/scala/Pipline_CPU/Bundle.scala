@@ -80,6 +80,28 @@ class WBIO extends Bundle with Paramete{
   val ctrl_flow = new CtrlFlowIO
   val ctrl_rf = new RFCtrlIO
 }
+class Mul_data_flow extends Bundle with  Paramete{
+  val src1 = Input(UInt(xlen.W))
+  val src2 = Input(UInt(xlen.W))
+}
+class Mul_ctrl_flow extends Bundle with Paramete{
+  val flush = Input(Bool())
+  val mulw = Input(Bool())
+  val mul_sign = Input(UInt(2.W))
+}
+class Mul_data extends Bundle with Paramete{
+  val result_hi = Output(UInt(xlen.W))
+  val result_lo = Output(UInt(xlen.W))
+}
+
+class MUL_IN extends Bundle with Paramete{
+  val ctrl_flow = new Mul_ctrl_flow
+  val ctrl_data = new Mul_data_flow
+
+}
+class MUL_OUT extends Bundle with Paramete{
+  val result = new Mul_data
+}
 
 //class ENDIO extends Bundle with Paramete{
 //  val ctrl_flow = new CtrlFlowIO

@@ -5,4 +5,7 @@ trait Paramete {
   val instlen = 32
   val NReg = 32
   val masklen = 8
+
+//  val booth_bit = 3 //
+//  val mul_len = xlen+2
 }
