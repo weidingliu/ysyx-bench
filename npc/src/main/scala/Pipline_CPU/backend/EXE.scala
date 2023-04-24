@@ -101,8 +101,12 @@ class EXE extends Module with Paramete{
   val Imm = WireDefault(0.U(xlen.W))
   val PC = WireDefault(0.U(xlen.W))
 
+  val is_mul = ALUOPType.mulw === io.in.bits.ctrl_signal.aluoptype || ALUOPType.mul === io.in.bits.ctrl_signal.aluoptype
+
   val csr = new CSR
   val CSRDIFF=Module(new CSR_DIFF)
+  val mul = Module(new Shift_MUL(xlen))
+
 
   Imm := io.in.bits.ctrl_data.Imm
   PC := io.in.bits.ctrl_flow.PC
@@ -131,6 +135,10 @@ class EXE extends Module with Paramete{
 
   val alu_result = WireDefault(0.U(xlen.W))
   val dnpc = WireDefault(io.in.bits.ctrl_flow.PC+4.U(xlen.W))
+
+
+  val mul_hi=mul.io.out.bits.result.result_hi
+  val mul_lo=mul.io.out.bits.result.result_lo
 
   switch(io.in.bits.ctrl_signal.aluoptype) {
     is(ALUOPType.add) {
@@ -397,5 +405,5 @@ class EXE extends Module with Paramete{
   io.branchIO.is_jump := Mux(io.in.bits.ctrl_signal.fuType === FUType.jump && io.in.valid, 1.U, 0.U)
 
   io.out.valid := Mux(io.out.ready && io.in.valid ,1.U,0.U)
-  io.in.ready := io.out.ready
+  io.in.ready := Mux((!mul.io.out.valid && is_mul),0.U,io.out.ready)
 }
