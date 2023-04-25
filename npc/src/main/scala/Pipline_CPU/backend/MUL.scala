@@ -58,21 +58,26 @@ class Shift_MUL (mul_len: Int)extends Module with Paramete{
   })
 
   val count = RegInit(0.U((log2Ceil(mul_len)+1).W))
-  val result_temp = RegInit(0.U((mul_len*2).W))
-  val src1 = io.in.bits.ctrl_data.src1
-  val src2 = io.in.bits.ctrl_data.src2
+  val result_temp = RegInit(0.U((mul_len*2+1).W))
+  val src1 = RegInit(0.U(mul_len.W))
+  val src2 = RegInit(0.U(mul_len.W))
 
   count := Mux(!io.in.bits.ctrl_flow.flush && io.in.valid && !io.out.valid,count+1.U,0.U)
   when(!io.in.bits.ctrl_flow.flush && io.in.valid){
     when(count === 0.U){
-        result_temp := Cat(result_temp(mul_len*2-1,mul_len),src2)
+        src1 := io.in.bits.ctrl_data.src1
+        src2 := io.in.bits.ctrl_data.src2
+        result_temp := Cat(Fill(mul_len+1,0.U),io.in.bits.ctrl_data.src2)
+
     }
     .otherwise{
-      result_temp := Mux(result_temp(0),Cat(result_temp(mul_len*2-1,mul_len)+src1,result_temp(mul_len-1,0))>> 1,result_temp>>1)
+      result_temp := Mux(result_temp(0),Cat(result_temp(mul_len*2,mul_len)+src1,result_temp(mul_len-1,0))>> 1,result_temp>>1)
+      count := count+1.U
     }
-
   }
-  io.out.valid := Mux(count === (mul_len+1).U,true.B,false.B)
+//  val (count,flag) = Counter(io.in.valid && !io.in.bits.ctrl_flow.flush,mul_len+1)
+//  val result_temp = ShiftRegister(Cat(Fill(mul_len,0.U),src2),1,0.U)
+  io.out.valid := Mux((count === (mul_len/2+1).U && io.in.bits.ctrl_flow.mulw)||count === (mul_len+1).U,true.B,false.B)
   io.in.ready := true.B
   io.out.bits.result.result_hi := result_temp(mul_len*2-1,mul_len)
   io.out.bits.result.result_lo := result_temp(mul_len-1,0)

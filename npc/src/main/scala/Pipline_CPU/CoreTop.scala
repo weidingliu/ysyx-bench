@@ -85,11 +85,13 @@ class CoreTop extends Module with Paramete{
   IF.io.inst := IFM.io.inst
   IFM.io.reset := reset
   IFM.io.clk := clock
+  IF.io.flush := EX.io.is_flush
 //  IF.io.flush := EX.io.is_flush
   //ID
   Pipline_Connect(IF.io.out,ID.io.in,ID.io.out.fire,EX.io.is_flush)
   ID.io.REG1 := bypass.io.Bypass_REG1
   ID.io.REG2 := bypass.io.Bypass_REG2
+  ID.io.flush := EX.io.is_flush
 
 //  ID.io.exe_is_mem := EX.io.is_mem
 //  ID.io.exe_rf <> EX.io.out.bits.ctrl_rf
@@ -131,7 +133,7 @@ class CoreTop extends Module with Paramete{
   bypass.io.WB_rf <> WB.io.out.bits.ctrl_rf
 
 
-  DIP.io.is_break := EX.io.is_break
+  DIP.io.is_break := RegNext(RegNext(EX.io.is_break))
   for (i <- 0 until NReg) {
     DIP.io.rf(i) := Reg.rf(i)
   }

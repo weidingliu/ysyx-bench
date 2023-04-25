@@ -30,5 +30,5 @@ run: image
 	
 runvcd: image
 	$(info 'VCD trace open')
-	$(MAKE) -C $(NPC_PATH) sim IMG=$(IMAGE).bin WTRACE=y
+	-$(MAKE) -C $(NPC_PATH) sim IMG=$(IMAGE).bin WTRACE=y
 	$(MAKE) -C $(NPC_PATH) wave IMG=$(IMAGE).bin

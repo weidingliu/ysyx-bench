@@ -166,7 +166,7 @@ class EXE extends Module with Paramete{
       alu_result := SIgEXtend((src1 + src2) (31, 0), xlen)
     }
     is(ALUOPType.mulw) {
-      alu_result := SIgEXtend((src1 * src2) (31, 0), xlen)
+      alu_result := SIgEXtend(mul_lo(31, 0), xlen)
     }
     is(ALUOPType.divw) {
       alu_result := SIgEXtend((src1(31, 0).asSInt / src2(31, 0).asSInt) (31, 0), xlen)
@@ -181,7 +181,7 @@ class EXE extends Module with Paramete{
       alu_result := SIgEXtend((src1 - src2) (31, 0), xlen)
     }
     is(ALUOPType.mul) {
-      alu_result := (src1 * src2) (63, 0)
+      alu_result := mul_lo
     }
     is(ALUOPType.remu) {
       alu_result := (src1 % src2)
@@ -243,6 +243,14 @@ class EXE extends Module with Paramete{
 
   }
 
+  mul.io.in.bits.ctrl_data.src1 := Mux(is_mul,src1,Cat(Fill(32,0.U),src1(31,0)))
+  mul.io.in.bits.ctrl_data.src2 := Mux(is_mul,src2,Cat(Fill(32,0.U),src2(31,0)))
+  mul.io.in.bits.ctrl_flow.flush := 0.U
+  mul.io.in.bits.ctrl_flow.mul_sign := 0.U
+  mul.io.in.valid := Mux(is_mul && !mul.io.out.valid && io.out.bits.ctrl_signal.inst_valid,true.B,false.B)
+  mul.io.out.ready := true.B
+//  mul.io.in.bits.ctrl_flow.mulw := Mux(io.in.bits.ctrl_signal.aluoptype === ALUOPType.mul && is_mul,false.B,true.B)
+  mul.io.in.bits.ctrl_flow.mulw := false.B
 
   val compar_result = WireDefault(0.U(xlen.W))
   switch(io.in.bits.ctrl_signal.aluoptype) {
@@ -383,7 +391,7 @@ class EXE extends Module with Paramete{
   CSRDIFF.io.mstatus := RegNext(RegNext(csr.mstatus))
 
   io.is_flush := Mux((branch_flag === 1.U || io.branchIO.is_jump === 1.U) && io.in.valid,1.U,0.U)
-  io.is_break := Mux((io.in.bits.ctrl_signal.aluoptype === ALUOPType.ebreak), 1.U, 0.U)
+  io.is_break := Mux((io.in.bits.ctrl_signal.aluoptype === ALUOPType.ebreak && io.out.bits.ctrl_signal.inst_valid), 1.U, 0.U)
 
 //  io.is_mem := Mux(io.in.bits.ctrl_signal.fuType === FUType.mem,1.B,0.B)
 
@@ -391,19 +399,19 @@ class EXE extends Module with Paramete{
   io.out.bits.ctrl_flow <> io.in.bits.ctrl_flow
   io.out.bits.ctrl_data <> io.in.bits.ctrl_data
 
-  io.out.bits.ctrl_signal.inst_valid := Mux(io.in.valid,io.in.bits.ctrl_signal.inst_valid,0.U)
+  io.out.bits.ctrl_signal.inst_valid := io.in.bits.ctrl_signal.inst_valid//Mux(io.in.valid,io.in.bits.ctrl_signal.inst_valid,0.U)
 
 //  io.out.bits <> io.in.bits
   io.out.bits.ctrl_data.src1 := src1
   io.out.bits.ctrl_data.src2 := src2
   io.out.bits.ctrl_rf.rfData := result_tem
   io.out.bits.ctrl_rf.rfDest := io.in.bits.ctrl_signal.rfDest
-  io.out.bits.ctrl_rf.rfWen := Mux(io.in.valid,io.in.bits.ctrl_signal.rfWen,0.U)
+  io.out.bits.ctrl_rf.rfWen := Mux(io.out.bits.ctrl_signal.inst_valid,io.in.bits.ctrl_signal.rfWen,0.U)
   io.out.bits.ctrl_flow.Dnpc := dnpc
   io.branchIO.dnpc := dnpc//Mux(time_int === 1.U, csr.read(CSR_index.mtvec), dnpc)
-  io.branchIO.is_branch := branch_flag & io.in.valid//Mux(time_int === 1.U, 1.U, branch_flag)
-  io.branchIO.is_jump := Mux(io.in.bits.ctrl_signal.fuType === FUType.jump && io.in.valid, 1.U, 0.U)
+  io.branchIO.is_branch := branch_flag & io.out.bits.ctrl_signal.inst_valid//Mux(time_int === 1.U, 1.U, branch_flag)
+  io.branchIO.is_jump := Mux(io.in.bits.ctrl_signal.fuType === FUType.jump && io.out.bits.ctrl_signal.inst_valid, 1.U, 0.U)
 
-  io.out.valid := Mux(io.out.ready && io.in.valid ,1.U,0.U)
+  io.out.valid := Mux(!(!mul.io.out.valid && is_mul),1.U,0.U)
   io.in.ready := Mux((!mul.io.out.valid && is_mul),0.U,io.out.ready)
 }

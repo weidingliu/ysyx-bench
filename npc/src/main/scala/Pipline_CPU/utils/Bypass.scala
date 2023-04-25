@@ -79,5 +79,4 @@ class MEM_Bypass extends Module with Paramete {
   io.Bypass_REG2 := reg2_temp
 
 
-
 }

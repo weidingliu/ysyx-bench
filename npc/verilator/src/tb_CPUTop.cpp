@@ -502,8 +502,8 @@ if(state==ABORT){
     
     printf("\033[40;31mABORT at pc = \033[0m \033[40;31m0x%016lx\033[0m\n",pc);
 
-    //exit(EXIT_FAILURE);
-    exit(EXIT_SUCCESS);
+    exit(EXIT_FAILURE);
+    //exit(EXIT_SUCCESS);
 }
 else if(cpu_gpr[10] !=0) {
     dump_gpr(); 
@@ -517,8 +517,8 @@ else if(cpu_gpr[10] !=0) {
     #endif
 
     printf("\033[40;31mHIT BAD TRAP at pc = \033[0m \033[40;31m0x%016lx\033[0m\n",pc);
-    
-    exit(EXIT_SUCCESS);
+    exit(EXIT_FAILURE);
+    //exit(EXIT_SUCCESS);
 }
 else printf("\033[40;32mHIT GOOD TRAP at pc = \033[0m \033[40;32m0x%016lx\033[0m\n",pc);
 
