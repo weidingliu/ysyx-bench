@@ -30,3 +30,8 @@ object LookupTree{
   def apply[T <: Data] (addr: UInt, mapping:Iterable[(UInt,T)] ): T=
     Mux1H(mapping.map(m=>(m._1 ===addr,m._2)))
 }
+
+//object  Lookup_List{
+//  def apply[T <: Data] (sel:UInt,mapping:Iterable[(List[UInt],T)]): T =
+//    Mux1H(mapping.map(m=>(m._1 === sel , m._2)))
+//}
