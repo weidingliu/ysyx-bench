@@ -137,6 +137,7 @@ VL_ATTR_COLD void VCoreTop___024root___ctor_var_reset(VCoreTop___024root* vlSelf
     vlSelf->CoreTop__DOT__EX__DOT__mip = VL_RAND_RESET_Q(64);
     vlSelf->CoreTop__DOT__EX__DOT___GEN_1 = VL_RAND_RESET_Q(64);
     vlSelf->CoreTop__DOT__EX__DOT___GEN_3 = VL_RAND_RESET_Q(64);
+    vlSelf->CoreTop__DOT__EX__DOT__src2 = VL_RAND_RESET_Q(64);
     vlSelf->CoreTop__DOT__EX__DOT___alu_result_T_1 = VL_RAND_RESET_Q(64);
     vlSelf->CoreTop__DOT__EX__DOT___alu_result_T_7 = VL_RAND_RESET_Q(64);
     vlSelf->CoreTop__DOT__EX__DOT___alu_result_T_10 = VL_RAND_RESET_Q(64);
@@ -144,7 +145,6 @@ VL_ATTR_COLD void VCoreTop___024root___ctor_var_reset(VCoreTop___024root* vlSelf
     vlSelf->CoreTop__DOT__EX__DOT___alu_result_T_37 = VL_RAND_RESET_I(32);
     vlSelf->CoreTop__DOT__EX__DOT___GEN_175 = VL_RAND_RESET_I(32);
     vlSelf->CoreTop__DOT__EX__DOT___alu_result_T_55 = VL_RAND_RESET_Q(64);
-    vlSelf->CoreTop__DOT__EX__DOT___alu_result_T_56 = VL_RAND_RESET_Q(64);
     vlSelf->CoreTop__DOT__EX__DOT___alu_result_T_61 = VL_RAND_RESET_I(32);
     vlSelf->CoreTop__DOT__EX__DOT___alu_result_T_83 = VL_RAND_RESET_Q(64);
     vlSelf->CoreTop__DOT__EX__DOT___T_39 = VL_RAND_RESET_Q(64);
@@ -187,12 +187,13 @@ VL_ATTR_COLD void VCoreTop___024root___ctor_var_reset(VCoreTop___024root* vlSelf
     for (int __Vi0=0; __Vi0<6; ++__Vi0) {
         vlSelf->CoreTop__DOT__EX__DOT__CSRDIFF__DOT__inst_csr[__Vi0] = VL_RAND_RESET_Q(64);
     }
-    vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__count = VL_RAND_RESET_I(7);
-    VL_RAND_RESET_W(129, vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__result_temp);
-    vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__src1 = VL_RAND_RESET_Q(64);
-    vlSelf->CoreTop__DOT__EX__DOT__mul__DOT___count_T_5 = VL_RAND_RESET_I(7);
-    vlSelf->CoreTop__DOT__EX__DOT__mul__DOT___count_T_6 = VL_RAND_RESET_I(7);
-    VL_RAND_RESET_W(128, vlSelf->CoreTop__DOT__EX__DOT__mul__DOT___result_temp_T_10);
+    vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult_io_out_valid = VL_RAND_RESET_I(1);
+    VL_RAND_RESET_W(66, vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__multiplier);
+    VL_RAND_RESET_W(132, vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__multiplicand);
+    VL_RAND_RESET_W(132, vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__p);
+    vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__count = VL_RAND_RESET_I(7);
+    vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT___count_T_5 = VL_RAND_RESET_I(7);
+    VL_RAND_RESET_W(266, vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT___GEN_8);
     for (int __Vi0=0; __Vi0<32; ++__Vi0) {
         vlSelf->CoreTop__DOT__DIP__DOT__rf[__Vi0] = VL_RAND_RESET_Q(64);
     }

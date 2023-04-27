@@ -105,8 +105,9 @@ class EXE extends Module with Paramete{
 
   val csr = new CSR
   val CSRDIFF=Module(new CSR_DIFF)
-  val mul = Module(new Shift_MUL(xlen))
-
+//  val mul = Module(new Shift_MUL(xlen))
+//  val mul = Module(new Booth_MUL(3,xlen))
+  val mul = Module(new MUL(3,xlen))
 
   Imm := io.in.bits.ctrl_data.Imm
   PC := io.in.bits.ctrl_flow.PC
@@ -246,7 +247,7 @@ class EXE extends Module with Paramete{
   mul.io.in.bits.ctrl_data.src1 := Mux(is_mul,src1,Cat(Fill(32,0.U),src1(31,0)))
   mul.io.in.bits.ctrl_data.src2 := Mux(is_mul,src2,Cat(Fill(32,0.U),src2(31,0)))
   mul.io.in.bits.ctrl_flow.flush := 0.U
-  mul.io.in.bits.ctrl_flow.mul_sign := 0.U
+  mul.io.in.bits.ctrl_flow.mul_sign := "b11".U(2.W)
   mul.io.in.valid := Mux(is_mul && !mul.io.out.valid && io.out.bits.ctrl_signal.inst_valid,true.B,false.B)
   mul.io.out.ready := true.B
 //  mul.io.in.bits.ctrl_flow.mulw := Mux(io.in.bits.ctrl_signal.aluoptype === ALUOPType.mul && is_mul,false.B,true.B)
