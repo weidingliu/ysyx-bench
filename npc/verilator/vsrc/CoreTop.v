@@ -467,55 +467,55 @@ module Booth_MUL(
   reg [159:0] _RAND_2;
   reg [31:0] _RAND_3;
 `endif // RANDOMIZE_REG_INIT
-  wire [2:0] partial_io_y_3; // @[MUL.scala 137:23]
-  wire [267:0] partial_io_x; // @[MUL.scala 137:23]
-  wire [267:0] partial_io_p; // @[MUL.scala 137:23]
-  wire  partial_io_c; // @[MUL.scala 137:23]
-  reg [65:0] multiplier; // @[MUL.scala 133:27]
-  reg [131:0] multiplicand; // @[MUL.scala 134:29]
-  reg [131:0] p; // @[MUL.scala 135:18]
-  reg [6:0] count; // @[MUL.scala 136:22]
-  wire [6:0] _count_T_5 = count + 7'h2; // @[MUL.scala 149:81]
+  wire [2:0] partial_io_y_3; // @[MUL.scala 136:23]
+  wire [267:0] partial_io_x; // @[MUL.scala 136:23]
+  wire [267:0] partial_io_p; // @[MUL.scala 136:23]
+  wire  partial_io_c; // @[MUL.scala 136:23]
+  reg [65:0] multiplier; // @[MUL.scala 132:27]
+  reg [131:0] multiplicand; // @[MUL.scala 133:29]
+  reg [131:0] p; // @[MUL.scala 134:18]
+  reg [6:0] count; // @[MUL.scala 135:22]
+  wire [6:0] _count_T_5 = count + 7'h2; // @[MUL.scala 148:81]
   wire [65:0] _multiplier_T = {1'h0,io_in_bits_ctrl_data_src2,1'h0}; // @[Cat.scala 31:58]
   wire [131:0] _multiplicand_T_1 = {1'h0,1'h0,io_in_bits_ctrl_data_src1,66'h0}; // @[Cat.scala 31:58]
-  wire [267:0] _GEN_6 = {{136'd0}, p}; // @[MUL.scala 157:14]
-  wire [267:0] _p_T_1 = _GEN_6 + partial_io_p; // @[MUL.scala 157:14]
-  wire [267:0] _GEN_7 = {{267'd0}, partial_io_c}; // @[MUL.scala 157:24]
-  wire [267:0] _p_T_3 = _p_T_1 + _GEN_7; // @[MUL.scala 157:24]
-  wire [265:0] _GEN_2 = count == 7'h0 ? 266'h0 : _p_T_3[267:2]; // @[MUL.scala 151:25 154:9 157:9]
-  wire [265:0] _GEN_5 = io_in_valid ? _GEN_2 : {{134'd0}, p}; // @[MUL.scala 135:18 150:51]
-  wire [265:0] _GEN_8 = reset ? 266'h0 : _GEN_5; // @[MUL.scala 135:{18,18}]
-  Partial_product partial ( // @[MUL.scala 137:23]
+  wire [267:0] _GEN_6 = {{136'd0}, p}; // @[MUL.scala 156:14]
+  wire [267:0] _p_T_1 = _GEN_6 + partial_io_p; // @[MUL.scala 156:14]
+  wire [267:0] _GEN_7 = {{267'd0}, partial_io_c}; // @[MUL.scala 156:24]
+  wire [267:0] _p_T_3 = _p_T_1 + _GEN_7; // @[MUL.scala 156:24]
+  wire [265:0] _GEN_2 = count == 7'h0 ? 266'h0 : _p_T_3[267:2]; // @[MUL.scala 150:25 153:9 156:9]
+  wire [265:0] _GEN_5 = io_in_valid ? _GEN_2 : {{134'd0}, p}; // @[MUL.scala 134:18 149:51]
+  wire [265:0] _GEN_8 = reset ? 266'h0 : _GEN_5; // @[MUL.scala 134:{18,18}]
+  Partial_product partial ( // @[MUL.scala 136:23]
     .io_y_3(partial_io_y_3),
     .io_x(partial_io_x),
     .io_p(partial_io_p),
     .io_c(partial_io_c)
   );
-  assign io_out_valid = count == 7'h44; // @[MUL.scala 165:93]
-  assign io_out_bits_result_result_lo = p[63:0]; // @[MUL.scala 168:36]
-  assign partial_io_y_3 = multiplier[2:0]; // @[MUL.scala 162:31]
-  assign partial_io_x = {{136'd0}, multiplicand}; // @[MUL.scala 163:16]
+  assign io_out_valid = count == 7'h44; // @[MUL.scala 164:93]
+  assign io_out_bits_result_result_lo = p[63:0]; // @[MUL.scala 167:36]
+  assign partial_io_y_3 = multiplier[2:0]; // @[MUL.scala 161:31]
+  assign partial_io_x = {{136'd0}, multiplicand}; // @[MUL.scala 162:16]
   always @(posedge clock) begin
-    if (reset) begin // @[MUL.scala 133:27]
-      multiplier <= 66'h0; // @[MUL.scala 133:27]
-    end else if (io_in_valid) begin // @[MUL.scala 150:51]
-      if (count == 7'h0) begin // @[MUL.scala 151:25]
-        multiplier <= _multiplier_T; // @[MUL.scala 152:18]
+    if (reset) begin // @[MUL.scala 132:27]
+      multiplier <= 66'h0; // @[MUL.scala 132:27]
+    end else if (io_in_valid) begin // @[MUL.scala 149:51]
+      if (count == 7'h0) begin // @[MUL.scala 150:25]
+        multiplier <= _multiplier_T; // @[MUL.scala 151:18]
       end else begin
-        multiplier <= {{2'd0}, multiplier[65:2]}; // @[MUL.scala 158:18]
+        multiplier <= {{2'd0}, multiplier[65:2]}; // @[MUL.scala 157:18]
       end
     end
-    if (reset) begin // @[MUL.scala 134:29]
-      multiplicand <= 132'h0; // @[MUL.scala 134:29]
-    end else if (io_in_valid) begin // @[MUL.scala 150:51]
-      if (count == 7'h0) begin // @[MUL.scala 151:25]
-        multiplicand <= _multiplicand_T_1; // @[MUL.scala 153:20]
+    if (reset) begin // @[MUL.scala 133:29]
+      multiplicand <= 132'h0; // @[MUL.scala 133:29]
+    end else if (io_in_valid) begin // @[MUL.scala 149:51]
+      if (count == 7'h0) begin // @[MUL.scala 150:25]
+        multiplicand <= _multiplicand_T_1; // @[MUL.scala 152:20]
       end
     end
-    p <= _GEN_8[131:0]; // @[MUL.scala 135:{18,18}]
-    if (reset) begin // @[MUL.scala 136:22]
-      count <= 7'h0; // @[MUL.scala 136:22]
-    end else if (io_in_valid & ~io_out_valid) begin // @[MUL.scala 149:15]
+    p <= _GEN_8[131:0]; // @[MUL.scala 134:{18,18}]
+    if (reset) begin // @[MUL.scala 135:22]
+      count <= 7'h0; // @[MUL.scala 135:22]
+    end else if (io_in_valid & ~io_out_valid) begin // @[MUL.scala 148:15]
       count <= _count_T_5;
     end else begin
       count <= 7'h0;
@@ -582,14 +582,14 @@ module MUL(
   output        io_out_valid,
   output [63:0] io_out_bits_result_result_lo
 );
-  wire  mult_clock; // @[MUL.scala 180:24]
-  wire  mult_reset; // @[MUL.scala 180:24]
-  wire  mult_io_in_valid; // @[MUL.scala 180:24]
-  wire [63:0] mult_io_in_bits_ctrl_data_src1; // @[MUL.scala 180:24]
-  wire [63:0] mult_io_in_bits_ctrl_data_src2; // @[MUL.scala 180:24]
-  wire  mult_io_out_valid; // @[MUL.scala 180:24]
-  wire [63:0] mult_io_out_bits_result_result_lo; // @[MUL.scala 180:24]
-  Booth_MUL mult ( // @[MUL.scala 180:24]
+  wire  mult_clock; // @[MUL.scala 202:24]
+  wire  mult_reset; // @[MUL.scala 202:24]
+  wire  mult_io_in_valid; // @[MUL.scala 202:24]
+  wire [63:0] mult_io_in_bits_ctrl_data_src1; // @[MUL.scala 202:24]
+  wire [63:0] mult_io_in_bits_ctrl_data_src2; // @[MUL.scala 202:24]
+  wire  mult_io_out_valid; // @[MUL.scala 202:24]
+  wire [63:0] mult_io_out_bits_result_result_lo; // @[MUL.scala 202:24]
+  Booth_MUL mult ( // @[MUL.scala 202:24]
     .clock(mult_clock),
     .reset(mult_reset),
     .io_in_valid(mult_io_in_valid),
@@ -598,13 +598,13 @@ module MUL(
     .io_out_valid(mult_io_out_valid),
     .io_out_bits_result_result_lo(mult_io_out_bits_result_result_lo)
   );
-  assign io_out_valid = mult_io_out_valid; // @[MUL.scala 182:14]
-  assign io_out_bits_result_result_lo = mult_io_out_bits_result_result_lo; // @[MUL.scala 182:14]
+  assign io_out_valid = mult_io_out_valid; // @[MUL.scala 204:14]
+  assign io_out_bits_result_result_lo = mult_io_out_bits_result_result_lo; // @[MUL.scala 204:14]
   assign mult_clock = clock;
   assign mult_reset = reset;
-  assign mult_io_in_valid = io_in_valid; // @[MUL.scala 181:13]
-  assign mult_io_in_bits_ctrl_data_src1 = io_in_bits_ctrl_data_src1; // @[MUL.scala 181:13]
-  assign mult_io_in_bits_ctrl_data_src2 = io_in_bits_ctrl_data_src2; // @[MUL.scala 181:13]
+  assign mult_io_in_valid = io_in_valid; // @[MUL.scala 203:13]
+  assign mult_io_in_bits_ctrl_data_src1 = io_in_bits_ctrl_data_src1; // @[MUL.scala 203:13]
+  assign mult_io_in_bits_ctrl_data_src2 = io_in_bits_ctrl_data_src2; // @[MUL.scala 203:13]
 endmodule
 module EXE(
   input         clock,

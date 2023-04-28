@@ -103,6 +103,28 @@ class MUL_OUT (mul_len:Int)extends Bundle with Paramete{
   val result = new Mul_data(mul_len)
 }
 
+class DIV_ctrl_flow extends Bundle with Paramete{
+  val divw = Output(Bool())
+  val div_signed = Output(Bool())
+  val flush = Output(Bool())
+}
+class DIV_data_flow (div_len:Int)extends Bundle with Paramete{
+  val src1 = Output(UInt(div_len.W))
+  val src2 = Output(UInt(div_len.W))
+}
+class DIV_data (div_len:Int)extends Bundle with Paramete{
+  val quotient = Output(UInt(div_len.W))
+  val remainder = Output(UInt(div_len.W))
+}
+
+class DIV_IN (div_len:Int)extends Bundle with Paramete{
+  val ctrl_flow = new DIV_ctrl_flow
+  val ctrl_data = new DIV_data_flow(div_len)
+}
+class DIV_OUT (div_len:Int)extends Bundle with Paramete{
+  val result = new DIV_data(div_len)
+}
+
 //class ENDIO extends Bundle with Paramete{
 //  val ctrl_flow = new CtrlFlowIO
 //  val ctrl_rf = new RFCtrlIO
