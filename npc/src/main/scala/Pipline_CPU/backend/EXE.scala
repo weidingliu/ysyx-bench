@@ -101,13 +101,22 @@ class EXE extends Module with Paramete{
   val Imm = WireDefault(0.U(xlen.W))
   val PC = WireDefault(0.U(xlen.W))
 
-  val is_mul = ALUOPType.mulw === io.in.bits.ctrl_signal.aluoptype || ALUOPType.mul === io.in.bits.ctrl_signal.aluoptype
+  val is_mul = (ALUOPType.mulw === io.in.bits.ctrl_signal.aluoptype || ALUOPType.mul === io.in.bits.ctrl_signal.aluoptype) && io.in.bits.ctrl_signal.inst_valid
+  val is_div = (io.in.bits.ctrl_signal.aluoptype === ALUOPType.div || io.in.bits.ctrl_signal.aluoptype === ALUOPType.divu
+    || io.in.bits.ctrl_signal.aluoptype === ALUOPType.divw || io.in.bits.ctrl_signal.aluoptype === ALUOPType.divuw
+    || io.in.bits.ctrl_signal.aluoptype === ALUOPType.rem || io.in.bits.ctrl_signal.aluoptype === ALUOPType.remu
+    || io.in.bits.ctrl_signal.aluoptype === ALUOPType.remw || io.in.bits.ctrl_signal.aluoptype === ALUOPType.remuw) && io.in.bits.ctrl_signal.inst_valid
+  val is_divw = (io.in.bits.ctrl_signal.aluoptype === ALUOPType.divw || io.in.bits.ctrl_signal.aluoptype === ALUOPType.divuw
+    || io.in.bits.ctrl_signal.aluoptype === ALUOPType.remw || io.in.bits.ctrl_signal.aluoptype === ALUOPType.remuw)
+  val is_div_sign = (io.in.bits.ctrl_signal.aluoptype === ALUOPType.div || io.in.bits.ctrl_signal.aluoptype === ALUOPType.divw
+    || io.in.bits.ctrl_signal.aluoptype === ALUOPType.rem || io.in.bits.ctrl_signal.aluoptype === ALUOPType.remw )
 
   val csr = new CSR
   val CSRDIFF=Module(new CSR_DIFF)
 //  val mul = Module(new Shift_MUL(xlen))
 //  val mul = Module(new Booth_MUL(3,xlen))
   val mul = Module(new MUL(3,xlen))
+  val div = Module(new DIV(xlen))
 
   Imm := io.in.bits.ctrl_data.Imm
   PC := io.in.bits.ctrl_flow.PC
@@ -141,6 +150,9 @@ class EXE extends Module with Paramete{
   val mul_hi=mul.io.out.bits.result.result_hi
   val mul_lo=mul.io.out.bits.result.result_lo
 
+  val div_q = div.io.out.bits.result.quotient
+  val div_r = div.io.out.bits.result.remainder
+
   switch(io.in.bits.ctrl_signal.aluoptype) {
     is(ALUOPType.add) {
       alu_result := src1 + src2
@@ -170,13 +182,13 @@ class EXE extends Module with Paramete{
       alu_result := SIgEXtend(mul_lo(31, 0), xlen)
     }
     is(ALUOPType.divw) {
-      alu_result := SIgEXtend((src1(31, 0).asSInt / src2(31, 0).asSInt) (31, 0), xlen)
+      alu_result := SIgEXtend(div_q(31, 0), xlen)
     }
     is(ALUOPType.remw) {
-      alu_result := SIgEXtend((src1(31, 0).asSInt % src2(31, 0).asSInt) (31, 0), xlen)
+      alu_result := SIgEXtend(div_r (31, 0), xlen)
     }
     is(ALUOPType.remuw) {
-      alu_result := SIgEXtend((src1(31, 0) % src2(31, 0)) (31, 0), xlen)
+      alu_result := SIgEXtend(div_r(31, 0), xlen)
     }
     is(ALUOPType.subw) {
       alu_result := SIgEXtend((src1 - src2) (31, 0), xlen)
@@ -185,19 +197,19 @@ class EXE extends Module with Paramete{
       alu_result := mul_lo
     }
     is(ALUOPType.remu) {
-      alu_result := (src1 % src2)
+      alu_result := div_r
     }
     is(ALUOPType.rem) {
-      alu_result := (src1.asSInt % src2.asSInt) (63, 0)
+      alu_result := div_r
     }
     is(ALUOPType.divuw) {
-      alu_result := SIgEXtend((src1(31, 0) / src2(31, 0)) (31, 0), xlen)
+      alu_result := SIgEXtend(div_q(31, 0), xlen)
     }
     is(ALUOPType.divu) {
-      alu_result := src1 / src2
+      alu_result := div_q
     }
     is(ALUOPType.div) {
-      alu_result := (src1.asSInt / src2.asSInt) (63, 0)
+      alu_result := div_q
     }
     is(ALUOPType.csrrs) {
       alu_result := csr.read(Imm(11, 0))
@@ -248,10 +260,18 @@ class EXE extends Module with Paramete{
   mul.io.in.bits.ctrl_data.src2 := Mux(is_mul,src2,Cat(Fill(32,0.U),src2(31,0)))
   mul.io.in.bits.ctrl_flow.flush := 0.U
   mul.io.in.bits.ctrl_flow.mul_sign := "b11".U(2.W)
-  mul.io.in.valid := Mux(is_mul && !mul.io.out.valid && io.out.bits.ctrl_signal.inst_valid,true.B,false.B)
+  mul.io.in.valid := Mux(is_mul && !mul.io.out.valid,true.B,false.B)
   mul.io.out.ready := true.B
 //  mul.io.in.bits.ctrl_flow.mulw := Mux(io.in.bits.ctrl_signal.aluoptype === ALUOPType.mul && is_mul,false.B,true.B)
   mul.io.in.bits.ctrl_flow.mulw := false.B
+
+  div.io.in.bits.ctrl_flow.flush := 0.B
+  div.io.in.bits.ctrl_data.src1 := Mux(is_divw,Cat(Fill(32,0.U),src1(31,0)),src1)
+  div.io.in.bits.ctrl_data.src2 := Mux(is_divw,Cat(Fill(32,0.U),src2(31,0)),src2)
+  div.io.in.valid := Mux(is_div && !div.io.out.valid,true.B,false.B)
+  div.io.out.ready := true.B
+  div.io.in.bits.ctrl_flow.divw := is_divw
+  div.io.in.bits.ctrl_flow.div_signed := is_div_sign
 
   val compar_result = WireDefault(0.U(xlen.W))
   switch(io.in.bits.ctrl_signal.aluoptype) {
@@ -413,6 +433,6 @@ class EXE extends Module with Paramete{
   io.branchIO.is_branch := branch_flag & io.out.bits.ctrl_signal.inst_valid//Mux(time_int === 1.U, 1.U, branch_flag)
   io.branchIO.is_jump := Mux(io.in.bits.ctrl_signal.fuType === FUType.jump && io.out.bits.ctrl_signal.inst_valid, 1.U, 0.U)
 
-  io.out.valid := Mux(!(!mul.io.out.valid && is_mul),1.U,0.U)
-  io.in.ready := Mux((!mul.io.out.valid && is_mul),0.U,io.out.ready)
+  io.out.valid := Mux(!(!mul.io.out.valid && is_mul) && !(!div.io.out.valid && is_div) ,1.U,0.U)
+  io.in.ready := Mux(((!mul.io.out.valid && is_mul) || (!div.io.out.valid && is_div)),0.U,io.out.ready)
 }

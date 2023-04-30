@@ -16,15 +16,18 @@ class DIV (div_len:Int)extends Module with Paramete{
   val divisor = RegInit(0.U(div_len.W))
   val S = RegInit(0.U(div_len.W))
   val R = RegInit(0.U(div_len.W))
+//  val negative_src1 = ~io.in.bits.ctrl_data.src1 + "b1"
+//  val negative_src2 = ~io.in.bits.ctrl_data.src2 + "b1"
 
   val iDLE :: rUN :: eND :: Nil = Enum(3)
   val state = RegInit(iDLE)
   val (count,s) = Counter(state === rUN,div_len)
+  val res_div = dividend(div_len*2-1,div_len-1) - Cat(0.U,divisor)
   when(io.in.valid && !io.in.bits.ctrl_flow.flush){
     when(state === iDLE){
       state := rUN
     }
-    when(s === true.B) {
+    when(state === rUN & s === true.B) {
         state := eND
     }
     when(state === eND){
@@ -40,11 +43,16 @@ class DIV (div_len:Int)extends Module with Paramete{
         Mux(io.in.bits.ctrl_flow.div_signed & io.in.bits.ctrl_data.src1(div_len - 1), -io.in.bits.ctrl_data.src1, io.in.bits.ctrl_data.src1))
       divisor := Mux(io.in.bits.ctrl_flow.div_signed & io.in.bits.ctrl_data.src2(div_len - 1), -io.in.bits.ctrl_data.src2, io.in.bits.ctrl_data.src2)
     }
-    is(rUN){
-      S := Mux((dividend(div_len*2-1,div_len-1).asSInt - Cat(0.U,divisor).asSInt)>0.S,
-        Cat(S(div_len-1,1),1.U(1.W)),Cat(S(div_len-1,1),0.U(1.W))) << 1
-      dividend := Mux((dividend(div_len*2-1,div_len-1).asSInt - Cat(0.U,divisor).asSInt)>0.S,
-        Cat(dividend(div_len*2-1,div_len-1) - Cat(0.U,divisor),dividend(div_len-2,0)) ,dividend) << 1
+    is(rUN ){
+      when(count =/= (div_len-1).U){
+        S := Mux(res_div(div_len) =/= 1.U,
+          Cat(S(div_len - 1, 1), 1.U(1.W)), Cat(S(div_len - 1, 1), 0.U(1.W))) << 1
+      }.otherwise{
+        S := Mux(res_div(div_len) =/= 1.U,
+          Cat(S(div_len - 1, 1), 1.U(1.W)), Cat(S(div_len - 1, 1), 0.U(1.W)))
+      }
+      dividend := Mux(res_div(div_len) =/= 1.U,
+        Cat(dividend(div_len * 2 - 1, div_len - 1) - Cat(0.U, divisor), dividend(div_len - 2, 0)), dividend) << 1
     }
     is(eND){
 
@@ -52,12 +60,11 @@ class DIV (div_len:Int)extends Module with Paramete{
 
   }
 
-
   val select_list = List(
     (0.U) -> (S,dividend(div_len*2-1,div_len)),
-    (1.U) -> (Cat(1.U(1.W),S(div_len-2,0)),Cat(0.U(1.W),dividend(div_len*2-2,div_len))),
-    (2.U) -> (Cat(1.U(1.W),S(div_len-2,0)),Cat(1.U(1.W),dividend(div_len*2-2,div_len))),
-    (3.U) -> (Cat(0.U(1.W),S(div_len-2,0)),Cat(1.U(1.W),dividend(div_len*2-2,div_len))),
+    (1.U) -> (-S(div_len-1,0),dividend(div_len*2-1,div_len)),
+    (2.U) -> (-S(div_len-1,0),-dividend(div_len*2-1,div_len)),
+    (3.U) -> (S,Cat(1.U(1.W),-dividend(div_len*2-1,div_len))),
   )
   val s_o = LookupTree(Cat(io.in.bits.ctrl_data.src1(div_len - 1),io.in.bits.ctrl_data.src2(div_len - 1)),select_list.map(p => (p._1,p._2._1)))
   val r_o = LookupTree(Cat(io.in.bits.ctrl_data.src1(div_len - 1),io.in.bits.ctrl_data.src2(div_len - 1)),select_list.map(p => (p._1,p._2._2)))
@@ -67,7 +74,7 @@ class DIV (div_len:Int)extends Module with Paramete{
   io.out.bits.result.quotient := Mux(io.in.bits.ctrl_flow.div_signed,s_o,S)
   io.out.bits.result.remainder := Mux(io.in.bits.ctrl_flow.div_signed,r_o,dividend(div_len*2-1,div_len))
 }
-import chisel3.stage._
-object app extends App{
-  (new ChiselStage).emitVerilog(new DIV(64),Array("--target-dir", "build"))
-}
+//import chisel3.stage._
+//object app extends App{
+//  (new ChiselStage).emitVerilog(new DIV(64),Array("--target-dir", "build"))
+//}
