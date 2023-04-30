@@ -59,12 +59,14 @@ class DIV (div_len:Int)extends Module with Paramete{
     }
 
   }
+  val negative_s = -S
+  val negative_r = -dividend(div_len*2-1,div_len)
 
   val select_list = List(
-    (0.U) -> (S,dividend(div_len*2-1,div_len)),
-    (1.U) -> (-S(div_len-1,0),dividend(div_len*2-1,div_len)),
-    (2.U) -> (-S(div_len-1,0),-dividend(div_len*2-1,div_len)),
-    (3.U) -> (S,Cat(1.U(1.W),-dividend(div_len*2-1,div_len))),
+    (0.U) -> (Mux(S(div_len-1),negative_s,S),Mux(dividend(div_len*2-1),negative_r,dividend(div_len*2-1,div_len))),//+s +r
+    (1.U) -> (Mux(S(div_len-1),S,negative_s),Mux(dividend(div_len*2-1),negative_r,dividend(div_len*2-1,div_len))),//-s +r
+    (2.U) -> (Mux(S(div_len-1),S,negative_s),Mux(dividend(div_len*2-1),dividend(div_len*2-1,div_len),negative_r)),// -s -r
+    (3.U) -> (Mux(S(div_len-1),negative_s,S),Mux(dividend(div_len*2-1),dividend(div_len*2-1,div_len),negative_r)),//+s -r
   )
   val s_o = LookupTree(Cat(io.in.bits.ctrl_data.src1(div_len - 1),io.in.bits.ctrl_data.src2(div_len - 1)),select_list.map(p => (p._1,p._2._1)))
   val r_o = LookupTree(Cat(io.in.bits.ctrl_data.src1(div_len - 1),io.in.bits.ctrl_data.src2(div_len - 1)),select_list.map(p => (p._1,p._2._2)))
@@ -74,7 +76,7 @@ class DIV (div_len:Int)extends Module with Paramete{
   io.out.bits.result.quotient := Mux(io.in.bits.ctrl_flow.div_signed,s_o,S)
   io.out.bits.result.remainder := Mux(io.in.bits.ctrl_flow.div_signed,r_o,dividend(div_len*2-1,div_len))
 }
-//import chisel3.stage._
-//object app extends App{
-//  (new ChiselStage).emitVerilog(new DIV(64),Array("--target-dir", "build"))
-//}
+import chisel3.stage._
+object app extends App{
+  (new ChiselStage).emitVerilog(new DIV(64),Array("--target-dir", "build"))
+}

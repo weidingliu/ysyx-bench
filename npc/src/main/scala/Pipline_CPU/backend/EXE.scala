@@ -266,8 +266,8 @@ class EXE extends Module with Paramete{
   mul.io.in.bits.ctrl_flow.mulw := false.B
 
   div.io.in.bits.ctrl_flow.flush := 0.B
-  div.io.in.bits.ctrl_data.src1 := Mux(is_divw,Cat(Fill(32,0.U),src1(31,0)),src1)
-  div.io.in.bits.ctrl_data.src2 := Mux(is_divw,Cat(Fill(32,0.U),src2(31,0)),src2)
+  div.io.in.bits.ctrl_data.src1 := Mux(is_divw,Mux(is_div_sign,SIgEXtend(src1(31,0),xlen),ZeroEXtend(src1(31,0),xlen)),src1)
+  div.io.in.bits.ctrl_data.src2 := Mux(is_divw,Mux(is_div_sign,SIgEXtend(src2(31,0),xlen),ZeroEXtend(src2(31,0),xlen)),src2)
   div.io.in.valid := Mux(is_div && !div.io.out.valid,true.B,false.B)
   div.io.out.ready := true.B
   div.io.in.bits.ctrl_flow.divw := is_divw

@@ -77,14 +77,15 @@ class VCoreTop___024root final : public VerilatedModule {
         CData/*0:0*/ CoreTop__DOT__EX__DOT__is_mul;
         CData/*0:0*/ CoreTop__DOT__EX__DOT__is_div;
         CData/*0:0*/ CoreTop__DOT__EX__DOT__is_divw;
+        CData/*0:0*/ CoreTop__DOT__EX__DOT___is_div_sign_T_2;
         CData/*0:0*/ CoreTop__DOT__EX__DOT__branch_flag;
         CData/*0:0*/ CoreTop__DOT__EX__DOT__mul__DOT__mult_io_out_valid;
         CData/*6:0*/ CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__count;
         CData/*6:0*/ CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT___count_T_5;
         CData/*1:0*/ CoreTop__DOT__EX__DOT__div__DOT__state;
-        CData/*0:0*/ CoreTop__DOT__EX__DOT__div__DOT___T;
     };
     struct {
+        CData/*0:0*/ CoreTop__DOT__EX__DOT__div__DOT___T;
         CData/*5:0*/ CoreTop__DOT__EX__DOT__div__DOT__count;
         CData/*5:0*/ CoreTop__DOT__EX__DOT__div__DOT___wrap_value_T_1;
         CData/*0:0*/ CoreTop__DOT__EX__DOT__div__DOT__s;
@@ -110,9 +111,8 @@ class VCoreTop___024root final : public VerilatedModule {
         VlWide<9>/*265:0*/ CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT___GEN_8;
         VlWide<4>/*127:0*/ CoreTop__DOT__EX__DOT__div__DOT__dividend;
         VlWide<3>/*64:0*/ CoreTop__DOT__EX__DOT__div__DOT__res_div;
-        VlWide<3>/*64:0*/ CoreTop__DOT__EX__DOT__div__DOT___io_out_bits_result_remainder_T_1;
-        VlWide<5>/*128:0*/ CoreTop__DOT__EX__DOT__div__DOT___GEN_13;
-        VlWide<3>/*64:0*/ CoreTop__DOT__EX__DOT__div__DOT___GEN_14;
+        VlWide<5>/*128:0*/ CoreTop__DOT__EX__DOT__div__DOT___GEN_12;
+        VlWide<3>/*64:0*/ CoreTop__DOT__EX__DOT__div__DOT___GEN_13;
         VL_OUT64(io_pc,63,0);
         QData/*63:0*/ CoreTop__DOT__EX_io_out_bits_ctrl_rf_rfData;
         QData/*63:0*/ CoreTop__DOT__mem_rdata;
@@ -141,6 +141,7 @@ class VCoreTop___024root final : public VerilatedModule {
         QData/*63:0*/ CoreTop__DOT__EX__DOT__div_io_in_bits_ctrl_data_src1;
         QData/*63:0*/ CoreTop__DOT__EX__DOT__div_io_in_bits_ctrl_data_src2;
         QData/*63:0*/ CoreTop__DOT__EX__DOT__div_io_out_bits_result_quotient;
+        QData/*63:0*/ CoreTop__DOT__EX__DOT__div_io_out_bits_result_remainder;
         QData/*63:0*/ CoreTop__DOT__EX__DOT__mepc;
         QData/*63:0*/ CoreTop__DOT__EX__DOT__mcause;
         QData/*63:0*/ CoreTop__DOT__EX__DOT__mstatus;
@@ -148,9 +149,9 @@ class VCoreTop___024root final : public VerilatedModule {
         QData/*63:0*/ CoreTop__DOT__EX__DOT__mie;
         QData/*63:0*/ CoreTop__DOT__EX__DOT__mip;
         QData/*63:0*/ CoreTop__DOT__EX__DOT___GEN_1;
-        QData/*63:0*/ CoreTop__DOT__EX__DOT___GEN_3;
     };
     struct {
+        QData/*63:0*/ CoreTop__DOT__EX__DOT___GEN_3;
         QData/*63:0*/ CoreTop__DOT__EX__DOT___alu_result_T_1;
         QData/*63:0*/ CoreTop__DOT__EX__DOT___alu_result_T_7;
         QData/*63:0*/ CoreTop__DOT__EX__DOT___alu_result_T_10;
@@ -162,7 +163,7 @@ class VCoreTop___024root final : public VerilatedModule {
         QData/*63:0*/ CoreTop__DOT__EX__DOT___GEN_80;
         QData/*63:0*/ CoreTop__DOT__EX__DOT___GEN_100;
         QData/*63:0*/ CoreTop__DOT__EX__DOT___GEN_120;
-        QData/*63:0*/ CoreTop__DOT__EX__DOT___GEN_138;
+        QData/*63:0*/ CoreTop__DOT__EX__DOT___GEN_145;
         QData/*63:0*/ CoreTop__DOT__EX__DOT___GEN_147;
         QData/*63:0*/ CoreTop__DOT__EX__DOT___GEN_167;
         QData/*63:0*/ CoreTop__DOT__EX__DOT___GEN_168;
@@ -193,6 +194,10 @@ class VCoreTop___024root final : public VerilatedModule {
         QData/*63:0*/ CoreTop__DOT__EX__DOT__div__DOT__divisor;
         QData/*63:0*/ CoreTop__DOT__EX__DOT__div__DOT__S;
         QData/*63:0*/ CoreTop__DOT__EX__DOT__div__DOT___S_T_6;
+        QData/*63:0*/ CoreTop__DOT__EX__DOT__div__DOT___T_13;
+        QData/*63:0*/ CoreTop__DOT__EX__DOT__div__DOT___T_16;
+        QData/*63:0*/ CoreTop__DOT__EX__DOT__div__DOT___T_18;
+        QData/*63:0*/ CoreTop__DOT__EX__DOT__div__DOT___T_26;
         QData/*63:0*/ CoreTop__DOT__MEM__DOT___addr_temp_T_1;
         QData/*63:0*/ CoreTop__DOT__MEM__DOT___GEN_16;
         QData/*63:0*/ CoreTop__DOT__MEM__DOT__addr_temp;
