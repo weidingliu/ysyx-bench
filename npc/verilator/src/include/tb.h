@@ -6,8 +6,8 @@
 
 #define is_batch_mode 1
 //#define mtrace 
-#define DIFFTEST 
-#define ITRACE 
+//#define DIFFTEST 
+//#define ITRACE 
 
 
 

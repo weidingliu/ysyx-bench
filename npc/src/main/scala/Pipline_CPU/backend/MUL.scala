@@ -115,8 +115,8 @@ class Shift_MUL (mul_len: Int)extends Module with Paramete{
 
 class Booth_MUL(booth_bit : Int = 3, mul_len: Int) extends Module with Paramete {
   val io = IO(new Bundle() {
-    val in = Flipped(Decoupled(new MUL_IN(xlen)))
-    val out = Decoupled(new MUL_OUT(xlen))
+    val in = Flipped(Decoupled(new MUL_IN(mul_len)))
+    val out = Decoupled(new MUL_OUT(mul_len))
   })
 //  val s = Wire(UInt(1.W))
 //  val c = Wire(UInt(1.W))
@@ -179,8 +179,8 @@ class Booth_Walloc_MUL (mul_len:Int) extends Module with Paramete{
 
 class MUL (booth_bit : Int = 3, mul_len: Int) extends Module with Paramete {
   val io = IO(new Bundle() {
-    val in = Flipped(Decoupled(new MUL_IN(xlen)))
-    val out = Decoupled(new MUL_OUT(xlen))
+    val in = Flipped(Decoupled(new MUL_IN(mul_len)))
+    val out = Decoupled(new MUL_OUT(mul_len))
   })
 
 //  def select_mul(x:String) = x match {
@@ -219,5 +219,5 @@ class MUL (booth_bit : Int = 3, mul_len: Int) extends Module with Paramete {
 
 //import chisel3.stage._
 //object app extends App{
-//  (new ChiselStage).emitVerilog(new MUL(3,64),Array("--target-dir", "build"))
+//  (new ChiselStage).emitVerilog(new MUL(3,32),Array("--target-dir", "build"))
 //}
