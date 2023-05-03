@@ -79,5 +79,5 @@ class DIV (div_len:Int)extends Module with Paramete{
 }
 //import chisel3.stage._
 //object app extends App{
-//  (new ChiselStage).emitVerilog(new DIV(64),Array("--target-dir", "build"))
+//  (new ChiselStage).emitVerilog(new DIV(32),Array("--target-dir", "build"))
 //}

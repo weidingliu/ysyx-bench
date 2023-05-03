@@ -108,7 +108,7 @@ class VCoreTop___024root final : public VerilatedModule {
         VlWide<3>/*65:0*/ CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__multiplier;
         VlWide<5>/*131:0*/ CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__multiplicand;
         VlWide<5>/*131:0*/ CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__p;
-        VlWide<9>/*265:0*/ CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT___GEN_8;
+        VlWide<5>/*129:0*/ CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT___GEN_2;
         VlWide<4>/*127:0*/ CoreTop__DOT__EX__DOT__div__DOT__dividend;
         VlWide<3>/*64:0*/ CoreTop__DOT__EX__DOT__div__DOT__res_div;
         VlWide<5>/*128:0*/ CoreTop__DOT__EX__DOT__div__DOT___GEN_12;

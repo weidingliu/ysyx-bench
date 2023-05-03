@@ -6,14 +6,14 @@ import Pipline_CPU.utils.SIgEXtend
 import Pipline_CPU.utils.LookupTree
 import Pipline_CPU.utils.ZeroEXtend
 
-import scala.collection.immutable
+
 object Siganle{
   val ss = "b00".U
   val su = "b01".U
   val uu = "b11".U
 }
 
-class Partial_product (booth_bit : Int = 3, mul_len: Int)extends Module with Paramete{
+class Partial_product (booth_bit : Int = 3, mul_len: Int)extends Module{
   val io = IO(new Bundle() {
     val y_3 = Input(UInt(booth_bit.W))
     val x = Input(UInt(((mul_len+2)*2).W))
@@ -21,18 +21,16 @@ class Partial_product (booth_bit : Int = 3, mul_len: Int)extends Module with Par
     val c = Output(UInt(1.W))
   })
 
-//  val sel_negative = WireDefault(0.U)
-//  sel_negative := io.y_3[2] & (io.y_3[1] & !io.y_3[0] | !io.y_3[1] & io.y_3[0])
 
-  io.p := MuxCase(0.U(mul_len.W),Seq(
-    (io.y_3 === "b000".U) -> 0.U(mul_len.W),
+  io.p := MuxCase(0.U(((mul_len+2)*2).W),Seq(
+    (io.y_3 === "b000".U) -> 0.U(((mul_len+2)*2).W),
     (io.y_3 === "b001".U) -> io.x,
     (io.y_3 === "b010".U) -> io.x,
     (io.y_3 === "b011".U) -> (io.x << 1),
     (io.y_3 === "b100".U) -> (~(io.x << 1)),
     (io.y_3 === "b101".U) -> ((~io.x)),
     (io.y_3 === "b110".U) -> (~io.x),
-    (io.y_3 === "b111".U) -> 0.U(mul_len.W),
+    (io.y_3 === "b111".U) -> 0.U(((mul_len+2)*2).W),
 
   ))
   io.c := MuxCase(0.U(1.W), Seq(
@@ -113,7 +111,7 @@ class Shift_MUL (mul_len: Int)extends Module with Paramete{
   io.out.bits.result.result_lo := result_temp(mul_len-1,0)
 }
 
-class Booth_MUL(booth_bit : Int = 3, mul_len: Int) extends Module with Paramete {
+class Booth_MUL(booth_bit : Int = 3, mul_len: Int) extends Module{
   val io = IO(new Bundle() {
     val in = Flipped(Decoupled(new MUL_IN(mul_len)))
     val out = Decoupled(new MUL_OUT(mul_len))
@@ -133,7 +131,7 @@ class Booth_MUL(booth_bit : Int = 3, mul_len: Int) extends Module with Paramete 
   val multiplicand = RegInit(0.U(((mul_len+2)*2).W))
   val p = RegInit(0.U(((mul_len+2)*2).W))
   val count = RegInit(0.U(log2Ceil(mul_len+4).W))
-  val partial = Module(new Partial_product(booth_bit = 3,mul_len=(mul_len+2)*2))
+  val partial = Module(new Partial_product(booth_bit = 3,mul_len = mul_len))
   val partial_c = partial.io.c
   val partial_p = partial.io.p
 
@@ -219,5 +217,5 @@ class MUL (booth_bit : Int = 3, mul_len: Int) extends Module with Paramete {
 
 //import chisel3.stage._
 //object app extends App{
-//  (new ChiselStage).emitVerilog(new MUL(3,32),Array("--target-dir", "build"))
+//  (new ChiselStage).emitVerilog(new MUL(3,64),Array("--target-dir", "build"))
 //}
