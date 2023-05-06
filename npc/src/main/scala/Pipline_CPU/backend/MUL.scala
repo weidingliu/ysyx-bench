@@ -183,18 +183,20 @@ class MUL (booth_bit : Int = 3, mul_len: Int) extends Module with Paramete {
 
 //  def select_mul(x:String) = x match {
 //    case "Booth" => {
-//      new Booth_MUL(booth_bit, mul_len)
+//      val mult = Module(new Booth_MUL(booth_bit, mul_len))
 //    }
 //    case "Shift" => {
-//      new Shift_MUL(mul_len)
+//      val mult = Module(new Shift_MUL(mul_len))
 //    }
 //    case _ => {
-//      new Booth_MUL(booth_bit, mul_len)
+//      val mult = Module(new Booth_MUL(booth_bit, mul_len))
 //    }
 //  }
-//  val mult = Module(select_mul(mul_select))
+//  val mult = select_mul(mul_select)
 //  io.in <> mult.io.in
 //  io.out <> mult.io.out
+
+
   val mul = mul_select match {
     case "Booth" => {
       val mult = Module(new Booth_MUL(booth_bit,mul_len))
