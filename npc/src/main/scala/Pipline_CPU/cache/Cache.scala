@@ -22,14 +22,31 @@ trait CacheParamete{
 //  })
 //}
 
-class MetaBundle extends CacheParamete{
+class DataBundle extends Bundle with CacheParamete{
+  val data = Output(UInt(Cache_line_size.W))
+}
+
+class MetaBundle extends Bundle with CacheParamete{
   val tag = Output(UInt(Tag_size.W))
   val valid = Output(Bool())
   val dirt = Output(Bool())
-
+  val lru = Output(Bool())
 }
 
-class Cache_Data extends CacheParamete{
+
+class Cache_Data extends Module with CacheParamete{
+  val io = IO(new Bundle(){
+    val in = new Bundle() {
+      val valid = Input(Bool())
+      val addr = Input(UInt(xlen.W))
+    }
+    val out = Decoupled(new Bundle() {
+      val meat=new MetaBundle
+      val data = new DataBundle
+    })
+
+  })
+
   //data array
   val data = SyncReadMem(Cache_line_num,Vec(Cache_way,UInt(Cache_line_size.W)))
   //meat data array
@@ -38,14 +55,23 @@ class Cache_Data extends CacheParamete{
   val dirt = SyncReadMem(Cache_line_num,Vec(Cache_way,UInt(1.W)))
 //  val lru = Vec(Cache_way,SyncReadMem(Cache_line_num,UInt(1.W)))
   val lru = SyncReadMem(Cache_line_num,UInt(1.W)) //2 way
-  //read a way's cacheline
-  def scanf (addr : UInt) ={
-    val tag = addr(xlen-1,xlen-Tag_size)
-    val index = addr(xlen-Tag_size-1,log2Ceil(Cache_line_size))
-//    val offset = addr(log2Ceil(Cache_line_size)-1,0)
-    (data_valid.read(index),data.read(index),dirt.read(index),lru.read(index),TAG.read(index))
 
+  when(io.in.valid){
+    val index = io.in.addr(xlen-Tag_size-1,log2Ceil(Cache_line_size))
+    io.out.bits.meat.valid := data_valid.read(index)
+    io.out.bits.data.data := data.read(index)
+    io.out.bits.meat.dirt := dirt.read(index)
+    io.out.bits.meat.lru := lru.read(index)
+    io.out.bits.meat.tag := TAG.read(index)
+  }.otherwise{
+    io.out.bits.meat.valid :=
+      io.out.bits.data.data :=
+      io.out.bits.meat.dirt :=
+      io.out.bits.meat.lru :=
+      io.out.bits.meat.tag :=
   }
+
+
 
   def allocation (addr : UInt)={
     val index = addr(xlen - Tag_size - 1, log2Ceil(Cache_line_size))
