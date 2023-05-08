@@ -146,12 +146,13 @@ class Booth_MUL(booth_bit : Int = 3, mul_len: Int) extends Module{
   count := Mux(!io.in.bits.ctrl_flow.flush && io.in.valid && !io.out.valid,count+2.U,0.U)
   when(!io.in.bits.ctrl_flow.flush && io.in.valid){
     when (count === 0.U){
-      multiplier := Cat(src2, Fill(1, 0.U))
-      multiplicand := Cat(0.U(1.W),src1, Fill(mul_len + 2, 0.U))
+      multiplier := Cat(src2, Fill(1, 0.U))//xlen+2
+      multiplicand := Cat(src1, Fill(mul_len + 3, 0.U))
       p := 0.U
     }
     .otherwise {
-      p := (p+partial_p+partial_c) >> 2
+      val temp =p+partial_p+partial_c
+      p := SIgEXtend(temp((mul_len+2)*2-1,2),(mul_len+2)*2)
       multiplier := multiplier >> 2
     }
   }
@@ -161,8 +162,8 @@ class Booth_MUL(booth_bit : Int = 3, mul_len: Int) extends Module{
 
   io.out.valid := Mux((count === ((mul_len+2) + 2).U && io.in.bits.ctrl_flow.mulw) || count === ((mul_len+2) + 2).U, true.B, false.B)
   io.in.ready := true.B
-  io.out.bits.result.result_hi := p(mul_len * 2 - 1, mul_len)
-  io.out.bits.result.result_lo := p(mul_len - 1, 0)
+  io.out.bits.result.result_hi := p(mul_len * 2 , mul_len+1)
+  io.out.bits.result.result_lo := p(mul_len , 1)
 
 }
 
@@ -217,7 +218,7 @@ class MUL (booth_bit : Int = 3, mul_len: Int) extends Module with Paramete {
 
 }
 
-//import chisel3.stage._
-//object app extends App{
-//  (new ChiselStage).emitVerilog(new MUL(3,64),Array("--target-dir", "build"))
-//}
+import chisel3.stage._
+object app extends App{
+  (new ChiselStage).emitVerilog(new Booth_MUL(3,32),Array("--target-dir", "build"))
+}

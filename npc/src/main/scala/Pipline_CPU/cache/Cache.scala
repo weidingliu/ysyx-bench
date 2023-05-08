@@ -3,8 +3,8 @@ import Pipline_CPU.{MEMCtrlIO, Paramete}
 import chisel3._
 import chisel3.util._
 
-trait CacheParamete{
-  val xlen = 64
+trait CacheParamete extends Paramete {
+//  val xlen = 64
   val Cache_line_size = xlen*8
   val Cache_way = 2
   val Cache_line_num = 4096/Cache_way/Cache_line_size
@@ -250,7 +250,7 @@ class Cache extends Module with Paramete with CacheParamete {
 
 }
 
-import chisel3.stage._
-object app extends App{
-  (new ChiselStage).emitVerilog(new Cache,Array("--target-dir", "build"))
-}
+//import chisel3.stage._
+//object app extends App{
+//  (new ChiselStage).emitVerilog(new Cache,Array("--target-dir", "build"))
+//}
