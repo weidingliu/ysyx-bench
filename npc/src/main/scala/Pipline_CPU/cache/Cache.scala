@@ -104,6 +104,7 @@ class Cache_Data extends Module with CacheParamete{
 
     }
     val write_bus = new Bundle() {
+      val addr = Input(UInt(xlen.W))
       val valid = Input(Bool())
       val waymask = Input(UInt(Cache_way.W))
       val wdata = Input(UInt(Cache_line_size.W))
@@ -147,7 +148,13 @@ class Cache_Data extends Module with CacheParamete{
   io.out.bits.meat.tag := tag_w
 
   io.out.valid := Mux(io.in.valid,1.U,0.U)
-
+  val wdata = VecInit(Seq.fill(Cache_way)(io.write_bus.wdata))
+  val wtag = VecInit(Seq.fill(Cache_way)(io.write_bus.addr(xlen - 1, xlen - Tag_size)))
+//  val waymask = .getOrElse("b1".U)
+  when(io.write_bus.valid){
+    data.write(io.write_bus.addr(xlen-Tag_size-1,log2Ceil(Cache_line_size)),wdata,io.write_bus.waymask.asBools)
+    TAG.write(io.write_bus.addr(xlen-Tag_size-1,log2Ceil(Cache_line_size)),wtag,io.write_bus.waymask.asBools)
+  }
 
 //  def write_back(addr:UInt,wdata:UInt,waymask:Int)={
 //    val tag = addr(xlen - 1, xlen - Tag_size)
@@ -160,7 +167,7 @@ class Cache_Data extends Module with CacheParamete{
 //  }
 }
 
-class Cache extends Module with Paramete with CacheParamete {
+class Cache extends Module with CacheParamete {
     val io = IO(new Bundle() {
       val in = Flipped(Decoupled(new MEMCtrlIO))
       val cache_valid = Output(Bool())
@@ -175,23 +182,21 @@ class Cache extends Module with Paramete with CacheParamete {
 
   val lru_w  = WireDefault(0.U)
   val lru = SyncReadMem(Cache_line_num,UInt(1.W)) //2 way
-  lru_w := lru.read(Cache_data.io.out.bits.ctrl_data.index)
 
-//  switch(state){
-//    is(idle) {
-//      when(io.in.valid) {
-//
-//      }.otherwise {
-//
-//      }
-//    }
-//    is(scanf) {
-//
-//    }
-//    is(miss) {
-//
-//    }
-//  }
+
+  switch(state){
+    is(idle) {
+
+    }
+    is(scanf) {
+      when(hit === 0.U){
+        lru_w := lru.read(Cache_data.io.out.bits.ctrl_data.index)
+      }
+    }
+    is(miss) {
+
+    }
+  }
   io.in.ready := 1.U
   Cache_data.io.in.valid := Mux(io.in.valid && state === idle,1.U,0.U)
   Cache_data.io.in.addr := io.in.bits.addr

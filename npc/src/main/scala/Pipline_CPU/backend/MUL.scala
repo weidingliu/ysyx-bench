@@ -147,7 +147,7 @@ class Booth_MUL(booth_bit : Int = 3, mul_len: Int) extends Module{
   when(!io.in.bits.ctrl_flow.flush && io.in.valid){
     when (count === 0.U){
       multiplier := Cat(src2, Fill(1, 0.U))//xlen+2
-      multiplicand := Cat(src1, Fill(mul_len + 3, 0.U))
+      multiplicand := Cat(Fill(1,0.U),src1, Fill(mul_len + 2, 0.U))
       p := 0.U
     }
     .otherwise {
@@ -162,8 +162,8 @@ class Booth_MUL(booth_bit : Int = 3, mul_len: Int) extends Module{
 
   io.out.valid := Mux((count === ((mul_len+2) + 2).U && io.in.bits.ctrl_flow.mulw) || count === ((mul_len+2) + 2).U, true.B, false.B)
   io.in.ready := true.B
-  io.out.bits.result.result_hi := p(mul_len * 2 , mul_len+1)
-  io.out.bits.result.result_lo := p(mul_len , 1)
+  io.out.bits.result.result_hi := p(mul_len * 2 -1, mul_len)
+  io.out.bits.result.result_lo := p(mul_len -1 , 0)
 
 }
 
