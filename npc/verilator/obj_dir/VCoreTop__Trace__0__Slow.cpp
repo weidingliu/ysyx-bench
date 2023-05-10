@@ -1233,13 +1233,9 @@ VL_ATTR_COLD void VCoreTop___024root__trace_full_sub_0(VCoreTop___024root* vlSel
     bufp->fullQData(oldp+306,(vlSelf->CoreTop__DOT__EX__DOT__CSRDIFF_io_mtvec_REG_1),64);
     bufp->fullBit(oldp+308,(vlSelf->CoreTop__DOT__EX__DOT__mul_io_in_valid));
     bufp->fullBit(oldp+309,((0x44U == (IData)(vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__count))));
-    bufp->fullQData(oldp+310,((((QData)((IData)(vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__p[2U])) 
-                                << 0x3fU) | (((QData)((IData)(
-                                                              vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__p[1U])) 
-                                              << 0x1fU) 
-                                             | ((QData)((IData)(
-                                                                vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__p[0U])) 
-                                                >> 1U)))),64);
+    bufp->fullQData(oldp+310,((((QData)((IData)(vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__p[1U])) 
+                                << 0x20U) | (QData)((IData)(
+                                                            vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__p[0U])))),64);
     bufp->fullBit(oldp+312,(((IData)(vlSelf->CoreTop__DOT__EX__DOT__is_div) 
                              & (2U != (IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__state)))));
     bufp->fullBit(oldp+313,(vlSelf->CoreTop__DOT__EX__DOT__div_io_in_bits_ctrl_flow_div_signed));
@@ -1253,7 +1249,8 @@ VL_ATTR_COLD void VCoreTop___024root__trace_full_sub_0(VCoreTop___024root* vlSel
     bufp->fullQData(oldp+324,(vlSelf->CoreTop__DOT__EX__DOT__mtvec),64);
     bufp->fullQData(oldp+326,(vlSelf->CoreTop__DOT__EX__DOT__mie),64);
     bufp->fullQData(oldp+328,(vlSelf->CoreTop__DOT__EX__DOT__mip),64);
-    bufp->fullBit(oldp+330,((1U & vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__p[1U])));
+    bufp->fullBit(oldp+330,((vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__p[0U] 
+                             >> 0x1fU)));
     bufp->fullQData(oldp+331,(((3U == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_fuType))
                                 ? (4ULL + vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_flow_PC)
                                 : 0ULL)),64);

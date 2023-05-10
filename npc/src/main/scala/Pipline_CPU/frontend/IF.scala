@@ -6,6 +6,7 @@ import chisel3.util._
 class IF extends Module with Paramete{
   val io = IO(new Bundle() {
     val branch_io = Flipped(new BranchIO)
+//    val cache_io = Decoupled()
     val inst = Input(UInt(instlen.W))
     val out = Decoupled(new FetchIO)
     val flush = Input(Bool())
@@ -18,7 +19,12 @@ class IF extends Module with Paramete{
   io.out.bits.PC := temp
   io.out.bits.Inst := Mux(io.flush,0.U,io.inst)
 
-  io.out.valid := 1.U//Mux(io.out.ready && !io.branch_io.is_jump && !io.branch_io.is_branch,1.U,0.U)
+//  io.cache_io.bits.addr := temp
+//  io.cache_io.bits.ce := 1.U
+//  io.cache_io.bits.we := 0.U
+//  io.cache_io.ready := io.out.ready
+  io.out.valid := 1.U
+//  io.out.valid := Mux(io.cache_io.valid,1.U,0.U) //Mux(io.out.ready && !io.branch_io.is_jump && !io.branch_io.is_branch,1.U,0.U)
   //  io.out.valid := Mux(io.flush,0.U,1.U)
 
 }

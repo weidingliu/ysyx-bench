@@ -2965,16 +2965,13 @@ VL_ATTR_COLD void VCoreTop___024root___settle__TOP__0(VCoreTop___024root* vlSelf
                                                      == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
                                                      ? 
                                                     (((QData)((IData)(
-                                                                      ((1U 
-                                                                        & vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__p[1U])
+                                                                      ((vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__p[0U] 
+                                                                        >> 0x1fU)
                                                                         ? 0xffffffffU
                                                                         : 0U))) 
                                                       << 0x20U) 
                                                      | (QData)((IData)(
-                                                                       ((vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__p[1U] 
-                                                                         << 0x1fU) 
-                                                                        | (vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__p[0U] 
-                                                                           >> 1U)))))
+                                                                       vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__p[0U])))
                                                      : 
                                                     ((0x79U 
                                                       == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
@@ -3005,14 +3002,10 @@ VL_ATTR_COLD void VCoreTop___024root___settle__TOP__0(VCoreTop___024root* vlSelf
                                                           == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
                                                           ? 
                                                          (((QData)((IData)(
-                                                                           vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__p[2U])) 
-                                                           << 0x3fU) 
-                                                          | (((QData)((IData)(
-                                                                              vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__p[1U])) 
-                                                              << 0x1fU) 
-                                                             | ((QData)((IData)(
-                                                                                vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__p[0U])) 
-                                                                >> 1U)))
+                                                                           vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__p[1U])) 
+                                                           << 0x20U) 
+                                                          | (QData)((IData)(
+                                                                            vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__p[0U])))
                                                           : 
                                                          ((0xfU 
                                                            == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))

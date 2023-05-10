@@ -4,6 +4,7 @@ import Pipline_CPU.frontend._
 import Pipline_CPU.backend._
 import chisel3._
 import chisel3.util._
+import cache.Cache
 
 class DIP_model extends BlackBox{
   val io = IO(new Bundle() {
@@ -70,6 +71,8 @@ class CoreTop extends Module with Paramete{
   val bypass = Module(new Bypass)
 
   val mem_bypass =Module(new MEM_Bypass)
+//  val ICACHE = Module(new Cache)
+//  val IFMEM = Module(new MEM)
 
 //  io.pc := IF.io.out.bits.PC
   // bypass
@@ -81,6 +84,10 @@ class CoreTop extends Module with Paramete{
 
 
   // fetch inst
+//  IF.io.inst := ICACHE.io.rdata
+//  ICACHE.io.in.bits.addr := IF.io.out.bits.PC
+
+
   IFM.io.pc := IF.io.out.bits.PC
   IF.io.inst := IFM.io.inst
   IFM.io.reset := reset

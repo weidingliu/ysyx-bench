@@ -40,6 +40,20 @@ class MEMCtrlIO extends Bundle with Paramete{
   val we =Output(Bool())
 }
 
+class ADDRBus extends Bundle with Paramete{
+  val addr = Output(UInt(xlen.W))
+  val ce = Output(Bool())
+  val we = Output(Bool())
+}
+class ReadDataBus extends Bundle with Paramete{
+  val rdata = Input(UInt(xlen.W))
+}
+class WriteDataBus extends Bundle with Paramete{
+  val wdata = Output(UInt(xlen.W))
+  val wmask = Output(UInt(masklen.W))
+}
+
+
 class CSRCtrlIO extends Bundle with Paramete{
 
 }
