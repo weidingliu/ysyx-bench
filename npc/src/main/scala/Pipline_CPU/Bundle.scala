@@ -46,7 +46,7 @@ class ADDRBus extends Bundle with Paramete{
   val we = Output(Bool())
 }
 class ReadDataBus extends Bundle with Paramete{
-  val rdata = Input(UInt(xlen.W))
+  val rdata = Output(UInt(xlen.W))
 }
 class WriteDataBus extends Bundle with Paramete{
   val wdata = Output(UInt(xlen.W))

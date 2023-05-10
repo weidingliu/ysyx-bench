@@ -2,6 +2,7 @@ package Pipline_CPU.cache
 import Pipline_CPU.{MEMCtrlIO, Paramete}
 import chisel3._
 import chisel3.util._
+import Pipline_CPU._
 
 trait CacheParamete extends Paramete {
 //  val xlen = 64
@@ -22,6 +23,17 @@ trait CacheParamete extends Paramete {
 //    }
 //  })
 //}
+
+class ICache_req extends Bundle with Paramete{
+  val addr_req = Flipped(Decoupled(new ADDRBus))
+  val rdata_rep = Decoupled(new ReadDataBus)
+}
+
+class Cache_MemReq_Bundle (Type : String)extends Bundle with Paramete{
+  val addr_req = Flipped(Decoupled(new ADDRBus))
+  val rdata_rep = Flipped(Decoupled(new ReadDataBus))
+  val wdata_req = if(Type == "Dcache") Some(Decoupled(new WriteDataBus)) else None
+}
 
 class DataBundle extends Bundle with CacheParamete{
   val data = Output(Vec(Cache_way,UInt(Cache_line_size.W)))
