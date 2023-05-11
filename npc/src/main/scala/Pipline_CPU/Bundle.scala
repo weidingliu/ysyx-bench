@@ -40,18 +40,6 @@ class MEMCtrlIO extends Bundle with Paramete{
   val we =Output(Bool())
 }
 
-class ADDRBus extends Bundle with Paramete{
-  val addr = Output(UInt(xlen.W))
-  val ce = Output(Bool())
-  val we = Output(Bool())
-}
-class ReadDataBus extends Bundle with Paramete{
-  val rdata = Output(UInt(xlen.W))
-}
-class WriteDataBus extends Bundle with Paramete{
-  val wdata = Output(UInt(xlen.W))
-  val wmask = Output(UInt(masklen.W))
-}
 
 
 class CSRCtrlIO extends Bundle with Paramete{
@@ -138,6 +126,33 @@ class DIV_IN (div_len:Int)extends Bundle with Paramete{
 class DIV_OUT (div_len:Int)extends Bundle with Paramete{
   val result = new DIV_data(div_len)
 }
+
+////////////////////////////////////////cache
+class ADDRBus extends Bundle with Paramete{
+  val addr = Output(UInt(xlen.W))
+  val ce = Output(Bool())
+  val we = Output(Bool())
+}
+class ReadDataBus extends Bundle with Paramete{
+  val rdata = Output(UInt(xlen.W))
+}
+class WriteDataBus extends Bundle with Paramete{
+  val wdata = Output(UInt(xlen.W))
+  val wmask = Output(UInt(masklen.W))
+}
+
+
+class ICache_req extends Bundle with Paramete{
+  val addr_req = Flipped(Decoupled(new ADDRBus))
+  val rdata_rep = Decoupled(new ReadDataBus)
+}
+
+class Cache_MemReq_Bundle (Type : String)extends Bundle with Paramete{
+  val addr_req = Flipped(Decoupled(new ADDRBus))
+  val rdata_rep = Flipped(Decoupled(new ReadDataBus))
+  val wdata_req = if(Type == "Dcache") Some(Decoupled(new WriteDataBus)) else None
+}
+
 
 //class Cache extends Bundle with Paramete{
 //

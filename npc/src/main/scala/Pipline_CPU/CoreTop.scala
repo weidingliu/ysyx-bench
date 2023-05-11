@@ -52,7 +52,7 @@ class CoreTop extends Module with Paramete{
   })
   val IF = Module(new IF)
 
-  val IFM = Module(new ifm)
+//  val IFM = Module(new ifm)
 
   val ID = Module(new ID)
 
@@ -71,8 +71,9 @@ class CoreTop extends Module with Paramete{
   val bypass = Module(new Bypass)
 
   val mem_bypass =Module(new MEM_Bypass)
-//  val ICACHE = Module(new Cache)
-//  val IFMEM = Module(new MEM)
+
+  val ICACHE = Module(new Cache("icache"))
+  val IFMEM = Module(new MEM)
 
 //  io.pc := IF.io.out.bits.PC
   // bypass
@@ -86,12 +87,24 @@ class CoreTop extends Module with Paramete{
   // fetch inst
 //  IF.io.inst := ICACHE.io.rdata
 //  ICACHE.io.in.bits.addr := IF.io.out.bits.PC
+  IF.io.cache_req.addr_req <> ICACHE.io.in.addr_req
+  IF.io.cache_req.rdata_rep <> ICACHE.io.in.rdata_rep
+  ICACHE.io.flush := EX.io.is_flush
+  ICACHE.io.mem_rdata := IFMEM.io.rdata
+  IFMEM.io.clk := clock
+  IFMEM.io.reset := reset
+  IFMEM.io.addr := ICACHE.io.out.bits.addr
+  IFMEM.io.wdata := ICACHE.io.out.bits.wdata
+  IFMEM.io.wmask := ICACHE.io.out.bits.wmask
+  IFMEM.io.we := ICACHE.io.out.bits.we
+  IFMEM.io.ce := ICACHE.io.out.bits.ce
+  ICACHE.io.mem_rdata := IFMEM.io.rdata
+  ICACHE.io.out.ready := true.B
 
-
-  IFM.io.pc := IF.io.out.bits.PC
-  IF.io.inst := IFM.io.inst
-  IFM.io.reset := reset
-  IFM.io.clk := clock
+//  IFM.io.pc := IF.io.out.bits.PC
+//  IF.io.inst := IFM.io.inst
+//  IFM.io.reset := reset
+//  IFM.io.clk := clock
   IF.io.flush := EX.io.is_flush
 //  IF.io.flush := EX.io.is_flush
   //ID

@@ -173,13 +173,13 @@ class MEM_stage extends Module with Paramete {
   io.out.bits.ctrl_flow.skip := Mux((addr_temp === "ha0000048".U || addr_temp === "ha00003f8".U || (addr_temp >= "ha0000000".U && addr_temp <= "ha1200000".U)),1.B,0.B)
   io.out.bits.ctrl_signal.inst_valid := Mux(io.in.valid,io.in.bits.ctrl_signal.inst_valid,0.U)
   io.out.bits.ctrl_rf.rfData := Mux(io.in.bits.ctrl_signal.fuType === FUType.mem,mem_result,io.in.bits.ctrl_rf.rfData)
-  io.out.bits.ctrl_rf.rfWen := Mux(io.out.bits.ctrl_signal.inst_valid,io.in.bits.ctrl_signal.rfWen,0.U)
+  io.out.bits.ctrl_rf.rfWen := Mux(io.in.valid,io.in.bits.ctrl_signal.rfWen,0.U)
 
   io.mem.addr := addr_temp
   io.mem.wdata := wdata_temp
   io.mem.wmask := wmask_temp
 
-  io.out.valid := 1.U//Mux(io.in.valid,1.U,0.U)
+  io.out.valid := Mux(io.in.valid,1.U,0.U)
   io.in.ready := io.out.ready
 
   io.mem.ce := Mux(io.in.bits.ctrl_signal.fuType === FUType.mem && io.in.valid && io.out.bits.ctrl_signal.inst_valid,1.U,0.U)

@@ -101,11 +101,11 @@ class EXE extends Module with Paramete{
   val Imm = WireDefault(0.U(xlen.W))
   val PC = WireDefault(0.U(xlen.W))
 
-  val is_mul = (ALUOPType.mulw === io.in.bits.ctrl_signal.aluoptype || ALUOPType.mul === io.in.bits.ctrl_signal.aluoptype) && io.in.bits.ctrl_signal.inst_valid
+  val is_mul = (ALUOPType.mulw === io.in.bits.ctrl_signal.aluoptype || ALUOPType.mul === io.in.bits.ctrl_signal.aluoptype) && io.in.bits.ctrl_signal.inst_valid && io.in.valid
   val is_div = (io.in.bits.ctrl_signal.aluoptype === ALUOPType.div || io.in.bits.ctrl_signal.aluoptype === ALUOPType.divu
     || io.in.bits.ctrl_signal.aluoptype === ALUOPType.divw || io.in.bits.ctrl_signal.aluoptype === ALUOPType.divuw
     || io.in.bits.ctrl_signal.aluoptype === ALUOPType.rem || io.in.bits.ctrl_signal.aluoptype === ALUOPType.remu
-    || io.in.bits.ctrl_signal.aluoptype === ALUOPType.remw || io.in.bits.ctrl_signal.aluoptype === ALUOPType.remuw) && io.in.bits.ctrl_signal.inst_valid
+    || io.in.bits.ctrl_signal.aluoptype === ALUOPType.remw || io.in.bits.ctrl_signal.aluoptype === ALUOPType.remuw) && io.in.bits.ctrl_signal.inst_valid && io.in.valid
   val is_divw = (io.in.bits.ctrl_signal.aluoptype === ALUOPType.divw || io.in.bits.ctrl_signal.aluoptype === ALUOPType.divuw
     || io.in.bits.ctrl_signal.aluoptype === ALUOPType.remw || io.in.bits.ctrl_signal.aluoptype === ALUOPType.remuw)
   val is_div_sign = (io.in.bits.ctrl_signal.aluoptype === ALUOPType.div || io.in.bits.ctrl_signal.aluoptype === ALUOPType.divw
@@ -427,12 +427,12 @@ class EXE extends Module with Paramete{
   io.out.bits.ctrl_data.src2 := src2
   io.out.bits.ctrl_rf.rfData := result_tem
   io.out.bits.ctrl_rf.rfDest := io.in.bits.ctrl_signal.rfDest
-  io.out.bits.ctrl_rf.rfWen := Mux(io.out.bits.ctrl_signal.inst_valid,io.in.bits.ctrl_signal.rfWen,0.U)
+  io.out.bits.ctrl_rf.rfWen := Mux(io.in.valid,io.in.bits.ctrl_signal.rfWen,0.U)
   io.out.bits.ctrl_flow.Dnpc := dnpc
   io.branchIO.dnpc := dnpc//Mux(time_int === 1.U, csr.read(CSR_index.mtvec), dnpc)
-  io.branchIO.is_branch := branch_flag & io.out.bits.ctrl_signal.inst_valid//Mux(time_int === 1.U, 1.U, branch_flag)
-  io.branchIO.is_jump := Mux(io.in.bits.ctrl_signal.fuType === FUType.jump && io.out.bits.ctrl_signal.inst_valid, 1.U, 0.U)
+  io.branchIO.is_branch := branch_flag & io.out.bits.ctrl_signal.inst_valid & io.in.valid//Mux(time_int === 1.U, 1.U, branch_flag)
+  io.branchIO.is_jump := Mux(io.in.bits.ctrl_signal.fuType === FUType.jump && io.out.bits.ctrl_signal.inst_valid && io.in.valid, 1.U, 0.U)
 
-  io.out.valid := Mux(!(!mul.io.out.valid && is_mul) && !(!div.io.out.valid && is_div) ,1.U,0.U)
-  io.in.ready := Mux(((!mul.io.out.valid && is_mul) || (!div.io.out.valid && is_div)),0.U,io.out.ready)
+  io.out.valid := Mux(!(!mul.io.out.valid && is_mul ) && !(!div.io.out.valid && is_div) && io.in.valid ,1.U,0.U)
+  io.in.ready := Mux(((!mul.io.out.valid && is_mul) || (!div.io.out.valid && is_div)) && io.in.valid,0.U,io.out.ready)
 }

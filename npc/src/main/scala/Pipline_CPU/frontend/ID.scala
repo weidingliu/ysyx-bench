@@ -77,17 +77,16 @@ class ID extends Module with Paramete{
   )
   val imm = LookupTree(instrtype, immtable.map(p => (p._1, p._2)))
 
-
   //io.out.bits.ctrl_rf.rfDest := rd
 
   io.out.bits.ctrl_signal.aluoptype := aluoptype
   io.out.bits.ctrl_signal.fuType := futype
-  io.out.bits.ctrl_signal.rfWen :=  Mux(io.out.bits.ctrl_signal.inst_valid,en,0.U)
+  io.out.bits.ctrl_signal.rfWen := Mux(io.in.valid,en,0.U)
   io.out.bits.ctrl_signal.rfSrc1 := rs
   io.out.bits.ctrl_signal.rfSrc2 := rt
   io.out.bits.ctrl_signal.src1Type := srctype1
   io.out.bits.ctrl_signal.src2Type := srctype2
-  io.out.bits.ctrl_signal.inst_valid := Mux(aluoptype === ALUOPType.NOP || io.flush,0.U,1.U)
+  io.out.bits.ctrl_signal.inst_valid := Mux(aluoptype === ALUOPType.NOP || io.flush || !io.in.valid,0.U,1.U)
   io.out.bits.ctrl_signal.rfDest := rd
 
   io.out.bits.ctrl_flow.PC := io.in.bits.PC
@@ -103,7 +102,7 @@ class ID extends Module with Paramete{
 //    io.out.bits.ctrl_data.src2 :=
 
 //  io.out.valid := Mux(io.flush,0.U,1.U)
-  io.out.valid := 1.B//Mux(io.out.ready && io.in.valid,1.U,0.U)
+  io.out.valid := Mux(io.in.valid,1.U,0.U)//Mux(io.out.ready && io.in.valid,1.U,0.U)
   io.in.ready := io.out.ready
   //println(io.out.bits.ctrl_signal.inst_valid)
 }

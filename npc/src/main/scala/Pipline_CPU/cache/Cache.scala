@@ -9,7 +9,7 @@ trait CacheParamete extends Paramete {
   val Cache_line_size = xlen*8
   val Cache_line_wordnum = Cache_line_size/xlen
   val Cache_way = 2
-  val Cache_line_num = 4096/Cache_way/Cache_line_size
+  val Cache_line_num = 4096/Cache_way/Cache_line_size *8
   val Tag_size = xlen - log2Ceil(Cache_line_size/8) - log2Ceil(Cache_line_num)
 
 }
@@ -24,16 +24,7 @@ trait CacheParamete extends Paramete {
 //  })
 //}
 
-class ICache_req extends Bundle with Paramete{
-  val addr_req = Flipped(Decoupled(new ADDRBus))
-  val rdata_rep = Decoupled(new ReadDataBus)
-}
 
-class Cache_MemReq_Bundle (Type : String)extends Bundle with Paramete{
-  val addr_req = Flipped(Decoupled(new ADDRBus))
-  val rdata_rep = Flipped(Decoupled(new ReadDataBus))
-  val wdata_req = if(Type == "Dcache") Some(Decoupled(new WriteDataBus)) else None
-}
 
 class DataBundle extends Bundle with CacheParamete{
   val data = Output(Vec(Cache_way,UInt(Cache_line_size.W)))
@@ -182,11 +173,11 @@ class Cache_Data extends Module with CacheParamete{
 //  }
 }
 
-class Cache extends Module with CacheParamete {
+class Cache (Type : String) extends Module with CacheParamete {
     val io = IO(new Bundle() {
-      val in = Flipped(Decoupled(new MEMCtrlIO))
-      val rdata = Output(UInt(xlen.W))
-      val cache_valid = Output(Bool())
+//      val in = Flipped(Decoupled(new MEMCtrlIO))
+      val in = new ICache_req
+      val flush = Input(Bool())
       val out = Decoupled(new MEMCtrlIO)
       val mem_rdata = Input(UInt(xlen.W))
     })
@@ -203,36 +194,44 @@ class Cache extends Module with CacheParamete {
   val hit_data = WireDefault(0.U(xlen.W))
   val mem_data = WireDefault(0.U(xlen.W))
   val lru = SyncReadMem(Cache_line_num,UInt(1.W)) //2 way
-  val (count,s) = Counter(state === miss,Cache_line_wordnum)
+
+  val count = RegInit(0.U((log2Ceil(Cache_line_wordnum)+1).W))
+  val s = count === Cache_line_wordnum.U
+//  val (count,s) = Counter(state === miss,Cache_line_wordnum)
 
 
   switch(state){
     is(idle) {
-
+        count := 0.U
     }
     is(scanf) {
         when(hit === 0.U){
-          mem_addr_reg := io.in.bits.addr
+          mem_addr_reg := Cat(io.in.addr_req.bits.addr(xlen-1,log2Ceil(Cache_line_size/8)),Fill(log2Ceil(Cache_line_size/8),0.U))
         }
     }
     is(miss) {
+      when(!io.in.rdata_rep.ready && s === true.B){
+        count := count
+      }.otherwise{
+        count := count +1.U
+      }
+
       when(count === (Cache_line_wordnum-1).U) {
         lru_w := lru.read(Cache_data.io.out.bits.ctrl_data.index)
       }
       when(s =/= true.B && io.out.ready){
         mem_addr_reg := mem_addr_reg + 8.U
 
-        data_line_reg := Cat(data_line_reg(Cache_line_size-1,xlen),io.mem_rdata)
+        data_line_reg := Cat(io.mem_rdata,data_line_reg(Cache_line_size-1,xlen))
       }
-      when(s === true.B){
-
+      when(io.in.rdata_rep.ready && s === true.B ){
         lru.write(Cache_data.io.out.bits.ctrl_data.index,!lru_w)
-
+        count:=0.U
       }
     }
   }
 
-  switch(io.in.bits.addr(log2Ceil(Cache_line_size / xlen) + log2Ceil(xlen / 8) - 1, log2Ceil(xlen / 8))) {
+  switch(io.in.addr_req.bits.addr(log2Ceil(Cache_line_size / xlen) + log2Ceil(xlen / 8) - 1, log2Ceil(xlen / 8))) {
     is("b000".U) {
       hit_data := Scanf.io.out.bits.data(xlen - 1, 0)
       mem_data := data_line_reg(xlen - 1, 0)
@@ -270,7 +269,7 @@ class Cache extends Module with CacheParamete {
 
   switch(state){
     is(idle){
-      when(io.in.valid){
+      when(io.in.addr_req.valid){
         state := scanf
       }.otherwise{
         state := idle
@@ -284,19 +283,29 @@ class Cache extends Module with CacheParamete {
         }
     }
     is(miss){
-        when(s === true.B && io.out.ready){
+        when(s === true.B && io.in.rdata_rep.ready){
           state := idle
         }
     }
   }
+  when (io.flush){
+    state := idle
+  }
   Scanf.io.out.ready := 1.U
 
-  io.rdata := Mux((state === scanf && hit),hit_data,mem_data)
-  io.in.ready := 1.U
+  io.in.rdata_rep.bits.rdata := Mux((state === scanf && hit),hit_data,mem_data)
+//  io.in.ready := 1.U
+  io.in.addr_req.ready := true.B
+
   //read data from cache
-  Cache_data.io.in.valid := Mux(io.in.valid && state === idle, 1.U, 0.U)
-  Cache_data.io.in.addr := io.in.bits.addr
-  Cache_data.io.out <> Scanf.io.in
+  Cache_data.io.in.valid := Mux(io.in.addr_req.valid && state === idle, 1.U, 0.U)
+  Cache_data.io.in.addr := io.in.addr_req.bits.addr
+  Scanf.io.in.valid := RegNext(Cache_data.io.out.valid)
+  Scanf.io.in.bits.meat := (Cache_data.io.out.bits.meat)
+  Scanf.io.in.bits.data := (Cache_data.io.out.bits.data)
+  Scanf.io.in.bits.ctrl_data := (Cache_data.io.out.bits.ctrl_data)
+  Cache_data.io.out.ready := Scanf.io.in.ready
+
   //read data from mem
   io.out.valid := Mux(state === miss,true.B,false.B)
   io.out.bits.ce := Mux(state === miss,1.U,0.U)
@@ -304,8 +313,8 @@ class Cache extends Module with CacheParamete {
   io.out.bits.we := 0.U
   //write back cache data
   Cache_data.io.write_bus.valid := Mux(s,true.B,false.B)
-  io.cache_valid := Mux((state === scanf && hit)||(state === miss && s === true.B), 1.B, 0.B)
-  Cache_data.io.write_bus.addr := Mux(state === miss && s === true.B,io.in.bits.addr,0.U)
+  io.in.rdata_rep.valid := Mux(((state === scanf && hit)||(state === miss && s === true.B)) && (!io.flush), 1.B, 0.B)
+  Cache_data.io.write_bus.addr := Mux(state === miss && s === true.B,io.in.addr_req.bits.addr,0.U)
   Cache_data.io.write_bus.wdata := Mux(state === miss && s === true.B,data_line_reg,0.U)
 
   val waymask = Mux(lru_w === 1.U,0.U(2.W),2.U(2.W))
@@ -318,8 +327,22 @@ class Cache extends Module with CacheParamete {
 
 
 }
-
-import chisel3.stage._
-object app extends App{
-  (new ChiselStage).emitVerilog(new Cache,Array("--target-dir", "build"))
-}
+//class test_mem extends Module{
+//  val io = IO(new Bundle() {
+//    val addr = Input(UInt(4.W))
+//    val rdata = Output(UInt(8.W))
+//    val wdata = Input(UInt(8.W))
+//    val en = Input(Bool())
+//  })
+//  val mem =SyncReadMem(16,UInt(8.W))
+//  io.rdata := mem.read(io.addr)
+//  when(io.en){
+//    mem.write(io.addr,io.wdata)
+//  }
+//}
+//
+//
+//import chisel3.stage._
+//object app extends App{
+//  (new ChiselStage).emitVerilog(new test_mem,Array("--target-dir", "build"))
+//}
