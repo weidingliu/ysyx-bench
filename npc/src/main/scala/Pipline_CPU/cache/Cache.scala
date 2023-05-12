@@ -51,7 +51,6 @@ class Hit_data extends Bundle with CacheParamete{
 //  val valid = Output(Bool())
   val dirt = Output( Bool())
   val ctrl_data = new Ctrl_Bundle
-
 //  val data = Output(UInt(Cache_line_size.W))
 
 }
@@ -63,6 +62,7 @@ class Scanf_data extends Module with CacheParamete{
       val hit = Output(Bool())
       val data = Output(UInt(Cache_line_size.W))
       val meta = new Hit_data
+      val hit_way = Output(Vec(Cache_way,UInt(1.W)))
     })
   })
 //  val metaway = VecInit(new MetaBundle)
@@ -99,22 +99,21 @@ class Scanf_data extends Module with CacheParamete{
   io.out.valid := 1.U
   io.in.ready := 1.U
 
-}
+  io.out.bits.hit_way := hit_way
 
+}
 
 class Cache_Data extends Module with CacheParamete{
   val io = IO(new Bundle(){
     val in = new Bundle() {
       val valid = Input(Bool())
       val addr = Input(UInt(xlen.W))
-
     }
     val write_bus = new Bundle() {
       val addr = Input(UInt(xlen.W))
       val valid = Input(Bool())
       val waymask = Input(UInt(Cache_way.W))
       val wdata = Input(UInt(Cache_line_size.W))
-
     }
     val out = Decoupled(new cache_data_bundle)
   })
@@ -128,14 +127,6 @@ class Cache_Data extends Module with CacheParamete{
   val TAG = SyncReadMem(Cache_line_num,Vec(Cache_way,UInt(Tag_size.W)))
   val data_valid = SyncReadMem(Cache_line_num,Vec(Cache_way,UInt(1.W)))
   val dirt = SyncReadMem(Cache_line_num,Vec(Cache_way,UInt(1.W)))
-//  val lru = Vec(Cache_way,SyncReadMem(Cache_line_num,UInt(1.W)))
-
-
-//  val data_w = Vec(Cache_way,UInt(Cache_line_size.W))
-//  val valid_w = Vec(Cache_way,Bool())
-//  val dirt_w  = Vec(Cache_way,Bool())
-//
-//  val tag_w = Vec(Cache_way,UInt(Tag_size.W))
 
   val valid_w = data_valid.read(index)
   val data_w = data.read(index)
@@ -190,7 +181,8 @@ class Cache (Type : String) extends Module with CacheParamete {
   val data_line_reg = RegInit(0.U(Cache_line_size.W))
   val mem_addr_reg = RegInit(0.U(xlen.W))
 
-  val lru_w  = WireDefault(0.U)
+  val lru_r  = RegInit(0.U)
+  val lru_w = WireDefault(0.U)
   val hit_data = WireDefault(0.U(xlen.W))
   val mem_data = WireDefault(0.U(xlen.W))
   val lru = SyncReadMem(Cache_line_num,UInt(1.W)) //2 way
@@ -198,15 +190,24 @@ class Cache (Type : String) extends Module with CacheParamete {
   val count = RegInit(0.U((log2Ceil(Cache_line_wordnum)+1).W))
   val s = count === Cache_line_wordnum.U
 //  val (count,s) = Counter(state === miss,Cache_line_wordnum)
-
+  val hit_way = Wire(Vec(Cache_way,UInt(1.W)))
+  lru_w := lru.read(Cache_data.io.out.bits.ctrl_data.index)
 
   switch(state){
     is(idle) {
-        count := 0.U
+      count := 0.U
     }
     is(scanf) {
         when(hit === 0.U){
           mem_addr_reg := Cat(io.in.addr_req.bits.addr(xlen-1,log2Ceil(Cache_line_size/8)),Fill(log2Ceil(Cache_line_size/8),0.U))
+        }.otherwise{
+          when(hit_way(0) === 1.U){
+            lru.write(Cache_data.io.out.bits.ctrl_data.index,1.U)
+          }
+          when(hit_way(1) === 1.U){
+            lru.write(Cache_data.io.out.bits.ctrl_data.index,0.U)
+          }
+          lru_r := lru_w
         }
     }
     is(miss) {
@@ -216,16 +217,20 @@ class Cache (Type : String) extends Module with CacheParamete {
         count := count +1.U
       }
 
-      when(count === (Cache_line_wordnum-1).U) {
-        lru_w := lru.read(Cache_data.io.out.bits.ctrl_data.index)
-      }
+//      when(count === (Cache_line_wordnum-1).U) {
+//        lru_w := lru.read(Cache_data.io.out.bits.ctrl_data.index)
+//      }
       when(s =/= true.B && io.out.ready){
         mem_addr_reg := mem_addr_reg + 8.U
 
         data_line_reg := Cat(io.mem_rdata,data_line_reg(Cache_line_size-1,xlen))
       }
       when(io.in.rdata_rep.ready && s === true.B ){
-        lru.write(Cache_data.io.out.bits.ctrl_data.index,!lru_w)
+        when(lru_r === 1.U) {
+          lru.write(Cache_data.io.out.bits.ctrl_data.index, 0.U)
+        }.otherwise {
+          lru.write(Cache_data.io.out.bits.ctrl_data.index, 1.U)
+        }
         count:=0.U
       }
     }
@@ -305,6 +310,7 @@ class Cache (Type : String) extends Module with CacheParamete {
   Scanf.io.in.bits.data := (Cache_data.io.out.bits.data)
   Scanf.io.in.bits.ctrl_data := (Cache_data.io.out.bits.ctrl_data)
   Cache_data.io.out.ready := Scanf.io.in.ready
+  hit_way := Scanf.io.out.bits.hit_way
 
   //read data from mem
   io.out.valid := Mux(state === miss,true.B,false.B)
@@ -317,7 +323,7 @@ class Cache (Type : String) extends Module with CacheParamete {
   Cache_data.io.write_bus.addr := Mux(state === miss && s === true.B,io.in.addr_req.bits.addr,0.U)
   Cache_data.io.write_bus.wdata := Mux(state === miss && s === true.B,data_line_reg,0.U)
 
-  val waymask = Mux(lru_w === 1.U,0.U(2.W),2.U(2.W))
+  val waymask = Mux(lru_r === 1.U,"b10".U(2.W),"b01".U(2.W))
   Cache_data.io.write_bus.waymask := waymask
 
   io.out.bits.wdata := 0.U

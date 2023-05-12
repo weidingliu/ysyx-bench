@@ -250,17 +250,16 @@ VL_ATTR_COLD void VCoreTop___024root___ctor_var_reset(VCoreTop___024root* vlSelf
     vlSelf->CoreTop__DOT__ICACHE__DOT__state = VL_RAND_RESET_I(2);
     VL_RAND_RESET_W(512, vlSelf->CoreTop__DOT__ICACHE__DOT__data_line_reg);
     vlSelf->CoreTop__DOT__ICACHE__DOT__mem_addr_reg = VL_RAND_RESET_Q(64);
+    vlSelf->CoreTop__DOT__ICACHE__DOT__lru_r = VL_RAND_RESET_I(1);
     vlSelf->CoreTop__DOT__ICACHE__DOT__count = VL_RAND_RESET_I(4);
     vlSelf->CoreTop__DOT__ICACHE__DOT___T = VL_RAND_RESET_I(1);
     vlSelf->CoreTop__DOT__ICACHE__DOT___T_1 = VL_RAND_RESET_I(1);
-    vlSelf->CoreTop__DOT__ICACHE__DOT___T_7 = VL_RAND_RESET_I(1);
-    vlSelf->CoreTop__DOT__ICACHE__DOT___GEN_10 = VL_RAND_RESET_Q(64);
-    VL_RAND_RESET_W(512, vlSelf->CoreTop__DOT__ICACHE__DOT___GEN_11);
-    vlSelf->CoreTop__DOT__ICACHE__DOT__lru_w = VL_RAND_RESET_I(1);
-    vlSelf->CoreTop__DOT__ICACHE__DOT___GEN_17 = VL_RAND_RESET_I(4);
+    vlSelf->CoreTop__DOT__ICACHE__DOT___GEN_25 = VL_RAND_RESET_Q(64);
+    VL_RAND_RESET_W(512, vlSelf->CoreTop__DOT__ICACHE__DOT___GEN_26);
+    vlSelf->CoreTop__DOT__ICACHE__DOT___GEN_45 = VL_RAND_RESET_I(4);
     vlSelf->CoreTop__DOT__ICACHE__DOT__hit_data = VL_RAND_RESET_Q(64);
     vlSelf->CoreTop__DOT__ICACHE__DOT__mem_data = VL_RAND_RESET_Q(64);
-    vlSelf->CoreTop__DOT__ICACHE__DOT___GEN_73 = VL_RAND_RESET_I(2);
+    vlSelf->CoreTop__DOT__ICACHE__DOT___GEN_121 = VL_RAND_RESET_I(2);
     vlSelf->CoreTop__DOT__ICACHE__DOT__Scanf_io_in_valid_REG = VL_RAND_RESET_I(1);
     vlSelf->CoreTop__DOT__ICACHE__DOT___io_in_rdata_rep_valid_T_4 = VL_RAND_RESET_I(1);
     for (int __Vi0=0; __Vi0<32; ++__Vi0) {
@@ -271,24 +270,32 @@ VL_ATTR_COLD void VCoreTop___024root___ctor_var_reset(VCoreTop___024root* vlSelf
         VL_RAND_RESET_W(512, vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[__Vi0]);
     }
     vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1_data_w_en_pipe_0 = VL_RAND_RESET_I(1);
+    vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1_data_w_addr_pipe_0 = VL_RAND_RESET_I(5);
     for (int __Vi0=0; __Vi0<32; ++__Vi0) {
         vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[__Vi0] = VL_RAND_RESET_Q(53);
     }
+    vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0_tag_w_data = VL_RAND_RESET_Q(53);
     vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0_tag_w_en_pipe_0 = VL_RAND_RESET_I(1);
+    vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0_tag_w_addr_pipe_0 = VL_RAND_RESET_I(5);
     for (int __Vi0=0; __Vi0<32; ++__Vi0) {
         vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[__Vi0] = VL_RAND_RESET_Q(53);
     }
+    vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1_tag_w_data = VL_RAND_RESET_Q(53);
     vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1_tag_w_en_pipe_0 = VL_RAND_RESET_I(1);
     vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1_tag_w_addr_pipe_0 = VL_RAND_RESET_I(5);
     for (int __Vi0=0; __Vi0<32; ++__Vi0) {
         vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[__Vi0] = VL_RAND_RESET_I(1);
     }
     vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0_valid_w_en_pipe_0 = VL_RAND_RESET_I(1);
+    vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0_valid_w_addr_pipe_0 = VL_RAND_RESET_I(5);
     for (int __Vi0=0; __Vi0<32; ++__Vi0) {
         vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[__Vi0] = VL_RAND_RESET_I(1);
     }
     vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1_valid_w_en_pipe_0 = VL_RAND_RESET_I(1);
+    vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1_valid_w_addr_pipe_0 = VL_RAND_RESET_I(5);
+    vlSelf->CoreTop__DOT__ICACHE__DOT__Scanf__DOT___hit_way_0_T = VL_RAND_RESET_I(1);
     vlSelf->CoreTop__DOT__ICACHE__DOT__Scanf__DOT__hit_way_0_result = VL_RAND_RESET_I(1);
+    vlSelf->CoreTop__DOT__ICACHE__DOT__Scanf__DOT___hit_way_1_T = VL_RAND_RESET_I(1);
     vlSelf->CoreTop__DOT__ICACHE__DOT__Scanf__DOT__hit_way_1_result = VL_RAND_RESET_I(1);
     vlSelf->__Vtask_pmem_read__4__rdata = 0;
     vlSelf->__Vtask_pmem_read__5__rdata = 0;
