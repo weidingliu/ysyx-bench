@@ -199,7 +199,7 @@ class Cache (Type : String) extends Module with CacheParamete {
   val dirt_r = if(Type == "Dcache") Some(Reg(Vec(Cache_way, UInt(1.W)))) else None
   val dirt = if(Type == "Dcache") Some(SyncReadMem(Cache_line_num, Vec(Cache_way, UInt(1.W)))) else None
   val count_write = if(Type == "Dcache") Some(RegInit(0.U((log2Ceil(Cache_line_wordnum) + 1).W))) else None
-  val s_w = if(Type == "Dcache") Some(count === Cache_line_wordnum.U) else None
+  val s_w = if(Type == "Dcache") Some(count_write.get === Cache_line_wordnum.U) else None
   val dirt_w = if(Type == "Dcache") Some(dirt.get.read(Cache_data.io.out.bits.ctrl_data.index)) else None
   val mem_write_addr_reg = if(Type == "Dcache") Some(RegInit(0.U(xlen.W))) else None
   val mem_write_data_reg = if(Type == "Dcache") Some(RegInit(0.U(Cache_line_size.W))) else None
@@ -397,7 +397,10 @@ class Cache (Type : String) extends Module with CacheParamete {
   //write back cache data
   io.in.rdata_rep.valid := Mux(((state === scanf && hit)||(state === miss && s === true.B)) && (!io.flush) && (!io.in.addr_req.bits.we), 1.B, 0.B)
   if(Type == "Dcache"){
-    val wmaskextend = MaskGen(Cache_data.io.out.bits.ctrl_data.offset(log2Ceil(Cache_line_size/8)-1,log2Ceil(xlen/8)),io.in.wdata_req.get.bits.wmask & io.in.addr_req.bits.we)
+    val wmaskextend = MaskGen(Cache_data.io.out.bits.ctrl_data.offset(log2Ceil(Cache_line_size/8)-1,log2Ceil(xlen/8)),
+      io.in.wdata_req.get.bits.wmask & Fill(8,io.in.addr_req.bits.we))
+
+
     val wdata_extend = Fill(Cache_line_size/xlen,io.in.wdata_req.get.bits.wdata)
     val wdata = Mux(state === miss && s === true.B,MaskData(data_line_reg,wmaskextend,wdata_extend),MaskData(hit__write_data.get,wmaskextend,wdata_extend))
 
@@ -413,8 +416,12 @@ class Cache (Type : String) extends Module with CacheParamete {
 //        hitway_mask(i) := 1.U
 //      }
 //    }
+    val dirt_write = VecInit(Seq.fill(Cache_way)(1.U(1.W)))
     val waymask = Mux(state === scanf && hit && io.in.addr_req.bits.we,hit_way_r.get.asUInt,Mux(lru_r === 1.U, "b10".U(2.W), "b01".U(2.W)))
     Cache_data.io.write_bus.waymask := waymask
+    when(io.in.addr_req.bits.we & ((state === scanf && hit) | (state === miss & s === true.B))) {
+      dirt.get.write(Cache_data.io.out.bits.ctrl_data.index,dirt_write,waymask.asBools)
+    }
   }
   else {
     Cache_data.io.write_bus.valid := Mux(s, true.B, false.B)

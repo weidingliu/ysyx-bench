@@ -74,7 +74,7 @@ class CoreTop extends Module with Paramete{
 
   val ICACHE = Module(new Cache("icache"))
   val IFMEM = Module(new MEM)
-//  val DCACHE = Module(new Cache("Dcache"))
+  val DCACHE = Module(new Cache("Dcache"))
 
 //  io.pc := IF.io.out.bits.PC
   // bypass
@@ -134,12 +134,21 @@ class CoreTop extends Module with Paramete{
   Pipline_Connect(EX.io.out,MEM.io.in,MEM.io.out.fire,0.B)
 //  MEM.io.mem.rdata := DCACHE.io.in.rdata_rep.bits.rdata
 
-  MEM.io.mem.rdata := mem.io.rdata
-  mem.io.wdata := MEM.io.mem.wdata
-  mem.io.addr := MEM.io.mem.addr
-  mem.io.wmask := MEM.io.mem.wmask
-  mem.io.ce := MEM.io.mem.ce
-  mem.io.we := MEM.io.mem.we
+  MEM.io.cache_io <> DCACHE.io.in
+  DCACHE.io.out.ready := true.B
+  DCACHE.io.flush := false.B
+  mem.io.addr := DCACHE.io.out.bits.addr
+  mem.io.wdata := DCACHE.io.out.bits.wdata
+  DCACHE.io.mem_rdata := mem.io.rdata
+  mem.io.ce := DCACHE.io.out.bits.ce
+  mem.io.we := DCACHE.io.out.bits.we
+  mem.io.wmask := DCACHE.io.out.bits.wmask
+//  MEM.io.mem.rdata := mem.io.rdata
+//  mem.io.wdata := MEM.io.mem.wdata
+//  mem.io.addr := MEM.io.mem.addr
+//  mem.io.wmask := MEM.io.mem.wmask
+//  mem.io.ce := MEM.io.mem.ce
+//  mem.io.we := MEM.io.mem.we
   mem.io.clk := clock
   mem.io.reset := reset
   bypass.io.MEM_rf <> MEM.io.out.bits.ctrl_rf

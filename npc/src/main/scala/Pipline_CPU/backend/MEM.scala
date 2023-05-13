@@ -13,8 +13,8 @@ class MEM_stage extends Module with Paramete {
 
       val out = Decoupled(new WBIO)
 
-      val mem = new MEMCtrlIO
-//      val cache_io = new
+//      val mem = new MEMCtrlIO
+      val cache_io = new CPU_Cache_Bundle("Dcache")
     })
 
   val src1 = WireDefault(0.U(xlen.W))
@@ -127,31 +127,31 @@ class MEM_stage extends Module with Paramete {
     }
   }
   val lb_mem_select = Seq(
-    (addr_temp(2, 0) === "b000".U) -> io.mem.rdata(7, 0),
-    (addr_temp(2, 0) === "b001".U) -> io.mem.rdata(15, 8),
-    (addr_temp(2, 0) === "b010".U) -> io.mem.rdata(23, 16),
-    (addr_temp(2, 0) === "b011".U) -> io.mem.rdata(31, 24),
-    (addr_temp(2, 0) === "b100".U) -> io.mem.rdata(39, 32),
-    (addr_temp(2, 0) === "b101".U) -> io.mem.rdata(47, 40),
-    (addr_temp(2, 0) === "b110".U) -> io.mem.rdata(55, 48),
-    (addr_temp(2, 0) === "b111".U) -> io.mem.rdata(63, 56)
+    (addr_temp(2, 0) === "b000".U) -> io.cache_io.rdata_rep.bits.rdata(7, 0),
+    (addr_temp(2, 0) === "b001".U) -> io.cache_io.rdata_rep.bits.rdata(15, 8),
+    (addr_temp(2, 0) === "b010".U) -> io.cache_io.rdata_rep.bits.rdata(23, 16),
+    (addr_temp(2, 0) === "b011".U) -> io.cache_io.rdata_rep.bits.rdata(31, 24),
+    (addr_temp(2, 0) === "b100".U) -> io.cache_io.rdata_rep.bits.rdata(39, 32),
+    (addr_temp(2, 0) === "b101".U) -> io.cache_io.rdata_rep.bits.rdata(47, 40),
+    (addr_temp(2, 0) === "b110".U) -> io.cache_io.rdata_rep.bits.rdata(55, 48),
+    (addr_temp(2, 0) === "b111".U) -> io.cache_io.rdata_rep.bits.rdata(63, 56)
   )
   val lh_mem_select = Seq(
-    (addr_temp(2, 1) === "b00".U) -> io.mem.rdata(15, 0),
-    (addr_temp(2, 1) === "b01".U) -> io.mem.rdata(31, 16),
-    (addr_temp(2, 1) === "b10".U) -> io.mem.rdata(47, 32),
-    (addr_temp(2, 1) === "b11".U) -> io.mem.rdata(63, 48),
+    (addr_temp(2, 1) === "b00".U) -> io.cache_io.rdata_rep.bits.rdata(15, 0),
+    (addr_temp(2, 1) === "b01".U) -> io.cache_io.rdata_rep.bits.rdata(31, 16),
+    (addr_temp(2, 1) === "b10".U) -> io.cache_io.rdata_rep.bits.rdata(47, 32),
+    (addr_temp(2, 1) === "b11".U) -> io.cache_io.rdata_rep.bits.rdata(63, 48),
   )
   val mem_result = WireDefault(0.U(xlen.W))
   switch(io.in.bits.ctrl_signal.aluoptype) {
     is(ALUOPType.ld) {
-      mem_result := io.mem.rdata
+      mem_result :=io.cache_io.rdata_rep.bits.rdata
     }
     is(ALUOPType.lw) {
-      mem_result := Mux(addr_temp(2, 2) === 1.U, SIgEXtend(io.mem.rdata(63, 32), xlen), SIgEXtend(io.mem.rdata(31, 0), xlen))
+      mem_result := Mux(addr_temp(2, 2) === 1.U, SIgEXtend(io.cache_io.rdata_rep.bits.rdata(63, 32), xlen), SIgEXtend(io.cache_io.rdata_rep.bits.rdata(31, 0), xlen))
     }
     is(ALUOPType.lwu) {
-      mem_result := Mux(addr_temp(2, 2) === 1.U, ZeroEXtend(io.mem.rdata(63, 32), xlen), ZeroEXtend(io.mem.rdata(31, 0), xlen))
+      mem_result := Mux(addr_temp(2, 2) === 1.U, ZeroEXtend(io.cache_io.rdata_rep.bits.rdata(63, 32), xlen), ZeroEXtend(io.cache_io.rdata_rep.bits.rdata(31, 0), xlen))
     }
     is(ALUOPType.lbu) {
       mem_result := ZeroEXtend(MuxCase(0.U(8.W), lb_mem_select), xlen)
@@ -176,14 +176,25 @@ class MEM_stage extends Module with Paramete {
   io.out.bits.ctrl_rf.rfData := Mux(io.in.bits.ctrl_signal.fuType === FUType.mem,mem_result,io.in.bits.ctrl_rf.rfData)
   io.out.bits.ctrl_rf.rfWen := Mux(io.in.valid,io.in.bits.ctrl_signal.rfWen,0.U)
 
-  io.mem.addr := addr_temp
-  io.mem.wdata := wdata_temp
-  io.mem.wmask := wmask_temp
+  io.cache_io.addr_req.valid := Mux(io.in.bits.ctrl_signal.fuType === FUType.mem && io.in.valid && io.out.bits.ctrl_signal.inst_valid,true.B,false.B)
+  io.cache_io.addr_req.bits.addr := addr_temp
+  io.cache_io.addr_req.bits.ce := Mux(io.in.bits.ctrl_signal.fuType === FUType.mem && io.in.valid && io.out.bits.ctrl_signal.inst_valid,1.U,0.U)
+  io.cache_io.addr_req.bits.we := we
 
-  io.out.valid := Mux(io.in.valid,1.U,0.U)
-  io.in.ready := io.out.ready
+  io.cache_io.wdata_req.get.bits.wdata := wdata_temp
+  io.cache_io.wdata_req.get.bits.wmask := wmask_temp
+  io.cache_io.wdata_req.get.valid := true.B
 
-  io.mem.ce := Mux(io.in.bits.ctrl_signal.fuType === FUType.mem && io.in.valid && io.out.bits.ctrl_signal.inst_valid,1.U,0.U)
-  io.mem.we := we
+  io.cache_io.rdata_rep.ready := true.B
+
+//  io.mem.addr := addr_temp
+//  io.mem.wdata := wdata_temp
+//  io.mem.wmask := wmask_temp
+
+  io.out.valid := Mux(!io.in.valid|(io.in.valid & io.in.bits.ctrl_signal.fuType === FUType.mem & ((!io.cache_io.rdata_rep.valid) & (!io.cache_io.wdata_rep.get))),false.B,true.B)
+  io.in.ready := Mux(io.in.valid & io.in.bits.ctrl_signal.fuType === FUType.mem & ((!io.cache_io.rdata_rep.valid) & (!io.cache_io.wdata_rep.get)),false.B,io.out.ready)
+
+//  io.mem.ce := Mux(io.in.bits.ctrl_signal.fuType === FUType.mem && io.in.valid && io.out.bits.ctrl_signal.inst_valid,1.U,0.U)
+//  io.mem.we := we
 
 }
