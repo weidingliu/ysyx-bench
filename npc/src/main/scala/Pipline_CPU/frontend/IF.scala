@@ -7,10 +7,11 @@ class IF extends Module with Paramete{
   val io = IO(new Bundle() {
     val branch_io = Flipped(new BranchIO)
 //    val cache_io = Decoupled()
-    val cache_req = new Bundle() {
-      val addr_req = Decoupled(new ADDRBus)
-      val rdata_rep = Flipped(Decoupled(new ReadDataBus))
-    }
+//    val cache_req = new Bundle() {
+//      val addr_req = Decoupled(new ADDRBus)
+//      val rdata_rep = Flipped(Decoupled(new ReadDataBus))
+//    }
+    val cache_req = new CPU_Cache_Bundle("icache")
 
 //    val inst = Input(UInt(instlen.W))
     val out = Decoupled(new FetchIO)

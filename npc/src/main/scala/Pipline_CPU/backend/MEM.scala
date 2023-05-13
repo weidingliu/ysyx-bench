@@ -14,6 +14,7 @@ class MEM_stage extends Module with Paramete {
       val out = Decoupled(new WBIO)
 
       val mem = new MEMCtrlIO
+//      val cache_io = new
     })
 
   val src1 = WireDefault(0.U(xlen.W))

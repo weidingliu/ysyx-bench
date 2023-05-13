@@ -74,6 +74,7 @@ class CoreTop extends Module with Paramete{
 
   val ICACHE = Module(new Cache("icache"))
   val IFMEM = Module(new MEM)
+//  val DCACHE = Module(new Cache("Dcache"))
 
 //  io.pc := IF.io.out.bits.PC
   // bypass
@@ -131,6 +132,8 @@ class CoreTop extends Module with Paramete{
 //  ID.io.flush := EX.io.is_flush
 //MEM
   Pipline_Connect(EX.io.out,MEM.io.in,MEM.io.out.fire,0.B)
+//  MEM.io.mem.rdata := DCACHE.io.in.rdata_rep.bits.rdata
+
   MEM.io.mem.rdata := mem.io.rdata
   mem.io.wdata := MEM.io.mem.wdata
   mem.io.addr := MEM.io.mem.addr

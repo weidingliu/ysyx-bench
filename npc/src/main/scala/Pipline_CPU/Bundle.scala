@@ -149,8 +149,16 @@ class ICache_req extends Bundle with Paramete{
 
 class Cache_MemReq_Bundle (Type : String)extends Bundle with Paramete{
   val addr_req = Flipped(Decoupled(new ADDRBus))
+  val rdata_rep = Decoupled(new ReadDataBus)
+  val wdata_req = if(Type == "Dcache") Some(Flipped(Decoupled(new WriteDataBus))) else None
+  val wdata_rep = if(Type == "Dcache") Some(Output(Bool())) else None
+}
+
+class CPU_Cache_Bundle (Type : String)extends Bundle with Paramete{
+  val addr_req = Decoupled(new ADDRBus)
   val rdata_rep = Flipped(Decoupled(new ReadDataBus))
-  val wdata_req = if(Type == "Dcache") Some(Decoupled(new WriteDataBus)) else None
+  val wdata_req = if (Type == "Dcache") Some(Decoupled(new WriteDataBus)) else None
+  val wdata_rep = if (Type == "Dcache") Some(Input(Bool())) else None
 }
 
 
