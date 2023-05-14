@@ -20,6 +20,7 @@ void VCoreTop___024root___eval(VCoreTop___024root* vlSelf) {
         vlSelf->__Vm_traceActivity[1U] = 1U;
     }
     VCoreTop___024root___combo__TOP__0(vlSelf);
+    vlSelf->__Vm_traceActivity[2U] = 1U;
     // Final
     vlSelf->__Vclklast__TOP__clock = vlSelf->clock;
 }

@@ -54,5 +54,5 @@ void read_device(long long addr, long long *rdata){
         *rdata = *(long long *)(i8042_data_port_base);
         i8042_data_io_handler(0, 4, false);
     }
-    else assert(0);
+    else {printf("%llx\n",addr);assert(0);}
 }

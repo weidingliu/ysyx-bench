@@ -161,6 +161,12 @@ class CPU_Cache_Bundle (Type : String)extends Bundle with Paramete{
   val wdata_rep = if (Type == "Dcache") Some(Input(Bool())) else None
 }
 
+class CPU_MEM_Bundle (Type : String)extends Bundle with Paramete{
+  val addr_req = Decoupled(new ADDRBus)
+  val rdata_rep = Flipped(Decoupled(new ReadDataBus))
+  val wdata_req = if (Type == "WRIO") Some(Decoupled(new WriteDataBus)) else None
+  val wdata_rep = if (Type == "WRIO") Some(Input(Bool())) else None
+}
 
 //class Cache extends Bundle with Paramete{
 //
