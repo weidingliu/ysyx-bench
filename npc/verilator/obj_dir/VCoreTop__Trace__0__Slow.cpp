@@ -666,10 +666,14 @@ VL_ATTR_COLD void VCoreTop___024root__trace_init_sub__TOP__0(VCoreTop___024root*
     tracep->declArray(c+449,"Scanf_io_in_bits_data_data_0", false,-1, 511,0);
     tracep->declArray(c+465,"Scanf_io_in_bits_data_data_1", false,-1, 511,0);
     tracep->declQuad(c+481,"Scanf_io_in_bits_ctrl_data_tag", false,-1, 52,0);
+    tracep->declBus(c+483,"Scanf_io_in_bits_ctrl_data_index", false,-1, 4,0);
     tracep->declBit(c+486,"Scanf_io_out_bits_hit", false,-1);
     tracep->declArray(c+487,"Scanf_io_out_bits_data", false,-1, 511,0);
+    tracep->declBus(c+483,"Scanf_io_out_bits_meta_ctrl_data_index", false,-1, 4,0);
     tracep->declBit(c+503,"Scanf_io_out_bits_hit_way_0", false,-1);
     tracep->declBit(c+504,"Scanf_io_out_bits_hit_way_1", false,-1);
+    tracep->declQuad(c+443,"Scanf_io_out_bits_tag_0", false,-1, 52,0);
+    tracep->declQuad(c+445,"Scanf_io_out_bits_tag_1", false,-1, 52,0);
     for (int i = 0; i < 32; ++i) {
         tracep->declBit(c+505+i*1,"lru", true,(i+0));
     }
@@ -806,10 +810,14 @@ VL_ATTR_COLD void VCoreTop___024root__trace_init_sub__TOP__0(VCoreTop___024root*
     tracep->declArray(c+449,"io_in_bits_data_data_0", false,-1, 511,0);
     tracep->declArray(c+465,"io_in_bits_data_data_1", false,-1, 511,0);
     tracep->declQuad(c+481,"io_in_bits_ctrl_data_tag", false,-1, 52,0);
+    tracep->declBus(c+483,"io_in_bits_ctrl_data_index", false,-1, 4,0);
     tracep->declBit(c+486,"io_out_bits_hit", false,-1);
     tracep->declArray(c+487,"io_out_bits_data", false,-1, 511,0);
+    tracep->declBus(c+483,"io_out_bits_meta_ctrl_data_index", false,-1, 4,0);
     tracep->declBit(c+503,"io_out_bits_hit_way_0", false,-1);
     tracep->declBit(c+504,"io_out_bits_hit_way_1", false,-1);
+    tracep->declQuad(c+443,"io_out_bits_tag_0", false,-1, 52,0);
+    tracep->declQuad(c+445,"io_out_bits_tag_1", false,-1, 52,0);
     tracep->declBit(c+1799,"hit_way_0_result", false,-1);
     tracep->declBit(c+1800,"hit_way_1_result", false,-1);
     tracep->popNamePrefix(2);
@@ -994,10 +1002,14 @@ VL_ATTR_COLD void VCoreTop___024root__trace_init_sub__TOP__0(VCoreTop___024root*
     tracep->declArray(c+1847,"Scanf_io_in_bits_data_data_0", false,-1, 511,0);
     tracep->declArray(c+1863,"Scanf_io_in_bits_data_data_1", false,-1, 511,0);
     tracep->declQuad(c+1879,"Scanf_io_in_bits_ctrl_data_tag", false,-1, 52,0);
+    tracep->declBus(c+1881,"Scanf_io_in_bits_ctrl_data_index", false,-1, 4,0);
     tracep->declBit(c+1884,"Scanf_io_out_bits_hit", false,-1);
     tracep->declArray(c+1885,"Scanf_io_out_bits_data", false,-1, 511,0);
+    tracep->declBus(c+1881,"Scanf_io_out_bits_meta_ctrl_data_index", false,-1, 4,0);
     tracep->declBit(c+1901,"Scanf_io_out_bits_hit_way_0", false,-1);
     tracep->declBit(c+1902,"Scanf_io_out_bits_hit_way_1", false,-1);
+    tracep->declQuad(c+1841,"Scanf_io_out_bits_tag_0", false,-1, 52,0);
+    tracep->declQuad(c+1843,"Scanf_io_out_bits_tag_1", false,-1, 52,0);
     for (int i = 0; i < 32; ++i) {
         tracep->declBit(c+1903+i*1,"lru", true,(i+0));
     }
@@ -1174,10 +1186,14 @@ VL_ATTR_COLD void VCoreTop___024root__trace_init_sub__TOP__0(VCoreTop___024root*
     tracep->declArray(c+1847,"io_in_bits_data_data_0", false,-1, 511,0);
     tracep->declArray(c+1863,"io_in_bits_data_data_1", false,-1, 511,0);
     tracep->declQuad(c+1879,"io_in_bits_ctrl_data_tag", false,-1, 52,0);
+    tracep->declBus(c+1881,"io_in_bits_ctrl_data_index", false,-1, 4,0);
     tracep->declBit(c+1884,"io_out_bits_hit", false,-1);
     tracep->declArray(c+1885,"io_out_bits_data", false,-1, 511,0);
+    tracep->declBus(c+1881,"io_out_bits_meta_ctrl_data_index", false,-1, 4,0);
     tracep->declBit(c+1901,"io_out_bits_hit_way_0", false,-1);
     tracep->declBit(c+1902,"io_out_bits_hit_way_1", false,-1);
+    tracep->declQuad(c+1841,"io_out_bits_tag_0", false,-1, 52,0);
+    tracep->declQuad(c+1843,"io_out_bits_tag_1", false,-1, 52,0);
     tracep->declBit(c+3359,"hit_way_0_result", false,-1);
     tracep->declBit(c+3360,"hit_way_1_result", false,-1);
     tracep->popNamePrefix(3);
@@ -1616,8 +1632,8 @@ VL_ATTR_COLD void VCoreTop___024root__trace_full_sub_0(VCoreTop___024root* vlSel
                                   & (0xa2000000ULL 
                                      >= vlSelf->CoreTop__DOT__MEM__DOT__addr_temp))
                                   ? (IData)(vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_we)
-                                  : (3U == (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state)))
-                              : (3U == (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state)))));
+                                  : (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE_io_out_addr_req_bits_we))
+                              : (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE_io_out_addr_req_bits_we))));
     bufp->fullBit(oldp+191,(((IData)(vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_valid)
                               ? (((0xa0000000ULL <= vlSelf->CoreTop__DOT__MEM__DOT__addr_temp) 
                                   & (0xa2000000ULL 
@@ -2319,7 +2335,7 @@ VL_ATTR_COLD void VCoreTop___024root__trace_full_sub_0(VCoreTop___024root* vlSel
     bufp->fullBit(oldp+1813,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE_io_in_wdata_rep));
     bufp->fullQData(oldp+1814,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE_io_out_addr_req_bits_addr),64);
     bufp->fullBit(oldp+1816,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE_io_out_addr_req_bits_ce));
-    bufp->fullBit(oldp+1817,((3U == (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state))));
+    bufp->fullBit(oldp+1817,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE_io_out_addr_req_bits_we));
     bufp->fullQData(oldp+1818,((((QData)((IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg[1U])) 
                                  << 0x20U) | (QData)((IData)(
                                                              vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg[0U])))),64);

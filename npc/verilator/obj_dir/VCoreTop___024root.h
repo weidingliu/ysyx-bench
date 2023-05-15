@@ -138,6 +138,7 @@ class VCoreTop___024root final : public VerilatedModule {
         CData/*0:0*/ CoreTop__DOT__MMIO__DOT__DCACHE_io_in_rdata_rep_valid;
         CData/*0:0*/ CoreTop__DOT__MMIO__DOT__DCACHE_io_in_wdata_rep;
         CData/*0:0*/ CoreTop__DOT__MMIO__DOT__DCACHE_io_out_addr_req_bits_ce;
+        CData/*0:0*/ CoreTop__DOT__MMIO__DOT__DCACHE_io_out_addr_req_bits_we;
         CData/*0:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data_io_write_bus_valid;
         CData/*1:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data_io_write_bus_waymask;
         CData/*0:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf_io_out_bits_hit;
@@ -148,19 +149,19 @@ class VCoreTop___024root final : public VerilatedModule {
         CData/*4:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru_lru_w_MPORT_addr_pipe_0;
         CData/*0:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0_dirt_w_en_pipe_0;
         CData/*0:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1_dirt_w_en_pipe_0;
-        CData/*1:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state;
     };
     struct {
+        CData/*1:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state;
         CData/*0:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru_r;
         CData/*3:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT__count;
         CData/*3:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT__count_write;
         CData/*0:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT___T;
         CData/*0:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT___T_1;
         CData/*0:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT___T_5;
-        CData/*3:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_55;
         CData/*3:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_57;
-        CData/*1:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_154;
+        CData/*3:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59;
         CData/*1:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_156;
+        CData/*1:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_158;
         CData/*0:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT___io_in_rdata_rep_bits_rdata_T_1;
         CData/*0:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf_io_in_valid_REG;
         CData/*0:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT___io_in_rdata_rep_valid_T_4;
@@ -213,10 +214,10 @@ class VCoreTop___024root final : public VerilatedModule {
         VlWide<16>/*511:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf_io_out_bits_data;
         VlWide<16>/*511:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg;
         VlWide<16>/*511:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg;
-        VlWide<16>/*511:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36;
-        VlWide<16>/*511:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59;
+        VlWide<16>/*511:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38;
     };
     struct {
+        VlWide<16>/*511:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61;
         VlWide<4>/*127:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT__wmaskextend_lo_lo;
         VlWide<8>/*255:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT__wmaskextend_lo;
         VlWide<4>/*127:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT__wmaskextend_hi_lo;
@@ -280,9 +281,9 @@ class VCoreTop___024root final : public VerilatedModule {
         QData/*63:0*/ CoreTop__DOT__EX__DOT___GEN_145;
         QData/*63:0*/ CoreTop__DOT__EX__DOT___GEN_147;
         QData/*63:0*/ CoreTop__DOT__EX__DOT___GEN_167;
-        QData/*63:0*/ CoreTop__DOT__EX__DOT___GEN_168;
     };
     struct {
+        QData/*63:0*/ CoreTop__DOT__EX__DOT___GEN_168;
         QData/*63:0*/ CoreTop__DOT__EX__DOT___GEN_169;
         QData/*63:0*/ CoreTop__DOT__EX__DOT___GEN_171;
         QData/*63:0*/ CoreTop__DOT__EX__DOT___GEN_172;
@@ -328,8 +329,8 @@ class VCoreTop___024root final : public VerilatedModule {
         QData/*63:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data_io_write_bus_addr;
         QData/*63:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_addr_reg;
         QData/*63:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_addr_reg;
-        QData/*63:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_35;
-        QData/*63:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_58;
+        QData/*63:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_37;
+        QData/*63:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_60;
         QData/*63:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT__wmaskextend_Genmask;
         QData/*52:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0_tag_w_data;
         QData/*52:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1_tag_w_data;
@@ -346,9 +347,9 @@ class VCoreTop___024root final : public VerilatedModule {
         VlUnpacked<QData/*52:0*/, 32> CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1;
         VlUnpacked<CData/*0:0*/, 32> CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0;
         VlUnpacked<CData/*0:0*/, 32> CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1;
-        VlUnpacked<CData/*0:0*/, 32> CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru;
     };
     struct {
+        VlUnpacked<CData/*0:0*/, 32> CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru;
         VlUnpacked<CData/*0:0*/, 32> CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0;
         VlUnpacked<CData/*0:0*/, 32> CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1;
         VlUnpacked<VlWide<16>/*511:0*/, 32> CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0;

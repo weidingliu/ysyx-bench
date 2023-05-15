@@ -313,6 +313,7 @@ VL_ATTR_COLD void VCoreTop___024root___ctor_var_reset(VCoreTop___024root* vlSelf
     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE_io_in_wdata_rep = VL_RAND_RESET_I(1);
     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE_io_out_addr_req_bits_addr = VL_RAND_RESET_Q(64);
     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE_io_out_addr_req_bits_ce = VL_RAND_RESET_I(1);
+    vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE_io_out_addr_req_bits_we = VL_RAND_RESET_I(1);
     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data_io_write_bus_addr = VL_RAND_RESET_Q(64);
     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data_io_write_bus_valid = VL_RAND_RESET_I(1);
     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data_io_write_bus_waymask = VL_RAND_RESET_I(2);
@@ -346,14 +347,14 @@ VL_ATTR_COLD void VCoreTop___024root___ctor_var_reset(VCoreTop___024root* vlSelf
     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___T = VL_RAND_RESET_I(1);
     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___T_1 = VL_RAND_RESET_I(1);
     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___T_5 = VL_RAND_RESET_I(1);
-    vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_35 = VL_RAND_RESET_Q(64);
-    VL_RAND_RESET_W(512, vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36);
-    vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_55 = VL_RAND_RESET_I(4);
+    vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_37 = VL_RAND_RESET_Q(64);
+    VL_RAND_RESET_W(512, vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38);
     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_57 = VL_RAND_RESET_I(4);
-    vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_58 = VL_RAND_RESET_Q(64);
-    VL_RAND_RESET_W(512, vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59);
-    vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_154 = VL_RAND_RESET_I(2);
+    vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59 = VL_RAND_RESET_I(4);
+    vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_60 = VL_RAND_RESET_Q(64);
+    VL_RAND_RESET_W(512, vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61);
     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_156 = VL_RAND_RESET_I(2);
+    vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_158 = VL_RAND_RESET_I(2);
     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___io_in_rdata_rep_bits_rdata_T_1 = VL_RAND_RESET_I(1);
     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf_io_in_valid_REG = VL_RAND_RESET_I(1);
     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___io_in_rdata_rep_valid_T_4 = VL_RAND_RESET_I(1);

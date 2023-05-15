@@ -25,15 +25,15 @@ class MMIO extends Module with Paramete{
       io.out.wdata_req.get <> io.in.wdata_req.get
     }
   }
-  when(io.in.addr_req.valid ){
-    when(io.in.addr_req.bits.we){
-      printf(p"->WRITE addr : ${Hexadecimal(io.in.addr_req.bits.addr)} " +
-        p"wdata : ${Hexadecimal(io.in.wdata_req.get.bits.wdata)} wmask : ${Hexadecimal(io.in.wdata_req.get.bits.wmask)}\n")
-    }.otherwise{
-      printf(p"->READ addr : ${Hexadecimal(io.in.addr_req.bits.addr)} rdata: ${Hexadecimal(io.in.rdata_rep.bits.rdata)}\n")
-    }
-
-  }
+//  when(io.in.addr_req.valid ){
+//    when(io.in.addr_req.bits.we){
+//      printf(p"->WRITE addr : ${Hexadecimal(io.in.addr_req.bits.addr)} " +
+//        p"wdata : ${Hexadecimal(io.in.wdata_req.get.bits.wdata)} wmask : ${Hexadecimal(io.in.wdata_req.get.bits.wmask)}\n")
+//    }.otherwise{
+//      printf(p"->READ addr : ${Hexadecimal(io.in.addr_req.bits.addr)} rdata: ${Hexadecimal(io.in.rdata_rep.bits.rdata)}\n")
+//    }
+//
+//  }
 
 
 }

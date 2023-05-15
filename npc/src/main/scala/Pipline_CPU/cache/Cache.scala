@@ -55,6 +55,7 @@ class Scanf_data extends Module with CacheParamete{
       val data = Output(UInt(Cache_line_size.W))
       val meta = new Hit_data
       val hit_way = Output(Vec(Cache_way,UInt(1.W)))
+      val tag = Output(Vec(Cache_way,UInt(Tag_size.W)))
     })
   })
 //  val metaway = VecInit(new MetaBundle)
@@ -92,6 +93,7 @@ class Scanf_data extends Module with CacheParamete{
   io.in.ready := 1.U
 
   io.out.bits.hit_way := hit_way
+  io.out.bits.tag := io.in.bits.meat.tag
 
 }
 
@@ -194,6 +196,7 @@ class Cache (Type : String) extends Module with CacheParamete {
   val mem_write_data_reg = if(Type == "Dcache") Some(RegInit(0.U(Cache_line_size.W))) else None
 //  val hit__write_data = if(Type == "Dcache") Some(WireDefault(0.U(Cache_line_size.W))) else None
   val hit_way_r = if(Type == "Dcache") Some(Reg(Vec(Cache_way,UInt(1.W)))) else None
+  val tag_way = Scanf.io.out.bits.tag
 
 //  val (count,s) = Counter(state === miss,Cache_line_wordnum)
   val hit_way = Wire(Vec(Cache_way,UInt(1.W)))
@@ -211,7 +214,7 @@ class Cache (Type : String) extends Module with CacheParamete {
           if (Type == "Dcache") {
             dirt_r.get := dirt_w.get
             count_write.get := 0.U
-            mem_write_addr_reg.get := Cat(io.in.addr_req.bits.addr(xlen - 1, log2Ceil(Cache_line_size / 8)), Fill(log2Ceil(Cache_line_size / 8), 0.U))
+            mem_write_addr_reg.get := Cat(tag_way(lru_w), Scanf.io.out.bits.meta.ctrl_data.index,Fill(log2Ceil(Cache_line_size / 8), 0.U))
             mem_write_data_reg.get := Cache_data.io.out.bits.data(lru_w)
             hit_way_r.get := hit_way
           }
@@ -356,13 +359,16 @@ class Cache (Type : String) extends Module with CacheParamete {
   Scanf.io.in.bits.ctrl_data := (Cache_data.io.out.bits.ctrl_data)
   Cache_data.io.out.ready := Scanf.io.in.ready
   hit_way := Scanf.io.out.bits.hit_way
+//  when(io.in.rdata_rep.valid){
+//    printf(p"read : ${Hexadecimal(Scanf.io.out.bits.data)}\n")
+//  }
 
   //read data from mem
   if(Type == "Dcache"){
     io.out.addr_req.valid := Mux(state === miss || state === write_data, true.B, false.B)
-    io.out.addr_req.bits.ce := Mux(state === miss || state === write_data, 1.U, 0.U)
+    io.out.addr_req.bits.ce := Mux(state === miss || (state === write_data && !s_w.get), 1.U, 0.U)
     io.out.addr_req.bits.addr := Mux(state === write_data,mem_write_addr_reg.get,mem_addr_reg)
-    io.out.addr_req.bits.we := Mux(state === write_data,1.U,0.U)
+    io.out.addr_req.bits.we := Mux(state === write_data && !s_w.get ,1.U,0.U)
     io.out.wdata_req.get.bits.wdata := mem_write_data_reg.get(xlen-1,0)
     io.out.wdata_req.get.bits.wmask := "hff".U(masklen.W)
   }
@@ -384,6 +390,13 @@ class Cache (Type : String) extends Module with CacheParamete {
 
     val wdata_extend = Fill(Cache_line_size/xlen,io.in.wdata_req.get.bits.wdata)
     val wdata = Mux(state === miss && s === true.B,MaskData(data_line_reg,wmaskextend,wdata_extend),MaskData(Scanf.io.out.bits.data,wmaskextend,wdata_extend))
+//    when(Cache_data.io.write_bus.valid){
+//      printf("write\n")
+//      printf(p"${Hexadecimal(wmaskextend)}\n")
+//      printf(p"${Hexadecimal(Scanf.io.out.bits.data)}\n")
+//      //    printf(p"${Hexadecimal(wdata_extend)}\n")
+//      printf(p"${Hexadecimal(wdata)}\n")
+//    }
 
     Cache_data.io.write_bus.valid := Mux((s || (state === scanf && io.in.addr_req.bits.we && hit)) && (!io.flush), true.B, false.B)
     Cache_data.io.write_bus.addr := Mux((state === miss && s === true.B) || (state === scanf && io.in.addr_req.bits.we && hit), io.in.addr_req.bits.addr, 0.U)

@@ -119,21 +119,6 @@ VL_INLINE_OPT void VCoreTop___024root___sequent__TOP__0(VCoreTop___024root* vlSe
     __Vdlyvset__CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0__v0 = 0U;
     __Vdlyvset__CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0__v0 = 0U;
     __Vdlyvset__CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1__v0 = 0U;
-    if (VL_UNLIKELY((((IData)(vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_valid) 
-                      & (IData)(vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_we)) 
-                     & (~ (IData)(vlSelf->reset))))) {
-        VL_FWRITEF(0x80000002U,"->WRITE addr : %x wdata : %x wmask : %x\n",
-                   64,vlSelf->CoreTop__DOT__MEM__DOT__addr_temp,
-                   64,vlSelf->CoreTop__DOT__MEM_io_cache_io_wdata_req_bits_wdata,
-                   8,(IData)(vlSelf->CoreTop__DOT__MEM_io_cache_io_wdata_req_bits_wmask));
-    }
-    if (VL_UNLIKELY((((IData)(vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_valid) 
-                      & (~ (IData)(vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_we))) 
-                     & (~ (IData)(vlSelf->reset))))) {
-        VL_FWRITEF(0x80000002U,"->READ addr : %x rdata: %x\n",
-                   64,vlSelf->CoreTop__DOT__MEM__DOT__addr_temp,
-                   64,vlSelf->CoreTop__DOT__MMIO_io_in_rdata_rep_bits_rdata);
-    }
     __Vdlyvset__CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1__v0 = 0U;
     __Vdlyvset__CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0__v0 = 0U;
     __Vdlyvset__CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru__v0 = 0U;
@@ -1260,12 +1245,6 @@ VL_INLINE_OPT void VCoreTop___024root___sequent__TOP__0(VCoreTop___024root* vlSe
     vlSelf->CoreTop__DOT__valid_3 = ((~ (IData)(vlSelf->reset)) 
                                      & (IData)(vlSelf->CoreTop__DOT___GEN_47));
     vlSelf->CoreTop__DOT__DIP__DOT__IN[6U] = vlSelf->CoreTop__DOT__DIP_io_is_skip_REG;
-    vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1_tag_w_data 
-        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1
-        [vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1_tag_w_addr_pipe_0];
-    vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0_tag_w_data 
-        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0
-        [vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0_tag_w_addr_pipe_0];
     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf__DOT___hit_way_0_T 
         = (vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0
            [vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0_valid_w_addr_pipe_0] 
@@ -1582,37 +1561,37 @@ VL_INLINE_OPT void VCoreTop___024root___sequent__TOP__0(VCoreTop___024root* vlSe
             if ((1U != (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state))) {
                 if ((2U == (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state))) {
                     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[0U] 
-                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[0U];
+                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[0U];
                     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[1U] 
-                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[1U];
+                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[1U];
                     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[2U] 
-                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[2U];
+                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[2U];
                     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[3U] 
-                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[3U];
+                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[3U];
                     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[4U] 
-                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[4U];
+                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[4U];
                     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[5U] 
-                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[5U];
+                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[5U];
                     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[6U] 
-                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[6U];
+                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[6U];
                     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[7U] 
-                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[7U];
+                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[7U];
                     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[8U] 
-                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[8U];
+                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[8U];
                     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[9U] 
-                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[9U];
+                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[9U];
                     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[0xaU] 
-                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[0xaU];
+                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[0xaU];
                     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[0xbU] 
-                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[0xbU];
+                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[0xbU];
                     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[0xcU] 
-                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[0xcU];
+                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[0xcU];
                     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[0xdU] 
-                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[0xdU];
+                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[0xdU];
                     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[0xeU] 
-                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[0xeU];
+                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[0xeU];
                     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[0xfU] 
-                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[0xfU];
+                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[0xfU];
                 }
             }
             if ((1U == (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state))) {
@@ -1623,7 +1602,15 @@ VL_INLINE_OPT void VCoreTop___024root___sequent__TOP__0(VCoreTop___024root* vlSe
                         = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru_lru_w_MPORT_data;
                     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__count_write = 0U;
                     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_addr_reg 
-                        = (0xffffffffffffffc0ULL & vlSelf->CoreTop__DOT__MEM__DOT__addr_temp);
+                        = ((((IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru_lru_w_MPORT_data)
+                              ? vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1_tag_w_data
+                              : vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0_tag_w_data) 
+                            << 0xbU) | (QData)((IData)(
+                                                       (0x7c0U 
+                                                        & ((IData)(
+                                                                   (vlSelf->CoreTop__DOT__MEM__DOT__addr_temp 
+                                                                    >> 6U)) 
+                                                           << 6U)))));
                     if (vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru_lru_w_MPORT_data) {
                         vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg[0U] 
                             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1_data_w_data[0U];
@@ -1695,45 +1682,45 @@ VL_INLINE_OPT void VCoreTop___024root___sequent__TOP__0(VCoreTop___024root* vlSe
             } else {
                 if ((2U == (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state))) {
                     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_addr_reg 
-                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_35;
+                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_37;
                 }
                 if ((2U != (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state))) {
                     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__count_write 
-                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_57;
+                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59;
                     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_addr_reg 
-                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_58;
+                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_60;
                     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg[0U] 
-                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[0U];
+                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[0U];
                     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg[1U] 
-                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[1U];
+                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[1U];
                     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg[2U] 
-                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[2U];
+                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[2U];
                     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg[3U] 
-                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[3U];
+                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[3U];
                     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg[4U] 
-                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[4U];
+                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[4U];
                     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg[5U] 
-                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[5U];
+                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[5U];
                     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg[6U] 
-                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[6U];
+                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[6U];
                     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg[7U] 
-                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[7U];
+                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[7U];
                     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg[8U] 
-                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[8U];
+                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[8U];
                     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg[9U] 
-                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[9U];
+                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[9U];
                     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg[0xaU] 
-                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[0xaU];
+                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[0xaU];
                     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg[0xbU] 
-                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[0xbU];
+                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[0xbU];
                     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg[0xcU] 
-                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[0xcU];
+                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[0xcU];
                     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg[0xdU] 
-                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[0xdU];
+                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[0xdU];
                     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg[0xeU] 
-                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[0xeU];
+                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[0xeU];
                     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg[0xfU] 
-                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[0xfU];
+                        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[0xfU];
                 }
             }
         }
@@ -1742,7 +1729,7 @@ VL_INLINE_OPT void VCoreTop___024root___sequent__TOP__0(VCoreTop___024root* vlSe
         } else if ((1U != (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state))) {
             if ((2U == (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state))) {
                 vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__count 
-                    = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_55;
+                    = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_57;
             }
         }
     }
@@ -1859,6 +1846,12 @@ VL_INLINE_OPT void VCoreTop___024root___sequent__TOP__0(VCoreTop___024root* vlSe
     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0_data_w_data[0xfU] 
         = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0
         [vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0_data_w_addr_pipe_0][0xfU];
+    vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1_tag_w_data 
+        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1
+        [vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1_tag_w_addr_pipe_0];
+    vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0_tag_w_data 
+        = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0
+        [vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0_tag_w_addr_pipe_0];
     vlSelf->io_inst = vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_flow_inst;
     vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT___count_T_5 
         = (0x7fU & ((IData)(2U) + (IData)(vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__count)));
@@ -1963,13 +1956,13 @@ VL_INLINE_OPT void VCoreTop___024root___sequent__TOP__0(VCoreTop___024root* vlSe
                                               ? vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_data_Imm
                                               : 0ULL);
     if ((8U == (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__count))) {
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_55 = 0U;
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_35 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_57 = 0U;
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_37 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_addr_reg;
     } else {
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_55 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_57 
             = (0xfU & ((IData)(1U) + (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__count)));
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_35 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_37 
             = (8ULL + vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_addr_reg);
     }
     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state 
@@ -1991,9 +1984,9 @@ VL_INLINE_OPT void VCoreTop___024root___sequent__TOP__0(VCoreTop___024root* vlSe
                                                     ? 3U
                                                     : 2U))
                                                : ((IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___T_5)
-                                                   ? (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_154)
-                                                   : (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_156)))));
-    vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_154 
+                                                   ? (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_156)
+                                                   : (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_158)))));
+    vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_156 
         = ((8U == (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__count))
             ? 0U : (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state));
     if (__Vdlyvset__CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1__v0) {
@@ -2051,89 +2044,89 @@ VL_INLINE_OPT void VCoreTop___024root___sequent__TOP__0(VCoreTop___024root* vlSe
     VL_EXTEND_WW(512,448, __Vtemp_hdf8f5162__0, __Vtemp_h0c5e9c0a__0);
     if ((3U == (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state))) {
         if ((8U == (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__count_write))) {
-            vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_57 
+            vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59 
                 = (0xfU & 0U);
-            vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_156 = 2U;
+            vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_158 = 2U;
         } else {
-            vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_57 
+            vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59 
                 = (0xfU & ((IData)(1U) + (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__count_write)));
-            vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_156 
+            vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_158 
                 = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state;
         }
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_58 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_60 
             = (8ULL + vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_addr_reg);
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[0U] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[0U] 
             = __Vtemp_hdf8f5162__0[0U];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[1U] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[1U] 
             = __Vtemp_hdf8f5162__0[1U];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[2U] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[2U] 
             = __Vtemp_hdf8f5162__0[2U];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[3U] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[3U] 
             = __Vtemp_hdf8f5162__0[3U];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[4U] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[4U] 
             = __Vtemp_hdf8f5162__0[4U];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[5U] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[5U] 
             = __Vtemp_hdf8f5162__0[5U];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[6U] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[6U] 
             = __Vtemp_hdf8f5162__0[6U];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[7U] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[7U] 
             = __Vtemp_hdf8f5162__0[7U];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[8U] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[8U] 
             = __Vtemp_hdf8f5162__0[8U];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[9U] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[9U] 
             = __Vtemp_hdf8f5162__0[9U];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[0xaU] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[0xaU] 
             = __Vtemp_hdf8f5162__0[0xaU];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[0xbU] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[0xbU] 
             = __Vtemp_hdf8f5162__0[0xbU];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[0xcU] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[0xcU] 
             = __Vtemp_hdf8f5162__0[0xcU];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[0xdU] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[0xdU] 
             = __Vtemp_hdf8f5162__0[0xdU];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[0xeU] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[0xeU] 
             = __Vtemp_hdf8f5162__0[0xeU];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[0xfU] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[0xfU] 
             = __Vtemp_hdf8f5162__0[0xfU];
         vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE_io_out_addr_req_bits_addr 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_addr_reg;
     } else {
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_57 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59 
             = (0xfU & (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__count_write));
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_58 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_60 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_addr_reg;
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[0U] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[0U] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg[0U];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[1U] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[1U] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg[1U];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[2U] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[2U] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg[2U];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[3U] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[3U] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg[3U];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[4U] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[4U] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg[4U];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[5U] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[5U] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg[5U];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[6U] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[6U] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg[6U];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[7U] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[7U] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg[7U];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[8U] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[8U] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg[8U];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[9U] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[9U] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg[9U];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[0xaU] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[0xaU] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg[0xaU];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[0xbU] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[0xbU] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg[0xbU];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[0xcU] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[0xcU] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg[0xcU];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[0xdU] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[0xdU] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg[0xdU];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[0xeU] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[0xeU] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg[0xeU];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_59[0xfU] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_61[0xfU] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg[0xfU];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_156 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_158 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state;
         vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE_io_out_addr_req_bits_addr 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_addr_reg;
@@ -2143,7 +2136,11 @@ VL_INLINE_OPT void VCoreTop___024root___sequent__TOP__0(VCoreTop___024root* vlSe
            & (8U == (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__count)));
     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE_io_out_addr_req_bits_ce 
         = ((2U == (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state)) 
-           | (3U == (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state)));
+           | ((3U == (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state)) 
+              & (8U != (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__count_write))));
+    vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE_io_out_addr_req_bits_we 
+        = ((3U == (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state)) 
+           & (8U != (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__count_write)));
     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru_lru_w_MPORT_addr_pipe_0 
         = (0x1fU & (IData)((vlSelf->CoreTop__DOT__MEM__DOT__addr_temp 
                             >> 6U)));
@@ -5083,8 +5080,8 @@ VL_INLINE_OPT void VCoreTop___024root___combo__TOP__0(VCoreTop___024root* vlSelf
               ? (((0xa0000000ULL <= vlSelf->CoreTop__DOT__MEM__DOT__addr_temp) 
                   & (0xa2000000ULL >= vlSelf->CoreTop__DOT__MEM__DOT__addr_temp))
                   ? (IData)(vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_we)
-                  : (3U == (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state)))
-              : (3U == (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state)))) {
+                  : (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE_io_out_addr_req_bits_we))
+              : (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE_io_out_addr_req_bits_we))) {
             VCoreTop___024unit____Vdpiimwrap_pmem_write_TOP____024unit(
                                                                        ((IData)(vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_valid)
                                                                          ? 
@@ -5149,70 +5146,70 @@ VL_INLINE_OPT void VCoreTop___024root___combo__TOP__0(VCoreTop___024root* vlSelf
         vlSelf->CoreTop__DOT__IFMEM_rdata = 0ULL;
     }
     if ((8U == (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__count))) {
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[0U] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[0U] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[0U];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[1U] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[1U] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[1U];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[2U] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[2U] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[2U];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[3U] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[3U] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[3U];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[4U] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[4U] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[4U];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[5U] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[5U] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[5U];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[6U] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[6U] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[6U];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[7U] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[7U] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[7U];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[8U] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[8U] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[8U];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[9U] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[9U] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[9U];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[0xaU] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[0xaU] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[0xaU];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[0xbU] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[0xbU] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[0xbU];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[0xcU] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[0xcU] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[0xcU];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[0xdU] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[0xdU] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[0xdU];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[0xeU] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[0xeU] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[0xeU];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[0xfU] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[0xfU] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[0xfU];
     } else {
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[0U] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[0U] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[2U];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[1U] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[1U] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[3U];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[2U] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[2U] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[4U];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[3U] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[3U] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[5U];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[4U] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[4U] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[6U];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[5U] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[5U] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[7U];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[6U] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[6U] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[8U];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[7U] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[7U] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[9U];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[8U] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[8U] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[0xaU];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[9U] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[9U] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[0xbU];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[0xaU] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[0xaU] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[0xcU];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[0xbU] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[0xbU] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[0xdU];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[0xcU] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[0xcU] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[0xeU];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[0xdU] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[0xdU] 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[0xfU];
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[0xeU] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[0xeU] 
             = (IData)(vlSelf->CoreTop__DOT__mem_rdata);
-        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_36[0xfU] 
+        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___GEN_38[0xfU] 
             = (IData)((vlSelf->CoreTop__DOT__mem_rdata 
                        >> 0x20U));
     }
