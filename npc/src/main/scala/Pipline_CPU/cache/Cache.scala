@@ -145,16 +145,6 @@ class Cache_Data extends Module with CacheParamete{
     TAG.write(io.write_bus.addr(xlen-Tag_size-1,log2Ceil(Cache_line_size/8)),wtag,io.write_bus.waymask.asBools)
     data_valid.write(io.write_bus.addr(xlen-Tag_size-1,log2Ceil(Cache_line_size/8)),valid,io.write_bus.waymask.asBools)
   }
-
-//  def write_back(addr:UInt,wdata:UInt,waymask:Int)={
-//    val tag = addr(xlen - 1, xlen - Tag_size)
-//    val index = addr(xlen - Tag_size - 1, log2Ceil(Cache_line_size))
-//    val offset = addr(log2Ceil(Cache_line_size)-1,0)
-//
-//    TAG.write(index,tag,waymask)
-//    data.write(index,wdata,waymask)
-//    dirt.write(index,1.U)
-//  }
 }
 
 class Cache (Type : String) extends Module with CacheParamete {
