@@ -31,4 +31,8 @@ config MEM_RANDOM
   help
     This may help to find undefined behaviors.
 
+config CACHE
+  bool "enable cache"
+  default n
+
 endmenu #MEMORY

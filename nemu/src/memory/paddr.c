@@ -25,6 +25,11 @@ static uint8_t *pmem = NULL;
 static uint8_t pmem[CONFIG_MSIZE] PG_ALIGN = {};
 #endif
 
+void mem_read(uintptr_t block_num, uint8_t *buf);
+void mem_write(uintptr_t block_num, const uint8_t *buf);
+
+uint32_t cache_read(uintptr_t addr);
+void cache_write(uintptr_t addr, uint32_t data, uint32_t wmask);
 
 uint8_t* guest_to_host(paddr_t paddr) { return pmem + paddr - CONFIG_MBASE; }
 paddr_t host_to_guest(uint8_t *haddr) { return haddr - pmem + CONFIG_MBASE; }
@@ -53,6 +58,13 @@ static void out_of_bound(paddr_t addr) {
   panic("address = " FMT_PADDR " is out of bound of pmem [" FMT_PADDR ", " FMT_PADDR "] at pc = " FMT_WORD,
       addr, PMEM_LEFT, PMEM_RIGHT, cpu.pc);
 }
+void mem_read(uintptr_t block_num, uint8_t *buf){
+    memcpy(buf, pmem + (block_num << BLOCK_WIDTH), BLOCK_SIZE);
+}
+void mem_write(uintptr_t block_num, const uint8_t *buf){
+    memcpy(mem + (block_num << BLOCK_WIDTH), buf, BLOCK_SIZE);
+}
+
 
 void init_mem() {
 #if   defined(CONFIG_PMEM_MALLOC)
