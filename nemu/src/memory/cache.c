@@ -1,6 +1,11 @@
-#include "common.h"
+#include <common.h>
 #include <inttypes.h>
 #include <string.h>
+
+#define exp2(x) (1 << (x))
+#define mask_with_len(x) (exp2(x) - 1)
+
+#ifdef CONFIG_CACHE
 
 void mem_read(uintptr_t block_num, uint8_t *buf);
 void mem_write(uintptr_t block_num, const uint8_t *buf);
@@ -83,7 +88,7 @@ uint32_t cache_read(uintptr_t addr) {
      
   }
   select_way = (select_way + 1) % (way_num);
-  //printf("read -> addr : %lx data %x hit : %d\n",addr,ret,hit);
+  //printf("read cache -> addr : %lx data %x hit : %d\n",addr,ret,hit);
   /*
   for(i=0;i<way_num;i++){
       printf("read2 :%lx  %d\n",*(Tag+index * way_num + i),*(valid + index * way_num + i));
@@ -194,3 +199,4 @@ void init_cache(int total_size_width, int associativity_width) {
 
 void display_statistic(void) {
 }
+#endif
