@@ -218,10 +218,15 @@ class Cache (Type : String) extends Module with CacheParamete {
         }
     }
     is(miss) {
-      when(!io.in.rdata_rep.ready && s === true.B){
+//      when(!io.in.rdata_rep.ready && s === true.B){
+//        count := count
+//      }.otherwise{
+//        count := count +1.U
+//      }
+      when((!io.in.rdata_rep.ready && s === true.B) || !io.out.rdata_rep.valid) {
         count := count
-      }.otherwise{
-        count := count +1.U
+      }.otherwise {
+        count := count + 1.U
       }
 
 //      when(count === (Cache_line_wordnum-1).U) {

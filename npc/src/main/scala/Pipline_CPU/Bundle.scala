@@ -168,6 +168,38 @@ class CPU_MEM_Bundle (Type : String)extends Bundle with Paramete{
   val wdata_rep = if (Type == "WRIO") Some(Input(Bool())) else None
 }
 
+
+trait Axi_paramete{
+  val Addr_width = 32
+}
+
+abstract class Axi_Lite_Bundle extends Bundle{
+  val raddr_req :  DecoupledIO[Data]
+  val waddr_req :  DecoupledIO[Data]
+  val rdata_rep :  DecoupledIO[Data]
+  val wdata_req :  DecoupledIO[Data]
+  val wb        :  DecoupledIO[Data]
+}
+class AxiAddrBus extends Bundle with Paramete with Axi_paramete {
+  val addr = Output(UInt(Addr_width.W))
+}
+
+class Axi_lite_Bundle_in extends Axi_Lite_Bundle{
+  val raddr_req = Flipped(Decoupled(new AxiAddrBus))
+  val waddr_req = Flipped(Decoupled(new AxiAddrBus))
+  val rdata_rep = Decoupled(new ReadDataBus)
+  val wdata_req = Flipped(Decoupled(new WriteDataBus))
+  val wb = Flipped(Decoupled(Input(UInt(2.W))))
+}
+
+class Axi_lite_Bundle_out extends Axi_Lite_Bundle{
+  val raddr_req = Decoupled(new AxiAddrBus)
+  val waddr_req = Decoupled(new AxiAddrBus)
+  val rdata_rep = Flipped(Decoupled(new ReadDataBus))
+  val wdata_req = Decoupled(new WriteDataBus)
+  val wb = Decoupled(Input(UInt(2.W)))
+}
+
 //class Cache extends Bundle with Paramete{
 //
 //}
