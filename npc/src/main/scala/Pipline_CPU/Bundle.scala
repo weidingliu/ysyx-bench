@@ -170,7 +170,7 @@ class CPU_MEM_Bundle (Type : String)extends Bundle with Paramete{
 
 
 trait Axi_paramete{
-  val Addr_width = 32
+  val Addr_width = 64
 }
 
 abstract class Axi_Lite_Bundle extends Bundle{
@@ -197,7 +197,7 @@ class Axi_lite_Bundle_out extends Axi_Lite_Bundle{
   val waddr_req = Decoupled(new AxiAddrBus)
   val rdata_rep = Flipped(Decoupled(new ReadDataBus))
   val wdata_req = Decoupled(new WriteDataBus)
-  val wb = Decoupled(Input(UInt(2.W)))
+  val wb = Flipped(Decoupled(Input(UInt(2.W))))
 }
 
 //class Cache extends Bundle with Paramete{

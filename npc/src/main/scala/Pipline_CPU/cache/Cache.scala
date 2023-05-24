@@ -223,18 +223,17 @@ class Cache (Type : String) extends Module with CacheParamete {
 //      }.otherwise{
 //        count := count +1.U
 //      }
-      when((!io.in.rdata_rep.ready && s === true.B) || !io.out.rdata_rep.valid) {
+      when((!io.in.rdata_rep.ready && s === true.B) || (!io.out.rdata_rep.valid && !io.out.addr_req.ready)) {
         count := count
       }.otherwise {
         count := count + 1.U
+        mem_addr_reg := mem_addr_reg + 8.U
       }
 
 //      when(count === (Cache_line_wordnum-1).U) {
 //        lru_w := lru.read(Cache_data.io.out.bits.ctrl_data.index)
 //      }
       when(s =/= true.B && io.out.rdata_rep.valid){
-        mem_addr_reg := mem_addr_reg + 8.U
-
         data_line_reg := Cat(io.out.rdata_rep.bits.rdata,data_line_reg(Cache_line_size-1,xlen))
       }
       when(io.in.rdata_rep.ready && s === true.B ){
@@ -421,7 +420,7 @@ class Cache (Type : String) extends Module with CacheParamete {
   }
 //  io.out.wdata_req.get.ready := true.B
   io.out.rdata_rep.ready := true.B
-  io.out.wdata_req.get.valid := true.B
+  io.out.wdata_req.get.valid := Mux(state === write_data,true.B,false.B)
 //  io.out.wdata_rep.get
 
 

@@ -5,6 +5,7 @@ import Pipline_CPU.backend._
 import chisel3._
 import chisel3.util._
 import cache.Cache
+import axi.sram2axi
 
 class DIP_model extends BlackBox{
   val io = IO(new Bundle() {
@@ -18,12 +19,40 @@ class DIP_model extends BlackBox{
 
   })
 }
-class ifm extends BlackBox{
+//class ifm extends BlackBox{
+//  val io = IO(new Bundle() {
+//    val reset=Input(Bool())
+//    val clk=Input(Clock())
+//    val pc = Input(UInt(64.W))
+//    val inst = Output(UInt(32.W))
+//  })
+//}
+
+class SRAM extends BlackBox{
   val io = IO(new Bundle() {
-    val reset=Input(Bool())
-    val clk=Input(Clock())
-    val pc = Input(UInt(64.W))
-    val inst = Output(UInt(32.W))
+    val reset = Input(Bool())
+    val clk = Input(Clock())
+
+    val ar_valid = Input(Bool())
+    val ar_ready = Output(Bool())
+    val araddr = Input(UInt(64.W))
+
+    val r_valid = Output(Bool())
+    val r_ready = Input(Bool())
+    val rdata = Output(UInt(64.W))
+
+    val aw_valid = Input(Bool())
+    val aw_ready = Output(Bool())
+    val awaddr = Input(UInt(64.W))
+
+    val w_valid = Input(Bool())
+    val w_ready = Output(Bool())
+    val wdata = Input(UInt(64.W))
+    val wstrb = Input(UInt(8.W))
+
+    val bvalid = Output(Bool())
+    val bready = Input(Bool())
+    val bresp = Output(UInt(2.W))
   })
 }
 
@@ -73,7 +102,10 @@ class CoreTop extends Module with Paramete{
   val mem_bypass =Module(new MEM_Bypass)
 
   val ICACHE = Module(new Cache("icache"))
-  val IFMEM = Module(new MEM)
+
+  val If_axi_birdge = Module(new sram2axi)
+//  val IFMEM = Module(new MEM)
+val IFMEM = Module(new SRAM)
 
   val MMIO = Module(new MMIO)
 //  val DCACHE = Module(new Cache("Dcache"))
@@ -93,19 +125,49 @@ class CoreTop extends Module with Paramete{
   IF.io.cache_req.addr_req <> ICACHE.io.in.addr_req
   IF.io.cache_req.rdata_rep <> ICACHE.io.in.rdata_rep
   ICACHE.io.flush := EX.io.is_flush
-  ICACHE.io.out.rdata_rep.bits.rdata := IFMEM.io.rdata
-  IFMEM.io.clk := clock
+
+  If_axi_birdge.io.in.addr_req <> ICACHE.io.out.addr_req
+  If_axi_birdge.io.in.wdata_req.get <> ICACHE.io.out.wdata_req.get
+  If_axi_birdge.io.in.rdata_rep <> ICACHE.io.out.rdata_rep
+  If_axi_birdge.io.in.wdata_rep.get <> ICACHE.io.out.wdata_rep.get
+
   IFMEM.io.reset := reset
-  IFMEM.io.addr := ICACHE.io.out.addr_req.bits.addr
-  IFMEM.io.wdata := ICACHE.io.out.wdata_req.get.bits.wdata
-  IFMEM.io.wmask := ICACHE.io.out.wdata_req.get.bits.wmask
-  IFMEM.io.we := ICACHE.io.out.addr_req.bits.we
-  IFMEM.io.ce := ICACHE.io.out.addr_req.bits.ce
-//  ICACHE.io.mem_rdata := IFMEM.io.rdata
-  ICACHE.io.out.addr_req.ready := true.B
-  ICACHE.io.out.wdata_req.get.ready := true.B
-  ICACHE.io.out.rdata_rep.valid := true.B
-  ICACHE.io.out.wdata_rep.get := true.B
+  IFMEM.io.clk := clock
+  If_axi_birdge.io.out.raddr_req.ready := IFMEM.io.ar_ready
+  IFMEM.io.ar_valid := If_axi_birdge.io.out.raddr_req.valid
+  IFMEM.io.araddr := If_axi_birdge.io.out.raddr_req.bits.addr
+
+  If_axi_birdge.io.out.waddr_req.ready := IFMEM.io.aw_ready
+  IFMEM.io.aw_valid := If_axi_birdge.io.out.waddr_req.valid
+  IFMEM.io.awaddr := If_axi_birdge.io.out.waddr_req.bits.addr
+
+  If_axi_birdge.io.out.wdata_req.ready := IFMEM.io.w_ready
+  IFMEM.io.wdata := If_axi_birdge.io.out.wdata_req.bits.wdata
+  IFMEM.io.wstrb := If_axi_birdge.io.out.wdata_req.bits.wmask
+  IFMEM.io.w_valid := If_axi_birdge.io.out.wdata_req.valid
+
+  IFMEM.io.r_ready := If_axi_birdge.io.out.rdata_rep.ready
+  If_axi_birdge.io.out.rdata_rep.valid := IFMEM.io.r_valid
+  If_axi_birdge.io.out.rdata_rep.bits.rdata := IFMEM.io.rdata
+
+  If_axi_birdge.io.out.wb.valid := IFMEM.io.bvalid
+  If_axi_birdge.io.out.wb.bits := IFMEM.io.bresp
+  IFMEM.io.bready := If_axi_birdge.io.out.wb.ready
+
+//  ICACHE.io.out.rdata_rep.bits.rdata := IFMEM.io.rdata
+//  IFMEM.io.clk := clock
+//  IFMEM.io.reset := reset
+//  IFMEM.io.addr := ICACHE.io.out.addr_req.bits.addr
+//  IFMEM.io.wdata := ICACHE.io.out.wdata_req.get.bits.wdata
+//  IFMEM.io.wmask := ICACHE.io.out.wdata_req.get.bits.wmask
+//  IFMEM.io.we := ICACHE.io.out.addr_req.bits.we
+//  IFMEM.io.ce := ICACHE.io.out.addr_req.bits.ce
+
+//  ICACHE.io.out.addr_req.ready := true.B
+//  ICACHE.io.out.wdata_req.get.ready := true.B
+//  ICACHE.io.out.rdata_rep.valid := true.B
+//  ICACHE.io.out.wdata_rep.get := true.B
+
 //  ICACHE.io.out.wdata_re
 
 //  IFM.io.pc := IF.io.out.bits.PC

@@ -8,7 +8,7 @@ import scala.collection.immutable
 
 class sram2axi extends Module with Paramete{
     val io = IO(new Bundle() {
-      val in = new CPU_MEM_Bundle("WRIO")
+      val in = new Cache_MemReq_Bundle("Dcache")
       val out = new Axi_lite_Bundle_out
     })
   val idle :: read :: write :: Nil = Enum(3)
@@ -40,9 +40,17 @@ class sram2axi extends Module with Paramete{
   io.in.rdata_rep.valid := Mux(state === read && io.out.rdata_rep.valid,1.B,0.B)
 
   io.out.rdata_rep.ready := io.in.rdata_rep.ready
-  io.out.wb.ready := Mux(state === write,1.B,0.B )
+  io.out.wb.ready := Mux(state === write, 1.B,0.B)
 
   io.out.raddr_req.valid := Mux(state === idle && io.in.addr_req.valid && io.in.addr_req.bits.ce && !io.in.addr_req.bits.we,1.B,0.B)
   io.out.waddr_req.valid := Mux(state === idle && io.in.addr_req.valid && io.in.addr_req.bits.ce &&  io.in.addr_req.bits.we,1.B,0.B)
   io.out.wdata_req.valid := Mux(state === idle && io.in.addr_req.valid && io.in.addr_req.bits.ce &&  io.in.addr_req.bits.we,1.B,0.B)
+
+  io.out.raddr_req.bits.addr := io.in.addr_req.bits.addr
+  io.out.waddr_req.bits.addr := io.in.addr_req.bits.addr
+  io.in.rdata_rep.bits.rdata := io.out.rdata_rep.bits.rdata
+  io.out.wdata_req.bits.wdata := io.in.wdata_req.get.bits.wdata
+  io.out.wdata_req.bits.wmask := io.in.wdata_req.get.bits.wmask
+  io.in.wdata_rep.get := io.out.wb.valid & (io.out.wb.bits === "b00".U)
+
 }
