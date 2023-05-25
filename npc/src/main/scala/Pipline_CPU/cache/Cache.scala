@@ -223,7 +223,7 @@ class Cache (Type : String) extends Module with CacheParamete {
 //      }.otherwise{
 //        count := count +1.U
 //      }
-      when((!io.in.rdata_rep.ready && s === true.B) || (!io.out.rdata_rep.valid && !io.out.addr_req.ready)) {
+      when((!io.in.rdata_rep.ready && s === true.B) || (!io.out.rdata_rep.valid)) {
         count := count
       }.otherwise {
         count := count + 1.U
@@ -249,9 +249,12 @@ class Cache (Type : String) extends Module with CacheParamete {
     is(write_data) {
       /////////// need write reapone
       if(Type == "Dcache"){
-        count_write.get := count_write.get + 1.U
-        mem_write_addr_reg.get := mem_write_addr_reg.get + 8.U
-        mem_write_data_reg.get := Cat(Fill(xlen,0.U),mem_write_data_reg.get(Cache_line_size-1,xlen))
+        when(io.out.wdata_rep.get){
+          count_write.get := count_write.get + 1.U
+          mem_write_addr_reg.get := mem_write_addr_reg.get + 8.U
+          mem_write_data_reg.get := Cat(Fill(xlen, 0.U), mem_write_data_reg.get(Cache_line_size - 1, xlen))
+        }
+
         when(s_w.get === true.B){
           count_write.get := 0.U
         }

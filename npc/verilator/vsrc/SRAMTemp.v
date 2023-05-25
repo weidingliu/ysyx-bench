@@ -48,6 +48,7 @@ always @(*) begin
         next_state = idle;
     end
     else begin 
+        next_state = idle;
     	case(state)
     		idle: begin 
     		    if(ar_valid) next_state = read_busy;
@@ -74,6 +75,7 @@ always @(*) begin
     		        next_state =idle;
     		    end
     		end
+    		default: next_state =idle;
     	endcase
     end
 end
@@ -126,6 +128,7 @@ end
 assign ar_ready = (state == idle)? 1'b1:1'b0;
 assign aw_ready = (state == idle)? 1'b1:1'b0;
 assign w_ready = (state == idle)? 1'b1:1'b0;
+assign bresp = 2'b00;
 //assign r_valid = (state == read_busy) ? 1'b1:1'b0;
 
 

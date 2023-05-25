@@ -91,7 +91,7 @@ class CoreTop extends Module with Paramete{
 
   val Reg = new RF
 
-  val mem = Module(new MEM)
+//  val mem = Module(new MEM)
 
   val MEM = Module(new MEM_stage)
 
@@ -104,8 +104,10 @@ class CoreTop extends Module with Paramete{
   val ICACHE = Module(new Cache("icache"))
 
   val If_axi_birdge = Module(new sram2axi)
+  val MEM_axi_birdge = Module(new sram2axi)
 //  val IFMEM = Module(new MEM)
-val IFMEM = Module(new SRAM)
+  val IFMEM = Module(new SRAM)
+  val MMEM = Module(new SRAM)
 
   val MMIO = Module(new MMIO)
 //  val DCACHE = Module(new Cache("Dcache"))
@@ -154,26 +156,6 @@ val IFMEM = Module(new SRAM)
   If_axi_birdge.io.out.wb.bits := IFMEM.io.bresp
   IFMEM.io.bready := If_axi_birdge.io.out.wb.ready
 
-//  ICACHE.io.out.rdata_rep.bits.rdata := IFMEM.io.rdata
-//  IFMEM.io.clk := clock
-//  IFMEM.io.reset := reset
-//  IFMEM.io.addr := ICACHE.io.out.addr_req.bits.addr
-//  IFMEM.io.wdata := ICACHE.io.out.wdata_req.get.bits.wdata
-//  IFMEM.io.wmask := ICACHE.io.out.wdata_req.get.bits.wmask
-//  IFMEM.io.we := ICACHE.io.out.addr_req.bits.we
-//  IFMEM.io.ce := ICACHE.io.out.addr_req.bits.ce
-
-//  ICACHE.io.out.addr_req.ready := true.B
-//  ICACHE.io.out.wdata_req.get.ready := true.B
-//  ICACHE.io.out.rdata_rep.valid := true.B
-//  ICACHE.io.out.wdata_rep.get := true.B
-
-//  ICACHE.io.out.wdata_re
-
-//  IFM.io.pc := IF.io.out.bits.PC
-//  IF.io.inst := IFM.io.inst
-//  IFM.io.reset := reset
-//  IFM.io.clk := clock
   IF.io.flush := EX.io.is_flush
 //  IF.io.flush := EX.io.is_flush
   //ID
@@ -202,41 +184,41 @@ val IFMEM = Module(new SRAM)
   Pipline_Connect(EX.io.out,MEM.io.in,MEM.io.out.fire,0.B)
 //  MEM.io.mem.rdata := DCACHE.io.in.rdata_rep.bits.rdata
 
-//  MEM.io.cache_io <> DCACHE.io.in
-//  DCACHE.io.out.addr_req.ready := true.B
-//  DCACHE.io.flush := false.B
-//  mem.io.addr := DCACHE.io.out.addr_req.bits.addr
-//  mem.io.wdata := DCACHE.io.out.wdata_req.get.bits.wdata
-//  DCACHE.io.out.rdata_rep.bits.rdata := mem.io.rdata
-//  mem.io.ce := DCACHE.io.out.addr_req.bits.ce
-//  mem.io.we := DCACHE.io.out.addr_req.bits.we
-//  mem.io.wmask := DCACHE.io.out.wdata_req.get.bits.wmask
-//
-//  DCACHE.io.out.wdata_req.get.ready := true.B
-//  DCACHE.io.out.rdata_rep.valid := true.B
-//  DCACHE.io.out.wdata_rep.get := true.B
+
   MEM.io.cache_io <> MMIO.io.in
-  MMIO.io.out.addr_req.ready := true.B
-//  MMIO.io.flush := false.B
-  mem.io.addr := MMIO.io.out.addr_req.bits.addr
-  mem.io.wdata := MMIO.io.out.wdata_req.get.bits.wdata
-  MMIO.io.out.rdata_rep.bits.rdata := mem.io.rdata
-  mem.io.ce := MMIO.io.out.addr_req.bits.ce
-  mem.io.we := MMIO.io.out.addr_req.bits.we
-  mem.io.wmask := MMIO.io.out.wdata_req.get.bits.wmask
 
-  MMIO.io.out.wdata_req.get.ready := true.B
-  MMIO.io.out.rdata_rep.valid := true.B
-  MMIO.io.out.wdata_rep.get := true.B
+//  IF.io.cache_req.addr_req <> ICACHE.io.in.addr_req
+//  IF.io.cache_req.rdata_rep <> ICACHE.io.in.rdata_rep
+//  ICACHE.io.flush := EX.io.is_flush
 
-//  MEM.io.mem.rdata := mem.io.rdata
-//  mem.io.wdata := MEM.io.mem.wdata
-//  mem.io.addr := MEM.io.mem.addr
-//  mem.io.wmask := MEM.io.mem.wmask
-//  mem.io.ce := MEM.io.mem.ce
-//  mem.io.we := MEM.io.mem.we
-  mem.io.clk := clock
-  mem.io.reset := reset
+  MEM_axi_birdge.io.in.addr_req <> MMIO.io.out.addr_req
+  MEM_axi_birdge.io.in.wdata_req.get <> MMIO.io.out.wdata_req.get
+  MEM_axi_birdge.io.in.rdata_rep <> MMIO.io.out.rdata_rep
+  MEM_axi_birdge.io.in.wdata_rep.get <> MMIO.io.out.wdata_rep.get
+
+  MMEM.io.reset := reset
+  MMEM.io.clk := clock
+  MEM_axi_birdge.io.out.raddr_req.ready := MMEM.io.ar_ready
+  MMEM.io.ar_valid := MEM_axi_birdge.io.out.raddr_req.valid
+  MMEM.io.araddr := MEM_axi_birdge.io.out.raddr_req.bits.addr
+
+  MEM_axi_birdge.io.out.waddr_req.ready := MMEM.io.aw_ready
+  MMEM.io.aw_valid := MEM_axi_birdge.io.out.waddr_req.valid
+  MMEM.io.awaddr := MEM_axi_birdge.io.out.waddr_req.bits.addr
+
+  MEM_axi_birdge.io.out.wdata_req.ready := MMEM.io.w_ready
+  MMEM.io.wdata := MEM_axi_birdge.io.out.wdata_req.bits.wdata
+  MMEM.io.wstrb := MEM_axi_birdge.io.out.wdata_req.bits.wmask
+  MMEM.io.w_valid := MEM_axi_birdge.io.out.wdata_req.valid
+
+  MMEM.io.r_ready := MEM_axi_birdge.io.out.rdata_rep.ready
+  MEM_axi_birdge.io.out.rdata_rep.valid := MMEM.io.r_valid
+  MEM_axi_birdge.io.out.rdata_rep.bits.rdata := MMEM.io.rdata
+
+  MEM_axi_birdge.io.out.wb.valid := MMEM.io.bvalid
+  MEM_axi_birdge.io.out.wb.bits := MMEM.io.bresp
+  MMEM.io.bready := MEM_axi_birdge.io.out.wb.ready
+
   bypass.io.MEM_rf <> MEM.io.out.bits.ctrl_rf
 
   mem_bypass.io.MEM_rf <> MEM.io.out.bits.ctrl_rf
