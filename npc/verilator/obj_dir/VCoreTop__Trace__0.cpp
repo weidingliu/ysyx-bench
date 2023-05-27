@@ -513,16 +513,17 @@ void VCoreTop___024root__trace_chg_sub_0(VCoreTop___024root* vlSelf, VerilatedVc
         bufp->chgBit(oldp+264,(vlSelf->CoreTop__DOT__If_axi_birdge_io_in_rdata_rep_valid));
         bufp->chgQData(oldp+265,(vlSelf->CoreTop__DOT__IFMEM_rdata),64);
         bufp->chgBit(oldp+267,(vlSelf->CoreTop__DOT__IFMEM_bvalid));
-        bufp->chgBit(oldp+268,(vlSelf->CoreTop__DOT__If_axi_birdge_io_out_raddr_req_valid));
-        bufp->chgBit(oldp+269,(vlSelf->CoreTop__DOT__IFMEM_r_valid));
-        bufp->chgBit(oldp+270,((2U == (IData)(vlSelf->CoreTop__DOT__If_axi_birdge__DOT__state))));
-        bufp->chgBit(oldp+271,(vlSelf->CoreTop__DOT__MMIO_io_out_addr_req_valid));
-        bufp->chgQData(oldp+272,(vlSelf->CoreTop__DOT__MMIO_io_out_addr_req_bits_addr),64);
-        bufp->chgBit(oldp+274,(vlSelf->CoreTop__DOT__MMIO_io_out_addr_req_bits_ce));
-        bufp->chgBit(oldp+275,(vlSelf->CoreTop__DOT__MMIO_io_out_addr_req_bits_we));
-        bufp->chgBit(oldp+276,(vlSelf->CoreTop__DOT__MEM_axi_birdge_io_in_rdata_rep_valid));
-        bufp->chgQData(oldp+277,(vlSelf->CoreTop__DOT__MMEM_rdata),64);
-        bufp->chgQData(oldp+279,(((IData)(vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_valid)
+        bufp->chgBit(oldp+268,((0U == (IData)(vlSelf->CoreTop__DOT__IFMEM__DOT__state))));
+        bufp->chgBit(oldp+269,(vlSelf->CoreTop__DOT__If_axi_birdge_io_out_raddr_req_valid));
+        bufp->chgBit(oldp+270,(vlSelf->CoreTop__DOT__IFMEM_r_valid));
+        bufp->chgBit(oldp+271,(vlSelf->CoreTop__DOT__If_axi_birdge__DOT__aw_state));
+        bufp->chgBit(oldp+272,(vlSelf->CoreTop__DOT__MMIO_io_out_addr_req_valid));
+        bufp->chgQData(oldp+273,(vlSelf->CoreTop__DOT__MMIO_io_out_addr_req_bits_addr),64);
+        bufp->chgBit(oldp+275,(vlSelf->CoreTop__DOT__MMIO_io_out_addr_req_bits_ce));
+        bufp->chgBit(oldp+276,(vlSelf->CoreTop__DOT__MMIO_io_out_addr_req_bits_we));
+        bufp->chgBit(oldp+277,(vlSelf->CoreTop__DOT__MEM_axi_birdge_io_in_rdata_rep_valid));
+        bufp->chgQData(oldp+278,(vlSelf->CoreTop__DOT__MMEM_rdata),64);
+        bufp->chgQData(oldp+280,(((IData)(vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_valid)
                                    ? (((0xa0000000ULL 
                                         <= vlSelf->CoreTop__DOT__MEM__DOT__addr_temp) 
                                        & (0xa2000000ULL 
@@ -537,24 +538,23 @@ void VCoreTop___024root__trace_chg_sub_0(VCoreTop___024root* vlSelf, VerilatedVc
                                                        vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg[1U])) 
                                        << 0x20U) | (QData)((IData)(
                                                                    vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg[0U]))))),64);
-        bufp->chgCData(oldp+281,(((IData)(vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_valid)
+        bufp->chgCData(oldp+282,(((IData)(vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_valid)
                                    ? (((0xa0000000ULL 
                                         <= vlSelf->CoreTop__DOT__MEM__DOT__addr_temp) 
                                        & (0xa2000000ULL 
                                           >= vlSelf->CoreTop__DOT__MEM__DOT__addr_temp))
                                        ? (IData)(vlSelf->CoreTop__DOT__MEM_io_cache_io_wdata_req_bits_wmask)
                                        : 0xffU) : 0xffU)),8);
-        bufp->chgBit(oldp+282,(vlSelf->CoreTop__DOT__MMEM_bvalid));
-        bufp->chgBit(oldp+283,(vlSelf->CoreTop__DOT__MEM_axi_birdge_io_out_raddr_req_valid));
-        bufp->chgBit(oldp+284,(vlSelf->CoreTop__DOT__MEM_axi_birdge_io_out_waddr_req_valid));
-        bufp->chgBit(oldp+285,(vlSelf->CoreTop__DOT__MMEM_r_valid));
-        bufp->chgBit(oldp+286,(((((0U == (IData)(vlSelf->CoreTop__DOT__MEM_axi_birdge__DOT__state)) 
+        bufp->chgBit(oldp+283,(vlSelf->CoreTop__DOT__MMEM_bvalid));
+        bufp->chgBit(oldp+284,((0U == (IData)(vlSelf->CoreTop__DOT__MMEM__DOT__state))));
+        bufp->chgBit(oldp+285,(vlSelf->CoreTop__DOT__MEM_axi_birdge_io_out_raddr_req_valid));
+        bufp->chgBit(oldp+286,(vlSelf->CoreTop__DOT__MEM_axi_birdge_io_out_waddr_req_valid));
+        bufp->chgBit(oldp+287,(vlSelf->CoreTop__DOT__MMEM_r_valid));
+        bufp->chgBit(oldp+288,(((((~ (IData)(vlSelf->CoreTop__DOT__MEM_axi_birdge__DOT__aw_state)) 
                                   & (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_addr_req_valid)) 
                                  & (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_addr_req_bits_ce)) 
                                 & (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_addr_req_bits_we))));
-        bufp->chgBit(oldp+287,((2U == (IData)(vlSelf->CoreTop__DOT__MEM_axi_birdge__DOT__state))));
-        bufp->chgBit(oldp+288,((0U == (IData)(vlSelf->CoreTop__DOT__IFMEM__DOT__state))));
-        bufp->chgBit(oldp+289,((0U == (IData)(vlSelf->CoreTop__DOT__MMEM__DOT__state))));
+        bufp->chgBit(oldp+289,(vlSelf->CoreTop__DOT__MEM_axi_birdge__DOT__aw_state));
         bufp->chgBit(oldp+290,(vlSelf->CoreTop__DOT__DIP_io_is_break_REG));
         bufp->chgQData(oldp+291,(vlSelf->CoreTop__DOT__DIP__DOT__rf[0]),64);
         bufp->chgQData(oldp+293,(vlSelf->CoreTop__DOT__DIP__DOT__rf[1]),64);
@@ -1341,7 +1341,7 @@ void VCoreTop___024root__trace_chg_sub_0(VCoreTop___024root* vlSelf, VerilatedVc
                                                 ? vlSelf->CoreTop__DOT__ICACHE__DOT__hit_data
                                                 : vlSelf->CoreTop__DOT__ICACHE__DOT__mem_data)))),32);
         bufp->chgCData(oldp+1889,(vlSelf->CoreTop__DOT__IFMEM__DOT__state),2);
-        bufp->chgCData(oldp+1890,(vlSelf->CoreTop__DOT__If_axi_birdge__DOT__state),2);
+        bufp->chgBit(oldp+1890,(vlSelf->CoreTop__DOT__If_axi_birdge__DOT__ar_state));
         bufp->chgBit(oldp+1891,((1U & (IData)((vlSelf->CoreTop__DOT__MMIO_io_in_rdata_rep_bits_rdata 
                                                >> 0x3fU)))));
         bufp->chgBit(oldp+1892,((1U & (IData)((vlSelf->CoreTop__DOT__MMIO_io_in_rdata_rep_bits_rdata 
@@ -1413,7 +1413,7 @@ void VCoreTop___024root__trace_chg_sub_0(VCoreTop___024root* vlSelf, VerilatedVc
                                                       == (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_aluoptype))
                                                       ? (QData)((IData)(vlSelf->CoreTop__DOT__MEM__DOT___mem_result_T_44))
                                                       : 0ULL)))))))),64);
-        bufp->chgCData(oldp+1897,(vlSelf->CoreTop__DOT__MEM_axi_birdge__DOT__state),2);
+        bufp->chgBit(oldp+1897,(vlSelf->CoreTop__DOT__MEM_axi_birdge__DOT__ar_state));
         bufp->chgCData(oldp+1898,(vlSelf->CoreTop__DOT__MMEM__DOT__state),2);
         bufp->chgBit(oldp+1899,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE_io_in_addr_req_valid));
         bufp->chgBit(oldp+1900,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE_io_in_rdata_rep_valid));

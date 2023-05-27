@@ -24,24 +24,22 @@ VL_INLINE_OPT void VCoreTop___024root___combo__TOP__0(VCoreTop___024root* vlSelf
     VL_EXTEND_WQ(65,64, __Vtemp_h236fbee0__0, vlSelf->CoreTop__DOT__EX__DOT__div__DOT__S);
     VL_EXTEND_WQ(65,64, __Vtemp_h4619e6d2__0, vlSelf->CoreTop__DOT__EX__DOT__div__DOT___S_T_6);
     VL_EXTEND_WQ(65,64, __Vtemp_h236fbee0__1, vlSelf->CoreTop__DOT__EX__DOT__div__DOT__S);
-    vlSelf->__Vtableidx4 = (((IData)(vlSelf->CoreTop__DOT__MEM_axi_birdge_io_out_waddr_req_valid) 
+    vlSelf->__Vtableidx5 = (((IData)(vlSelf->CoreTop__DOT__MEM_axi_birdge_io_out_waddr_req_valid) 
                              << 5U) | (((IData)(vlSelf->CoreTop__DOT__MEM_axi_birdge_io_out_raddr_req_valid) 
-                                        << 4U) | ((
-                                                   (2U 
-                                                    == (IData)(vlSelf->CoreTop__DOT__MEM_axi_birdge__DOT__state)) 
+                                        << 4U) | (((IData)(vlSelf->CoreTop__DOT__MEM_axi_birdge__DOT__aw_state) 
                                                    << 3U) 
                                                   | (((IData)(vlSelf->CoreTop__DOT__MMEM__DOT__state) 
                                                       << 1U) 
                                                      | (IData)(vlSelf->reset)))));
     vlSelf->CoreTop__DOT__MMEM__DOT__next_state = VCoreTop__ConstPool__TABLE_h61881c40_0
-        [vlSelf->__Vtableidx4];
-    vlSelf->__Vtableidx2 = (((IData)(vlSelf->CoreTop__DOT__If_axi_birdge_io_out_raddr_req_valid) 
-                             << 4U) | (((2U == (IData)(vlSelf->CoreTop__DOT__If_axi_birdge__DOT__state)) 
+        [vlSelf->__Vtableidx5];
+    vlSelf->__Vtableidx3 = (((IData)(vlSelf->CoreTop__DOT__If_axi_birdge_io_out_raddr_req_valid) 
+                             << 4U) | (((IData)(vlSelf->CoreTop__DOT__If_axi_birdge__DOT__aw_state) 
                                         << 3U) | (((IData)(vlSelf->CoreTop__DOT__IFMEM__DOT__state) 
                                                    << 1U) 
                                                   | (IData)(vlSelf->reset))));
     vlSelf->CoreTop__DOT__IFMEM__DOT__next_state = 
-        VCoreTop__ConstPool__TABLE_h7aefbdd7_0[vlSelf->__Vtableidx2];
+        VCoreTop__ConstPool__TABLE_h7aefbdd7_0[vlSelf->__Vtableidx3];
     VL_EXTEND_WQ(129,64, __Vtemp_h5943c197__0, (((IData)(vlSelf->CoreTop__DOT__EX__DOT__div_io_in_bits_ctrl_flow_div_signed) 
                                                  & (IData)(
                                                            (vlSelf->CoreTop__DOT__EX__DOT__div_io_in_bits_ctrl_data_src1 

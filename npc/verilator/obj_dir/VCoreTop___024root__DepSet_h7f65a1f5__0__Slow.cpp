@@ -58,6 +58,12 @@ VL_ATTR_COLD void VCoreTop___024root___settle__TOP__0(VCoreTop___024root* vlSelf
     vlSelf->CoreTop__DOT__EX__DOT__div__DOT___GEN_2 
         = ((0U == (IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__state))
             ? 1U : (IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__state));
+    vlSelf->CoreTop__DOT__If_axi_birdge__DOT___GEN_4 
+        = vlSelf->CoreTop__DOT__If_axi_birdge__DOT__aw_state;
+    vlSelf->CoreTop__DOT__If_axi_birdge_io_out_wb_ready 
+        = vlSelf->CoreTop__DOT__If_axi_birdge__DOT__aw_state;
+    vlSelf->CoreTop__DOT__MEM_axi_birdge_io_out_wb_ready 
+        = vlSelf->CoreTop__DOT__MEM_axi_birdge__DOT__aw_state;
     vlSelf->CoreTop__DOT__EX__DOT__div__DOT__s = ((1U 
                                                    == (IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__state)) 
                                                   & (0x3fU 
@@ -457,17 +463,11 @@ VL_ATTR_COLD void VCoreTop___024root___settle__TOP__0(VCoreTop___024root* vlSelf
         = (0x44U == (IData)(vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__count));
     vlSelf->CoreTop__DOT__WB_io_out_bits_ctrl_rf_rfWen 
         = ((IData)(vlSelf->CoreTop__DOT__valid_3) & (IData)(vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_signal_rfWen));
-    vlSelf->CoreTop__DOT__If_axi_birdge__DOT___GEN_3 
-        = ((IData)(vlSelf->CoreTop__DOT__IFMEM_bvalid)
-            ? 0U : (IData)(vlSelf->CoreTop__DOT__If_axi_birdge__DOT__state));
-    vlSelf->CoreTop__DOT__MEM_axi_birdge__DOT___GEN_3 
-        = ((IData)(vlSelf->CoreTop__DOT__MMEM_bvalid)
-            ? 0U : (IData)(vlSelf->CoreTop__DOT__MEM_axi_birdge__DOT__state));
     vlSelf->CoreTop__DOT__If_axi_birdge_io_in_rdata_rep_valid 
-        = ((1U == (IData)(vlSelf->CoreTop__DOT__If_axi_birdge__DOT__state)) 
+        = ((IData)(vlSelf->CoreTop__DOT__If_axi_birdge__DOT__ar_state) 
            & (IData)(vlSelf->CoreTop__DOT__IFMEM_r_valid));
     vlSelf->CoreTop__DOT__MEM_axi_birdge_io_in_rdata_rep_valid 
-        = ((1U == (IData)(vlSelf->CoreTop__DOT__MEM_axi_birdge__DOT__state)) 
+        = ((IData)(vlSelf->CoreTop__DOT__MEM_axi_birdge__DOT__ar_state) 
            & (IData)(vlSelf->CoreTop__DOT__MMEM_r_valid));
     vlSelf->CoreTop__DOT__EX__DOT___GEN_3 = ((1U == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_src2Type))
                                               ? vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_data_Imm
@@ -1081,12 +1081,16 @@ VL_ATTR_COLD void VCoreTop___024root___settle__TOP__0(VCoreTop___024root* vlSelf
                                                               : 0U)))))))))))))));
     vlSelf->CoreTop__DOT__ICACHE__DOT___T = (0U == (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__state));
     vlSelf->CoreTop__DOT__ICACHE__DOT___T_1 = (1U == (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__state));
+    vlSelf->CoreTop__DOT__If_axi_birdge__DOT___GEN_0 
+        = ((IData)(((2U == (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__state)) 
+                    & (0U == (IData)(vlSelf->CoreTop__DOT__IFMEM__DOT__state)))) 
+           | (IData)(vlSelf->CoreTop__DOT__If_axi_birdge__DOT__ar_state));
     vlSelf->CoreTop__DOT__ICACHE__DOT___io_in_rdata_rep_valid_T_4 
         = ((2U == (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__state)) 
            & (8U == (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__count)));
     vlSelf->CoreTop__DOT__If_axi_birdge_io_out_raddr_req_valid 
-        = (IData)(((0U == (IData)(vlSelf->CoreTop__DOT__If_axi_birdge__DOT__state)) 
-                   & (2U == (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__state))));
+        = ((~ (IData)(vlSelf->CoreTop__DOT__If_axi_birdge__DOT__ar_state)) 
+           & (2U == (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__state)));
     vlSelf->CoreTop__DOT__EX__DOT__div__DOT___S_T_6 
         = ((1U & vlSelf->CoreTop__DOT__EX__DOT__div__DOT__res_div[2U])
             ? (0xfffffffffffffffeULL & vlSelf->CoreTop__DOT__EX__DOT__div__DOT__S)
@@ -1713,13 +1717,13 @@ VL_ATTR_COLD void VCoreTop___024root___settle__TOP__0(VCoreTop___024root* vlSelf
         vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data_io_write_bus_wdata[0xfU] 
             = VCoreTop__ConstPool__CONST_h93e1b771_0[0xfU];
     }
-    vlSelf->__Vtableidx2 = (((IData)(vlSelf->CoreTop__DOT__If_axi_birdge_io_out_raddr_req_valid) 
-                             << 4U) | (((2U == (IData)(vlSelf->CoreTop__DOT__If_axi_birdge__DOT__state)) 
+    vlSelf->__Vtableidx3 = (((IData)(vlSelf->CoreTop__DOT__If_axi_birdge_io_out_raddr_req_valid) 
+                             << 4U) | (((IData)(vlSelf->CoreTop__DOT__If_axi_birdge__DOT__aw_state) 
                                         << 3U) | (((IData)(vlSelf->CoreTop__DOT__IFMEM__DOT__state) 
                                                    << 1U) 
                                                   | (IData)(vlSelf->reset))));
     vlSelf->CoreTop__DOT__IFMEM__DOT__next_state = 
-        VCoreTop__ConstPool__TABLE_h7aefbdd7_0[vlSelf->__Vtableidx2];
+        VCoreTop__ConstPool__TABLE_h7aefbdd7_0[vlSelf->__Vtableidx3];
     VL_EXTEND_WQ(65,64, __Vtemp_h236fbee0__0, vlSelf->CoreTop__DOT__EX__DOT__div__DOT__S);
     VL_EXTEND_WQ(65,64, __Vtemp_h4619e6d2__0, vlSelf->CoreTop__DOT__EX__DOT__div__DOT___S_T_6);
     VL_EXTEND_WQ(65,64, __Vtemp_h236fbee0__1, vlSelf->CoreTop__DOT__EX__DOT__div__DOT__S);
@@ -2632,13 +2636,25 @@ VL_ATTR_COLD void VCoreTop___024root___settle__TOP__0(VCoreTop___024root* vlSelf
         vlSelf->CoreTop__DOT__MMIO_io_out_addr_req_bits_ce 
             = vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE_io_out_addr_req_bits_ce;
     }
+    vlSelf->CoreTop__DOT__MEM_axi_birdge__DOT___GEN_0 
+        = (((((IData)(vlSelf->CoreTop__DOT__MMIO_io_out_addr_req_valid) 
+              & (0U == (IData)(vlSelf->CoreTop__DOT__MMEM__DOT__state))) 
+             & (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_addr_req_bits_ce)) 
+            & (~ (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_addr_req_bits_we))) 
+           | (IData)(vlSelf->CoreTop__DOT__MEM_axi_birdge__DOT__ar_state));
+    vlSelf->CoreTop__DOT__MEM_axi_birdge__DOT___GEN_4 
+        = (((((IData)(vlSelf->CoreTop__DOT__MMIO_io_out_addr_req_valid) 
+              & (0U == (IData)(vlSelf->CoreTop__DOT__MMEM__DOT__state))) 
+             & (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_addr_req_bits_ce)) 
+            & (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_addr_req_bits_we)) 
+           | (IData)(vlSelf->CoreTop__DOT__MEM_axi_birdge__DOT__aw_state));
     vlSelf->CoreTop__DOT__MEM_axi_birdge_io_out_raddr_req_valid 
-        = ((((0U == (IData)(vlSelf->CoreTop__DOT__MEM_axi_birdge__DOT__state)) 
+        = ((((~ (IData)(vlSelf->CoreTop__DOT__MEM_axi_birdge__DOT__ar_state)) 
              & (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_addr_req_valid)) 
             & (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_addr_req_bits_ce)) 
            & (~ (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_addr_req_bits_we)));
     vlSelf->CoreTop__DOT__MEM_axi_birdge_io_out_waddr_req_valid 
-        = ((((0U == (IData)(vlSelf->CoreTop__DOT__MEM_axi_birdge__DOT__state)) 
+        = ((((~ (IData)(vlSelf->CoreTop__DOT__MEM_axi_birdge__DOT__aw_state)) 
              & (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_addr_req_valid)) 
             & (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_addr_req_bits_ce)) 
            & (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_addr_req_bits_we));
@@ -2755,17 +2771,15 @@ VL_ATTR_COLD void VCoreTop___024root___settle__TOP__0(VCoreTop___024root* vlSelf
                         ? 0x44U : ((0x3003U == (0x707fU 
                                                 & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
                                     ? 0x45U : (IData)(vlSelf->CoreTop__DOT__ID__DOT___Inst_decode_T_313))));
-    vlSelf->__Vtableidx4 = (((IData)(vlSelf->CoreTop__DOT__MEM_axi_birdge_io_out_waddr_req_valid) 
+    vlSelf->__Vtableidx5 = (((IData)(vlSelf->CoreTop__DOT__MEM_axi_birdge_io_out_waddr_req_valid) 
                              << 5U) | (((IData)(vlSelf->CoreTop__DOT__MEM_axi_birdge_io_out_raddr_req_valid) 
-                                        << 4U) | ((
-                                                   (2U 
-                                                    == (IData)(vlSelf->CoreTop__DOT__MEM_axi_birdge__DOT__state)) 
+                                        << 4U) | (((IData)(vlSelf->CoreTop__DOT__MEM_axi_birdge__DOT__aw_state) 
                                                    << 3U) 
                                                   | (((IData)(vlSelf->CoreTop__DOT__MMEM__DOT__state) 
                                                       << 1U) 
                                                      | (IData)(vlSelf->reset)))));
     vlSelf->CoreTop__DOT__MMEM__DOT__next_state = VCoreTop__ConstPool__TABLE_h61881c40_0
-        [vlSelf->__Vtableidx4];
+        [vlSelf->__Vtableidx5];
     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___wmaskextend_T_3 
         = ((IData)(vlSelf->CoreTop__DOT__MEM_io_cache_io_wdata_req_bits_wmask) 
            & ((IData)(vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_we)

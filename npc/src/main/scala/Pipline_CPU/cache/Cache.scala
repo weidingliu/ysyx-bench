@@ -247,7 +247,6 @@ class Cache (Type : String) extends Module with CacheParamete {
     }
 
     is(write_data) {
-      /////////// need write reapone
       if(Type == "Dcache"){
         when(io.out.wdata_rep.get){
           count_write.get := count_write.get + 1.U

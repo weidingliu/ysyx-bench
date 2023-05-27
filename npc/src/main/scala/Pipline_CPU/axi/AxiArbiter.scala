@@ -9,6 +9,6 @@ class AxiArbiter extends Module{
     val in2 = new Axi_lite_Bundle_in
     val out = new Axi_lite_Bundle_out
   })
-
+  val choose = RegInit(0.U(1.W))
 
 }

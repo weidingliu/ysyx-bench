@@ -6,6 +6,7 @@ import chisel3._
 import chisel3.util._
 import cache.Cache
 import axi.sram2axi
+import axi.Sram2axi_mulit
 
 class DIP_model extends BlackBox{
   val io = IO(new Bundle() {
@@ -103,8 +104,8 @@ class CoreTop extends Module with Paramete{
 
   val ICACHE = Module(new Cache("icache"))
 
-  val If_axi_birdge = Module(new sram2axi)
-  val MEM_axi_birdge = Module(new sram2axi)
+  val If_axi_birdge = Module(new Sram2axi_mulit)
+  val MEM_axi_birdge = Module(new Sram2axi_mulit)
 //  val IFMEM = Module(new MEM)
   val IFMEM = Module(new SRAM)
   val MMEM = Module(new SRAM)
