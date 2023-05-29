@@ -20,6 +20,7 @@ int SDL_PushEvent(SDL_Event *ev) {
 }
 
 int SDL_PollEvent(SDL_Event *ev) {
+  //printf("poolevent\n");
   char buf[128];
   int ret=NDL_PollEvent(buf,sizeof(buf));
   if(!ret) return 0;
@@ -100,6 +101,7 @@ int SDL_PeepEvents(SDL_Event *ev, int numevents, int action, uint32_t mask) {
 uint8_t* SDL_GetKeyState(int *numkeys) {
   //printf("should not reach here event 2\n");
   //assert(numkeys!=NULL);
+ // printf("key state\n");
   if(numkeys!=NULL){
       int ret=0;
       for(int i=0;i<sizeof(keyname)/sizeof(keyname[0]);i++){

@@ -20,17 +20,10 @@ static uint64_t start=0;
 
 uint32_t NDL_GetTicks() {
   //printf("dfgggppp---------p\n");
-  uint64_t current=0;
-  //printf("upppppppppp\n");
-  struct timeval tv;
-//printf("dghhhhhhhhhjjjj\n");
+  struct timeval time;
+  gettimeofday(&time,NULL);
+  return time.tv_sec*1000+time.tv_usec/1000-start;
 
-  gettimeofday(&tv,NULL);
-  current = (tv.tv_sec*1000 + tv.tv_usec/1000);
-
-  assert(current>=start);
-  //printf("dfgggpppp\n");
-  return (current-start);
   //return (tv.tv_sec*1000 + tv.tv_usec/1000)-start;
 }
 
@@ -43,7 +36,7 @@ int NDL_PollEvent(char *buf, int len) {
   //printf("%d\n",o);
   if(o<=0) { return 0;}
 
-  return 1;
+  return o;
 }
 
 void NDL_OpenCanvas(int *w, int *h) {
@@ -96,8 +89,10 @@ void NDL_OpenCanvas(int *w, int *h) {
 }
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
+    int o = -1;
+    
     for(int i=0;i<h;i++){
-        int o=lseek(fdm,((y+mid_y+i)*screen_w+x+mid_x)*4,SEEK_SET);
+        o=lseek(fdm,((y+mid_y+i)*screen_w+x+mid_x)*4,SEEK_SET);
         assert(o!=-1);
         o=write(fdm,pixels+i*w,w*4);
        /* if(o<0) {
@@ -126,7 +121,7 @@ int NDL_Init(uint32_t flags) {
   if (getenv("NWM_APP")) {
     evtdev = 3;
   }
-  fdm = open("/dev/fb",O_RDWR);
+  fdm = open("/dev/fb",O_RDWR,0);
   assert(fdm!=-1);
   
   fd = open("/dev/events", O_RDONLY);
@@ -135,9 +130,7 @@ int NDL_Init(uint32_t flags) {
   fp= open("/proc/dispinfo",O_RDONLY);
   assert(fp!=-1);
 
-  struct timeval ta;
-  gettimeofday(&ta,NULL);
-  start = (ta.tv_sec*1000 + ta.tv_usec/1000);
+  start = NDL_GetTicks();
 
   return 0;
 }
@@ -147,5 +140,8 @@ void NDL_Quit() {
 close(fdm);
 close(fd);
 close(fp);
+fdm=-1;
+fp=-1;
+fd=-1;
 //close(fd);
 }
