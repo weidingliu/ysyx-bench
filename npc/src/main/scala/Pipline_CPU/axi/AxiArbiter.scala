@@ -13,19 +13,128 @@ class AxiArbiter extends Module{
   val choose = WireDefault(0.U(1.W))
   when(io.in1.raddr_req.valid || io.in1.waddr_req.valid){
     choose_r := 0.U
-    io.out <> io.in1
+//    io.out.raddr_req <> io.in1.raddr_req
+//    io.out.waddr_req <> io.in1.waddr_req
+//    io.out.wdata_req <> io.in1.wdata_req
+//    io.out.rdata_rep <> io.in1.rdata_rep
+//    io.out.wb <> io.in1.wb
+    io.in1.raddr_req.ready := true.B
+    io.in1.waddr_req.ready := true.B
+    io.in1.wdata_req.ready := true.B
+    io.out.raddr_req.valid := io.in1.raddr_req.valid
+    io.out.waddr_req.valid := io.in1.waddr_req.valid
+    io.out.wdata_req.valid := io.in1.wdata_req.valid
+
+
+    io.in2.raddr_req.ready := false.B
+    io.in2.waddr_req.ready := false.B
+    io.in2.wdata_req.ready := false.B
+
+    io.in1.raddr_req.bits <> io.out.raddr_req.bits
+    io.in1.waddr_req.bits <> io.out.waddr_req.bits
+    io.in1.wdata_req.bits <> io.out.wdata_req.bits
   }.elsewhen(io.in2.raddr_req.valid || io.in2.waddr_req.valid){
     choose_r := 1.U
-    io.out <> io.in2
+//    io.out.raddr_req <> io.in2.raddr_req
+//    io.out.waddr_req <> io.in2.waddr_req
+//    io.out.wdata_req <> io.in2.wdata_req
+//    io.out.rdata_rep <> io.in2.rdata_rep
+//    io.out.wb <> io.in2.wb
+    io.in2.raddr_req.ready := true.B
+    io.in2.waddr_req.ready := true.B
+    io.in2.wdata_req.ready := true.B
+    io.out.raddr_req.valid := io.in2.raddr_req.valid
+    io.out.waddr_req.valid := io.in2.waddr_req.valid
+    io.out.wdata_req.valid := io.in2.wdata_req.valid
+
+    io.in1.raddr_req.ready := false.B
+    io.in1.waddr_req.ready := false.B
+    io.in1.wdata_req.ready := false.B
+
+    io.in2.raddr_req.bits <> io.out.raddr_req.bits
+    io.in2.waddr_req.bits <> io.out.waddr_req.bits
+    io.in2.wdata_req.bits <> io.out.wdata_req.bits
+  }.otherwise{
+//    io.out.raddr_req <> io.in1.raddr_req
+//    io.out.waddr_req <> io.in1.waddr_req
+//    io.out.wdata_req <> io.in1.wdata_req
+//    io.out.rdata_rep <> io.in1.rdata_rep
+//    io.out.wb <> io.in1.wb
+    io.in1.raddr_req.ready := false.B
+    io.in1.waddr_req.ready := false.B
+    io.in1.wdata_req.ready := false.B
+    io.out.raddr_req.valid := false.B
+    io.out.waddr_req.valid := false.B
+    io.out.wdata_req.valid := false.B
+
+    io.in2.raddr_req.ready := false.B
+    io.in2.waddr_req.ready := false.B
+    io.in2.wdata_req.ready := false.B
+
+    io.in1.raddr_req.bits <> io.out.raddr_req.bits
+    io.in1.waddr_req.bits <> io.out.waddr_req.bits
+    io.in1.wdata_req.bits <> io.out.wdata_req.bits
   }
 
   when(io.out.rdata_rep.valid || io.out.wb.valid){
     when(choose_r === 0.U){
-      io.out <> io.in1
+//      io.out.raddr_req <> io.in1.raddr_req
+//      io.out.waddr_req <> io.in1.waddr_req
+//      io.out.wdata_req <> io.in1.wdata_req
+//      io.out.rdata_rep <> io.in1.rdata_rep
+//      io.out.wb <> io.in1.wb
+
+      io.in1.rdata_rep.valid := io.out.rdata_rep.valid
+      io.in1.wb.valid := io.out.wb.valid
+
+      io.in2.rdata_rep.valid := false.B
+      io.in2.wb.valid := false.B
+
+      io.out.rdata_rep.ready := io.in1.rdata_rep.ready
+      io.out.wb.ready := io.in1.wb.ready
+
     }.otherwise{
-      io.out <> io.in2
+//      io.out.raddr_req <> io.in2.raddr_req
+//      io.out.waddr_req <> io.in2.waddr_req
+//      io.out.wdata_req <> io.in2.wdata_req
+//      io.out.rdata_rep <> io.in2.rdata_rep
+//      io.out.wb <> io.in2.wb
+
+      io.in2.rdata_rep.valid := io.out.rdata_rep.valid
+      io.in2.wb.valid := io.out.wb.valid
+
+      io.in1.rdata_rep.valid := false.B
+      io.in1.wb.valid := false.B
+
+      io.out.rdata_rep.ready := io.in2.rdata_rep.ready
+      io.out.wb.ready := io.in2.wb.ready
     }
+  }.otherwise{
+//    io.out.raddr_req <> io.in1.raddr_req
+//    io.out.waddr_req <> io.in1.waddr_req
+//    io.out.wdata_req <> io.in1.wdata_req
+//    io.out.rdata_rep <> io.in1.rdata_rep
+//    io.out.wb <> io.in1.wb
+    io.in1.rdata_rep.valid := false.B
+    io.in1.wb.valid := false.B
+
+    io.in2.rdata_rep.valid := false.B
+    io.in2.wb.valid := false.B
+
+    io.out.rdata_rep.ready := false.B
+    io.out.wb.ready := false.B
   }
 
+  io.in2.rdata_rep.bits <> io.out.rdata_rep.bits
+  io.in2.wb.bits <> io.out.wb.bits
+
+  io.in1.rdata_rep.bits <> io.out.rdata_rep.bits
+  io.in1.wb.bits <> io.out.wb.bits
 
 }
+
+//import chisel3.stage._
+//
+//object Spec extends App{
+//  (new ChiselStage).emitVerilog(new AxiArbiter(),Array("--target-dir", "build"))
+//}

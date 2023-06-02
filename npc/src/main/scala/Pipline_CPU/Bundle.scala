@@ -189,7 +189,7 @@ class Axi_lite_Bundle_in extends Axi_Lite_Bundle{
   val waddr_req = Flipped(Decoupled(new AxiAddrBus))
   val rdata_rep = Decoupled(new ReadDataBus)
   val wdata_req = Flipped(Decoupled(new WriteDataBus))
-  val wb = Flipped(Decoupled(Input(UInt(2.W))))
+  val wb        = Decoupled(Input(UInt(2.W)))
 }
 
 class Axi_lite_Bundle_out extends Axi_Lite_Bundle{
@@ -197,7 +197,7 @@ class Axi_lite_Bundle_out extends Axi_Lite_Bundle{
   val waddr_req = Decoupled(new AxiAddrBus)
   val rdata_rep = Flipped(Decoupled(new ReadDataBus))
   val wdata_req = Decoupled(new WriteDataBus)
-  val wb = Flipped(Decoupled(Input(UInt(2.W))))
+  val wb        = Flipped(Decoupled(Input(UInt(2.W))))
 }
 
 //class Cache extends Bundle with Paramete{

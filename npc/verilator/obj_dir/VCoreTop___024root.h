@@ -41,15 +41,19 @@ class VCoreTop___024root final : public VerilatedModule {
         CData/*0:0*/ CoreTop__DOT__MEM_axi_birdge_io_out_raddr_req_valid;
         CData/*0:0*/ CoreTop__DOT__MEM_axi_birdge_io_out_waddr_req_valid;
         CData/*0:0*/ CoreTop__DOT__MEM_axi_birdge_io_out_wb_ready;
-        CData/*0:0*/ CoreTop__DOT__IFMEM_r_valid;
-        CData/*0:0*/ CoreTop__DOT__IFMEM_bvalid;
         CData/*0:0*/ CoreTop__DOT__MMEM_r_valid;
         CData/*0:0*/ CoreTop__DOT__MMEM_bvalid;
+        CData/*0:0*/ CoreTop__DOT__ARBITER_io_in1_rdata_rep_valid;
+        CData/*0:0*/ CoreTop__DOT__ARBITER_io_in1_wb_valid;
+        CData/*0:0*/ CoreTop__DOT__ARBITER_io_in2_rdata_rep_valid;
+        CData/*0:0*/ CoreTop__DOT__ARBITER_io_out_raddr_req_valid;
+        CData/*0:0*/ CoreTop__DOT__ARBITER_io_out_waddr_req_valid;
         CData/*0:0*/ CoreTop__DOT__MMIO_io_in_rdata_rep_valid;
         CData/*0:0*/ CoreTop__DOT__MMIO_io_in_wdata_rep;
         CData/*0:0*/ CoreTop__DOT__MMIO_io_out_addr_req_valid;
         CData/*0:0*/ CoreTop__DOT__MMIO_io_out_addr_req_bits_ce;
         CData/*0:0*/ CoreTop__DOT__MMIO_io_out_addr_req_bits_we;
+        CData/*7:0*/ CoreTop__DOT__MMIO_io_out_wdata_req_bits_wmask;
         CData/*0:0*/ CoreTop__DOT__valid;
         CData/*0:0*/ CoreTop__DOT___T_1;
         CData/*0:0*/ CoreTop__DOT___GEN_1;
@@ -79,12 +83,12 @@ class VCoreTop___024root final : public VerilatedModule {
         CData/*0:0*/ CoreTop__DOT__WB_io_in_bits_r_ctrl_signal_rfWen;
         CData/*0:0*/ CoreTop__DOT__WB_io_in_bits_r_ctrl_flow_skip;
         CData/*4:0*/ CoreTop__DOT__WB_io_in_bits_r_ctrl_rf_rfDest;
+    };
+    struct {
         CData/*0:0*/ CoreTop__DOT__DIP_io_is_break_REG;
         CData/*0:0*/ CoreTop__DOT__DIP_io_is_break_REG_1;
         CData/*0:0*/ CoreTop__DOT__DIP_io_is_skip_REG;
         CData/*0:0*/ CoreTop__DOT__DIP_io_inst_valid_REG;
-    };
-    struct {
         CData/*3:0*/ CoreTop__DOT__ID__DOT___Inst_decode_T_144;
         CData/*3:0*/ CoreTop__DOT__ID__DOT___Inst_decode_T_159;
         CData/*3:0*/ CoreTop__DOT__ID__DOT___Inst_decode_T_174;
@@ -145,12 +149,12 @@ class VCoreTop___024root final : public VerilatedModule {
         CData/*0:0*/ CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1_valid_w_en_pipe_0;
         CData/*4:0*/ CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1_valid_w_addr_pipe_0;
         CData/*0:0*/ CoreTop__DOT__ICACHE__DOT__Scanf__DOT___hit_way_0_T;
+    };
+    struct {
         CData/*0:0*/ CoreTop__DOT__ICACHE__DOT__Scanf__DOT__hit_way_0_result;
         CData/*0:0*/ CoreTop__DOT__ICACHE__DOT__Scanf__DOT___hit_way_1_T;
         CData/*0:0*/ CoreTop__DOT__ICACHE__DOT__Scanf__DOT__hit_way_1_result;
         CData/*0:0*/ CoreTop__DOT__If_axi_birdge__DOT__ar_state;
-    };
-    struct {
         CData/*0:0*/ CoreTop__DOT__If_axi_birdge__DOT__aw_state;
         CData/*0:0*/ CoreTop__DOT__If_axi_birdge__DOT___GEN_0;
         CData/*0:0*/ CoreTop__DOT__If_axi_birdge__DOT___GEN_4;
@@ -158,10 +162,10 @@ class VCoreTop___024root final : public VerilatedModule {
         CData/*0:0*/ CoreTop__DOT__MEM_axi_birdge__DOT__aw_state;
         CData/*0:0*/ CoreTop__DOT__MEM_axi_birdge__DOT___GEN_0;
         CData/*0:0*/ CoreTop__DOT__MEM_axi_birdge__DOT___GEN_4;
-        CData/*1:0*/ CoreTop__DOT__IFMEM__DOT__state;
-        CData/*1:0*/ CoreTop__DOT__IFMEM__DOT__next_state;
         CData/*1:0*/ CoreTop__DOT__MMEM__DOT__state;
         CData/*1:0*/ CoreTop__DOT__MMEM__DOT__next_state;
+        CData/*0:0*/ CoreTop__DOT__ARBITER__DOT__choose_r;
+        CData/*0:0*/ CoreTop__DOT__ARBITER__DOT___GEN_0;
         CData/*0:0*/ CoreTop__DOT__MMIO__DOT__DCACHE_io_in_addr_req_valid;
         CData/*0:0*/ CoreTop__DOT__MMIO__DOT__DCACHE_io_in_rdata_rep_valid;
         CData/*0:0*/ CoreTop__DOT__MMIO__DOT__DCACHE_io_in_wdata_rep;
@@ -211,12 +215,11 @@ class VCoreTop___024root final : public VerilatedModule {
         CData/*4:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1_valid_w_addr_pipe_0;
         CData/*0:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf__DOT___hit_way_0_T;
         CData/*0:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf__DOT__hit_way_0_result;
-        CData/*0:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf__DOT___hit_way_1_T;
-        CData/*0:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf__DOT__hit_way_1_result;
-        CData/*4:0*/ __Vtableidx3;
-        CData/*5:0*/ __Vtableidx5;
     };
     struct {
+        CData/*0:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf__DOT___hit_way_1_T;
+        CData/*0:0*/ CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf__DOT__hit_way_1_result;
+        CData/*6:0*/ __Vtableidx3;
         CData/*0:0*/ __Vclklast__TOP__clock;
         SData/*15:0*/ CoreTop__DOT__MEM__DOT___mem_result_T_44;
         VL_OUT(io_inst,31,0);
@@ -261,10 +264,10 @@ class VCoreTop___024root final : public VerilatedModule {
         QData/*63:0*/ CoreTop__DOT__MEM_io_cache_io_wdata_req_bits_wdata;
         QData/*63:0*/ CoreTop__DOT__mem_bypass_io_Bypass_REG1;
         QData/*63:0*/ CoreTop__DOT__mem_bypass_io_Bypass_REG2;
-        QData/*63:0*/ CoreTop__DOT__IFMEM_rdata;
         QData/*63:0*/ CoreTop__DOT__MMEM_rdata;
         QData/*63:0*/ CoreTop__DOT__MMIO_io_in_rdata_rep_bits_rdata;
         QData/*63:0*/ CoreTop__DOT__MMIO_io_out_addr_req_bits_addr;
+        QData/*63:0*/ CoreTop__DOT__MMIO_io_out_wdata_req_bits_wdata;
         QData/*63:0*/ CoreTop__DOT__ID_io_in_bits_r_PC;
         QData/*63:0*/ CoreTop__DOT__EX_io_in_bits_r_ctrl_data_src1;
         QData/*63:0*/ CoreTop__DOT__EX_io_in_bits_r_ctrl_data_src2;
@@ -278,11 +281,11 @@ class VCoreTop___024root final : public VerilatedModule {
         QData/*63:0*/ CoreTop__DOT__MEM_io_in_bits_r_ctrl_data_Imm;
         QData/*63:0*/ CoreTop__DOT__WB_io_in_bits_r_ctrl_flow_PC;
         QData/*63:0*/ CoreTop__DOT__WB_io_in_bits_r_ctrl_flow_Dnpc;
+    };
+    struct {
         QData/*63:0*/ CoreTop__DOT__WB_io_in_bits_r_ctrl_rf_rfData;
         QData/*63:0*/ CoreTop__DOT__DIP_io_pc_REG;
         QData/*63:0*/ CoreTop__DOT__DIP_io_dnpc_REG;
-    };
-    struct {
         QData/*63:0*/ CoreTop__DOT__IF__DOT__temp;
         QData/*63:0*/ CoreTop__DOT__IF__DOT___temp_T_3;
         QData/*63:0*/ CoreTop__DOT__EX__DOT__div_io_in_bits_ctrl_data_src1;
@@ -344,11 +347,11 @@ class VCoreTop___024root final : public VerilatedModule {
         QData/*63:0*/ CoreTop__DOT__EX__DOT__div__DOT___T_18;
         QData/*63:0*/ CoreTop__DOT__EX__DOT__div__DOT___T_26;
         QData/*63:0*/ CoreTop__DOT__MEM__DOT___addr_temp_T_1;
+    };
+    struct {
         QData/*63:0*/ CoreTop__DOT__MEM__DOT___GEN_16;
         QData/*63:0*/ CoreTop__DOT__MEM__DOT__addr_temp;
         QData/*63:0*/ CoreTop__DOT__MEM__DOT___wdata_temp_T_21;
-    };
-    struct {
         QData/*63:0*/ CoreTop__DOT__ICACHE__DOT__Cache_data_io_write_bus_addr;
         QData/*63:0*/ CoreTop__DOT__ICACHE__DOT__mem_addr_reg;
         QData/*63:0*/ CoreTop__DOT__ICACHE__DOT___GEN_25;
