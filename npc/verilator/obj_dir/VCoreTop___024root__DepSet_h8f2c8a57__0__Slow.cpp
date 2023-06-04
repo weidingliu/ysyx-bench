@@ -59,6 +59,7 @@ VL_ATTR_COLD void VCoreTop___024root___ctor_var_reset(VCoreTop___024root* vlSelf
     vlSelf->CoreTop__DOT__MEM_io_out_bits_ctrl_rf_rfWen = VL_RAND_RESET_I(1);
     vlSelf->CoreTop__DOT__MEM_io_out_bits_ctrl_rf_rfData = VL_RAND_RESET_Q(64);
     vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_valid = VL_RAND_RESET_I(1);
+    vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr = VL_RAND_RESET_Q(64);
     vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_we = VL_RAND_RESET_I(1);
     vlSelf->CoreTop__DOT__MEM_io_cache_io_wdata_req_bits_wdata = VL_RAND_RESET_Q(64);
     vlSelf->CoreTop__DOT__MEM_io_cache_io_wdata_req_bits_wmask = VL_RAND_RESET_I(8);
@@ -179,7 +180,6 @@ VL_ATTR_COLD void VCoreTop___024root___ctor_var_reset(VCoreTop___024root* vlSelf
     vlSelf->CoreTop__DOT__EX__DOT__mie = VL_RAND_RESET_Q(64);
     vlSelf->CoreTop__DOT__EX__DOT__mip = VL_RAND_RESET_Q(64);
     vlSelf->CoreTop__DOT__EX__DOT___GEN_1 = VL_RAND_RESET_Q(64);
-    vlSelf->CoreTop__DOT__EX__DOT__src1 = VL_RAND_RESET_Q(64);
     vlSelf->CoreTop__DOT__EX__DOT___GEN_3 = VL_RAND_RESET_Q(64);
     vlSelf->CoreTop__DOT__EX__DOT__src2 = VL_RAND_RESET_Q(64);
     vlSelf->CoreTop__DOT__EX__DOT___alu_result_T_1 = VL_RAND_RESET_Q(64);
@@ -202,6 +202,7 @@ VL_ATTR_COLD void VCoreTop___024root___ctor_var_reset(VCoreTop___024root* vlSelf
     vlSelf->CoreTop__DOT__EX__DOT___GEN_172 = VL_RAND_RESET_Q(64);
     vlSelf->CoreTop__DOT__EX__DOT___GEN_177 = VL_RAND_RESET_Q(64);
     vlSelf->CoreTop__DOT__EX__DOT___GEN_181 = VL_RAND_RESET_Q(64);
+    vlSelf->CoreTop__DOT__EX__DOT___shift_result_T = VL_RAND_RESET_Q(64);
     VL_RAND_RESET_W(95, vlSelf->CoreTop__DOT__EX__DOT___shift_result_T_5);
     VL_RAND_RESET_W(95, vlSelf->CoreTop__DOT__EX__DOT___shift_result_T_16);
     vlSelf->CoreTop__DOT__EX__DOT___shift_result_T_25 = VL_RAND_RESET_I(32);
@@ -294,6 +295,7 @@ VL_ATTR_COLD void VCoreTop___024root___ctor_var_reset(VCoreTop___024root* vlSelf
         VL_RAND_RESET_W(512, vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[__Vi0]);
     }
     vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0_data_w_en_pipe_0 = VL_RAND_RESET_I(1);
+    vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0_data_w_addr_pipe_0 = VL_RAND_RESET_I(5);
     for (int __Vi0=0; __Vi0<32; ++__Vi0) {
         VL_RAND_RESET_W(512, vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[__Vi0]);
     }
@@ -335,8 +337,11 @@ VL_ATTR_COLD void VCoreTop___024root___ctor_var_reset(VCoreTop___024root* vlSelf
     vlSelf->CoreTop__DOT__MEM_axi_birdge__DOT___GEN_4 = VL_RAND_RESET_I(1);
     vlSelf->CoreTop__DOT__MMEM__DOT__state = VL_RAND_RESET_I(2);
     vlSelf->CoreTop__DOT__MMEM__DOT__next_state = VL_RAND_RESET_I(2);
+    vlSelf->CoreTop__DOT__ARBITER__DOT__state = VL_RAND_RESET_I(1);
     vlSelf->CoreTop__DOT__ARBITER__DOT__choose_r = VL_RAND_RESET_I(1);
+    vlSelf->CoreTop__DOT__ARBITER__DOT___T_5 = VL_RAND_RESET_I(1);
     vlSelf->CoreTop__DOT__ARBITER__DOT___GEN_0 = VL_RAND_RESET_I(1);
+    vlSelf->CoreTop__DOT__ARBITER__DOT___GEN_20 = VL_RAND_RESET_I(1);
     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE_io_in_addr_req_valid = VL_RAND_RESET_I(1);
     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE_io_in_rdata_rep_valid = VL_RAND_RESET_I(1);
     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE_io_in_rdata_rep_bits_rdata = VL_RAND_RESET_Q(64);
@@ -363,10 +368,12 @@ VL_ATTR_COLD void VCoreTop___024root___ctor_var_reset(VCoreTop___024root* vlSelf
         vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[__Vi0] = VL_RAND_RESET_I(1);
     }
     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0_dirt_w_en_pipe_0 = VL_RAND_RESET_I(1);
+    vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0_dirt_w_addr_pipe_0 = VL_RAND_RESET_I(5);
     for (int __Vi0=0; __Vi0<32; ++__Vi0) {
         vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[__Vi0] = VL_RAND_RESET_I(1);
     }
     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1_dirt_w_en_pipe_0 = VL_RAND_RESET_I(1);
+    vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1_dirt_w_addr_pipe_0 = VL_RAND_RESET_I(5);
     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state = VL_RAND_RESET_I(2);
     VL_RAND_RESET_W(512, vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg);
     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_addr_reg = VL_RAND_RESET_Q(64);

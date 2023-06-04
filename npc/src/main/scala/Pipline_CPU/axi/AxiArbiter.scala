@@ -3,15 +3,18 @@ import Pipline_CPU._
 import chisel3._
 import chisel3.util._
 
+
 class AxiArbiter extends Module{
   val io = IO(new Bundle() {
     val in1 = new Axi_lite_Bundle_in
     val in2 = new Axi_lite_Bundle_in
     val out = new Axi_lite_Bundle_out
   })
+  val idle :: busy :: Nil = Enum(2)
+  val state = RegInit(idle)
   val choose_r = RegInit(0.U(1.W))
   val choose = WireDefault(0.U(1.W))
-  when(io.in1.raddr_req.valid || io.in1.waddr_req.valid){
+  when((io.in1.raddr_req.valid || io.in1.waddr_req.valid) && state === idle){
     choose_r := 0.U
 //    io.out.raddr_req <> io.in1.raddr_req
 //    io.out.waddr_req <> io.in1.waddr_req
@@ -25,7 +28,6 @@ class AxiArbiter extends Module{
     io.out.waddr_req.valid := io.in1.waddr_req.valid
     io.out.wdata_req.valid := io.in1.wdata_req.valid
 
-
     io.in2.raddr_req.ready := false.B
     io.in2.waddr_req.ready := false.B
     io.in2.wdata_req.ready := false.B
@@ -33,7 +35,8 @@ class AxiArbiter extends Module{
     io.in1.raddr_req.bits <> io.out.raddr_req.bits
     io.in1.waddr_req.bits <> io.out.waddr_req.bits
     io.in1.wdata_req.bits <> io.out.wdata_req.bits
-  }.elsewhen(io.in2.raddr_req.valid || io.in2.waddr_req.valid){
+    state := busy
+  }.elsewhen((io.in2.raddr_req.valid || io.in2.waddr_req.valid) && state === idle){
     choose_r := 1.U
 //    io.out.raddr_req <> io.in2.raddr_req
 //    io.out.waddr_req <> io.in2.waddr_req
@@ -54,6 +57,7 @@ class AxiArbiter extends Module{
     io.in2.raddr_req.bits <> io.out.raddr_req.bits
     io.in2.waddr_req.bits <> io.out.waddr_req.bits
     io.in2.wdata_req.bits <> io.out.wdata_req.bits
+    state := busy
   }.otherwise{
 //    io.out.raddr_req <> io.in1.raddr_req
 //    io.out.waddr_req <> io.in1.waddr_req
@@ -74,6 +78,7 @@ class AxiArbiter extends Module{
     io.in1.raddr_req.bits <> io.out.raddr_req.bits
     io.in1.waddr_req.bits <> io.out.waddr_req.bits
     io.in1.wdata_req.bits <> io.out.wdata_req.bits
+    state := idle
   }
 
   when(io.out.rdata_rep.valid || io.out.wb.valid){
@@ -93,6 +98,8 @@ class AxiArbiter extends Module{
       io.out.rdata_rep.ready := io.in1.rdata_rep.ready
       io.out.wb.ready := io.in1.wb.ready
 
+      state := idle
+
     }.otherwise{
 //      io.out.raddr_req <> io.in2.raddr_req
 //      io.out.waddr_req <> io.in2.waddr_req
@@ -108,6 +115,7 @@ class AxiArbiter extends Module{
 
       io.out.rdata_rep.ready := io.in2.rdata_rep.ready
       io.out.wb.ready := io.in2.wb.ready
+      state := idle
     }
   }.otherwise{
 //    io.out.raddr_req <> io.in1.raddr_req
@@ -121,8 +129,9 @@ class AxiArbiter extends Module{
     io.in2.rdata_rep.valid := false.B
     io.in2.wb.valid := false.B
 
-    io.out.rdata_rep.ready := false.B
-    io.out.wb.ready := false.B
+    io.out.rdata_rep.ready := true.B
+    io.out.wb.ready := true.B
+
   }
 
   io.in2.rdata_rep.bits <> io.out.rdata_rep.bits

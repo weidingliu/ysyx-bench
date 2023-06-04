@@ -169,8 +169,8 @@ class Booth_MUL(booth_bit : Int = 3, mul_len: Int) extends Module{
 
 class Booth_Walloc_MUL (mul_len:Int) extends Module with Paramete{
   val io = IO(new Bundle() {
-    val in = Flipped(Decoupled(new MUL_IN(xlen)))
-    val out = Decoupled(new MUL_OUT(xlen))
+    val in = Flipped(Decoupled(new MUL_IN(mul_len)))
+    val out = Decoupled(new MUL_OUT(mul_len))
   })
 
 }
@@ -218,7 +218,7 @@ class MUL (booth_bit : Int = 3, mul_len: Int) extends Module with Paramete {
 
 }
 
-import chisel3.stage._
-object app extends App{
-  (new ChiselStage).emitVerilog(new Booth_MUL(3,32),Array("--target-dir", "build"))
-}
+//import chisel3.stage._
+//object app extends App{
+//  (new ChiselStage).emitVerilog(new Booth_MUL(3,32),Array("--target-dir", "build"))
+//}

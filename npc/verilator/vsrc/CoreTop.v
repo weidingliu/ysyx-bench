@@ -1244,8 +1244,8 @@ module EXE(
     .io_out_bits_result_remainder(div_io_out_bits_result_remainder)
   );
   assign io_in_ready = (_io_out_valid_T_1 | _io_out_valid_T_4) & io_in_valid ? 1'h0 : io_out_ready; // @[EXE.scala 437:21]
-  assign io_branchIO_is_branch = branch_flag & io_out_bits_ctrl_signal_inst_valid & io_in_valid; // @[EXE.scala 433:77]
-  assign io_branchIO_is_jump = _jump_result_T & io_out_bits_ctrl_signal_inst_valid & io_in_valid; // @[EXE.scala 434:114]
+  assign io_branchIO_is_branch = branch_flag & io_out_bits_ctrl_signal_inst_valid & io_in_valid & io_out_ready; // @[EXE.scala 433:91]
+  assign io_branchIO_is_jump = _jump_result_T & io_out_bits_ctrl_signal_inst_valid & io_in_valid & io_out_ready; // @[EXE.scala 434:129]
   assign io_branchIO_dnpc = 7'h19 == io_in_bits_ctrl_signal_aluoptype ? _alu_result_T_1 : _GEN_289; // @[EXE.scala 359:44 361:12]
   assign io_out_valid = ~(_mul_io_in_valid_T & is_mul) & ~(_div_io_in_valid_T & is_div) & io_in_valid; // @[EXE.scala 436:89]
   assign io_out_bits_ctrl_signal_fuType = io_in_bits_ctrl_signal_fuType; // @[EXE.scala 419:27]
@@ -2502,7 +2502,6 @@ module AxiArbiter(
   output [63:0] io_out_raddr_req_bits_addr,
   output        io_out_waddr_req_valid,
   output [63:0] io_out_waddr_req_bits_addr,
-  output        io_out_rdata_rep_ready,
   input         io_out_rdata_rep_valid,
   input  [63:0] io_out_rdata_rep_bits_rdata,
   output        io_out_wdata_req_valid,
@@ -2514,56 +2513,69 @@ module AxiArbiter(
 );
 `ifdef RANDOMIZE_REG_INIT
   reg [31:0] _RAND_0;
+  reg [31:0] _RAND_1;
 `endif // RANDOMIZE_REG_INIT
-  reg  choose_r; // @[AxiArbiter.scala 12:25]
-  wire  _T_1 = io_in2_raddr_req_valid | io_in2_waddr_req_valid; // @[AxiArbiter.scala 36:37]
-  wire  _GEN_0 = io_in2_raddr_req_valid | io_in2_waddr_req_valid | choose_r; // @[AxiArbiter.scala 36:63 37:14 12:25]
-  wire  _GEN_2 = (io_in2_raddr_req_valid | io_in2_waddr_req_valid) & io_in2_raddr_req_valid; // @[AxiArbiter.scala 36:63 46:28 66:28]
-  wire  _GEN_3 = (io_in2_raddr_req_valid | io_in2_waddr_req_valid) & io_in2_waddr_req_valid; // @[AxiArbiter.scala 36:63 47:28 67:28]
-  wire  _GEN_4 = (io_in2_raddr_req_valid | io_in2_waddr_req_valid) & io_in2_wdata_req_valid; // @[AxiArbiter.scala 36:63 48:28 68:28]
-  wire [63:0] _GEN_6 = io_in2_raddr_req_valid | io_in2_waddr_req_valid ? io_in2_raddr_req_bits_addr :
-    io_in1_raddr_req_bits_addr; // @[AxiArbiter.scala 36:63 54:27 74:27]
-  wire [63:0] _GEN_7 = io_in2_raddr_req_valid | io_in2_waddr_req_valid ? io_in2_waddr_req_bits_addr :
-    io_in1_waddr_req_bits_addr; // @[AxiArbiter.scala 36:63 55:27 75:27]
-  wire [7:0] _GEN_8 = io_in2_raddr_req_valid | io_in2_waddr_req_valid ? io_in2_wdata_req_bits_wmask :
-    io_in1_wdata_req_bits_wmask; // @[AxiArbiter.scala 36:63 56:27 76:27]
-  wire [63:0] _GEN_9 = io_in2_raddr_req_valid | io_in2_waddr_req_valid ? io_in2_wdata_req_bits_wdata :
-    io_in1_wdata_req_bits_wdata; // @[AxiArbiter.scala 36:63 56:27 76:27]
-  wire  _GEN_20 = ~choose_r & io_out_rdata_rep_valid; // @[AxiArbiter.scala 80:27 106:30 87:30]
-  wire  _GEN_21 = ~choose_r & io_out_wb_valid; // @[AxiArbiter.scala 107:23 80:27 88:23]
-  wire  _GEN_22 = ~choose_r ? 1'h0 : io_out_rdata_rep_valid; // @[AxiArbiter.scala 80:27 103:30 90:30]
-  wire  _GEN_23 = ~choose_r ? 1'h0 : io_out_wb_valid; // @[AxiArbiter.scala 104:23 80:27 91:23]
-  wire  _GEN_25 = ~choose_r ? io_in1_wb_ready : io_in2_wb_ready; // @[AxiArbiter.scala 110:23 80:27 94:23]
-  assign io_in1_raddr_req_ready = io_in1_raddr_req_valid | io_in1_waddr_req_valid; // @[AxiArbiter.scala 14:31]
-  assign io_in1_waddr_req_ready = io_in1_raddr_req_valid | io_in1_waddr_req_valid; // @[AxiArbiter.scala 14:31]
-  assign io_in1_rdata_rep_valid = (io_out_rdata_rep_valid | io_out_wb_valid) & _GEN_20; // @[AxiArbiter.scala 118:28 79:50]
-  assign io_in1_rdata_rep_bits_rdata = io_out_rdata_rep_bits_rdata; // @[AxiArbiter.scala 131:25]
-  assign io_in1_wb_valid = (io_out_rdata_rep_valid | io_out_wb_valid) & _GEN_21; // @[AxiArbiter.scala 119:21 79:50]
-  assign io_in1_wb_bits = io_out_wb_bits; // @[AxiArbiter.scala 132:18]
-  assign io_in2_raddr_req_ready = io_in1_raddr_req_valid | io_in1_waddr_req_valid ? 1'h0 : _T_1; // @[AxiArbiter.scala 14:57 29:28]
-  assign io_in2_waddr_req_ready = io_in1_raddr_req_valid | io_in1_waddr_req_valid ? 1'h0 : _T_1; // @[AxiArbiter.scala 14:57 29:28]
-  assign io_in2_rdata_rep_valid = (io_out_rdata_rep_valid | io_out_wb_valid) & _GEN_22; // @[AxiArbiter.scala 121:28 79:50]
-  assign io_in2_rdata_rep_bits_rdata = io_out_rdata_rep_bits_rdata; // @[AxiArbiter.scala 128:25]
-  assign io_in2_wb_valid = (io_out_rdata_rep_valid | io_out_wb_valid) & _GEN_23; // @[AxiArbiter.scala 122:21 79:50]
-  assign io_in2_wb_bits = io_out_wb_bits; // @[AxiArbiter.scala 129:18]
-  assign io_out_raddr_req_valid = io_in1_raddr_req_valid | io_in1_waddr_req_valid ? io_in1_raddr_req_valid : _GEN_2; // @[AxiArbiter.scala 14:57 24:28]
-  assign io_out_raddr_req_bits_addr = io_in1_raddr_req_valid | io_in1_waddr_req_valid ? io_in1_raddr_req_bits_addr :
-    _GEN_6; // @[AxiArbiter.scala 14:57 33:27]
-  assign io_out_waddr_req_valid = io_in1_raddr_req_valid | io_in1_waddr_req_valid ? io_in1_waddr_req_valid : _GEN_3; // @[AxiArbiter.scala 14:57 25:28]
-  assign io_out_waddr_req_bits_addr = io_in1_raddr_req_valid | io_in1_waddr_req_valid ? io_in1_waddr_req_bits_addr :
-    _GEN_7; // @[AxiArbiter.scala 14:57 34:27]
-  assign io_out_rdata_rep_ready = io_out_rdata_rep_valid | io_out_wb_valid; // @[AxiArbiter.scala 79:31]
-  assign io_out_wdata_req_valid = io_in1_raddr_req_valid | io_in1_waddr_req_valid ? io_in1_wdata_req_valid : _GEN_4; // @[AxiArbiter.scala 14:57 26:28]
-  assign io_out_wdata_req_bits_wdata = io_in1_raddr_req_valid | io_in1_waddr_req_valid ? io_in1_wdata_req_bits_wdata :
-    _GEN_9; // @[AxiArbiter.scala 14:57 35:27]
-  assign io_out_wdata_req_bits_wmask = io_in1_raddr_req_valid | io_in1_waddr_req_valid ? io_in1_wdata_req_bits_wmask :
-    _GEN_8; // @[AxiArbiter.scala 14:57 35:27]
-  assign io_out_wb_ready = (io_out_rdata_rep_valid | io_out_wb_valid) & _GEN_25; // @[AxiArbiter.scala 125:21 79:50]
+  reg  state; // @[AxiArbiter.scala 14:22]
+  reg  choose_r; // @[AxiArbiter.scala 15:25]
+  wire  _T_1 = ~state; // @[AxiArbiter.scala 17:68]
+  wire  _T_5 = (io_in2_raddr_req_valid | io_in2_waddr_req_valid) & _T_1; // @[AxiArbiter.scala 39:65]
+  wire  _GEN_0 = (io_in2_raddr_req_valid | io_in2_waddr_req_valid) & _T_1 | choose_r; // @[AxiArbiter.scala 39:83 40:14 15:25]
+  wire  _GEN_2 = (io_in2_raddr_req_valid | io_in2_waddr_req_valid) & _T_1 & io_in2_raddr_req_valid; // @[AxiArbiter.scala 39:83 49:28 70:28]
+  wire  _GEN_3 = (io_in2_raddr_req_valid | io_in2_waddr_req_valid) & _T_1 & io_in2_waddr_req_valid; // @[AxiArbiter.scala 39:83 50:28 71:28]
+  wire  _GEN_4 = (io_in2_raddr_req_valid | io_in2_waddr_req_valid) & _T_1 & io_in2_wdata_req_valid; // @[AxiArbiter.scala 39:83 51:28 72:28]
+  wire [63:0] _GEN_6 = (io_in2_raddr_req_valid | io_in2_waddr_req_valid) & _T_1 ? io_in2_raddr_req_bits_addr :
+    io_in1_raddr_req_bits_addr; // @[AxiArbiter.scala 39:83 57:27 78:27]
+  wire [63:0] _GEN_7 = (io_in2_raddr_req_valid | io_in2_waddr_req_valid) & _T_1 ? io_in2_waddr_req_bits_addr :
+    io_in1_waddr_req_bits_addr; // @[AxiArbiter.scala 39:83 58:27 79:27]
+  wire [7:0] _GEN_8 = (io_in2_raddr_req_valid | io_in2_waddr_req_valid) & _T_1 ? io_in2_wdata_req_bits_wmask :
+    io_in1_wdata_req_bits_wmask; // @[AxiArbiter.scala 39:83 59:27 80:27]
+  wire [63:0] _GEN_9 = (io_in2_raddr_req_valid | io_in2_waddr_req_valid) & _T_1 ? io_in2_wdata_req_bits_wdata :
+    io_in1_wdata_req_bits_wdata; // @[AxiArbiter.scala 39:83 59:27 80:27]
+  wire  _GEN_20 = (io_in1_raddr_req_valid | io_in1_waddr_req_valid) & ~state | _T_5; // @[AxiArbiter.scala 17:77 38:11]
+  wire  _GEN_21 = ~choose_r & io_out_rdata_rep_valid; // @[AxiArbiter.scala 85:27 113:30 92:30]
+  wire  _GEN_22 = ~choose_r & io_out_wb_valid; // @[AxiArbiter.scala 114:23 85:27 93:23]
+  wire  _GEN_23 = ~choose_r ? 1'h0 : io_out_rdata_rep_valid; // @[AxiArbiter.scala 85:27 110:30 95:30]
+  wire  _GEN_24 = ~choose_r ? 1'h0 : io_out_wb_valid; // @[AxiArbiter.scala 111:23 85:27 96:23]
+  wire  _GEN_26 = ~choose_r ? io_in1_wb_ready : io_in2_wb_ready; // @[AxiArbiter.scala 117:23 85:27 99:23]
+  assign io_in1_raddr_req_ready = (io_in1_raddr_req_valid | io_in1_waddr_req_valid) & ~state; // @[AxiArbiter.scala 17:59]
+  assign io_in1_waddr_req_ready = (io_in1_raddr_req_valid | io_in1_waddr_req_valid) & ~state; // @[AxiArbiter.scala 17:59]
+  assign io_in1_rdata_rep_valid = (io_out_rdata_rep_valid | io_out_wb_valid) & _GEN_21; // @[AxiArbiter.scala 126:28 84:50]
+  assign io_in1_rdata_rep_bits_rdata = io_out_rdata_rep_bits_rdata; // @[AxiArbiter.scala 140:25]
+  assign io_in1_wb_valid = (io_out_rdata_rep_valid | io_out_wb_valid) & _GEN_22; // @[AxiArbiter.scala 127:21 84:50]
+  assign io_in1_wb_bits = io_out_wb_bits; // @[AxiArbiter.scala 141:18]
+  assign io_in2_raddr_req_ready = (io_in1_raddr_req_valid | io_in1_waddr_req_valid) & ~state ? 1'h0 : _T_5; // @[AxiArbiter.scala 17:77 31:28]
+  assign io_in2_waddr_req_ready = (io_in1_raddr_req_valid | io_in1_waddr_req_valid) & ~state ? 1'h0 : _T_5; // @[AxiArbiter.scala 17:77 31:28]
+  assign io_in2_rdata_rep_valid = (io_out_rdata_rep_valid | io_out_wb_valid) & _GEN_23; // @[AxiArbiter.scala 129:28 84:50]
+  assign io_in2_rdata_rep_bits_rdata = io_out_rdata_rep_bits_rdata; // @[AxiArbiter.scala 137:25]
+  assign io_in2_wb_valid = (io_out_rdata_rep_valid | io_out_wb_valid) & _GEN_24; // @[AxiArbiter.scala 130:21 84:50]
+  assign io_in2_wb_bits = io_out_wb_bits; // @[AxiArbiter.scala 138:18]
+  assign io_out_raddr_req_valid = (io_in1_raddr_req_valid | io_in1_waddr_req_valid) & ~state ? io_in1_raddr_req_valid :
+    _GEN_2; // @[AxiArbiter.scala 17:77 27:28]
+  assign io_out_raddr_req_bits_addr = (io_in1_raddr_req_valid | io_in1_waddr_req_valid) & ~state ?
+    io_in1_raddr_req_bits_addr : _GEN_6; // @[AxiArbiter.scala 17:77 35:27]
+  assign io_out_waddr_req_valid = (io_in1_raddr_req_valid | io_in1_waddr_req_valid) & ~state ? io_in1_waddr_req_valid :
+    _GEN_3; // @[AxiArbiter.scala 17:77 28:28]
+  assign io_out_waddr_req_bits_addr = (io_in1_raddr_req_valid | io_in1_waddr_req_valid) & ~state ?
+    io_in1_waddr_req_bits_addr : _GEN_7; // @[AxiArbiter.scala 17:77 36:27]
+  assign io_out_wdata_req_valid = (io_in1_raddr_req_valid | io_in1_waddr_req_valid) & ~state ? io_in1_wdata_req_valid :
+    _GEN_4; // @[AxiArbiter.scala 17:77 29:28]
+  assign io_out_wdata_req_bits_wdata = (io_in1_raddr_req_valid | io_in1_waddr_req_valid) & ~state ?
+    io_in1_wdata_req_bits_wdata : _GEN_9; // @[AxiArbiter.scala 17:77 37:27]
+  assign io_out_wdata_req_bits_wmask = (io_in1_raddr_req_valid | io_in1_waddr_req_valid) & ~state ?
+    io_in1_wdata_req_bits_wmask : _GEN_8; // @[AxiArbiter.scala 17:77 37:27]
+  assign io_out_wb_ready = io_out_rdata_rep_valid | io_out_wb_valid ? _GEN_26 : 1'h1; // @[AxiArbiter.scala 133:21 84:50]
   always @(posedge clock) begin
-    if (reset) begin // @[AxiArbiter.scala 12:25]
-      choose_r <= 1'h0; // @[AxiArbiter.scala 12:25]
-    end else if (io_in1_raddr_req_valid | io_in1_waddr_req_valid) begin // @[AxiArbiter.scala 14:57]
-      choose_r <= 1'h0; // @[AxiArbiter.scala 15:14]
+    if (reset) begin // @[AxiArbiter.scala 14:22]
+      state <= 1'h0; // @[AxiArbiter.scala 14:22]
+    end else if (io_out_rdata_rep_valid | io_out_wb_valid) begin // @[AxiArbiter.scala 84:50]
+      state <= 1'h0;
+    end else begin
+      state <= _GEN_20;
+    end
+    if (reset) begin // @[AxiArbiter.scala 15:25]
+      choose_r <= 1'h0; // @[AxiArbiter.scala 15:25]
+    end else if ((io_in1_raddr_req_valid | io_in1_waddr_req_valid) & ~state) begin // @[AxiArbiter.scala 17:77]
+      choose_r <= 1'h0; // @[AxiArbiter.scala 18:14]
     end else begin
       choose_r <= _GEN_0;
     end
@@ -2605,7 +2617,9 @@ initial begin
     `endif
 `ifdef RANDOMIZE_REG_INIT
   _RAND_0 = {1{`RANDOM}};
-  choose_r = _RAND_0[0:0];
+  state = _RAND_0[0:0];
+  _RAND_1 = {1{`RANDOM}};
+  choose_r = _RAND_1[0:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
@@ -3817,7 +3831,6 @@ module CoreTop(
   wire [63:0] ARBITER_io_out_raddr_req_bits_addr; // @[CoreTop.scala 114:23]
   wire  ARBITER_io_out_waddr_req_valid; // @[CoreTop.scala 114:23]
   wire [63:0] ARBITER_io_out_waddr_req_bits_addr; // @[CoreTop.scala 114:23]
-  wire  ARBITER_io_out_rdata_rep_ready; // @[CoreTop.scala 114:23]
   wire  ARBITER_io_out_rdata_rep_valid; // @[CoreTop.scala 114:23]
   wire [63:0] ARBITER_io_out_rdata_rep_bits_rdata; // @[CoreTop.scala 114:23]
   wire  ARBITER_io_out_wdata_req_valid; // @[CoreTop.scala 114:23]
@@ -4246,7 +4259,6 @@ module CoreTop(
     .io_out_raddr_req_bits_addr(ARBITER_io_out_raddr_req_bits_addr),
     .io_out_waddr_req_valid(ARBITER_io_out_waddr_req_valid),
     .io_out_waddr_req_bits_addr(ARBITER_io_out_waddr_req_bits_addr),
-    .io_out_rdata_rep_ready(ARBITER_io_out_rdata_rep_ready),
     .io_out_rdata_rep_valid(ARBITER_io_out_rdata_rep_valid),
     .io_out_rdata_rep_bits_rdata(ARBITER_io_out_rdata_rep_bits_rdata),
     .io_out_wdata_req_valid(ARBITER_io_out_wdata_req_valid),
@@ -4547,7 +4559,7 @@ module CoreTop(
   assign MMEM_clk = clock; // @[CoreTop.scala 144:17]
   assign MMEM_ar_valid = ARBITER_io_out_raddr_req_valid; // @[CoreTop.scala 146:22]
   assign MMEM_araddr = ARBITER_io_out_raddr_req_bits_addr; // @[CoreTop.scala 147:20]
-  assign MMEM_r_ready = ARBITER_io_out_rdata_rep_ready; // @[CoreTop.scala 158:21]
+  assign MMEM_r_ready = 1'h1; // @[CoreTop.scala 158:21]
   assign MMEM_aw_valid = ARBITER_io_out_waddr_req_valid; // @[CoreTop.scala 150:22]
   assign MMEM_awaddr = ARBITER_io_out_waddr_req_bits_addr; // @[CoreTop.scala 151:20]
   assign MMEM_w_valid = ARBITER_io_out_wdata_req_valid; // @[CoreTop.scala 156:21]

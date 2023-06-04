@@ -430,8 +430,8 @@ class EXE extends Module with Paramete{
   io.out.bits.ctrl_rf.rfWen := Mux(io.in.valid,io.in.bits.ctrl_signal.rfWen,0.U)
   io.out.bits.ctrl_flow.Dnpc := dnpc
   io.branchIO.dnpc := dnpc//Mux(time_int === 1.U, csr.read(CSR_index.mtvec), dnpc)
-  io.branchIO.is_branch := branch_flag & io.out.bits.ctrl_signal.inst_valid & io.in.valid//Mux(time_int === 1.U, 1.U, branch_flag)
-  io.branchIO.is_jump := Mux(io.in.bits.ctrl_signal.fuType === FUType.jump && io.out.bits.ctrl_signal.inst_valid && io.in.valid, 1.U, 0.U)
+  io.branchIO.is_branch := branch_flag & io.out.bits.ctrl_signal.inst_valid & io.in.valid & io.out.ready//Mux(time_int === 1.U, 1.U, branch_flag)
+  io.branchIO.is_jump := Mux(io.in.bits.ctrl_signal.fuType === FUType.jump && io.out.bits.ctrl_signal.inst_valid && io.in.valid & io.out.ready, 1.U, 0.U)
 
   io.out.valid := Mux(!(!mul.io.out.valid && is_mul ) && !(!div.io.out.valid && is_div) && io.in.valid ,1.U,0.U)
   io.in.ready := Mux(((!mul.io.out.valid && is_mul) || (!div.io.out.valid && is_div)) && io.in.valid,0.U,io.out.ready)
