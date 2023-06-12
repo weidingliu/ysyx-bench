@@ -172,7 +172,14 @@ class Booth_Walloc_MUL (mul_len:Int) extends Module with Paramete{
     val in = Flipped(Decoupled(new MUL_IN(mul_len)))
     val out = Decoupled(new MUL_OUT(mul_len))
   })
-
+  val list_table = List(
+    (Siganle.ss) -> (SIgEXtend(io.in.bits.ctrl_data.src1, mul_len + 1), SIgEXtend(io.in.bits.ctrl_data.src2, mul_len + 1)),
+    (Siganle.su) -> (SIgEXtend(io.in.bits.ctrl_data.src1, mul_len + 1), ZeroEXtend(io.in.bits.ctrl_data.src2, mul_len + 1)),
+    (Siganle.uu) -> (ZeroEXtend(io.in.bits.ctrl_data.src1, mul_len + 1), ZeroEXtend(io.in.bits.ctrl_data.src2, mul_len + 1)),
+  )
+  val src1 = LookupTree(io.in.bits.ctrl_flow.mul_sign, list_table.map(p => (p._1, p._2._1)))
+  val src2 = LookupTree(io.in.bits.ctrl_flow.mul_sign, list_table.map(p => (p._1, p._2._2)))
+  
 }
 
 

@@ -77,7 +77,7 @@ class DIV (div_len:Int)extends Module with Paramete{
   io.out.bits.result.quotient := Mux(io.in.bits.ctrl_flow.div_signed,s_o,S)
   io.out.bits.result.remainder := Mux(io.in.bits.ctrl_flow.div_signed,r_o,dividend(div_len*2-1,div_len))
 }
-//import chisel3.stage._
-//object app extends App{
-//  (new ChiselStage).emitVerilog(new DIV(32),Array("--target-dir", "build"))
-//}
+import chisel3.stage._
+object app extends App{
+  (new ChiselStage).emitVerilog(new DIV(32),Array("--target-dir", "build"))
+}
