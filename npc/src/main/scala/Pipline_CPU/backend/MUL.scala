@@ -45,9 +45,39 @@ class Partial_product (booth_bit : Int = 3, mul_len: Int)extends Module{
 
   ))
 }
-object Partial_product{
-    def apply(booth_bit : Int = 3, mul_len: Int,y_3:UInt,x:UInt) ={
-      val m = Module(new Partial_product(booth_bit,mul_len))
+
+class Improved_Partial_product(mul_len : Int)extends Module{
+  val io = IO(new Bundle(){
+    val y_3 = Input(UInt(3.W))
+    val x = Input(UInt((mul_len+2).W))
+    val p = Output(UInt((mul_len+2).W))
+    val c = Output(UInt(2.W))
+})
+  io.p := MuxCase(0.U((mul_len + 2).W), Seq(
+    (io.y_3 === "b000".U) -> 0.U(((mul_len + 2)).W),
+    (io.y_3 === "b001".U) -> io.x,
+    (io.y_3 === "b010".U) -> io.x,
+    (io.y_3 === "b011".U) -> (io.x << 1),
+    (io.y_3 === "b100".U) -> (~(io.x << 1)),
+    (io.y_3 === "b101".U) -> (~io.x),
+    (io.y_3 === "b110".U) -> (~io.x),
+    (io.y_3 === "b111".U) -> 0.U(((mul_len + 2)).W),
+
+  ))
+  io.c := MuxCase(0.U(1.W), Seq(
+    (io.y_3 === "b000".U) -> "b00".U(2.W),
+    (io.y_3 === "b001".U) -> "b00".U(2.W),
+    (io.y_3 === "b010".U) -> "b00".U(2.W),
+    (io.y_3 === "b011".U) -> "b00".U(2.W),
+    (io.y_3 === "b100".U) -> "b10".U(2.W),
+    (io.y_3 === "b101".U) -> "b01".U(2.W),
+    (io.y_3 === "b110".U) -> "b01".U(2.W),
+    (io.y_3 === "b111".U) -> "b00".U(2.W),
+  ))
+}
+object Improved_Partial_product{
+    def apply( mul_len: Int,y_3:UInt,x:UInt) ={
+      val m = Module(new Improved_Partial_product(mul_len))
       m.io.y_3 := y_3
       m.io.x := x
       (m.io.p,m.io.c)
@@ -172,14 +202,37 @@ class Booth_Walloc_MUL (mul_len:Int) extends Module with Paramete{
     val in = Flipped(Decoupled(new MUL_IN(mul_len)))
     val out = Decoupled(new MUL_OUT(mul_len))
   })
+  def array_take(y:Seq[Bool],x:Seq[Bool]): Seq[Bool] ={
+    if(y == null){
+      x
+    }
+    else{
+      x ++ y
+    }
+  }
+
+  // src2 is Double sign bit
   val list_table = List(
-    (Siganle.ss) -> (SIgEXtend(io.in.bits.ctrl_data.src1, mul_len + 1), SIgEXtend(io.in.bits.ctrl_data.src2, mul_len + 1)),
-    (Siganle.su) -> (SIgEXtend(io.in.bits.ctrl_data.src1, mul_len + 1), ZeroEXtend(io.in.bits.ctrl_data.src2, mul_len + 1)),
-    (Siganle.uu) -> (ZeroEXtend(io.in.bits.ctrl_data.src1, mul_len + 1), ZeroEXtend(io.in.bits.ctrl_data.src2, mul_len + 1)),
+    (Siganle.ss) -> (Cat(SIgEXtend(io.in.bits.ctrl_data.src1, mul_len + 2),Fill(1,0.U)), SIgEXtend(io.in.bits.ctrl_data.src2, mul_len + 2)),
+    (Siganle.su) -> (Cat(SIgEXtend(io.in.bits.ctrl_data.src1, mul_len + 2),Fill(1,0.U)), ZeroEXtend(io.in.bits.ctrl_data.src2, mul_len + 2)),
+    (Siganle.uu) -> (Cat(ZeroEXtend(io.in.bits.ctrl_data.src1, mul_len + 2),Fill(1,0.U)), ZeroEXtend(io.in.bits.ctrl_data.src2, mul_len + 2)),
   )
   val src1 = LookupTree(io.in.bits.ctrl_flow.mul_sign, list_table.map(p => (p._1, p._2._1)))
   val src2 = LookupTree(io.in.bits.ctrl_flow.mul_sign, list_table.map(p => (p._1, p._2._2)))
-  
+
+  val partial_product_array = new Array[Seq[Bool]]((mul_len +2 )*2)
+//  val last_c = Seq[UInt]
+  for (i<-0 until (mul_len+2) by 2){
+    val (p,c) = Improved_Partial_product(mul_len,src1(i+2,i),src2)
+    for(j<-0 until (mul_len+2)){
+      partial_product_array(j + i/2) = array_take(partial_product_array(j + i/2) , Seq(p(j)))
+    }
+
+  }
+io.out.bits.result.result_hi := partial_product_array(1)(1)
+  io.out.bits.result.result_lo:=partial_product_array(2)(2)
+  io.out.valid := 0.U
+  io.in.ready := 0.U
 }
 
 
@@ -225,7 +278,7 @@ class MUL (booth_bit : Int = 3, mul_len: Int) extends Module with Paramete {
 
 }
 
-//import chisel3.stage._
-//object app extends App{
-//  (new ChiselStage).emitVerilog(new Booth_MUL(3,32),Array("--target-dir", "build"))
-//}
+import chisel3.stage._
+object app extends App{
+  (new ChiselStage).emitVerilog(new Booth_Walloc_MUL(32),Array("--target-dir", "build"))
+}
