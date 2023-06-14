@@ -5,6 +5,7 @@ import chisel3.util._
 import Pipline_CPU.utils.SIgEXtend
 import Pipline_CPU.utils.LookupTree
 import Pipline_CPU.utils.ZeroEXtend
+//import math._
 
 
 object Siganle{
@@ -110,6 +111,23 @@ object Adder  {
   }
 }
 
+class Half_Adder extends Module{
+  val io = IO(new Bundle() {
+    val in = Input(Vec(2,Bool()))
+    val out = Output(Vec(2,Bool()))
+  })
+  io.out(0) := io.in(0) ^ io.in(1)
+  io.out(1) := io.in(0) & io.in(1)
+}
+object Half_Adder{
+  def apply(in1:Bool,in2:Bool): (Bool,Bool) = {
+    val m = Module(new Half_Adder)
+    m.io.in(0) := in1
+    m.io.in(1) := in2
+    (m.io.out(0) ,m.io.out(1))
+  }
+}
+
 class Shift_MUL (mul_len: Int)extends Module with Paramete{
   val io = IO(new Bundle() {
     val in = Flipped(Decoupled(new MUL_IN(mul_len)))
@@ -202,13 +220,61 @@ class Booth_Walloc_MUL (mul_len:Int) extends Module with Paramete{
     val in = Flipped(Decoupled(new MUL_IN(mul_len)))
     val out = Decoupled(new MUL_OUT(mul_len))
   })
+  def max_col (y:Array[Seq[Bool]]): Int = {
+    var max_size = 0
+    for(i <- 0 until y.length){
+      if(max_size < y(i).size) max_size = y(i).size
+    }
+    max_size
+  }
   def array_take(y:Seq[Bool],x:Seq[Bool]): Seq[Bool] ={
     if(y == null){
       x
     }
     else{
-      x ++ y
+      y ++ x
     }
+  }
+
+  def Add_Onecolmn(col:Seq[Bool],cin:Seq[Bool]): (Seq[Bool],Seq[Bool]) = {
+    var sum = Seq[Bool]()
+    var cout = Seq[Bool]()
+
+    col.size match {
+      case 1 => {
+        sum = col ++ cin
+      }
+      case 2 => {
+        val (s,c) = Half_Adder(col(0),col(1))
+        sum = Seq(s) ++ cin
+        cout = Seq(c)
+      }
+      case 3 => {
+        val (s,c) = Adder(col(0),col(1),col(2))
+        sum = Seq(s.asBool) ++ cin
+        cout = Seq(c.asBool)
+      }
+      case n => {
+        val count_1 = if(cin.nonEmpty) Seq(cin.head) else Nil
+        val count_2 = if(cin.nonEmpty) cin.drop(1) else Nil
+        val (s_1,c_1) = Add_Onecolmn(col take 3,count_1)
+        val (s_2,c_2) = Add_Onecolmn(col drop 3,count_2)
+        sum = s_1 ++ s_2
+        cout = c_1 ++ c_2
+      }
+    }
+    (sum,cout)
+  }
+  def Add_All(cols : Array[Seq[Bool]],depth:Int): (UInt,UInt) ={
+    if((max_col(cols) <= 2){
+      val sum = Cat(cols.map(_(0)).reverse)
+
+    }
+    else {
+
+    }
+
+    Add_All()
   }
 
   // src2 is Double sign bit
@@ -222,16 +288,36 @@ class Booth_Walloc_MUL (mul_len:Int) extends Module with Paramete{
 
   val partial_product_array = new Array[Seq[Bool]]((mul_len +2 )*2)
 //  val last_c = Seq[UInt]
+  var next_c = 0.U(2.W)
   for (i<-0 until (mul_len+2) by 2){
     val (p,c) = Improved_Partial_product(mul_len,src1(i+2,i),src2)
     for(j<-0 until (mul_len+2)){
-      partial_product_array(j + i/2) = array_take(partial_product_array(j + i/2) , Seq(p(j)))
+      partial_product_array(j + i) = array_take(partial_product_array(j + i) , Seq(p(j)))
+      if(j == mul_len +1 && i != 0 && i != mul_len){
+        partial_product_array(j + i +1) = array_take(partial_product_array(j + i +1) , Seq(!p(j)))
+        partial_product_array(j + i +2) = array_take(partial_product_array(j + i +2) , Seq(1.B))
+      }
+      if(j == mul_len +1 && i == 0){
+        partial_product_array(j + i + 1) = array_take(partial_product_array(j + i + 1), Seq(p(j)))
+        partial_product_array(j + i + 2) = array_take(partial_product_array(j + i + 2), Seq(p(j)))
+        partial_product_array(j + i + 3) = array_take(partial_product_array(j + i + 3), Seq(!p(j)))
+      }
+      if(j == mul_len +1 && i == mul_len){
+        partial_product_array(j + i +1) = array_take(partial_product_array(j + i +1) , Seq(!p(j)))
+      }
     }
-
+    if (i != 0) {
+      partial_product_array(i - 1) = array_take(partial_product_array(i - 1), Seq(next_c(1)))
+      partial_product_array(i - 2) = array_take(partial_product_array(i - 2), Seq(next_c(0)))
+    }
+    next_c = c
   }
-io.out.bits.result.result_hi := partial_product_array(1)(1)
-  io.out.bits.result.result_lo:=partial_product_array(2)(2)
-  io.out.valid := 0.U
+  println(partial_product_array(0).length)
+  println(partial_product_array(1).length)
+  println(partial_product_array(2).length)
+  io.out.bits.result.result_hi := !partial_product_array(1)(0)
+  io.out.bits.result.result_lo:=partial_product_array(2)(0)
+  io.out.valid := partial_product_array(0)(1)
   io.in.ready := 0.U
 }
 
