@@ -59,7 +59,7 @@ class Improved_Partial_product(mul_len : Int)extends Module{
     (io.y_3 === "b001".U) -> io.x,
     (io.y_3 === "b010".U) -> io.x,
     (io.y_3 === "b011".U) -> (io.x << 1),
-    (io.y_3 === "b100".U) -> (~(io.x << 1)),
+    (io.y_3 === "b100".U) -> ((~io.x) << 1),
     (io.y_3 === "b101".U) -> (~io.x),
     (io.y_3 === "b110".U) -> (~io.x),
     (io.y_3 === "b111".U) -> 0.U(((mul_len + 2)).W),
@@ -222,7 +222,7 @@ class Booth_Walloc_MUL (mul_len:Int) extends Module with Paramete{
   })
   def max_col (y:Array[Seq[Bool]]): Int = {
     var max_size = 0
-    for(i <- 0 until y.length){
+    for(i <- 0 until y.size){
       if(max_size < y(i).size) max_size = y(i).size
     }
     max_size
@@ -265,16 +265,26 @@ class Booth_Walloc_MUL (mul_len:Int) extends Module with Paramete{
     }
     (sum,cout)
   }
-  def Add_All(cols : Array[Seq[Bool]],depth:Int): (UInt,UInt) ={
-    if((max_col(cols) <= 2){
-      val sum = Cat(cols.map(_(0)).reverse)
+  def Add_All(cols: Array[Seq[Bool]],depth:Int): (UInt,UInt) ={
 
+    if(max_col(cols) <= 2){
+      val sum = Cat(cols.map(_(0)).reverse)
+      var k = 0
+      while(cols(k).size == 1) k = k+1
+      val carry = Cat(cols.drop(k).map(_(1)).reverse)
+//      println(depth)
+      (sum,Cat(carry,Fill(k,0.U(1.W))))
     }
     else {
-
+      val columns_next = Array.fill(cols.size)(Seq[Bool]())
+      var cout = Seq[Bool]()
+      for(i<-0 until cols.size){
+        val (s,c) = Add_Onecolmn(cols(i),cout)
+        columns_next(i) = s
+        cout = c
+      }
+      Add_All(columns_next,depth+1)
     }
-
-    Add_All()
   }
 
   // src2 is Double sign bit
@@ -286,7 +296,7 @@ class Booth_Walloc_MUL (mul_len:Int) extends Module with Paramete{
   val src1 = LookupTree(io.in.bits.ctrl_flow.mul_sign, list_table.map(p => (p._1, p._2._1)))
   val src2 = LookupTree(io.in.bits.ctrl_flow.mul_sign, list_table.map(p => (p._1, p._2._2)))
 
-  val partial_product_array = new Array[Seq[Bool]]((mul_len +2 )*2)
+  val partial_product_array = new Array[Seq[Bool]]((mul_len +2 )*2-1)
 //  val last_c = Seq[UInt]
   var next_c = 0.U(2.W)
   for (i<-0 until (mul_len+2) by 2){
@@ -312,13 +322,18 @@ class Booth_Walloc_MUL (mul_len:Int) extends Module with Paramete{
     }
     next_c = c
   }
-  println(partial_product_array(0).length)
-  println(partial_product_array(1).length)
-  println(partial_product_array(2).length)
-  io.out.bits.result.result_hi := !partial_product_array(1)(0)
-  io.out.bits.result.result_lo:=partial_product_array(2)(0)
-  io.out.valid := partial_product_array(0)(1)
-  io.in.ready := 0.U
+//for(i<-0 until partial_product_array.size){
+//  println(i.toString +" "+ partial_product_array(i).size.toString)
+//}
+  val cols_reg = partial_product_array.map(col => col.map(x => RegNext(x)))
+  val (sum,c) = Add_All(cols_reg,0)
+
+  val result = sum + c
+
+  io.out.bits.result.result_hi := result(mul_len * 2-1,mul_len)
+  io.out.bits.result.result_lo:= result(mul_len -1,0)
+  io.out.valid := true.B
+  io.in.ready := true.B
 }
 
 
