@@ -32,29 +32,33 @@ class ALU_test extends AnyFreeSpec with ChiselScalatestTester {
       c.io.in.valid.poke(1.B)
       c.io.in.bits.ctrl_flow.mul_sign.poke(0.U)
       c.io.in.bits.ctrl_flow.mulw.poke(1.U)
-
-      while (i < 3) {
+//      println("result is " + c.io.out.bits.result.result_hi.peek().toString() + " cout is " + c.io.out.bits.result.result_lo.peek().toString())
+      println("valid is " + c.io.out.valid.peek().toString())
+      while (i < 2) {
         c.clock.step()
         i = i + 1
-        println("result is " + c.io.out.bits.result.result_hi.peek().toString() + " cout is " + c.io.out.bits.result.result_lo.peek().toString())
+//        println("result is " + c.io.out.bits.result.result_hi.peek().toString() + " cout is " + c.io.out.bits.result.result_lo.peek().toString())
         println("valid is " + c.io.out.valid.peek().toString())
       }
       println("result is " + c.io.out.bits.result.result_hi.peek().toString() + " cout is " + c.io.out.bits.result.result_lo.peek().toString())
       println("valid is " + c.io.out.valid.peek().toString())
+
       i = 0
+      c.io.in.valid.poke(0.B)
+      c.clock.step()
       c.io.in.bits.ctrl_data.src1.poke(9.U(32.W))
       c.io.in.bits.ctrl_data.src2.poke(9.U(32.W))
       c.io.in.bits.ctrl_flow.flush.poke(0.B)
       c.io.in.valid.poke(1.B)
-      while (i <= 3) {
+      while (i < 2) {
         c.clock.step()
         i = i + 1
-        println("result is " + c.io.out.bits.result.result_hi.peek().toString() + " cout is " + c.io.out.bits.result.result_lo.peek().toString())
-        println("valid is " + c.io.out.valid.peek().toString())
+//        println("result is " + c.io.out.bits.result.result_hi.peek().toString() + " cout is " + c.io.out.bits.result.result_lo.peek().toString())
+//        println("valid is " + c.io.out.valid.peek().toString())
       }
       println("result is " + c.io.out.bits.result.result_hi.peek().toString() + " cout is " + c.io.out.bits.result.result_lo.peek().toString())
       println("valid is " + c.io.out.valid.peek().toString())
-
+//
       c.io.in.valid.poke(0.B)
       c.clock.step()
       i = 0
@@ -62,16 +66,16 @@ class ALU_test extends AnyFreeSpec with ChiselScalatestTester {
       c.io.in.bits.ctrl_data.src2.poke(3.U(32.W))
       c.io.in.bits.ctrl_flow.flush.poke(0.B)
       c.io.in.valid.poke(1.B)
-      while (i <= 3) {
+      while (i < 2) {
         c.clock.step()
         i = i + 1
-        println("result is " + c.io.out.bits.result.result_hi.peek().toString() + " cout is " + c.io.out.bits.result.result_lo.peek().toString())
-        println("valid is " + c.io.out.valid.peek().toString())
+//        println("result is " + c.io.out.bits.result.result_hi.peek().toString() + " cout is " + c.io.out.bits.result.result_lo.peek().toString())
+//        println("valid is " + c.io.out.valid.peek().toString())
       }
       println("result is " + c.io.out.bits.result.result_hi.peek().toString() + " cout is " + c.io.out.bits.result.result_lo.peek().toString())
       println("valid is " + c.io.out.valid.peek().toString())
-
-
+//
+//
       c.io.in.valid.poke(0.B)
       c.clock.step()
 
@@ -79,12 +83,12 @@ class ALU_test extends AnyFreeSpec with ChiselScalatestTester {
       c.io.in.bits.ctrl_data.src1.poke(3.U(32.W))
       c.io.in.bits.ctrl_data.src2.poke(18.U(32.W))
       c.io.in.bits.ctrl_flow.flush.poke(0.B)
-      c.io.in.valid.poke(1.B)
-      while (i <= 3) {
+      c.io.in.valid.poke(0.B)
+      while (i < 2) {
         c.clock.step()
         i = i + 1
-        println("result is " + c.io.out.bits.result.result_hi.peek().toString() + " cout is " + c.io.out.bits.result.result_lo.peek().toString())
-        println("valid is " + c.io.out.valid.peek().toString())
+//        println("result is " + c.io.out.bits.result.result_hi.peek().toString() + " cout is " + c.io.out.bits.result.result_lo.peek().toString())
+//        println("valid is " + c.io.out.valid.peek().toString())
       }
       println("result is " + c.io.out.bits.result.result_hi.peek().toString() + " cout is " + c.io.out.bits.result.result_lo.peek().toString())
       println("valid is " + c.io.out.valid.peek().toString())

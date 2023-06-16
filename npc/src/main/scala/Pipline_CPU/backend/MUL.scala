@@ -52,7 +52,7 @@ class Improved_Partial_product(mul_len : Int)extends Module{
     val y_3 = Input(UInt(3.W))
     val x = Input(UInt((mul_len+2).W))
     val p = Output(UInt((mul_len+2).W))
-    val c = Output(UInt(2.W))
+    val carry = Output(UInt(2.W))
 })
   io.p := MuxCase(0.U((mul_len + 2).W), Seq(
     (io.y_3 === "b000".U) -> 0.U(((mul_len + 2)).W),
@@ -65,7 +65,7 @@ class Improved_Partial_product(mul_len : Int)extends Module{
     (io.y_3 === "b111".U) -> 0.U(((mul_len + 2)).W),
 
   ))
-  io.c := MuxCase(0.U(1.W), Seq(
+  io.carry := MuxCase(0.U(2.W), Seq(
     (io.y_3 === "b000".U) -> "b00".U(2.W),
     (io.y_3 === "b001".U) -> "b00".U(2.W),
     (io.y_3 === "b010".U) -> "b00".U(2.W),
@@ -81,7 +81,7 @@ object Improved_Partial_product{
       val m = Module(new Improved_Partial_product(mul_len))
       m.io.y_3 := y_3
       m.io.x := x
-      (m.io.p,m.io.c)
+      (m.io.p,m.io.carry)
     }
 }
 
@@ -91,10 +91,10 @@ class Adder extends Module with Paramete{
     val x2 = Input(UInt(1.W))
     val x3 = Input(UInt(1.W))
     val s = Output(UInt(1.W))
-    val c = Output(UInt(1.W))
+    val cout = Output(UInt(1.W))
   })
   io.s := io.x1 ^ io.x2 ^ io.x3
-  io.c := io.x1 & io.x2 | io.x1 & io.x3 | io.x2 & io.x3
+  io.cout := (io.x1 & io.x2) | (io.x1 & io.x3) | (io.x2 & io.x3)
 }
 
 object Adder  {
@@ -104,7 +104,7 @@ object Adder  {
     m.io.x2 := x2
     m.io.x3 := x3
 //    Cat(m.io.s,m.io.c)
-    (m.io.s,m.io.c)
+    (m.io.s,m.io.cout)
 
 //    s := m.io.s
 //    c := m.io.c
@@ -235,6 +235,14 @@ class Booth_Walloc_MUL (mul_len:Int) extends Module with Paramete{
       y ++ x
     }
   }
+  def select_elem(x:Array[Seq[Bool]],index:Int): Seq[Bool]={
+    var temp = Seq[Bool]()
+    for(i <- 0 until x.size){
+      temp = temp :+ x(i)(index)
+    }
+//    Cat(temp.reverse)
+    temp
+  }
 
   def Add_Onecolmn(col:Seq[Bool],cin:Seq[Bool]): (Seq[Bool],Seq[Bool]) = {
     var sum = Seq[Bool]()
@@ -268,10 +276,10 @@ class Booth_Walloc_MUL (mul_len:Int) extends Module with Paramete{
   def Add_All(cols: Array[Seq[Bool]],depth:Int): (UInt,UInt) ={
 
     if(max_col(cols) <= 2){
-      val sum = Cat(cols.map(_(0)).reverse)
+      val sum = Cat(select_elem(cols,0).reverse)
       var k = 0
       while(cols(k).size == 1) k = k+1
-      val carry = Cat(cols.drop(k).map(_(1)).reverse)
+      val carry = Cat(select_elem(cols.drop(k),1).reverse)
 //      println(depth)
       (sum,Cat(carry,Fill(k,0.U(1.W))))
     }
@@ -283,7 +291,9 @@ class Booth_Walloc_MUL (mul_len:Int) extends Module with Paramete{
         columns_next(i) = s
         cout = c
       }
-      Add_All(columns_next,depth+1)
+//      println(depth)
+      val next_layer = if(depth == 3) columns_next.map(col => col.map(x => RegEnable(x,io.in.valid))) else columns_next
+      Add_All(next_layer,depth+1)
     }
   }
 
@@ -300,7 +310,7 @@ class Booth_Walloc_MUL (mul_len:Int) extends Module with Paramete{
 //  val last_c = Seq[UInt]
   var next_c = 0.U(2.W)
   for (i<-0 until (mul_len+2) by 2){
-    val (p,c) = Improved_Partial_product(mul_len,src1(i+2,i),src2)
+    val (p,c_p) = Improved_Partial_product(mul_len,src1(i+2,i),src2)
     for(j<-0 until (mul_len+2)){
       partial_product_array(j + i) = array_take(partial_product_array(j + i) , Seq(p(j)))
       if(j == mul_len +1 && i != 0 && i != mul_len){
@@ -320,44 +330,37 @@ class Booth_Walloc_MUL (mul_len:Int) extends Module with Paramete{
       partial_product_array(i - 1) = array_take(partial_product_array(i - 1), Seq(next_c(1)))
       partial_product_array(i - 2) = array_take(partial_product_array(i - 2), Seq(next_c(0)))
     }
-    next_c = c
+    next_c = c_p
   }
 //for(i<-0 until partial_product_array.size){
 //  println(i.toString +" "+ partial_product_array(i).size.toString)
 //}
-  val cols_reg = partial_product_array.map(col => col.map(x => RegNext(x)))
-  val (sum,c) = Add_All(cols_reg,0)
+//  println(partial_product_array.size)
+  val cols_reg = partial_product_array.map(col => col.map(x => RegEnable(x,io.in.valid)))
+  val (sum,cout) = Add_All(cols_reg,0)
 
-  val result = sum + c
+  val result = sum + cout
+
+  val count = RegInit(0.U(8.W))
+  val s = count === 2.U(8.W)
+  count := Mux(!io.in.bits.ctrl_flow.flush && io.in.valid && !io.out.valid,count+1.U,0.U)
+//  when(io.in.valid){
+//    count := count +1.U(8.W)
+//  }.otherwise{
+//    count := 0.U(8.W)
+//  }
 
   io.out.bits.result.result_hi := result(mul_len * 2-1,mul_len)
   io.out.bits.result.result_lo:= result(mul_len -1,0)
-  io.out.valid := true.B
+  io.out.valid := Mux(s,true.B,false.B)
   io.in.ready := true.B
 }
-
 
 class MUL (booth_bit : Int = 3, mul_len: Int) extends Module with Paramete {
   val io = IO(new Bundle() {
     val in = Flipped(Decoupled(new MUL_IN(mul_len)))
     val out = Decoupled(new MUL_OUT(mul_len))
   })
-
-//  def select_mul(x:String) = x match {
-//    case "Booth" => {
-//      val mult = Module(new Booth_MUL(booth_bit, mul_len))
-//    }
-//    case "Shift" => {
-//      val mult = Module(new Shift_MUL(mul_len))
-//    }
-//    case _ => {
-//      val mult = Module(new Booth_MUL(booth_bit, mul_len))
-//    }
-//  }
-//  val mult = select_mul(mul_select)
-//  io.in <> mult.io.in
-//  io.out <> mult.io.out
-
 
   val mul = mul_select match {
     case "Booth" => {
@@ -370,6 +373,11 @@ class MUL (booth_bit : Int = 3, mul_len: Int) extends Module with Paramete {
       io.in <> mult.io.in
       io.out <> mult.io.out
     }
+    case "WallocBooth" => {
+      val mult = Module(new Booth_Walloc_MUL(mul_len))
+      io.in <> mult.io.in
+      io.out <> mult.io.out
+    }
     case _ => {
       val mult = Module(new Booth_MUL(booth_bit, mul_len))
       io.in <> mult.io.in
@@ -379,7 +387,7 @@ class MUL (booth_bit : Int = 3, mul_len: Int) extends Module with Paramete {
 
 }
 
-import chisel3.stage._
-object app extends App{
-  (new ChiselStage).emitVerilog(new Booth_Walloc_MUL(32),Array("--target-dir", "build"))
-}
+//import chisel3.stage._
+//object app extends App{
+//  (new ChiselStage).emitVerilog(new Booth_Walloc_MUL(32),Array("--target-dir", "build"))
+//}
