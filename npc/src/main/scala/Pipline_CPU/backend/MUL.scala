@@ -164,17 +164,7 @@ class Booth_MUL(booth_bit : Int = 3, mul_len: Int) extends Module{
     val in = Flipped(Decoupled(new MUL_IN(mul_len)))
     val out = Decoupled(new MUL_OUT(mul_len))
   })
-//  val s = Wire(UInt(1.W))
-//  val c = Wire(UInt(1.W))
-//
-//  io.out.bits.result.result_hi := 0.U
-////  io.in.bits.ctrl_flow.flush := 0.U
-//  io.out.bits.result.result_lo := 0.U
-//
-//  val (s,c) = Adder(io.in.bits.ctrl_data.src1(0),io.in.bits.ctrl_data.src1(2),io.in.bits.ctrl_data.src1(3))
-//  io.in.ready := s
-//  io.out.valid := c
-//  c := Adder(io.in.bits.ctrl_data.src1(0),io.in.bits.ctrl_data.src1(2),io.in.bits.ctrl_data.src1(3))._2
+
   val multiplier = RegInit(0.U(((mul_len+2)).W))
   val multiplicand = RegInit(0.U(((mul_len+2)*2).W))
   val p = RegInit(0.U(((mul_len+2)*2).W))
@@ -344,11 +334,6 @@ class Booth_Walloc_MUL (mul_len:Int) extends Module with Paramete{
   val count = RegInit(0.U(8.W))
   val s = count === 2.U(8.W)
   count := Mux(!io.in.bits.ctrl_flow.flush && io.in.valid && !io.out.valid,count+1.U,0.U)
-//  when(io.in.valid){
-//    count := count +1.U(8.W)
-//  }.otherwise{
-//    count := 0.U(8.W)
-//  }
 
   io.out.bits.result.result_hi := result(mul_len * 2-1,mul_len)
   io.out.bits.result.result_lo:= result(mul_len -1,0)
@@ -373,7 +358,7 @@ class MUL (booth_bit : Int = 3, mul_len: Int) extends Module with Paramete {
       io.in <> mult.io.in
       io.out <> mult.io.out
     }
-    case "WallocBooth" => {
+    case "Walloc_Booth" => {
       val mult = Module(new Booth_Walloc_MUL(mul_len))
       io.in <> mult.io.in
       io.out <> mult.io.out
@@ -389,5 +374,5 @@ class MUL (booth_bit : Int = 3, mul_len: Int) extends Module with Paramete {
 
 //import chisel3.stage._
 //object app extends App{
-//  (new ChiselStage).emitVerilog(new Booth_Walloc_MUL(32),Array("--target-dir", "build"))
+//  (new ChiselStage).emitVerilog(new Booth_Walloc_MUL(64),Array("--target-dir", "build"))
 //}
