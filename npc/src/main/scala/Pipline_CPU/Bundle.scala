@@ -171,6 +171,7 @@ class CPU_MEM_Bundle (Type : String)extends Bundle with Paramete{
 
 trait Axi_paramete{
   val Addr_width = 64
+  val data_width = 64
 }
 
 abstract class Axi_Lite_Bundle extends Bundle{
@@ -193,6 +194,43 @@ class Axi_lite_Bundle_in extends Axi_Lite_Bundle{
 }
 
 class Axi_lite_Bundle_out extends Axi_Lite_Bundle{
+  val raddr_req = Decoupled(new AxiAddrBus)
+  val waddr_req = Decoupled(new AxiAddrBus)
+  val rdata_rep = Flipped(Decoupled(new ReadDataBus))
+  val wdata_req = Decoupled(new WriteDataBus)
+  val wb        = Flipped(Decoupled(Input(UInt(2.W))))
+}
+
+class Axi_full_Bundle_in extends Axi_Lite_Bundle with Axi_paramete {
+  val raddr_req = Flipped(Decoupled(new Bundle() {
+    val arddr = Output(UInt(Addr_width.W))
+    val ar_id = Output(UInt(4.W))
+    val ar_len = Output(UInt(8.W))
+    val ar_size = Output(UInt(3.W))
+    val ar_prot = Output(UInt(3.W))
+    val ar_brust = Output(UInt(2.W))
+    val ar_lock = Output(UInt(2.W))
+    val ar_cache = Output(UInt(4.W))
+  }))
+  val waddr_req = Flipped(Decoupled(new Bundle() {
+    val awddr = Output(UInt(Addr_width.W))
+    val aw_id = Output(UInt(4.W))
+    val aw_len = Output(UInt(8.W))
+    val aw_size = Output(UInt(3.W))
+    val aw_prot = Output(UInt(3.W))
+    val aw_brust = Output(UInt(2.W))
+    val aw_lock = Output(UInt(2.W))
+    val aw_cache = Output(UInt(4.W))
+  }))
+  val rdata_rep = Decoupled(new Bundle() {
+    val rd_id = Output(UInt(4.W))
+    val rd_data = Output(UInt(data_width.W))
+  })
+  val wdata_req = Flipped(Decoupled(new WriteDataBus))
+  val wb = Decoupled(Input(UInt(2.W)))
+}
+
+class Axi_full_Bundle_out extends Axi_Lite_Bundle{
   val raddr_req = Decoupled(new AxiAddrBus)
   val waddr_req = Decoupled(new AxiAddrBus)
   val rdata_rep = Flipped(Decoupled(new ReadDataBus))

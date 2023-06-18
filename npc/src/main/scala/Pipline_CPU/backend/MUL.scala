@@ -281,7 +281,7 @@ class Booth_Walloc_MUL (mul_len:Int) extends Module with Paramete{
         columns_next(i) = s
         cout = c
       }
-//      println(depth)
+
       val next_layer = if(depth == 3) columns_next.map(col => col.map(x => RegEnable(x,io.in.valid))) else columns_next
       Add_All(next_layer,depth+1)
     }
@@ -297,7 +297,7 @@ class Booth_Walloc_MUL (mul_len:Int) extends Module with Paramete{
   val src2 = LookupTree(io.in.bits.ctrl_flow.mul_sign, list_table.map(p => (p._1, p._2._2)))
 
   val partial_product_array = new Array[Seq[Bool]]((mul_len +2 )*2-1)
-//  val last_c = Seq[UInt]
+
   var next_c = 0.U(2.W)
   for (i<-0 until (mul_len+2) by 2){
     val (p,c_p) = Improved_Partial_product(mul_len,src1(i+2,i),src2)
@@ -322,10 +322,7 @@ class Booth_Walloc_MUL (mul_len:Int) extends Module with Paramete{
     }
     next_c = c_p
   }
-//for(i<-0 until partial_product_array.size){
-//  println(i.toString +" "+ partial_product_array(i).size.toString)
-//}
-//  println(partial_product_array.size)
+
   val cols_reg = partial_product_array.map(col => col.map(x => RegEnable(x,io.in.valid)))
   val (sum,cout) = Add_All(cols_reg,0)
 

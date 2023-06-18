@@ -169,6 +169,13 @@ class Sram2axi_mulit extends Module with Paramete{
 
 }
 
+class Sram_axifull extends Module with Paramete{
+  val io = IO(new Bundle() {
+    val in = new Cache_MemReq_Bundle("Dcache")
+    val out =
+  })
+}
+
 
 //import chisel3.stage._
 //
