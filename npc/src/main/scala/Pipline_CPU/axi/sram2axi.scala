@@ -71,22 +71,6 @@ class Sram2axi_mulit extends Module with Paramete{
 //  val aw_valid = RegInit(false.B)
 //  val ar_valid = RegInit(false.B)
 
-//  switch(main_state){
-//    is(idle){
-//      when(io.in.addr_req.valid && io.out.raddr_req.ready && io.in.addr_req.bits.ce && !io.in.addr_req.bits.we) {
-//        main_state := read
-//      }
-//      when(io.in.addr_req.valid && io.out.waddr_req.ready && io.in.addr_req.bits.ce && io.in.addr_req.bits.we) {
-//        main_state := write
-//      }
-//    }
-//    is(read){
-//
-//    }
-//    is(write){
-//
-//    }
-//  }
 
   switch(ar_state){
     is(tran){
@@ -172,8 +156,63 @@ class Sram2axi_mulit extends Module with Paramete{
 class Sram_axifull extends Module with Paramete{
   val io = IO(new Bundle() {
     val in = new Cache_MemReq_Bundle("Dcache")
-    val out =
+    val out = new Axi_full_Bundle_out
   })
+  val read_idle :: read_transfer_addr :: wait_data_transfer :: Nil = Enum(3)
+  val write_idle :: write_transfer_addr :: write_transfer_data :: write_wait_respone :: Nil = Enum(4)
+
+  val read_state = RegInit(read_idle)
+  val write_state = RegInit(write_idle)
+
+  switch(read_state){
+    is(read_idle){
+      when(io.in.addr_req.valid && io.in.addr_req.bits.ce && !io.in.addr_req.bits.we){
+        read_state := read_transfer_addr
+      }
+    }
+    is(read_transfer_addr){
+
+    }
+    is(wait_data_transfer){
+
+    }
+  }
+
+  switch(write_state){
+    is(write_idle){
+      when(io.in.addr_req.valid  && io.in.addr_req.bits.ce && io.in.addr_req.bits.we){
+        write_state := write_transfer_addr
+      }
+    }
+    is(write_transfer_addr){
+
+    }
+    is(write_transfer_data){
+
+    }
+    is(write_wait_respone){
+
+    }
+  }
+
+  io.out.raddr_req.bits.id := 1.U(4.W)
+  io.out.raddr_req.bits.size := "b011".U(3.W)
+  io.out.raddr_req.bits.brust := 1.U(2.W)
+  io.out.raddr_req.bits.lock := 0.U(2.W)
+  io.out.raddr_req.bits.cache := 0.U(4.W)
+  io.out.raddr_req.bits.prot := 0.U(3.W)
+  io.out.raddr_req.valid := Mux(read_state === read_transfer_addr,true.B,false.B)
+  io.out.raddr_req.bits.addr := io.in.addr_req.bits.addr
+
+  io.out.waddr_req.bits.id := 1.U(4.W)
+  io.out.waddr_req.bits.size := "b011".U(3.W)
+  io.out.waddr_req.bits.brust := 1.U(2.W)
+  io.out.waddr_req.bits.lock := 0.U(2.W)
+  io.out.waddr_req.bits.cache := 0.U(4.W)
+  io.out.waddr_req.bits.prot := 0.U(3.W)
+  io.out.waddr_req.valid := Mux(write_state === write_transfer_addr,true.B,false.B)
+  io.out.waddr_req.bits.addr := io.in.addr_req.bits.addr
+
 }
 
 
