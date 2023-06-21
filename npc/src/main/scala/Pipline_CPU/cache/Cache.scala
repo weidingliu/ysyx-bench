@@ -383,7 +383,6 @@ class Cache (Type : String) extends Module with CacheParamete {
     val wmaskextend = MaskGen(Cache_data.io.out.bits.ctrl_data.offset(log2Ceil(Cache_line_size/8)-1,log2Ceil(xlen/8)),
       io.in.wdata_req.get.bits.wmask & Fill(8,io.in.addr_req.bits.we))
 
-
     val wdata_extend = Fill(Cache_line_size/xlen,io.in.wdata_req.get.bits.wdata)
     val wdata = Mux(state === miss && s === true.B,MaskData(data_line_reg,wmaskextend,wdata_extend),MaskData(Scanf.io.out.bits.data,wmaskextend,wdata_extend))
 //    when(Cache_data.io.write_bus.valid){
@@ -423,14 +422,382 @@ class Cache (Type : String) extends Module with CacheParamete {
 //  io.out.wdata_req.get.ready := true.B
   io.out.rdata_rep.ready := true.B
   io.out.wdata_req.get.valid := Mux(state === write_data,true.B,false.B)
-//  io.out.wdata_rep.get
+
+}
+
+class Cache_Axi (Type : String) extends Module with CacheParamete{
+  val io = IO(new Bundle() {
+    val in = new Cache_MemReq_Bundle(Type)
+    val flush = Input(Bool())
+
+    val out = new Axi_full_Bundle_out
+  })
+  val Cache_data = Module(new Cache_Data)
+  val Scanf = Module(new Scanf_data)
+
+  val idle :: scanf :: miss :: write_data :: Nil = Enum(4)
+  val read_idle :: read_transfer_addr :: wait_data_transfer :: refill :: Nil = Enum(4)
+  val write_idle :: write_transfer_addr :: write_transfer_data :: write_wait_respone :: Nil = Enum(4)
+
+  val state = RegInit(idle)
+  val read_state = RegInit(read_idle)
+  val write_state = RegInit(write_idle)
+
+  val hit = Scanf.io.out.bits.hit
+  val data_line_reg = RegInit(0.U(Cache_line_size.W))
+  val mem_addr_reg = RegInit(0.U(xlen.W))
+
+  val lru_r = RegInit(0.U)
+  val lru_w = WireDefault(0.U)
+
+  val hit_data = WireDefault(0.U(xlen.W))
+  val mem_data = WireDefault(0.U(xlen.W))
+  val lru = SyncReadMem(Cache_line_num, UInt(1.W)) //2 way
 
 
-//  io.out.bits.rdata := 0.U//bug
-//  io.in.bits.rdata := 0.U
+  val count = RegInit(0.U((log2Ceil(Cache_line_wordnum) + 1).W))
+  val s = count === Cache_line_wordnum.U
+
+
+  val dirt_r = if (Type == "Dcache") Some(Reg(Vec(Cache_way, UInt(1.W)))) else None
+  val dirt = if (Type == "Dcache") Some(SyncReadMem(Cache_line_num, Vec(Cache_way, UInt(1.W)))) else None
+  val count_write = if (Type == "Dcache") Some(RegInit(0.U((log2Ceil(Cache_line_wordnum) + 1).W))) else None
+  val s_w = if (Type == "Dcache") Some(count_write.get === Cache_line_wordnum.U) else None
+  val dirt_w = if (Type == "Dcache") Some(dirt.get.read(Cache_data.io.out.bits.ctrl_data.index)) else None
+  val mem_write_addr_reg = if (Type == "Dcache") Some(RegInit(0.U(xlen.W))) else None
+  val mem_write_data_reg = if (Type == "Dcache") Some(RegInit(0.U(Cache_line_size.W))) else None
+  //  val hit__write_data = if(Type == "Dcache") Some(WireDefault(0.U(Cache_line_size.W))) else None
+  val hit_way_r = if (Type == "Dcache") Some(Reg(Vec(Cache_way, UInt(1.W)))) else None
+  val tag_way = Scanf.io.out.bits.tag
+
+  //  val (count,s) = Counter(state === miss,Cache_line_wordnum)
+  val hit_way = Wire(Vec(Cache_way, UInt(1.W)))
+
+  lru_w := lru.read(Cache_data.io.out.bits.ctrl_data.index)
+
+  switch(state) {
+    is(idle) {
+      when(io.in.addr_req.valid) {
+        state := scanf
+      }.otherwise {
+        state := idle
+      }
+    }
+    is(scanf) {
+      when(hit === 1.U) {
+        state := idle
+      }.otherwise {
+        if (Type == "Dcache") {
+          when(dirt_w.get(lru_w) === 1.U) {
+            state := write_data
+          }.otherwise {
+            state := miss
+          }
+        }
+        else {
+          state := miss
+        }
+
+      }
+    }
+    is(miss) {
+      when(io.in.rdata_rep.ready && read_state === refill) {
+        state := idle
+      }
+    }
+
+    is(write_data) {
+      if (Type == "Dcache") {
+        when(io.out.wb.valid && io.out.wb.bits.breap === "b00".U) {
+          state := miss
+        }
+      }
+    }
+  }
+  when(io.flush) {
+    state := idle
+  }
+  switch(read_state){
+    is(read_idle){
+      when(state === miss){
+        read_state := read_transfer_addr
+      }
+    }
+    is(read_transfer_addr){
+      when(io.out.raddr_req.ready){
+        read_state := wait_data_transfer
+      }
+    }
+    is(wait_data_transfer){
+      when(io.out.rdata_rep.valid && io.out.rdata_rep.bits.last){
+        read_state := refill
+      }
+    }
+    is(refill){
+      when(io.in.rdata_rep.ready) {
+        read_state := read_idle
+      }
+    }
+  }
+  switch(write_state){
+    is(write_idle){
+      when(state === write_data){
+        write_state := write_transfer_addr
+      }
+    }
+    is(write_transfer_addr){
+      when(io.out.waddr_req.ready){
+        write_state := write_transfer_data
+      }
+    }
+    is(write_transfer_data){
+      when(io.out.wdata_req.ready && io.out.wdata_req.bits.last){
+        write_state := write_wait_respone
+      }
+    }
+    is(write_wait_respone){
+      when(io.out.wb.valid && io.out.wb.bits.breap === "b00".U){
+        write_state := write_idle
+      }
+    }
+  }
+
+
+  switch(state) {
+    is(idle) {
+      count := 0.U
+    }
+    is(scanf) {
+      when(hit === 0.U) {
+        mem_addr_reg := Cat(io.in.addr_req.bits.addr(xlen - 1, log2Ceil(Cache_line_size / 8)), Fill(log2Ceil(Cache_line_size / 8), 0.U))
+        lru_r := lru_w
+        if (Type == "Dcache") {
+          dirt_r.get := dirt_w.get
+          count_write.get := 0.U
+          mem_write_addr_reg.get := Cat(tag_way(lru_w), Scanf.io.out.bits.meta.ctrl_data.index, Fill(log2Ceil(Cache_line_size / 8), 0.U))
+          mem_write_data_reg.get := Cache_data.io.out.bits.data(lru_w)
+          hit_way_r.get := hit_way
+        }
+      }.otherwise {
+        when(hit_way(0) === 1.U) {
+          lru.write(Cache_data.io.out.bits.ctrl_data.index, 1.U)
+        }
+        when(hit_way(1) === 1.U) {
+          lru.write(Cache_data.io.out.bits.ctrl_data.index, 0.U)
+        }
+      }
+    }
+    is(miss) {
+      //      when(!io.in.rdata_rep.ready && s === true.B){
+      //        count := count
+      //      }.otherwise{
+      //        count := count +1.U
+      //      }
+      when((!io.in.rdata_rep.ready && s === true.B) || (!io.out.rdata_rep.valid)) {
+        count := count
+      }.otherwise {
+        count := count + 1.U
+        mem_addr_reg := mem_addr_reg + 8.U
+      }
+
+      //      when(count === (Cache_line_wordnum-1).U) {
+      //        lru_w := lru.read(Cache_data.io.out.bits.ctrl_data.index)
+      //      }
+      when(s =/= true.B && io.out.rdata_rep.valid) {
+        data_line_reg := Cat(io.out.rdata_rep.bits.rdata, data_line_reg(Cache_line_size - 1, xlen))
+      }
+      when(io.in.rdata_rep.ready && s === true.B) {
+        when(lru_r === 1.U) {
+          lru.write(Cache_data.io.out.bits.ctrl_data.index, 0.U)
+        }.otherwise {
+          lru.write(Cache_data.io.out.bits.ctrl_data.index, 1.U)
+        }
+        count := 0.U
+      }
+    }
+
+    is(write_data) {
+      if (Type == "Dcache") {
+        when(io.out.wdata_rep.get) {
+          count_write.get := count_write.get + 1.U
+          mem_write_addr_reg.get := mem_write_addr_reg.get + 8.U
+          mem_write_data_reg.get := Cat(Fill(xlen, 0.U), mem_write_data_reg.get(Cache_line_size - 1, xlen))
+        }
+
+        when(s_w.get === true.B) {
+          count_write.get := 0.U
+        }
+      }
+
+    }
+
+  }
+
+  switch(io.in.addr_req.bits.addr(log2Ceil(Cache_line_size / xlen) + log2Ceil(xlen / 8) - 1, log2Ceil(xlen / 8))) {
+    is("b000".U) {
+      hit_data := Scanf.io.out.bits.data(xlen - 1, 0)
+      mem_data := data_line_reg(xlen - 1, 0)
+    }
+    is("b001".U) {
+      hit_data := Scanf.io.out.bits.data(2 * xlen - 1, xlen)
+      mem_data := data_line_reg(2 * xlen - 1, xlen)
+    }
+    is("b010".U) {
+      hit_data := Scanf.io.out.bits.data(3 * xlen - 1, 2 * xlen)
+      mem_data := data_line_reg(3 * xlen - 1, 2 * xlen)
+    }
+    is("b011".U) {
+      hit_data := Scanf.io.out.bits.data(4 * xlen - 1, 3 * xlen)
+      mem_data := data_line_reg(4 * xlen - 1, 3 * xlen)
+    }
+    is("b100".U) {
+      hit_data := Scanf.io.out.bits.data(5 * xlen - 1, 4 * xlen)
+      mem_data := data_line_reg(5 * xlen - 1, 4 * xlen)
+    }
+    is("b101".U) {
+      hit_data := Scanf.io.out.bits.data(6 * xlen - 1, 5 * xlen)
+      mem_data := data_line_reg(6 * xlen - 1, 5 * xlen)
+    }
+    is("b110".U) {
+      hit_data := Scanf.io.out.bits.data(7 * xlen - 1, 6 * xlen)
+      mem_data := data_line_reg(7 * xlen - 1, 6 * xlen)
+    }
+    is("b111".U) {
+      hit_data := Scanf.io.out.bits.data(8 * xlen - 1, 7 * xlen)
+      mem_data := data_line_reg(8 * xlen - 1, 7 * xlen)
+    }
+  }
+
+  switch(state) {
+    is(idle) {
+      when(io.in.addr_req.valid) {
+        state := scanf
+      }.otherwise {
+        state := idle
+      }
+    }
+    is(scanf) {
+      when(hit === 1.U) {
+        state := idle
+      }.otherwise {
+        if (Type == "Dcache") {
+          when(dirt_w.get(lru_w) === 1.U) {
+            state := write_data
+          }.otherwise {
+            state := miss
+          }
+        }
+        else {
+          state := miss
+        }
+
+      }
+    }
+    is(miss) {
+      when(s === true.B && io.in.rdata_rep.ready) {
+        state := idle
+      }
+    }
+
+    is(write_data) {
+      if (Type == "Dcache") {
+        when(s_w.get === true.B) {
+          state := miss
+        }
+      }
+    }
+  }
+  when(io.flush) {
+    state := idle
+  }
+  Scanf.io.out.ready := 1.U
+
+  io.in.rdata_rep.bits.rdata := Mux((state === scanf && hit), hit_data, mem_data)
+  //  io.in.ready := 1.U
+  io.in.addr_req.ready := true.B
+
+  //read data from cache
+  Cache_data.io.in.valid := Mux(io.in.addr_req.valid && state === idle, 1.U, 0.U)
+  Cache_data.io.in.addr := io.in.addr_req.bits.addr
+  Scanf.io.in.valid := RegNext(Cache_data.io.out.valid)
+  Scanf.io.in.bits.meat := (Cache_data.io.out.bits.meat)
+  Scanf.io.in.bits.data := (Cache_data.io.out.bits.data)
+  Scanf.io.in.bits.ctrl_data := (Cache_data.io.out.bits.ctrl_data)
+  Cache_data.io.out.ready := Scanf.io.in.ready
+  hit_way := Scanf.io.out.bits.hit_way
+  //  when(io.in.rdata_rep.valid){
+  //    printf(p"read : ${Hexadecimal(Scanf.io.out.bits.data)}\n")
+  //  }
+
+  //read data from mem
+  if (Type == "Dcache") {
+    io.out.addr_req.valid := Mux(state === miss || state === write_data, true.B, false.B)
+    io.out.addr_req.bits.ce := Mux(state === miss || (state === write_data && !s_w.get), 1.U, 0.U)
+    io.out.addr_req.bits.addr := Mux(state === write_data, mem_write_addr_reg.get, mem_addr_reg)
+    io.out.addr_req.bits.we := Mux(state === write_data && !s_w.get, 1.U, 0.U)
+    io.out.wdata_req.get.bits.wdata := mem_write_data_reg.get(xlen - 1, 0)
+    io.out.wdata_req.get.bits.wmask := "hff".U(masklen.W)
+  }
+  else {
+    io.out.addr_req.valid := Mux(state === miss, true.B, false.B)
+    io.out.addr_req.bits.ce := Mux(state === miss, 1.U, 0.U)
+    io.out.addr_req.bits.addr := mem_addr_reg
+    io.out.addr_req.bits.we := 0.U
+    io.out.wdata_req.get.bits.wdata := 0.U
+    io.out.wdata_req.get.bits.wmask := 0.U
+  }
+
+  //write back cache data
+  io.in.rdata_rep.valid := Mux(((state === scanf && hit) || (state === miss && s === true.B)) && (!io.flush) && (!io.in.addr_req.bits.we), 1.B, 0.B)
+  if (Type == "Dcache") {
+    val wmaskextend = MaskGen(Cache_data.io.out.bits.ctrl_data.offset(log2Ceil(Cache_line_size / 8) - 1, log2Ceil(xlen / 8)),
+      io.in.wdata_req.get.bits.wmask & Fill(8, io.in.addr_req.bits.we))
+
+    val wdata_extend = Fill(Cache_line_size / xlen, io.in.wdata_req.get.bits.wdata)
+    val wdata = Mux(state === miss && s === true.B, MaskData(data_line_reg, wmaskextend, wdata_extend), MaskData(Scanf.io.out.bits.data, wmaskextend, wdata_extend))
+    //    when(Cache_data.io.write_bus.valid){
+    //      printf("write\n")
+    //      printf(p"${Hexadecimal(wmaskextend)}\n")
+    //      printf(p"${Hexadecimal(Scanf.io.out.bits.data)}\n")
+    //      //    printf(p"${Hexadecimal(wdata_extend)}\n")
+    //      printf(p"${Hexadecimal(wdata)}\n")
+    //    }
+
+    Cache_data.io.write_bus.valid := Mux((s || (state === scanf && io.in.addr_req.bits.we && hit)) && (!io.flush), true.B, false.B)
+    Cache_data.io.write_bus.addr := Mux((state === miss && s === true.B) || (state === scanf && io.in.addr_req.bits.we && hit), io.in.addr_req.bits.addr, 0.U)
+    Cache_data.io.write_bus.wdata := wdata
+
+    io.in.wdata_req.get.ready := true.B
+    io.in.wdata_rep.get := Mux((state === scanf && io.in.addr_req.bits.we && hit) || (state === miss && s === true.B && io.in.addr_req.bits.we), true.B, false.B)
+    //    val hitway_mask = WireDefault(Vec(Cache_way,0.U))
+    //    for (i<-0 until Cache_way){
+    //      when(hit_way_r.get(i) === 1.U){
+    //        hitway_mask(i) := 1.U
+    //      }
+    //    }
+    val dirt_write = VecInit(Seq.fill(Cache_way)(1.U(1.W)))
+    val waymask = Mux(state === scanf && hit && io.in.addr_req.bits.we, hit_way.asUInt, Mux(lru_r === 1.U, "b10".U(2.W), "b01".U(2.W)))
+    Cache_data.io.write_bus.waymask := waymask
+    when(io.in.addr_req.bits.we & ((state === scanf && hit) | (state === miss & s === true.B))) {
+      dirt.get.write(Cache_data.io.out.bits.ctrl_data.index, dirt_write, waymask.asBools)
+    }
+  }
+  else {
+    Cache_data.io.write_bus.valid := Mux(s, true.B, false.B)
+    Cache_data.io.write_bus.addr := Mux(state === miss && s === true.B, io.in.addr_req.bits.addr, 0.U)
+    Cache_data.io.write_bus.wdata := Mux(state === miss && s === true.B, data_line_reg, 0.U)
+    val waymask = Mux(lru_r === 1.U, "b10".U(2.W), "b01".U(2.W))
+    Cache_data.io.write_bus.waymask := waymask
+  }
+  //  io.out.wdata_req.get.ready := true.B
+  io.out.rdata_rep.ready := true.B
+  io.out.wdata_req.get.valid := Mux(state === write_data, true.B, false.B)
+
 
 
 }
+
+
 //class test_mem extends Module{
 //  val io = IO(new Bundle() {
 //    val addr = Input(UInt(4.W))

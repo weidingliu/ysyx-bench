@@ -10,7 +10,7 @@ VM_C11 = 1
 # Coverage output mode?  0/1 (from --coverage)
 VM_COVERAGE = 0
 # Parallel builds?  0/1 (from --output-split)
-VM_PARALLEL_BUILDS = 1
+VM_PARALLEL_BUILDS = 0
 # Threaded output mode?  0/1/N threads (from --threads)
 VM_THREADS = 0
 # Tracing output mode?  0/1 (from --trace/--trace-fst)
@@ -26,8 +26,6 @@ VM_CLASSES_FAST += \
 	VCoreTop \
 	VCoreTop___024root__DepSet_h7f65a1f5__0 \
 	VCoreTop___024root__DepSet_h8f2c8a57__0 \
-	VCoreTop___024root__DepSet_h8f2c8a57__1 \
-	VCoreTop___024root__DepSet_h8f2c8a57__2 \
 	VCoreTop___024unit__DepSet_h7b210d6e__0 \
 
 # Generated module classes, non-fast-path, compile with low/medium optimization
@@ -35,10 +33,7 @@ VM_CLASSES_SLOW += \
 	VCoreTop__ConstPool_0 \
 	VCoreTop___024root__Slow \
 	VCoreTop___024root__DepSet_h7f65a1f5__0__Slow \
-	VCoreTop___024root__DepSet_h7f65a1f5__1__Slow \
 	VCoreTop___024root__DepSet_h8f2c8a57__0__Slow \
-	VCoreTop___024root__DepSet_h8f2c8a57__1__Slow \
-	VCoreTop___024root__DepSet_h8f2c8a57__2__Slow \
 	VCoreTop___024unit__Slow \
 	VCoreTop___024unit__DepSet_h92f026be__0__Slow \
 
@@ -46,14 +41,11 @@ VM_CLASSES_SLOW += \
 VM_SUPPORT_FAST += \
 	VCoreTop__Dpi \
 	VCoreTop__Trace__0 \
-	VCoreTop__Trace__1 \
 
 # Generated support classes, non-fast-path, compile with low/medium optimization
 VM_SUPPORT_SLOW += \
 	VCoreTop__Syms \
 	VCoreTop__Trace__0__Slow \
-	VCoreTop__Trace__1__Slow \
-	VCoreTop__Trace__2__Slow \
 
 # Global classes, need linked once per executable, fast-path, compile with highest optimization
 VM_GLOBAL_FAST += \

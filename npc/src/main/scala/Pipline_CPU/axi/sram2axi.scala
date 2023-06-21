@@ -171,10 +171,14 @@ class Sram_axifull extends Module with Paramete{
       }
     }
     is(read_transfer_addr){
-
+      when(io.out.raddr_req.valid && io.out.raddr_req.ready){
+        read_state := wait_data_transfer
+      }
     }
     is(wait_data_transfer){
-
+      when(io.out.rdata_rep.valid && io.out.rdata_rep.ready && io.out.rdata_rep.bits.last){
+        read_state := read_idle
+      }
     }
   }
 
@@ -185,13 +189,19 @@ class Sram_axifull extends Module with Paramete{
       }
     }
     is(write_transfer_addr){
-
+      when(io.out.waddr_req.ready && io.out.waddr_req.valid){
+        write_state := write_transfer_data
+      }
     }
     is(write_transfer_data){
-
+      when(io.out.wdata_req.valid && io.out.wdata_req.ready && io.out.wdata_req.bits.last) {
+        write_state := write_wait_respone
+      }
     }
     is(write_wait_respone){
-
+      when(io.out.wb.valid && io.out.wb.ready && io.out.wb.bits.breap === 0.U){
+        write_state := write_idle
+      }
     }
   }
 
@@ -203,6 +213,7 @@ class Sram_axifull extends Module with Paramete{
   io.out.raddr_req.bits.prot := 0.U(3.W)
   io.out.raddr_req.valid := Mux(read_state === read_transfer_addr,true.B,false.B)
   io.out.raddr_req.bits.addr := io.in.addr_req.bits.addr
+//  io.out.raddr_req.bits.len := 0xf.U(8.W)
 
   io.out.waddr_req.bits.id := 1.U(4.W)
   io.out.waddr_req.bits.size := "b011".U(3.W)
@@ -213,6 +224,18 @@ class Sram_axifull extends Module with Paramete{
   io.out.waddr_req.valid := Mux(write_state === write_transfer_addr,true.B,false.B)
   io.out.waddr_req.bits.addr := io.in.addr_req.bits.addr
 
+  io.out.rdata_rep.ready := io.in.rdata_rep.ready
+  io.in.rdata_rep.bits.rdata := io.out.rdata_rep.bits.data
+  io.in.rdata_rep.valid := io.out.rdata_rep.valid
+
+  io.out.wdata_req.valid := io.in.wdata_req.get.valid
+  io.out.wdata_req.bits.data := io.in.wdata_req.get.bits.wdata
+//  io.out.wdata_req.bits.last :=
+  io.out.wdata_req.bits.id := 1.U(4.W)
+  io.out.wdata_req.bits.wstrb := io.in.wdata_req.get.bits.wmask
+
+  io.out.wb.ready := Mux(write_state === write_wait_respone,true.B,false.B)
+  io.in.wdata_rep.get := io.out.wb.valid & (io.out.wb.bits.breap === "b00".U)
 }
 
 
