@@ -11,1474 +11,1533 @@ VL_ATTR_COLD void VCoreTop___024root__trace_init_sub__TOP__0(VCoreTop___024root*
     // Init
     const int c = vlSymsp->__Vm_baseCode;
     // Body
-    tracep->declBit(c+3469,"clock", false,-1);
-    tracep->declBit(c+3470,"reset", false,-1);
-    tracep->declQuad(c+3471,"io_pc", false,-1, 63,0);
-    tracep->declBus(c+3473,"io_inst", false,-1, 31,0);
+    tracep->declBit(c+3509,"clock", false,-1);
+    tracep->declBit(c+3510,"reset", false,-1);
+    tracep->declQuad(c+3511,"io_pc", false,-1, 63,0);
+    tracep->declBus(c+3513,"io_inst", false,-1, 31,0);
     tracep->pushNamePrefix("CoreTop ");
-    tracep->declBit(c+3469,"clock", false,-1);
-    tracep->declBit(c+3470,"reset", false,-1);
-    tracep->declQuad(c+3471,"io_pc", false,-1, 63,0);
-    tracep->declBus(c+3473,"io_inst", false,-1, 31,0);
-    tracep->declBit(c+3469,"IF_clock", false,-1);
-    tracep->declBit(c+3470,"IF_reset", false,-1);
-    tracep->declBit(c+1,"IF_io_branch_io_is_branch", false,-1);
-    tracep->declBit(c+2,"IF_io_branch_io_is_jump", false,-1);
-    tracep->declQuad(c+3,"IF_io_branch_io_dnpc", false,-1, 63,0);
-    tracep->declBit(c+5,"IF_io_cache_req_addr_req_valid", false,-1);
-    tracep->declQuad(c+6,"IF_io_cache_req_addr_req_bits_addr", false,-1, 63,0);
-    tracep->declBit(c+5,"IF_io_cache_req_rdata_rep_ready", false,-1);
-    tracep->declBit(c+8,"IF_io_cache_req_rdata_rep_valid", false,-1);
-    tracep->declQuad(c+9,"IF_io_cache_req_rdata_rep_bits_rdata", false,-1, 63,0);
-    tracep->declBit(c+5,"IF_io_out_ready", false,-1);
-    tracep->declBit(c+8,"IF_io_out_valid", false,-1);
-    tracep->declQuad(c+6,"IF_io_out_bits_PC", false,-1, 63,0);
-    tracep->declBus(c+11,"IF_io_out_bits_Inst", false,-1, 31,0);
-    tracep->declBit(c+12,"IF_io_flush", false,-1);
-    tracep->declBit(c+5,"ID_io_in_ready", false,-1);
-    tracep->declBit(c+13,"ID_io_in_valid", false,-1);
-    tracep->declQuad(c+14,"ID_io_in_bits_PC", false,-1, 63,0);
-    tracep->declBus(c+16,"ID_io_in_bits_Inst", false,-1, 31,0);
-    tracep->declQuad(c+17,"ID_io_REG1", false,-1, 63,0);
-    tracep->declQuad(c+19,"ID_io_REG2", false,-1, 63,0);
-    tracep->declBit(c+12,"ID_io_flush", false,-1);
-    tracep->declBit(c+5,"ID_io_out_ready", false,-1);
-    tracep->declBit(c+13,"ID_io_out_valid", false,-1);
-    tracep->declBus(c+21,"ID_io_out_bits_ctrl_signal_src1Type", false,-1, 2,0);
-    tracep->declBus(c+22,"ID_io_out_bits_ctrl_signal_src2Type", false,-1, 2,0);
-    tracep->declBus(c+23,"ID_io_out_bits_ctrl_signal_fuType", false,-1, 2,0);
-    tracep->declBit(c+24,"ID_io_out_bits_ctrl_signal_inst_valid", false,-1);
-    tracep->declBus(c+25,"ID_io_out_bits_ctrl_signal_rfSrc1", false,-1, 4,0);
-    tracep->declBus(c+26,"ID_io_out_bits_ctrl_signal_rfSrc2", false,-1, 4,0);
-    tracep->declBit(c+27,"ID_io_out_bits_ctrl_signal_rfWen", false,-1);
-    tracep->declBus(c+28,"ID_io_out_bits_ctrl_signal_aluoptype", false,-1, 6,0);
-    tracep->declBus(c+29,"ID_io_out_bits_ctrl_signal_rfDest", false,-1, 4,0);
-    tracep->declQuad(c+17,"ID_io_out_bits_ctrl_data_src1", false,-1, 63,0);
-    tracep->declQuad(c+19,"ID_io_out_bits_ctrl_data_src2", false,-1, 63,0);
-    tracep->declQuad(c+30,"ID_io_out_bits_ctrl_data_Imm", false,-1, 63,0);
-    tracep->declQuad(c+14,"ID_io_out_bits_ctrl_flow_PC", false,-1, 63,0);
-    tracep->declBus(c+16,"ID_io_out_bits_ctrl_flow_inst", false,-1, 31,0);
-    tracep->declBit(c+3469,"EX_clock", false,-1);
-    tracep->declBit(c+3470,"EX_reset", false,-1);
-    tracep->declBit(c+5,"EX_io_in_ready", false,-1);
-    tracep->declBit(c+32,"EX_io_in_valid", false,-1);
-    tracep->declBus(c+33,"EX_io_in_bits_ctrl_signal_src1Type", false,-1, 2,0);
-    tracep->declBus(c+34,"EX_io_in_bits_ctrl_signal_src2Type", false,-1, 2,0);
-    tracep->declBus(c+35,"EX_io_in_bits_ctrl_signal_fuType", false,-1, 2,0);
-    tracep->declBit(c+36,"EX_io_in_bits_ctrl_signal_inst_valid", false,-1);
-    tracep->declBus(c+37,"EX_io_in_bits_ctrl_signal_rfSrc1", false,-1, 4,0);
-    tracep->declBus(c+38,"EX_io_in_bits_ctrl_signal_rfSrc2", false,-1, 4,0);
-    tracep->declBit(c+39,"EX_io_in_bits_ctrl_signal_rfWen", false,-1);
-    tracep->declBus(c+40,"EX_io_in_bits_ctrl_signal_aluoptype", false,-1, 6,0);
-    tracep->declBus(c+41,"EX_io_in_bits_ctrl_signal_rfDest", false,-1, 4,0);
-    tracep->declQuad(c+42,"EX_io_in_bits_ctrl_data_src1", false,-1, 63,0);
-    tracep->declQuad(c+44,"EX_io_in_bits_ctrl_data_src2", false,-1, 63,0);
-    tracep->declQuad(c+46,"EX_io_in_bits_ctrl_data_Imm", false,-1, 63,0);
-    tracep->declQuad(c+48,"EX_io_in_bits_ctrl_flow_PC", false,-1, 63,0);
-    tracep->declBus(c+50,"EX_io_in_bits_ctrl_flow_inst", false,-1, 31,0);
-    tracep->declQuad(c+51,"EX_io_src1", false,-1, 63,0);
-    tracep->declQuad(c+53,"EX_io_src2", false,-1, 63,0);
-    tracep->declBit(c+1,"EX_io_branchIO_is_branch", false,-1);
-    tracep->declBit(c+2,"EX_io_branchIO_is_jump", false,-1);
-    tracep->declQuad(c+3,"EX_io_branchIO_dnpc", false,-1, 63,0);
-    tracep->declBit(c+55,"EX_io_out_ready", false,-1);
-    tracep->declBit(c+56,"EX_io_out_valid", false,-1);
-    tracep->declBus(c+35,"EX_io_out_bits_ctrl_signal_fuType", false,-1, 2,0);
-    tracep->declBit(c+36,"EX_io_out_bits_ctrl_signal_inst_valid", false,-1);
-    tracep->declBit(c+39,"EX_io_out_bits_ctrl_signal_rfWen", false,-1);
-    tracep->declBus(c+40,"EX_io_out_bits_ctrl_signal_aluoptype", false,-1, 6,0);
-    tracep->declQuad(c+48,"EX_io_out_bits_ctrl_flow_PC", false,-1, 63,0);
-    tracep->declBus(c+50,"EX_io_out_bits_ctrl_flow_inst", false,-1, 31,0);
-    tracep->declQuad(c+3,"EX_io_out_bits_ctrl_flow_Dnpc", false,-1, 63,0);
-    tracep->declBus(c+41,"EX_io_out_bits_ctrl_rf_rfDest", false,-1, 4,0);
-    tracep->declBit(c+57,"EX_io_out_bits_ctrl_rf_rfWen", false,-1);
-    tracep->declQuad(c+58,"EX_io_out_bits_ctrl_rf_rfData", false,-1, 63,0);
-    tracep->declQuad(c+60,"EX_io_out_bits_ctrl_data_src1", false,-1, 63,0);
-    tracep->declQuad(c+62,"EX_io_out_bits_ctrl_data_src2", false,-1, 63,0);
-    tracep->declQuad(c+46,"EX_io_out_bits_ctrl_data_Imm", false,-1, 63,0);
-    tracep->declBit(c+64,"EX_io_is_break", false,-1);
-    tracep->declBit(c+12,"EX_io_is_flush", false,-1);
-    tracep->declBit(c+65,"DIP_is_break", false,-1);
-    tracep->declQuad(c+66,"DIP_rf_0", false,-1, 63,0);
-    tracep->declQuad(c+68,"DIP_rf_1", false,-1, 63,0);
-    tracep->declQuad(c+70,"DIP_rf_2", false,-1, 63,0);
-    tracep->declQuad(c+72,"DIP_rf_3", false,-1, 63,0);
-    tracep->declQuad(c+74,"DIP_rf_4", false,-1, 63,0);
-    tracep->declQuad(c+76,"DIP_rf_5", false,-1, 63,0);
-    tracep->declQuad(c+78,"DIP_rf_6", false,-1, 63,0);
-    tracep->declQuad(c+80,"DIP_rf_7", false,-1, 63,0);
-    tracep->declQuad(c+82,"DIP_rf_8", false,-1, 63,0);
-    tracep->declQuad(c+84,"DIP_rf_9", false,-1, 63,0);
-    tracep->declQuad(c+86,"DIP_rf_10", false,-1, 63,0);
-    tracep->declQuad(c+88,"DIP_rf_11", false,-1, 63,0);
-    tracep->declQuad(c+90,"DIP_rf_12", false,-1, 63,0);
-    tracep->declQuad(c+92,"DIP_rf_13", false,-1, 63,0);
-    tracep->declQuad(c+94,"DIP_rf_14", false,-1, 63,0);
-    tracep->declQuad(c+96,"DIP_rf_15", false,-1, 63,0);
-    tracep->declQuad(c+98,"DIP_rf_16", false,-1, 63,0);
-    tracep->declQuad(c+100,"DIP_rf_17", false,-1, 63,0);
-    tracep->declQuad(c+102,"DIP_rf_18", false,-1, 63,0);
-    tracep->declQuad(c+104,"DIP_rf_19", false,-1, 63,0);
-    tracep->declQuad(c+106,"DIP_rf_20", false,-1, 63,0);
-    tracep->declQuad(c+108,"DIP_rf_21", false,-1, 63,0);
-    tracep->declQuad(c+110,"DIP_rf_22", false,-1, 63,0);
-    tracep->declQuad(c+112,"DIP_rf_23", false,-1, 63,0);
-    tracep->declQuad(c+114,"DIP_rf_24", false,-1, 63,0);
-    tracep->declQuad(c+116,"DIP_rf_25", false,-1, 63,0);
-    tracep->declQuad(c+118,"DIP_rf_26", false,-1, 63,0);
-    tracep->declQuad(c+120,"DIP_rf_27", false,-1, 63,0);
-    tracep->declQuad(c+122,"DIP_rf_28", false,-1, 63,0);
-    tracep->declQuad(c+124,"DIP_rf_29", false,-1, 63,0);
-    tracep->declQuad(c+126,"DIP_rf_30", false,-1, 63,0);
-    tracep->declQuad(c+128,"DIP_rf_31", false,-1, 63,0);
-    tracep->declBus(c+130,"DIP_inst", false,-1, 31,0);
-    tracep->declQuad(c+131,"DIP_pc", false,-1, 63,0);
-    tracep->declBit(c+133,"DIP_inst_valid", false,-1);
-    tracep->declQuad(c+134,"DIP_dnpc", false,-1, 63,0);
-    tracep->declBit(c+136,"DIP_is_skip", false,-1);
+    tracep->declBit(c+3509,"clock", false,-1);
+    tracep->declBit(c+3510,"reset", false,-1);
+    tracep->declQuad(c+3511,"io_pc", false,-1, 63,0);
+    tracep->declBus(c+3513,"io_inst", false,-1, 31,0);
+    tracep->declBit(c+3509,"IF_clock", false,-1);
+    tracep->declBit(c+3510,"IF_reset", false,-1);
+    tracep->declBit(c+3439,"IF_io_branch_io_is_branch", false,-1);
+    tracep->declBit(c+1,"IF_io_branch_io_is_jump", false,-1);
+    tracep->declQuad(c+3440,"IF_io_branch_io_dnpc", false,-1, 63,0);
+    tracep->declBit(c+2,"IF_io_cache_req_addr_req_valid", false,-1);
+    tracep->declQuad(c+3,"IF_io_cache_req_addr_req_bits_addr", false,-1, 63,0);
+    tracep->declBit(c+2,"IF_io_cache_req_rdata_rep_ready", false,-1);
+    tracep->declBit(c+3468,"IF_io_cache_req_rdata_rep_valid", false,-1);
+    tracep->declQuad(c+5,"IF_io_cache_req_rdata_rep_bits_rdata", false,-1, 63,0);
+    tracep->declBit(c+2,"IF_io_out_ready", false,-1);
+    tracep->declBit(c+3468,"IF_io_out_valid", false,-1);
+    tracep->declQuad(c+3,"IF_io_out_bits_PC", false,-1, 63,0);
+    tracep->declBus(c+3442,"IF_io_out_bits_Inst", false,-1, 31,0);
+    tracep->declBit(c+3469,"IF_io_flush", false,-1);
+    tracep->declBit(c+2,"ID_io_in_ready", false,-1);
+    tracep->declBit(c+7,"ID_io_in_valid", false,-1);
+    tracep->declQuad(c+8,"ID_io_in_bits_PC", false,-1, 63,0);
+    tracep->declBus(c+10,"ID_io_in_bits_Inst", false,-1, 31,0);
+    tracep->declQuad(c+3443,"ID_io_REG1", false,-1, 63,0);
+    tracep->declQuad(c+3445,"ID_io_REG2", false,-1, 63,0);
+    tracep->declBit(c+3469,"ID_io_flush", false,-1);
+    tracep->declBit(c+2,"ID_io_out_ready", false,-1);
+    tracep->declBit(c+7,"ID_io_out_valid", false,-1);
+    tracep->declBus(c+11,"ID_io_out_bits_ctrl_signal_src1Type", false,-1, 2,0);
+    tracep->declBus(c+12,"ID_io_out_bits_ctrl_signal_src2Type", false,-1, 2,0);
+    tracep->declBus(c+13,"ID_io_out_bits_ctrl_signal_fuType", false,-1, 2,0);
+    tracep->declBit(c+3447,"ID_io_out_bits_ctrl_signal_inst_valid", false,-1);
+    tracep->declBus(c+14,"ID_io_out_bits_ctrl_signal_rfSrc1", false,-1, 4,0);
+    tracep->declBus(c+15,"ID_io_out_bits_ctrl_signal_rfSrc2", false,-1, 4,0);
+    tracep->declBit(c+16,"ID_io_out_bits_ctrl_signal_rfWen", false,-1);
+    tracep->declBus(c+17,"ID_io_out_bits_ctrl_signal_aluoptype", false,-1, 6,0);
+    tracep->declBus(c+18,"ID_io_out_bits_ctrl_signal_rfDest", false,-1, 4,0);
+    tracep->declQuad(c+3443,"ID_io_out_bits_ctrl_data_src1", false,-1, 63,0);
+    tracep->declQuad(c+3445,"ID_io_out_bits_ctrl_data_src2", false,-1, 63,0);
+    tracep->declQuad(c+19,"ID_io_out_bits_ctrl_data_Imm", false,-1, 63,0);
+    tracep->declQuad(c+8,"ID_io_out_bits_ctrl_flow_PC", false,-1, 63,0);
+    tracep->declBus(c+10,"ID_io_out_bits_ctrl_flow_inst", false,-1, 31,0);
+    tracep->declBit(c+3509,"EX_clock", false,-1);
+    tracep->declBit(c+3510,"EX_reset", false,-1);
+    tracep->declBit(c+2,"EX_io_in_ready", false,-1);
+    tracep->declBit(c+21,"EX_io_in_valid", false,-1);
+    tracep->declBus(c+22,"EX_io_in_bits_ctrl_signal_src1Type", false,-1, 2,0);
+    tracep->declBus(c+23,"EX_io_in_bits_ctrl_signal_src2Type", false,-1, 2,0);
+    tracep->declBus(c+24,"EX_io_in_bits_ctrl_signal_fuType", false,-1, 2,0);
+    tracep->declBit(c+25,"EX_io_in_bits_ctrl_signal_inst_valid", false,-1);
+    tracep->declBus(c+26,"EX_io_in_bits_ctrl_signal_rfSrc1", false,-1, 4,0);
+    tracep->declBus(c+27,"EX_io_in_bits_ctrl_signal_rfSrc2", false,-1, 4,0);
+    tracep->declBit(c+28,"EX_io_in_bits_ctrl_signal_rfWen", false,-1);
+    tracep->declBus(c+29,"EX_io_in_bits_ctrl_signal_aluoptype", false,-1, 6,0);
+    tracep->declBus(c+30,"EX_io_in_bits_ctrl_signal_rfDest", false,-1, 4,0);
+    tracep->declQuad(c+31,"EX_io_in_bits_ctrl_data_src1", false,-1, 63,0);
+    tracep->declQuad(c+33,"EX_io_in_bits_ctrl_data_src2", false,-1, 63,0);
+    tracep->declQuad(c+35,"EX_io_in_bits_ctrl_data_Imm", false,-1, 63,0);
+    tracep->declQuad(c+37,"EX_io_in_bits_ctrl_flow_PC", false,-1, 63,0);
+    tracep->declBus(c+39,"EX_io_in_bits_ctrl_flow_inst", false,-1, 31,0);
+    tracep->declQuad(c+3470,"EX_io_src1", false,-1, 63,0);
+    tracep->declQuad(c+3472,"EX_io_src2", false,-1, 63,0);
+    tracep->declBit(c+3439,"EX_io_branchIO_is_branch", false,-1);
+    tracep->declBit(c+1,"EX_io_branchIO_is_jump", false,-1);
+    tracep->declQuad(c+3440,"EX_io_branchIO_dnpc", false,-1, 63,0);
+    tracep->declBit(c+40,"EX_io_out_ready", false,-1);
+    tracep->declBit(c+41,"EX_io_out_valid", false,-1);
+    tracep->declBus(c+24,"EX_io_out_bits_ctrl_signal_fuType", false,-1, 2,0);
+    tracep->declBit(c+25,"EX_io_out_bits_ctrl_signal_inst_valid", false,-1);
+    tracep->declBit(c+28,"EX_io_out_bits_ctrl_signal_rfWen", false,-1);
+    tracep->declBus(c+29,"EX_io_out_bits_ctrl_signal_aluoptype", false,-1, 6,0);
+    tracep->declQuad(c+37,"EX_io_out_bits_ctrl_flow_PC", false,-1, 63,0);
+    tracep->declBus(c+39,"EX_io_out_bits_ctrl_flow_inst", false,-1, 31,0);
+    tracep->declQuad(c+3440,"EX_io_out_bits_ctrl_flow_Dnpc", false,-1, 63,0);
+    tracep->declBus(c+30,"EX_io_out_bits_ctrl_rf_rfDest", false,-1, 4,0);
+    tracep->declBit(c+42,"EX_io_out_bits_ctrl_rf_rfWen", false,-1);
+    tracep->declQuad(c+3474,"EX_io_out_bits_ctrl_rf_rfData", false,-1, 63,0);
+    tracep->declQuad(c+3448,"EX_io_out_bits_ctrl_data_src1", false,-1, 63,0);
+    tracep->declQuad(c+3450,"EX_io_out_bits_ctrl_data_src2", false,-1, 63,0);
+    tracep->declQuad(c+35,"EX_io_out_bits_ctrl_data_Imm", false,-1, 63,0);
+    tracep->declBit(c+43,"EX_io_is_break", false,-1);
+    tracep->declBit(c+3469,"EX_io_is_flush", false,-1);
+    tracep->declBit(c+44,"DIP_is_break", false,-1);
+    tracep->declQuad(c+45,"DIP_rf_0", false,-1, 63,0);
+    tracep->declQuad(c+47,"DIP_rf_1", false,-1, 63,0);
+    tracep->declQuad(c+49,"DIP_rf_2", false,-1, 63,0);
+    tracep->declQuad(c+51,"DIP_rf_3", false,-1, 63,0);
+    tracep->declQuad(c+53,"DIP_rf_4", false,-1, 63,0);
+    tracep->declQuad(c+55,"DIP_rf_5", false,-1, 63,0);
+    tracep->declQuad(c+57,"DIP_rf_6", false,-1, 63,0);
+    tracep->declQuad(c+59,"DIP_rf_7", false,-1, 63,0);
+    tracep->declQuad(c+61,"DIP_rf_8", false,-1, 63,0);
+    tracep->declQuad(c+63,"DIP_rf_9", false,-1, 63,0);
+    tracep->declQuad(c+65,"DIP_rf_10", false,-1, 63,0);
+    tracep->declQuad(c+67,"DIP_rf_11", false,-1, 63,0);
+    tracep->declQuad(c+69,"DIP_rf_12", false,-1, 63,0);
+    tracep->declQuad(c+71,"DIP_rf_13", false,-1, 63,0);
+    tracep->declQuad(c+73,"DIP_rf_14", false,-1, 63,0);
+    tracep->declQuad(c+75,"DIP_rf_15", false,-1, 63,0);
+    tracep->declQuad(c+77,"DIP_rf_16", false,-1, 63,0);
+    tracep->declQuad(c+79,"DIP_rf_17", false,-1, 63,0);
+    tracep->declQuad(c+81,"DIP_rf_18", false,-1, 63,0);
+    tracep->declQuad(c+83,"DIP_rf_19", false,-1, 63,0);
+    tracep->declQuad(c+85,"DIP_rf_20", false,-1, 63,0);
+    tracep->declQuad(c+87,"DIP_rf_21", false,-1, 63,0);
+    tracep->declQuad(c+89,"DIP_rf_22", false,-1, 63,0);
+    tracep->declQuad(c+91,"DIP_rf_23", false,-1, 63,0);
+    tracep->declQuad(c+93,"DIP_rf_24", false,-1, 63,0);
+    tracep->declQuad(c+95,"DIP_rf_25", false,-1, 63,0);
+    tracep->declQuad(c+97,"DIP_rf_26", false,-1, 63,0);
+    tracep->declQuad(c+99,"DIP_rf_27", false,-1, 63,0);
+    tracep->declQuad(c+101,"DIP_rf_28", false,-1, 63,0);
+    tracep->declQuad(c+103,"DIP_rf_29", false,-1, 63,0);
+    tracep->declQuad(c+105,"DIP_rf_30", false,-1, 63,0);
+    tracep->declQuad(c+107,"DIP_rf_31", false,-1, 63,0);
+    tracep->declBus(c+109,"DIP_inst", false,-1, 31,0);
+    tracep->declQuad(c+110,"DIP_pc", false,-1, 63,0);
+    tracep->declBit(c+112,"DIP_inst_valid", false,-1);
+    tracep->declQuad(c+113,"DIP_dnpc", false,-1, 63,0);
+    tracep->declBit(c+115,"DIP_is_skip", false,-1);
     for (int i = 0; i < 32; ++i) {
-        tracep->declQuad(c+137+i*2,"rf", true,(i+0), 63,0);
+        tracep->declQuad(c+116+i*2,"rf", true,(i+0), 63,0);
     }
-    tracep->declBit(c+3475,"rf_bypass_io_Reg1_MPORT_en", false,-1);
-    tracep->declBus(c+25,"rf_bypass_io_Reg1_MPORT_addr", false,-1, 4,0);
-    tracep->declQuad(c+201,"rf_bypass_io_Reg1_MPORT_data", false,-1, 63,0);
-    tracep->declBit(c+3475,"rf_bypass_io_Reg2_MPORT_en", false,-1);
-    tracep->declBus(c+26,"rf_bypass_io_Reg2_MPORT_addr", false,-1, 4,0);
-    tracep->declQuad(c+203,"rf_bypass_io_Reg2_MPORT_data", false,-1, 63,0);
-    tracep->declBit(c+3475,"rf_DIP_io_rf_0_MPORT_en", false,-1);
-    tracep->declBus(c+3476,"rf_DIP_io_rf_0_MPORT_addr", false,-1, 4,0);
-    tracep->declQuad(c+66,"rf_DIP_io_rf_0_MPORT_data", false,-1, 63,0);
-    tracep->declBit(c+3475,"rf_DIP_io_rf_1_MPORT_en", false,-1);
-    tracep->declBus(c+3477,"rf_DIP_io_rf_1_MPORT_addr", false,-1, 4,0);
-    tracep->declQuad(c+68,"rf_DIP_io_rf_1_MPORT_data", false,-1, 63,0);
-    tracep->declBit(c+3475,"rf_DIP_io_rf_2_MPORT_en", false,-1);
-    tracep->declBus(c+3478,"rf_DIP_io_rf_2_MPORT_addr", false,-1, 4,0);
-    tracep->declQuad(c+70,"rf_DIP_io_rf_2_MPORT_data", false,-1, 63,0);
-    tracep->declBit(c+3475,"rf_DIP_io_rf_3_MPORT_en", false,-1);
-    tracep->declBus(c+3479,"rf_DIP_io_rf_3_MPORT_addr", false,-1, 4,0);
-    tracep->declQuad(c+72,"rf_DIP_io_rf_3_MPORT_data", false,-1, 63,0);
-    tracep->declBit(c+3475,"rf_DIP_io_rf_4_MPORT_en", false,-1);
-    tracep->declBus(c+3480,"rf_DIP_io_rf_4_MPORT_addr", false,-1, 4,0);
-    tracep->declQuad(c+74,"rf_DIP_io_rf_4_MPORT_data", false,-1, 63,0);
-    tracep->declBit(c+3475,"rf_DIP_io_rf_5_MPORT_en", false,-1);
-    tracep->declBus(c+3481,"rf_DIP_io_rf_5_MPORT_addr", false,-1, 4,0);
-    tracep->declQuad(c+76,"rf_DIP_io_rf_5_MPORT_data", false,-1, 63,0);
-    tracep->declBit(c+3475,"rf_DIP_io_rf_6_MPORT_en", false,-1);
-    tracep->declBus(c+3482,"rf_DIP_io_rf_6_MPORT_addr", false,-1, 4,0);
-    tracep->declQuad(c+78,"rf_DIP_io_rf_6_MPORT_data", false,-1, 63,0);
-    tracep->declBit(c+3475,"rf_DIP_io_rf_7_MPORT_en", false,-1);
-    tracep->declBus(c+3483,"rf_DIP_io_rf_7_MPORT_addr", false,-1, 4,0);
-    tracep->declQuad(c+80,"rf_DIP_io_rf_7_MPORT_data", false,-1, 63,0);
-    tracep->declBit(c+3475,"rf_DIP_io_rf_8_MPORT_en", false,-1);
-    tracep->declBus(c+3484,"rf_DIP_io_rf_8_MPORT_addr", false,-1, 4,0);
-    tracep->declQuad(c+82,"rf_DIP_io_rf_8_MPORT_data", false,-1, 63,0);
-    tracep->declBit(c+3475,"rf_DIP_io_rf_9_MPORT_en", false,-1);
-    tracep->declBus(c+3485,"rf_DIP_io_rf_9_MPORT_addr", false,-1, 4,0);
-    tracep->declQuad(c+84,"rf_DIP_io_rf_9_MPORT_data", false,-1, 63,0);
-    tracep->declBit(c+3475,"rf_DIP_io_rf_10_MPORT_en", false,-1);
-    tracep->declBus(c+3486,"rf_DIP_io_rf_10_MPORT_addr", false,-1, 4,0);
-    tracep->declQuad(c+86,"rf_DIP_io_rf_10_MPORT_data", false,-1, 63,0);
-    tracep->declBit(c+3475,"rf_DIP_io_rf_11_MPORT_en", false,-1);
-    tracep->declBus(c+3487,"rf_DIP_io_rf_11_MPORT_addr", false,-1, 4,0);
-    tracep->declQuad(c+88,"rf_DIP_io_rf_11_MPORT_data", false,-1, 63,0);
-    tracep->declBit(c+3475,"rf_DIP_io_rf_12_MPORT_en", false,-1);
-    tracep->declBus(c+3488,"rf_DIP_io_rf_12_MPORT_addr", false,-1, 4,0);
-    tracep->declQuad(c+90,"rf_DIP_io_rf_12_MPORT_data", false,-1, 63,0);
-    tracep->declBit(c+3475,"rf_DIP_io_rf_13_MPORT_en", false,-1);
-    tracep->declBus(c+3489,"rf_DIP_io_rf_13_MPORT_addr", false,-1, 4,0);
-    tracep->declQuad(c+92,"rf_DIP_io_rf_13_MPORT_data", false,-1, 63,0);
-    tracep->declBit(c+3475,"rf_DIP_io_rf_14_MPORT_en", false,-1);
-    tracep->declBus(c+3490,"rf_DIP_io_rf_14_MPORT_addr", false,-1, 4,0);
-    tracep->declQuad(c+94,"rf_DIP_io_rf_14_MPORT_data", false,-1, 63,0);
-    tracep->declBit(c+3475,"rf_DIP_io_rf_15_MPORT_en", false,-1);
-    tracep->declBus(c+3491,"rf_DIP_io_rf_15_MPORT_addr", false,-1, 4,0);
-    tracep->declQuad(c+96,"rf_DIP_io_rf_15_MPORT_data", false,-1, 63,0);
-    tracep->declBit(c+3475,"rf_DIP_io_rf_16_MPORT_en", false,-1);
-    tracep->declBus(c+3492,"rf_DIP_io_rf_16_MPORT_addr", false,-1, 4,0);
-    tracep->declQuad(c+98,"rf_DIP_io_rf_16_MPORT_data", false,-1, 63,0);
-    tracep->declBit(c+3475,"rf_DIP_io_rf_17_MPORT_en", false,-1);
-    tracep->declBus(c+3493,"rf_DIP_io_rf_17_MPORT_addr", false,-1, 4,0);
-    tracep->declQuad(c+100,"rf_DIP_io_rf_17_MPORT_data", false,-1, 63,0);
-    tracep->declBit(c+3475,"rf_DIP_io_rf_18_MPORT_en", false,-1);
-    tracep->declBus(c+3494,"rf_DIP_io_rf_18_MPORT_addr", false,-1, 4,0);
-    tracep->declQuad(c+102,"rf_DIP_io_rf_18_MPORT_data", false,-1, 63,0);
-    tracep->declBit(c+3475,"rf_DIP_io_rf_19_MPORT_en", false,-1);
-    tracep->declBus(c+3495,"rf_DIP_io_rf_19_MPORT_addr", false,-1, 4,0);
-    tracep->declQuad(c+104,"rf_DIP_io_rf_19_MPORT_data", false,-1, 63,0);
-    tracep->declBit(c+3475,"rf_DIP_io_rf_20_MPORT_en", false,-1);
-    tracep->declBus(c+3496,"rf_DIP_io_rf_20_MPORT_addr", false,-1, 4,0);
-    tracep->declQuad(c+106,"rf_DIP_io_rf_20_MPORT_data", false,-1, 63,0);
-    tracep->declBit(c+3475,"rf_DIP_io_rf_21_MPORT_en", false,-1);
-    tracep->declBus(c+3497,"rf_DIP_io_rf_21_MPORT_addr", false,-1, 4,0);
-    tracep->declQuad(c+108,"rf_DIP_io_rf_21_MPORT_data", false,-1, 63,0);
-    tracep->declBit(c+3475,"rf_DIP_io_rf_22_MPORT_en", false,-1);
-    tracep->declBus(c+3498,"rf_DIP_io_rf_22_MPORT_addr", false,-1, 4,0);
-    tracep->declQuad(c+110,"rf_DIP_io_rf_22_MPORT_data", false,-1, 63,0);
-    tracep->declBit(c+3475,"rf_DIP_io_rf_23_MPORT_en", false,-1);
-    tracep->declBus(c+3499,"rf_DIP_io_rf_23_MPORT_addr", false,-1, 4,0);
-    tracep->declQuad(c+112,"rf_DIP_io_rf_23_MPORT_data", false,-1, 63,0);
-    tracep->declBit(c+3475,"rf_DIP_io_rf_24_MPORT_en", false,-1);
-    tracep->declBus(c+3500,"rf_DIP_io_rf_24_MPORT_addr", false,-1, 4,0);
-    tracep->declQuad(c+114,"rf_DIP_io_rf_24_MPORT_data", false,-1, 63,0);
-    tracep->declBit(c+3475,"rf_DIP_io_rf_25_MPORT_en", false,-1);
-    tracep->declBus(c+3501,"rf_DIP_io_rf_25_MPORT_addr", false,-1, 4,0);
-    tracep->declQuad(c+116,"rf_DIP_io_rf_25_MPORT_data", false,-1, 63,0);
-    tracep->declBit(c+3475,"rf_DIP_io_rf_26_MPORT_en", false,-1);
-    tracep->declBus(c+3502,"rf_DIP_io_rf_26_MPORT_addr", false,-1, 4,0);
-    tracep->declQuad(c+118,"rf_DIP_io_rf_26_MPORT_data", false,-1, 63,0);
-    tracep->declBit(c+3475,"rf_DIP_io_rf_27_MPORT_en", false,-1);
-    tracep->declBus(c+3503,"rf_DIP_io_rf_27_MPORT_addr", false,-1, 4,0);
-    tracep->declQuad(c+120,"rf_DIP_io_rf_27_MPORT_data", false,-1, 63,0);
-    tracep->declBit(c+3475,"rf_DIP_io_rf_28_MPORT_en", false,-1);
-    tracep->declBus(c+3504,"rf_DIP_io_rf_28_MPORT_addr", false,-1, 4,0);
-    tracep->declQuad(c+122,"rf_DIP_io_rf_28_MPORT_data", false,-1, 63,0);
-    tracep->declBit(c+3475,"rf_DIP_io_rf_29_MPORT_en", false,-1);
-    tracep->declBus(c+3505,"rf_DIP_io_rf_29_MPORT_addr", false,-1, 4,0);
-    tracep->declQuad(c+124,"rf_DIP_io_rf_29_MPORT_data", false,-1, 63,0);
-    tracep->declBit(c+3475,"rf_DIP_io_rf_30_MPORT_en", false,-1);
-    tracep->declBus(c+3506,"rf_DIP_io_rf_30_MPORT_addr", false,-1, 4,0);
-    tracep->declQuad(c+126,"rf_DIP_io_rf_30_MPORT_data", false,-1, 63,0);
-    tracep->declBit(c+3475,"rf_DIP_io_rf_31_MPORT_en", false,-1);
-    tracep->declBus(c+3507,"rf_DIP_io_rf_31_MPORT_addr", false,-1, 4,0);
-    tracep->declQuad(c+128,"rf_DIP_io_rf_31_MPORT_data", false,-1, 63,0);
-    tracep->declQuad(c+205,"rf_MPORT_data", false,-1, 63,0);
-    tracep->declBus(c+207,"rf_MPORT_addr", false,-1, 4,0);
-    tracep->declBit(c+3475,"rf_MPORT_mask", false,-1);
-    tracep->declBit(c+208,"rf_MPORT_en", false,-1);
-    tracep->declBit(c+55,"MEM_io_in_ready", false,-1);
-    tracep->declBit(c+209,"MEM_io_in_valid", false,-1);
-    tracep->declBus(c+210,"MEM_io_in_bits_ctrl_signal_fuType", false,-1, 2,0);
-    tracep->declBit(c+211,"MEM_io_in_bits_ctrl_signal_inst_valid", false,-1);
-    tracep->declBit(c+212,"MEM_io_in_bits_ctrl_signal_rfWen", false,-1);
-    tracep->declBus(c+213,"MEM_io_in_bits_ctrl_signal_aluoptype", false,-1, 6,0);
-    tracep->declQuad(c+214,"MEM_io_in_bits_ctrl_flow_PC", false,-1, 63,0);
-    tracep->declBus(c+216,"MEM_io_in_bits_ctrl_flow_inst", false,-1, 31,0);
-    tracep->declQuad(c+217,"MEM_io_in_bits_ctrl_flow_Dnpc", false,-1, 63,0);
-    tracep->declBus(c+219,"MEM_io_in_bits_ctrl_rf_rfDest", false,-1, 4,0);
-    tracep->declQuad(c+220,"MEM_io_in_bits_ctrl_rf_rfData", false,-1, 63,0);
-    tracep->declQuad(c+222,"MEM_io_in_bits_ctrl_data_src1", false,-1, 63,0);
-    tracep->declQuad(c+224,"MEM_io_in_bits_ctrl_data_src2", false,-1, 63,0);
-    tracep->declQuad(c+226,"MEM_io_in_bits_ctrl_data_Imm", false,-1, 63,0);
-    tracep->declBit(c+3475,"MEM_io_out_ready", false,-1);
-    tracep->declBit(c+228,"MEM_io_out_valid", false,-1);
-    tracep->declBit(c+229,"MEM_io_out_bits_ctrl_signal_inst_valid", false,-1);
-    tracep->declBit(c+212,"MEM_io_out_bits_ctrl_signal_rfWen", false,-1);
-    tracep->declQuad(c+214,"MEM_io_out_bits_ctrl_flow_PC", false,-1, 63,0);
-    tracep->declBus(c+216,"MEM_io_out_bits_ctrl_flow_inst", false,-1, 31,0);
-    tracep->declQuad(c+217,"MEM_io_out_bits_ctrl_flow_Dnpc", false,-1, 63,0);
-    tracep->declBit(c+230,"MEM_io_out_bits_ctrl_flow_skip", false,-1);
-    tracep->declBus(c+219,"MEM_io_out_bits_ctrl_rf_rfDest", false,-1, 4,0);
-    tracep->declBit(c+231,"MEM_io_out_bits_ctrl_rf_rfWen", false,-1);
-    tracep->declQuad(c+232,"MEM_io_out_bits_ctrl_rf_rfData", false,-1, 63,0);
-    tracep->declBit(c+234,"MEM_io_cache_io_addr_req_valid", false,-1);
-    tracep->declQuad(c+235,"MEM_io_cache_io_addr_req_bits_addr", false,-1, 63,0);
-    tracep->declBit(c+237,"MEM_io_cache_io_addr_req_bits_ce", false,-1);
-    tracep->declBit(c+238,"MEM_io_cache_io_addr_req_bits_we", false,-1);
-    tracep->declBit(c+239,"MEM_io_cache_io_rdata_rep_valid", false,-1);
-    tracep->declQuad(c+240,"MEM_io_cache_io_rdata_rep_bits_rdata", false,-1, 63,0);
-    tracep->declQuad(c+242,"MEM_io_cache_io_wdata_req_bits_wdata", false,-1, 63,0);
-    tracep->declBus(c+244,"MEM_io_cache_io_wdata_req_bits_wmask", false,-1, 7,0);
-    tracep->declBit(c+245,"MEM_io_cache_io_wdata_rep", false,-1);
-    tracep->declBit(c+246,"WB_io_in_valid", false,-1);
-    tracep->declBit(c+247,"WB_io_in_bits_ctrl_signal_inst_valid", false,-1);
-    tracep->declBit(c+248,"WB_io_in_bits_ctrl_signal_rfWen", false,-1);
-    tracep->declQuad(c+249,"WB_io_in_bits_ctrl_flow_PC", false,-1, 63,0);
-    tracep->declBus(c+251,"WB_io_in_bits_ctrl_flow_inst", false,-1, 31,0);
-    tracep->declQuad(c+252,"WB_io_in_bits_ctrl_flow_Dnpc", false,-1, 63,0);
-    tracep->declBit(c+254,"WB_io_in_bits_ctrl_flow_skip", false,-1);
-    tracep->declBus(c+207,"WB_io_in_bits_ctrl_rf_rfDest", false,-1, 4,0);
-    tracep->declQuad(c+255,"WB_io_in_bits_ctrl_rf_rfData", false,-1, 63,0);
-    tracep->declBit(c+3475,"WB_io_out_ready", false,-1);
-    tracep->declBit(c+246,"WB_io_out_valid", false,-1);
-    tracep->declBit(c+257,"WB_io_out_bits_ctrl_signal_inst_valid", false,-1);
-    tracep->declQuad(c+249,"WB_io_out_bits_ctrl_flow_PC", false,-1, 63,0);
-    tracep->declBus(c+251,"WB_io_out_bits_ctrl_flow_inst", false,-1, 31,0);
-    tracep->declQuad(c+252,"WB_io_out_bits_ctrl_flow_Dnpc", false,-1, 63,0);
-    tracep->declBit(c+254,"WB_io_out_bits_ctrl_flow_skip", false,-1);
-    tracep->declBus(c+207,"WB_io_out_bits_ctrl_rf_rfDest", false,-1, 4,0);
-    tracep->declBit(c+208,"WB_io_out_bits_ctrl_rf_rfWen", false,-1);
-    tracep->declQuad(c+255,"WB_io_out_bits_ctrl_rf_rfData", false,-1, 63,0);
-    tracep->declBus(c+41,"bypass_io_EX_rf_rfDest", false,-1, 4,0);
-    tracep->declBit(c+57,"bypass_io_EX_rf_rfWen", false,-1);
-    tracep->declQuad(c+58,"bypass_io_EX_rf_rfData", false,-1, 63,0);
-    tracep->declBus(c+219,"bypass_io_MEM_rf_rfDest", false,-1, 4,0);
-    tracep->declBit(c+231,"bypass_io_MEM_rf_rfWen", false,-1);
-    tracep->declQuad(c+232,"bypass_io_MEM_rf_rfData", false,-1, 63,0);
-    tracep->declBus(c+207,"bypass_io_WB_rf_rfDest", false,-1, 4,0);
-    tracep->declBit(c+208,"bypass_io_WB_rf_rfWen", false,-1);
-    tracep->declQuad(c+255,"bypass_io_WB_rf_rfData", false,-1, 63,0);
-    tracep->declQuad(c+258,"bypass_io_Reg1", false,-1, 63,0);
-    tracep->declBus(c+25,"bypass_io_reg_index1", false,-1, 4,0);
-    tracep->declQuad(c+260,"bypass_io_Reg2", false,-1, 63,0);
-    tracep->declBus(c+26,"bypass_io_reg_index2", false,-1, 4,0);
-    tracep->declQuad(c+17,"bypass_io_Bypass_REG1", false,-1, 63,0);
-    tracep->declQuad(c+19,"bypass_io_Bypass_REG2", false,-1, 63,0);
-    tracep->declBus(c+219,"mem_bypass_io_MEM_rf_rfDest", false,-1, 4,0);
-    tracep->declBit(c+231,"mem_bypass_io_MEM_rf_rfWen", false,-1);
-    tracep->declQuad(c+232,"mem_bypass_io_MEM_rf_rfData", false,-1, 63,0);
-    tracep->declQuad(c+42,"mem_bypass_io_Reg1", false,-1, 63,0);
-    tracep->declBus(c+37,"mem_bypass_io_reg_index1", false,-1, 4,0);
-    tracep->declQuad(c+44,"mem_bypass_io_Reg2", false,-1, 63,0);
-    tracep->declBus(c+38,"mem_bypass_io_reg_index2", false,-1, 4,0);
-    tracep->declQuad(c+51,"mem_bypass_io_Bypass_REG1", false,-1, 63,0);
-    tracep->declQuad(c+53,"mem_bypass_io_Bypass_REG2", false,-1, 63,0);
-    tracep->declBit(c+3469,"ICACHE_clock", false,-1);
-    tracep->declBit(c+3470,"ICACHE_reset", false,-1);
-    tracep->declBit(c+5,"ICACHE_io_in_addr_req_valid", false,-1);
-    tracep->declQuad(c+6,"ICACHE_io_in_addr_req_bits_addr", false,-1, 63,0);
-    tracep->declBit(c+5,"ICACHE_io_in_rdata_rep_ready", false,-1);
-    tracep->declBit(c+8,"ICACHE_io_in_rdata_rep_valid", false,-1);
-    tracep->declQuad(c+9,"ICACHE_io_in_rdata_rep_bits_rdata", false,-1, 63,0);
-    tracep->declBit(c+12,"ICACHE_io_flush", false,-1);
-    tracep->declBit(c+262,"ICACHE_io_out_addr_req_valid", false,-1);
-    tracep->declQuad(c+263,"ICACHE_io_out_addr_req_bits_addr", false,-1, 63,0);
-    tracep->declBit(c+262,"ICACHE_io_out_addr_req_bits_ce", false,-1);
-    tracep->declBit(c+265,"ICACHE_io_out_rdata_rep_valid", false,-1);
-    tracep->declQuad(c+266,"ICACHE_io_out_rdata_rep_bits_rdata", false,-1, 63,0);
-    tracep->declBit(c+3469,"If_axi_birdge_clock", false,-1);
-    tracep->declBit(c+3470,"If_axi_birdge_reset", false,-1);
-    tracep->declBit(c+262,"If_axi_birdge_io_in_addr_req_valid", false,-1);
-    tracep->declQuad(c+263,"If_axi_birdge_io_in_addr_req_bits_addr", false,-1, 63,0);
-    tracep->declBit(c+262,"If_axi_birdge_io_in_addr_req_bits_ce", false,-1);
-    tracep->declBit(c+3508,"If_axi_birdge_io_in_addr_req_bits_we", false,-1);
-    tracep->declBit(c+265,"If_axi_birdge_io_in_rdata_rep_valid", false,-1);
-    tracep->declQuad(c+266,"If_axi_birdge_io_in_rdata_rep_bits_rdata", false,-1, 63,0);
-    tracep->declQuad(c+3509,"If_axi_birdge_io_in_wdata_req_bits_wdata", false,-1, 63,0);
-    tracep->declBus(c+3511,"If_axi_birdge_io_in_wdata_req_bits_wmask", false,-1, 7,0);
-    tracep->declBit(c+268,"If_axi_birdge_io_in_wdata_rep", false,-1);
-    tracep->declBit(c+269,"If_axi_birdge_io_out_raddr_req_ready", false,-1);
-    tracep->declBit(c+270,"If_axi_birdge_io_out_raddr_req_valid", false,-1);
-    tracep->declQuad(c+263,"If_axi_birdge_io_out_raddr_req_bits_addr", false,-1, 63,0);
-    tracep->declBit(c+269,"If_axi_birdge_io_out_waddr_req_ready", false,-1);
-    tracep->declBit(c+3508,"If_axi_birdge_io_out_waddr_req_valid", false,-1);
-    tracep->declQuad(c+263,"If_axi_birdge_io_out_waddr_req_bits_addr", false,-1, 63,0);
-    tracep->declBit(c+3475,"If_axi_birdge_io_out_rdata_rep_ready", false,-1);
-    tracep->declBit(c+271,"If_axi_birdge_io_out_rdata_rep_valid", false,-1);
-    tracep->declQuad(c+266,"If_axi_birdge_io_out_rdata_rep_bits_rdata", false,-1, 63,0);
-    tracep->declBit(c+3508,"If_axi_birdge_io_out_wdata_req_valid", false,-1);
-    tracep->declQuad(c+3509,"If_axi_birdge_io_out_wdata_req_bits_wdata", false,-1, 63,0);
-    tracep->declBus(c+3511,"If_axi_birdge_io_out_wdata_req_bits_wmask", false,-1, 7,0);
-    tracep->declBit(c+272,"If_axi_birdge_io_out_wb_ready", false,-1);
-    tracep->declBit(c+268,"If_axi_birdge_io_out_wb_valid", false,-1);
-    tracep->declBus(c+3512,"If_axi_birdge_io_out_wb_bits", false,-1, 1,0);
-    tracep->declBit(c+3469,"MEM_axi_birdge_clock", false,-1);
-    tracep->declBit(c+3470,"MEM_axi_birdge_reset", false,-1);
-    tracep->declBit(c+273,"MEM_axi_birdge_io_in_addr_req_valid", false,-1);
-    tracep->declQuad(c+274,"MEM_axi_birdge_io_in_addr_req_bits_addr", false,-1, 63,0);
-    tracep->declBit(c+276,"MEM_axi_birdge_io_in_addr_req_bits_ce", false,-1);
-    tracep->declBit(c+277,"MEM_axi_birdge_io_in_addr_req_bits_we", false,-1);
-    tracep->declBit(c+278,"MEM_axi_birdge_io_in_rdata_rep_valid", false,-1);
-    tracep->declQuad(c+266,"MEM_axi_birdge_io_in_rdata_rep_bits_rdata", false,-1, 63,0);
-    tracep->declQuad(c+279,"MEM_axi_birdge_io_in_wdata_req_bits_wdata", false,-1, 63,0);
-    tracep->declBus(c+281,"MEM_axi_birdge_io_in_wdata_req_bits_wmask", false,-1, 7,0);
-    tracep->declBit(c+282,"MEM_axi_birdge_io_in_wdata_rep", false,-1);
-    tracep->declBit(c+283,"MEM_axi_birdge_io_out_raddr_req_ready", false,-1);
-    tracep->declBit(c+284,"MEM_axi_birdge_io_out_raddr_req_valid", false,-1);
-    tracep->declQuad(c+274,"MEM_axi_birdge_io_out_raddr_req_bits_addr", false,-1, 63,0);
-    tracep->declBit(c+283,"MEM_axi_birdge_io_out_waddr_req_ready", false,-1);
-    tracep->declBit(c+285,"MEM_axi_birdge_io_out_waddr_req_valid", false,-1);
-    tracep->declQuad(c+274,"MEM_axi_birdge_io_out_waddr_req_bits_addr", false,-1, 63,0);
-    tracep->declBit(c+3475,"MEM_axi_birdge_io_out_rdata_rep_ready", false,-1);
-    tracep->declBit(c+286,"MEM_axi_birdge_io_out_rdata_rep_valid", false,-1);
-    tracep->declQuad(c+266,"MEM_axi_birdge_io_out_rdata_rep_bits_rdata", false,-1, 63,0);
-    tracep->declBit(c+287,"MEM_axi_birdge_io_out_wdata_req_valid", false,-1);
-    tracep->declQuad(c+279,"MEM_axi_birdge_io_out_wdata_req_bits_wdata", false,-1, 63,0);
-    tracep->declBus(c+281,"MEM_axi_birdge_io_out_wdata_req_bits_wmask", false,-1, 7,0);
-    tracep->declBit(c+288,"MEM_axi_birdge_io_out_wb_ready", false,-1);
-    tracep->declBit(c+282,"MEM_axi_birdge_io_out_wb_valid", false,-1);
-    tracep->declBus(c+3512,"MEM_axi_birdge_io_out_wb_bits", false,-1, 1,0);
-    tracep->declBit(c+3470,"MMEM_reset", false,-1);
-    tracep->declBit(c+3469,"MMEM_clk", false,-1);
-    tracep->declBit(c+289,"MMEM_ar_valid", false,-1);
-    tracep->declBit(c+290,"MMEM_ar_ready", false,-1);
-    tracep->declQuad(c+291,"MMEM_araddr", false,-1, 63,0);
-    tracep->declBit(c+293,"MMEM_r_valid", false,-1);
-    tracep->declBit(c+3475,"MMEM_r_ready", false,-1);
-    tracep->declQuad(c+266,"MMEM_rdata", false,-1, 63,0);
-    tracep->declBit(c+294,"MMEM_aw_valid", false,-1);
-    tracep->declBit(c+290,"MMEM_aw_ready", false,-1);
-    tracep->declQuad(c+291,"MMEM_awaddr", false,-1, 63,0);
-    tracep->declBit(c+295,"MMEM_w_valid", false,-1);
-    tracep->declBit(c+290,"MMEM_w_ready", false,-1);
-    tracep->declQuad(c+296,"MMEM_wdata", false,-1, 63,0);
-    tracep->declBus(c+298,"MMEM_wstrb", false,-1, 7,0);
-    tracep->declBit(c+299,"MMEM_bvalid", false,-1);
-    tracep->declBit(c+300,"MMEM_bready", false,-1);
-    tracep->declBus(c+3512,"MMEM_bresp", false,-1, 1,0);
-    tracep->declBit(c+3469,"ARBITER_clock", false,-1);
-    tracep->declBit(c+3470,"ARBITER_reset", false,-1);
-    tracep->declBit(c+283,"ARBITER_io_in1_raddr_req_ready", false,-1);
-    tracep->declBit(c+284,"ARBITER_io_in1_raddr_req_valid", false,-1);
-    tracep->declQuad(c+274,"ARBITER_io_in1_raddr_req_bits_addr", false,-1, 63,0);
-    tracep->declBit(c+283,"ARBITER_io_in1_waddr_req_ready", false,-1);
-    tracep->declBit(c+285,"ARBITER_io_in1_waddr_req_valid", false,-1);
-    tracep->declQuad(c+274,"ARBITER_io_in1_waddr_req_bits_addr", false,-1, 63,0);
-    tracep->declBit(c+286,"ARBITER_io_in1_rdata_rep_valid", false,-1);
-    tracep->declQuad(c+266,"ARBITER_io_in1_rdata_rep_bits_rdata", false,-1, 63,0);
-    tracep->declBit(c+287,"ARBITER_io_in1_wdata_req_valid", false,-1);
-    tracep->declQuad(c+279,"ARBITER_io_in1_wdata_req_bits_wdata", false,-1, 63,0);
-    tracep->declBus(c+281,"ARBITER_io_in1_wdata_req_bits_wmask", false,-1, 7,0);
-    tracep->declBit(c+288,"ARBITER_io_in1_wb_ready", false,-1);
-    tracep->declBit(c+282,"ARBITER_io_in1_wb_valid", false,-1);
-    tracep->declBus(c+3512,"ARBITER_io_in1_wb_bits", false,-1, 1,0);
-    tracep->declBit(c+269,"ARBITER_io_in2_raddr_req_ready", false,-1);
-    tracep->declBit(c+270,"ARBITER_io_in2_raddr_req_valid", false,-1);
-    tracep->declQuad(c+263,"ARBITER_io_in2_raddr_req_bits_addr", false,-1, 63,0);
-    tracep->declBit(c+269,"ARBITER_io_in2_waddr_req_ready", false,-1);
-    tracep->declBit(c+3508,"ARBITER_io_in2_waddr_req_valid", false,-1);
-    tracep->declQuad(c+263,"ARBITER_io_in2_waddr_req_bits_addr", false,-1, 63,0);
-    tracep->declBit(c+271,"ARBITER_io_in2_rdata_rep_valid", false,-1);
-    tracep->declQuad(c+266,"ARBITER_io_in2_rdata_rep_bits_rdata", false,-1, 63,0);
-    tracep->declBit(c+3508,"ARBITER_io_in2_wdata_req_valid", false,-1);
-    tracep->declQuad(c+3509,"ARBITER_io_in2_wdata_req_bits_wdata", false,-1, 63,0);
-    tracep->declBus(c+3511,"ARBITER_io_in2_wdata_req_bits_wmask", false,-1, 7,0);
-    tracep->declBit(c+272,"ARBITER_io_in2_wb_ready", false,-1);
-    tracep->declBit(c+268,"ARBITER_io_in2_wb_valid", false,-1);
-    tracep->declBus(c+3512,"ARBITER_io_in2_wb_bits", false,-1, 1,0);
-    tracep->declBit(c+289,"ARBITER_io_out_raddr_req_valid", false,-1);
-    tracep->declQuad(c+291,"ARBITER_io_out_raddr_req_bits_addr", false,-1, 63,0);
-    tracep->declBit(c+294,"ARBITER_io_out_waddr_req_valid", false,-1);
-    tracep->declQuad(c+291,"ARBITER_io_out_waddr_req_bits_addr", false,-1, 63,0);
-    tracep->declBit(c+293,"ARBITER_io_out_rdata_rep_valid", false,-1);
-    tracep->declQuad(c+266,"ARBITER_io_out_rdata_rep_bits_rdata", false,-1, 63,0);
-    tracep->declBit(c+295,"ARBITER_io_out_wdata_req_valid", false,-1);
-    tracep->declQuad(c+296,"ARBITER_io_out_wdata_req_bits_wdata", false,-1, 63,0);
-    tracep->declBus(c+298,"ARBITER_io_out_wdata_req_bits_wmask", false,-1, 7,0);
-    tracep->declBit(c+300,"ARBITER_io_out_wb_ready", false,-1);
-    tracep->declBit(c+299,"ARBITER_io_out_wb_valid", false,-1);
-    tracep->declBus(c+3512,"ARBITER_io_out_wb_bits", false,-1, 1,0);
-    tracep->declBit(c+3469,"MMIO_clock", false,-1);
-    tracep->declBit(c+3470,"MMIO_reset", false,-1);
-    tracep->declBit(c+234,"MMIO_io_in_addr_req_valid", false,-1);
-    tracep->declQuad(c+235,"MMIO_io_in_addr_req_bits_addr", false,-1, 63,0);
-    tracep->declBit(c+237,"MMIO_io_in_addr_req_bits_ce", false,-1);
-    tracep->declBit(c+238,"MMIO_io_in_addr_req_bits_we", false,-1);
-    tracep->declBit(c+239,"MMIO_io_in_rdata_rep_valid", false,-1);
-    tracep->declQuad(c+240,"MMIO_io_in_rdata_rep_bits_rdata", false,-1, 63,0);
-    tracep->declQuad(c+242,"MMIO_io_in_wdata_req_bits_wdata", false,-1, 63,0);
-    tracep->declBus(c+244,"MMIO_io_in_wdata_req_bits_wmask", false,-1, 7,0);
-    tracep->declBit(c+245,"MMIO_io_in_wdata_rep", false,-1);
-    tracep->declBit(c+273,"MMIO_io_out_addr_req_valid", false,-1);
-    tracep->declQuad(c+274,"MMIO_io_out_addr_req_bits_addr", false,-1, 63,0);
-    tracep->declBit(c+276,"MMIO_io_out_addr_req_bits_ce", false,-1);
-    tracep->declBit(c+277,"MMIO_io_out_addr_req_bits_we", false,-1);
-    tracep->declBit(c+278,"MMIO_io_out_rdata_rep_valid", false,-1);
-    tracep->declQuad(c+266,"MMIO_io_out_rdata_rep_bits_rdata", false,-1, 63,0);
-    tracep->declQuad(c+279,"MMIO_io_out_wdata_req_bits_wdata", false,-1, 63,0);
-    tracep->declBus(c+281,"MMIO_io_out_wdata_req_bits_wmask", false,-1, 7,0);
-    tracep->declBit(c+282,"MMIO_io_out_wdata_rep", false,-1);
-    tracep->declBit(c+13,"valid", false,-1);
-    tracep->declQuad(c+14,"ID_io_in_bits_r_PC", false,-1, 63,0);
-    tracep->declBus(c+16,"ID_io_in_bits_r_Inst", false,-1, 31,0);
-    tracep->declBit(c+32,"valid_1", false,-1);
-    tracep->declBus(c+33,"EX_io_in_bits_r_ctrl_signal_src1Type", false,-1, 2,0);
-    tracep->declBus(c+34,"EX_io_in_bits_r_ctrl_signal_src2Type", false,-1, 2,0);
-    tracep->declBus(c+35,"EX_io_in_bits_r_ctrl_signal_fuType", false,-1, 2,0);
-    tracep->declBit(c+36,"EX_io_in_bits_r_ctrl_signal_inst_valid", false,-1);
-    tracep->declBus(c+37,"EX_io_in_bits_r_ctrl_signal_rfSrc1", false,-1, 4,0);
-    tracep->declBus(c+38,"EX_io_in_bits_r_ctrl_signal_rfSrc2", false,-1, 4,0);
-    tracep->declBit(c+39,"EX_io_in_bits_r_ctrl_signal_rfWen", false,-1);
-    tracep->declBus(c+40,"EX_io_in_bits_r_ctrl_signal_aluoptype", false,-1, 6,0);
-    tracep->declBus(c+41,"EX_io_in_bits_r_ctrl_signal_rfDest", false,-1, 4,0);
-    tracep->declQuad(c+42,"EX_io_in_bits_r_ctrl_data_src1", false,-1, 63,0);
-    tracep->declQuad(c+44,"EX_io_in_bits_r_ctrl_data_src2", false,-1, 63,0);
-    tracep->declQuad(c+46,"EX_io_in_bits_r_ctrl_data_Imm", false,-1, 63,0);
-    tracep->declQuad(c+48,"EX_io_in_bits_r_ctrl_flow_PC", false,-1, 63,0);
-    tracep->declBus(c+50,"EX_io_in_bits_r_ctrl_flow_inst", false,-1, 31,0);
-    tracep->declBit(c+209,"valid_2", false,-1);
-    tracep->declBus(c+210,"MEM_io_in_bits_r_ctrl_signal_fuType", false,-1, 2,0);
-    tracep->declBit(c+211,"MEM_io_in_bits_r_ctrl_signal_inst_valid", false,-1);
-    tracep->declBit(c+212,"MEM_io_in_bits_r_ctrl_signal_rfWen", false,-1);
-    tracep->declBus(c+213,"MEM_io_in_bits_r_ctrl_signal_aluoptype", false,-1, 6,0);
-    tracep->declQuad(c+214,"MEM_io_in_bits_r_ctrl_flow_PC", false,-1, 63,0);
-    tracep->declBus(c+216,"MEM_io_in_bits_r_ctrl_flow_inst", false,-1, 31,0);
-    tracep->declQuad(c+217,"MEM_io_in_bits_r_ctrl_flow_Dnpc", false,-1, 63,0);
-    tracep->declBus(c+219,"MEM_io_in_bits_r_ctrl_rf_rfDest", false,-1, 4,0);
-    tracep->declQuad(c+220,"MEM_io_in_bits_r_ctrl_rf_rfData", false,-1, 63,0);
-    tracep->declQuad(c+222,"MEM_io_in_bits_r_ctrl_data_src1", false,-1, 63,0);
-    tracep->declQuad(c+224,"MEM_io_in_bits_r_ctrl_data_src2", false,-1, 63,0);
-    tracep->declQuad(c+226,"MEM_io_in_bits_r_ctrl_data_Imm", false,-1, 63,0);
-    tracep->declBit(c+246,"valid_3", false,-1);
-    tracep->declBit(c+247,"WB_io_in_bits_r_ctrl_signal_inst_valid", false,-1);
-    tracep->declBit(c+248,"WB_io_in_bits_r_ctrl_signal_rfWen", false,-1);
-    tracep->declQuad(c+249,"WB_io_in_bits_r_ctrl_flow_PC", false,-1, 63,0);
-    tracep->declBus(c+251,"WB_io_in_bits_r_ctrl_flow_inst", false,-1, 31,0);
-    tracep->declQuad(c+252,"WB_io_in_bits_r_ctrl_flow_Dnpc", false,-1, 63,0);
-    tracep->declBit(c+254,"WB_io_in_bits_r_ctrl_flow_skip", false,-1);
-    tracep->declBus(c+207,"WB_io_in_bits_r_ctrl_rf_rfDest", false,-1, 4,0);
-    tracep->declQuad(c+255,"WB_io_in_bits_r_ctrl_rf_rfData", false,-1, 63,0);
-    tracep->declBit(c+301,"DIP_io_is_break_REG", false,-1);
-    tracep->declBit(c+65,"DIP_io_is_break_REG_1", false,-1);
-    tracep->declBus(c+130,"DIP_io_inst_REG", false,-1, 31,0);
-    tracep->declBit(c+136,"DIP_io_is_skip_REG", false,-1);
-    tracep->declBit(c+133,"DIP_io_inst_valid_REG", false,-1);
-    tracep->declQuad(c+131,"DIP_io_pc_REG", false,-1, 63,0);
-    tracep->declQuad(c+134,"DIP_io_dnpc_REG", false,-1, 63,0);
+    tracep->declBit(c+3514,"rf_bypass_io_Reg1_MPORT_en", false,-1);
+    tracep->declBus(c+14,"rf_bypass_io_Reg1_MPORT_addr", false,-1, 4,0);
+    tracep->declQuad(c+180,"rf_bypass_io_Reg1_MPORT_data", false,-1, 63,0);
+    tracep->declBit(c+3514,"rf_bypass_io_Reg2_MPORT_en", false,-1);
+    tracep->declBus(c+15,"rf_bypass_io_Reg2_MPORT_addr", false,-1, 4,0);
+    tracep->declQuad(c+182,"rf_bypass_io_Reg2_MPORT_data", false,-1, 63,0);
+    tracep->declBit(c+3514,"rf_DIP_io_rf_0_MPORT_en", false,-1);
+    tracep->declBus(c+3515,"rf_DIP_io_rf_0_MPORT_addr", false,-1, 4,0);
+    tracep->declQuad(c+45,"rf_DIP_io_rf_0_MPORT_data", false,-1, 63,0);
+    tracep->declBit(c+3514,"rf_DIP_io_rf_1_MPORT_en", false,-1);
+    tracep->declBus(c+3516,"rf_DIP_io_rf_1_MPORT_addr", false,-1, 4,0);
+    tracep->declQuad(c+47,"rf_DIP_io_rf_1_MPORT_data", false,-1, 63,0);
+    tracep->declBit(c+3514,"rf_DIP_io_rf_2_MPORT_en", false,-1);
+    tracep->declBus(c+3517,"rf_DIP_io_rf_2_MPORT_addr", false,-1, 4,0);
+    tracep->declQuad(c+49,"rf_DIP_io_rf_2_MPORT_data", false,-1, 63,0);
+    tracep->declBit(c+3514,"rf_DIP_io_rf_3_MPORT_en", false,-1);
+    tracep->declBus(c+3518,"rf_DIP_io_rf_3_MPORT_addr", false,-1, 4,0);
+    tracep->declQuad(c+51,"rf_DIP_io_rf_3_MPORT_data", false,-1, 63,0);
+    tracep->declBit(c+3514,"rf_DIP_io_rf_4_MPORT_en", false,-1);
+    tracep->declBus(c+3519,"rf_DIP_io_rf_4_MPORT_addr", false,-1, 4,0);
+    tracep->declQuad(c+53,"rf_DIP_io_rf_4_MPORT_data", false,-1, 63,0);
+    tracep->declBit(c+3514,"rf_DIP_io_rf_5_MPORT_en", false,-1);
+    tracep->declBus(c+3520,"rf_DIP_io_rf_5_MPORT_addr", false,-1, 4,0);
+    tracep->declQuad(c+55,"rf_DIP_io_rf_5_MPORT_data", false,-1, 63,0);
+    tracep->declBit(c+3514,"rf_DIP_io_rf_6_MPORT_en", false,-1);
+    tracep->declBus(c+3521,"rf_DIP_io_rf_6_MPORT_addr", false,-1, 4,0);
+    tracep->declQuad(c+57,"rf_DIP_io_rf_6_MPORT_data", false,-1, 63,0);
+    tracep->declBit(c+3514,"rf_DIP_io_rf_7_MPORT_en", false,-1);
+    tracep->declBus(c+3522,"rf_DIP_io_rf_7_MPORT_addr", false,-1, 4,0);
+    tracep->declQuad(c+59,"rf_DIP_io_rf_7_MPORT_data", false,-1, 63,0);
+    tracep->declBit(c+3514,"rf_DIP_io_rf_8_MPORT_en", false,-1);
+    tracep->declBus(c+3523,"rf_DIP_io_rf_8_MPORT_addr", false,-1, 4,0);
+    tracep->declQuad(c+61,"rf_DIP_io_rf_8_MPORT_data", false,-1, 63,0);
+    tracep->declBit(c+3514,"rf_DIP_io_rf_9_MPORT_en", false,-1);
+    tracep->declBus(c+3524,"rf_DIP_io_rf_9_MPORT_addr", false,-1, 4,0);
+    tracep->declQuad(c+63,"rf_DIP_io_rf_9_MPORT_data", false,-1, 63,0);
+    tracep->declBit(c+3514,"rf_DIP_io_rf_10_MPORT_en", false,-1);
+    tracep->declBus(c+3525,"rf_DIP_io_rf_10_MPORT_addr", false,-1, 4,0);
+    tracep->declQuad(c+65,"rf_DIP_io_rf_10_MPORT_data", false,-1, 63,0);
+    tracep->declBit(c+3514,"rf_DIP_io_rf_11_MPORT_en", false,-1);
+    tracep->declBus(c+3526,"rf_DIP_io_rf_11_MPORT_addr", false,-1, 4,0);
+    tracep->declQuad(c+67,"rf_DIP_io_rf_11_MPORT_data", false,-1, 63,0);
+    tracep->declBit(c+3514,"rf_DIP_io_rf_12_MPORT_en", false,-1);
+    tracep->declBus(c+3527,"rf_DIP_io_rf_12_MPORT_addr", false,-1, 4,0);
+    tracep->declQuad(c+69,"rf_DIP_io_rf_12_MPORT_data", false,-1, 63,0);
+    tracep->declBit(c+3514,"rf_DIP_io_rf_13_MPORT_en", false,-1);
+    tracep->declBus(c+3528,"rf_DIP_io_rf_13_MPORT_addr", false,-1, 4,0);
+    tracep->declQuad(c+71,"rf_DIP_io_rf_13_MPORT_data", false,-1, 63,0);
+    tracep->declBit(c+3514,"rf_DIP_io_rf_14_MPORT_en", false,-1);
+    tracep->declBus(c+3529,"rf_DIP_io_rf_14_MPORT_addr", false,-1, 4,0);
+    tracep->declQuad(c+73,"rf_DIP_io_rf_14_MPORT_data", false,-1, 63,0);
+    tracep->declBit(c+3514,"rf_DIP_io_rf_15_MPORT_en", false,-1);
+    tracep->declBus(c+3530,"rf_DIP_io_rf_15_MPORT_addr", false,-1, 4,0);
+    tracep->declQuad(c+75,"rf_DIP_io_rf_15_MPORT_data", false,-1, 63,0);
+    tracep->declBit(c+3514,"rf_DIP_io_rf_16_MPORT_en", false,-1);
+    tracep->declBus(c+3531,"rf_DIP_io_rf_16_MPORT_addr", false,-1, 4,0);
+    tracep->declQuad(c+77,"rf_DIP_io_rf_16_MPORT_data", false,-1, 63,0);
+    tracep->declBit(c+3514,"rf_DIP_io_rf_17_MPORT_en", false,-1);
+    tracep->declBus(c+3532,"rf_DIP_io_rf_17_MPORT_addr", false,-1, 4,0);
+    tracep->declQuad(c+79,"rf_DIP_io_rf_17_MPORT_data", false,-1, 63,0);
+    tracep->declBit(c+3514,"rf_DIP_io_rf_18_MPORT_en", false,-1);
+    tracep->declBus(c+3533,"rf_DIP_io_rf_18_MPORT_addr", false,-1, 4,0);
+    tracep->declQuad(c+81,"rf_DIP_io_rf_18_MPORT_data", false,-1, 63,0);
+    tracep->declBit(c+3514,"rf_DIP_io_rf_19_MPORT_en", false,-1);
+    tracep->declBus(c+3534,"rf_DIP_io_rf_19_MPORT_addr", false,-1, 4,0);
+    tracep->declQuad(c+83,"rf_DIP_io_rf_19_MPORT_data", false,-1, 63,0);
+    tracep->declBit(c+3514,"rf_DIP_io_rf_20_MPORT_en", false,-1);
+    tracep->declBus(c+3535,"rf_DIP_io_rf_20_MPORT_addr", false,-1, 4,0);
+    tracep->declQuad(c+85,"rf_DIP_io_rf_20_MPORT_data", false,-1, 63,0);
+    tracep->declBit(c+3514,"rf_DIP_io_rf_21_MPORT_en", false,-1);
+    tracep->declBus(c+3536,"rf_DIP_io_rf_21_MPORT_addr", false,-1, 4,0);
+    tracep->declQuad(c+87,"rf_DIP_io_rf_21_MPORT_data", false,-1, 63,0);
+    tracep->declBit(c+3514,"rf_DIP_io_rf_22_MPORT_en", false,-1);
+    tracep->declBus(c+3537,"rf_DIP_io_rf_22_MPORT_addr", false,-1, 4,0);
+    tracep->declQuad(c+89,"rf_DIP_io_rf_22_MPORT_data", false,-1, 63,0);
+    tracep->declBit(c+3514,"rf_DIP_io_rf_23_MPORT_en", false,-1);
+    tracep->declBus(c+3538,"rf_DIP_io_rf_23_MPORT_addr", false,-1, 4,0);
+    tracep->declQuad(c+91,"rf_DIP_io_rf_23_MPORT_data", false,-1, 63,0);
+    tracep->declBit(c+3514,"rf_DIP_io_rf_24_MPORT_en", false,-1);
+    tracep->declBus(c+3539,"rf_DIP_io_rf_24_MPORT_addr", false,-1, 4,0);
+    tracep->declQuad(c+93,"rf_DIP_io_rf_24_MPORT_data", false,-1, 63,0);
+    tracep->declBit(c+3514,"rf_DIP_io_rf_25_MPORT_en", false,-1);
+    tracep->declBus(c+3540,"rf_DIP_io_rf_25_MPORT_addr", false,-1, 4,0);
+    tracep->declQuad(c+95,"rf_DIP_io_rf_25_MPORT_data", false,-1, 63,0);
+    tracep->declBit(c+3514,"rf_DIP_io_rf_26_MPORT_en", false,-1);
+    tracep->declBus(c+3541,"rf_DIP_io_rf_26_MPORT_addr", false,-1, 4,0);
+    tracep->declQuad(c+97,"rf_DIP_io_rf_26_MPORT_data", false,-1, 63,0);
+    tracep->declBit(c+3514,"rf_DIP_io_rf_27_MPORT_en", false,-1);
+    tracep->declBus(c+3542,"rf_DIP_io_rf_27_MPORT_addr", false,-1, 4,0);
+    tracep->declQuad(c+99,"rf_DIP_io_rf_27_MPORT_data", false,-1, 63,0);
+    tracep->declBit(c+3514,"rf_DIP_io_rf_28_MPORT_en", false,-1);
+    tracep->declBus(c+3543,"rf_DIP_io_rf_28_MPORT_addr", false,-1, 4,0);
+    tracep->declQuad(c+101,"rf_DIP_io_rf_28_MPORT_data", false,-1, 63,0);
+    tracep->declBit(c+3514,"rf_DIP_io_rf_29_MPORT_en", false,-1);
+    tracep->declBus(c+3544,"rf_DIP_io_rf_29_MPORT_addr", false,-1, 4,0);
+    tracep->declQuad(c+103,"rf_DIP_io_rf_29_MPORT_data", false,-1, 63,0);
+    tracep->declBit(c+3514,"rf_DIP_io_rf_30_MPORT_en", false,-1);
+    tracep->declBus(c+3545,"rf_DIP_io_rf_30_MPORT_addr", false,-1, 4,0);
+    tracep->declQuad(c+105,"rf_DIP_io_rf_30_MPORT_data", false,-1, 63,0);
+    tracep->declBit(c+3514,"rf_DIP_io_rf_31_MPORT_en", false,-1);
+    tracep->declBus(c+3546,"rf_DIP_io_rf_31_MPORT_addr", false,-1, 4,0);
+    tracep->declQuad(c+107,"rf_DIP_io_rf_31_MPORT_data", false,-1, 63,0);
+    tracep->declQuad(c+184,"rf_MPORT_data", false,-1, 63,0);
+    tracep->declBus(c+186,"rf_MPORT_addr", false,-1, 4,0);
+    tracep->declBit(c+3514,"rf_MPORT_mask", false,-1);
+    tracep->declBit(c+187,"rf_MPORT_en", false,-1);
+    tracep->declBit(c+40,"MEM_io_in_ready", false,-1);
+    tracep->declBit(c+188,"MEM_io_in_valid", false,-1);
+    tracep->declBus(c+189,"MEM_io_in_bits_ctrl_signal_fuType", false,-1, 2,0);
+    tracep->declBit(c+190,"MEM_io_in_bits_ctrl_signal_inst_valid", false,-1);
+    tracep->declBit(c+191,"MEM_io_in_bits_ctrl_signal_rfWen", false,-1);
+    tracep->declBus(c+192,"MEM_io_in_bits_ctrl_signal_aluoptype", false,-1, 6,0);
+    tracep->declQuad(c+193,"MEM_io_in_bits_ctrl_flow_PC", false,-1, 63,0);
+    tracep->declBus(c+195,"MEM_io_in_bits_ctrl_flow_inst", false,-1, 31,0);
+    tracep->declQuad(c+196,"MEM_io_in_bits_ctrl_flow_Dnpc", false,-1, 63,0);
+    tracep->declBus(c+198,"MEM_io_in_bits_ctrl_rf_rfDest", false,-1, 4,0);
+    tracep->declQuad(c+199,"MEM_io_in_bits_ctrl_rf_rfData", false,-1, 63,0);
+    tracep->declQuad(c+201,"MEM_io_in_bits_ctrl_data_src1", false,-1, 63,0);
+    tracep->declQuad(c+203,"MEM_io_in_bits_ctrl_data_src2", false,-1, 63,0);
+    tracep->declQuad(c+205,"MEM_io_in_bits_ctrl_data_Imm", false,-1, 63,0);
+    tracep->declBit(c+3514,"MEM_io_out_ready", false,-1);
+    tracep->declBit(c+207,"MEM_io_out_valid", false,-1);
+    tracep->declBit(c+208,"MEM_io_out_bits_ctrl_signal_inst_valid", false,-1);
+    tracep->declBit(c+191,"MEM_io_out_bits_ctrl_signal_rfWen", false,-1);
+    tracep->declQuad(c+193,"MEM_io_out_bits_ctrl_flow_PC", false,-1, 63,0);
+    tracep->declBus(c+195,"MEM_io_out_bits_ctrl_flow_inst", false,-1, 31,0);
+    tracep->declQuad(c+196,"MEM_io_out_bits_ctrl_flow_Dnpc", false,-1, 63,0);
+    tracep->declBit(c+209,"MEM_io_out_bits_ctrl_flow_skip", false,-1);
+    tracep->declBus(c+198,"MEM_io_out_bits_ctrl_rf_rfDest", false,-1, 4,0);
+    tracep->declBit(c+210,"MEM_io_out_bits_ctrl_rf_rfWen", false,-1);
+    tracep->declQuad(c+3476,"MEM_io_out_bits_ctrl_rf_rfData", false,-1, 63,0);
+    tracep->declBit(c+211,"MEM_io_cache_io_addr_req_valid", false,-1);
+    tracep->declQuad(c+212,"MEM_io_cache_io_addr_req_bits_addr", false,-1, 63,0);
+    tracep->declBit(c+214,"MEM_io_cache_io_addr_req_bits_ce", false,-1);
+    tracep->declBit(c+215,"MEM_io_cache_io_addr_req_bits_we", false,-1);
+    tracep->declBit(c+216,"MEM_io_cache_io_rdata_rep_valid", false,-1);
+    tracep->declQuad(c+3478,"MEM_io_cache_io_rdata_rep_bits_rdata", false,-1, 63,0);
+    tracep->declQuad(c+217,"MEM_io_cache_io_wdata_req_bits_wdata", false,-1, 63,0);
+    tracep->declBus(c+219,"MEM_io_cache_io_wdata_req_bits_wmask", false,-1, 7,0);
+    tracep->declBit(c+220,"MEM_io_cache_io_wdata_rep", false,-1);
+    tracep->declBit(c+221,"WB_io_in_valid", false,-1);
+    tracep->declBit(c+222,"WB_io_in_bits_ctrl_signal_inst_valid", false,-1);
+    tracep->declBit(c+223,"WB_io_in_bits_ctrl_signal_rfWen", false,-1);
+    tracep->declQuad(c+224,"WB_io_in_bits_ctrl_flow_PC", false,-1, 63,0);
+    tracep->declBus(c+226,"WB_io_in_bits_ctrl_flow_inst", false,-1, 31,0);
+    tracep->declQuad(c+227,"WB_io_in_bits_ctrl_flow_Dnpc", false,-1, 63,0);
+    tracep->declBit(c+229,"WB_io_in_bits_ctrl_flow_skip", false,-1);
+    tracep->declBus(c+186,"WB_io_in_bits_ctrl_rf_rfDest", false,-1, 4,0);
+    tracep->declQuad(c+230,"WB_io_in_bits_ctrl_rf_rfData", false,-1, 63,0);
+    tracep->declBit(c+3514,"WB_io_out_ready", false,-1);
+    tracep->declBit(c+221,"WB_io_out_valid", false,-1);
+    tracep->declBit(c+232,"WB_io_out_bits_ctrl_signal_inst_valid", false,-1);
+    tracep->declQuad(c+224,"WB_io_out_bits_ctrl_flow_PC", false,-1, 63,0);
+    tracep->declBus(c+226,"WB_io_out_bits_ctrl_flow_inst", false,-1, 31,0);
+    tracep->declQuad(c+227,"WB_io_out_bits_ctrl_flow_Dnpc", false,-1, 63,0);
+    tracep->declBit(c+229,"WB_io_out_bits_ctrl_flow_skip", false,-1);
+    tracep->declBus(c+186,"WB_io_out_bits_ctrl_rf_rfDest", false,-1, 4,0);
+    tracep->declBit(c+187,"WB_io_out_bits_ctrl_rf_rfWen", false,-1);
+    tracep->declQuad(c+230,"WB_io_out_bits_ctrl_rf_rfData", false,-1, 63,0);
+    tracep->declBus(c+30,"bypass_io_EX_rf_rfDest", false,-1, 4,0);
+    tracep->declBit(c+42,"bypass_io_EX_rf_rfWen", false,-1);
+    tracep->declQuad(c+3474,"bypass_io_EX_rf_rfData", false,-1, 63,0);
+    tracep->declBus(c+198,"bypass_io_MEM_rf_rfDest", false,-1, 4,0);
+    tracep->declBit(c+210,"bypass_io_MEM_rf_rfWen", false,-1);
+    tracep->declQuad(c+3476,"bypass_io_MEM_rf_rfData", false,-1, 63,0);
+    tracep->declBus(c+186,"bypass_io_WB_rf_rfDest", false,-1, 4,0);
+    tracep->declBit(c+187,"bypass_io_WB_rf_rfWen", false,-1);
+    tracep->declQuad(c+230,"bypass_io_WB_rf_rfData", false,-1, 63,0);
+    tracep->declQuad(c+233,"bypass_io_Reg1", false,-1, 63,0);
+    tracep->declBus(c+14,"bypass_io_reg_index1", false,-1, 4,0);
+    tracep->declQuad(c+235,"bypass_io_Reg2", false,-1, 63,0);
+    tracep->declBus(c+15,"bypass_io_reg_index2", false,-1, 4,0);
+    tracep->declQuad(c+3443,"bypass_io_Bypass_REG1", false,-1, 63,0);
+    tracep->declQuad(c+3445,"bypass_io_Bypass_REG2", false,-1, 63,0);
+    tracep->declBus(c+198,"mem_bypass_io_MEM_rf_rfDest", false,-1, 4,0);
+    tracep->declBit(c+210,"mem_bypass_io_MEM_rf_rfWen", false,-1);
+    tracep->declQuad(c+3476,"mem_bypass_io_MEM_rf_rfData", false,-1, 63,0);
+    tracep->declQuad(c+31,"mem_bypass_io_Reg1", false,-1, 63,0);
+    tracep->declBus(c+26,"mem_bypass_io_reg_index1", false,-1, 4,0);
+    tracep->declQuad(c+33,"mem_bypass_io_Reg2", false,-1, 63,0);
+    tracep->declBus(c+27,"mem_bypass_io_reg_index2", false,-1, 4,0);
+    tracep->declQuad(c+3470,"mem_bypass_io_Bypass_REG1", false,-1, 63,0);
+    tracep->declQuad(c+3472,"mem_bypass_io_Bypass_REG2", false,-1, 63,0);
+    tracep->declBit(c+3509,"ICACHE_clock", false,-1);
+    tracep->declBit(c+3510,"ICACHE_reset", false,-1);
+    tracep->declBit(c+2,"ICACHE_io_in_addr_req_valid", false,-1);
+    tracep->declQuad(c+3,"ICACHE_io_in_addr_req_bits_addr", false,-1, 63,0);
+    tracep->declBit(c+2,"ICACHE_io_in_rdata_rep_ready", false,-1);
+    tracep->declBit(c+3468,"ICACHE_io_in_rdata_rep_valid", false,-1);
+    tracep->declQuad(c+5,"ICACHE_io_in_rdata_rep_bits_rdata", false,-1, 63,0);
+    tracep->declBit(c+3469,"ICACHE_io_flush", false,-1);
+    tracep->declBit(c+237,"ICACHE_io_out_raddr_req_ready", false,-1);
+    tracep->declBit(c+238,"ICACHE_io_out_raddr_req_valid", false,-1);
+    tracep->declQuad(c+239,"ICACHE_io_out_raddr_req_bits_addr", false,-1, 63,0);
+    tracep->declBit(c+241,"ICACHE_io_out_rdata_rep_valid", false,-1);
+    tracep->declQuad(c+3480,"ICACHE_io_out_rdata_rep_bits_data", false,-1, 63,0);
+    tracep->declBit(c+242,"ICACHE_io_out_rdata_rep_bits_last", false,-1);
+    tracep->declBit(c+243,"ICACHE_io_out_wb_valid", false,-1);
+    tracep->declBus(c+3547,"ICACHE_io_out_wb_bits_breap", false,-1, 1,0);
+    tracep->declBit(c+3510,"MMEM_reset", false,-1);
+    tracep->declBit(c+3509,"MMEM_clk", false,-1);
+    tracep->declBit(c+244,"MMEM_ar_valid", false,-1);
+    tracep->declBit(c+245,"MMEM_ar_ready", false,-1);
+    tracep->declQuad(c+246,"MMEM_ar_addr", false,-1, 63,0);
+    tracep->declBus(c+3548,"MMEM_ar_id", false,-1, 3,0);
+    tracep->declBus(c+248,"MMEM_ar_len", false,-1, 7,0);
+    tracep->declBus(c+3549,"MMEM_ar_size", false,-1, 2,0);
+    tracep->declBus(c+3550,"MMEM_ar_prot", false,-1, 2,0);
+    tracep->declBus(c+3551,"MMEM_ar_burst", false,-1, 1,0);
+    tracep->declBus(c+3547,"MMEM_ar_lock", false,-1, 1,0);
+    tracep->declBus(c+3552,"MMEM_ar_cache", false,-1, 3,0);
+    tracep->declBit(c+249,"MMEM_rd_valid", false,-1);
+    tracep->declBit(c+250,"MMEM_rd_ready", false,-1);
+    tracep->declQuad(c+3480,"MMEM_rd_data", false,-1, 63,0);
+    tracep->declBus(c+3553,"MMEM_rd_id", false,-1, 3,0);
+    tracep->declBus(c+3554,"MMEM_rd_resp", false,-1, 1,0);
+    tracep->declBit(c+242,"MMEM_rd_last", false,-1);
+    tracep->declBit(c+251,"MMEM_aw_valid", false,-1);
+    tracep->declBit(c+252,"MMEM_aw_ready", false,-1);
+    tracep->declQuad(c+253,"MMEM_aw_addr", false,-1, 63,0);
+    tracep->declBus(c+3548,"MMEM_aw_id", false,-1, 3,0);
+    tracep->declBus(c+255,"MMEM_aw_len", false,-1, 7,0);
+    tracep->declBus(c+3549,"MMEM_aw_size", false,-1, 2,0);
+    tracep->declBus(c+3550,"MMEM_aw_prot", false,-1, 2,0);
+    tracep->declBus(c+3551,"MMEM_aw_burst", false,-1, 1,0);
+    tracep->declBus(c+3547,"MMEM_aw_lock", false,-1, 1,0);
+    tracep->declBus(c+3552,"MMEM_aw_cache", false,-1, 3,0);
+    tracep->declBit(c+256,"MMEM_wd_valid", false,-1);
+    tracep->declBit(c+257,"MMEM_wd_ready", false,-1);
+    tracep->declQuad(c+258,"MMEM_wd_data", false,-1, 63,0);
+    tracep->declBus(c+260,"MMEM_wstrb", false,-1, 7,0);
+    tracep->declBus(c+3548,"MMEM_wd_id", false,-1, 3,0);
+    tracep->declBit(c+261,"MMEM_wd_last", false,-1);
+    tracep->declBit(c+262,"MMEM_wr_valid", false,-1);
+    tracep->declBit(c+263,"MMEM_wr_ready", false,-1);
+    tracep->declBus(c+3547,"MMEM_wr_breap", false,-1, 1,0);
+    tracep->declBus(c+3555,"MMEM_wr_id", false,-1, 3,0);
+    tracep->declBit(c+3509,"ARBITER_clock", false,-1);
+    tracep->declBit(c+3510,"ARBITER_reset", false,-1);
+    tracep->declBit(c+264,"ARBITER_io_in1_raddr_req_ready", false,-1);
+    tracep->declBit(c+265,"ARBITER_io_in1_raddr_req_valid", false,-1);
+    tracep->declQuad(c+266,"ARBITER_io_in1_raddr_req_bits_addr", false,-1, 63,0);
+    tracep->declBus(c+268,"ARBITER_io_in1_raddr_req_bits_len", false,-1, 7,0);
+    tracep->declBit(c+269,"ARBITER_io_in1_waddr_req_ready", false,-1);
+    tracep->declBit(c+270,"ARBITER_io_in1_waddr_req_valid", false,-1);
+    tracep->declQuad(c+271,"ARBITER_io_in1_waddr_req_bits_addr", false,-1, 63,0);
+    tracep->declBus(c+273,"ARBITER_io_in1_waddr_req_bits_len", false,-1, 7,0);
+    tracep->declBit(c+274,"ARBITER_io_in1_rdata_rep_ready", false,-1);
+    tracep->declBit(c+275,"ARBITER_io_in1_rdata_rep_valid", false,-1);
+    tracep->declQuad(c+3480,"ARBITER_io_in1_rdata_rep_bits_data", false,-1, 63,0);
+    tracep->declBit(c+242,"ARBITER_io_in1_rdata_rep_bits_last", false,-1);
+    tracep->declBit(c+276,"ARBITER_io_in1_wdata_req_ready", false,-1);
+    tracep->declBit(c+277,"ARBITER_io_in1_wdata_req_valid", false,-1);
+    tracep->declQuad(c+278,"ARBITER_io_in1_wdata_req_bits_data", false,-1, 63,0);
+    tracep->declBus(c+280,"ARBITER_io_in1_wdata_req_bits_wstrb", false,-1, 7,0);
+    tracep->declBit(c+281,"ARBITER_io_in1_wdata_req_bits_last", false,-1);
+    tracep->declBit(c+282,"ARBITER_io_in1_wb_ready", false,-1);
+    tracep->declBit(c+283,"ARBITER_io_in1_wb_valid", false,-1);
+    tracep->declBus(c+3547,"ARBITER_io_in1_wb_bits_breap", false,-1, 1,0);
+    tracep->declBit(c+237,"ARBITER_io_in2_raddr_req_ready", false,-1);
+    tracep->declBit(c+238,"ARBITER_io_in2_raddr_req_valid", false,-1);
+    tracep->declQuad(c+239,"ARBITER_io_in2_raddr_req_bits_addr", false,-1, 63,0);
+    tracep->declBit(c+241,"ARBITER_io_in2_rdata_rep_valid", false,-1);
+    tracep->declQuad(c+3480,"ARBITER_io_in2_rdata_rep_bits_data", false,-1, 63,0);
+    tracep->declBit(c+242,"ARBITER_io_in2_rdata_rep_bits_last", false,-1);
+    tracep->declBit(c+243,"ARBITER_io_in2_wb_valid", false,-1);
+    tracep->declBus(c+3547,"ARBITER_io_in2_wb_bits_breap", false,-1, 1,0);
+    tracep->declBit(c+245,"ARBITER_io_out_raddr_req_ready", false,-1);
+    tracep->declBit(c+244,"ARBITER_io_out_raddr_req_valid", false,-1);
+    tracep->declQuad(c+246,"ARBITER_io_out_raddr_req_bits_addr", false,-1, 63,0);
+    tracep->declBus(c+248,"ARBITER_io_out_raddr_req_bits_len", false,-1, 7,0);
+    tracep->declBit(c+252,"ARBITER_io_out_waddr_req_ready", false,-1);
+    tracep->declBit(c+251,"ARBITER_io_out_waddr_req_valid", false,-1);
+    tracep->declQuad(c+253,"ARBITER_io_out_waddr_req_bits_addr", false,-1, 63,0);
+    tracep->declBus(c+255,"ARBITER_io_out_waddr_req_bits_len", false,-1, 7,0);
+    tracep->declBit(c+250,"ARBITER_io_out_rdata_rep_ready", false,-1);
+    tracep->declBit(c+249,"ARBITER_io_out_rdata_rep_valid", false,-1);
+    tracep->declQuad(c+3480,"ARBITER_io_out_rdata_rep_bits_data", false,-1, 63,0);
+    tracep->declBit(c+242,"ARBITER_io_out_rdata_rep_bits_last", false,-1);
+    tracep->declBit(c+257,"ARBITER_io_out_wdata_req_ready", false,-1);
+    tracep->declBit(c+256,"ARBITER_io_out_wdata_req_valid", false,-1);
+    tracep->declQuad(c+258,"ARBITER_io_out_wdata_req_bits_data", false,-1, 63,0);
+    tracep->declBus(c+260,"ARBITER_io_out_wdata_req_bits_wstrb", false,-1, 7,0);
+    tracep->declBit(c+261,"ARBITER_io_out_wdata_req_bits_last", false,-1);
+    tracep->declBit(c+263,"ARBITER_io_out_wb_ready", false,-1);
+    tracep->declBit(c+262,"ARBITER_io_out_wb_valid", false,-1);
+    tracep->declBus(c+3547,"ARBITER_io_out_wb_bits_breap", false,-1, 1,0);
+    tracep->declBit(c+3509,"MMIO_clock", false,-1);
+    tracep->declBit(c+3510,"MMIO_reset", false,-1);
+    tracep->declBit(c+211,"MMIO_io_in_addr_req_valid", false,-1);
+    tracep->declQuad(c+212,"MMIO_io_in_addr_req_bits_addr", false,-1, 63,0);
+    tracep->declBit(c+214,"MMIO_io_in_addr_req_bits_ce", false,-1);
+    tracep->declBit(c+215,"MMIO_io_in_addr_req_bits_we", false,-1);
+    tracep->declBit(c+216,"MMIO_io_in_rdata_rep_valid", false,-1);
+    tracep->declQuad(c+3478,"MMIO_io_in_rdata_rep_bits_rdata", false,-1, 63,0);
+    tracep->declQuad(c+217,"MMIO_io_in_wdata_req_bits_wdata", false,-1, 63,0);
+    tracep->declBus(c+219,"MMIO_io_in_wdata_req_bits_wmask", false,-1, 7,0);
+    tracep->declBit(c+220,"MMIO_io_in_wdata_rep", false,-1);
+    tracep->declBit(c+264,"MMIO_io_out_raddr_req_ready", false,-1);
+    tracep->declBit(c+265,"MMIO_io_out_raddr_req_valid", false,-1);
+    tracep->declQuad(c+266,"MMIO_io_out_raddr_req_bits_addr", false,-1, 63,0);
+    tracep->declBus(c+268,"MMIO_io_out_raddr_req_bits_len", false,-1, 7,0);
+    tracep->declBit(c+269,"MMIO_io_out_waddr_req_ready", false,-1);
+    tracep->declBit(c+270,"MMIO_io_out_waddr_req_valid", false,-1);
+    tracep->declQuad(c+271,"MMIO_io_out_waddr_req_bits_addr", false,-1, 63,0);
+    tracep->declBus(c+273,"MMIO_io_out_waddr_req_bits_len", false,-1, 7,0);
+    tracep->declBit(c+274,"MMIO_io_out_rdata_rep_ready", false,-1);
+    tracep->declBit(c+275,"MMIO_io_out_rdata_rep_valid", false,-1);
+    tracep->declQuad(c+3480,"MMIO_io_out_rdata_rep_bits_data", false,-1, 63,0);
+    tracep->declBit(c+242,"MMIO_io_out_rdata_rep_bits_last", false,-1);
+    tracep->declBit(c+276,"MMIO_io_out_wdata_req_ready", false,-1);
+    tracep->declBit(c+277,"MMIO_io_out_wdata_req_valid", false,-1);
+    tracep->declQuad(c+278,"MMIO_io_out_wdata_req_bits_data", false,-1, 63,0);
+    tracep->declBus(c+280,"MMIO_io_out_wdata_req_bits_wstrb", false,-1, 7,0);
+    tracep->declBit(c+281,"MMIO_io_out_wdata_req_bits_last", false,-1);
+    tracep->declBit(c+282,"MMIO_io_out_wb_ready", false,-1);
+    tracep->declBit(c+283,"MMIO_io_out_wb_valid", false,-1);
+    tracep->declBus(c+3547,"MMIO_io_out_wb_bits_breap", false,-1, 1,0);
+    tracep->declBit(c+7,"valid", false,-1);
+    tracep->declQuad(c+8,"ID_io_in_bits_r_PC", false,-1, 63,0);
+    tracep->declBus(c+10,"ID_io_in_bits_r_Inst", false,-1, 31,0);
+    tracep->declBit(c+21,"valid_1", false,-1);
+    tracep->declBus(c+22,"EX_io_in_bits_r_ctrl_signal_src1Type", false,-1, 2,0);
+    tracep->declBus(c+23,"EX_io_in_bits_r_ctrl_signal_src2Type", false,-1, 2,0);
+    tracep->declBus(c+24,"EX_io_in_bits_r_ctrl_signal_fuType", false,-1, 2,0);
+    tracep->declBit(c+25,"EX_io_in_bits_r_ctrl_signal_inst_valid", false,-1);
+    tracep->declBus(c+26,"EX_io_in_bits_r_ctrl_signal_rfSrc1", false,-1, 4,0);
+    tracep->declBus(c+27,"EX_io_in_bits_r_ctrl_signal_rfSrc2", false,-1, 4,0);
+    tracep->declBit(c+28,"EX_io_in_bits_r_ctrl_signal_rfWen", false,-1);
+    tracep->declBus(c+29,"EX_io_in_bits_r_ctrl_signal_aluoptype", false,-1, 6,0);
+    tracep->declBus(c+30,"EX_io_in_bits_r_ctrl_signal_rfDest", false,-1, 4,0);
+    tracep->declQuad(c+31,"EX_io_in_bits_r_ctrl_data_src1", false,-1, 63,0);
+    tracep->declQuad(c+33,"EX_io_in_bits_r_ctrl_data_src2", false,-1, 63,0);
+    tracep->declQuad(c+35,"EX_io_in_bits_r_ctrl_data_Imm", false,-1, 63,0);
+    tracep->declQuad(c+37,"EX_io_in_bits_r_ctrl_flow_PC", false,-1, 63,0);
+    tracep->declBus(c+39,"EX_io_in_bits_r_ctrl_flow_inst", false,-1, 31,0);
+    tracep->declBit(c+188,"valid_2", false,-1);
+    tracep->declBus(c+189,"MEM_io_in_bits_r_ctrl_signal_fuType", false,-1, 2,0);
+    tracep->declBit(c+190,"MEM_io_in_bits_r_ctrl_signal_inst_valid", false,-1);
+    tracep->declBit(c+191,"MEM_io_in_bits_r_ctrl_signal_rfWen", false,-1);
+    tracep->declBus(c+192,"MEM_io_in_bits_r_ctrl_signal_aluoptype", false,-1, 6,0);
+    tracep->declQuad(c+193,"MEM_io_in_bits_r_ctrl_flow_PC", false,-1, 63,0);
+    tracep->declBus(c+195,"MEM_io_in_bits_r_ctrl_flow_inst", false,-1, 31,0);
+    tracep->declQuad(c+196,"MEM_io_in_bits_r_ctrl_flow_Dnpc", false,-1, 63,0);
+    tracep->declBus(c+198,"MEM_io_in_bits_r_ctrl_rf_rfDest", false,-1, 4,0);
+    tracep->declQuad(c+199,"MEM_io_in_bits_r_ctrl_rf_rfData", false,-1, 63,0);
+    tracep->declQuad(c+201,"MEM_io_in_bits_r_ctrl_data_src1", false,-1, 63,0);
+    tracep->declQuad(c+203,"MEM_io_in_bits_r_ctrl_data_src2", false,-1, 63,0);
+    tracep->declQuad(c+205,"MEM_io_in_bits_r_ctrl_data_Imm", false,-1, 63,0);
+    tracep->declBit(c+221,"valid_3", false,-1);
+    tracep->declBit(c+222,"WB_io_in_bits_r_ctrl_signal_inst_valid", false,-1);
+    tracep->declBit(c+223,"WB_io_in_bits_r_ctrl_signal_rfWen", false,-1);
+    tracep->declQuad(c+224,"WB_io_in_bits_r_ctrl_flow_PC", false,-1, 63,0);
+    tracep->declBus(c+226,"WB_io_in_bits_r_ctrl_flow_inst", false,-1, 31,0);
+    tracep->declQuad(c+227,"WB_io_in_bits_r_ctrl_flow_Dnpc", false,-1, 63,0);
+    tracep->declBit(c+229,"WB_io_in_bits_r_ctrl_flow_skip", false,-1);
+    tracep->declBus(c+186,"WB_io_in_bits_r_ctrl_rf_rfDest", false,-1, 4,0);
+    tracep->declQuad(c+230,"WB_io_in_bits_r_ctrl_rf_rfData", false,-1, 63,0);
+    tracep->declBit(c+284,"DIP_io_is_break_REG", false,-1);
+    tracep->declBit(c+44,"DIP_io_is_break_REG_1", false,-1);
+    tracep->declBus(c+109,"DIP_io_inst_REG", false,-1, 31,0);
+    tracep->declBit(c+115,"DIP_io_is_skip_REG", false,-1);
+    tracep->declBit(c+112,"DIP_io_inst_valid_REG", false,-1);
+    tracep->declQuad(c+110,"DIP_io_pc_REG", false,-1, 63,0);
+    tracep->declQuad(c+113,"DIP_io_dnpc_REG", false,-1, 63,0);
     tracep->pushNamePrefix("ARBITER ");
-    tracep->declBit(c+3469,"clock", false,-1);
-    tracep->declBit(c+3470,"reset", false,-1);
-    tracep->declBit(c+283,"io_in1_raddr_req_ready", false,-1);
-    tracep->declBit(c+284,"io_in1_raddr_req_valid", false,-1);
-    tracep->declQuad(c+274,"io_in1_raddr_req_bits_addr", false,-1, 63,0);
-    tracep->declBit(c+283,"io_in1_waddr_req_ready", false,-1);
-    tracep->declBit(c+285,"io_in1_waddr_req_valid", false,-1);
-    tracep->declQuad(c+274,"io_in1_waddr_req_bits_addr", false,-1, 63,0);
-    tracep->declBit(c+286,"io_in1_rdata_rep_valid", false,-1);
-    tracep->declQuad(c+266,"io_in1_rdata_rep_bits_rdata", false,-1, 63,0);
-    tracep->declBit(c+287,"io_in1_wdata_req_valid", false,-1);
-    tracep->declQuad(c+279,"io_in1_wdata_req_bits_wdata", false,-1, 63,0);
-    tracep->declBus(c+281,"io_in1_wdata_req_bits_wmask", false,-1, 7,0);
-    tracep->declBit(c+288,"io_in1_wb_ready", false,-1);
-    tracep->declBit(c+282,"io_in1_wb_valid", false,-1);
-    tracep->declBus(c+3512,"io_in1_wb_bits", false,-1, 1,0);
-    tracep->declBit(c+269,"io_in2_raddr_req_ready", false,-1);
-    tracep->declBit(c+270,"io_in2_raddr_req_valid", false,-1);
-    tracep->declQuad(c+263,"io_in2_raddr_req_bits_addr", false,-1, 63,0);
-    tracep->declBit(c+269,"io_in2_waddr_req_ready", false,-1);
-    tracep->declBit(c+3508,"io_in2_waddr_req_valid", false,-1);
-    tracep->declQuad(c+263,"io_in2_waddr_req_bits_addr", false,-1, 63,0);
-    tracep->declBit(c+271,"io_in2_rdata_rep_valid", false,-1);
-    tracep->declQuad(c+266,"io_in2_rdata_rep_bits_rdata", false,-1, 63,0);
-    tracep->declBit(c+3508,"io_in2_wdata_req_valid", false,-1);
-    tracep->declQuad(c+3509,"io_in2_wdata_req_bits_wdata", false,-1, 63,0);
-    tracep->declBus(c+3511,"io_in2_wdata_req_bits_wmask", false,-1, 7,0);
-    tracep->declBit(c+272,"io_in2_wb_ready", false,-1);
-    tracep->declBit(c+268,"io_in2_wb_valid", false,-1);
-    tracep->declBus(c+3512,"io_in2_wb_bits", false,-1, 1,0);
-    tracep->declBit(c+289,"io_out_raddr_req_valid", false,-1);
-    tracep->declQuad(c+291,"io_out_raddr_req_bits_addr", false,-1, 63,0);
-    tracep->declBit(c+294,"io_out_waddr_req_valid", false,-1);
-    tracep->declQuad(c+291,"io_out_waddr_req_bits_addr", false,-1, 63,0);
-    tracep->declBit(c+293,"io_out_rdata_rep_valid", false,-1);
-    tracep->declQuad(c+266,"io_out_rdata_rep_bits_rdata", false,-1, 63,0);
-    tracep->declBit(c+295,"io_out_wdata_req_valid", false,-1);
-    tracep->declQuad(c+296,"io_out_wdata_req_bits_wdata", false,-1, 63,0);
-    tracep->declBus(c+298,"io_out_wdata_req_bits_wmask", false,-1, 7,0);
-    tracep->declBit(c+300,"io_out_wb_ready", false,-1);
-    tracep->declBit(c+299,"io_out_wb_valid", false,-1);
-    tracep->declBus(c+3512,"io_out_wb_bits", false,-1, 1,0);
-    tracep->declBit(c+302,"state", false,-1);
-    tracep->declBit(c+303,"choose_r", false,-1);
+    tracep->declBit(c+3509,"clock", false,-1);
+    tracep->declBit(c+3510,"reset", false,-1);
+    tracep->declBit(c+264,"io_in1_raddr_req_ready", false,-1);
+    tracep->declBit(c+265,"io_in1_raddr_req_valid", false,-1);
+    tracep->declQuad(c+266,"io_in1_raddr_req_bits_addr", false,-1, 63,0);
+    tracep->declBus(c+268,"io_in1_raddr_req_bits_len", false,-1, 7,0);
+    tracep->declBit(c+269,"io_in1_waddr_req_ready", false,-1);
+    tracep->declBit(c+270,"io_in1_waddr_req_valid", false,-1);
+    tracep->declQuad(c+271,"io_in1_waddr_req_bits_addr", false,-1, 63,0);
+    tracep->declBus(c+273,"io_in1_waddr_req_bits_len", false,-1, 7,0);
+    tracep->declBit(c+274,"io_in1_rdata_rep_ready", false,-1);
+    tracep->declBit(c+275,"io_in1_rdata_rep_valid", false,-1);
+    tracep->declQuad(c+3480,"io_in1_rdata_rep_bits_data", false,-1, 63,0);
+    tracep->declBit(c+242,"io_in1_rdata_rep_bits_last", false,-1);
+    tracep->declBit(c+276,"io_in1_wdata_req_ready", false,-1);
+    tracep->declBit(c+277,"io_in1_wdata_req_valid", false,-1);
+    tracep->declQuad(c+278,"io_in1_wdata_req_bits_data", false,-1, 63,0);
+    tracep->declBus(c+280,"io_in1_wdata_req_bits_wstrb", false,-1, 7,0);
+    tracep->declBit(c+281,"io_in1_wdata_req_bits_last", false,-1);
+    tracep->declBit(c+282,"io_in1_wb_ready", false,-1);
+    tracep->declBit(c+283,"io_in1_wb_valid", false,-1);
+    tracep->declBus(c+3547,"io_in1_wb_bits_breap", false,-1, 1,0);
+    tracep->declBit(c+237,"io_in2_raddr_req_ready", false,-1);
+    tracep->declBit(c+238,"io_in2_raddr_req_valid", false,-1);
+    tracep->declQuad(c+239,"io_in2_raddr_req_bits_addr", false,-1, 63,0);
+    tracep->declBit(c+241,"io_in2_rdata_rep_valid", false,-1);
+    tracep->declQuad(c+3480,"io_in2_rdata_rep_bits_data", false,-1, 63,0);
+    tracep->declBit(c+242,"io_in2_rdata_rep_bits_last", false,-1);
+    tracep->declBit(c+243,"io_in2_wb_valid", false,-1);
+    tracep->declBus(c+3547,"io_in2_wb_bits_breap", false,-1, 1,0);
+    tracep->declBit(c+245,"io_out_raddr_req_ready", false,-1);
+    tracep->declBit(c+244,"io_out_raddr_req_valid", false,-1);
+    tracep->declQuad(c+246,"io_out_raddr_req_bits_addr", false,-1, 63,0);
+    tracep->declBus(c+248,"io_out_raddr_req_bits_len", false,-1, 7,0);
+    tracep->declBit(c+252,"io_out_waddr_req_ready", false,-1);
+    tracep->declBit(c+251,"io_out_waddr_req_valid", false,-1);
+    tracep->declQuad(c+253,"io_out_waddr_req_bits_addr", false,-1, 63,0);
+    tracep->declBus(c+255,"io_out_waddr_req_bits_len", false,-1, 7,0);
+    tracep->declBit(c+250,"io_out_rdata_rep_ready", false,-1);
+    tracep->declBit(c+249,"io_out_rdata_rep_valid", false,-1);
+    tracep->declQuad(c+3480,"io_out_rdata_rep_bits_data", false,-1, 63,0);
+    tracep->declBit(c+242,"io_out_rdata_rep_bits_last", false,-1);
+    tracep->declBit(c+257,"io_out_wdata_req_ready", false,-1);
+    tracep->declBit(c+256,"io_out_wdata_req_valid", false,-1);
+    tracep->declQuad(c+258,"io_out_wdata_req_bits_data", false,-1, 63,0);
+    tracep->declBus(c+260,"io_out_wdata_req_bits_wstrb", false,-1, 7,0);
+    tracep->declBit(c+261,"io_out_wdata_req_bits_last", false,-1);
+    tracep->declBit(c+263,"io_out_wb_ready", false,-1);
+    tracep->declBit(c+262,"io_out_wb_valid", false,-1);
+    tracep->declBus(c+3547,"io_out_wb_bits_breap", false,-1, 1,0);
+    tracep->declBit(c+285,"state", false,-1);
+    tracep->declBit(c+286,"choose_r", false,-1);
     tracep->popNamePrefix(1);
     tracep->pushNamePrefix("DIP ");
-    tracep->declBit(c+65,"is_break", false,-1);
-    tracep->declBus(c+130,"inst", false,-1, 31,0);
-    tracep->declQuad(c+66,"rf_0", false,-1, 63,0);
-    tracep->declQuad(c+68,"rf_1", false,-1, 63,0);
-    tracep->declQuad(c+70,"rf_2", false,-1, 63,0);
-    tracep->declQuad(c+72,"rf_3", false,-1, 63,0);
-    tracep->declQuad(c+74,"rf_4", false,-1, 63,0);
-    tracep->declQuad(c+76,"rf_5", false,-1, 63,0);
-    tracep->declQuad(c+78,"rf_6", false,-1, 63,0);
-    tracep->declQuad(c+80,"rf_7", false,-1, 63,0);
-    tracep->declQuad(c+82,"rf_8", false,-1, 63,0);
-    tracep->declQuad(c+84,"rf_9", false,-1, 63,0);
-    tracep->declQuad(c+86,"rf_10", false,-1, 63,0);
-    tracep->declQuad(c+88,"rf_11", false,-1, 63,0);
-    tracep->declQuad(c+90,"rf_12", false,-1, 63,0);
-    tracep->declQuad(c+92,"rf_13", false,-1, 63,0);
-    tracep->declQuad(c+94,"rf_14", false,-1, 63,0);
-    tracep->declQuad(c+96,"rf_15", false,-1, 63,0);
-    tracep->declQuad(c+98,"rf_16", false,-1, 63,0);
-    tracep->declQuad(c+100,"rf_17", false,-1, 63,0);
-    tracep->declQuad(c+102,"rf_18", false,-1, 63,0);
-    tracep->declQuad(c+104,"rf_19", false,-1, 63,0);
-    tracep->declQuad(c+106,"rf_20", false,-1, 63,0);
-    tracep->declQuad(c+108,"rf_21", false,-1, 63,0);
-    tracep->declQuad(c+110,"rf_22", false,-1, 63,0);
-    tracep->declQuad(c+112,"rf_23", false,-1, 63,0);
-    tracep->declQuad(c+114,"rf_24", false,-1, 63,0);
-    tracep->declQuad(c+116,"rf_25", false,-1, 63,0);
-    tracep->declQuad(c+118,"rf_26", false,-1, 63,0);
-    tracep->declQuad(c+120,"rf_27", false,-1, 63,0);
-    tracep->declQuad(c+122,"rf_28", false,-1, 63,0);
-    tracep->declQuad(c+124,"rf_29", false,-1, 63,0);
-    tracep->declQuad(c+126,"rf_30", false,-1, 63,0);
-    tracep->declQuad(c+128,"rf_31", false,-1, 63,0);
-    tracep->declBit(c+133,"inst_valid", false,-1);
-    tracep->declBit(c+136,"is_skip", false,-1);
-    tracep->declQuad(c+131,"pc", false,-1, 63,0);
-    tracep->declQuad(c+134,"dnpc", false,-1, 63,0);
+    tracep->declBit(c+44,"is_break", false,-1);
+    tracep->declBus(c+109,"inst", false,-1, 31,0);
+    tracep->declQuad(c+45,"rf_0", false,-1, 63,0);
+    tracep->declQuad(c+47,"rf_1", false,-1, 63,0);
+    tracep->declQuad(c+49,"rf_2", false,-1, 63,0);
+    tracep->declQuad(c+51,"rf_3", false,-1, 63,0);
+    tracep->declQuad(c+53,"rf_4", false,-1, 63,0);
+    tracep->declQuad(c+55,"rf_5", false,-1, 63,0);
+    tracep->declQuad(c+57,"rf_6", false,-1, 63,0);
+    tracep->declQuad(c+59,"rf_7", false,-1, 63,0);
+    tracep->declQuad(c+61,"rf_8", false,-1, 63,0);
+    tracep->declQuad(c+63,"rf_9", false,-1, 63,0);
+    tracep->declQuad(c+65,"rf_10", false,-1, 63,0);
+    tracep->declQuad(c+67,"rf_11", false,-1, 63,0);
+    tracep->declQuad(c+69,"rf_12", false,-1, 63,0);
+    tracep->declQuad(c+71,"rf_13", false,-1, 63,0);
+    tracep->declQuad(c+73,"rf_14", false,-1, 63,0);
+    tracep->declQuad(c+75,"rf_15", false,-1, 63,0);
+    tracep->declQuad(c+77,"rf_16", false,-1, 63,0);
+    tracep->declQuad(c+79,"rf_17", false,-1, 63,0);
+    tracep->declQuad(c+81,"rf_18", false,-1, 63,0);
+    tracep->declQuad(c+83,"rf_19", false,-1, 63,0);
+    tracep->declQuad(c+85,"rf_20", false,-1, 63,0);
+    tracep->declQuad(c+87,"rf_21", false,-1, 63,0);
+    tracep->declQuad(c+89,"rf_22", false,-1, 63,0);
+    tracep->declQuad(c+91,"rf_23", false,-1, 63,0);
+    tracep->declQuad(c+93,"rf_24", false,-1, 63,0);
+    tracep->declQuad(c+95,"rf_25", false,-1, 63,0);
+    tracep->declQuad(c+97,"rf_26", false,-1, 63,0);
+    tracep->declQuad(c+99,"rf_27", false,-1, 63,0);
+    tracep->declQuad(c+101,"rf_28", false,-1, 63,0);
+    tracep->declQuad(c+103,"rf_29", false,-1, 63,0);
+    tracep->declQuad(c+105,"rf_30", false,-1, 63,0);
+    tracep->declQuad(c+107,"rf_31", false,-1, 63,0);
+    tracep->declBit(c+112,"inst_valid", false,-1);
+    tracep->declBit(c+115,"is_skip", false,-1);
+    tracep->declQuad(c+110,"pc", false,-1, 63,0);
+    tracep->declQuad(c+113,"dnpc", false,-1, 63,0);
     for (int i = 0; i < 32; ++i) {
-        tracep->declQuad(c+304+i*2,"rf", true,(i+0), 63,0);
+        tracep->declQuad(c+287+i*2,"rf", true,(i+0), 63,0);
     }
     for (int i = 0; i < 7; ++i) {
-        tracep->declBus(c+368+i*1,"IN", true,(i+0), 31,0);
+        tracep->declBus(c+351+i*1,"IN", true,(i+0), 31,0);
     }
     tracep->popNamePrefix(1);
     tracep->pushNamePrefix("EX ");
-    tracep->declBit(c+3469,"clock", false,-1);
-    tracep->declBit(c+3470,"reset", false,-1);
-    tracep->declBit(c+5,"io_in_ready", false,-1);
-    tracep->declBit(c+32,"io_in_valid", false,-1);
-    tracep->declBus(c+33,"io_in_bits_ctrl_signal_src1Type", false,-1, 2,0);
-    tracep->declBus(c+34,"io_in_bits_ctrl_signal_src2Type", false,-1, 2,0);
-    tracep->declBus(c+35,"io_in_bits_ctrl_signal_fuType", false,-1, 2,0);
-    tracep->declBit(c+36,"io_in_bits_ctrl_signal_inst_valid", false,-1);
-    tracep->declBus(c+37,"io_in_bits_ctrl_signal_rfSrc1", false,-1, 4,0);
-    tracep->declBus(c+38,"io_in_bits_ctrl_signal_rfSrc2", false,-1, 4,0);
-    tracep->declBit(c+39,"io_in_bits_ctrl_signal_rfWen", false,-1);
-    tracep->declBus(c+40,"io_in_bits_ctrl_signal_aluoptype", false,-1, 6,0);
-    tracep->declBus(c+41,"io_in_bits_ctrl_signal_rfDest", false,-1, 4,0);
-    tracep->declQuad(c+42,"io_in_bits_ctrl_data_src1", false,-1, 63,0);
-    tracep->declQuad(c+44,"io_in_bits_ctrl_data_src2", false,-1, 63,0);
-    tracep->declQuad(c+46,"io_in_bits_ctrl_data_Imm", false,-1, 63,0);
-    tracep->declQuad(c+48,"io_in_bits_ctrl_flow_PC", false,-1, 63,0);
-    tracep->declBus(c+50,"io_in_bits_ctrl_flow_inst", false,-1, 31,0);
-    tracep->declQuad(c+51,"io_src1", false,-1, 63,0);
-    tracep->declQuad(c+53,"io_src2", false,-1, 63,0);
-    tracep->declBit(c+1,"io_branchIO_is_branch", false,-1);
-    tracep->declBit(c+2,"io_branchIO_is_jump", false,-1);
-    tracep->declQuad(c+3,"io_branchIO_dnpc", false,-1, 63,0);
-    tracep->declBit(c+55,"io_out_ready", false,-1);
-    tracep->declBit(c+56,"io_out_valid", false,-1);
-    tracep->declBus(c+35,"io_out_bits_ctrl_signal_fuType", false,-1, 2,0);
-    tracep->declBit(c+36,"io_out_bits_ctrl_signal_inst_valid", false,-1);
-    tracep->declBit(c+39,"io_out_bits_ctrl_signal_rfWen", false,-1);
-    tracep->declBus(c+40,"io_out_bits_ctrl_signal_aluoptype", false,-1, 6,0);
-    tracep->declQuad(c+48,"io_out_bits_ctrl_flow_PC", false,-1, 63,0);
-    tracep->declBus(c+50,"io_out_bits_ctrl_flow_inst", false,-1, 31,0);
-    tracep->declQuad(c+3,"io_out_bits_ctrl_flow_Dnpc", false,-1, 63,0);
-    tracep->declBus(c+41,"io_out_bits_ctrl_rf_rfDest", false,-1, 4,0);
-    tracep->declBit(c+57,"io_out_bits_ctrl_rf_rfWen", false,-1);
-    tracep->declQuad(c+58,"io_out_bits_ctrl_rf_rfData", false,-1, 63,0);
-    tracep->declQuad(c+60,"io_out_bits_ctrl_data_src1", false,-1, 63,0);
-    tracep->declQuad(c+62,"io_out_bits_ctrl_data_src2", false,-1, 63,0);
-    tracep->declQuad(c+46,"io_out_bits_ctrl_data_Imm", false,-1, 63,0);
-    tracep->declBit(c+64,"io_is_break", false,-1);
-    tracep->declBit(c+12,"io_is_flush", false,-1);
-    tracep->declQuad(c+375,"CSRDIFF_mepc", false,-1, 63,0);
-    tracep->declQuad(c+377,"CSRDIFF_mcause", false,-1, 63,0);
-    tracep->declQuad(c+379,"CSRDIFF_mstatus", false,-1, 63,0);
-    tracep->declQuad(c+381,"CSRDIFF_mtvec", false,-1, 63,0);
-    tracep->declBit(c+3469,"mul_clock", false,-1);
-    tracep->declBit(c+3470,"mul_reset", false,-1);
-    tracep->declBit(c+383,"mul_io_in_valid", false,-1);
-    tracep->declQuad(c+384,"mul_io_in_bits_ctrl_data_src1", false,-1, 63,0);
-    tracep->declQuad(c+386,"mul_io_in_bits_ctrl_data_src2", false,-1, 63,0);
-    tracep->declBit(c+388,"mul_io_out_valid", false,-1);
-    tracep->declQuad(c+389,"mul_io_out_bits_result_result_lo", false,-1, 63,0);
-    tracep->declBit(c+3469,"div_clock", false,-1);
-    tracep->declBit(c+3470,"div_reset", false,-1);
-    tracep->declBit(c+391,"div_io_in_valid", false,-1);
-    tracep->declBit(c+392,"div_io_in_bits_ctrl_flow_div_signed", false,-1);
-    tracep->declQuad(c+393,"div_io_in_bits_ctrl_data_src1", false,-1, 63,0);
-    tracep->declQuad(c+395,"div_io_in_bits_ctrl_data_src2", false,-1, 63,0);
-    tracep->declBit(c+397,"div_io_out_valid", false,-1);
-    tracep->declQuad(c+398,"div_io_out_bits_result_quotient", false,-1, 63,0);
-    tracep->declQuad(c+400,"div_io_out_bits_result_remainder", false,-1, 63,0);
-    tracep->declBit(c+402,"is_mul", false,-1);
-    tracep->declBit(c+403,"is_div", false,-1);
-    tracep->declBit(c+404,"is_divw", false,-1);
-    tracep->declBit(c+392,"is_div_sign", false,-1);
-    tracep->declQuad(c+405,"mepc", false,-1, 63,0);
-    tracep->declQuad(c+407,"mcause", false,-1, 63,0);
-    tracep->declQuad(c+409,"mstatus", false,-1, 63,0);
-    tracep->declQuad(c+411,"mtvec", false,-1, 63,0);
-    tracep->declQuad(c+413,"mie", false,-1, 63,0);
-    tracep->declQuad(c+415,"mip", false,-1, 63,0);
-    tracep->declQuad(c+417,"src1", false,-1, 63,0);
-    tracep->declQuad(c+419,"src2", false,-1, 63,0);
-    tracep->declBit(c+421,"alu_result_sign", false,-1);
-    tracep->declBit(c+422,"alu_result_sign_2", false,-1);
-    tracep->declBit(c+423,"alu_result_sign_3", false,-1);
-    tracep->declBit(c+424,"alu_result_sign_4", false,-1);
-    tracep->declBit(c+425,"alu_result_sign_6", false,-1);
-    tracep->declQuad(c+426,"alu_result", false,-1, 63,0);
-    tracep->declBit(c+428,"shift_result_sign", false,-1);
-    tracep->declBit(c+429,"shift_result_sign_1", false,-1);
-    tracep->declBit(c+430,"shift_result_sign_2", false,-1);
-    tracep->declBit(c+431,"shift_result_sign_3", false,-1);
-    tracep->declBit(c+432,"div_io_in_bits_ctrl_data_src1_sign", false,-1);
-    tracep->declBit(c+433,"div_io_in_bits_ctrl_data_src2_sign", false,-1);
-    tracep->declQuad(c+434,"compar_result", false,-1, 63,0);
-    tracep->declQuad(c+436,"jump_result", false,-1, 63,0);
-    tracep->declQuad(c+438,"shift_result", false,-1, 63,0);
-    tracep->declQuad(c+440,"branch_result", false,-1, 63,0);
-    tracep->declBit(c+442,"branch_flag", false,-1);
-    tracep->declQuad(c+443,"csr_data", false,-1, 63,0);
-    tracep->declQuad(c+445,"CSRDIFF_io_mtvec_REG", false,-1, 63,0);
-    tracep->declQuad(c+381,"CSRDIFF_io_mtvec_REG_1", false,-1, 63,0);
-    tracep->declQuad(c+447,"CSRDIFF_io_mcause_REG", false,-1, 63,0);
-    tracep->declQuad(c+377,"CSRDIFF_io_mcause_REG_1", false,-1, 63,0);
-    tracep->declQuad(c+449,"CSRDIFF_io_mepc_REG", false,-1, 63,0);
-    tracep->declQuad(c+375,"CSRDIFF_io_mepc_REG_1", false,-1, 63,0);
-    tracep->declQuad(c+451,"CSRDIFF_io_mstatus_REG", false,-1, 63,0);
-    tracep->declQuad(c+379,"CSRDIFF_io_mstatus_REG_1", false,-1, 63,0);
+    tracep->declBit(c+3509,"clock", false,-1);
+    tracep->declBit(c+3510,"reset", false,-1);
+    tracep->declBit(c+2,"io_in_ready", false,-1);
+    tracep->declBit(c+21,"io_in_valid", false,-1);
+    tracep->declBus(c+22,"io_in_bits_ctrl_signal_src1Type", false,-1, 2,0);
+    tracep->declBus(c+23,"io_in_bits_ctrl_signal_src2Type", false,-1, 2,0);
+    tracep->declBus(c+24,"io_in_bits_ctrl_signal_fuType", false,-1, 2,0);
+    tracep->declBit(c+25,"io_in_bits_ctrl_signal_inst_valid", false,-1);
+    tracep->declBus(c+26,"io_in_bits_ctrl_signal_rfSrc1", false,-1, 4,0);
+    tracep->declBus(c+27,"io_in_bits_ctrl_signal_rfSrc2", false,-1, 4,0);
+    tracep->declBit(c+28,"io_in_bits_ctrl_signal_rfWen", false,-1);
+    tracep->declBus(c+29,"io_in_bits_ctrl_signal_aluoptype", false,-1, 6,0);
+    tracep->declBus(c+30,"io_in_bits_ctrl_signal_rfDest", false,-1, 4,0);
+    tracep->declQuad(c+31,"io_in_bits_ctrl_data_src1", false,-1, 63,0);
+    tracep->declQuad(c+33,"io_in_bits_ctrl_data_src2", false,-1, 63,0);
+    tracep->declQuad(c+35,"io_in_bits_ctrl_data_Imm", false,-1, 63,0);
+    tracep->declQuad(c+37,"io_in_bits_ctrl_flow_PC", false,-1, 63,0);
+    tracep->declBus(c+39,"io_in_bits_ctrl_flow_inst", false,-1, 31,0);
+    tracep->declQuad(c+3470,"io_src1", false,-1, 63,0);
+    tracep->declQuad(c+3472,"io_src2", false,-1, 63,0);
+    tracep->declBit(c+3439,"io_branchIO_is_branch", false,-1);
+    tracep->declBit(c+1,"io_branchIO_is_jump", false,-1);
+    tracep->declQuad(c+3440,"io_branchIO_dnpc", false,-1, 63,0);
+    tracep->declBit(c+40,"io_out_ready", false,-1);
+    tracep->declBit(c+41,"io_out_valid", false,-1);
+    tracep->declBus(c+24,"io_out_bits_ctrl_signal_fuType", false,-1, 2,0);
+    tracep->declBit(c+25,"io_out_bits_ctrl_signal_inst_valid", false,-1);
+    tracep->declBit(c+28,"io_out_bits_ctrl_signal_rfWen", false,-1);
+    tracep->declBus(c+29,"io_out_bits_ctrl_signal_aluoptype", false,-1, 6,0);
+    tracep->declQuad(c+37,"io_out_bits_ctrl_flow_PC", false,-1, 63,0);
+    tracep->declBus(c+39,"io_out_bits_ctrl_flow_inst", false,-1, 31,0);
+    tracep->declQuad(c+3440,"io_out_bits_ctrl_flow_Dnpc", false,-1, 63,0);
+    tracep->declBus(c+30,"io_out_bits_ctrl_rf_rfDest", false,-1, 4,0);
+    tracep->declBit(c+42,"io_out_bits_ctrl_rf_rfWen", false,-1);
+    tracep->declQuad(c+3474,"io_out_bits_ctrl_rf_rfData", false,-1, 63,0);
+    tracep->declQuad(c+3448,"io_out_bits_ctrl_data_src1", false,-1, 63,0);
+    tracep->declQuad(c+3450,"io_out_bits_ctrl_data_src2", false,-1, 63,0);
+    tracep->declQuad(c+35,"io_out_bits_ctrl_data_Imm", false,-1, 63,0);
+    tracep->declBit(c+43,"io_is_break", false,-1);
+    tracep->declBit(c+3469,"io_is_flush", false,-1);
+    tracep->declQuad(c+358,"CSRDIFF_mepc", false,-1, 63,0);
+    tracep->declQuad(c+360,"CSRDIFF_mcause", false,-1, 63,0);
+    tracep->declQuad(c+362,"CSRDIFF_mstatus", false,-1, 63,0);
+    tracep->declQuad(c+364,"CSRDIFF_mtvec", false,-1, 63,0);
+    tracep->declBit(c+3509,"mul_clock", false,-1);
+    tracep->declBit(c+3510,"mul_reset", false,-1);
+    tracep->declBit(c+366,"mul_io_in_valid", false,-1);
+    tracep->declQuad(c+3452,"mul_io_in_bits_ctrl_data_src1", false,-1, 63,0);
+    tracep->declQuad(c+3454,"mul_io_in_bits_ctrl_data_src2", false,-1, 63,0);
+    tracep->declBit(c+367,"mul_io_out_valid", false,-1);
+    tracep->declQuad(c+368,"mul_io_out_bits_result_result_lo", false,-1, 63,0);
+    tracep->declBit(c+3509,"div_clock", false,-1);
+    tracep->declBit(c+3510,"div_reset", false,-1);
+    tracep->declBit(c+370,"div_io_in_valid", false,-1);
+    tracep->declBit(c+371,"div_io_in_bits_ctrl_flow_div_signed", false,-1);
+    tracep->declQuad(c+3482,"div_io_in_bits_ctrl_data_src1", false,-1, 63,0);
+    tracep->declQuad(c+3484,"div_io_in_bits_ctrl_data_src2", false,-1, 63,0);
+    tracep->declBit(c+372,"div_io_out_valid", false,-1);
+    tracep->declQuad(c+3486,"div_io_out_bits_result_quotient", false,-1, 63,0);
+    tracep->declQuad(c+3488,"div_io_out_bits_result_remainder", false,-1, 63,0);
+    tracep->declBit(c+373,"is_mul", false,-1);
+    tracep->declBit(c+374,"is_div", false,-1);
+    tracep->declBit(c+375,"is_divw", false,-1);
+    tracep->declBit(c+371,"is_div_sign", false,-1);
+    tracep->declQuad(c+376,"mepc", false,-1, 63,0);
+    tracep->declQuad(c+378,"mcause", false,-1, 63,0);
+    tracep->declQuad(c+380,"mstatus", false,-1, 63,0);
+    tracep->declQuad(c+382,"mtvec", false,-1, 63,0);
+    tracep->declQuad(c+384,"mie", false,-1, 63,0);
+    tracep->declQuad(c+386,"mip", false,-1, 63,0);
+    tracep->declQuad(c+3490,"src1", false,-1, 63,0);
+    tracep->declQuad(c+3492,"src2", false,-1, 63,0);
+    tracep->declBit(c+3494,"alu_result_sign", false,-1);
+    tracep->declBit(c+388,"alu_result_sign_2", false,-1);
+    tracep->declBit(c+3495,"alu_result_sign_3", false,-1);
+    tracep->declBit(c+3496,"alu_result_sign_4", false,-1);
+    tracep->declBit(c+3497,"alu_result_sign_6", false,-1);
+    tracep->declQuad(c+3456,"alu_result", false,-1, 63,0);
+    tracep->declBit(c+3498,"shift_result_sign", false,-1);
+    tracep->declBit(c+3499,"shift_result_sign_1", false,-1);
+    tracep->declBit(c+3500,"shift_result_sign_2", false,-1);
+    tracep->declBit(c+3501,"shift_result_sign_3", false,-1);
+    tracep->declBit(c+3502,"div_io_in_bits_ctrl_data_src1_sign", false,-1);
+    tracep->declBit(c+3503,"div_io_in_bits_ctrl_data_src2_sign", false,-1);
+    tracep->declQuad(c+3458,"compar_result", false,-1, 63,0);
+    tracep->declQuad(c+389,"jump_result", false,-1, 63,0);
+    tracep->declQuad(c+3460,"shift_result", false,-1, 63,0);
+    tracep->declQuad(c+391,"branch_result", false,-1, 63,0);
+    tracep->declBit(c+3504,"branch_flag", false,-1);
+    tracep->declQuad(c+393,"csr_data", false,-1, 63,0);
+    tracep->declQuad(c+395,"CSRDIFF_io_mtvec_REG", false,-1, 63,0);
+    tracep->declQuad(c+364,"CSRDIFF_io_mtvec_REG_1", false,-1, 63,0);
+    tracep->declQuad(c+397,"CSRDIFF_io_mcause_REG", false,-1, 63,0);
+    tracep->declQuad(c+360,"CSRDIFF_io_mcause_REG_1", false,-1, 63,0);
+    tracep->declQuad(c+399,"CSRDIFF_io_mepc_REG", false,-1, 63,0);
+    tracep->declQuad(c+358,"CSRDIFF_io_mepc_REG_1", false,-1, 63,0);
+    tracep->declQuad(c+401,"CSRDIFF_io_mstatus_REG", false,-1, 63,0);
+    tracep->declQuad(c+362,"CSRDIFF_io_mstatus_REG_1", false,-1, 63,0);
     tracep->pushNamePrefix("CSRDIFF ");
-    tracep->declQuad(c+375,"mepc", false,-1, 63,0);
-    tracep->declQuad(c+377,"mcause", false,-1, 63,0);
-    tracep->declQuad(c+379,"mstatus", false,-1, 63,0);
-    tracep->declQuad(c+381,"mtvec", false,-1, 63,0);
+    tracep->declQuad(c+358,"mepc", false,-1, 63,0);
+    tracep->declQuad(c+360,"mcause", false,-1, 63,0);
+    tracep->declQuad(c+362,"mstatus", false,-1, 63,0);
+    tracep->declQuad(c+364,"mtvec", false,-1, 63,0);
     for (int i = 0; i < 6; ++i) {
-        tracep->declQuad(c+453+i*2,"inst_csr", true,(i+0), 63,0);
+        tracep->declQuad(c+403+i*2,"inst_csr", true,(i+0), 63,0);
     }
     tracep->popNamePrefix(1);
     tracep->pushNamePrefix("div ");
-    tracep->declBit(c+3469,"clock", false,-1);
-    tracep->declBit(c+3470,"reset", false,-1);
-    tracep->declBit(c+391,"io_in_valid", false,-1);
-    tracep->declBit(c+392,"io_in_bits_ctrl_flow_div_signed", false,-1);
-    tracep->declQuad(c+393,"io_in_bits_ctrl_data_src1", false,-1, 63,0);
-    tracep->declQuad(c+395,"io_in_bits_ctrl_data_src2", false,-1, 63,0);
-    tracep->declBit(c+397,"io_out_valid", false,-1);
-    tracep->declQuad(c+398,"io_out_bits_result_quotient", false,-1, 63,0);
-    tracep->declQuad(c+400,"io_out_bits_result_remainder", false,-1, 63,0);
-    tracep->declArray(c+465,"dividend", false,-1, 127,0);
-    tracep->declQuad(c+469,"divisor", false,-1, 63,0);
-    tracep->declQuad(c+471,"S", false,-1, 63,0);
-    tracep->declBus(c+473,"state", false,-1, 1,0);
-    tracep->declBus(c+474,"count", false,-1, 5,0);
-    tracep->declBit(c+475,"wrap_wrap", false,-1);
-    tracep->declBit(c+476,"s", false,-1);
-    tracep->declArray(c+477,"res_div", false,-1, 64,0);
-    tracep->declQuad(c+480,"negative_s", false,-1, 63,0);
-    tracep->declQuad(c+482,"negative_r", false,-1, 63,0);
-    tracep->declQuad(c+484,"s_o", false,-1, 63,0);
-    tracep->declQuad(c+486,"r_o", false,-1, 63,0);
+    tracep->declBit(c+3509,"clock", false,-1);
+    tracep->declBit(c+3510,"reset", false,-1);
+    tracep->declBit(c+370,"io_in_valid", false,-1);
+    tracep->declBit(c+371,"io_in_bits_ctrl_flow_div_signed", false,-1);
+    tracep->declQuad(c+3482,"io_in_bits_ctrl_data_src1", false,-1, 63,0);
+    tracep->declQuad(c+3484,"io_in_bits_ctrl_data_src2", false,-1, 63,0);
+    tracep->declBit(c+372,"io_out_valid", false,-1);
+    tracep->declQuad(c+3486,"io_out_bits_result_quotient", false,-1, 63,0);
+    tracep->declQuad(c+3488,"io_out_bits_result_remainder", false,-1, 63,0);
+    tracep->declArray(c+415,"dividend", false,-1, 127,0);
+    tracep->declQuad(c+419,"divisor", false,-1, 63,0);
+    tracep->declQuad(c+421,"S", false,-1, 63,0);
+    tracep->declBus(c+423,"state", false,-1, 1,0);
+    tracep->declBus(c+424,"count", false,-1, 5,0);
+    tracep->declBit(c+425,"wrap_wrap", false,-1);
+    tracep->declBit(c+426,"s", false,-1);
+    tracep->declArray(c+427,"res_div", false,-1, 64,0);
+    tracep->declQuad(c+430,"negative_s", false,-1, 63,0);
+    tracep->declQuad(c+432,"negative_r", false,-1, 63,0);
+    tracep->declQuad(c+3462,"s_o", false,-1, 63,0);
+    tracep->declQuad(c+3464,"r_o", false,-1, 63,0);
     tracep->popNamePrefix(1);
     tracep->pushNamePrefix("mul ");
-    tracep->declBit(c+3469,"clock", false,-1);
-    tracep->declBit(c+3470,"reset", false,-1);
-    tracep->declBit(c+383,"io_in_valid", false,-1);
-    tracep->declQuad(c+384,"io_in_bits_ctrl_data_src1", false,-1, 63,0);
-    tracep->declQuad(c+386,"io_in_bits_ctrl_data_src2", false,-1, 63,0);
-    tracep->declBit(c+388,"io_out_valid", false,-1);
-    tracep->declQuad(c+389,"io_out_bits_result_result_lo", false,-1, 63,0);
-    tracep->declBit(c+3469,"mult_clock", false,-1);
-    tracep->declBit(c+3470,"mult_reset", false,-1);
-    tracep->declBit(c+383,"mult_io_in_valid", false,-1);
-    tracep->declQuad(c+384,"mult_io_in_bits_ctrl_data_src1", false,-1, 63,0);
-    tracep->declQuad(c+386,"mult_io_in_bits_ctrl_data_src2", false,-1, 63,0);
-    tracep->declBit(c+388,"mult_io_out_valid", false,-1);
-    tracep->declQuad(c+389,"mult_io_out_bits_result_result_lo", false,-1, 63,0);
+    tracep->declBit(c+3509,"clock", false,-1);
+    tracep->declBit(c+3510,"reset", false,-1);
+    tracep->declBit(c+366,"io_in_valid", false,-1);
+    tracep->declQuad(c+3452,"io_in_bits_ctrl_data_src1", false,-1, 63,0);
+    tracep->declQuad(c+3454,"io_in_bits_ctrl_data_src2", false,-1, 63,0);
+    tracep->declBit(c+367,"io_out_valid", false,-1);
+    tracep->declQuad(c+368,"io_out_bits_result_result_lo", false,-1, 63,0);
+    tracep->declBit(c+3509,"mult_clock", false,-1);
+    tracep->declBit(c+3510,"mult_reset", false,-1);
+    tracep->declBit(c+366,"mult_io_in_valid", false,-1);
+    tracep->declQuad(c+3452,"mult_io_in_bits_ctrl_data_src1", false,-1, 63,0);
+    tracep->declQuad(c+3454,"mult_io_in_bits_ctrl_data_src2", false,-1, 63,0);
+    tracep->declBit(c+367,"mult_io_out_valid", false,-1);
+    tracep->declQuad(c+368,"mult_io_out_bits_result_result_lo", false,-1, 63,0);
     tracep->pushNamePrefix("mult ");
-    tracep->declBit(c+3469,"clock", false,-1);
-    tracep->declBit(c+3470,"reset", false,-1);
-    tracep->declBit(c+383,"io_in_valid", false,-1);
-    tracep->declQuad(c+384,"io_in_bits_ctrl_data_src1", false,-1, 63,0);
-    tracep->declQuad(c+386,"io_in_bits_ctrl_data_src2", false,-1, 63,0);
-    tracep->declBit(c+388,"io_out_valid", false,-1);
-    tracep->declQuad(c+389,"io_out_bits_result_result_lo", false,-1, 63,0);
-    tracep->declBus(c+488,"partial_io_y_3", false,-1, 2,0);
-    tracep->declArray(c+489,"partial_io_x", false,-1, 131,0);
-    tracep->declArray(c+494,"partial_io_p", false,-1, 131,0);
-    tracep->declBit(c+499,"partial_io_c", false,-1);
-    tracep->declArray(c+500,"multiplier", false,-1, 65,0);
-    tracep->declArray(c+489,"multiplicand", false,-1, 131,0);
-    tracep->declArray(c+503,"p", false,-1, 131,0);
-    tracep->declBus(c+508,"count", false,-1, 6,0);
-    tracep->declArray(c+509,"temp", false,-1, 131,0);
-    tracep->declBit(c+514,"p_sign", false,-1);
+    tracep->declBit(c+3509,"clock", false,-1);
+    tracep->declBit(c+3510,"reset", false,-1);
+    tracep->declBit(c+366,"io_in_valid", false,-1);
+    tracep->declQuad(c+3452,"io_in_bits_ctrl_data_src1", false,-1, 63,0);
+    tracep->declQuad(c+3454,"io_in_bits_ctrl_data_src2", false,-1, 63,0);
+    tracep->declBit(c+367,"io_out_valid", false,-1);
+    tracep->declQuad(c+368,"io_out_bits_result_result_lo", false,-1, 63,0);
+    tracep->declBus(c+434,"partial_io_y_3", false,-1, 2,0);
+    tracep->declArray(c+435,"partial_io_x", false,-1, 131,0);
+    tracep->declArray(c+440,"partial_io_p", false,-1, 131,0);
+    tracep->declBit(c+445,"partial_io_c", false,-1);
+    tracep->declArray(c+446,"multiplier", false,-1, 65,0);
+    tracep->declArray(c+435,"multiplicand", false,-1, 131,0);
+    tracep->declArray(c+449,"p", false,-1, 131,0);
+    tracep->declBus(c+454,"count", false,-1, 6,0);
+    tracep->declArray(c+455,"temp", false,-1, 131,0);
+    tracep->declBit(c+460,"p_sign", false,-1);
     tracep->pushNamePrefix("partial ");
-    tracep->declBus(c+488,"io_y_3", false,-1, 2,0);
-    tracep->declArray(c+489,"io_x", false,-1, 131,0);
-    tracep->declArray(c+494,"io_p", false,-1, 131,0);
-    tracep->declBit(c+499,"io_c", false,-1);
+    tracep->declBus(c+434,"io_y_3", false,-1, 2,0);
+    tracep->declArray(c+435,"io_x", false,-1, 131,0);
+    tracep->declArray(c+440,"io_p", false,-1, 131,0);
+    tracep->declBit(c+445,"io_c", false,-1);
     tracep->popNamePrefix(4);
     tracep->pushNamePrefix("ICACHE ");
-    tracep->declBit(c+3469,"clock", false,-1);
-    tracep->declBit(c+3470,"reset", false,-1);
-    tracep->declBit(c+5,"io_in_addr_req_valid", false,-1);
-    tracep->declQuad(c+6,"io_in_addr_req_bits_addr", false,-1, 63,0);
-    tracep->declBit(c+5,"io_in_rdata_rep_ready", false,-1);
-    tracep->declBit(c+8,"io_in_rdata_rep_valid", false,-1);
-    tracep->declQuad(c+9,"io_in_rdata_rep_bits_rdata", false,-1, 63,0);
-    tracep->declBit(c+12,"io_flush", false,-1);
-    tracep->declBit(c+262,"io_out_addr_req_valid", false,-1);
-    tracep->declQuad(c+263,"io_out_addr_req_bits_addr", false,-1, 63,0);
-    tracep->declBit(c+262,"io_out_addr_req_bits_ce", false,-1);
-    tracep->declBit(c+265,"io_out_rdata_rep_valid", false,-1);
-    tracep->declQuad(c+266,"io_out_rdata_rep_bits_rdata", false,-1, 63,0);
-    tracep->declBit(c+3469,"Cache_data_clock", false,-1);
-    tracep->declBit(c+515,"Cache_data_io_in_valid", false,-1);
-    tracep->declQuad(c+6,"Cache_data_io_in_addr", false,-1, 63,0);
-    tracep->declQuad(c+516,"Cache_data_io_write_bus_addr", false,-1, 63,0);
-    tracep->declBit(c+518,"Cache_data_io_write_bus_valid", false,-1);
-    tracep->declBus(c+519,"Cache_data_io_write_bus_waymask", false,-1, 1,0);
-    tracep->declArray(c+520,"Cache_data_io_write_bus_wdata", false,-1, 511,0);
-    tracep->declBit(c+515,"Cache_data_io_out_valid", false,-1);
-    tracep->declQuad(c+536,"Cache_data_io_out_bits_meat_tag_0", false,-1, 52,0);
-    tracep->declQuad(c+538,"Cache_data_io_out_bits_meat_tag_1", false,-1, 52,0);
-    tracep->declBit(c+540,"Cache_data_io_out_bits_meat_valid_0", false,-1);
-    tracep->declBit(c+541,"Cache_data_io_out_bits_meat_valid_1", false,-1);
-    tracep->declArray(c+542,"Cache_data_io_out_bits_data_data_0", false,-1, 511,0);
-    tracep->declArray(c+558,"Cache_data_io_out_bits_data_data_1", false,-1, 511,0);
-    tracep->declQuad(c+574,"Cache_data_io_out_bits_ctrl_data_tag", false,-1, 52,0);
-    tracep->declBus(c+576,"Cache_data_io_out_bits_ctrl_data_index", false,-1, 4,0);
-    tracep->declBus(c+577,"Cache_data_io_out_bits_ctrl_data_offset", false,-1, 5,0);
-    tracep->declBit(c+578,"Scanf_io_in_valid", false,-1);
-    tracep->declQuad(c+536,"Scanf_io_in_bits_meat_tag_0", false,-1, 52,0);
-    tracep->declQuad(c+538,"Scanf_io_in_bits_meat_tag_1", false,-1, 52,0);
-    tracep->declBit(c+540,"Scanf_io_in_bits_meat_valid_0", false,-1);
-    tracep->declBit(c+541,"Scanf_io_in_bits_meat_valid_1", false,-1);
-    tracep->declArray(c+542,"Scanf_io_in_bits_data_data_0", false,-1, 511,0);
-    tracep->declArray(c+558,"Scanf_io_in_bits_data_data_1", false,-1, 511,0);
-    tracep->declQuad(c+574,"Scanf_io_in_bits_ctrl_data_tag", false,-1, 52,0);
-    tracep->declBus(c+576,"Scanf_io_in_bits_ctrl_data_index", false,-1, 4,0);
-    tracep->declBit(c+579,"Scanf_io_out_bits_hit", false,-1);
-    tracep->declArray(c+580,"Scanf_io_out_bits_data", false,-1, 511,0);
-    tracep->declBus(c+576,"Scanf_io_out_bits_meta_ctrl_data_index", false,-1, 4,0);
-    tracep->declBit(c+596,"Scanf_io_out_bits_hit_way_0", false,-1);
-    tracep->declBit(c+597,"Scanf_io_out_bits_hit_way_1", false,-1);
-    tracep->declQuad(c+536,"Scanf_io_out_bits_tag_0", false,-1, 52,0);
-    tracep->declQuad(c+538,"Scanf_io_out_bits_tag_1", false,-1, 52,0);
+    tracep->declBit(c+3509,"clock", false,-1);
+    tracep->declBit(c+3510,"reset", false,-1);
+    tracep->declBit(c+2,"io_in_addr_req_valid", false,-1);
+    tracep->declQuad(c+3,"io_in_addr_req_bits_addr", false,-1, 63,0);
+    tracep->declBit(c+2,"io_in_rdata_rep_ready", false,-1);
+    tracep->declBit(c+3468,"io_in_rdata_rep_valid", false,-1);
+    tracep->declQuad(c+5,"io_in_rdata_rep_bits_rdata", false,-1, 63,0);
+    tracep->declBit(c+3469,"io_flush", false,-1);
+    tracep->declBit(c+237,"io_out_raddr_req_ready", false,-1);
+    tracep->declBit(c+238,"io_out_raddr_req_valid", false,-1);
+    tracep->declQuad(c+239,"io_out_raddr_req_bits_addr", false,-1, 63,0);
+    tracep->declBit(c+241,"io_out_rdata_rep_valid", false,-1);
+    tracep->declQuad(c+3480,"io_out_rdata_rep_bits_data", false,-1, 63,0);
+    tracep->declBit(c+242,"io_out_rdata_rep_bits_last", false,-1);
+    tracep->declBit(c+243,"io_out_wb_valid", false,-1);
+    tracep->declBus(c+3547,"io_out_wb_bits_breap", false,-1, 1,0);
+    tracep->declBit(c+3509,"Cache_data_clock", false,-1);
+    tracep->declBit(c+461,"Cache_data_io_in_valid", false,-1);
+    tracep->declQuad(c+3,"Cache_data_io_in_addr", false,-1, 63,0);
+    tracep->declQuad(c+462,"Cache_data_io_write_bus_addr", false,-1, 63,0);
+    tracep->declBit(c+464,"Cache_data_io_write_bus_valid", false,-1);
+    tracep->declBus(c+465,"Cache_data_io_write_bus_waymask", false,-1, 1,0);
+    tracep->declArray(c+466,"Cache_data_io_write_bus_wdata", false,-1, 511,0);
+    tracep->declBit(c+461,"Cache_data_io_out_valid", false,-1);
+    tracep->declQuad(c+482,"Cache_data_io_out_bits_meat_tag_0", false,-1, 52,0);
+    tracep->declQuad(c+484,"Cache_data_io_out_bits_meat_tag_1", false,-1, 52,0);
+    tracep->declBit(c+486,"Cache_data_io_out_bits_meat_valid_0", false,-1);
+    tracep->declBit(c+487,"Cache_data_io_out_bits_meat_valid_1", false,-1);
+    tracep->declArray(c+488,"Cache_data_io_out_bits_data_data_0", false,-1, 511,0);
+    tracep->declArray(c+504,"Cache_data_io_out_bits_data_data_1", false,-1, 511,0);
+    tracep->declQuad(c+520,"Cache_data_io_out_bits_ctrl_data_tag", false,-1, 52,0);
+    tracep->declBus(c+522,"Cache_data_io_out_bits_ctrl_data_index", false,-1, 4,0);
+    tracep->declBus(c+523,"Cache_data_io_out_bits_ctrl_data_offset", false,-1, 5,0);
+    tracep->declBit(c+524,"Scanf_io_in_valid", false,-1);
+    tracep->declQuad(c+482,"Scanf_io_in_bits_meat_tag_0", false,-1, 52,0);
+    tracep->declQuad(c+484,"Scanf_io_in_bits_meat_tag_1", false,-1, 52,0);
+    tracep->declBit(c+486,"Scanf_io_in_bits_meat_valid_0", false,-1);
+    tracep->declBit(c+487,"Scanf_io_in_bits_meat_valid_1", false,-1);
+    tracep->declArray(c+488,"Scanf_io_in_bits_data_data_0", false,-1, 511,0);
+    tracep->declArray(c+504,"Scanf_io_in_bits_data_data_1", false,-1, 511,0);
+    tracep->declQuad(c+520,"Scanf_io_in_bits_ctrl_data_tag", false,-1, 52,0);
+    tracep->declBus(c+522,"Scanf_io_in_bits_ctrl_data_index", false,-1, 4,0);
+    tracep->declBit(c+525,"Scanf_io_out_bits_hit", false,-1);
+    tracep->declArray(c+526,"Scanf_io_out_bits_data", false,-1, 511,0);
+    tracep->declBus(c+522,"Scanf_io_out_bits_meta_ctrl_data_index", false,-1, 4,0);
+    tracep->declBit(c+542,"Scanf_io_out_bits_hit_way_0", false,-1);
+    tracep->declBit(c+543,"Scanf_io_out_bits_hit_way_1", false,-1);
+    tracep->declQuad(c+482,"Scanf_io_out_bits_tag_0", false,-1, 52,0);
+    tracep->declQuad(c+484,"Scanf_io_out_bits_tag_1", false,-1, 52,0);
     for (int i = 0; i < 32; ++i) {
-        tracep->declBit(c+598+i*1,"lru", true,(i+0));
+        tracep->declBit(c+544+i*1,"lru", true,(i+0));
     }
-    tracep->declBit(c+630,"lru_lru_w_MPORT_en", false,-1);
-    tracep->declBus(c+631,"lru_lru_w_MPORT_addr", false,-1, 4,0);
-    tracep->declBit(c+632,"lru_lru_w_MPORT_data", false,-1);
-    tracep->declBit(c+3475,"lru_MPORT_data", false,-1);
-    tracep->declBus(c+576,"lru_MPORT_addr", false,-1, 4,0);
-    tracep->declBit(c+3475,"lru_MPORT_mask", false,-1);
-    tracep->declBit(c+633,"lru_MPORT_en", false,-1);
-    tracep->declBit(c+3508,"lru_MPORT_1_data", false,-1);
-    tracep->declBus(c+576,"lru_MPORT_1_addr", false,-1, 4,0);
-    tracep->declBit(c+3475,"lru_MPORT_1_mask", false,-1);
-    tracep->declBit(c+634,"lru_MPORT_1_en", false,-1);
-    tracep->declBit(c+3508,"lru_MPORT_2_data", false,-1);
-    tracep->declBus(c+576,"lru_MPORT_2_addr", false,-1, 4,0);
-    tracep->declBit(c+3475,"lru_MPORT_2_mask", false,-1);
-    tracep->declBit(c+635,"lru_MPORT_2_en", false,-1);
-    tracep->declBit(c+3475,"lru_MPORT_3_data", false,-1);
-    tracep->declBus(c+576,"lru_MPORT_3_addr", false,-1, 4,0);
-    tracep->declBit(c+3475,"lru_MPORT_3_mask", false,-1);
-    tracep->declBit(c+636,"lru_MPORT_3_en", false,-1);
-    tracep->declBit(c+630,"lru_lru_w_MPORT_en_pipe_0", false,-1);
-    tracep->declBus(c+631,"lru_lru_w_MPORT_addr_pipe_0", false,-1, 4,0);
-    tracep->declBus(c+637,"state", false,-1, 1,0);
-    tracep->declArray(c+638,"data_line_reg", false,-1, 511,0);
-    tracep->declQuad(c+263,"mem_addr_reg", false,-1, 63,0);
-    tracep->declBit(c+654,"lru_r", false,-1);
-    tracep->declBus(c+655,"count", false,-1, 3,0);
-    tracep->declBit(c+518,"s", false,-1);
-    tracep->declBit(c+596,"hit_way_0", false,-1);
-    tracep->declBit(c+597,"hit_way_1", false,-1);
-    tracep->declBit(c+632,"lru_w", false,-1);
-    tracep->declQuad(c+656,"hit_data", false,-1, 63,0);
-    tracep->declQuad(c+658,"mem_data", false,-1, 63,0);
-    tracep->declBit(c+578,"Scanf_io_in_valid_REG", false,-1);
+    tracep->declBit(c+576,"lru_lru_w_MPORT_en", false,-1);
+    tracep->declBus(c+577,"lru_lru_w_MPORT_addr", false,-1, 4,0);
+    tracep->declBit(c+578,"lru_lru_w_MPORT_data", false,-1);
+    tracep->declBit(c+3514,"lru_MPORT_data", false,-1);
+    tracep->declBus(c+522,"lru_MPORT_addr", false,-1, 4,0);
+    tracep->declBit(c+3514,"lru_MPORT_mask", false,-1);
+    tracep->declBit(c+579,"lru_MPORT_en", false,-1);
+    tracep->declBit(c+3556,"lru_MPORT_1_data", false,-1);
+    tracep->declBus(c+522,"lru_MPORT_1_addr", false,-1, 4,0);
+    tracep->declBit(c+3514,"lru_MPORT_1_mask", false,-1);
+    tracep->declBit(c+580,"lru_MPORT_1_en", false,-1);
+    tracep->declBit(c+3556,"lru_MPORT_2_data", false,-1);
+    tracep->declBus(c+522,"lru_MPORT_2_addr", false,-1, 4,0);
+    tracep->declBit(c+3514,"lru_MPORT_2_mask", false,-1);
+    tracep->declBit(c+581,"lru_MPORT_2_en", false,-1);
+    tracep->declBit(c+3514,"lru_MPORT_3_data", false,-1);
+    tracep->declBus(c+522,"lru_MPORT_3_addr", false,-1, 4,0);
+    tracep->declBit(c+3514,"lru_MPORT_3_mask", false,-1);
+    tracep->declBit(c+582,"lru_MPORT_3_en", false,-1);
+    tracep->declBit(c+576,"lru_lru_w_MPORT_en_pipe_0", false,-1);
+    tracep->declBus(c+577,"lru_lru_w_MPORT_addr_pipe_0", false,-1, 4,0);
+    tracep->declBus(c+583,"state", false,-1, 2,0);
+    tracep->declBus(c+584,"read_state", false,-1, 1,0);
+    tracep->declArray(c+585,"data_line_reg", false,-1, 511,0);
+    tracep->declQuad(c+601,"mem_addr_reg", false,-1, 63,0);
+    tracep->declBit(c+603,"lru_r", false,-1);
+    tracep->declBit(c+542,"hit_way_0", false,-1);
+    tracep->declBit(c+543,"hit_way_1", false,-1);
+    tracep->declBit(c+578,"lru_w", false,-1);
+    tracep->declQuad(c+604,"hit_data", false,-1, 63,0);
+    tracep->declQuad(c+606,"mem_data", false,-1, 63,0);
+    tracep->declBit(c+524,"Scanf_io_in_valid_REG", false,-1);
     tracep->pushNamePrefix("Cache_data ");
-    tracep->declBit(c+3469,"clock", false,-1);
-    tracep->declBit(c+515,"io_in_valid", false,-1);
-    tracep->declQuad(c+6,"io_in_addr", false,-1, 63,0);
-    tracep->declQuad(c+516,"io_write_bus_addr", false,-1, 63,0);
-    tracep->declBit(c+518,"io_write_bus_valid", false,-1);
-    tracep->declBus(c+519,"io_write_bus_waymask", false,-1, 1,0);
-    tracep->declArray(c+520,"io_write_bus_wdata", false,-1, 511,0);
-    tracep->declBit(c+515,"io_out_valid", false,-1);
-    tracep->declQuad(c+536,"io_out_bits_meat_tag_0", false,-1, 52,0);
-    tracep->declQuad(c+538,"io_out_bits_meat_tag_1", false,-1, 52,0);
-    tracep->declBit(c+540,"io_out_bits_meat_valid_0", false,-1);
-    tracep->declBit(c+541,"io_out_bits_meat_valid_1", false,-1);
-    tracep->declArray(c+542,"io_out_bits_data_data_0", false,-1, 511,0);
-    tracep->declArray(c+558,"io_out_bits_data_data_1", false,-1, 511,0);
-    tracep->declQuad(c+574,"io_out_bits_ctrl_data_tag", false,-1, 52,0);
-    tracep->declBus(c+576,"io_out_bits_ctrl_data_index", false,-1, 4,0);
-    tracep->declBus(c+577,"io_out_bits_ctrl_data_offset", false,-1, 5,0);
+    tracep->declBit(c+3509,"clock", false,-1);
+    tracep->declBit(c+461,"io_in_valid", false,-1);
+    tracep->declQuad(c+3,"io_in_addr", false,-1, 63,0);
+    tracep->declQuad(c+462,"io_write_bus_addr", false,-1, 63,0);
+    tracep->declBit(c+464,"io_write_bus_valid", false,-1);
+    tracep->declBus(c+465,"io_write_bus_waymask", false,-1, 1,0);
+    tracep->declArray(c+466,"io_write_bus_wdata", false,-1, 511,0);
+    tracep->declBit(c+461,"io_out_valid", false,-1);
+    tracep->declQuad(c+482,"io_out_bits_meat_tag_0", false,-1, 52,0);
+    tracep->declQuad(c+484,"io_out_bits_meat_tag_1", false,-1, 52,0);
+    tracep->declBit(c+486,"io_out_bits_meat_valid_0", false,-1);
+    tracep->declBit(c+487,"io_out_bits_meat_valid_1", false,-1);
+    tracep->declArray(c+488,"io_out_bits_data_data_0", false,-1, 511,0);
+    tracep->declArray(c+504,"io_out_bits_data_data_1", false,-1, 511,0);
+    tracep->declQuad(c+520,"io_out_bits_ctrl_data_tag", false,-1, 52,0);
+    tracep->declBus(c+522,"io_out_bits_ctrl_data_index", false,-1, 4,0);
+    tracep->declBus(c+523,"io_out_bits_ctrl_data_offset", false,-1, 5,0);
     for (int i = 0; i < 32; ++i) {
-        tracep->declArray(c+660+i*16,"data_0", true,(i+0), 511,0);
+        tracep->declArray(c+608+i*16,"data_0", true,(i+0), 511,0);
     }
-    tracep->declBit(c+1172,"data_0_data_w_en", false,-1);
-    tracep->declBus(c+1173,"data_0_data_w_addr", false,-1, 4,0);
-    tracep->declArray(c+542,"data_0_data_w_data", false,-1, 511,0);
-    tracep->declArray(c+520,"data_0_MPORT_data", false,-1, 511,0);
-    tracep->declBus(c+1174,"data_0_MPORT_addr", false,-1, 4,0);
-    tracep->declBit(c+1175,"data_0_MPORT_mask", false,-1);
-    tracep->declBit(c+518,"data_0_MPORT_en", false,-1);
-    tracep->declBit(c+1172,"data_0_data_w_en_pipe_0", false,-1);
-    tracep->declBus(c+1173,"data_0_data_w_addr_pipe_0", false,-1, 4,0);
+    tracep->declBit(c+1120,"data_0_data_w_en", false,-1);
+    tracep->declBus(c+1121,"data_0_data_w_addr", false,-1, 4,0);
+    tracep->declArray(c+488,"data_0_data_w_data", false,-1, 511,0);
+    tracep->declArray(c+466,"data_0_MPORT_data", false,-1, 511,0);
+    tracep->declBus(c+1122,"data_0_MPORT_addr", false,-1, 4,0);
+    tracep->declBit(c+1123,"data_0_MPORT_mask", false,-1);
+    tracep->declBit(c+464,"data_0_MPORT_en", false,-1);
+    tracep->declBit(c+1120,"data_0_data_w_en_pipe_0", false,-1);
+    tracep->declBus(c+1121,"data_0_data_w_addr_pipe_0", false,-1, 4,0);
     for (int i = 0; i < 32; ++i) {
-        tracep->declArray(c+1176+i*16,"data_1", true,(i+0), 511,0);
+        tracep->declArray(c+1124+i*16,"data_1", true,(i+0), 511,0);
     }
-    tracep->declBit(c+1688,"data_1_data_w_en", false,-1);
-    tracep->declBus(c+1689,"data_1_data_w_addr", false,-1, 4,0);
-    tracep->declArray(c+558,"data_1_data_w_data", false,-1, 511,0);
-    tracep->declArray(c+520,"data_1_MPORT_data", false,-1, 511,0);
-    tracep->declBus(c+1174,"data_1_MPORT_addr", false,-1, 4,0);
-    tracep->declBit(c+1690,"data_1_MPORT_mask", false,-1);
-    tracep->declBit(c+518,"data_1_MPORT_en", false,-1);
-    tracep->declBit(c+1688,"data_1_data_w_en_pipe_0", false,-1);
-    tracep->declBus(c+1689,"data_1_data_w_addr_pipe_0", false,-1, 4,0);
+    tracep->declBit(c+1636,"data_1_data_w_en", false,-1);
+    tracep->declBus(c+1637,"data_1_data_w_addr", false,-1, 4,0);
+    tracep->declArray(c+504,"data_1_data_w_data", false,-1, 511,0);
+    tracep->declArray(c+466,"data_1_MPORT_data", false,-1, 511,0);
+    tracep->declBus(c+1122,"data_1_MPORT_addr", false,-1, 4,0);
+    tracep->declBit(c+1638,"data_1_MPORT_mask", false,-1);
+    tracep->declBit(c+464,"data_1_MPORT_en", false,-1);
+    tracep->declBit(c+1636,"data_1_data_w_en_pipe_0", false,-1);
+    tracep->declBus(c+1637,"data_1_data_w_addr_pipe_0", false,-1, 4,0);
     for (int i = 0; i < 32; ++i) {
-        tracep->declQuad(c+1691+i*2,"TAG_0", true,(i+0), 52,0);
+        tracep->declQuad(c+1639+i*2,"TAG_0", true,(i+0), 52,0);
     }
-    tracep->declBit(c+1755,"TAG_0_tag_w_en", false,-1);
-    tracep->declBus(c+1756,"TAG_0_tag_w_addr", false,-1, 4,0);
-    tracep->declQuad(c+536,"TAG_0_tag_w_data", false,-1, 52,0);
-    tracep->declQuad(c+1757,"TAG_0_MPORT_1_data", false,-1, 52,0);
-    tracep->declBus(c+1174,"TAG_0_MPORT_1_addr", false,-1, 4,0);
-    tracep->declBit(c+1175,"TAG_0_MPORT_1_mask", false,-1);
-    tracep->declBit(c+518,"TAG_0_MPORT_1_en", false,-1);
-    tracep->declBit(c+1755,"TAG_0_tag_w_en_pipe_0", false,-1);
-    tracep->declBus(c+1756,"TAG_0_tag_w_addr_pipe_0", false,-1, 4,0);
+    tracep->declBit(c+1703,"TAG_0_tag_w_en", false,-1);
+    tracep->declBus(c+1704,"TAG_0_tag_w_addr", false,-1, 4,0);
+    tracep->declQuad(c+482,"TAG_0_tag_w_data", false,-1, 52,0);
+    tracep->declQuad(c+1705,"TAG_0_MPORT_1_data", false,-1, 52,0);
+    tracep->declBus(c+1122,"TAG_0_MPORT_1_addr", false,-1, 4,0);
+    tracep->declBit(c+1123,"TAG_0_MPORT_1_mask", false,-1);
+    tracep->declBit(c+464,"TAG_0_MPORT_1_en", false,-1);
+    tracep->declBit(c+1703,"TAG_0_tag_w_en_pipe_0", false,-1);
+    tracep->declBus(c+1704,"TAG_0_tag_w_addr_pipe_0", false,-1, 4,0);
     for (int i = 0; i < 32; ++i) {
-        tracep->declQuad(c+1759+i*2,"TAG_1", true,(i+0), 52,0);
+        tracep->declQuad(c+1707+i*2,"TAG_1", true,(i+0), 52,0);
     }
-    tracep->declBit(c+1823,"TAG_1_tag_w_en", false,-1);
-    tracep->declBus(c+1824,"TAG_1_tag_w_addr", false,-1, 4,0);
-    tracep->declQuad(c+538,"TAG_1_tag_w_data", false,-1, 52,0);
-    tracep->declQuad(c+1757,"TAG_1_MPORT_1_data", false,-1, 52,0);
-    tracep->declBus(c+1174,"TAG_1_MPORT_1_addr", false,-1, 4,0);
-    tracep->declBit(c+1690,"TAG_1_MPORT_1_mask", false,-1);
-    tracep->declBit(c+518,"TAG_1_MPORT_1_en", false,-1);
-    tracep->declBit(c+1823,"TAG_1_tag_w_en_pipe_0", false,-1);
-    tracep->declBus(c+1824,"TAG_1_tag_w_addr_pipe_0", false,-1, 4,0);
+    tracep->declBit(c+1771,"TAG_1_tag_w_en", false,-1);
+    tracep->declBus(c+1772,"TAG_1_tag_w_addr", false,-1, 4,0);
+    tracep->declQuad(c+484,"TAG_1_tag_w_data", false,-1, 52,0);
+    tracep->declQuad(c+1705,"TAG_1_MPORT_1_data", false,-1, 52,0);
+    tracep->declBus(c+1122,"TAG_1_MPORT_1_addr", false,-1, 4,0);
+    tracep->declBit(c+1638,"TAG_1_MPORT_1_mask", false,-1);
+    tracep->declBit(c+464,"TAG_1_MPORT_1_en", false,-1);
+    tracep->declBit(c+1771,"TAG_1_tag_w_en_pipe_0", false,-1);
+    tracep->declBus(c+1772,"TAG_1_tag_w_addr_pipe_0", false,-1, 4,0);
     for (int i = 0; i < 32; ++i) {
-        tracep->declBit(c+1825+i*1,"data_valid_0", true,(i+0));
+        tracep->declBit(c+1773+i*1,"data_valid_0", true,(i+0));
     }
-    tracep->declBit(c+1857,"data_valid_0_valid_w_en", false,-1);
-    tracep->declBus(c+1858,"data_valid_0_valid_w_addr", false,-1, 4,0);
-    tracep->declBit(c+540,"data_valid_0_valid_w_data", false,-1);
-    tracep->declBit(c+3475,"data_valid_0_MPORT_2_data", false,-1);
-    tracep->declBus(c+1174,"data_valid_0_MPORT_2_addr", false,-1, 4,0);
-    tracep->declBit(c+1175,"data_valid_0_MPORT_2_mask", false,-1);
-    tracep->declBit(c+518,"data_valid_0_MPORT_2_en", false,-1);
-    tracep->declBit(c+1857,"data_valid_0_valid_w_en_pipe_0", false,-1);
-    tracep->declBus(c+1858,"data_valid_0_valid_w_addr_pipe_0", false,-1, 4,0);
+    tracep->declBit(c+1805,"data_valid_0_valid_w_en", false,-1);
+    tracep->declBus(c+1806,"data_valid_0_valid_w_addr", false,-1, 4,0);
+    tracep->declBit(c+486,"data_valid_0_valid_w_data", false,-1);
+    tracep->declBit(c+3514,"data_valid_0_MPORT_2_data", false,-1);
+    tracep->declBus(c+1122,"data_valid_0_MPORT_2_addr", false,-1, 4,0);
+    tracep->declBit(c+1123,"data_valid_0_MPORT_2_mask", false,-1);
+    tracep->declBit(c+464,"data_valid_0_MPORT_2_en", false,-1);
+    tracep->declBit(c+1805,"data_valid_0_valid_w_en_pipe_0", false,-1);
+    tracep->declBus(c+1806,"data_valid_0_valid_w_addr_pipe_0", false,-1, 4,0);
     for (int i = 0; i < 32; ++i) {
-        tracep->declBit(c+1859+i*1,"data_valid_1", true,(i+0));
+        tracep->declBit(c+1807+i*1,"data_valid_1", true,(i+0));
     }
-    tracep->declBit(c+1891,"data_valid_1_valid_w_en", false,-1);
-    tracep->declBus(c+1892,"data_valid_1_valid_w_addr", false,-1, 4,0);
-    tracep->declBit(c+541,"data_valid_1_valid_w_data", false,-1);
-    tracep->declBit(c+3475,"data_valid_1_MPORT_2_data", false,-1);
-    tracep->declBus(c+1174,"data_valid_1_MPORT_2_addr", false,-1, 4,0);
-    tracep->declBit(c+1690,"data_valid_1_MPORT_2_mask", false,-1);
-    tracep->declBit(c+518,"data_valid_1_MPORT_2_en", false,-1);
-    tracep->declBit(c+1891,"data_valid_1_valid_w_en_pipe_0", false,-1);
-    tracep->declBus(c+1892,"data_valid_1_valid_w_addr_pipe_0", false,-1, 4,0);
+    tracep->declBit(c+1839,"data_valid_1_valid_w_en", false,-1);
+    tracep->declBus(c+1840,"data_valid_1_valid_w_addr", false,-1, 4,0);
+    tracep->declBit(c+487,"data_valid_1_valid_w_data", false,-1);
+    tracep->declBit(c+3514,"data_valid_1_MPORT_2_data", false,-1);
+    tracep->declBus(c+1122,"data_valid_1_MPORT_2_addr", false,-1, 4,0);
+    tracep->declBit(c+1638,"data_valid_1_MPORT_2_mask", false,-1);
+    tracep->declBit(c+464,"data_valid_1_MPORT_2_en", false,-1);
+    tracep->declBit(c+1839,"data_valid_1_valid_w_en_pipe_0", false,-1);
+    tracep->declBus(c+1840,"data_valid_1_valid_w_addr_pipe_0", false,-1, 4,0);
     tracep->popNamePrefix(1);
     tracep->pushNamePrefix("Scanf ");
-    tracep->declBit(c+578,"io_in_valid", false,-1);
-    tracep->declQuad(c+536,"io_in_bits_meat_tag_0", false,-1, 52,0);
-    tracep->declQuad(c+538,"io_in_bits_meat_tag_1", false,-1, 52,0);
-    tracep->declBit(c+540,"io_in_bits_meat_valid_0", false,-1);
-    tracep->declBit(c+541,"io_in_bits_meat_valid_1", false,-1);
-    tracep->declArray(c+542,"io_in_bits_data_data_0", false,-1, 511,0);
-    tracep->declArray(c+558,"io_in_bits_data_data_1", false,-1, 511,0);
-    tracep->declQuad(c+574,"io_in_bits_ctrl_data_tag", false,-1, 52,0);
-    tracep->declBus(c+576,"io_in_bits_ctrl_data_index", false,-1, 4,0);
-    tracep->declBit(c+579,"io_out_bits_hit", false,-1);
-    tracep->declArray(c+580,"io_out_bits_data", false,-1, 511,0);
-    tracep->declBus(c+576,"io_out_bits_meta_ctrl_data_index", false,-1, 4,0);
-    tracep->declBit(c+596,"io_out_bits_hit_way_0", false,-1);
-    tracep->declBit(c+597,"io_out_bits_hit_way_1", false,-1);
-    tracep->declQuad(c+536,"io_out_bits_tag_0", false,-1, 52,0);
-    tracep->declQuad(c+538,"io_out_bits_tag_1", false,-1, 52,0);
-    tracep->declBit(c+1893,"hit_way_0_result", false,-1);
-    tracep->declBit(c+1894,"hit_way_1_result", false,-1);
+    tracep->declBit(c+524,"io_in_valid", false,-1);
+    tracep->declQuad(c+482,"io_in_bits_meat_tag_0", false,-1, 52,0);
+    tracep->declQuad(c+484,"io_in_bits_meat_tag_1", false,-1, 52,0);
+    tracep->declBit(c+486,"io_in_bits_meat_valid_0", false,-1);
+    tracep->declBit(c+487,"io_in_bits_meat_valid_1", false,-1);
+    tracep->declArray(c+488,"io_in_bits_data_data_0", false,-1, 511,0);
+    tracep->declArray(c+504,"io_in_bits_data_data_1", false,-1, 511,0);
+    tracep->declQuad(c+520,"io_in_bits_ctrl_data_tag", false,-1, 52,0);
+    tracep->declBus(c+522,"io_in_bits_ctrl_data_index", false,-1, 4,0);
+    tracep->declBit(c+525,"io_out_bits_hit", false,-1);
+    tracep->declArray(c+526,"io_out_bits_data", false,-1, 511,0);
+    tracep->declBus(c+522,"io_out_bits_meta_ctrl_data_index", false,-1, 4,0);
+    tracep->declBit(c+542,"io_out_bits_hit_way_0", false,-1);
+    tracep->declBit(c+543,"io_out_bits_hit_way_1", false,-1);
+    tracep->declQuad(c+482,"io_out_bits_tag_0", false,-1, 52,0);
+    tracep->declQuad(c+484,"io_out_bits_tag_1", false,-1, 52,0);
+    tracep->declBit(c+1841,"hit_way_0_result", false,-1);
+    tracep->declBit(c+1842,"hit_way_1_result", false,-1);
     tracep->popNamePrefix(2);
     tracep->pushNamePrefix("ID ");
-    tracep->declBit(c+5,"io_in_ready", false,-1);
-    tracep->declBit(c+13,"io_in_valid", false,-1);
-    tracep->declQuad(c+14,"io_in_bits_PC", false,-1, 63,0);
-    tracep->declBus(c+16,"io_in_bits_Inst", false,-1, 31,0);
-    tracep->declQuad(c+17,"io_REG1", false,-1, 63,0);
-    tracep->declQuad(c+19,"io_REG2", false,-1, 63,0);
-    tracep->declBit(c+12,"io_flush", false,-1);
-    tracep->declBit(c+5,"io_out_ready", false,-1);
-    tracep->declBit(c+13,"io_out_valid", false,-1);
-    tracep->declBus(c+21,"io_out_bits_ctrl_signal_src1Type", false,-1, 2,0);
-    tracep->declBus(c+22,"io_out_bits_ctrl_signal_src2Type", false,-1, 2,0);
-    tracep->declBus(c+23,"io_out_bits_ctrl_signal_fuType", false,-1, 2,0);
-    tracep->declBit(c+24,"io_out_bits_ctrl_signal_inst_valid", false,-1);
-    tracep->declBus(c+25,"io_out_bits_ctrl_signal_rfSrc1", false,-1, 4,0);
-    tracep->declBus(c+26,"io_out_bits_ctrl_signal_rfSrc2", false,-1, 4,0);
-    tracep->declBit(c+27,"io_out_bits_ctrl_signal_rfWen", false,-1);
-    tracep->declBus(c+28,"io_out_bits_ctrl_signal_aluoptype", false,-1, 6,0);
-    tracep->declBus(c+29,"io_out_bits_ctrl_signal_rfDest", false,-1, 4,0);
-    tracep->declQuad(c+17,"io_out_bits_ctrl_data_src1", false,-1, 63,0);
-    tracep->declQuad(c+19,"io_out_bits_ctrl_data_src2", false,-1, 63,0);
-    tracep->declQuad(c+30,"io_out_bits_ctrl_data_Imm", false,-1, 63,0);
-    tracep->declQuad(c+14,"io_out_bits_ctrl_flow_PC", false,-1, 63,0);
-    tracep->declBus(c+16,"io_out_bits_ctrl_flow_inst", false,-1, 31,0);
-    tracep->declBus(c+29,"rd", false,-1, 4,0);
-    tracep->declBus(c+1895,"Inst_decode_0", false,-1, 3,0);
-    tracep->declBus(c+28,"Inst_decode_2", false,-1, 6,0);
-    tracep->declBit(c+1896,"Inst_decode_3", false,-1);
-    tracep->declBus(c+1897,"srctype1", false,-1, 1,0);
-    tracep->declBit(c+1898,"srctype2", false,-1);
-    tracep->declBit(c+1899,"sign", false,-1);
-    tracep->declBit(c+1900,"sign_1", false,-1);
-    tracep->declBit(c+1901,"sign_2", false,-1);
-    tracep->declBit(c+1901,"sign_3", false,-1);
-    tracep->declBit(c+1899,"sign_4", false,-1);
+    tracep->declBit(c+2,"io_in_ready", false,-1);
+    tracep->declBit(c+7,"io_in_valid", false,-1);
+    tracep->declQuad(c+8,"io_in_bits_PC", false,-1, 63,0);
+    tracep->declBus(c+10,"io_in_bits_Inst", false,-1, 31,0);
+    tracep->declQuad(c+3443,"io_REG1", false,-1, 63,0);
+    tracep->declQuad(c+3445,"io_REG2", false,-1, 63,0);
+    tracep->declBit(c+3469,"io_flush", false,-1);
+    tracep->declBit(c+2,"io_out_ready", false,-1);
+    tracep->declBit(c+7,"io_out_valid", false,-1);
+    tracep->declBus(c+11,"io_out_bits_ctrl_signal_src1Type", false,-1, 2,0);
+    tracep->declBus(c+12,"io_out_bits_ctrl_signal_src2Type", false,-1, 2,0);
+    tracep->declBus(c+13,"io_out_bits_ctrl_signal_fuType", false,-1, 2,0);
+    tracep->declBit(c+3447,"io_out_bits_ctrl_signal_inst_valid", false,-1);
+    tracep->declBus(c+14,"io_out_bits_ctrl_signal_rfSrc1", false,-1, 4,0);
+    tracep->declBus(c+15,"io_out_bits_ctrl_signal_rfSrc2", false,-1, 4,0);
+    tracep->declBit(c+16,"io_out_bits_ctrl_signal_rfWen", false,-1);
+    tracep->declBus(c+17,"io_out_bits_ctrl_signal_aluoptype", false,-1, 6,0);
+    tracep->declBus(c+18,"io_out_bits_ctrl_signal_rfDest", false,-1, 4,0);
+    tracep->declQuad(c+3443,"io_out_bits_ctrl_data_src1", false,-1, 63,0);
+    tracep->declQuad(c+3445,"io_out_bits_ctrl_data_src2", false,-1, 63,0);
+    tracep->declQuad(c+19,"io_out_bits_ctrl_data_Imm", false,-1, 63,0);
+    tracep->declQuad(c+8,"io_out_bits_ctrl_flow_PC", false,-1, 63,0);
+    tracep->declBus(c+10,"io_out_bits_ctrl_flow_inst", false,-1, 31,0);
+    tracep->declBus(c+18,"rd", false,-1, 4,0);
+    tracep->declBus(c+1843,"Inst_decode_0", false,-1, 3,0);
+    tracep->declBus(c+17,"Inst_decode_2", false,-1, 6,0);
+    tracep->declBit(c+1844,"Inst_decode_3", false,-1);
+    tracep->declBus(c+1845,"srctype1", false,-1, 1,0);
+    tracep->declBit(c+1846,"srctype2", false,-1);
+    tracep->declBit(c+1847,"sign", false,-1);
+    tracep->declBit(c+1848,"sign_1", false,-1);
+    tracep->declBit(c+1849,"sign_2", false,-1);
+    tracep->declBit(c+1849,"sign_3", false,-1);
+    tracep->declBit(c+1847,"sign_4", false,-1);
     tracep->popNamePrefix(1);
     tracep->pushNamePrefix("IF ");
-    tracep->declBit(c+3469,"clock", false,-1);
-    tracep->declBit(c+3470,"reset", false,-1);
-    tracep->declBit(c+1,"io_branch_io_is_branch", false,-1);
-    tracep->declBit(c+2,"io_branch_io_is_jump", false,-1);
-    tracep->declQuad(c+3,"io_branch_io_dnpc", false,-1, 63,0);
-    tracep->declBit(c+5,"io_cache_req_addr_req_valid", false,-1);
-    tracep->declQuad(c+6,"io_cache_req_addr_req_bits_addr", false,-1, 63,0);
-    tracep->declBit(c+5,"io_cache_req_rdata_rep_ready", false,-1);
-    tracep->declBit(c+8,"io_cache_req_rdata_rep_valid", false,-1);
-    tracep->declQuad(c+9,"io_cache_req_rdata_rep_bits_rdata", false,-1, 63,0);
-    tracep->declBit(c+5,"io_out_ready", false,-1);
-    tracep->declBit(c+8,"io_out_valid", false,-1);
-    tracep->declQuad(c+6,"io_out_bits_PC", false,-1, 63,0);
-    tracep->declBus(c+11,"io_out_bits_Inst", false,-1, 31,0);
-    tracep->declBit(c+12,"io_flush", false,-1);
-    tracep->declQuad(c+6,"temp", false,-1, 63,0);
-    tracep->declBus(c+1902,"inst", false,-1, 31,0);
-    tracep->popNamePrefix(1);
-    tracep->pushNamePrefix("If_axi_birdge ");
-    tracep->declBit(c+3469,"clock", false,-1);
-    tracep->declBit(c+3470,"reset", false,-1);
-    tracep->declBit(c+262,"io_in_addr_req_valid", false,-1);
-    tracep->declQuad(c+263,"io_in_addr_req_bits_addr", false,-1, 63,0);
-    tracep->declBit(c+262,"io_in_addr_req_bits_ce", false,-1);
-    tracep->declBit(c+3508,"io_in_addr_req_bits_we", false,-1);
-    tracep->declBit(c+265,"io_in_rdata_rep_valid", false,-1);
-    tracep->declQuad(c+266,"io_in_rdata_rep_bits_rdata", false,-1, 63,0);
-    tracep->declQuad(c+3509,"io_in_wdata_req_bits_wdata", false,-1, 63,0);
-    tracep->declBus(c+3511,"io_in_wdata_req_bits_wmask", false,-1, 7,0);
-    tracep->declBit(c+268,"io_in_wdata_rep", false,-1);
-    tracep->declBit(c+269,"io_out_raddr_req_ready", false,-1);
-    tracep->declBit(c+270,"io_out_raddr_req_valid", false,-1);
-    tracep->declQuad(c+263,"io_out_raddr_req_bits_addr", false,-1, 63,0);
-    tracep->declBit(c+269,"io_out_waddr_req_ready", false,-1);
-    tracep->declBit(c+3508,"io_out_waddr_req_valid", false,-1);
-    tracep->declQuad(c+263,"io_out_waddr_req_bits_addr", false,-1, 63,0);
-    tracep->declBit(c+3475,"io_out_rdata_rep_ready", false,-1);
-    tracep->declBit(c+271,"io_out_rdata_rep_valid", false,-1);
-    tracep->declQuad(c+266,"io_out_rdata_rep_bits_rdata", false,-1, 63,0);
-    tracep->declBit(c+3508,"io_out_wdata_req_valid", false,-1);
-    tracep->declQuad(c+3509,"io_out_wdata_req_bits_wdata", false,-1, 63,0);
-    tracep->declBus(c+3511,"io_out_wdata_req_bits_wmask", false,-1, 7,0);
-    tracep->declBit(c+272,"io_out_wb_ready", false,-1);
-    tracep->declBit(c+268,"io_out_wb_valid", false,-1);
-    tracep->declBus(c+3512,"io_out_wb_bits", false,-1, 1,0);
-    tracep->declBit(c+1903,"ar_state", false,-1);
-    tracep->declBit(c+272,"aw_state", false,-1);
+    tracep->declBit(c+3509,"clock", false,-1);
+    tracep->declBit(c+3510,"reset", false,-1);
+    tracep->declBit(c+3439,"io_branch_io_is_branch", false,-1);
+    tracep->declBit(c+1,"io_branch_io_is_jump", false,-1);
+    tracep->declQuad(c+3440,"io_branch_io_dnpc", false,-1, 63,0);
+    tracep->declBit(c+2,"io_cache_req_addr_req_valid", false,-1);
+    tracep->declQuad(c+3,"io_cache_req_addr_req_bits_addr", false,-1, 63,0);
+    tracep->declBit(c+2,"io_cache_req_rdata_rep_ready", false,-1);
+    tracep->declBit(c+3468,"io_cache_req_rdata_rep_valid", false,-1);
+    tracep->declQuad(c+5,"io_cache_req_rdata_rep_bits_rdata", false,-1, 63,0);
+    tracep->declBit(c+2,"io_out_ready", false,-1);
+    tracep->declBit(c+3468,"io_out_valid", false,-1);
+    tracep->declQuad(c+3,"io_out_bits_PC", false,-1, 63,0);
+    tracep->declBus(c+3442,"io_out_bits_Inst", false,-1, 31,0);
+    tracep->declBit(c+3469,"io_flush", false,-1);
+    tracep->declQuad(c+3,"temp", false,-1, 63,0);
+    tracep->declBus(c+1850,"inst", false,-1, 31,0);
     tracep->popNamePrefix(1);
     tracep->pushNamePrefix("MEM ");
-    tracep->declBit(c+55,"io_in_ready", false,-1);
-    tracep->declBit(c+209,"io_in_valid", false,-1);
-    tracep->declBus(c+210,"io_in_bits_ctrl_signal_fuType", false,-1, 2,0);
-    tracep->declBit(c+211,"io_in_bits_ctrl_signal_inst_valid", false,-1);
-    tracep->declBit(c+212,"io_in_bits_ctrl_signal_rfWen", false,-1);
-    tracep->declBus(c+213,"io_in_bits_ctrl_signal_aluoptype", false,-1, 6,0);
-    tracep->declQuad(c+214,"io_in_bits_ctrl_flow_PC", false,-1, 63,0);
-    tracep->declBus(c+216,"io_in_bits_ctrl_flow_inst", false,-1, 31,0);
-    tracep->declQuad(c+217,"io_in_bits_ctrl_flow_Dnpc", false,-1, 63,0);
-    tracep->declBus(c+219,"io_in_bits_ctrl_rf_rfDest", false,-1, 4,0);
-    tracep->declQuad(c+220,"io_in_bits_ctrl_rf_rfData", false,-1, 63,0);
-    tracep->declQuad(c+222,"io_in_bits_ctrl_data_src1", false,-1, 63,0);
-    tracep->declQuad(c+224,"io_in_bits_ctrl_data_src2", false,-1, 63,0);
-    tracep->declQuad(c+226,"io_in_bits_ctrl_data_Imm", false,-1, 63,0);
-    tracep->declBit(c+3475,"io_out_ready", false,-1);
-    tracep->declBit(c+228,"io_out_valid", false,-1);
-    tracep->declBit(c+229,"io_out_bits_ctrl_signal_inst_valid", false,-1);
-    tracep->declBit(c+212,"io_out_bits_ctrl_signal_rfWen", false,-1);
-    tracep->declQuad(c+214,"io_out_bits_ctrl_flow_PC", false,-1, 63,0);
-    tracep->declBus(c+216,"io_out_bits_ctrl_flow_inst", false,-1, 31,0);
-    tracep->declQuad(c+217,"io_out_bits_ctrl_flow_Dnpc", false,-1, 63,0);
-    tracep->declBit(c+230,"io_out_bits_ctrl_flow_skip", false,-1);
-    tracep->declBus(c+219,"io_out_bits_ctrl_rf_rfDest", false,-1, 4,0);
-    tracep->declBit(c+231,"io_out_bits_ctrl_rf_rfWen", false,-1);
-    tracep->declQuad(c+232,"io_out_bits_ctrl_rf_rfData", false,-1, 63,0);
-    tracep->declBit(c+234,"io_cache_io_addr_req_valid", false,-1);
-    tracep->declQuad(c+235,"io_cache_io_addr_req_bits_addr", false,-1, 63,0);
-    tracep->declBit(c+237,"io_cache_io_addr_req_bits_ce", false,-1);
-    tracep->declBit(c+238,"io_cache_io_addr_req_bits_we", false,-1);
-    tracep->declBit(c+239,"io_cache_io_rdata_rep_valid", false,-1);
-    tracep->declQuad(c+240,"io_cache_io_rdata_rep_bits_rdata", false,-1, 63,0);
-    tracep->declQuad(c+242,"io_cache_io_wdata_req_bits_wdata", false,-1, 63,0);
-    tracep->declBus(c+244,"io_cache_io_wdata_req_bits_wmask", false,-1, 7,0);
-    tracep->declBit(c+245,"io_cache_io_wdata_rep", false,-1);
-    tracep->declQuad(c+1904,"addr_temp", false,-1, 63,0);
-    tracep->declBit(c+1906,"mem_result_sign", false,-1);
-    tracep->declBit(c+1907,"mem_result_sign_1", false,-1);
-    tracep->declBit(c+1908,"mem_result_sign_2", false,-1);
-    tracep->declBit(c+1909,"mem_result_sign_3", false,-1);
-    tracep->declQuad(c+1910,"mem_result", false,-1, 63,0);
-    tracep->popNamePrefix(1);
-    tracep->pushNamePrefix("MEM_axi_birdge ");
-    tracep->declBit(c+3469,"clock", false,-1);
-    tracep->declBit(c+3470,"reset", false,-1);
-    tracep->declBit(c+273,"io_in_addr_req_valid", false,-1);
-    tracep->declQuad(c+274,"io_in_addr_req_bits_addr", false,-1, 63,0);
-    tracep->declBit(c+276,"io_in_addr_req_bits_ce", false,-1);
-    tracep->declBit(c+277,"io_in_addr_req_bits_we", false,-1);
-    tracep->declBit(c+278,"io_in_rdata_rep_valid", false,-1);
-    tracep->declQuad(c+266,"io_in_rdata_rep_bits_rdata", false,-1, 63,0);
-    tracep->declQuad(c+279,"io_in_wdata_req_bits_wdata", false,-1, 63,0);
-    tracep->declBus(c+281,"io_in_wdata_req_bits_wmask", false,-1, 7,0);
-    tracep->declBit(c+282,"io_in_wdata_rep", false,-1);
-    tracep->declBit(c+283,"io_out_raddr_req_ready", false,-1);
-    tracep->declBit(c+284,"io_out_raddr_req_valid", false,-1);
-    tracep->declQuad(c+274,"io_out_raddr_req_bits_addr", false,-1, 63,0);
-    tracep->declBit(c+283,"io_out_waddr_req_ready", false,-1);
-    tracep->declBit(c+285,"io_out_waddr_req_valid", false,-1);
-    tracep->declQuad(c+274,"io_out_waddr_req_bits_addr", false,-1, 63,0);
-    tracep->declBit(c+3475,"io_out_rdata_rep_ready", false,-1);
-    tracep->declBit(c+286,"io_out_rdata_rep_valid", false,-1);
-    tracep->declQuad(c+266,"io_out_rdata_rep_bits_rdata", false,-1, 63,0);
-    tracep->declBit(c+287,"io_out_wdata_req_valid", false,-1);
-    tracep->declQuad(c+279,"io_out_wdata_req_bits_wdata", false,-1, 63,0);
-    tracep->declBus(c+281,"io_out_wdata_req_bits_wmask", false,-1, 7,0);
-    tracep->declBit(c+288,"io_out_wb_ready", false,-1);
-    tracep->declBit(c+282,"io_out_wb_valid", false,-1);
-    tracep->declBus(c+3512,"io_out_wb_bits", false,-1, 1,0);
-    tracep->declBit(c+1912,"ar_state", false,-1);
-    tracep->declBit(c+288,"aw_state", false,-1);
+    tracep->declBit(c+40,"io_in_ready", false,-1);
+    tracep->declBit(c+188,"io_in_valid", false,-1);
+    tracep->declBus(c+189,"io_in_bits_ctrl_signal_fuType", false,-1, 2,0);
+    tracep->declBit(c+190,"io_in_bits_ctrl_signal_inst_valid", false,-1);
+    tracep->declBit(c+191,"io_in_bits_ctrl_signal_rfWen", false,-1);
+    tracep->declBus(c+192,"io_in_bits_ctrl_signal_aluoptype", false,-1, 6,0);
+    tracep->declQuad(c+193,"io_in_bits_ctrl_flow_PC", false,-1, 63,0);
+    tracep->declBus(c+195,"io_in_bits_ctrl_flow_inst", false,-1, 31,0);
+    tracep->declQuad(c+196,"io_in_bits_ctrl_flow_Dnpc", false,-1, 63,0);
+    tracep->declBus(c+198,"io_in_bits_ctrl_rf_rfDest", false,-1, 4,0);
+    tracep->declQuad(c+199,"io_in_bits_ctrl_rf_rfData", false,-1, 63,0);
+    tracep->declQuad(c+201,"io_in_bits_ctrl_data_src1", false,-1, 63,0);
+    tracep->declQuad(c+203,"io_in_bits_ctrl_data_src2", false,-1, 63,0);
+    tracep->declQuad(c+205,"io_in_bits_ctrl_data_Imm", false,-1, 63,0);
+    tracep->declBit(c+3514,"io_out_ready", false,-1);
+    tracep->declBit(c+207,"io_out_valid", false,-1);
+    tracep->declBit(c+208,"io_out_bits_ctrl_signal_inst_valid", false,-1);
+    tracep->declBit(c+191,"io_out_bits_ctrl_signal_rfWen", false,-1);
+    tracep->declQuad(c+193,"io_out_bits_ctrl_flow_PC", false,-1, 63,0);
+    tracep->declBus(c+195,"io_out_bits_ctrl_flow_inst", false,-1, 31,0);
+    tracep->declQuad(c+196,"io_out_bits_ctrl_flow_Dnpc", false,-1, 63,0);
+    tracep->declBit(c+209,"io_out_bits_ctrl_flow_skip", false,-1);
+    tracep->declBus(c+198,"io_out_bits_ctrl_rf_rfDest", false,-1, 4,0);
+    tracep->declBit(c+210,"io_out_bits_ctrl_rf_rfWen", false,-1);
+    tracep->declQuad(c+3476,"io_out_bits_ctrl_rf_rfData", false,-1, 63,0);
+    tracep->declBit(c+211,"io_cache_io_addr_req_valid", false,-1);
+    tracep->declQuad(c+212,"io_cache_io_addr_req_bits_addr", false,-1, 63,0);
+    tracep->declBit(c+214,"io_cache_io_addr_req_bits_ce", false,-1);
+    tracep->declBit(c+215,"io_cache_io_addr_req_bits_we", false,-1);
+    tracep->declBit(c+216,"io_cache_io_rdata_rep_valid", false,-1);
+    tracep->declQuad(c+3478,"io_cache_io_rdata_rep_bits_rdata", false,-1, 63,0);
+    tracep->declQuad(c+217,"io_cache_io_wdata_req_bits_wdata", false,-1, 63,0);
+    tracep->declBus(c+219,"io_cache_io_wdata_req_bits_wmask", false,-1, 7,0);
+    tracep->declBit(c+220,"io_cache_io_wdata_rep", false,-1);
+    tracep->declQuad(c+1851,"addr_temp", false,-1, 63,0);
+    tracep->declBit(c+3505,"mem_result_sign", false,-1);
+    tracep->declBit(c+3506,"mem_result_sign_1", false,-1);
+    tracep->declBit(c+3507,"mem_result_sign_2", false,-1);
+    tracep->declBit(c+3508,"mem_result_sign_3", false,-1);
+    tracep->declQuad(c+3466,"mem_result", false,-1, 63,0);
     tracep->popNamePrefix(1);
     tracep->pushNamePrefix("MMEM ");
-    tracep->declBit(c+3470,"reset", false,-1);
-    tracep->declBit(c+3469,"clk", false,-1);
-    tracep->declBit(c+289,"ar_valid", false,-1);
-    tracep->declBit(c+290,"ar_ready", false,-1);
-    tracep->declQuad(c+291,"araddr", false,-1, 63,0);
-    tracep->declBit(c+293,"r_valid", false,-1);
-    tracep->declBit(c+3475,"r_ready", false,-1);
-    tracep->declQuad(c+266,"rdata", false,-1, 63,0);
-    tracep->declBit(c+294,"aw_valid", false,-1);
-    tracep->declBit(c+290,"aw_ready", false,-1);
-    tracep->declQuad(c+291,"awaddr", false,-1, 63,0);
-    tracep->declBit(c+295,"w_valid", false,-1);
-    tracep->declBit(c+290,"w_ready", false,-1);
-    tracep->declQuad(c+296,"wdata", false,-1, 63,0);
-    tracep->declBus(c+298,"wstrb", false,-1, 7,0);
-    tracep->declBit(c+299,"bvalid", false,-1);
-    tracep->declBit(c+300,"bready", false,-1);
-    tracep->declBus(c+3512,"bresp", false,-1, 1,0);
-    tracep->declBus(c+3512,"idle", false,-1, 1,0);
-    tracep->declBus(c+3513,"read_busy", false,-1, 1,0);
-    tracep->declBus(c+3514,"write_busy", false,-1, 1,0);
-    tracep->declBus(c+3515,"wait_bus", false,-1, 1,0);
-    tracep->declBus(c+1913,"state", false,-1, 1,0);
-    tracep->declBus(c+3474,"next_state", false,-1, 1,0);
+    tracep->declBus(c+3557,"BUS_WIDTH", false,-1, 31,0);
+    tracep->declBus(c+3557,"DATA_WIDTH", false,-1, 31,0);
+    tracep->declBit(c+3509,"clk", false,-1);
+    tracep->declBit(c+3510,"reset", false,-1);
+    tracep->declBit(c+244,"ar_valid", false,-1);
+    tracep->declBit(c+245,"ar_ready", false,-1);
+    tracep->declBus(c+3548,"ar_id", false,-1, 3,0);
+    tracep->declBus(c+248,"ar_len", false,-1, 7,0);
+    tracep->declBus(c+3549,"ar_size", false,-1, 2,0);
+    tracep->declQuad(c+246,"ar_addr", false,-1, 63,0);
+    tracep->declBus(c+3550,"ar_prot", false,-1, 2,0);
+    tracep->declBus(c+3551,"ar_burst", false,-1, 1,0);
+    tracep->declBus(c+3547,"ar_lock", false,-1, 1,0);
+    tracep->declBus(c+3552,"ar_cache", false,-1, 3,0);
+    tracep->declBit(c+251,"aw_valid", false,-1);
+    tracep->declBit(c+252,"aw_ready", false,-1);
+    tracep->declBus(c+3548,"aw_id", false,-1, 3,0);
+    tracep->declBus(c+255,"aw_len", false,-1, 7,0);
+    tracep->declBus(c+3549,"aw_size", false,-1, 2,0);
+    tracep->declQuad(c+253,"aw_addr", false,-1, 63,0);
+    tracep->declBus(c+3550,"aw_prot", false,-1, 2,0);
+    tracep->declBus(c+3551,"aw_burst", false,-1, 1,0);
+    tracep->declBus(c+3547,"aw_lock", false,-1, 1,0);
+    tracep->declBus(c+3552,"aw_cache", false,-1, 3,0);
+    tracep->declBit(c+249,"rd_valid", false,-1);
+    tracep->declBit(c+250,"rd_ready", false,-1);
+    tracep->declBus(c+3553,"rd_id", false,-1, 3,0);
+    tracep->declQuad(c+3480,"rd_data", false,-1, 63,0);
+    tracep->declBus(c+3554,"rd_resp", false,-1, 1,0);
+    tracep->declBit(c+242,"rd_last", false,-1);
+    tracep->declBit(c+256,"wd_valid", false,-1);
+    tracep->declBit(c+257,"wd_ready", false,-1);
+    tracep->declBus(c+3548,"wd_id", false,-1, 3,0);
+    tracep->declQuad(c+258,"wd_data", false,-1, 63,0);
+    tracep->declBus(c+260,"wstrb", false,-1, 7,0);
+    tracep->declBit(c+261,"wd_last", false,-1);
+    tracep->declBit(c+262,"wr_valid", false,-1);
+    tracep->declBit(c+263,"wr_ready", false,-1);
+    tracep->declBus(c+3555,"wr_id", false,-1, 3,0);
+    tracep->declBus(c+3547,"wr_breap", false,-1, 1,0);
+    tracep->declBus(c+3547,"idle", false,-1, 1,0);
+    tracep->declBus(c+3551,"ready", false,-1, 1,0);
+    tracep->declBus(c+3558,"data_transform", false,-1, 1,0);
+    tracep->declBus(c+1853,"read_state", false,-1, 1,0);
+    tracep->declBus(c+1854,"write_state", false,-1, 1,0);
+    tracep->declBus(c+1855,"read_next_state", false,-1, 1,0);
+    tracep->declBus(c+1856,"write_next_state", false,-1, 1,0);
+    tracep->declQuad(c+3480,"rdata", false,-1, 63,0);
+    tracep->declQuad(c+1857,"write_addr_buffer", false,-1, 63,0);
+    tracep->declQuad(c+1859,"read_addr_buffer", false,-1, 63,0);
+    tracep->declBus(c+1861,"read_count", false,-1, 7,0);
     tracep->popNamePrefix(1);
     tracep->pushNamePrefix("MMIO ");
-    tracep->declBit(c+3469,"clock", false,-1);
-    tracep->declBit(c+3470,"reset", false,-1);
-    tracep->declBit(c+234,"io_in_addr_req_valid", false,-1);
-    tracep->declQuad(c+235,"io_in_addr_req_bits_addr", false,-1, 63,0);
-    tracep->declBit(c+237,"io_in_addr_req_bits_ce", false,-1);
-    tracep->declBit(c+238,"io_in_addr_req_bits_we", false,-1);
-    tracep->declBit(c+239,"io_in_rdata_rep_valid", false,-1);
-    tracep->declQuad(c+240,"io_in_rdata_rep_bits_rdata", false,-1, 63,0);
-    tracep->declQuad(c+242,"io_in_wdata_req_bits_wdata", false,-1, 63,0);
-    tracep->declBus(c+244,"io_in_wdata_req_bits_wmask", false,-1, 7,0);
-    tracep->declBit(c+245,"io_in_wdata_rep", false,-1);
-    tracep->declBit(c+273,"io_out_addr_req_valid", false,-1);
-    tracep->declQuad(c+274,"io_out_addr_req_bits_addr", false,-1, 63,0);
-    tracep->declBit(c+276,"io_out_addr_req_bits_ce", false,-1);
-    tracep->declBit(c+277,"io_out_addr_req_bits_we", false,-1);
-    tracep->declBit(c+278,"io_out_rdata_rep_valid", false,-1);
-    tracep->declQuad(c+266,"io_out_rdata_rep_bits_rdata", false,-1, 63,0);
-    tracep->declQuad(c+279,"io_out_wdata_req_bits_wdata", false,-1, 63,0);
-    tracep->declBus(c+281,"io_out_wdata_req_bits_wmask", false,-1, 7,0);
-    tracep->declBit(c+282,"io_out_wdata_rep", false,-1);
-    tracep->declBit(c+3469,"DCACHE_clock", false,-1);
-    tracep->declBit(c+3470,"DCACHE_reset", false,-1);
-    tracep->declBit(c+1914,"DCACHE_io_in_addr_req_valid", false,-1);
-    tracep->declQuad(c+235,"DCACHE_io_in_addr_req_bits_addr", false,-1, 63,0);
-    tracep->declBit(c+238,"DCACHE_io_in_addr_req_bits_we", false,-1);
-    tracep->declBit(c+1915,"DCACHE_io_in_rdata_rep_valid", false,-1);
-    tracep->declQuad(c+1916,"DCACHE_io_in_rdata_rep_bits_rdata", false,-1, 63,0);
-    tracep->declQuad(c+242,"DCACHE_io_in_wdata_req_bits_wdata", false,-1, 63,0);
-    tracep->declBus(c+244,"DCACHE_io_in_wdata_req_bits_wmask", false,-1, 7,0);
-    tracep->declBit(c+1918,"DCACHE_io_in_wdata_rep", false,-1);
-    tracep->declBit(c+1919,"DCACHE_io_out_addr_req_valid", false,-1);
-    tracep->declQuad(c+1920,"DCACHE_io_out_addr_req_bits_addr", false,-1, 63,0);
-    tracep->declBit(c+1922,"DCACHE_io_out_addr_req_bits_ce", false,-1);
-    tracep->declBit(c+1923,"DCACHE_io_out_addr_req_bits_we", false,-1);
-    tracep->declBit(c+278,"DCACHE_io_out_rdata_rep_valid", false,-1);
-    tracep->declQuad(c+266,"DCACHE_io_out_rdata_rep_bits_rdata", false,-1, 63,0);
-    tracep->declQuad(c+1924,"DCACHE_io_out_wdata_req_bits_wdata", false,-1, 63,0);
-    tracep->declBit(c+282,"DCACHE_io_out_wdata_rep", false,-1);
+    tracep->declBit(c+3509,"clock", false,-1);
+    tracep->declBit(c+3510,"reset", false,-1);
+    tracep->declBit(c+211,"io_in_addr_req_valid", false,-1);
+    tracep->declQuad(c+212,"io_in_addr_req_bits_addr", false,-1, 63,0);
+    tracep->declBit(c+214,"io_in_addr_req_bits_ce", false,-1);
+    tracep->declBit(c+215,"io_in_addr_req_bits_we", false,-1);
+    tracep->declBit(c+216,"io_in_rdata_rep_valid", false,-1);
+    tracep->declQuad(c+3478,"io_in_rdata_rep_bits_rdata", false,-1, 63,0);
+    tracep->declQuad(c+217,"io_in_wdata_req_bits_wdata", false,-1, 63,0);
+    tracep->declBus(c+219,"io_in_wdata_req_bits_wmask", false,-1, 7,0);
+    tracep->declBit(c+220,"io_in_wdata_rep", false,-1);
+    tracep->declBit(c+264,"io_out_raddr_req_ready", false,-1);
+    tracep->declBit(c+265,"io_out_raddr_req_valid", false,-1);
+    tracep->declQuad(c+266,"io_out_raddr_req_bits_addr", false,-1, 63,0);
+    tracep->declBus(c+268,"io_out_raddr_req_bits_len", false,-1, 7,0);
+    tracep->declBit(c+269,"io_out_waddr_req_ready", false,-1);
+    tracep->declBit(c+270,"io_out_waddr_req_valid", false,-1);
+    tracep->declQuad(c+271,"io_out_waddr_req_bits_addr", false,-1, 63,0);
+    tracep->declBus(c+273,"io_out_waddr_req_bits_len", false,-1, 7,0);
+    tracep->declBit(c+274,"io_out_rdata_rep_ready", false,-1);
+    tracep->declBit(c+275,"io_out_rdata_rep_valid", false,-1);
+    tracep->declQuad(c+3480,"io_out_rdata_rep_bits_data", false,-1, 63,0);
+    tracep->declBit(c+242,"io_out_rdata_rep_bits_last", false,-1);
+    tracep->declBit(c+276,"io_out_wdata_req_ready", false,-1);
+    tracep->declBit(c+277,"io_out_wdata_req_valid", false,-1);
+    tracep->declQuad(c+278,"io_out_wdata_req_bits_data", false,-1, 63,0);
+    tracep->declBus(c+280,"io_out_wdata_req_bits_wstrb", false,-1, 7,0);
+    tracep->declBit(c+281,"io_out_wdata_req_bits_last", false,-1);
+    tracep->declBit(c+282,"io_out_wb_ready", false,-1);
+    tracep->declBit(c+283,"io_out_wb_valid", false,-1);
+    tracep->declBus(c+3547,"io_out_wb_bits_breap", false,-1, 1,0);
+    tracep->declBit(c+3509,"DCACHE_clock", false,-1);
+    tracep->declBit(c+3510,"DCACHE_reset", false,-1);
+    tracep->declBit(c+1862,"DCACHE_io_in_addr_req_valid", false,-1);
+    tracep->declQuad(c+212,"DCACHE_io_in_addr_req_bits_addr", false,-1, 63,0);
+    tracep->declBit(c+215,"DCACHE_io_in_addr_req_bits_we", false,-1);
+    tracep->declBit(c+1863,"DCACHE_io_in_rdata_rep_ready", false,-1);
+    tracep->declBit(c+1864,"DCACHE_io_in_rdata_rep_valid", false,-1);
+    tracep->declQuad(c+1865,"DCACHE_io_in_rdata_rep_bits_rdata", false,-1, 63,0);
+    tracep->declQuad(c+217,"DCACHE_io_in_wdata_req_bits_wdata", false,-1, 63,0);
+    tracep->declBus(c+219,"DCACHE_io_in_wdata_req_bits_wmask", false,-1, 7,0);
+    tracep->declBit(c+1867,"DCACHE_io_in_wdata_rep", false,-1);
+    tracep->declBit(c+1868,"DCACHE_io_out_raddr_req_ready", false,-1);
+    tracep->declBit(c+1869,"DCACHE_io_out_raddr_req_valid", false,-1);
+    tracep->declQuad(c+1870,"DCACHE_io_out_raddr_req_bits_addr", false,-1, 63,0);
+    tracep->declBit(c+1872,"DCACHE_io_out_waddr_req_ready", false,-1);
+    tracep->declBit(c+1873,"DCACHE_io_out_waddr_req_valid", false,-1);
+    tracep->declQuad(c+1874,"DCACHE_io_out_waddr_req_bits_addr", false,-1, 63,0);
+    tracep->declBit(c+1876,"DCACHE_io_out_rdata_rep_valid", false,-1);
+    tracep->declQuad(c+3480,"DCACHE_io_out_rdata_rep_bits_data", false,-1, 63,0);
+    tracep->declBit(c+242,"DCACHE_io_out_rdata_rep_bits_last", false,-1);
+    tracep->declBit(c+1877,"DCACHE_io_out_wdata_req_ready", false,-1);
+    tracep->declBit(c+1878,"DCACHE_io_out_wdata_req_valid", false,-1);
+    tracep->declQuad(c+1879,"DCACHE_io_out_wdata_req_bits_data", false,-1, 63,0);
+    tracep->declBit(c+1881,"DCACHE_io_out_wdata_req_bits_last", false,-1);
+    tracep->declBit(c+1882,"DCACHE_io_out_wb_valid", false,-1);
+    tracep->declBus(c+3547,"DCACHE_io_out_wb_bits_breap", false,-1, 1,0);
+    tracep->declBit(c+3509,"birdge_clock", false,-1);
+    tracep->declBit(c+3510,"birdge_reset", false,-1);
+    tracep->declBit(c+1883,"birdge_io_in_addr_req_valid", false,-1);
+    tracep->declQuad(c+212,"birdge_io_in_addr_req_bits_addr", false,-1, 63,0);
+    tracep->declBit(c+214,"birdge_io_in_addr_req_bits_ce", false,-1);
+    tracep->declBit(c+215,"birdge_io_in_addr_req_bits_we", false,-1);
+    tracep->declBit(c+1884,"birdge_io_in_rdata_rep_ready", false,-1);
+    tracep->declBit(c+1885,"birdge_io_in_rdata_rep_valid", false,-1);
+    tracep->declQuad(c+3480,"birdge_io_in_rdata_rep_bits_rdata", false,-1, 63,0);
+    tracep->declBit(c+1886,"birdge_io_in_wdata_req_valid", false,-1);
+    tracep->declQuad(c+217,"birdge_io_in_wdata_req_bits_wdata", false,-1, 63,0);
+    tracep->declBus(c+219,"birdge_io_in_wdata_req_bits_wmask", false,-1, 7,0);
+    tracep->declBit(c+1887,"birdge_io_in_wdata_rep", false,-1);
+    tracep->declBit(c+1888,"birdge_io_out_raddr_req_ready", false,-1);
+    tracep->declBit(c+1889,"birdge_io_out_raddr_req_valid", false,-1);
+    tracep->declQuad(c+212,"birdge_io_out_raddr_req_bits_addr", false,-1, 63,0);
+    tracep->declBit(c+1890,"birdge_io_out_waddr_req_ready", false,-1);
+    tracep->declBit(c+1891,"birdge_io_out_waddr_req_valid", false,-1);
+    tracep->declQuad(c+212,"birdge_io_out_waddr_req_bits_addr", false,-1, 63,0);
+    tracep->declBit(c+1884,"birdge_io_out_rdata_rep_ready", false,-1);
+    tracep->declBit(c+1885,"birdge_io_out_rdata_rep_valid", false,-1);
+    tracep->declQuad(c+3480,"birdge_io_out_rdata_rep_bits_data", false,-1, 63,0);
+    tracep->declBit(c+242,"birdge_io_out_rdata_rep_bits_last", false,-1);
+    tracep->declBit(c+1892,"birdge_io_out_wdata_req_ready", false,-1);
+    tracep->declBit(c+1886,"birdge_io_out_wdata_req_valid", false,-1);
+    tracep->declQuad(c+217,"birdge_io_out_wdata_req_bits_data", false,-1, 63,0);
+    tracep->declBus(c+219,"birdge_io_out_wdata_req_bits_wstrb", false,-1, 7,0);
+    tracep->declBit(c+1893,"birdge_io_out_wdata_req_bits_last", false,-1);
+    tracep->declBit(c+1894,"birdge_io_out_wb_ready", false,-1);
+    tracep->declBit(c+1887,"birdge_io_out_wb_valid", false,-1);
+    tracep->declBus(c+3547,"birdge_io_out_wb_bits_breap", false,-1, 1,0);
     tracep->pushNamePrefix("DCACHE ");
-    tracep->declBit(c+3469,"clock", false,-1);
-    tracep->declBit(c+3470,"reset", false,-1);
-    tracep->declBit(c+1914,"io_in_addr_req_valid", false,-1);
-    tracep->declQuad(c+235,"io_in_addr_req_bits_addr", false,-1, 63,0);
-    tracep->declBit(c+238,"io_in_addr_req_bits_we", false,-1);
-    tracep->declBit(c+1915,"io_in_rdata_rep_valid", false,-1);
-    tracep->declQuad(c+1916,"io_in_rdata_rep_bits_rdata", false,-1, 63,0);
-    tracep->declQuad(c+242,"io_in_wdata_req_bits_wdata", false,-1, 63,0);
-    tracep->declBus(c+244,"io_in_wdata_req_bits_wmask", false,-1, 7,0);
-    tracep->declBit(c+1918,"io_in_wdata_rep", false,-1);
-    tracep->declBit(c+1919,"io_out_addr_req_valid", false,-1);
-    tracep->declQuad(c+1920,"io_out_addr_req_bits_addr", false,-1, 63,0);
-    tracep->declBit(c+1922,"io_out_addr_req_bits_ce", false,-1);
-    tracep->declBit(c+1923,"io_out_addr_req_bits_we", false,-1);
-    tracep->declBit(c+278,"io_out_rdata_rep_valid", false,-1);
-    tracep->declQuad(c+266,"io_out_rdata_rep_bits_rdata", false,-1, 63,0);
-    tracep->declQuad(c+1924,"io_out_wdata_req_bits_wdata", false,-1, 63,0);
-    tracep->declBit(c+282,"io_out_wdata_rep", false,-1);
-    tracep->declBit(c+3469,"Cache_data_clock", false,-1);
-    tracep->declBit(c+1926,"Cache_data_io_in_valid", false,-1);
-    tracep->declQuad(c+235,"Cache_data_io_in_addr", false,-1, 63,0);
-    tracep->declQuad(c+1927,"Cache_data_io_write_bus_addr", false,-1, 63,0);
-    tracep->declBit(c+1929,"Cache_data_io_write_bus_valid", false,-1);
-    tracep->declBus(c+1930,"Cache_data_io_write_bus_waymask", false,-1, 1,0);
-    tracep->declArray(c+1931,"Cache_data_io_write_bus_wdata", false,-1, 511,0);
-    tracep->declBit(c+1926,"Cache_data_io_out_valid", false,-1);
-    tracep->declQuad(c+1947,"Cache_data_io_out_bits_meat_tag_0", false,-1, 52,0);
-    tracep->declQuad(c+1949,"Cache_data_io_out_bits_meat_tag_1", false,-1, 52,0);
-    tracep->declBit(c+1951,"Cache_data_io_out_bits_meat_valid_0", false,-1);
-    tracep->declBit(c+1952,"Cache_data_io_out_bits_meat_valid_1", false,-1);
-    tracep->declArray(c+1953,"Cache_data_io_out_bits_data_data_0", false,-1, 511,0);
-    tracep->declArray(c+1969,"Cache_data_io_out_bits_data_data_1", false,-1, 511,0);
-    tracep->declQuad(c+1985,"Cache_data_io_out_bits_ctrl_data_tag", false,-1, 52,0);
-    tracep->declBus(c+1987,"Cache_data_io_out_bits_ctrl_data_index", false,-1, 4,0);
-    tracep->declBus(c+1988,"Cache_data_io_out_bits_ctrl_data_offset", false,-1, 5,0);
-    tracep->declBit(c+1989,"Scanf_io_in_valid", false,-1);
-    tracep->declQuad(c+1947,"Scanf_io_in_bits_meat_tag_0", false,-1, 52,0);
-    tracep->declQuad(c+1949,"Scanf_io_in_bits_meat_tag_1", false,-1, 52,0);
-    tracep->declBit(c+1951,"Scanf_io_in_bits_meat_valid_0", false,-1);
-    tracep->declBit(c+1952,"Scanf_io_in_bits_meat_valid_1", false,-1);
-    tracep->declArray(c+1953,"Scanf_io_in_bits_data_data_0", false,-1, 511,0);
-    tracep->declArray(c+1969,"Scanf_io_in_bits_data_data_1", false,-1, 511,0);
-    tracep->declQuad(c+1985,"Scanf_io_in_bits_ctrl_data_tag", false,-1, 52,0);
-    tracep->declBus(c+1987,"Scanf_io_in_bits_ctrl_data_index", false,-1, 4,0);
-    tracep->declBit(c+1990,"Scanf_io_out_bits_hit", false,-1);
-    tracep->declArray(c+1991,"Scanf_io_out_bits_data", false,-1, 511,0);
-    tracep->declBus(c+1987,"Scanf_io_out_bits_meta_ctrl_data_index", false,-1, 4,0);
-    tracep->declBit(c+2007,"Scanf_io_out_bits_hit_way_0", false,-1);
-    tracep->declBit(c+2008,"Scanf_io_out_bits_hit_way_1", false,-1);
-    tracep->declQuad(c+1947,"Scanf_io_out_bits_tag_0", false,-1, 52,0);
-    tracep->declQuad(c+1949,"Scanf_io_out_bits_tag_1", false,-1, 52,0);
+    tracep->declBit(c+3509,"clock", false,-1);
+    tracep->declBit(c+3510,"reset", false,-1);
+    tracep->declBit(c+1862,"io_in_addr_req_valid", false,-1);
+    tracep->declQuad(c+212,"io_in_addr_req_bits_addr", false,-1, 63,0);
+    tracep->declBit(c+215,"io_in_addr_req_bits_we", false,-1);
+    tracep->declBit(c+1863,"io_in_rdata_rep_ready", false,-1);
+    tracep->declBit(c+1864,"io_in_rdata_rep_valid", false,-1);
+    tracep->declQuad(c+1865,"io_in_rdata_rep_bits_rdata", false,-1, 63,0);
+    tracep->declQuad(c+217,"io_in_wdata_req_bits_wdata", false,-1, 63,0);
+    tracep->declBus(c+219,"io_in_wdata_req_bits_wmask", false,-1, 7,0);
+    tracep->declBit(c+1867,"io_in_wdata_rep", false,-1);
+    tracep->declBit(c+1868,"io_out_raddr_req_ready", false,-1);
+    tracep->declBit(c+1869,"io_out_raddr_req_valid", false,-1);
+    tracep->declQuad(c+1870,"io_out_raddr_req_bits_addr", false,-1, 63,0);
+    tracep->declBit(c+1872,"io_out_waddr_req_ready", false,-1);
+    tracep->declBit(c+1873,"io_out_waddr_req_valid", false,-1);
+    tracep->declQuad(c+1874,"io_out_waddr_req_bits_addr", false,-1, 63,0);
+    tracep->declBit(c+1876,"io_out_rdata_rep_valid", false,-1);
+    tracep->declQuad(c+3480,"io_out_rdata_rep_bits_data", false,-1, 63,0);
+    tracep->declBit(c+242,"io_out_rdata_rep_bits_last", false,-1);
+    tracep->declBit(c+1877,"io_out_wdata_req_ready", false,-1);
+    tracep->declBit(c+1878,"io_out_wdata_req_valid", false,-1);
+    tracep->declQuad(c+1879,"io_out_wdata_req_bits_data", false,-1, 63,0);
+    tracep->declBit(c+1881,"io_out_wdata_req_bits_last", false,-1);
+    tracep->declBit(c+1882,"io_out_wb_valid", false,-1);
+    tracep->declBus(c+3547,"io_out_wb_bits_breap", false,-1, 1,0);
+    tracep->declBit(c+3509,"Cache_data_clock", false,-1);
+    tracep->declBit(c+1895,"Cache_data_io_in_valid", false,-1);
+    tracep->declQuad(c+212,"Cache_data_io_in_addr", false,-1, 63,0);
+    tracep->declQuad(c+1896,"Cache_data_io_write_bus_addr", false,-1, 63,0);
+    tracep->declBit(c+1898,"Cache_data_io_write_bus_valid", false,-1);
+    tracep->declBus(c+1899,"Cache_data_io_write_bus_waymask", false,-1, 1,0);
+    tracep->declArray(c+1900,"Cache_data_io_write_bus_wdata", false,-1, 511,0);
+    tracep->declBit(c+1895,"Cache_data_io_out_valid", false,-1);
+    tracep->declQuad(c+1916,"Cache_data_io_out_bits_meat_tag_0", false,-1, 52,0);
+    tracep->declQuad(c+1918,"Cache_data_io_out_bits_meat_tag_1", false,-1, 52,0);
+    tracep->declBit(c+1920,"Cache_data_io_out_bits_meat_valid_0", false,-1);
+    tracep->declBit(c+1921,"Cache_data_io_out_bits_meat_valid_1", false,-1);
+    tracep->declArray(c+1922,"Cache_data_io_out_bits_data_data_0", false,-1, 511,0);
+    tracep->declArray(c+1938,"Cache_data_io_out_bits_data_data_1", false,-1, 511,0);
+    tracep->declQuad(c+1954,"Cache_data_io_out_bits_ctrl_data_tag", false,-1, 52,0);
+    tracep->declBus(c+1956,"Cache_data_io_out_bits_ctrl_data_index", false,-1, 4,0);
+    tracep->declBus(c+1957,"Cache_data_io_out_bits_ctrl_data_offset", false,-1, 5,0);
+    tracep->declBit(c+1958,"Scanf_io_in_valid", false,-1);
+    tracep->declQuad(c+1916,"Scanf_io_in_bits_meat_tag_0", false,-1, 52,0);
+    tracep->declQuad(c+1918,"Scanf_io_in_bits_meat_tag_1", false,-1, 52,0);
+    tracep->declBit(c+1920,"Scanf_io_in_bits_meat_valid_0", false,-1);
+    tracep->declBit(c+1921,"Scanf_io_in_bits_meat_valid_1", false,-1);
+    tracep->declArray(c+1922,"Scanf_io_in_bits_data_data_0", false,-1, 511,0);
+    tracep->declArray(c+1938,"Scanf_io_in_bits_data_data_1", false,-1, 511,0);
+    tracep->declQuad(c+1954,"Scanf_io_in_bits_ctrl_data_tag", false,-1, 52,0);
+    tracep->declBus(c+1956,"Scanf_io_in_bits_ctrl_data_index", false,-1, 4,0);
+    tracep->declBit(c+1959,"Scanf_io_out_bits_hit", false,-1);
+    tracep->declArray(c+1960,"Scanf_io_out_bits_data", false,-1, 511,0);
+    tracep->declBus(c+1956,"Scanf_io_out_bits_meta_ctrl_data_index", false,-1, 4,0);
+    tracep->declBit(c+1976,"Scanf_io_out_bits_hit_way_0", false,-1);
+    tracep->declBit(c+1977,"Scanf_io_out_bits_hit_way_1", false,-1);
+    tracep->declQuad(c+1916,"Scanf_io_out_bits_tag_0", false,-1, 52,0);
+    tracep->declQuad(c+1918,"Scanf_io_out_bits_tag_1", false,-1, 52,0);
     for (int i = 0; i < 32; ++i) {
-        tracep->declBit(c+2009+i*1,"lru", true,(i+0));
+        tracep->declBit(c+1978+i*1,"lru", true,(i+0));
     }
-    tracep->declBit(c+2041,"lru_lru_w_MPORT_en", false,-1);
-    tracep->declBus(c+2042,"lru_lru_w_MPORT_addr", false,-1, 4,0);
-    tracep->declBit(c+2043,"lru_lru_w_MPORT_data", false,-1);
-    tracep->declBit(c+3475,"lru_MPORT_data", false,-1);
-    tracep->declBus(c+1987,"lru_MPORT_addr", false,-1, 4,0);
-    tracep->declBit(c+3475,"lru_MPORT_mask", false,-1);
-    tracep->declBit(c+2044,"lru_MPORT_en", false,-1);
-    tracep->declBit(c+3508,"lru_MPORT_1_data", false,-1);
-    tracep->declBus(c+1987,"lru_MPORT_1_addr", false,-1, 4,0);
-    tracep->declBit(c+3475,"lru_MPORT_1_mask", false,-1);
-    tracep->declBit(c+2045,"lru_MPORT_1_en", false,-1);
-    tracep->declBit(c+3508,"lru_MPORT_2_data", false,-1);
-    tracep->declBus(c+1987,"lru_MPORT_2_addr", false,-1, 4,0);
-    tracep->declBit(c+3475,"lru_MPORT_2_mask", false,-1);
-    tracep->declBit(c+2046,"lru_MPORT_2_en", false,-1);
-    tracep->declBit(c+3475,"lru_MPORT_3_data", false,-1);
-    tracep->declBus(c+1987,"lru_MPORT_3_addr", false,-1, 4,0);
-    tracep->declBit(c+3475,"lru_MPORT_3_mask", false,-1);
-    tracep->declBit(c+2047,"lru_MPORT_3_en", false,-1);
-    tracep->declBit(c+2041,"lru_lru_w_MPORT_en_pipe_0", false,-1);
-    tracep->declBus(c+2042,"lru_lru_w_MPORT_addr_pipe_0", false,-1, 4,0);
+    tracep->declBit(c+2010,"lru_lru_w_MPORT_en", false,-1);
+    tracep->declBus(c+2011,"lru_lru_w_MPORT_addr", false,-1, 4,0);
+    tracep->declBit(c+2012,"lru_lru_w_MPORT_data", false,-1);
+    tracep->declBit(c+3514,"lru_MPORT_data", false,-1);
+    tracep->declBus(c+1956,"lru_MPORT_addr", false,-1, 4,0);
+    tracep->declBit(c+3514,"lru_MPORT_mask", false,-1);
+    tracep->declBit(c+2013,"lru_MPORT_en", false,-1);
+    tracep->declBit(c+3556,"lru_MPORT_1_data", false,-1);
+    tracep->declBus(c+1956,"lru_MPORT_1_addr", false,-1, 4,0);
+    tracep->declBit(c+3514,"lru_MPORT_1_mask", false,-1);
+    tracep->declBit(c+2014,"lru_MPORT_1_en", false,-1);
+    tracep->declBit(c+3556,"lru_MPORT_2_data", false,-1);
+    tracep->declBus(c+1956,"lru_MPORT_2_addr", false,-1, 4,0);
+    tracep->declBit(c+3514,"lru_MPORT_2_mask", false,-1);
+    tracep->declBit(c+2015,"lru_MPORT_2_en", false,-1);
+    tracep->declBit(c+3514,"lru_MPORT_3_data", false,-1);
+    tracep->declBus(c+1956,"lru_MPORT_3_addr", false,-1, 4,0);
+    tracep->declBit(c+3514,"lru_MPORT_3_mask", false,-1);
+    tracep->declBit(c+2016,"lru_MPORT_3_en", false,-1);
+    tracep->declBit(c+2010,"lru_lru_w_MPORT_en_pipe_0", false,-1);
+    tracep->declBus(c+2011,"lru_lru_w_MPORT_addr_pipe_0", false,-1, 4,0);
     for (int i = 0; i < 32; ++i) {
-        tracep->declBit(c+2048+i*1,"dirt_0", true,(i+0));
+        tracep->declBit(c+2017+i*1,"dirt_0", true,(i+0));
     }
-    tracep->declBit(c+2080,"dirt_0_dirt_w_en", false,-1);
-    tracep->declBus(c+2081,"dirt_0_dirt_w_addr", false,-1, 4,0);
-    tracep->declBit(c+2082,"dirt_0_dirt_w_data", false,-1);
-    tracep->declBit(c+3475,"dirt_0_MPORT_4_data", false,-1);
-    tracep->declBus(c+1987,"dirt_0_MPORT_4_addr", false,-1, 4,0);
-    tracep->declBit(c+2083,"dirt_0_MPORT_4_mask", false,-1);
-    tracep->declBit(c+2084,"dirt_0_MPORT_4_en", false,-1);
-    tracep->declBit(c+2080,"dirt_0_dirt_w_en_pipe_0", false,-1);
-    tracep->declBus(c+2081,"dirt_0_dirt_w_addr_pipe_0", false,-1, 4,0);
+    tracep->declBit(c+2049,"dirt_0_dirt_w_en", false,-1);
+    tracep->declBus(c+2050,"dirt_0_dirt_w_addr", false,-1, 4,0);
+    tracep->declBit(c+2051,"dirt_0_dirt_w_data", false,-1);
+    tracep->declBit(c+3514,"dirt_0_MPORT_4_data", false,-1);
+    tracep->declBus(c+1956,"dirt_0_MPORT_4_addr", false,-1, 4,0);
+    tracep->declBit(c+2052,"dirt_0_MPORT_4_mask", false,-1);
+    tracep->declBit(c+2053,"dirt_0_MPORT_4_en", false,-1);
+    tracep->declBit(c+2049,"dirt_0_dirt_w_en_pipe_0", false,-1);
+    tracep->declBus(c+2050,"dirt_0_dirt_w_addr_pipe_0", false,-1, 4,0);
     for (int i = 0; i < 32; ++i) {
-        tracep->declBit(c+2085+i*1,"dirt_1", true,(i+0));
+        tracep->declBit(c+2054+i*1,"dirt_1", true,(i+0));
     }
-    tracep->declBit(c+2117,"dirt_1_dirt_w_en", false,-1);
-    tracep->declBus(c+2118,"dirt_1_dirt_w_addr", false,-1, 4,0);
-    tracep->declBit(c+2119,"dirt_1_dirt_w_data", false,-1);
-    tracep->declBit(c+3475,"dirt_1_MPORT_4_data", false,-1);
-    tracep->declBus(c+1987,"dirt_1_MPORT_4_addr", false,-1, 4,0);
-    tracep->declBit(c+2120,"dirt_1_MPORT_4_mask", false,-1);
-    tracep->declBit(c+2084,"dirt_1_MPORT_4_en", false,-1);
-    tracep->declBit(c+2117,"dirt_1_dirt_w_en_pipe_0", false,-1);
-    tracep->declBus(c+2118,"dirt_1_dirt_w_addr_pipe_0", false,-1, 4,0);
-    tracep->declBus(c+2121,"state", false,-1, 1,0);
-    tracep->declArray(c+2122,"data_line_reg", false,-1, 511,0);
-    tracep->declQuad(c+2138,"mem_addr_reg", false,-1, 63,0);
-    tracep->declBit(c+2140,"lru_r", false,-1);
-    tracep->declBus(c+2141,"count", false,-1, 3,0);
-    tracep->declBit(c+2142,"s", false,-1);
-    tracep->declBus(c+2143,"count_write", false,-1, 3,0);
-    tracep->declBit(c+2144,"s_w", false,-1);
-    tracep->declQuad(c+2145,"mem_write_addr_reg", false,-1, 63,0);
-    tracep->declArray(c+2147,"mem_write_data_reg", false,-1, 511,0);
-    tracep->declBit(c+2043,"lru_w", false,-1);
-    tracep->declBit(c+2007,"hit_way_0", false,-1);
-    tracep->declBit(c+2008,"hit_way_1", false,-1);
-    tracep->declQuad(c+2163,"hit_data", false,-1, 63,0);
-    tracep->declQuad(c+2165,"mem_data", false,-1, 63,0);
-    tracep->declBit(c+1989,"Scanf_io_in_valid_REG", false,-1);
-    tracep->declQuad(c+2167,"wmaskextend_Genmask", false,-1, 63,0);
-    tracep->declQuad(c+2169,"wmaskextend_lo_lo_lo", false,-1, 63,0);
-    tracep->declArray(c+2171,"wmaskextend_lo_lo", false,-1, 127,0);
-    tracep->declQuad(c+2175,"wmaskextend_lo_hi_lo", false,-1, 63,0);
-    tracep->declArray(c+2177,"wmaskextend_lo", false,-1, 255,0);
-    tracep->declQuad(c+2185,"wmaskextend_hi_lo_lo", false,-1, 63,0);
-    tracep->declArray(c+2187,"wmaskextend_hi_lo", false,-1, 127,0);
-    tracep->declQuad(c+2191,"wmaskextend_hi_hi_lo", false,-1, 63,0);
-    tracep->declArray(c+2193,"wmaskextend_hi", false,-1, 255,0);
-    tracep->declArray(c+2201,"wmaskextend", false,-1, 511,0);
-    tracep->declArray(c+2217,"wdata_extend", false,-1, 511,0);
-    tracep->declBus(c+2233,"waymask", false,-1, 1,0);
+    tracep->declBit(c+2086,"dirt_1_dirt_w_en", false,-1);
+    tracep->declBus(c+2087,"dirt_1_dirt_w_addr", false,-1, 4,0);
+    tracep->declBit(c+2088,"dirt_1_dirt_w_data", false,-1);
+    tracep->declBit(c+3514,"dirt_1_MPORT_4_data", false,-1);
+    tracep->declBus(c+1956,"dirt_1_MPORT_4_addr", false,-1, 4,0);
+    tracep->declBit(c+2089,"dirt_1_MPORT_4_mask", false,-1);
+    tracep->declBit(c+2053,"dirt_1_MPORT_4_en", false,-1);
+    tracep->declBit(c+2086,"dirt_1_dirt_w_en_pipe_0", false,-1);
+    tracep->declBus(c+2087,"dirt_1_dirt_w_addr_pipe_0", false,-1, 4,0);
+    tracep->declBus(c+2090,"state", false,-1, 2,0);
+    tracep->declBus(c+2091,"read_state", false,-1, 1,0);
+    tracep->declBus(c+2092,"write_state", false,-1, 1,0);
+    tracep->declArray(c+2093,"data_line_reg", false,-1, 511,0);
+    tracep->declQuad(c+2109,"mem_addr_reg", false,-1, 63,0);
+    tracep->declBit(c+2111,"lru_r", false,-1);
+    tracep->declBus(c+2112,"count_write", false,-1, 3,0);
+    tracep->declQuad(c+2113,"mem_write_addr_reg", false,-1, 63,0);
+    tracep->declArray(c+2115,"mem_write_data_reg", false,-1, 511,0);
+    tracep->declBit(c+2012,"lru_w", false,-1);
+    tracep->declBit(c+1976,"hit_way_0", false,-1);
+    tracep->declBit(c+1977,"hit_way_1", false,-1);
+    tracep->declQuad(c+2131,"hit_data", false,-1, 63,0);
+    tracep->declQuad(c+2133,"mem_data", false,-1, 63,0);
+    tracep->declBit(c+1958,"Scanf_io_in_valid_REG", false,-1);
+    tracep->declQuad(c+2135,"wmaskextend_Genmask", false,-1, 63,0);
+    tracep->declQuad(c+2137,"wmaskextend_lo_lo_lo", false,-1, 63,0);
+    tracep->declArray(c+2139,"wmaskextend_lo_lo", false,-1, 127,0);
+    tracep->declQuad(c+2143,"wmaskextend_lo_hi_lo", false,-1, 63,0);
+    tracep->declArray(c+2145,"wmaskextend_lo", false,-1, 255,0);
+    tracep->declQuad(c+2153,"wmaskextend_hi_lo_lo", false,-1, 63,0);
+    tracep->declArray(c+2155,"wmaskextend_hi_lo", false,-1, 127,0);
+    tracep->declQuad(c+2159,"wmaskextend_hi_hi_lo", false,-1, 63,0);
+    tracep->declArray(c+2161,"wmaskextend_hi", false,-1, 255,0);
+    tracep->declArray(c+2169,"wmaskextend", false,-1, 511,0);
+    tracep->declArray(c+2185,"wdata_extend", false,-1, 511,0);
+    tracep->declBus(c+2201,"waymask", false,-1, 1,0);
     tracep->pushNamePrefix("Cache_data ");
-    tracep->declBit(c+3469,"clock", false,-1);
-    tracep->declBit(c+1926,"io_in_valid", false,-1);
-    tracep->declQuad(c+235,"io_in_addr", false,-1, 63,0);
-    tracep->declQuad(c+1927,"io_write_bus_addr", false,-1, 63,0);
-    tracep->declBit(c+1929,"io_write_bus_valid", false,-1);
-    tracep->declBus(c+1930,"io_write_bus_waymask", false,-1, 1,0);
-    tracep->declArray(c+1931,"io_write_bus_wdata", false,-1, 511,0);
-    tracep->declBit(c+1926,"io_out_valid", false,-1);
-    tracep->declQuad(c+1947,"io_out_bits_meat_tag_0", false,-1, 52,0);
-    tracep->declQuad(c+1949,"io_out_bits_meat_tag_1", false,-1, 52,0);
-    tracep->declBit(c+1951,"io_out_bits_meat_valid_0", false,-1);
-    tracep->declBit(c+1952,"io_out_bits_meat_valid_1", false,-1);
-    tracep->declArray(c+1953,"io_out_bits_data_data_0", false,-1, 511,0);
-    tracep->declArray(c+1969,"io_out_bits_data_data_1", false,-1, 511,0);
-    tracep->declQuad(c+1985,"io_out_bits_ctrl_data_tag", false,-1, 52,0);
-    tracep->declBus(c+1987,"io_out_bits_ctrl_data_index", false,-1, 4,0);
-    tracep->declBus(c+1988,"io_out_bits_ctrl_data_offset", false,-1, 5,0);
+    tracep->declBit(c+3509,"clock", false,-1);
+    tracep->declBit(c+1895,"io_in_valid", false,-1);
+    tracep->declQuad(c+212,"io_in_addr", false,-1, 63,0);
+    tracep->declQuad(c+1896,"io_write_bus_addr", false,-1, 63,0);
+    tracep->declBit(c+1898,"io_write_bus_valid", false,-1);
+    tracep->declBus(c+1899,"io_write_bus_waymask", false,-1, 1,0);
+    tracep->declArray(c+1900,"io_write_bus_wdata", false,-1, 511,0);
+    tracep->declBit(c+1895,"io_out_valid", false,-1);
+    tracep->declQuad(c+1916,"io_out_bits_meat_tag_0", false,-1, 52,0);
+    tracep->declQuad(c+1918,"io_out_bits_meat_tag_1", false,-1, 52,0);
+    tracep->declBit(c+1920,"io_out_bits_meat_valid_0", false,-1);
+    tracep->declBit(c+1921,"io_out_bits_meat_valid_1", false,-1);
+    tracep->declArray(c+1922,"io_out_bits_data_data_0", false,-1, 511,0);
+    tracep->declArray(c+1938,"io_out_bits_data_data_1", false,-1, 511,0);
+    tracep->declQuad(c+1954,"io_out_bits_ctrl_data_tag", false,-1, 52,0);
+    tracep->declBus(c+1956,"io_out_bits_ctrl_data_index", false,-1, 4,0);
+    tracep->declBus(c+1957,"io_out_bits_ctrl_data_offset", false,-1, 5,0);
     for (int i = 0; i < 32; ++i) {
-        tracep->declArray(c+2234+i*16,"data_0", true,(i+0), 511,0);
+        tracep->declArray(c+2202+i*16,"data_0", true,(i+0), 511,0);
     }
-    tracep->declBit(c+2746,"data_0_data_w_en", false,-1);
-    tracep->declBus(c+2747,"data_0_data_w_addr", false,-1, 4,0);
-    tracep->declArray(c+1953,"data_0_data_w_data", false,-1, 511,0);
-    tracep->declArray(c+1931,"data_0_MPORT_data", false,-1, 511,0);
-    tracep->declBus(c+2748,"data_0_MPORT_addr", false,-1, 4,0);
-    tracep->declBit(c+2749,"data_0_MPORT_mask", false,-1);
-    tracep->declBit(c+1929,"data_0_MPORT_en", false,-1);
-    tracep->declBit(c+2746,"data_0_data_w_en_pipe_0", false,-1);
-    tracep->declBus(c+2747,"data_0_data_w_addr_pipe_0", false,-1, 4,0);
+    tracep->declBit(c+2714,"data_0_data_w_en", false,-1);
+    tracep->declBus(c+2715,"data_0_data_w_addr", false,-1, 4,0);
+    tracep->declArray(c+1922,"data_0_data_w_data", false,-1, 511,0);
+    tracep->declArray(c+1900,"data_0_MPORT_data", false,-1, 511,0);
+    tracep->declBus(c+2716,"data_0_MPORT_addr", false,-1, 4,0);
+    tracep->declBit(c+2717,"data_0_MPORT_mask", false,-1);
+    tracep->declBit(c+1898,"data_0_MPORT_en", false,-1);
+    tracep->declBit(c+2714,"data_0_data_w_en_pipe_0", false,-1);
+    tracep->declBus(c+2715,"data_0_data_w_addr_pipe_0", false,-1, 4,0);
     for (int i = 0; i < 32; ++i) {
-        tracep->declArray(c+2750+i*16,"data_1", true,(i+0), 511,0);
+        tracep->declArray(c+2718+i*16,"data_1", true,(i+0), 511,0);
     }
-    tracep->declBit(c+3262,"data_1_data_w_en", false,-1);
-    tracep->declBus(c+3263,"data_1_data_w_addr", false,-1, 4,0);
-    tracep->declArray(c+1969,"data_1_data_w_data", false,-1, 511,0);
-    tracep->declArray(c+1931,"data_1_MPORT_data", false,-1, 511,0);
-    tracep->declBus(c+2748,"data_1_MPORT_addr", false,-1, 4,0);
-    tracep->declBit(c+3264,"data_1_MPORT_mask", false,-1);
-    tracep->declBit(c+1929,"data_1_MPORT_en", false,-1);
-    tracep->declBit(c+3262,"data_1_data_w_en_pipe_0", false,-1);
-    tracep->declBus(c+3263,"data_1_data_w_addr_pipe_0", false,-1, 4,0);
+    tracep->declBit(c+3230,"data_1_data_w_en", false,-1);
+    tracep->declBus(c+3231,"data_1_data_w_addr", false,-1, 4,0);
+    tracep->declArray(c+1938,"data_1_data_w_data", false,-1, 511,0);
+    tracep->declArray(c+1900,"data_1_MPORT_data", false,-1, 511,0);
+    tracep->declBus(c+2716,"data_1_MPORT_addr", false,-1, 4,0);
+    tracep->declBit(c+3232,"data_1_MPORT_mask", false,-1);
+    tracep->declBit(c+1898,"data_1_MPORT_en", false,-1);
+    tracep->declBit(c+3230,"data_1_data_w_en_pipe_0", false,-1);
+    tracep->declBus(c+3231,"data_1_data_w_addr_pipe_0", false,-1, 4,0);
     for (int i = 0; i < 32; ++i) {
-        tracep->declQuad(c+3265+i*2,"TAG_0", true,(i+0), 52,0);
+        tracep->declQuad(c+3233+i*2,"TAG_0", true,(i+0), 52,0);
     }
-    tracep->declBit(c+3329,"TAG_0_tag_w_en", false,-1);
-    tracep->declBus(c+3330,"TAG_0_tag_w_addr", false,-1, 4,0);
-    tracep->declQuad(c+1947,"TAG_0_tag_w_data", false,-1, 52,0);
-    tracep->declQuad(c+3331,"TAG_0_MPORT_1_data", false,-1, 52,0);
-    tracep->declBus(c+2748,"TAG_0_MPORT_1_addr", false,-1, 4,0);
-    tracep->declBit(c+2749,"TAG_0_MPORT_1_mask", false,-1);
-    tracep->declBit(c+1929,"TAG_0_MPORT_1_en", false,-1);
-    tracep->declBit(c+3329,"TAG_0_tag_w_en_pipe_0", false,-1);
-    tracep->declBus(c+3330,"TAG_0_tag_w_addr_pipe_0", false,-1, 4,0);
+    tracep->declBit(c+3297,"TAG_0_tag_w_en", false,-1);
+    tracep->declBus(c+3298,"TAG_0_tag_w_addr", false,-1, 4,0);
+    tracep->declQuad(c+1916,"TAG_0_tag_w_data", false,-1, 52,0);
+    tracep->declQuad(c+3299,"TAG_0_MPORT_1_data", false,-1, 52,0);
+    tracep->declBus(c+2716,"TAG_0_MPORT_1_addr", false,-1, 4,0);
+    tracep->declBit(c+2717,"TAG_0_MPORT_1_mask", false,-1);
+    tracep->declBit(c+1898,"TAG_0_MPORT_1_en", false,-1);
+    tracep->declBit(c+3297,"TAG_0_tag_w_en_pipe_0", false,-1);
+    tracep->declBus(c+3298,"TAG_0_tag_w_addr_pipe_0", false,-1, 4,0);
     for (int i = 0; i < 32; ++i) {
-        tracep->declQuad(c+3333+i*2,"TAG_1", true,(i+0), 52,0);
+        tracep->declQuad(c+3301+i*2,"TAG_1", true,(i+0), 52,0);
     }
-    tracep->declBit(c+3397,"TAG_1_tag_w_en", false,-1);
-    tracep->declBus(c+3398,"TAG_1_tag_w_addr", false,-1, 4,0);
-    tracep->declQuad(c+1949,"TAG_1_tag_w_data", false,-1, 52,0);
-    tracep->declQuad(c+3331,"TAG_1_MPORT_1_data", false,-1, 52,0);
-    tracep->declBus(c+2748,"TAG_1_MPORT_1_addr", false,-1, 4,0);
-    tracep->declBit(c+3264,"TAG_1_MPORT_1_mask", false,-1);
-    tracep->declBit(c+1929,"TAG_1_MPORT_1_en", false,-1);
-    tracep->declBit(c+3397,"TAG_1_tag_w_en_pipe_0", false,-1);
-    tracep->declBus(c+3398,"TAG_1_tag_w_addr_pipe_0", false,-1, 4,0);
+    tracep->declBit(c+3365,"TAG_1_tag_w_en", false,-1);
+    tracep->declBus(c+3366,"TAG_1_tag_w_addr", false,-1, 4,0);
+    tracep->declQuad(c+1918,"TAG_1_tag_w_data", false,-1, 52,0);
+    tracep->declQuad(c+3299,"TAG_1_MPORT_1_data", false,-1, 52,0);
+    tracep->declBus(c+2716,"TAG_1_MPORT_1_addr", false,-1, 4,0);
+    tracep->declBit(c+3232,"TAG_1_MPORT_1_mask", false,-1);
+    tracep->declBit(c+1898,"TAG_1_MPORT_1_en", false,-1);
+    tracep->declBit(c+3365,"TAG_1_tag_w_en_pipe_0", false,-1);
+    tracep->declBus(c+3366,"TAG_1_tag_w_addr_pipe_0", false,-1, 4,0);
     for (int i = 0; i < 32; ++i) {
-        tracep->declBit(c+3399+i*1,"data_valid_0", true,(i+0));
+        tracep->declBit(c+3367+i*1,"data_valid_0", true,(i+0));
     }
-    tracep->declBit(c+3431,"data_valid_0_valid_w_en", false,-1);
-    tracep->declBus(c+3432,"data_valid_0_valid_w_addr", false,-1, 4,0);
-    tracep->declBit(c+1951,"data_valid_0_valid_w_data", false,-1);
-    tracep->declBit(c+3475,"data_valid_0_MPORT_2_data", false,-1);
-    tracep->declBus(c+2748,"data_valid_0_MPORT_2_addr", false,-1, 4,0);
-    tracep->declBit(c+2749,"data_valid_0_MPORT_2_mask", false,-1);
-    tracep->declBit(c+1929,"data_valid_0_MPORT_2_en", false,-1);
-    tracep->declBit(c+3431,"data_valid_0_valid_w_en_pipe_0", false,-1);
-    tracep->declBus(c+3432,"data_valid_0_valid_w_addr_pipe_0", false,-1, 4,0);
+    tracep->declBit(c+3399,"data_valid_0_valid_w_en", false,-1);
+    tracep->declBus(c+3400,"data_valid_0_valid_w_addr", false,-1, 4,0);
+    tracep->declBit(c+1920,"data_valid_0_valid_w_data", false,-1);
+    tracep->declBit(c+3514,"data_valid_0_MPORT_2_data", false,-1);
+    tracep->declBus(c+2716,"data_valid_0_MPORT_2_addr", false,-1, 4,0);
+    tracep->declBit(c+2717,"data_valid_0_MPORT_2_mask", false,-1);
+    tracep->declBit(c+1898,"data_valid_0_MPORT_2_en", false,-1);
+    tracep->declBit(c+3399,"data_valid_0_valid_w_en_pipe_0", false,-1);
+    tracep->declBus(c+3400,"data_valid_0_valid_w_addr_pipe_0", false,-1, 4,0);
     for (int i = 0; i < 32; ++i) {
-        tracep->declBit(c+3433+i*1,"data_valid_1", true,(i+0));
+        tracep->declBit(c+3401+i*1,"data_valid_1", true,(i+0));
     }
-    tracep->declBit(c+3465,"data_valid_1_valid_w_en", false,-1);
-    tracep->declBus(c+3466,"data_valid_1_valid_w_addr", false,-1, 4,0);
-    tracep->declBit(c+1952,"data_valid_1_valid_w_data", false,-1);
-    tracep->declBit(c+3475,"data_valid_1_MPORT_2_data", false,-1);
-    tracep->declBus(c+2748,"data_valid_1_MPORT_2_addr", false,-1, 4,0);
-    tracep->declBit(c+3264,"data_valid_1_MPORT_2_mask", false,-1);
-    tracep->declBit(c+1929,"data_valid_1_MPORT_2_en", false,-1);
-    tracep->declBit(c+3465,"data_valid_1_valid_w_en_pipe_0", false,-1);
-    tracep->declBus(c+3466,"data_valid_1_valid_w_addr_pipe_0", false,-1, 4,0);
+    tracep->declBit(c+3433,"data_valid_1_valid_w_en", false,-1);
+    tracep->declBus(c+3434,"data_valid_1_valid_w_addr", false,-1, 4,0);
+    tracep->declBit(c+1921,"data_valid_1_valid_w_data", false,-1);
+    tracep->declBit(c+3514,"data_valid_1_MPORT_2_data", false,-1);
+    tracep->declBus(c+2716,"data_valid_1_MPORT_2_addr", false,-1, 4,0);
+    tracep->declBit(c+3232,"data_valid_1_MPORT_2_mask", false,-1);
+    tracep->declBit(c+1898,"data_valid_1_MPORT_2_en", false,-1);
+    tracep->declBit(c+3433,"data_valid_1_valid_w_en_pipe_0", false,-1);
+    tracep->declBus(c+3434,"data_valid_1_valid_w_addr_pipe_0", false,-1, 4,0);
     tracep->popNamePrefix(1);
     tracep->pushNamePrefix("Scanf ");
-    tracep->declBit(c+1989,"io_in_valid", false,-1);
-    tracep->declQuad(c+1947,"io_in_bits_meat_tag_0", false,-1, 52,0);
-    tracep->declQuad(c+1949,"io_in_bits_meat_tag_1", false,-1, 52,0);
-    tracep->declBit(c+1951,"io_in_bits_meat_valid_0", false,-1);
-    tracep->declBit(c+1952,"io_in_bits_meat_valid_1", false,-1);
-    tracep->declArray(c+1953,"io_in_bits_data_data_0", false,-1, 511,0);
-    tracep->declArray(c+1969,"io_in_bits_data_data_1", false,-1, 511,0);
-    tracep->declQuad(c+1985,"io_in_bits_ctrl_data_tag", false,-1, 52,0);
-    tracep->declBus(c+1987,"io_in_bits_ctrl_data_index", false,-1, 4,0);
-    tracep->declBit(c+1990,"io_out_bits_hit", false,-1);
-    tracep->declArray(c+1991,"io_out_bits_data", false,-1, 511,0);
-    tracep->declBus(c+1987,"io_out_bits_meta_ctrl_data_index", false,-1, 4,0);
-    tracep->declBit(c+2007,"io_out_bits_hit_way_0", false,-1);
-    tracep->declBit(c+2008,"io_out_bits_hit_way_1", false,-1);
-    tracep->declQuad(c+1947,"io_out_bits_tag_0", false,-1, 52,0);
-    tracep->declQuad(c+1949,"io_out_bits_tag_1", false,-1, 52,0);
-    tracep->declBit(c+3467,"hit_way_0_result", false,-1);
-    tracep->declBit(c+3468,"hit_way_1_result", false,-1);
-    tracep->popNamePrefix(3);
+    tracep->declBit(c+1958,"io_in_valid", false,-1);
+    tracep->declQuad(c+1916,"io_in_bits_meat_tag_0", false,-1, 52,0);
+    tracep->declQuad(c+1918,"io_in_bits_meat_tag_1", false,-1, 52,0);
+    tracep->declBit(c+1920,"io_in_bits_meat_valid_0", false,-1);
+    tracep->declBit(c+1921,"io_in_bits_meat_valid_1", false,-1);
+    tracep->declArray(c+1922,"io_in_bits_data_data_0", false,-1, 511,0);
+    tracep->declArray(c+1938,"io_in_bits_data_data_1", false,-1, 511,0);
+    tracep->declQuad(c+1954,"io_in_bits_ctrl_data_tag", false,-1, 52,0);
+    tracep->declBus(c+1956,"io_in_bits_ctrl_data_index", false,-1, 4,0);
+    tracep->declBit(c+1959,"io_out_bits_hit", false,-1);
+    tracep->declArray(c+1960,"io_out_bits_data", false,-1, 511,0);
+    tracep->declBus(c+1956,"io_out_bits_meta_ctrl_data_index", false,-1, 4,0);
+    tracep->declBit(c+1976,"io_out_bits_hit_way_0", false,-1);
+    tracep->declBit(c+1977,"io_out_bits_hit_way_1", false,-1);
+    tracep->declQuad(c+1916,"io_out_bits_tag_0", false,-1, 52,0);
+    tracep->declQuad(c+1918,"io_out_bits_tag_1", false,-1, 52,0);
+    tracep->declBit(c+3435,"hit_way_0_result", false,-1);
+    tracep->declBit(c+3436,"hit_way_1_result", false,-1);
+    tracep->popNamePrefix(2);
+    tracep->pushNamePrefix("birdge ");
+    tracep->declBit(c+3509,"clock", false,-1);
+    tracep->declBit(c+3510,"reset", false,-1);
+    tracep->declBit(c+1883,"io_in_addr_req_valid", false,-1);
+    tracep->declQuad(c+212,"io_in_addr_req_bits_addr", false,-1, 63,0);
+    tracep->declBit(c+214,"io_in_addr_req_bits_ce", false,-1);
+    tracep->declBit(c+215,"io_in_addr_req_bits_we", false,-1);
+    tracep->declBit(c+1884,"io_in_rdata_rep_ready", false,-1);
+    tracep->declBit(c+1885,"io_in_rdata_rep_valid", false,-1);
+    tracep->declQuad(c+3480,"io_in_rdata_rep_bits_rdata", false,-1, 63,0);
+    tracep->declBit(c+1886,"io_in_wdata_req_valid", false,-1);
+    tracep->declQuad(c+217,"io_in_wdata_req_bits_wdata", false,-1, 63,0);
+    tracep->declBus(c+219,"io_in_wdata_req_bits_wmask", false,-1, 7,0);
+    tracep->declBit(c+1887,"io_in_wdata_rep", false,-1);
+    tracep->declBit(c+1888,"io_out_raddr_req_ready", false,-1);
+    tracep->declBit(c+1889,"io_out_raddr_req_valid", false,-1);
+    tracep->declQuad(c+212,"io_out_raddr_req_bits_addr", false,-1, 63,0);
+    tracep->declBit(c+1890,"io_out_waddr_req_ready", false,-1);
+    tracep->declBit(c+1891,"io_out_waddr_req_valid", false,-1);
+    tracep->declQuad(c+212,"io_out_waddr_req_bits_addr", false,-1, 63,0);
+    tracep->declBit(c+1884,"io_out_rdata_rep_ready", false,-1);
+    tracep->declBit(c+1885,"io_out_rdata_rep_valid", false,-1);
+    tracep->declQuad(c+3480,"io_out_rdata_rep_bits_data", false,-1, 63,0);
+    tracep->declBit(c+242,"io_out_rdata_rep_bits_last", false,-1);
+    tracep->declBit(c+1892,"io_out_wdata_req_ready", false,-1);
+    tracep->declBit(c+1886,"io_out_wdata_req_valid", false,-1);
+    tracep->declQuad(c+217,"io_out_wdata_req_bits_data", false,-1, 63,0);
+    tracep->declBus(c+219,"io_out_wdata_req_bits_wstrb", false,-1, 7,0);
+    tracep->declBit(c+1893,"io_out_wdata_req_bits_last", false,-1);
+    tracep->declBit(c+1894,"io_out_wb_ready", false,-1);
+    tracep->declBit(c+1887,"io_out_wb_valid", false,-1);
+    tracep->declBus(c+3547,"io_out_wb_bits_breap", false,-1, 1,0);
+    tracep->declBus(c+3437,"read_state", false,-1, 1,0);
+    tracep->declBus(c+3438,"write_state", false,-1, 1,0);
+    tracep->popNamePrefix(2);
     tracep->pushNamePrefix("WB ");
-    tracep->declBit(c+246,"io_in_valid", false,-1);
-    tracep->declBit(c+247,"io_in_bits_ctrl_signal_inst_valid", false,-1);
-    tracep->declBit(c+248,"io_in_bits_ctrl_signal_rfWen", false,-1);
-    tracep->declQuad(c+249,"io_in_bits_ctrl_flow_PC", false,-1, 63,0);
-    tracep->declBus(c+251,"io_in_bits_ctrl_flow_inst", false,-1, 31,0);
-    tracep->declQuad(c+252,"io_in_bits_ctrl_flow_Dnpc", false,-1, 63,0);
-    tracep->declBit(c+254,"io_in_bits_ctrl_flow_skip", false,-1);
-    tracep->declBus(c+207,"io_in_bits_ctrl_rf_rfDest", false,-1, 4,0);
-    tracep->declQuad(c+255,"io_in_bits_ctrl_rf_rfData", false,-1, 63,0);
-    tracep->declBit(c+3475,"io_out_ready", false,-1);
-    tracep->declBit(c+246,"io_out_valid", false,-1);
-    tracep->declBit(c+257,"io_out_bits_ctrl_signal_inst_valid", false,-1);
-    tracep->declQuad(c+249,"io_out_bits_ctrl_flow_PC", false,-1, 63,0);
-    tracep->declBus(c+251,"io_out_bits_ctrl_flow_inst", false,-1, 31,0);
-    tracep->declQuad(c+252,"io_out_bits_ctrl_flow_Dnpc", false,-1, 63,0);
-    tracep->declBit(c+254,"io_out_bits_ctrl_flow_skip", false,-1);
-    tracep->declBus(c+207,"io_out_bits_ctrl_rf_rfDest", false,-1, 4,0);
-    tracep->declBit(c+208,"io_out_bits_ctrl_rf_rfWen", false,-1);
-    tracep->declQuad(c+255,"io_out_bits_ctrl_rf_rfData", false,-1, 63,0);
+    tracep->declBit(c+221,"io_in_valid", false,-1);
+    tracep->declBit(c+222,"io_in_bits_ctrl_signal_inst_valid", false,-1);
+    tracep->declBit(c+223,"io_in_bits_ctrl_signal_rfWen", false,-1);
+    tracep->declQuad(c+224,"io_in_bits_ctrl_flow_PC", false,-1, 63,0);
+    tracep->declBus(c+226,"io_in_bits_ctrl_flow_inst", false,-1, 31,0);
+    tracep->declQuad(c+227,"io_in_bits_ctrl_flow_Dnpc", false,-1, 63,0);
+    tracep->declBit(c+229,"io_in_bits_ctrl_flow_skip", false,-1);
+    tracep->declBus(c+186,"io_in_bits_ctrl_rf_rfDest", false,-1, 4,0);
+    tracep->declQuad(c+230,"io_in_bits_ctrl_rf_rfData", false,-1, 63,0);
+    tracep->declBit(c+3514,"io_out_ready", false,-1);
+    tracep->declBit(c+221,"io_out_valid", false,-1);
+    tracep->declBit(c+232,"io_out_bits_ctrl_signal_inst_valid", false,-1);
+    tracep->declQuad(c+224,"io_out_bits_ctrl_flow_PC", false,-1, 63,0);
+    tracep->declBus(c+226,"io_out_bits_ctrl_flow_inst", false,-1, 31,0);
+    tracep->declQuad(c+227,"io_out_bits_ctrl_flow_Dnpc", false,-1, 63,0);
+    tracep->declBit(c+229,"io_out_bits_ctrl_flow_skip", false,-1);
+    tracep->declBus(c+186,"io_out_bits_ctrl_rf_rfDest", false,-1, 4,0);
+    tracep->declBit(c+187,"io_out_bits_ctrl_rf_rfWen", false,-1);
+    tracep->declQuad(c+230,"io_out_bits_ctrl_rf_rfData", false,-1, 63,0);
     tracep->popNamePrefix(1);
     tracep->pushNamePrefix("bypass ");
-    tracep->declBus(c+41,"io_EX_rf_rfDest", false,-1, 4,0);
-    tracep->declBit(c+57,"io_EX_rf_rfWen", false,-1);
-    tracep->declQuad(c+58,"io_EX_rf_rfData", false,-1, 63,0);
-    tracep->declBus(c+219,"io_MEM_rf_rfDest", false,-1, 4,0);
-    tracep->declBit(c+231,"io_MEM_rf_rfWen", false,-1);
-    tracep->declQuad(c+232,"io_MEM_rf_rfData", false,-1, 63,0);
-    tracep->declBus(c+207,"io_WB_rf_rfDest", false,-1, 4,0);
-    tracep->declBit(c+208,"io_WB_rf_rfWen", false,-1);
-    tracep->declQuad(c+255,"io_WB_rf_rfData", false,-1, 63,0);
-    tracep->declQuad(c+258,"io_Reg1", false,-1, 63,0);
-    tracep->declBus(c+25,"io_reg_index1", false,-1, 4,0);
-    tracep->declQuad(c+260,"io_Reg2", false,-1, 63,0);
-    tracep->declBus(c+26,"io_reg_index2", false,-1, 4,0);
-    tracep->declQuad(c+17,"io_Bypass_REG1", false,-1, 63,0);
-    tracep->declQuad(c+19,"io_Bypass_REG2", false,-1, 63,0);
+    tracep->declBus(c+30,"io_EX_rf_rfDest", false,-1, 4,0);
+    tracep->declBit(c+42,"io_EX_rf_rfWen", false,-1);
+    tracep->declQuad(c+3474,"io_EX_rf_rfData", false,-1, 63,0);
+    tracep->declBus(c+198,"io_MEM_rf_rfDest", false,-1, 4,0);
+    tracep->declBit(c+210,"io_MEM_rf_rfWen", false,-1);
+    tracep->declQuad(c+3476,"io_MEM_rf_rfData", false,-1, 63,0);
+    tracep->declBus(c+186,"io_WB_rf_rfDest", false,-1, 4,0);
+    tracep->declBit(c+187,"io_WB_rf_rfWen", false,-1);
+    tracep->declQuad(c+230,"io_WB_rf_rfData", false,-1, 63,0);
+    tracep->declQuad(c+233,"io_Reg1", false,-1, 63,0);
+    tracep->declBus(c+14,"io_reg_index1", false,-1, 4,0);
+    tracep->declQuad(c+235,"io_Reg2", false,-1, 63,0);
+    tracep->declBus(c+15,"io_reg_index2", false,-1, 4,0);
+    tracep->declQuad(c+3443,"io_Bypass_REG1", false,-1, 63,0);
+    tracep->declQuad(c+3445,"io_Bypass_REG2", false,-1, 63,0);
     tracep->popNamePrefix(1);
     tracep->pushNamePrefix("mem_bypass ");
-    tracep->declBus(c+219,"io_MEM_rf_rfDest", false,-1, 4,0);
-    tracep->declBit(c+231,"io_MEM_rf_rfWen", false,-1);
-    tracep->declQuad(c+232,"io_MEM_rf_rfData", false,-1, 63,0);
-    tracep->declQuad(c+42,"io_Reg1", false,-1, 63,0);
-    tracep->declBus(c+37,"io_reg_index1", false,-1, 4,0);
-    tracep->declQuad(c+44,"io_Reg2", false,-1, 63,0);
-    tracep->declBus(c+38,"io_reg_index2", false,-1, 4,0);
-    tracep->declQuad(c+51,"io_Bypass_REG1", false,-1, 63,0);
-    tracep->declQuad(c+53,"io_Bypass_REG2", false,-1, 63,0);
+    tracep->declBus(c+198,"io_MEM_rf_rfDest", false,-1, 4,0);
+    tracep->declBit(c+210,"io_MEM_rf_rfWen", false,-1);
+    tracep->declQuad(c+3476,"io_MEM_rf_rfData", false,-1, 63,0);
+    tracep->declQuad(c+31,"io_Reg1", false,-1, 63,0);
+    tracep->declBus(c+26,"io_reg_index1", false,-1, 4,0);
+    tracep->declQuad(c+33,"io_Reg2", false,-1, 63,0);
+    tracep->declBus(c+27,"io_reg_index2", false,-1, 4,0);
+    tracep->declQuad(c+3470,"io_Bypass_REG1", false,-1, 63,0);
+    tracep->declQuad(c+3472,"io_Bypass_REG2", false,-1, 63,0);
     tracep->popNamePrefix(2);
 }
 
@@ -1521,11 +1580,6 @@ VL_ATTR_COLD void VCoreTop___024root__trace_full_sub_0(VCoreTop___024root* vlSel
     VL_DEBUG_IF(VL_DBG_MSGF("+    VCoreTop___024root__trace_full_sub_0\n"); );
     // Init
     uint32_t* const oldp VL_ATTR_UNUSED = bufp->oldp(vlSymsp->__Vm_baseCode);
-    VlWide<4>/*127:0*/ __Vtemp_h84c74001__0;
-    VlWide<4>/*127:0*/ __Vtemp_h8248920c__0;
-    VlWide<4>/*127:0*/ __Vtemp_h14069084__0;
-    VlWide<4>/*127:0*/ __Vtemp_hf92011cd__0;
-    VlWide<4>/*127:0*/ __Vtemp_h6acab13b__0;
     VlWide<5>/*159:0*/ __Vtemp_h97a9be20__0;
     VlWide<5>/*159:0*/ __Vtemp_h97a9be20__1;
     VlWide<5>/*159:0*/ __Vtemp_h1a657afd__0;
@@ -1534,107 +1588,30 @@ VL_ATTR_COLD void VCoreTop___024root__trace_full_sub_0(VCoreTop___024root* vlSel
     VlWide<16>/*511:0*/ __Vtemp_h48a7178e__0;
     VlWide<16>/*511:0*/ __Vtemp_h4453b49e__0;
     VlWide<16>/*511:0*/ __Vtemp_hc2882e76__0;
+    VlWide<4>/*127:0*/ __Vtemp_h84c74001__0;
+    VlWide<4>/*127:0*/ __Vtemp_h8248920c__0;
+    VlWide<4>/*127:0*/ __Vtemp_h14069084__0;
+    VlWide<4>/*127:0*/ __Vtemp_hf92011cd__0;
+    VlWide<4>/*127:0*/ __Vtemp_h6acab13b__0;
     // Body
-    bufp->fullBit(oldp+1,(((((IData)(vlSelf->CoreTop__DOT__EX__DOT__branch_flag) 
-                             & (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_inst_valid)) 
-                            & (IData)(vlSelf->CoreTop__DOT__valid_1)) 
-                           & (~ (IData)(vlSelf->CoreTop__DOT__MEM__DOT___io_out_valid_T_6)))));
-    bufp->fullBit(oldp+2,(vlSelf->CoreTop__DOT__EX_io_branchIO_is_jump));
-    bufp->fullQData(oldp+3,(((0x19U == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
-                              ? vlSelf->CoreTop__DOT__EX__DOT___alu_result_T_1
-                              : vlSelf->CoreTop__DOT__EX__DOT___GEN_289)),64);
-    bufp->fullBit(oldp+5,(vlSelf->CoreTop__DOT__EX_io_in_ready));
-    bufp->fullQData(oldp+6,(vlSelf->CoreTop__DOT__IF__DOT__temp),64);
-    bufp->fullBit(oldp+8,(vlSelf->CoreTop__DOT__ICACHE_io_in_rdata_rep_valid));
-    bufp->fullQData(oldp+9,((((1U == (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__state)) 
+    bufp->fullBit(oldp+1,(vlSelf->CoreTop__DOT__EX_io_branchIO_is_jump));
+    bufp->fullBit(oldp+2,(vlSelf->CoreTop__DOT__EX_io_in_ready));
+    bufp->fullQData(oldp+3,(vlSelf->CoreTop__DOT__IF__DOT__temp),64);
+    bufp->fullQData(oldp+5,((((1U == (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__state)) 
                               & (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__Scanf_io_out_bits_hit))
                               ? vlSelf->CoreTop__DOT__ICACHE__DOT__hit_data
                               : vlSelf->CoreTop__DOT__ICACHE__DOT__mem_data)),64);
-    bufp->fullIData(oldp+11,(((IData)(vlSelf->CoreTop__DOT__EX_io_is_flush)
-                               ? 0U : ((1U & (IData)(
-                                                     (vlSelf->CoreTop__DOT__IF__DOT__temp 
-                                                      >> 2U)))
-                                        ? (IData)((
-                                                   (((1U 
-                                                      == (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__state)) 
-                                                     & (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__Scanf_io_out_bits_hit))
-                                                     ? vlSelf->CoreTop__DOT__ICACHE__DOT__hit_data
-                                                     : vlSelf->CoreTop__DOT__ICACHE__DOT__mem_data) 
-                                                   >> 0x20U))
-                                        : (IData)((
-                                                   ((1U 
-                                                     == (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__state)) 
-                                                    & (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__Scanf_io_out_bits_hit))
-                                                    ? vlSelf->CoreTop__DOT__ICACHE__DOT__hit_data
-                                                    : vlSelf->CoreTop__DOT__ICACHE__DOT__mem_data))))),32);
-    bufp->fullBit(oldp+12,(vlSelf->CoreTop__DOT__EX_io_is_flush));
-    bufp->fullBit(oldp+13,(vlSelf->CoreTop__DOT__valid));
-    bufp->fullQData(oldp+14,(vlSelf->CoreTop__DOT__ID_io_in_bits_r_PC),64);
-    bufp->fullIData(oldp+16,(vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst),32);
-    bufp->fullQData(oldp+17,(((((IData)(vlSelf->CoreTop__DOT__EX_io_out_bits_ctrl_rf_rfWen) 
-                                & ((IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_rfDest) 
-                                   == (0x1fU & (vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
-                                                >> 0xfU)))) 
-                               & (0U != (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_rfDest)))
-                               ? vlSelf->CoreTop__DOT__EX_io_out_bits_ctrl_rf_rfData
-                               : ((((IData)(vlSelf->CoreTop__DOT__MEM_io_out_bits_ctrl_rf_rfWen) 
-                                    & ((IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_rf_rfDest) 
-                                       == (0x1fU & 
-                                           (vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
-                                            >> 0xfU)))) 
-                                   & (0U != (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_rf_rfDest)))
-                                   ? vlSelf->CoreTop__DOT__MEM_io_out_bits_ctrl_rf_rfData
-                                   : ((((IData)(vlSelf->CoreTop__DOT__WB_io_out_bits_ctrl_rf_rfWen) 
-                                        & ((IData)(vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_rf_rfDest) 
-                                           == (0x1fU 
-                                               & (vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
-                                                  >> 0xfU)))) 
-                                       & (0U != (IData)(vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_rf_rfDest)))
-                                       ? vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_rf_rfData
-                                       : ((0U == (0x1fU 
-                                                  & (vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
-                                                     >> 0xfU)))
-                                           ? 0ULL : 
-                                          vlSelf->CoreTop__DOT__rf
-                                          [(0x1fU & 
-                                            (vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
-                                             >> 0xfU))]))))),64);
-    bufp->fullQData(oldp+19,(((((IData)(vlSelf->CoreTop__DOT__EX_io_out_bits_ctrl_rf_rfWen) 
-                                & ((IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_rfDest) 
-                                   == (0x1fU & (vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
-                                                >> 0x14U)))) 
-                               & (0U != (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_rfDest)))
-                               ? vlSelf->CoreTop__DOT__EX_io_out_bits_ctrl_rf_rfData
-                               : ((((IData)(vlSelf->CoreTop__DOT__MEM_io_out_bits_ctrl_rf_rfWen) 
-                                    & ((IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_rf_rfDest) 
-                                       == (0x1fU & 
-                                           (vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
-                                            >> 0x14U)))) 
-                                   & (0U != (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_rf_rfDest)))
-                                   ? vlSelf->CoreTop__DOT__MEM_io_out_bits_ctrl_rf_rfData
-                                   : ((((IData)(vlSelf->CoreTop__DOT__WB_io_out_bits_ctrl_rf_rfWen) 
-                                        & ((IData)(vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_rf_rfDest) 
-                                           == (0x1fU 
-                                               & (vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
-                                                  >> 0x14U)))) 
-                                       & (0U != (IData)(vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_rf_rfDest)))
-                                       ? vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_rf_rfData
-                                       : ((0U == (0x1fU 
-                                                  & (vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
-                                                     >> 0x14U)))
-                                           ? 0ULL : 
-                                          vlSelf->CoreTop__DOT__rf
-                                          [(0x1fU & 
-                                            (vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
-                                             >> 0x14U))]))))),64);
-    bufp->fullCData(oldp+21,((((7U == (IData)(vlSelf->CoreTop__DOT__ID__DOT__Inst_decode_0))
+    bufp->fullBit(oldp+7,(vlSelf->CoreTop__DOT__valid));
+    bufp->fullQData(oldp+8,(vlSelf->CoreTop__DOT__ID_io_in_bits_r_PC),64);
+    bufp->fullIData(oldp+10,(vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst),32);
+    bufp->fullCData(oldp+11,((((7U == (IData)(vlSelf->CoreTop__DOT__ID__DOT__Inst_decode_0))
                                 ? 2U : 0U) | ((3U == (IData)(vlSelf->CoreTop__DOT__ID__DOT__Inst_decode_0))
                                                ? 2U
                                                : 0U))),3);
-    bufp->fullCData(oldp+22,((((8U == (IData)(vlSelf->CoreTop__DOT__ID__DOT__Inst_decode_0)) 
+    bufp->fullCData(oldp+12,((((8U == (IData)(vlSelf->CoreTop__DOT__ID__DOT__Inst_decode_0)) 
                                | (7U == (IData)(vlSelf->CoreTop__DOT__ID__DOT__Inst_decode_0))) 
                               | (3U == (IData)(vlSelf->CoreTop__DOT__ID__DOT__Inst_decode_0)))),3);
-    bufp->fullCData(oldp+23,(((0x13U == (0x707fU & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+    bufp->fullCData(oldp+13,(((0x13U == (0x707fU & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
                                ? 0U : ((0x1013U == 
                                         (0xfc00707fU 
                                          & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
@@ -1716,24 +1693,17 @@ VL_ATTR_COLD void VCoreTop___024root__trace_full_sub_0(VCoreTop___024root* vlSel
                                                               & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
                                                              ? 4U
                                                              : (IData)(vlSelf->CoreTop__DOT__ID__DOT___Inst_decode_T_239))))))))))))))))),3);
-    bufp->fullBit(oldp+24,((1U & (~ (((0U == ((0x13U 
-                                               == (0x707fU 
-                                                   & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
-                                               ? 0x40U
-                                               : (IData)(vlSelf->CoreTop__DOT__ID__DOT___Inst_decode_T_316))) 
-                                      | (IData)(vlSelf->CoreTop__DOT__EX_io_is_flush)) 
-                                     | (~ (IData)(vlSelf->CoreTop__DOT__valid)))))));
-    bufp->fullCData(oldp+25,((0x1fU & (vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
+    bufp->fullCData(oldp+14,((0x1fU & (vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
                                        >> 0xfU))),5);
-    bufp->fullCData(oldp+26,((0x1fU & (vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
+    bufp->fullCData(oldp+15,((0x1fU & (vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
                                        >> 0x14U))),5);
-    bufp->fullBit(oldp+27,(((IData)(vlSelf->CoreTop__DOT__valid) 
+    bufp->fullBit(oldp+16,(((IData)(vlSelf->CoreTop__DOT__valid) 
                             & (IData)(vlSelf->CoreTop__DOT__ID__DOT__Inst_decode_3))));
-    bufp->fullCData(oldp+28,(((0x13U == (0x707fU & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+    bufp->fullCData(oldp+17,(((0x13U == (0x707fU & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
                                ? 0x40U : (IData)(vlSelf->CoreTop__DOT__ID__DOT___Inst_decode_T_316))),7);
-    bufp->fullCData(oldp+29,((0x1fU & (vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
+    bufp->fullCData(oldp+18,((0x1fU & (vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
                                        >> 7U))),5);
-    bufp->fullQData(oldp+30,(((((((8U == (IData)(vlSelf->CoreTop__DOT__ID__DOT__Inst_decode_0))
+    bufp->fullQData(oldp+19,(((((((8U == (IData)(vlSelf->CoreTop__DOT__ID__DOT__Inst_decode_0))
                                    ? ((((vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
                                          >> 0x1fU) ? 0xfffffffffffffULL
                                          : 0ULL) << 0xcU) 
@@ -1800,491 +1770,430 @@ VL_ATTR_COLD void VCoreTop___024root__trace_full_sub_0(VCoreTop___024root* vlSel
                                                                  & (vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
                                                                     >> 7U))))))))
                                   : 0ULL))),64);
-    bufp->fullBit(oldp+32,(vlSelf->CoreTop__DOT__valid_1));
-    bufp->fullCData(oldp+33,(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_src1Type),3);
-    bufp->fullCData(oldp+34,(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_src2Type),3);
-    bufp->fullCData(oldp+35,(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_fuType),3);
-    bufp->fullBit(oldp+36,(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_inst_valid));
-    bufp->fullCData(oldp+37,(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_rfSrc1),5);
-    bufp->fullCData(oldp+38,(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_rfSrc2),5);
-    bufp->fullBit(oldp+39,(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_rfWen));
-    bufp->fullCData(oldp+40,(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype),7);
-    bufp->fullCData(oldp+41,(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_rfDest),5);
-    bufp->fullQData(oldp+42,(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_data_src1),64);
-    bufp->fullQData(oldp+44,(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_data_src2),64);
-    bufp->fullQData(oldp+46,(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_data_Imm),64);
-    bufp->fullQData(oldp+48,(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_flow_PC),64);
-    bufp->fullIData(oldp+50,(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_flow_inst),32);
-    bufp->fullQData(oldp+51,(vlSelf->CoreTop__DOT__mem_bypass_io_Bypass_REG1),64);
-    bufp->fullQData(oldp+53,(vlSelf->CoreTop__DOT__mem_bypass_io_Bypass_REG2),64);
-    bufp->fullBit(oldp+55,((1U & (~ (IData)(vlSelf->CoreTop__DOT__MEM__DOT___io_out_valid_T_6)))));
-    bufp->fullBit(oldp+56,(vlSelf->CoreTop__DOT__EX_io_out_valid));
-    bufp->fullBit(oldp+57,(vlSelf->CoreTop__DOT__EX_io_out_bits_ctrl_rf_rfWen));
-    bufp->fullQData(oldp+58,(vlSelf->CoreTop__DOT__EX_io_out_bits_ctrl_rf_rfData),64);
-    bufp->fullQData(oldp+60,(((0U == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_src1Type))
-                               ? vlSelf->CoreTop__DOT__mem_bypass_io_Bypass_REG1
-                               : vlSelf->CoreTop__DOT__EX__DOT___GEN_1)),64);
-    bufp->fullQData(oldp+62,(((0U == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_src2Type))
-                               ? vlSelf->CoreTop__DOT__mem_bypass_io_Bypass_REG2
-                               : vlSelf->CoreTop__DOT__EX__DOT___GEN_3)),64);
-    bufp->fullBit(oldp+64,(((0x42U == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype)) 
+    bufp->fullBit(oldp+21,(vlSelf->CoreTop__DOT__valid_1));
+    bufp->fullCData(oldp+22,(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_src1Type),3);
+    bufp->fullCData(oldp+23,(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_src2Type),3);
+    bufp->fullCData(oldp+24,(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_fuType),3);
+    bufp->fullBit(oldp+25,(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_inst_valid));
+    bufp->fullCData(oldp+26,(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_rfSrc1),5);
+    bufp->fullCData(oldp+27,(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_rfSrc2),5);
+    bufp->fullBit(oldp+28,(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_rfWen));
+    bufp->fullCData(oldp+29,(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype),7);
+    bufp->fullCData(oldp+30,(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_rfDest),5);
+    bufp->fullQData(oldp+31,(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_data_src1),64);
+    bufp->fullQData(oldp+33,(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_data_src2),64);
+    bufp->fullQData(oldp+35,(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_data_Imm),64);
+    bufp->fullQData(oldp+37,(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_flow_PC),64);
+    bufp->fullIData(oldp+39,(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_flow_inst),32);
+    bufp->fullBit(oldp+40,((1U & (~ (IData)(vlSelf->CoreTop__DOT__MEM__DOT___io_out_valid_T_6)))));
+    bufp->fullBit(oldp+41,(vlSelf->CoreTop__DOT__EX_io_out_valid));
+    bufp->fullBit(oldp+42,(vlSelf->CoreTop__DOT__EX_io_out_bits_ctrl_rf_rfWen));
+    bufp->fullBit(oldp+43,(((0x42U == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype)) 
                             & (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_inst_valid))));
-    bufp->fullBit(oldp+65,(vlSelf->CoreTop__DOT__DIP_io_is_break_REG_1));
-    bufp->fullQData(oldp+66,(vlSelf->CoreTop__DOT__rf
+    bufp->fullBit(oldp+44,(vlSelf->CoreTop__DOT__DIP_io_is_break_REG_1));
+    bufp->fullQData(oldp+45,(vlSelf->CoreTop__DOT__rf
                              [0U]),64);
-    bufp->fullQData(oldp+68,(vlSelf->CoreTop__DOT__rf
+    bufp->fullQData(oldp+47,(vlSelf->CoreTop__DOT__rf
                              [1U]),64);
-    bufp->fullQData(oldp+70,(vlSelf->CoreTop__DOT__rf
+    bufp->fullQData(oldp+49,(vlSelf->CoreTop__DOT__rf
                              [2U]),64);
-    bufp->fullQData(oldp+72,(vlSelf->CoreTop__DOT__rf
+    bufp->fullQData(oldp+51,(vlSelf->CoreTop__DOT__rf
                              [3U]),64);
-    bufp->fullQData(oldp+74,(vlSelf->CoreTop__DOT__rf
+    bufp->fullQData(oldp+53,(vlSelf->CoreTop__DOT__rf
                              [4U]),64);
-    bufp->fullQData(oldp+76,(vlSelf->CoreTop__DOT__rf
+    bufp->fullQData(oldp+55,(vlSelf->CoreTop__DOT__rf
                              [5U]),64);
-    bufp->fullQData(oldp+78,(vlSelf->CoreTop__DOT__rf
+    bufp->fullQData(oldp+57,(vlSelf->CoreTop__DOT__rf
                              [6U]),64);
-    bufp->fullQData(oldp+80,(vlSelf->CoreTop__DOT__rf
+    bufp->fullQData(oldp+59,(vlSelf->CoreTop__DOT__rf
                              [7U]),64);
-    bufp->fullQData(oldp+82,(vlSelf->CoreTop__DOT__rf
+    bufp->fullQData(oldp+61,(vlSelf->CoreTop__DOT__rf
                              [8U]),64);
-    bufp->fullQData(oldp+84,(vlSelf->CoreTop__DOT__rf
+    bufp->fullQData(oldp+63,(vlSelf->CoreTop__DOT__rf
                              [9U]),64);
-    bufp->fullQData(oldp+86,(vlSelf->CoreTop__DOT__rf
+    bufp->fullQData(oldp+65,(vlSelf->CoreTop__DOT__rf
                              [0xaU]),64);
-    bufp->fullQData(oldp+88,(vlSelf->CoreTop__DOT__rf
+    bufp->fullQData(oldp+67,(vlSelf->CoreTop__DOT__rf
                              [0xbU]),64);
-    bufp->fullQData(oldp+90,(vlSelf->CoreTop__DOT__rf
+    bufp->fullQData(oldp+69,(vlSelf->CoreTop__DOT__rf
                              [0xcU]),64);
-    bufp->fullQData(oldp+92,(vlSelf->CoreTop__DOT__rf
+    bufp->fullQData(oldp+71,(vlSelf->CoreTop__DOT__rf
                              [0xdU]),64);
-    bufp->fullQData(oldp+94,(vlSelf->CoreTop__DOT__rf
+    bufp->fullQData(oldp+73,(vlSelf->CoreTop__DOT__rf
                              [0xeU]),64);
-    bufp->fullQData(oldp+96,(vlSelf->CoreTop__DOT__rf
+    bufp->fullQData(oldp+75,(vlSelf->CoreTop__DOT__rf
                              [0xfU]),64);
-    bufp->fullQData(oldp+98,(vlSelf->CoreTop__DOT__rf
+    bufp->fullQData(oldp+77,(vlSelf->CoreTop__DOT__rf
                              [0x10U]),64);
-    bufp->fullQData(oldp+100,(vlSelf->CoreTop__DOT__rf
-                              [0x11U]),64);
-    bufp->fullQData(oldp+102,(vlSelf->CoreTop__DOT__rf
-                              [0x12U]),64);
-    bufp->fullQData(oldp+104,(vlSelf->CoreTop__DOT__rf
-                              [0x13U]),64);
-    bufp->fullQData(oldp+106,(vlSelf->CoreTop__DOT__rf
-                              [0x14U]),64);
-    bufp->fullQData(oldp+108,(vlSelf->CoreTop__DOT__rf
-                              [0x15U]),64);
-    bufp->fullQData(oldp+110,(vlSelf->CoreTop__DOT__rf
-                              [0x16U]),64);
-    bufp->fullQData(oldp+112,(vlSelf->CoreTop__DOT__rf
-                              [0x17U]),64);
-    bufp->fullQData(oldp+114,(vlSelf->CoreTop__DOT__rf
-                              [0x18U]),64);
-    bufp->fullQData(oldp+116,(vlSelf->CoreTop__DOT__rf
-                              [0x19U]),64);
-    bufp->fullQData(oldp+118,(vlSelf->CoreTop__DOT__rf
-                              [0x1aU]),64);
-    bufp->fullQData(oldp+120,(vlSelf->CoreTop__DOT__rf
-                              [0x1bU]),64);
-    bufp->fullQData(oldp+122,(vlSelf->CoreTop__DOT__rf
+    bufp->fullQData(oldp+79,(vlSelf->CoreTop__DOT__rf
+                             [0x11U]),64);
+    bufp->fullQData(oldp+81,(vlSelf->CoreTop__DOT__rf
+                             [0x12U]),64);
+    bufp->fullQData(oldp+83,(vlSelf->CoreTop__DOT__rf
+                             [0x13U]),64);
+    bufp->fullQData(oldp+85,(vlSelf->CoreTop__DOT__rf
+                             [0x14U]),64);
+    bufp->fullQData(oldp+87,(vlSelf->CoreTop__DOT__rf
+                             [0x15U]),64);
+    bufp->fullQData(oldp+89,(vlSelf->CoreTop__DOT__rf
+                             [0x16U]),64);
+    bufp->fullQData(oldp+91,(vlSelf->CoreTop__DOT__rf
+                             [0x17U]),64);
+    bufp->fullQData(oldp+93,(vlSelf->CoreTop__DOT__rf
+                             [0x18U]),64);
+    bufp->fullQData(oldp+95,(vlSelf->CoreTop__DOT__rf
+                             [0x19U]),64);
+    bufp->fullQData(oldp+97,(vlSelf->CoreTop__DOT__rf
+                             [0x1aU]),64);
+    bufp->fullQData(oldp+99,(vlSelf->CoreTop__DOT__rf
+                             [0x1bU]),64);
+    bufp->fullQData(oldp+101,(vlSelf->CoreTop__DOT__rf
                               [0x1cU]),64);
-    bufp->fullQData(oldp+124,(vlSelf->CoreTop__DOT__rf
+    bufp->fullQData(oldp+103,(vlSelf->CoreTop__DOT__rf
                               [0x1dU]),64);
-    bufp->fullQData(oldp+126,(vlSelf->CoreTop__DOT__rf
+    bufp->fullQData(oldp+105,(vlSelf->CoreTop__DOT__rf
                               [0x1eU]),64);
-    bufp->fullQData(oldp+128,(vlSelf->CoreTop__DOT__rf
+    bufp->fullQData(oldp+107,(vlSelf->CoreTop__DOT__rf
                               [0x1fU]),64);
-    bufp->fullIData(oldp+130,(vlSelf->CoreTop__DOT__DIP_io_inst_REG),32);
-    bufp->fullQData(oldp+131,(vlSelf->CoreTop__DOT__DIP_io_pc_REG),64);
-    bufp->fullBit(oldp+133,(vlSelf->CoreTop__DOT__DIP_io_inst_valid_REG));
-    bufp->fullQData(oldp+134,(vlSelf->CoreTop__DOT__DIP_io_dnpc_REG),64);
-    bufp->fullBit(oldp+136,(vlSelf->CoreTop__DOT__DIP_io_is_skip_REG));
-    bufp->fullQData(oldp+137,(vlSelf->CoreTop__DOT__rf[0]),64);
-    bufp->fullQData(oldp+139,(vlSelf->CoreTop__DOT__rf[1]),64);
-    bufp->fullQData(oldp+141,(vlSelf->CoreTop__DOT__rf[2]),64);
-    bufp->fullQData(oldp+143,(vlSelf->CoreTop__DOT__rf[3]),64);
-    bufp->fullQData(oldp+145,(vlSelf->CoreTop__DOT__rf[4]),64);
-    bufp->fullQData(oldp+147,(vlSelf->CoreTop__DOT__rf[5]),64);
-    bufp->fullQData(oldp+149,(vlSelf->CoreTop__DOT__rf[6]),64);
-    bufp->fullQData(oldp+151,(vlSelf->CoreTop__DOT__rf[7]),64);
-    bufp->fullQData(oldp+153,(vlSelf->CoreTop__DOT__rf[8]),64);
-    bufp->fullQData(oldp+155,(vlSelf->CoreTop__DOT__rf[9]),64);
-    bufp->fullQData(oldp+157,(vlSelf->CoreTop__DOT__rf[10]),64);
-    bufp->fullQData(oldp+159,(vlSelf->CoreTop__DOT__rf[11]),64);
-    bufp->fullQData(oldp+161,(vlSelf->CoreTop__DOT__rf[12]),64);
-    bufp->fullQData(oldp+163,(vlSelf->CoreTop__DOT__rf[13]),64);
-    bufp->fullQData(oldp+165,(vlSelf->CoreTop__DOT__rf[14]),64);
-    bufp->fullQData(oldp+167,(vlSelf->CoreTop__DOT__rf[15]),64);
-    bufp->fullQData(oldp+169,(vlSelf->CoreTop__DOT__rf[16]),64);
-    bufp->fullQData(oldp+171,(vlSelf->CoreTop__DOT__rf[17]),64);
-    bufp->fullQData(oldp+173,(vlSelf->CoreTop__DOT__rf[18]),64);
-    bufp->fullQData(oldp+175,(vlSelf->CoreTop__DOT__rf[19]),64);
-    bufp->fullQData(oldp+177,(vlSelf->CoreTop__DOT__rf[20]),64);
-    bufp->fullQData(oldp+179,(vlSelf->CoreTop__DOT__rf[21]),64);
-    bufp->fullQData(oldp+181,(vlSelf->CoreTop__DOT__rf[22]),64);
-    bufp->fullQData(oldp+183,(vlSelf->CoreTop__DOT__rf[23]),64);
-    bufp->fullQData(oldp+185,(vlSelf->CoreTop__DOT__rf[24]),64);
-    bufp->fullQData(oldp+187,(vlSelf->CoreTop__DOT__rf[25]),64);
-    bufp->fullQData(oldp+189,(vlSelf->CoreTop__DOT__rf[26]),64);
-    bufp->fullQData(oldp+191,(vlSelf->CoreTop__DOT__rf[27]),64);
-    bufp->fullQData(oldp+193,(vlSelf->CoreTop__DOT__rf[28]),64);
-    bufp->fullQData(oldp+195,(vlSelf->CoreTop__DOT__rf[29]),64);
-    bufp->fullQData(oldp+197,(vlSelf->CoreTop__DOT__rf[30]),64);
-    bufp->fullQData(oldp+199,(vlSelf->CoreTop__DOT__rf[31]),64);
-    bufp->fullQData(oldp+201,(vlSelf->CoreTop__DOT__rf
+    bufp->fullIData(oldp+109,(vlSelf->CoreTop__DOT__DIP_io_inst_REG),32);
+    bufp->fullQData(oldp+110,(vlSelf->CoreTop__DOT__DIP_io_pc_REG),64);
+    bufp->fullBit(oldp+112,(vlSelf->CoreTop__DOT__DIP_io_inst_valid_REG));
+    bufp->fullQData(oldp+113,(vlSelf->CoreTop__DOT__DIP_io_dnpc_REG),64);
+    bufp->fullBit(oldp+115,(vlSelf->CoreTop__DOT__DIP_io_is_skip_REG));
+    bufp->fullQData(oldp+116,(vlSelf->CoreTop__DOT__rf[0]),64);
+    bufp->fullQData(oldp+118,(vlSelf->CoreTop__DOT__rf[1]),64);
+    bufp->fullQData(oldp+120,(vlSelf->CoreTop__DOT__rf[2]),64);
+    bufp->fullQData(oldp+122,(vlSelf->CoreTop__DOT__rf[3]),64);
+    bufp->fullQData(oldp+124,(vlSelf->CoreTop__DOT__rf[4]),64);
+    bufp->fullQData(oldp+126,(vlSelf->CoreTop__DOT__rf[5]),64);
+    bufp->fullQData(oldp+128,(vlSelf->CoreTop__DOT__rf[6]),64);
+    bufp->fullQData(oldp+130,(vlSelf->CoreTop__DOT__rf[7]),64);
+    bufp->fullQData(oldp+132,(vlSelf->CoreTop__DOT__rf[8]),64);
+    bufp->fullQData(oldp+134,(vlSelf->CoreTop__DOT__rf[9]),64);
+    bufp->fullQData(oldp+136,(vlSelf->CoreTop__DOT__rf[10]),64);
+    bufp->fullQData(oldp+138,(vlSelf->CoreTop__DOT__rf[11]),64);
+    bufp->fullQData(oldp+140,(vlSelf->CoreTop__DOT__rf[12]),64);
+    bufp->fullQData(oldp+142,(vlSelf->CoreTop__DOT__rf[13]),64);
+    bufp->fullQData(oldp+144,(vlSelf->CoreTop__DOT__rf[14]),64);
+    bufp->fullQData(oldp+146,(vlSelf->CoreTop__DOT__rf[15]),64);
+    bufp->fullQData(oldp+148,(vlSelf->CoreTop__DOT__rf[16]),64);
+    bufp->fullQData(oldp+150,(vlSelf->CoreTop__DOT__rf[17]),64);
+    bufp->fullQData(oldp+152,(vlSelf->CoreTop__DOT__rf[18]),64);
+    bufp->fullQData(oldp+154,(vlSelf->CoreTop__DOT__rf[19]),64);
+    bufp->fullQData(oldp+156,(vlSelf->CoreTop__DOT__rf[20]),64);
+    bufp->fullQData(oldp+158,(vlSelf->CoreTop__DOT__rf[21]),64);
+    bufp->fullQData(oldp+160,(vlSelf->CoreTop__DOT__rf[22]),64);
+    bufp->fullQData(oldp+162,(vlSelf->CoreTop__DOT__rf[23]),64);
+    bufp->fullQData(oldp+164,(vlSelf->CoreTop__DOT__rf[24]),64);
+    bufp->fullQData(oldp+166,(vlSelf->CoreTop__DOT__rf[25]),64);
+    bufp->fullQData(oldp+168,(vlSelf->CoreTop__DOT__rf[26]),64);
+    bufp->fullQData(oldp+170,(vlSelf->CoreTop__DOT__rf[27]),64);
+    bufp->fullQData(oldp+172,(vlSelf->CoreTop__DOT__rf[28]),64);
+    bufp->fullQData(oldp+174,(vlSelf->CoreTop__DOT__rf[29]),64);
+    bufp->fullQData(oldp+176,(vlSelf->CoreTop__DOT__rf[30]),64);
+    bufp->fullQData(oldp+178,(vlSelf->CoreTop__DOT__rf[31]),64);
+    bufp->fullQData(oldp+180,(vlSelf->CoreTop__DOT__rf
                               [(0x1fU & (vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
                                          >> 0xfU))]),64);
-    bufp->fullQData(oldp+203,(vlSelf->CoreTop__DOT__rf
+    bufp->fullQData(oldp+182,(vlSelf->CoreTop__DOT__rf
                               [(0x1fU & (vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
                                          >> 0x14U))]),64);
-    bufp->fullQData(oldp+205,(((0U == (IData)(vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_rf_rfDest))
+    bufp->fullQData(oldp+184,(((0U == (IData)(vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_rf_rfDest))
                                 ? 0ULL : vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_rf_rfData)),64);
-    bufp->fullCData(oldp+207,(vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_rf_rfDest),5);
-    bufp->fullBit(oldp+208,(vlSelf->CoreTop__DOT__WB_io_out_bits_ctrl_rf_rfWen));
-    bufp->fullBit(oldp+209,(vlSelf->CoreTop__DOT__valid_2));
-    bufp->fullCData(oldp+210,(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_fuType),3);
-    bufp->fullBit(oldp+211,(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_inst_valid));
-    bufp->fullBit(oldp+212,(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_rfWen));
-    bufp->fullCData(oldp+213,(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_aluoptype),7);
-    bufp->fullQData(oldp+214,(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_flow_PC),64);
-    bufp->fullIData(oldp+216,(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_flow_inst),32);
-    bufp->fullQData(oldp+217,(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_flow_Dnpc),64);
-    bufp->fullCData(oldp+219,(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_rf_rfDest),5);
-    bufp->fullQData(oldp+220,(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_rf_rfData),64);
-    bufp->fullQData(oldp+222,(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_data_src1),64);
-    bufp->fullQData(oldp+224,(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_data_src2),64);
-    bufp->fullQData(oldp+226,(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_data_Imm),64);
-    bufp->fullBit(oldp+228,(vlSelf->CoreTop__DOT__MEM_io_out_valid));
-    bufp->fullBit(oldp+229,(vlSelf->CoreTop__DOT__MEM_io_out_bits_ctrl_signal_inst_valid));
-    bufp->fullBit(oldp+230,((((0xa0000048ULL == vlSelf->CoreTop__DOT__MEM__DOT__addr_temp) 
+    bufp->fullCData(oldp+186,(vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_rf_rfDest),5);
+    bufp->fullBit(oldp+187,(vlSelf->CoreTop__DOT__WB_io_out_bits_ctrl_rf_rfWen));
+    bufp->fullBit(oldp+188,(vlSelf->CoreTop__DOT__valid_2));
+    bufp->fullCData(oldp+189,(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_fuType),3);
+    bufp->fullBit(oldp+190,(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_inst_valid));
+    bufp->fullBit(oldp+191,(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_rfWen));
+    bufp->fullCData(oldp+192,(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_aluoptype),7);
+    bufp->fullQData(oldp+193,(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_flow_PC),64);
+    bufp->fullIData(oldp+195,(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_flow_inst),32);
+    bufp->fullQData(oldp+196,(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_flow_Dnpc),64);
+    bufp->fullCData(oldp+198,(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_rf_rfDest),5);
+    bufp->fullQData(oldp+199,(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_rf_rfData),64);
+    bufp->fullQData(oldp+201,(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_data_src1),64);
+    bufp->fullQData(oldp+203,(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_data_src2),64);
+    bufp->fullQData(oldp+205,(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_data_Imm),64);
+    bufp->fullBit(oldp+207,(vlSelf->CoreTop__DOT__MEM_io_out_valid));
+    bufp->fullBit(oldp+208,(vlSelf->CoreTop__DOT__MEM_io_out_bits_ctrl_signal_inst_valid));
+    bufp->fullBit(oldp+209,((((0xa0000048ULL == vlSelf->CoreTop__DOT__MEM__DOT__addr_temp) 
                               | (0xa00003f8ULL == vlSelf->CoreTop__DOT__MEM__DOT__addr_temp)) 
                              | ((0xa0000000ULL <= vlSelf->CoreTop__DOT__MEM__DOT__addr_temp) 
                                 & (0xa1200000ULL >= vlSelf->CoreTop__DOT__MEM__DOT__addr_temp)))));
-    bufp->fullBit(oldp+231,(vlSelf->CoreTop__DOT__MEM_io_out_bits_ctrl_rf_rfWen));
-    bufp->fullQData(oldp+232,(vlSelf->CoreTop__DOT__MEM_io_out_bits_ctrl_rf_rfData),64);
-    bufp->fullBit(oldp+234,(vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_valid));
-    bufp->fullQData(oldp+235,(vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr),64);
-    bufp->fullBit(oldp+237,((((4U == (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_fuType)) 
-                              & (IData)(vlSelf->CoreTop__DOT__valid_2)) 
-                             & (IData)(vlSelf->CoreTop__DOT__MEM_io_out_bits_ctrl_signal_inst_valid))));
-    bufp->fullBit(oldp+238,(vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_we));
-    bufp->fullBit(oldp+239,(vlSelf->CoreTop__DOT__MMIO_io_in_rdata_rep_valid));
-    bufp->fullQData(oldp+240,(vlSelf->CoreTop__DOT__MMIO_io_in_rdata_rep_bits_rdata),64);
-    bufp->fullQData(oldp+242,(vlSelf->CoreTop__DOT__MEM_io_cache_io_wdata_req_bits_wdata),64);
-    bufp->fullCData(oldp+244,(vlSelf->CoreTop__DOT__MEM_io_cache_io_wdata_req_bits_wmask),8);
-    bufp->fullBit(oldp+245,(vlSelf->CoreTop__DOT__MMIO_io_in_wdata_rep));
-    bufp->fullBit(oldp+246,(vlSelf->CoreTop__DOT__valid_3));
-    bufp->fullBit(oldp+247,(vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_signal_inst_valid));
-    bufp->fullBit(oldp+248,(vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_signal_rfWen));
-    bufp->fullQData(oldp+249,(vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_flow_PC),64);
-    bufp->fullIData(oldp+251,(vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_flow_inst),32);
-    bufp->fullQData(oldp+252,(vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_flow_Dnpc),64);
-    bufp->fullBit(oldp+254,(vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_flow_skip));
-    bufp->fullQData(oldp+255,(vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_rf_rfData),64);
-    bufp->fullBit(oldp+257,(((IData)(vlSelf->CoreTop__DOT__valid_3) 
+    bufp->fullBit(oldp+210,(vlSelf->CoreTop__DOT__MEM_io_out_bits_ctrl_rf_rfWen));
+    bufp->fullBit(oldp+211,(vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_valid));
+    bufp->fullQData(oldp+212,(vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr),64);
+    bufp->fullBit(oldp+214,(vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_ce));
+    bufp->fullBit(oldp+215,(vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_we));
+    bufp->fullBit(oldp+216,(vlSelf->CoreTop__DOT__MMIO_io_in_rdata_rep_valid));
+    bufp->fullQData(oldp+217,(vlSelf->CoreTop__DOT__MEM_io_cache_io_wdata_req_bits_wdata),64);
+    bufp->fullCData(oldp+219,(vlSelf->CoreTop__DOT__MEM_io_cache_io_wdata_req_bits_wmask),8);
+    bufp->fullBit(oldp+220,(vlSelf->CoreTop__DOT__MMIO_io_in_wdata_rep));
+    bufp->fullBit(oldp+221,(vlSelf->CoreTop__DOT__valid_3));
+    bufp->fullBit(oldp+222,(vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_signal_inst_valid));
+    bufp->fullBit(oldp+223,(vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_signal_rfWen));
+    bufp->fullQData(oldp+224,(vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_flow_PC),64);
+    bufp->fullIData(oldp+226,(vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_flow_inst),32);
+    bufp->fullQData(oldp+227,(vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_flow_Dnpc),64);
+    bufp->fullBit(oldp+229,(vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_flow_skip));
+    bufp->fullQData(oldp+230,(vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_rf_rfData),64);
+    bufp->fullBit(oldp+232,(((IData)(vlSelf->CoreTop__DOT__valid_3) 
                              & (IData)(vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_signal_inst_valid))));
-    bufp->fullQData(oldp+258,(((0U == (0x1fU & (vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
+    bufp->fullQData(oldp+233,(((0U == (0x1fU & (vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
                                                 >> 0xfU)))
                                 ? 0ULL : vlSelf->CoreTop__DOT__rf
                                [(0x1fU & (vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
                                           >> 0xfU))])),64);
-    bufp->fullQData(oldp+260,(((0U == (0x1fU & (vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
+    bufp->fullQData(oldp+235,(((0U == (0x1fU & (vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
                                                 >> 0x14U)))
                                 ? 0ULL : vlSelf->CoreTop__DOT__rf
                                [(0x1fU & (vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
                                           >> 0x14U))])),64);
-    bufp->fullBit(oldp+262,((2U == (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__state))));
-    bufp->fullQData(oldp+263,(vlSelf->CoreTop__DOT__ICACHE__DOT__mem_addr_reg),64);
-    bufp->fullBit(oldp+265,(vlSelf->CoreTop__DOT__If_axi_birdge_io_in_rdata_rep_valid));
-    bufp->fullQData(oldp+266,(vlSelf->CoreTop__DOT__MMEM_rdata),64);
-    bufp->fullBit(oldp+268,((((IData)(vlSelf->CoreTop__DOT__MMEM_r_valid) 
-                              | (IData)(vlSelf->CoreTop__DOT__MMEM_bvalid)) 
-                             & ((IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__choose_r) 
-                                & (IData)(vlSelf->CoreTop__DOT__MMEM_bvalid)))));
-    bufp->fullBit(oldp+269,(((~ (((IData)(vlSelf->CoreTop__DOT__MEM_axi_birdge_io_out_raddr_req_valid) 
-                                  | (IData)(vlSelf->CoreTop__DOT__MEM_axi_birdge_io_out_waddr_req_valid)) 
+    bufp->fullBit(oldp+237,(((~ (((IData)(vlSelf->CoreTop__DOT__MMIO_io_out_raddr_req_valid) 
+                                  | (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_waddr_req_valid)) 
                                  & (~ (IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__state)))) 
-                             & (IData)(vlSelf->CoreTop__DOT__ARBITER__DOT___T_5))));
-    bufp->fullBit(oldp+270,(vlSelf->CoreTop__DOT__If_axi_birdge_io_out_raddr_req_valid));
-    bufp->fullBit(oldp+271,(vlSelf->CoreTop__DOT__ARBITER_io_in2_rdata_rep_valid));
-    bufp->fullBit(oldp+272,(vlSelf->CoreTop__DOT__If_axi_birdge__DOT__aw_state));
-    bufp->fullBit(oldp+273,(vlSelf->CoreTop__DOT__MMIO_io_out_addr_req_valid));
-    bufp->fullQData(oldp+274,(vlSelf->CoreTop__DOT__MMIO_io_out_addr_req_bits_addr),64);
-    bufp->fullBit(oldp+276,(vlSelf->CoreTop__DOT__MMIO_io_out_addr_req_bits_ce));
-    bufp->fullBit(oldp+277,(vlSelf->CoreTop__DOT__MMIO_io_out_addr_req_bits_we));
-    bufp->fullBit(oldp+278,(vlSelf->CoreTop__DOT__MEM_axi_birdge_io_in_rdata_rep_valid));
-    bufp->fullQData(oldp+279,(vlSelf->CoreTop__DOT__MMIO_io_out_wdata_req_bits_wdata),64);
-    bufp->fullCData(oldp+281,(vlSelf->CoreTop__DOT__MMIO_io_out_wdata_req_bits_wmask),8);
-    bufp->fullBit(oldp+282,(vlSelf->CoreTop__DOT__ARBITER_io_in1_wb_valid));
-    bufp->fullBit(oldp+283,((((IData)(vlSelf->CoreTop__DOT__MEM_axi_birdge_io_out_raddr_req_valid) 
-                              | (IData)(vlSelf->CoreTop__DOT__MEM_axi_birdge_io_out_waddr_req_valid)) 
-                             & (~ (IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__state)))));
-    bufp->fullBit(oldp+284,(vlSelf->CoreTop__DOT__MEM_axi_birdge_io_out_raddr_req_valid));
-    bufp->fullBit(oldp+285,(vlSelf->CoreTop__DOT__MEM_axi_birdge_io_out_waddr_req_valid));
-    bufp->fullBit(oldp+286,(vlSelf->CoreTop__DOT__ARBITER_io_in1_rdata_rep_valid));
-    bufp->fullBit(oldp+287,(((((~ (IData)(vlSelf->CoreTop__DOT__MEM_axi_birdge__DOT__aw_state)) 
-                               & (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_addr_req_valid)) 
-                              & (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_addr_req_bits_ce)) 
-                             & (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_addr_req_bits_we))));
-    bufp->fullBit(oldp+288,(vlSelf->CoreTop__DOT__MEM_axi_birdge__DOT__aw_state));
-    bufp->fullBit(oldp+289,(vlSelf->CoreTop__DOT__ARBITER_io_out_raddr_req_valid));
-    bufp->fullBit(oldp+290,((0U == (IData)(vlSelf->CoreTop__DOT__MMEM__DOT__state))));
-    bufp->fullQData(oldp+291,(((((IData)(vlSelf->CoreTop__DOT__MEM_axi_birdge_io_out_raddr_req_valid) 
-                                 | (IData)(vlSelf->CoreTop__DOT__MEM_axi_birdge_io_out_waddr_req_valid)) 
+                             & (((1U == (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__read_state)) 
+                                 & (~ (IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__state)))
+                                 ? (0U == (IData)(vlSelf->CoreTop__DOT__MMEM__DOT__read_state))
+                                 : ((IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__state) 
+                                    & ((IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__choose_r) 
+                                       & (0U == (IData)(vlSelf->CoreTop__DOT__MMEM__DOT__read_state))))))));
+    bufp->fullBit(oldp+238,((1U == (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__read_state))));
+    bufp->fullQData(oldp+239,(vlSelf->CoreTop__DOT__ICACHE_io_out_raddr_req_bits_addr),64);
+    bufp->fullBit(oldp+241,(vlSelf->CoreTop__DOT__ARBITER_io_in2_rdata_rep_valid));
+    bufp->fullBit(oldp+242,(vlSelf->CoreTop__DOT__MMEM_rd_last));
+    bufp->fullBit(oldp+243,(((~ (((IData)(vlSelf->CoreTop__DOT__MMIO_io_out_raddr_req_valid) 
+                                  | (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_waddr_req_valid)) 
+                                 & (~ (IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__state)))) 
+                             & (((1U == (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__read_state)) 
+                                 & (~ (IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__state)))
+                                 ? (1U == (IData)(vlSelf->CoreTop__DOT__MMEM__DOT__write_state))
+                                 : ((IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__state) 
+                                    & ((IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__choose_r) 
+                                       & (1U == (IData)(vlSelf->CoreTop__DOT__MMEM__DOT__write_state))))))));
+    bufp->fullBit(oldp+244,(((((IData)(vlSelf->CoreTop__DOT__MMIO_io_out_raddr_req_valid) 
+                               | (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_waddr_req_valid)) 
+                              & (~ (IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__state)))
+                              ? (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_raddr_req_valid)
+                              : (((1U == (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__read_state)) 
+                                  & (~ (IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__state)))
+                                  ? (1U == (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__read_state))
+                                  : ((IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__state)
+                                      ? ((IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__choose_r)
+                                          ? (1U == (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__read_state))
+                                          : (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_raddr_req_valid))
+                                      : (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_raddr_req_valid))))));
+    bufp->fullBit(oldp+245,((0U == (IData)(vlSelf->CoreTop__DOT__MMEM__DOT__read_state))));
+    bufp->fullQData(oldp+246,(((((IData)(vlSelf->CoreTop__DOT__MMIO_io_out_raddr_req_valid) 
+                                 | (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_waddr_req_valid)) 
                                 & (~ (IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__state)))
-                                ? vlSelf->CoreTop__DOT__MMIO_io_out_addr_req_bits_addr
-                                : (((IData)(vlSelf->CoreTop__DOT__If_axi_birdge_io_out_raddr_req_valid) 
+                                ? vlSelf->CoreTop__DOT__MMIO_io_out_raddr_req_bits_addr
+                                : (((1U == (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__read_state)) 
                                     & (~ (IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__state)))
-                                    ? vlSelf->CoreTop__DOT__ICACHE__DOT__mem_addr_reg
-                                    : vlSelf->CoreTop__DOT__MMIO_io_out_addr_req_bits_addr))),64);
-    bufp->fullBit(oldp+293,(vlSelf->CoreTop__DOT__MMEM_r_valid));
-    bufp->fullBit(oldp+294,(vlSelf->CoreTop__DOT__ARBITER_io_out_waddr_req_valid));
-    bufp->fullBit(oldp+295,(((((IData)(vlSelf->CoreTop__DOT__MEM_axi_birdge_io_out_raddr_req_valid) 
-                               | (IData)(vlSelf->CoreTop__DOT__MEM_axi_birdge_io_out_waddr_req_valid)) 
-                              & (~ (IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__state))) 
-                             & ((((~ (IData)(vlSelf->CoreTop__DOT__MEM_axi_birdge__DOT__aw_state)) 
-                                  & (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_addr_req_valid)) 
-                                 & (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_addr_req_bits_ce)) 
-                                & (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_addr_req_bits_we)))));
-    bufp->fullQData(oldp+296,(((((IData)(vlSelf->CoreTop__DOT__MEM_axi_birdge_io_out_raddr_req_valid) 
-                                 | (IData)(vlSelf->CoreTop__DOT__MEM_axi_birdge_io_out_waddr_req_valid)) 
+                                    ? vlSelf->CoreTop__DOT__ICACHE_io_out_raddr_req_bits_addr
+                                    : ((IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__state)
+                                        ? ((IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__choose_r)
+                                            ? vlSelf->CoreTop__DOT__ICACHE_io_out_raddr_req_bits_addr
+                                            : vlSelf->CoreTop__DOT__MMIO_io_out_raddr_req_bits_addr)
+                                        : vlSelf->CoreTop__DOT__ICACHE_io_out_raddr_req_bits_addr)))),64);
+    bufp->fullCData(oldp+248,(((((IData)(vlSelf->CoreTop__DOT__MMIO_io_out_raddr_req_valid) 
+                                 | (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_waddr_req_valid)) 
                                 & (~ (IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__state)))
-                                ? vlSelf->CoreTop__DOT__MMIO_io_out_wdata_req_bits_wdata
-                                : (((IData)(vlSelf->CoreTop__DOT__If_axi_birdge_io_out_raddr_req_valid) 
+                                ? (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_raddr_req_bits_len)
+                                : (((1U == (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__read_state)) 
                                     & (~ (IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__state)))
-                                    ? 0ULL : vlSelf->CoreTop__DOT__MMIO_io_out_wdata_req_bits_wdata))),64);
-    bufp->fullCData(oldp+298,(((((IData)(vlSelf->CoreTop__DOT__MEM_axi_birdge_io_out_raddr_req_valid) 
-                                 | (IData)(vlSelf->CoreTop__DOT__MEM_axi_birdge_io_out_waddr_req_valid)) 
+                                    ? 7U : ((IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__state)
+                                             ? ((IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__choose_r)
+                                                 ? 7U
+                                                 : (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_raddr_req_bits_len))
+                                             : 7U)))),8);
+    bufp->fullBit(oldp+249,((2U == (IData)(vlSelf->CoreTop__DOT__MMEM__DOT__read_state))));
+    bufp->fullBit(oldp+250,(vlSelf->CoreTop__DOT__ARBITER_io_out_rdata_rep_ready));
+    bufp->fullBit(oldp+251,(((((IData)(vlSelf->CoreTop__DOT__MMIO_io_out_raddr_req_valid) 
+                               | (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_waddr_req_valid)) 
+                              & (~ (IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__state)))
+                              ? (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_waddr_req_valid)
+                              : ((~ ((1U == (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__read_state)) 
+                                     & (~ (IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__state)))) 
+                                 & ((IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__state)
+                                     ? ((~ (IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__choose_r)) 
+                                        & (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_waddr_req_valid))
+                                     : (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_waddr_req_valid))))));
+    bufp->fullBit(oldp+252,((0U == (IData)(vlSelf->CoreTop__DOT__MMEM__DOT__write_state))));
+    bufp->fullQData(oldp+253,(((((IData)(vlSelf->CoreTop__DOT__MMIO_io_out_raddr_req_valid) 
+                                 | (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_waddr_req_valid)) 
                                 & (~ (IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__state)))
-                                ? (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_wdata_req_bits_wmask)
-                                : (((IData)(vlSelf->CoreTop__DOT__If_axi_birdge_io_out_raddr_req_valid) 
+                                ? vlSelf->CoreTop__DOT__MMIO_io_out_waddr_req_bits_addr
+                                : (((1U == (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__read_state)) 
                                     & (~ (IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__state)))
-                                    ? 0U : (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_wdata_req_bits_wmask)))),8);
-    bufp->fullBit(oldp+299,(vlSelf->CoreTop__DOT__MMEM_bvalid));
-    bufp->fullBit(oldp+300,((1U & ((~ ((IData)(vlSelf->CoreTop__DOT__MMEM_r_valid) 
-                                       | (IData)(vlSelf->CoreTop__DOT__MMEM_bvalid))) 
-                                   | ((IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__choose_r)
-                                       ? (IData)(vlSelf->CoreTop__DOT__If_axi_birdge__DOT__aw_state)
-                                       : (IData)(vlSelf->CoreTop__DOT__MEM_axi_birdge__DOT__aw_state))))));
-    bufp->fullBit(oldp+301,(vlSelf->CoreTop__DOT__DIP_io_is_break_REG));
-    bufp->fullBit(oldp+302,(vlSelf->CoreTop__DOT__ARBITER__DOT__state));
-    bufp->fullBit(oldp+303,(vlSelf->CoreTop__DOT__ARBITER__DOT__choose_r));
-    bufp->fullQData(oldp+304,(vlSelf->CoreTop__DOT__DIP__DOT__rf[0]),64);
-    bufp->fullQData(oldp+306,(vlSelf->CoreTop__DOT__DIP__DOT__rf[1]),64);
-    bufp->fullQData(oldp+308,(vlSelf->CoreTop__DOT__DIP__DOT__rf[2]),64);
-    bufp->fullQData(oldp+310,(vlSelf->CoreTop__DOT__DIP__DOT__rf[3]),64);
-    bufp->fullQData(oldp+312,(vlSelf->CoreTop__DOT__DIP__DOT__rf[4]),64);
-    bufp->fullQData(oldp+314,(vlSelf->CoreTop__DOT__DIP__DOT__rf[5]),64);
-    bufp->fullQData(oldp+316,(vlSelf->CoreTop__DOT__DIP__DOT__rf[6]),64);
-    bufp->fullQData(oldp+318,(vlSelf->CoreTop__DOT__DIP__DOT__rf[7]),64);
-    bufp->fullQData(oldp+320,(vlSelf->CoreTop__DOT__DIP__DOT__rf[8]),64);
-    bufp->fullQData(oldp+322,(vlSelf->CoreTop__DOT__DIP__DOT__rf[9]),64);
-    bufp->fullQData(oldp+324,(vlSelf->CoreTop__DOT__DIP__DOT__rf[10]),64);
-    bufp->fullQData(oldp+326,(vlSelf->CoreTop__DOT__DIP__DOT__rf[11]),64);
-    bufp->fullQData(oldp+328,(vlSelf->CoreTop__DOT__DIP__DOT__rf[12]),64);
-    bufp->fullQData(oldp+330,(vlSelf->CoreTop__DOT__DIP__DOT__rf[13]),64);
-    bufp->fullQData(oldp+332,(vlSelf->CoreTop__DOT__DIP__DOT__rf[14]),64);
-    bufp->fullQData(oldp+334,(vlSelf->CoreTop__DOT__DIP__DOT__rf[15]),64);
-    bufp->fullQData(oldp+336,(vlSelf->CoreTop__DOT__DIP__DOT__rf[16]),64);
-    bufp->fullQData(oldp+338,(vlSelf->CoreTop__DOT__DIP__DOT__rf[17]),64);
-    bufp->fullQData(oldp+340,(vlSelf->CoreTop__DOT__DIP__DOT__rf[18]),64);
-    bufp->fullQData(oldp+342,(vlSelf->CoreTop__DOT__DIP__DOT__rf[19]),64);
-    bufp->fullQData(oldp+344,(vlSelf->CoreTop__DOT__DIP__DOT__rf[20]),64);
-    bufp->fullQData(oldp+346,(vlSelf->CoreTop__DOT__DIP__DOT__rf[21]),64);
-    bufp->fullQData(oldp+348,(vlSelf->CoreTop__DOT__DIP__DOT__rf[22]),64);
-    bufp->fullQData(oldp+350,(vlSelf->CoreTop__DOT__DIP__DOT__rf[23]),64);
-    bufp->fullQData(oldp+352,(vlSelf->CoreTop__DOT__DIP__DOT__rf[24]),64);
-    bufp->fullQData(oldp+354,(vlSelf->CoreTop__DOT__DIP__DOT__rf[25]),64);
-    bufp->fullQData(oldp+356,(vlSelf->CoreTop__DOT__DIP__DOT__rf[26]),64);
-    bufp->fullQData(oldp+358,(vlSelf->CoreTop__DOT__DIP__DOT__rf[27]),64);
-    bufp->fullQData(oldp+360,(vlSelf->CoreTop__DOT__DIP__DOT__rf[28]),64);
-    bufp->fullQData(oldp+362,(vlSelf->CoreTop__DOT__DIP__DOT__rf[29]),64);
-    bufp->fullQData(oldp+364,(vlSelf->CoreTop__DOT__DIP__DOT__rf[30]),64);
-    bufp->fullQData(oldp+366,(vlSelf->CoreTop__DOT__DIP__DOT__rf[31]),64);
-    bufp->fullIData(oldp+368,(vlSelf->CoreTop__DOT__DIP__DOT__IN[0]),32);
-    bufp->fullIData(oldp+369,(vlSelf->CoreTop__DOT__DIP__DOT__IN[1]),32);
-    bufp->fullIData(oldp+370,(vlSelf->CoreTop__DOT__DIP__DOT__IN[2]),32);
-    bufp->fullIData(oldp+371,(vlSelf->CoreTop__DOT__DIP__DOT__IN[3]),32);
-    bufp->fullIData(oldp+372,(vlSelf->CoreTop__DOT__DIP__DOT__IN[4]),32);
-    bufp->fullIData(oldp+373,(vlSelf->CoreTop__DOT__DIP__DOT__IN[5]),32);
-    bufp->fullIData(oldp+374,(vlSelf->CoreTop__DOT__DIP__DOT__IN[6]),32);
-    bufp->fullQData(oldp+375,(vlSelf->CoreTop__DOT__EX__DOT__CSRDIFF_io_mepc_REG_1),64);
-    bufp->fullQData(oldp+377,(vlSelf->CoreTop__DOT__EX__DOT__CSRDIFF_io_mcause_REG_1),64);
-    bufp->fullQData(oldp+379,(vlSelf->CoreTop__DOT__EX__DOT__CSRDIFF_io_mstatus_REG_1),64);
-    bufp->fullQData(oldp+381,(vlSelf->CoreTop__DOT__EX__DOT__CSRDIFF_io_mtvec_REG_1),64);
-    bufp->fullBit(oldp+383,(vlSelf->CoreTop__DOT__EX__DOT__mul_io_in_valid));
-    bufp->fullQData(oldp+384,(((IData)(vlSelf->CoreTop__DOT__EX__DOT__is_mul)
-                                ? vlSelf->CoreTop__DOT__EX__DOT___shift_result_T
-                                : (QData)((IData)(vlSelf->CoreTop__DOT__EX__DOT___shift_result_T)))),64);
-    bufp->fullQData(oldp+386,(((IData)(vlSelf->CoreTop__DOT__EX__DOT__is_mul)
-                                ? vlSelf->CoreTop__DOT__EX__DOT__src2
-                                : (QData)((IData)(vlSelf->CoreTop__DOT__EX__DOT__src2)))),64);
-    bufp->fullBit(oldp+388,((0x44U == (IData)(vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__count))));
-    bufp->fullQData(oldp+389,((((QData)((IData)(vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__p[1U])) 
+                                    ? 0ULL : ((IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__state)
+                                               ? ((IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__choose_r)
+                                                   ? 0ULL
+                                                   : vlSelf->CoreTop__DOT__MMIO_io_out_waddr_req_bits_addr)
+                                               : 0ULL)))),64);
+    bufp->fullCData(oldp+255,(((((IData)(vlSelf->CoreTop__DOT__MMIO_io_out_raddr_req_valid) 
+                                 | (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_waddr_req_valid)) 
+                                & (~ (IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__state)))
+                                ? ((((IData)(vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_valid) 
+                                     & (0xa0000000ULL 
+                                        <= vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr)) 
+                                    & (0xa2000000ULL 
+                                       >= vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr))
+                                    ? 0U : 7U) : ((
+                                                   (1U 
+                                                    == (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__read_state)) 
+                                                   & (~ (IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__state)))
+                                                   ? 7U
+                                                   : 
+                                                  ((IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__state)
+                                                    ? 
+                                                   ((IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__choose_r)
+                                                     ? 7U
+                                                     : 
+                                                    ((((IData)(vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_valid) 
+                                                       & (0xa0000000ULL 
+                                                          <= vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr)) 
+                                                      & (0xa2000000ULL 
+                                                         >= vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr))
+                                                      ? 0U
+                                                      : 7U))
+                                                    : 7U)))),8);
+    bufp->fullBit(oldp+256,(((((IData)(vlSelf->CoreTop__DOT__MMIO_io_out_raddr_req_valid) 
+                               | (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_waddr_req_valid)) 
+                              & (~ (IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__state)))
+                              ? (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_wdata_req_valid)
+                              : ((~ ((1U == (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__read_state)) 
+                                     & (~ (IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__state)))) 
+                                 & ((IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__state)
+                                     ? ((~ (IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__choose_r)) 
+                                        & (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_wdata_req_valid))
+                                     : (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_wdata_req_valid))))));
+    bufp->fullBit(oldp+257,(vlSelf->CoreTop__DOT__MMEM_wd_ready));
+    bufp->fullQData(oldp+258,(((((IData)(vlSelf->CoreTop__DOT__MMIO_io_out_raddr_req_valid) 
+                                 | (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_waddr_req_valid)) 
+                                & (~ (IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__state)))
+                                ? vlSelf->CoreTop__DOT__MMIO_io_out_wdata_req_bits_data
+                                : (((1U == (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__read_state)) 
+                                    & (~ (IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__state)))
+                                    ? 0ULL : ((IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__state)
+                                               ? ((IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__choose_r)
+                                                   ? 0ULL
+                                                   : vlSelf->CoreTop__DOT__MMIO_io_out_wdata_req_bits_data)
+                                               : 0ULL)))),64);
+    bufp->fullCData(oldp+260,(((((IData)(vlSelf->CoreTop__DOT__MMIO_io_out_raddr_req_valid) 
+                                 | (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_waddr_req_valid)) 
+                                & (~ (IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__state)))
+                                ? (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_wdata_req_bits_wstrb)
+                                : (((1U == (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__read_state)) 
+                                    & (~ (IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__state)))
+                                    ? 0U : ((IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__state)
+                                             ? ((IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__choose_r)
+                                                 ? 0U
+                                                 : (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_wdata_req_bits_wstrb))
+                                             : 0U)))),8);
+    bufp->fullBit(oldp+261,(vlSelf->CoreTop__DOT__ARBITER_io_out_wdata_req_bits_last));
+    bufp->fullBit(oldp+262,((1U == (IData)(vlSelf->CoreTop__DOT__MMEM__DOT__write_state))));
+    bufp->fullBit(oldp+263,(((((IData)(vlSelf->CoreTop__DOT__MMIO_io_out_raddr_req_valid) 
+                               | (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_waddr_req_valid)) 
+                              & (~ (IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__state)))
+                              ? (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_wb_ready)
+                              : (((1U == (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__read_state)) 
+                                  & (~ (IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__state))) 
+                                 | ((IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__state)
+                                     ? ((IData)(vlSelf->CoreTop__DOT__ARBITER__DOT__choose_r) 
+                                        | (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_wb_ready))
+                                     : (IData)(vlSelf->CoreTop__DOT__MMIO_io_out_wb_ready))))));
+    bufp->fullBit(oldp+264,(vlSelf->CoreTop__DOT__ARBITER_io_in1_raddr_req_ready));
+    bufp->fullBit(oldp+265,(vlSelf->CoreTop__DOT__MMIO_io_out_raddr_req_valid));
+    bufp->fullQData(oldp+266,(vlSelf->CoreTop__DOT__MMIO_io_out_raddr_req_bits_addr),64);
+    bufp->fullCData(oldp+268,(vlSelf->CoreTop__DOT__MMIO_io_out_raddr_req_bits_len),8);
+    bufp->fullBit(oldp+269,(vlSelf->CoreTop__DOT__ARBITER_io_in1_waddr_req_ready));
+    bufp->fullBit(oldp+270,(vlSelf->CoreTop__DOT__MMIO_io_out_waddr_req_valid));
+    bufp->fullQData(oldp+271,(vlSelf->CoreTop__DOT__MMIO_io_out_waddr_req_bits_addr),64);
+    bufp->fullCData(oldp+273,(((((IData)(vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_valid) 
+                                 & (0xa0000000ULL <= vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr)) 
+                                & (0xa2000000ULL >= vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr))
+                                ? 0U : 7U)),8);
+    bufp->fullBit(oldp+274,(vlSelf->CoreTop__DOT__MMIO_io_out_rdata_rep_ready));
+    bufp->fullBit(oldp+275,(vlSelf->CoreTop__DOT__ARBITER_io_in1_rdata_rep_valid));
+    bufp->fullBit(oldp+276,(vlSelf->CoreTop__DOT__ARBITER_io_in1_wdata_req_ready));
+    bufp->fullBit(oldp+277,(vlSelf->CoreTop__DOT__MMIO_io_out_wdata_req_valid));
+    bufp->fullQData(oldp+278,(vlSelf->CoreTop__DOT__MMIO_io_out_wdata_req_bits_data),64);
+    bufp->fullCData(oldp+280,(vlSelf->CoreTop__DOT__MMIO_io_out_wdata_req_bits_wstrb),8);
+    bufp->fullBit(oldp+281,(vlSelf->CoreTop__DOT__MMIO_io_out_wdata_req_bits_last));
+    bufp->fullBit(oldp+282,(vlSelf->CoreTop__DOT__MMIO_io_out_wb_ready));
+    bufp->fullBit(oldp+283,(vlSelf->CoreTop__DOT__ARBITER_io_in1_wb_valid));
+    bufp->fullBit(oldp+284,(vlSelf->CoreTop__DOT__DIP_io_is_break_REG));
+    bufp->fullBit(oldp+285,(vlSelf->CoreTop__DOT__ARBITER__DOT__state));
+    bufp->fullBit(oldp+286,(vlSelf->CoreTop__DOT__ARBITER__DOT__choose_r));
+    bufp->fullQData(oldp+287,(vlSelf->CoreTop__DOT__DIP__DOT__rf[0]),64);
+    bufp->fullQData(oldp+289,(vlSelf->CoreTop__DOT__DIP__DOT__rf[1]),64);
+    bufp->fullQData(oldp+291,(vlSelf->CoreTop__DOT__DIP__DOT__rf[2]),64);
+    bufp->fullQData(oldp+293,(vlSelf->CoreTop__DOT__DIP__DOT__rf[3]),64);
+    bufp->fullQData(oldp+295,(vlSelf->CoreTop__DOT__DIP__DOT__rf[4]),64);
+    bufp->fullQData(oldp+297,(vlSelf->CoreTop__DOT__DIP__DOT__rf[5]),64);
+    bufp->fullQData(oldp+299,(vlSelf->CoreTop__DOT__DIP__DOT__rf[6]),64);
+    bufp->fullQData(oldp+301,(vlSelf->CoreTop__DOT__DIP__DOT__rf[7]),64);
+    bufp->fullQData(oldp+303,(vlSelf->CoreTop__DOT__DIP__DOT__rf[8]),64);
+    bufp->fullQData(oldp+305,(vlSelf->CoreTop__DOT__DIP__DOT__rf[9]),64);
+    bufp->fullQData(oldp+307,(vlSelf->CoreTop__DOT__DIP__DOT__rf[10]),64);
+    bufp->fullQData(oldp+309,(vlSelf->CoreTop__DOT__DIP__DOT__rf[11]),64);
+    bufp->fullQData(oldp+311,(vlSelf->CoreTop__DOT__DIP__DOT__rf[12]),64);
+    bufp->fullQData(oldp+313,(vlSelf->CoreTop__DOT__DIP__DOT__rf[13]),64);
+    bufp->fullQData(oldp+315,(vlSelf->CoreTop__DOT__DIP__DOT__rf[14]),64);
+    bufp->fullQData(oldp+317,(vlSelf->CoreTop__DOT__DIP__DOT__rf[15]),64);
+    bufp->fullQData(oldp+319,(vlSelf->CoreTop__DOT__DIP__DOT__rf[16]),64);
+    bufp->fullQData(oldp+321,(vlSelf->CoreTop__DOT__DIP__DOT__rf[17]),64);
+    bufp->fullQData(oldp+323,(vlSelf->CoreTop__DOT__DIP__DOT__rf[18]),64);
+    bufp->fullQData(oldp+325,(vlSelf->CoreTop__DOT__DIP__DOT__rf[19]),64);
+    bufp->fullQData(oldp+327,(vlSelf->CoreTop__DOT__DIP__DOT__rf[20]),64);
+    bufp->fullQData(oldp+329,(vlSelf->CoreTop__DOT__DIP__DOT__rf[21]),64);
+    bufp->fullQData(oldp+331,(vlSelf->CoreTop__DOT__DIP__DOT__rf[22]),64);
+    bufp->fullQData(oldp+333,(vlSelf->CoreTop__DOT__DIP__DOT__rf[23]),64);
+    bufp->fullQData(oldp+335,(vlSelf->CoreTop__DOT__DIP__DOT__rf[24]),64);
+    bufp->fullQData(oldp+337,(vlSelf->CoreTop__DOT__DIP__DOT__rf[25]),64);
+    bufp->fullQData(oldp+339,(vlSelf->CoreTop__DOT__DIP__DOT__rf[26]),64);
+    bufp->fullQData(oldp+341,(vlSelf->CoreTop__DOT__DIP__DOT__rf[27]),64);
+    bufp->fullQData(oldp+343,(vlSelf->CoreTop__DOT__DIP__DOT__rf[28]),64);
+    bufp->fullQData(oldp+345,(vlSelf->CoreTop__DOT__DIP__DOT__rf[29]),64);
+    bufp->fullQData(oldp+347,(vlSelf->CoreTop__DOT__DIP__DOT__rf[30]),64);
+    bufp->fullQData(oldp+349,(vlSelf->CoreTop__DOT__DIP__DOT__rf[31]),64);
+    bufp->fullIData(oldp+351,(vlSelf->CoreTop__DOT__DIP__DOT__IN[0]),32);
+    bufp->fullIData(oldp+352,(vlSelf->CoreTop__DOT__DIP__DOT__IN[1]),32);
+    bufp->fullIData(oldp+353,(vlSelf->CoreTop__DOT__DIP__DOT__IN[2]),32);
+    bufp->fullIData(oldp+354,(vlSelf->CoreTop__DOT__DIP__DOT__IN[3]),32);
+    bufp->fullIData(oldp+355,(vlSelf->CoreTop__DOT__DIP__DOT__IN[4]),32);
+    bufp->fullIData(oldp+356,(vlSelf->CoreTop__DOT__DIP__DOT__IN[5]),32);
+    bufp->fullIData(oldp+357,(vlSelf->CoreTop__DOT__DIP__DOT__IN[6]),32);
+    bufp->fullQData(oldp+358,(vlSelf->CoreTop__DOT__EX__DOT__CSRDIFF_io_mepc_REG_1),64);
+    bufp->fullQData(oldp+360,(vlSelf->CoreTop__DOT__EX__DOT__CSRDIFF_io_mcause_REG_1),64);
+    bufp->fullQData(oldp+362,(vlSelf->CoreTop__DOT__EX__DOT__CSRDIFF_io_mstatus_REG_1),64);
+    bufp->fullQData(oldp+364,(vlSelf->CoreTop__DOT__EX__DOT__CSRDIFF_io_mtvec_REG_1),64);
+    bufp->fullBit(oldp+366,(vlSelf->CoreTop__DOT__EX__DOT__mul_io_in_valid));
+    bufp->fullBit(oldp+367,((0x44U == (IData)(vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__count))));
+    bufp->fullQData(oldp+368,((((QData)((IData)(vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__p[1U])) 
                                 << 0x20U) | (QData)((IData)(
                                                             vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__p[0U])))),64);
-    bufp->fullBit(oldp+391,(((IData)(vlSelf->CoreTop__DOT__EX__DOT__is_div) 
+    bufp->fullBit(oldp+370,(((IData)(vlSelf->CoreTop__DOT__EX__DOT__is_div) 
                              & (2U != (IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__state)))));
-    bufp->fullBit(oldp+392,(vlSelf->CoreTop__DOT__EX__DOT__div_io_in_bits_ctrl_flow_div_signed));
-    bufp->fullQData(oldp+393,(vlSelf->CoreTop__DOT__EX__DOT__div_io_in_bits_ctrl_data_src1),64);
-    bufp->fullQData(oldp+395,(vlSelf->CoreTop__DOT__EX__DOT__div_io_in_bits_ctrl_data_src2),64);
-    bufp->fullBit(oldp+397,((2U == (IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__state))));
-    bufp->fullQData(oldp+398,(vlSelf->CoreTop__DOT__EX__DOT__div_io_out_bits_result_quotient),64);
-    bufp->fullQData(oldp+400,(vlSelf->CoreTop__DOT__EX__DOT__div_io_out_bits_result_remainder),64);
-    bufp->fullBit(oldp+402,(vlSelf->CoreTop__DOT__EX__DOT__is_mul));
-    bufp->fullBit(oldp+403,(vlSelf->CoreTop__DOT__EX__DOT__is_div));
-    bufp->fullBit(oldp+404,(vlSelf->CoreTop__DOT__EX__DOT__is_divw));
-    bufp->fullQData(oldp+405,(vlSelf->CoreTop__DOT__EX__DOT__mepc),64);
-    bufp->fullQData(oldp+407,(vlSelf->CoreTop__DOT__EX__DOT__mcause),64);
-    bufp->fullQData(oldp+409,(vlSelf->CoreTop__DOT__EX__DOT__mstatus),64);
-    bufp->fullQData(oldp+411,(vlSelf->CoreTop__DOT__EX__DOT__mtvec),64);
-    bufp->fullQData(oldp+413,(vlSelf->CoreTop__DOT__EX__DOT__mie),64);
-    bufp->fullQData(oldp+415,(vlSelf->CoreTop__DOT__EX__DOT__mip),64);
-    bufp->fullQData(oldp+417,(vlSelf->CoreTop__DOT__EX__DOT___shift_result_T),64);
-    bufp->fullQData(oldp+419,(vlSelf->CoreTop__DOT__EX__DOT__src2),64);
-    bufp->fullBit(oldp+421,((1U & (IData)((vlSelf->CoreTop__DOT__EX__DOT___alu_result_T_1 
-                                           >> 0x1fU)))));
-    bufp->fullBit(oldp+422,((vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__p[0U] 
+    bufp->fullBit(oldp+371,(vlSelf->CoreTop__DOT__EX__DOT__div_io_in_bits_ctrl_flow_div_signed));
+    bufp->fullBit(oldp+372,((2U == (IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__state))));
+    bufp->fullBit(oldp+373,(vlSelf->CoreTop__DOT__EX__DOT__is_mul));
+    bufp->fullBit(oldp+374,(vlSelf->CoreTop__DOT__EX__DOT__is_div));
+    bufp->fullBit(oldp+375,(vlSelf->CoreTop__DOT__EX__DOT__is_divw));
+    bufp->fullQData(oldp+376,(vlSelf->CoreTop__DOT__EX__DOT__mepc),64);
+    bufp->fullQData(oldp+378,(vlSelf->CoreTop__DOT__EX__DOT__mcause),64);
+    bufp->fullQData(oldp+380,(vlSelf->CoreTop__DOT__EX__DOT__mstatus),64);
+    bufp->fullQData(oldp+382,(vlSelf->CoreTop__DOT__EX__DOT__mtvec),64);
+    bufp->fullQData(oldp+384,(vlSelf->CoreTop__DOT__EX__DOT__mie),64);
+    bufp->fullQData(oldp+386,(vlSelf->CoreTop__DOT__EX__DOT__mip),64);
+    bufp->fullBit(oldp+388,((vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__p[0U] 
                              >> 0x1fU)));
-    bufp->fullBit(oldp+423,((1U & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div_io_out_bits_result_quotient 
-                                           >> 0x1fU)))));
-    bufp->fullBit(oldp+424,((1U & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div_io_out_bits_result_remainder 
-                                           >> 0x1fU)))));
-    bufp->fullBit(oldp+425,((1U & (IData)((vlSelf->CoreTop__DOT__EX__DOT___alu_result_T_10 
-                                           >> 0x1fU)))));
-    bufp->fullQData(oldp+426,(((0x40U == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
-                                ? vlSelf->CoreTop__DOT__EX__DOT___alu_result_T_1
-                                : ((0x1aU == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
-                                    ? vlSelf->CoreTop__DOT__EX__DOT__src2
-                                    : ((0x68U == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
-                                        ? vlSelf->CoreTop__DOT__EX__DOT___alu_result_T_7
-                                        : ((0x44U == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
-                                            ? (vlSelf->CoreTop__DOT__EX__DOT___shift_result_T 
-                                               | vlSelf->CoreTop__DOT__EX__DOT__src2)
-                                            : ((0x69U 
-                                                == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
-                                                ? vlSelf->CoreTop__DOT__EX__DOT___alu_result_T_10
-                                                : (
-                                                   (0x71U 
-                                                    == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
-                                                    ? 
-                                                   (vlSelf->CoreTop__DOT__EX__DOT___shift_result_T 
-                                                    & vlSelf->CoreTop__DOT__EX__DOT__src2)
-                                                    : vlSelf->CoreTop__DOT__EX__DOT___GEN_145))))))),64);
-    bufp->fullBit(oldp+428,((vlSelf->CoreTop__DOT__EX__DOT___shift_result_T_5[0U] 
-                             >> 0x1fU)));
-    bufp->fullBit(oldp+429,((vlSelf->CoreTop__DOT__EX__DOT___shift_result_T_16[0U] 
-                             >> 0x1fU)));
-    bufp->fullBit(oldp+430,((vlSelf->CoreTop__DOT__EX__DOT___shift_result_T_25 
-                             >> 0x1fU)));
-    bufp->fullBit(oldp+431,((vlSelf->CoreTop__DOT__EX__DOT___shift_result_T_31 
-                             >> 0x1fU)));
-    bufp->fullBit(oldp+432,((1U & (IData)((vlSelf->CoreTop__DOT__EX__DOT___shift_result_T 
-                                           >> 0x1fU)))));
-    bufp->fullBit(oldp+433,((1U & (IData)((vlSelf->CoreTop__DOT__EX__DOT__src2 
-                                           >> 0x1fU)))));
-    bufp->fullQData(oldp+434,(((0x6aU == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
-                                ? ((vlSelf->CoreTop__DOT__EX__DOT___shift_result_T 
-                                    < vlSelf->CoreTop__DOT__EX__DOT__src2)
-                                    ? 1ULL : 0ULL) : 
-                               ((2U == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
-                                 ? (VL_LTS_IQQ(64, vlSelf->CoreTop__DOT__EX__DOT___shift_result_T, vlSelf->CoreTop__DOT__EX__DOT__src2)
-                                     ? 1ULL : 0ULL)
-                                 : 0ULL))),64);
-    bufp->fullQData(oldp+436,(((3U == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_fuType))
+    bufp->fullQData(oldp+389,(((3U == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_fuType))
                                 ? (4ULL + vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_flow_PC)
                                 : 0ULL)),64);
-    VL_EXTEND_WQ(127,64, __Vtemp_h84c74001__0, VL_SHIFTRS_QQI(64,64,5, vlSelf->CoreTop__DOT__EX__DOT___shift_result_T, 
-                                                              (0x1fU 
-                                                               & (IData)(vlSelf->CoreTop__DOT__EX__DOT__src2))));
-    VL_EXTEND_WQ(127,64, __Vtemp_h8248920c__0, (((QData)((IData)(
-                                                                 ((vlSelf->CoreTop__DOT__EX__DOT___shift_result_T_5[0U] 
-                                                                   >> 0x1fU)
-                                                                   ? 0xffffffffU
-                                                                   : 0U))) 
-                                                 << 0x20U) 
-                                                | (QData)((IData)(
-                                                                  vlSelf->CoreTop__DOT__EX__DOT___shift_result_T_5[0U]))));
-    VL_EXTEND_WQ(127,64, __Vtemp_h14069084__0, vlSelf->CoreTop__DOT__EX__DOT___shift_result_T);
-    VL_SHIFTL_WWI(127,127,6, __Vtemp_hf92011cd__0, __Vtemp_h14069084__0, 
-                  (0x3fU & (IData)(vlSelf->CoreTop__DOT__EX__DOT__src2)));
-    VL_EXTEND_WQ(127,64, __Vtemp_h6acab13b__0, ((0x75U 
-                                                 == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
-                                                 ? 
-                                                (vlSelf->CoreTop__DOT__EX__DOT___shift_result_T 
-                                                 >> 
-                                                 (0x3fU 
-                                                  & (IData)(vlSelf->CoreTop__DOT__EX__DOT__src2)))
-                                                 : 
-                                                ((5U 
-                                                  == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
-                                                  ? 
-                                                 (((QData)((IData)(
-                                                                   ((vlSelf->CoreTop__DOT__EX__DOT___shift_result_T_16[0U] 
-                                                                     >> 0x1fU)
-                                                                     ? 0xffffffffU
-                                                                     : 0U))) 
-                                                   << 0x20U) 
-                                                  | (QData)((IData)(
-                                                                    vlSelf->CoreTop__DOT__EX__DOT___shift_result_T_16[0U])))
-                                                  : 
-                                                 ((6U 
-                                                   == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
-                                                   ? vlSelf->CoreTop__DOT__EX__DOT___shift_result_T_28
-                                                   : 
-                                                  ((8U 
-                                                    == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
-                                                    ? vlSelf->CoreTop__DOT__EX__DOT___shift_result_T_35
-                                                    : 
-                                                   ((9U 
-                                                     == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
-                                                     ? vlSelf->CoreTop__DOT__EX__DOT___shift_result_T_28
-                                                     : 
-                                                    ((0xaU 
-                                                      == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
-                                                      ? vlSelf->CoreTop__DOT__EX__DOT___shift_result_T_35
-                                                      : 
-                                                     ((0x14U 
-                                                       == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
-                                                       ? 
-                                                      VL_SHIFTRS_QQI(64,64,6, vlSelf->CoreTop__DOT__EX__DOT___shift_result_T, 
-                                                                     (0x3fU 
-                                                                      & (IData)(vlSelf->CoreTop__DOT__EX__DOT__src2)))
-                                                       : 0ULL))))))));
-    bufp->fullQData(oldp+438,((((QData)((IData)(((0x6eU 
-                                                  == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
-                                                  ? 
-                                                 __Vtemp_h84c74001__0[1U]
-                                                  : 
-                                                 ((0x73U 
-                                                   == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
-                                                   ? 
-                                                  __Vtemp_h8248920c__0[1U]
-                                                   : 
-                                                  ((0x41U 
-                                                    == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
-                                                    ? 
-                                                   __Vtemp_hf92011cd__0[1U]
-                                                    : 
-                                                   __Vtemp_h6acab13b__0[1U]))))) 
-                                << 0x20U) | (QData)((IData)(
-                                                            ((0x6eU 
-                                                              == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
-                                                              ? 
-                                                             __Vtemp_h84c74001__0[0U]
-                                                              : 
-                                                             ((0x73U 
-                                                               == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
-                                                               ? 
-                                                              __Vtemp_h8248920c__0[0U]
-                                                               : 
-                                                              ((0x41U 
-                                                                == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
-                                                                ? 
-                                                               __Vtemp_hf92011cd__0[0U]
-                                                                : 
-                                                               __Vtemp_h6acab13b__0[0U]))))))),64);
-    bufp->fullQData(oldp+440,(((0x6bU == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
+    bufp->fullQData(oldp+391,(((0x6bU == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
                                 ? vlSelf->CoreTop__DOT__EX__DOT___branch_result_T_1
                                 : ((0x6cU == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
                                     ? vlSelf->CoreTop__DOT__EX__DOT___branch_result_T_1
@@ -2300,56 +2209,33 @@ VL_ATTR_COLD void VCoreTop___024root__trace_full_sub_0(VCoreTop___024root* vlSel
                                                     == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
                                                     ? vlSelf->CoreTop__DOT__EX__DOT___branch_result_T_1
                                                     : 0ULL))))))),64);
-    bufp->fullBit(oldp+442,(vlSelf->CoreTop__DOT__EX__DOT__branch_flag));
-    bufp->fullQData(oldp+443,(vlSelf->CoreTop__DOT__EX__DOT__csr_data),64);
-    bufp->fullQData(oldp+445,(vlSelf->CoreTop__DOT__EX__DOT__CSRDIFF_io_mtvec_REG),64);
-    bufp->fullQData(oldp+447,(vlSelf->CoreTop__DOT__EX__DOT__CSRDIFF_io_mcause_REG),64);
-    bufp->fullQData(oldp+449,(vlSelf->CoreTop__DOT__EX__DOT__CSRDIFF_io_mepc_REG),64);
-    bufp->fullQData(oldp+451,(vlSelf->CoreTop__DOT__EX__DOT__CSRDIFF_io_mstatus_REG),64);
-    bufp->fullQData(oldp+453,(vlSelf->CoreTop__DOT__EX__DOT__CSRDIFF__DOT__inst_csr[0]),64);
-    bufp->fullQData(oldp+455,(vlSelf->CoreTop__DOT__EX__DOT__CSRDIFF__DOT__inst_csr[1]),64);
-    bufp->fullQData(oldp+457,(vlSelf->CoreTop__DOT__EX__DOT__CSRDIFF__DOT__inst_csr[2]),64);
-    bufp->fullQData(oldp+459,(vlSelf->CoreTop__DOT__EX__DOT__CSRDIFF__DOT__inst_csr[3]),64);
-    bufp->fullQData(oldp+461,(vlSelf->CoreTop__DOT__EX__DOT__CSRDIFF__DOT__inst_csr[4]),64);
-    bufp->fullQData(oldp+463,(vlSelf->CoreTop__DOT__EX__DOT__CSRDIFF__DOT__inst_csr[5]),64);
-    bufp->fullWData(oldp+465,(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__dividend),128);
-    bufp->fullQData(oldp+469,(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divisor),64);
-    bufp->fullQData(oldp+471,(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__S),64);
-    bufp->fullCData(oldp+473,(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__state),2);
-    bufp->fullCData(oldp+474,(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__count),6);
-    bufp->fullBit(oldp+475,((0x3fU == (IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__count))));
-    bufp->fullBit(oldp+476,(((1U == (IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__state)) 
+    bufp->fullQData(oldp+393,(vlSelf->CoreTop__DOT__EX__DOT__csr_data),64);
+    bufp->fullQData(oldp+395,(vlSelf->CoreTop__DOT__EX__DOT__CSRDIFF_io_mtvec_REG),64);
+    bufp->fullQData(oldp+397,(vlSelf->CoreTop__DOT__EX__DOT__CSRDIFF_io_mcause_REG),64);
+    bufp->fullQData(oldp+399,(vlSelf->CoreTop__DOT__EX__DOT__CSRDIFF_io_mepc_REG),64);
+    bufp->fullQData(oldp+401,(vlSelf->CoreTop__DOT__EX__DOT__CSRDIFF_io_mstatus_REG),64);
+    bufp->fullQData(oldp+403,(vlSelf->CoreTop__DOT__EX__DOT__CSRDIFF__DOT__inst_csr[0]),64);
+    bufp->fullQData(oldp+405,(vlSelf->CoreTop__DOT__EX__DOT__CSRDIFF__DOT__inst_csr[1]),64);
+    bufp->fullQData(oldp+407,(vlSelf->CoreTop__DOT__EX__DOT__CSRDIFF__DOT__inst_csr[2]),64);
+    bufp->fullQData(oldp+409,(vlSelf->CoreTop__DOT__EX__DOT__CSRDIFF__DOT__inst_csr[3]),64);
+    bufp->fullQData(oldp+411,(vlSelf->CoreTop__DOT__EX__DOT__CSRDIFF__DOT__inst_csr[4]),64);
+    bufp->fullQData(oldp+413,(vlSelf->CoreTop__DOT__EX__DOT__CSRDIFF__DOT__inst_csr[5]),64);
+    bufp->fullWData(oldp+415,(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__dividend),128);
+    bufp->fullQData(oldp+419,(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divisor),64);
+    bufp->fullQData(oldp+421,(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__S),64);
+    bufp->fullCData(oldp+423,(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__state),2);
+    bufp->fullCData(oldp+424,(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__count),6);
+    bufp->fullBit(oldp+425,((0x3fU == (IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__count))));
+    bufp->fullBit(oldp+426,(((1U == (IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__state)) 
                              & (0x3fU == (IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__count)))));
-    bufp->fullWData(oldp+477,(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__res_div),65);
-    bufp->fullQData(oldp+480,((- vlSelf->CoreTop__DOT__EX__DOT__div__DOT__S)),64);
-    bufp->fullQData(oldp+482,((- (((QData)((IData)(
+    bufp->fullWData(oldp+427,(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__res_div),65);
+    bufp->fullQData(oldp+430,((- vlSelf->CoreTop__DOT__EX__DOT__div__DOT__S)),64);
+    bufp->fullQData(oldp+432,((- (((QData)((IData)(
                                                    vlSelf->CoreTop__DOT__EX__DOT__div__DOT__dividend[3U])) 
                                    << 0x20U) | (QData)((IData)(
                                                                vlSelf->CoreTop__DOT__EX__DOT__div__DOT__dividend[2U]))))),64);
-    bufp->fullQData(oldp+484,((((((0U == (IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT___s_o_T_2))
-                                   ? vlSelf->CoreTop__DOT__EX__DOT__div__DOT___T_13
-                                   : 0ULL) | ((1U == (IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT___s_o_T_2))
-                                               ? vlSelf->CoreTop__DOT__EX__DOT__div__DOT___T_18
-                                               : 0ULL)) 
-                                | ((2U == (IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT___s_o_T_2))
-                                    ? vlSelf->CoreTop__DOT__EX__DOT__div__DOT___T_18
-                                    : 0ULL)) | ((3U 
-                                                 == (IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT___s_o_T_2))
-                                                 ? vlSelf->CoreTop__DOT__EX__DOT__div__DOT___T_13
-                                                 : 0ULL))),64);
-    bufp->fullQData(oldp+486,((((((0U == (IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT___s_o_T_2))
-                                   ? vlSelf->CoreTop__DOT__EX__DOT__div__DOT___T_16
-                                   : 0ULL) | ((1U == (IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT___s_o_T_2))
-                                               ? vlSelf->CoreTop__DOT__EX__DOT__div__DOT___T_16
-                                               : 0ULL)) 
-                                | ((2U == (IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT___s_o_T_2))
-                                    ? vlSelf->CoreTop__DOT__EX__DOT__div__DOT___T_26
-                                    : 0ULL)) | ((3U 
-                                                 == (IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT___s_o_T_2))
-                                                 ? vlSelf->CoreTop__DOT__EX__DOT__div__DOT___T_26
-                                                 : 0ULL))),64);
-    bufp->fullCData(oldp+488,((7U & vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__multiplier[0U])),3);
-    bufp->fullWData(oldp+489,(vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__multiplicand),132);
+    bufp->fullCData(oldp+434,((7U & vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__multiplier[0U])),3);
+    bufp->fullWData(oldp+435,(vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__multiplicand),132);
     VL_EXTEND_WW(133,132, __Vtemp_h97a9be20__0, vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__multiplicand);
     VL_EXTEND_WW(133,132, __Vtemp_h97a9be20__1, vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__multiplicand);
     if ((5U == (7U & vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__multiplier[0U]))) {
@@ -2432,8 +2318,8 @@ VL_ATTR_COLD void VCoreTop___024root__trace_full_sub_0(VCoreTop___024root* vlSel
         __Vtemp_h791e8ef8__0[3U] = __Vtemp_h7a662728__0[3U];
         __Vtemp_h791e8ef8__0[4U] = (0xfU & __Vtemp_h7a662728__0[4U]);
     }
-    bufp->fullWData(oldp+494,(__Vtemp_h791e8ef8__0),132);
-    bufp->fullBit(oldp+499,(((0U != (7U & vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__multiplier[0U])) 
+    bufp->fullWData(oldp+440,(__Vtemp_h791e8ef8__0),132);
+    bufp->fullBit(oldp+445,(((0U != (7U & vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__multiplier[0U])) 
                              & ((1U != (7U & vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__multiplier[0U])) 
                                 & ((2U != (7U & vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__multiplier[0U])) 
                                    & ((3U != (7U & 
@@ -2446,24 +2332,24 @@ VL_ATTR_COLD void VCoreTop___024root__trace_full_sub_0(VCoreTop___024root* vlSel
                                             | (6U == 
                                                (7U 
                                                 & vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__multiplier[0U]))))))))));
-    bufp->fullWData(oldp+500,(vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__multiplier),66);
-    bufp->fullWData(oldp+503,(vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__p),132);
-    bufp->fullCData(oldp+508,(vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__count),7);
-    bufp->fullWData(oldp+509,(vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__temp),132);
-    bufp->fullBit(oldp+514,((1U & (vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__temp[4U] 
+    bufp->fullWData(oldp+446,(vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__multiplier),66);
+    bufp->fullWData(oldp+449,(vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__p),132);
+    bufp->fullCData(oldp+454,(vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__count),7);
+    bufp->fullWData(oldp+455,(vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__temp),132);
+    bufp->fullBit(oldp+460,((1U & (vlSelf->CoreTop__DOT__EX__DOT__mul__DOT__mult__DOT__temp[4U] 
                                    >> 3U))));
-    bufp->fullBit(oldp+515,(((IData)(vlSelf->CoreTop__DOT__EX_io_in_ready) 
+    bufp->fullBit(oldp+461,(((IData)(vlSelf->CoreTop__DOT__EX_io_in_ready) 
                              & (0U == (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__state)))));
-    bufp->fullQData(oldp+516,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data_io_write_bus_addr),64);
-    bufp->fullBit(oldp+518,((8U == (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__count))));
-    bufp->fullCData(oldp+519,(((IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__lru_r)
+    bufp->fullQData(oldp+462,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data_io_write_bus_addr),64);
+    bufp->fullBit(oldp+464,((3U == (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__read_state))));
+    bufp->fullCData(oldp+465,(((IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__lru_r)
                                 ? 2U : 1U)),2);
-    bufp->fullWData(oldp+520,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data_io_write_bus_wdata),512);
-    bufp->fullQData(oldp+536,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0_tag_w_data),53);
-    bufp->fullQData(oldp+538,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1_tag_w_data),53);
-    bufp->fullBit(oldp+540,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0
+    bufp->fullWData(oldp+466,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data_io_write_bus_wdata),512);
+    bufp->fullQData(oldp+482,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0_tag_w_data),53);
+    bufp->fullQData(oldp+484,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1_tag_w_data),53);
+    bufp->fullBit(oldp+486,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0
                             [vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0_valid_w_addr_pipe_0]));
-    bufp->fullBit(oldp+541,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1
+    bufp->fullBit(oldp+487,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1
                             [vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1_valid_w_addr_pipe_0]));
     __Vtemp_h48a7178e__0[0U] = vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0
         [vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0_data_w_addr_pipe_0][0U];
@@ -2497,7 +2383,7 @@ VL_ATTR_COLD void VCoreTop___024root__trace_full_sub_0(VCoreTop___024root* vlSel
         [vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0_data_w_addr_pipe_0][0xeU];
     __Vtemp_h48a7178e__0[0xfU] = vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0
         [vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0_data_w_addr_pipe_0][0xfU];
-    bufp->fullWData(oldp+542,(__Vtemp_h48a7178e__0),512);
+    bufp->fullWData(oldp+488,(__Vtemp_h48a7178e__0),512);
     __Vtemp_h4453b49e__0[0U] = vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1
         [vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1_data_w_addr_pipe_0][0U];
     __Vtemp_h4453b49e__0[1U] = vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1
@@ -2530,320 +2416,319 @@ VL_ATTR_COLD void VCoreTop___024root__trace_full_sub_0(VCoreTop___024root* vlSel
         [vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1_data_w_addr_pipe_0][0xeU];
     __Vtemp_h4453b49e__0[0xfU] = vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1
         [vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1_data_w_addr_pipe_0][0xfU];
-    bufp->fullWData(oldp+558,(__Vtemp_h4453b49e__0),512);
-    bufp->fullQData(oldp+574,((vlSelf->CoreTop__DOT__IF__DOT__temp 
+    bufp->fullWData(oldp+504,(__Vtemp_h4453b49e__0),512);
+    bufp->fullQData(oldp+520,((vlSelf->CoreTop__DOT__IF__DOT__temp 
                                >> 0xbU)),53);
-    bufp->fullCData(oldp+576,((0x1fU & (IData)((vlSelf->CoreTop__DOT__IF__DOT__temp 
+    bufp->fullCData(oldp+522,((0x1fU & (IData)((vlSelf->CoreTop__DOT__IF__DOT__temp 
                                                 >> 6U)))),5);
-    bufp->fullCData(oldp+577,((0x3fU & (IData)(vlSelf->CoreTop__DOT__IF__DOT__temp))),6);
-    bufp->fullBit(oldp+578,(vlSelf->CoreTop__DOT__ICACHE__DOT__Scanf_io_in_valid_REG));
-    bufp->fullBit(oldp+579,(vlSelf->CoreTop__DOT__ICACHE__DOT__Scanf_io_out_bits_hit));
-    bufp->fullWData(oldp+580,(vlSelf->CoreTop__DOT__ICACHE__DOT__Scanf_io_out_bits_data),512);
-    bufp->fullBit(oldp+596,(((IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__Scanf__DOT___hit_way_0_T) 
+    bufp->fullCData(oldp+523,((0x3fU & (IData)(vlSelf->CoreTop__DOT__IF__DOT__temp))),6);
+    bufp->fullBit(oldp+524,(vlSelf->CoreTop__DOT__ICACHE__DOT__Scanf_io_in_valid_REG));
+    bufp->fullBit(oldp+525,(vlSelf->CoreTop__DOT__ICACHE__DOT__Scanf_io_out_bits_hit));
+    bufp->fullWData(oldp+526,(vlSelf->CoreTop__DOT__ICACHE__DOT__Scanf_io_out_bits_data),512);
+    bufp->fullBit(oldp+542,(((IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__Scanf__DOT___hit_way_0_T) 
                              & ((vlSelf->CoreTop__DOT__IF__DOT__temp 
                                  >> 0xbU) == vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0_tag_w_data))));
-    bufp->fullBit(oldp+597,(((IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__Scanf__DOT___hit_way_1_T) 
+    bufp->fullBit(oldp+543,(((IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__Scanf__DOT___hit_way_1_T) 
                              & ((vlSelf->CoreTop__DOT__IF__DOT__temp 
                                  >> 0xbU) == vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1_tag_w_data))));
-    bufp->fullBit(oldp+598,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[0]));
-    bufp->fullBit(oldp+599,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[1]));
-    bufp->fullBit(oldp+600,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[2]));
-    bufp->fullBit(oldp+601,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[3]));
-    bufp->fullBit(oldp+602,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[4]));
-    bufp->fullBit(oldp+603,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[5]));
-    bufp->fullBit(oldp+604,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[6]));
-    bufp->fullBit(oldp+605,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[7]));
-    bufp->fullBit(oldp+606,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[8]));
-    bufp->fullBit(oldp+607,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[9]));
-    bufp->fullBit(oldp+608,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[10]));
-    bufp->fullBit(oldp+609,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[11]));
-    bufp->fullBit(oldp+610,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[12]));
-    bufp->fullBit(oldp+611,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[13]));
-    bufp->fullBit(oldp+612,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[14]));
-    bufp->fullBit(oldp+613,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[15]));
-    bufp->fullBit(oldp+614,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[16]));
-    bufp->fullBit(oldp+615,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[17]));
-    bufp->fullBit(oldp+616,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[18]));
-    bufp->fullBit(oldp+617,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[19]));
-    bufp->fullBit(oldp+618,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[20]));
-    bufp->fullBit(oldp+619,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[21]));
-    bufp->fullBit(oldp+620,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[22]));
-    bufp->fullBit(oldp+621,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[23]));
-    bufp->fullBit(oldp+622,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[24]));
-    bufp->fullBit(oldp+623,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[25]));
-    bufp->fullBit(oldp+624,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[26]));
-    bufp->fullBit(oldp+625,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[27]));
-    bufp->fullBit(oldp+626,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[28]));
-    bufp->fullBit(oldp+627,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[29]));
-    bufp->fullBit(oldp+628,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[30]));
-    bufp->fullBit(oldp+629,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[31]));
-    bufp->fullBit(oldp+630,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru_lru_w_MPORT_en_pipe_0));
-    bufp->fullCData(oldp+631,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru_lru_w_MPORT_addr_pipe_0),5);
-    bufp->fullBit(oldp+632,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru
+    bufp->fullBit(oldp+544,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[0]));
+    bufp->fullBit(oldp+545,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[1]));
+    bufp->fullBit(oldp+546,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[2]));
+    bufp->fullBit(oldp+547,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[3]));
+    bufp->fullBit(oldp+548,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[4]));
+    bufp->fullBit(oldp+549,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[5]));
+    bufp->fullBit(oldp+550,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[6]));
+    bufp->fullBit(oldp+551,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[7]));
+    bufp->fullBit(oldp+552,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[8]));
+    bufp->fullBit(oldp+553,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[9]));
+    bufp->fullBit(oldp+554,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[10]));
+    bufp->fullBit(oldp+555,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[11]));
+    bufp->fullBit(oldp+556,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[12]));
+    bufp->fullBit(oldp+557,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[13]));
+    bufp->fullBit(oldp+558,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[14]));
+    bufp->fullBit(oldp+559,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[15]));
+    bufp->fullBit(oldp+560,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[16]));
+    bufp->fullBit(oldp+561,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[17]));
+    bufp->fullBit(oldp+562,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[18]));
+    bufp->fullBit(oldp+563,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[19]));
+    bufp->fullBit(oldp+564,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[20]));
+    bufp->fullBit(oldp+565,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[21]));
+    bufp->fullBit(oldp+566,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[22]));
+    bufp->fullBit(oldp+567,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[23]));
+    bufp->fullBit(oldp+568,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[24]));
+    bufp->fullBit(oldp+569,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[25]));
+    bufp->fullBit(oldp+570,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[26]));
+    bufp->fullBit(oldp+571,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[27]));
+    bufp->fullBit(oldp+572,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[28]));
+    bufp->fullBit(oldp+573,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[29]));
+    bufp->fullBit(oldp+574,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[30]));
+    bufp->fullBit(oldp+575,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru[31]));
+    bufp->fullBit(oldp+576,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru_lru_w_MPORT_en_pipe_0));
+    bufp->fullCData(oldp+577,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru_lru_w_MPORT_addr_pipe_0),5);
+    bufp->fullBit(oldp+578,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru
                             [vlSelf->CoreTop__DOT__ICACHE__DOT__lru_lru_w_MPORT_addr_pipe_0]));
-    bufp->fullBit(oldp+633,(((0U != (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__state)) 
+    bufp->fullBit(oldp+579,(((0U != (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__state)) 
                              & ((1U == (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__state)) 
                                 & ((IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__Scanf_io_out_bits_hit) 
                                    & ((IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__Scanf__DOT___hit_way_0_T) 
                                       & ((vlSelf->CoreTop__DOT__IF__DOT__temp 
                                           >> 0xbU) 
                                          == vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0_tag_w_data)))))));
-    bufp->fullBit(oldp+634,(((0U != (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__state)) 
+    bufp->fullBit(oldp+580,(((0U != (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__state)) 
                              & ((1U == (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__state)) 
                                 & ((IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__Scanf_io_out_bits_hit) 
                                    & ((IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__Scanf__DOT___hit_way_1_T) 
                                       & ((vlSelf->CoreTop__DOT__IF__DOT__temp 
                                           >> 0xbU) 
                                          == vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1_tag_w_data)))))));
-    bufp->fullBit(oldp+635,(((0U != (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__state)) 
+    bufp->fullBit(oldp+581,(((0U != (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__state)) 
                              & ((1U != (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__state)) 
                                 & ((2U == (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__state)) 
-                                   & (((IData)(vlSelf->CoreTop__DOT__EX_io_in_ready) 
-                                       & (8U == (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__count))) 
+                                   & ((IData)(vlSelf->CoreTop__DOT__ICACHE__DOT___T_5) 
                                       & (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__lru_r)))))));
-    bufp->fullBit(oldp+636,(((0U != (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__state)) 
+    bufp->fullBit(oldp+582,(((0U != (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__state)) 
                              & ((1U != (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__state)) 
                                 & ((2U == (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__state)) 
-                                   & (((IData)(vlSelf->CoreTop__DOT__EX_io_in_ready) 
-                                       & (8U == (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__count))) 
+                                   & ((IData)(vlSelf->CoreTop__DOT__ICACHE__DOT___T_5) 
                                       & (~ (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__lru_r))))))));
-    bufp->fullCData(oldp+637,(vlSelf->CoreTop__DOT__ICACHE__DOT__state),2);
-    bufp->fullWData(oldp+638,(vlSelf->CoreTop__DOT__ICACHE__DOT__data_line_reg),512);
-    bufp->fullBit(oldp+654,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru_r));
-    bufp->fullCData(oldp+655,(vlSelf->CoreTop__DOT__ICACHE__DOT__count),4);
-    bufp->fullQData(oldp+656,(vlSelf->CoreTop__DOT__ICACHE__DOT__hit_data),64);
-    bufp->fullQData(oldp+658,(vlSelf->CoreTop__DOT__ICACHE__DOT__mem_data),64);
-    bufp->fullWData(oldp+660,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[0]),512);
-    bufp->fullWData(oldp+676,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[1]),512);
-    bufp->fullWData(oldp+692,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[2]),512);
-    bufp->fullWData(oldp+708,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[3]),512);
-    bufp->fullWData(oldp+724,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[4]),512);
-    bufp->fullWData(oldp+740,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[5]),512);
-    bufp->fullWData(oldp+756,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[6]),512);
-    bufp->fullWData(oldp+772,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[7]),512);
-    bufp->fullWData(oldp+788,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[8]),512);
-    bufp->fullWData(oldp+804,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[9]),512);
-    bufp->fullWData(oldp+820,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[10]),512);
-    bufp->fullWData(oldp+836,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[11]),512);
-    bufp->fullWData(oldp+852,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[12]),512);
-    bufp->fullWData(oldp+868,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[13]),512);
-    bufp->fullWData(oldp+884,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[14]),512);
-    bufp->fullWData(oldp+900,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[15]),512);
-    bufp->fullWData(oldp+916,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[16]),512);
-    bufp->fullWData(oldp+932,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[17]),512);
-    bufp->fullWData(oldp+948,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[18]),512);
-    bufp->fullWData(oldp+964,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[19]),512);
-    bufp->fullWData(oldp+980,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[20]),512);
-    bufp->fullWData(oldp+996,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[21]),512);
-    bufp->fullWData(oldp+1012,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[22]),512);
-    bufp->fullWData(oldp+1028,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[23]),512);
-    bufp->fullWData(oldp+1044,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[24]),512);
-    bufp->fullWData(oldp+1060,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[25]),512);
-    bufp->fullWData(oldp+1076,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[26]),512);
-    bufp->fullWData(oldp+1092,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[27]),512);
-    bufp->fullWData(oldp+1108,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[28]),512);
-    bufp->fullWData(oldp+1124,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[29]),512);
-    bufp->fullWData(oldp+1140,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[30]),512);
-    bufp->fullWData(oldp+1156,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[31]),512);
-    bufp->fullBit(oldp+1172,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0_data_w_en_pipe_0));
-    bufp->fullCData(oldp+1173,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0_data_w_addr_pipe_0),5);
-    bufp->fullCData(oldp+1174,((0x1fU & (IData)((vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data_io_write_bus_addr 
+    bufp->fullCData(oldp+583,(vlSelf->CoreTop__DOT__ICACHE__DOT__state),3);
+    bufp->fullCData(oldp+584,(vlSelf->CoreTop__DOT__ICACHE__DOT__read_state),2);
+    bufp->fullWData(oldp+585,(vlSelf->CoreTop__DOT__ICACHE__DOT__data_line_reg),512);
+    bufp->fullQData(oldp+601,(vlSelf->CoreTop__DOT__ICACHE__DOT__mem_addr_reg),64);
+    bufp->fullBit(oldp+603,(vlSelf->CoreTop__DOT__ICACHE__DOT__lru_r));
+    bufp->fullQData(oldp+604,(vlSelf->CoreTop__DOT__ICACHE__DOT__hit_data),64);
+    bufp->fullQData(oldp+606,(vlSelf->CoreTop__DOT__ICACHE__DOT__mem_data),64);
+    bufp->fullWData(oldp+608,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[0]),512);
+    bufp->fullWData(oldp+624,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[1]),512);
+    bufp->fullWData(oldp+640,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[2]),512);
+    bufp->fullWData(oldp+656,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[3]),512);
+    bufp->fullWData(oldp+672,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[4]),512);
+    bufp->fullWData(oldp+688,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[5]),512);
+    bufp->fullWData(oldp+704,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[6]),512);
+    bufp->fullWData(oldp+720,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[7]),512);
+    bufp->fullWData(oldp+736,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[8]),512);
+    bufp->fullWData(oldp+752,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[9]),512);
+    bufp->fullWData(oldp+768,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[10]),512);
+    bufp->fullWData(oldp+784,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[11]),512);
+    bufp->fullWData(oldp+800,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[12]),512);
+    bufp->fullWData(oldp+816,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[13]),512);
+    bufp->fullWData(oldp+832,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[14]),512);
+    bufp->fullWData(oldp+848,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[15]),512);
+    bufp->fullWData(oldp+864,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[16]),512);
+    bufp->fullWData(oldp+880,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[17]),512);
+    bufp->fullWData(oldp+896,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[18]),512);
+    bufp->fullWData(oldp+912,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[19]),512);
+    bufp->fullWData(oldp+928,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[20]),512);
+    bufp->fullWData(oldp+944,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[21]),512);
+    bufp->fullWData(oldp+960,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[22]),512);
+    bufp->fullWData(oldp+976,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[23]),512);
+    bufp->fullWData(oldp+992,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[24]),512);
+    bufp->fullWData(oldp+1008,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[25]),512);
+    bufp->fullWData(oldp+1024,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[26]),512);
+    bufp->fullWData(oldp+1040,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[27]),512);
+    bufp->fullWData(oldp+1056,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[28]),512);
+    bufp->fullWData(oldp+1072,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[29]),512);
+    bufp->fullWData(oldp+1088,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[30]),512);
+    bufp->fullWData(oldp+1104,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0[31]),512);
+    bufp->fullBit(oldp+1120,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0_data_w_en_pipe_0));
+    bufp->fullCData(oldp+1121,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_0_data_w_addr_pipe_0),5);
+    bufp->fullCData(oldp+1122,((0x1fU & (IData)((vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data_io_write_bus_addr 
                                                  >> 6U)))),5);
-    bufp->fullBit(oldp+1175,(((IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__lru_r)
+    bufp->fullBit(oldp+1123,(((IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__lru_r)
                                ? 0U : 1U)));
-    bufp->fullWData(oldp+1176,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[0]),512);
-    bufp->fullWData(oldp+1192,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[1]),512);
-    bufp->fullWData(oldp+1208,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[2]),512);
-    bufp->fullWData(oldp+1224,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[3]),512);
-    bufp->fullWData(oldp+1240,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[4]),512);
-    bufp->fullWData(oldp+1256,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[5]),512);
-    bufp->fullWData(oldp+1272,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[6]),512);
-    bufp->fullWData(oldp+1288,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[7]),512);
-    bufp->fullWData(oldp+1304,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[8]),512);
-    bufp->fullWData(oldp+1320,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[9]),512);
-    bufp->fullWData(oldp+1336,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[10]),512);
-    bufp->fullWData(oldp+1352,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[11]),512);
-    bufp->fullWData(oldp+1368,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[12]),512);
-    bufp->fullWData(oldp+1384,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[13]),512);
-    bufp->fullWData(oldp+1400,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[14]),512);
-    bufp->fullWData(oldp+1416,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[15]),512);
-    bufp->fullWData(oldp+1432,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[16]),512);
-    bufp->fullWData(oldp+1448,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[17]),512);
-    bufp->fullWData(oldp+1464,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[18]),512);
-    bufp->fullWData(oldp+1480,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[19]),512);
-    bufp->fullWData(oldp+1496,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[20]),512);
-    bufp->fullWData(oldp+1512,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[21]),512);
-    bufp->fullWData(oldp+1528,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[22]),512);
-    bufp->fullWData(oldp+1544,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[23]),512);
-    bufp->fullWData(oldp+1560,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[24]),512);
-    bufp->fullWData(oldp+1576,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[25]),512);
-    bufp->fullWData(oldp+1592,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[26]),512);
-    bufp->fullWData(oldp+1608,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[27]),512);
-    bufp->fullWData(oldp+1624,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[28]),512);
-    bufp->fullWData(oldp+1640,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[29]),512);
-    bufp->fullWData(oldp+1656,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[30]),512);
-    bufp->fullWData(oldp+1672,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[31]),512);
-    bufp->fullBit(oldp+1688,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1_data_w_en_pipe_0));
-    bufp->fullCData(oldp+1689,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1_data_w_addr_pipe_0),5);
-    bufp->fullBit(oldp+1690,((1U & (((IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__lru_r)
+    bufp->fullWData(oldp+1124,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[0]),512);
+    bufp->fullWData(oldp+1140,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[1]),512);
+    bufp->fullWData(oldp+1156,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[2]),512);
+    bufp->fullWData(oldp+1172,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[3]),512);
+    bufp->fullWData(oldp+1188,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[4]),512);
+    bufp->fullWData(oldp+1204,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[5]),512);
+    bufp->fullWData(oldp+1220,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[6]),512);
+    bufp->fullWData(oldp+1236,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[7]),512);
+    bufp->fullWData(oldp+1252,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[8]),512);
+    bufp->fullWData(oldp+1268,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[9]),512);
+    bufp->fullWData(oldp+1284,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[10]),512);
+    bufp->fullWData(oldp+1300,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[11]),512);
+    bufp->fullWData(oldp+1316,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[12]),512);
+    bufp->fullWData(oldp+1332,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[13]),512);
+    bufp->fullWData(oldp+1348,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[14]),512);
+    bufp->fullWData(oldp+1364,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[15]),512);
+    bufp->fullWData(oldp+1380,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[16]),512);
+    bufp->fullWData(oldp+1396,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[17]),512);
+    bufp->fullWData(oldp+1412,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[18]),512);
+    bufp->fullWData(oldp+1428,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[19]),512);
+    bufp->fullWData(oldp+1444,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[20]),512);
+    bufp->fullWData(oldp+1460,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[21]),512);
+    bufp->fullWData(oldp+1476,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[22]),512);
+    bufp->fullWData(oldp+1492,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[23]),512);
+    bufp->fullWData(oldp+1508,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[24]),512);
+    bufp->fullWData(oldp+1524,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[25]),512);
+    bufp->fullWData(oldp+1540,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[26]),512);
+    bufp->fullWData(oldp+1556,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[27]),512);
+    bufp->fullWData(oldp+1572,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[28]),512);
+    bufp->fullWData(oldp+1588,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[29]),512);
+    bufp->fullWData(oldp+1604,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[30]),512);
+    bufp->fullWData(oldp+1620,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1[31]),512);
+    bufp->fullBit(oldp+1636,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1_data_w_en_pipe_0));
+    bufp->fullCData(oldp+1637,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_1_data_w_addr_pipe_0),5);
+    bufp->fullBit(oldp+1638,((1U & (((IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__lru_r)
                                       ? 2U : 1U) >> 1U))));
-    bufp->fullQData(oldp+1691,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[0]),53);
-    bufp->fullQData(oldp+1693,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[1]),53);
-    bufp->fullQData(oldp+1695,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[2]),53);
-    bufp->fullQData(oldp+1697,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[3]),53);
-    bufp->fullQData(oldp+1699,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[4]),53);
-    bufp->fullQData(oldp+1701,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[5]),53);
-    bufp->fullQData(oldp+1703,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[6]),53);
-    bufp->fullQData(oldp+1705,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[7]),53);
-    bufp->fullQData(oldp+1707,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[8]),53);
-    bufp->fullQData(oldp+1709,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[9]),53);
-    bufp->fullQData(oldp+1711,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[10]),53);
-    bufp->fullQData(oldp+1713,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[11]),53);
-    bufp->fullQData(oldp+1715,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[12]),53);
-    bufp->fullQData(oldp+1717,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[13]),53);
-    bufp->fullQData(oldp+1719,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[14]),53);
-    bufp->fullQData(oldp+1721,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[15]),53);
-    bufp->fullQData(oldp+1723,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[16]),53);
-    bufp->fullQData(oldp+1725,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[17]),53);
-    bufp->fullQData(oldp+1727,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[18]),53);
-    bufp->fullQData(oldp+1729,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[19]),53);
-    bufp->fullQData(oldp+1731,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[20]),53);
-    bufp->fullQData(oldp+1733,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[21]),53);
-    bufp->fullQData(oldp+1735,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[22]),53);
-    bufp->fullQData(oldp+1737,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[23]),53);
-    bufp->fullQData(oldp+1739,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[24]),53);
-    bufp->fullQData(oldp+1741,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[25]),53);
-    bufp->fullQData(oldp+1743,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[26]),53);
-    bufp->fullQData(oldp+1745,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[27]),53);
-    bufp->fullQData(oldp+1747,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[28]),53);
-    bufp->fullQData(oldp+1749,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[29]),53);
-    bufp->fullQData(oldp+1751,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[30]),53);
-    bufp->fullQData(oldp+1753,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[31]),53);
-    bufp->fullBit(oldp+1755,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0_tag_w_en_pipe_0));
-    bufp->fullCData(oldp+1756,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0_tag_w_addr_pipe_0),5);
-    bufp->fullQData(oldp+1757,((vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data_io_write_bus_addr 
+    bufp->fullQData(oldp+1639,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[0]),53);
+    bufp->fullQData(oldp+1641,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[1]),53);
+    bufp->fullQData(oldp+1643,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[2]),53);
+    bufp->fullQData(oldp+1645,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[3]),53);
+    bufp->fullQData(oldp+1647,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[4]),53);
+    bufp->fullQData(oldp+1649,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[5]),53);
+    bufp->fullQData(oldp+1651,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[6]),53);
+    bufp->fullQData(oldp+1653,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[7]),53);
+    bufp->fullQData(oldp+1655,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[8]),53);
+    bufp->fullQData(oldp+1657,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[9]),53);
+    bufp->fullQData(oldp+1659,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[10]),53);
+    bufp->fullQData(oldp+1661,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[11]),53);
+    bufp->fullQData(oldp+1663,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[12]),53);
+    bufp->fullQData(oldp+1665,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[13]),53);
+    bufp->fullQData(oldp+1667,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[14]),53);
+    bufp->fullQData(oldp+1669,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[15]),53);
+    bufp->fullQData(oldp+1671,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[16]),53);
+    bufp->fullQData(oldp+1673,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[17]),53);
+    bufp->fullQData(oldp+1675,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[18]),53);
+    bufp->fullQData(oldp+1677,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[19]),53);
+    bufp->fullQData(oldp+1679,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[20]),53);
+    bufp->fullQData(oldp+1681,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[21]),53);
+    bufp->fullQData(oldp+1683,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[22]),53);
+    bufp->fullQData(oldp+1685,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[23]),53);
+    bufp->fullQData(oldp+1687,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[24]),53);
+    bufp->fullQData(oldp+1689,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[25]),53);
+    bufp->fullQData(oldp+1691,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[26]),53);
+    bufp->fullQData(oldp+1693,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[27]),53);
+    bufp->fullQData(oldp+1695,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[28]),53);
+    bufp->fullQData(oldp+1697,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[29]),53);
+    bufp->fullQData(oldp+1699,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[30]),53);
+    bufp->fullQData(oldp+1701,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0[31]),53);
+    bufp->fullBit(oldp+1703,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0_tag_w_en_pipe_0));
+    bufp->fullCData(oldp+1704,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_0_tag_w_addr_pipe_0),5);
+    bufp->fullQData(oldp+1705,((vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data_io_write_bus_addr 
                                 >> 0xbU)),53);
-    bufp->fullQData(oldp+1759,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[0]),53);
-    bufp->fullQData(oldp+1761,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[1]),53);
-    bufp->fullQData(oldp+1763,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[2]),53);
-    bufp->fullQData(oldp+1765,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[3]),53);
-    bufp->fullQData(oldp+1767,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[4]),53);
-    bufp->fullQData(oldp+1769,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[5]),53);
-    bufp->fullQData(oldp+1771,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[6]),53);
-    bufp->fullQData(oldp+1773,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[7]),53);
-    bufp->fullQData(oldp+1775,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[8]),53);
-    bufp->fullQData(oldp+1777,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[9]),53);
-    bufp->fullQData(oldp+1779,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[10]),53);
-    bufp->fullQData(oldp+1781,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[11]),53);
-    bufp->fullQData(oldp+1783,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[12]),53);
-    bufp->fullQData(oldp+1785,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[13]),53);
-    bufp->fullQData(oldp+1787,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[14]),53);
-    bufp->fullQData(oldp+1789,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[15]),53);
-    bufp->fullQData(oldp+1791,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[16]),53);
-    bufp->fullQData(oldp+1793,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[17]),53);
-    bufp->fullQData(oldp+1795,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[18]),53);
-    bufp->fullQData(oldp+1797,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[19]),53);
-    bufp->fullQData(oldp+1799,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[20]),53);
-    bufp->fullQData(oldp+1801,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[21]),53);
-    bufp->fullQData(oldp+1803,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[22]),53);
-    bufp->fullQData(oldp+1805,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[23]),53);
-    bufp->fullQData(oldp+1807,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[24]),53);
-    bufp->fullQData(oldp+1809,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[25]),53);
-    bufp->fullQData(oldp+1811,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[26]),53);
-    bufp->fullQData(oldp+1813,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[27]),53);
-    bufp->fullQData(oldp+1815,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[28]),53);
-    bufp->fullQData(oldp+1817,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[29]),53);
-    bufp->fullQData(oldp+1819,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[30]),53);
-    bufp->fullQData(oldp+1821,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[31]),53);
-    bufp->fullBit(oldp+1823,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1_tag_w_en_pipe_0));
-    bufp->fullCData(oldp+1824,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1_tag_w_addr_pipe_0),5);
-    bufp->fullBit(oldp+1825,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[0]));
-    bufp->fullBit(oldp+1826,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[1]));
-    bufp->fullBit(oldp+1827,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[2]));
-    bufp->fullBit(oldp+1828,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[3]));
-    bufp->fullBit(oldp+1829,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[4]));
-    bufp->fullBit(oldp+1830,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[5]));
-    bufp->fullBit(oldp+1831,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[6]));
-    bufp->fullBit(oldp+1832,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[7]));
-    bufp->fullBit(oldp+1833,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[8]));
-    bufp->fullBit(oldp+1834,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[9]));
-    bufp->fullBit(oldp+1835,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[10]));
-    bufp->fullBit(oldp+1836,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[11]));
-    bufp->fullBit(oldp+1837,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[12]));
-    bufp->fullBit(oldp+1838,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[13]));
-    bufp->fullBit(oldp+1839,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[14]));
-    bufp->fullBit(oldp+1840,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[15]));
-    bufp->fullBit(oldp+1841,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[16]));
-    bufp->fullBit(oldp+1842,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[17]));
-    bufp->fullBit(oldp+1843,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[18]));
-    bufp->fullBit(oldp+1844,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[19]));
-    bufp->fullBit(oldp+1845,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[20]));
-    bufp->fullBit(oldp+1846,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[21]));
-    bufp->fullBit(oldp+1847,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[22]));
-    bufp->fullBit(oldp+1848,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[23]));
-    bufp->fullBit(oldp+1849,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[24]));
-    bufp->fullBit(oldp+1850,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[25]));
-    bufp->fullBit(oldp+1851,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[26]));
-    bufp->fullBit(oldp+1852,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[27]));
-    bufp->fullBit(oldp+1853,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[28]));
-    bufp->fullBit(oldp+1854,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[29]));
-    bufp->fullBit(oldp+1855,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[30]));
-    bufp->fullBit(oldp+1856,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[31]));
-    bufp->fullBit(oldp+1857,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0_valid_w_en_pipe_0));
-    bufp->fullCData(oldp+1858,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0_valid_w_addr_pipe_0),5);
-    bufp->fullBit(oldp+1859,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[0]));
-    bufp->fullBit(oldp+1860,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[1]));
-    bufp->fullBit(oldp+1861,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[2]));
-    bufp->fullBit(oldp+1862,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[3]));
-    bufp->fullBit(oldp+1863,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[4]));
-    bufp->fullBit(oldp+1864,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[5]));
-    bufp->fullBit(oldp+1865,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[6]));
-    bufp->fullBit(oldp+1866,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[7]));
-    bufp->fullBit(oldp+1867,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[8]));
-    bufp->fullBit(oldp+1868,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[9]));
-    bufp->fullBit(oldp+1869,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[10]));
-    bufp->fullBit(oldp+1870,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[11]));
-    bufp->fullBit(oldp+1871,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[12]));
-    bufp->fullBit(oldp+1872,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[13]));
-    bufp->fullBit(oldp+1873,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[14]));
-    bufp->fullBit(oldp+1874,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[15]));
-    bufp->fullBit(oldp+1875,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[16]));
-    bufp->fullBit(oldp+1876,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[17]));
-    bufp->fullBit(oldp+1877,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[18]));
-    bufp->fullBit(oldp+1878,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[19]));
-    bufp->fullBit(oldp+1879,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[20]));
-    bufp->fullBit(oldp+1880,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[21]));
-    bufp->fullBit(oldp+1881,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[22]));
-    bufp->fullBit(oldp+1882,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[23]));
-    bufp->fullBit(oldp+1883,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[24]));
-    bufp->fullBit(oldp+1884,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[25]));
-    bufp->fullBit(oldp+1885,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[26]));
-    bufp->fullBit(oldp+1886,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[27]));
-    bufp->fullBit(oldp+1887,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[28]));
-    bufp->fullBit(oldp+1888,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[29]));
-    bufp->fullBit(oldp+1889,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[30]));
-    bufp->fullBit(oldp+1890,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[31]));
-    bufp->fullBit(oldp+1891,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1_valid_w_en_pipe_0));
-    bufp->fullCData(oldp+1892,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1_valid_w_addr_pipe_0),5);
-    bufp->fullBit(oldp+1893,(vlSelf->CoreTop__DOT__ICACHE__DOT__Scanf__DOT__hit_way_0_result));
-    bufp->fullBit(oldp+1894,(vlSelf->CoreTop__DOT__ICACHE__DOT__Scanf__DOT__hit_way_1_result));
-    bufp->fullCData(oldp+1895,(vlSelf->CoreTop__DOT__ID__DOT__Inst_decode_0),4);
-    bufp->fullBit(oldp+1896,(vlSelf->CoreTop__DOT__ID__DOT__Inst_decode_3));
-    bufp->fullCData(oldp+1897,((((7U == (IData)(vlSelf->CoreTop__DOT__ID__DOT__Inst_decode_0))
+    bufp->fullQData(oldp+1707,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[0]),53);
+    bufp->fullQData(oldp+1709,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[1]),53);
+    bufp->fullQData(oldp+1711,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[2]),53);
+    bufp->fullQData(oldp+1713,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[3]),53);
+    bufp->fullQData(oldp+1715,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[4]),53);
+    bufp->fullQData(oldp+1717,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[5]),53);
+    bufp->fullQData(oldp+1719,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[6]),53);
+    bufp->fullQData(oldp+1721,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[7]),53);
+    bufp->fullQData(oldp+1723,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[8]),53);
+    bufp->fullQData(oldp+1725,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[9]),53);
+    bufp->fullQData(oldp+1727,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[10]),53);
+    bufp->fullQData(oldp+1729,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[11]),53);
+    bufp->fullQData(oldp+1731,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[12]),53);
+    bufp->fullQData(oldp+1733,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[13]),53);
+    bufp->fullQData(oldp+1735,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[14]),53);
+    bufp->fullQData(oldp+1737,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[15]),53);
+    bufp->fullQData(oldp+1739,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[16]),53);
+    bufp->fullQData(oldp+1741,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[17]),53);
+    bufp->fullQData(oldp+1743,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[18]),53);
+    bufp->fullQData(oldp+1745,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[19]),53);
+    bufp->fullQData(oldp+1747,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[20]),53);
+    bufp->fullQData(oldp+1749,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[21]),53);
+    bufp->fullQData(oldp+1751,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[22]),53);
+    bufp->fullQData(oldp+1753,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[23]),53);
+    bufp->fullQData(oldp+1755,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[24]),53);
+    bufp->fullQData(oldp+1757,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[25]),53);
+    bufp->fullQData(oldp+1759,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[26]),53);
+    bufp->fullQData(oldp+1761,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[27]),53);
+    bufp->fullQData(oldp+1763,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[28]),53);
+    bufp->fullQData(oldp+1765,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[29]),53);
+    bufp->fullQData(oldp+1767,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[30]),53);
+    bufp->fullQData(oldp+1769,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1[31]),53);
+    bufp->fullBit(oldp+1771,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1_tag_w_en_pipe_0));
+    bufp->fullCData(oldp+1772,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__TAG_1_tag_w_addr_pipe_0),5);
+    bufp->fullBit(oldp+1773,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[0]));
+    bufp->fullBit(oldp+1774,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[1]));
+    bufp->fullBit(oldp+1775,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[2]));
+    bufp->fullBit(oldp+1776,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[3]));
+    bufp->fullBit(oldp+1777,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[4]));
+    bufp->fullBit(oldp+1778,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[5]));
+    bufp->fullBit(oldp+1779,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[6]));
+    bufp->fullBit(oldp+1780,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[7]));
+    bufp->fullBit(oldp+1781,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[8]));
+    bufp->fullBit(oldp+1782,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[9]));
+    bufp->fullBit(oldp+1783,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[10]));
+    bufp->fullBit(oldp+1784,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[11]));
+    bufp->fullBit(oldp+1785,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[12]));
+    bufp->fullBit(oldp+1786,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[13]));
+    bufp->fullBit(oldp+1787,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[14]));
+    bufp->fullBit(oldp+1788,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[15]));
+    bufp->fullBit(oldp+1789,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[16]));
+    bufp->fullBit(oldp+1790,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[17]));
+    bufp->fullBit(oldp+1791,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[18]));
+    bufp->fullBit(oldp+1792,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[19]));
+    bufp->fullBit(oldp+1793,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[20]));
+    bufp->fullBit(oldp+1794,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[21]));
+    bufp->fullBit(oldp+1795,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[22]));
+    bufp->fullBit(oldp+1796,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[23]));
+    bufp->fullBit(oldp+1797,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[24]));
+    bufp->fullBit(oldp+1798,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[25]));
+    bufp->fullBit(oldp+1799,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[26]));
+    bufp->fullBit(oldp+1800,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[27]));
+    bufp->fullBit(oldp+1801,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[28]));
+    bufp->fullBit(oldp+1802,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[29]));
+    bufp->fullBit(oldp+1803,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[30]));
+    bufp->fullBit(oldp+1804,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0[31]));
+    bufp->fullBit(oldp+1805,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0_valid_w_en_pipe_0));
+    bufp->fullCData(oldp+1806,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_0_valid_w_addr_pipe_0),5);
+    bufp->fullBit(oldp+1807,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[0]));
+    bufp->fullBit(oldp+1808,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[1]));
+    bufp->fullBit(oldp+1809,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[2]));
+    bufp->fullBit(oldp+1810,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[3]));
+    bufp->fullBit(oldp+1811,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[4]));
+    bufp->fullBit(oldp+1812,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[5]));
+    bufp->fullBit(oldp+1813,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[6]));
+    bufp->fullBit(oldp+1814,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[7]));
+    bufp->fullBit(oldp+1815,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[8]));
+    bufp->fullBit(oldp+1816,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[9]));
+    bufp->fullBit(oldp+1817,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[10]));
+    bufp->fullBit(oldp+1818,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[11]));
+    bufp->fullBit(oldp+1819,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[12]));
+    bufp->fullBit(oldp+1820,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[13]));
+    bufp->fullBit(oldp+1821,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[14]));
+    bufp->fullBit(oldp+1822,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[15]));
+    bufp->fullBit(oldp+1823,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[16]));
+    bufp->fullBit(oldp+1824,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[17]));
+    bufp->fullBit(oldp+1825,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[18]));
+    bufp->fullBit(oldp+1826,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[19]));
+    bufp->fullBit(oldp+1827,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[20]));
+    bufp->fullBit(oldp+1828,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[21]));
+    bufp->fullBit(oldp+1829,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[22]));
+    bufp->fullBit(oldp+1830,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[23]));
+    bufp->fullBit(oldp+1831,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[24]));
+    bufp->fullBit(oldp+1832,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[25]));
+    bufp->fullBit(oldp+1833,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[26]));
+    bufp->fullBit(oldp+1834,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[27]));
+    bufp->fullBit(oldp+1835,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[28]));
+    bufp->fullBit(oldp+1836,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[29]));
+    bufp->fullBit(oldp+1837,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[30]));
+    bufp->fullBit(oldp+1838,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1[31]));
+    bufp->fullBit(oldp+1839,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1_valid_w_en_pipe_0));
+    bufp->fullCData(oldp+1840,(vlSelf->CoreTop__DOT__ICACHE__DOT__Cache_data__DOT__data_valid_1_valid_w_addr_pipe_0),5);
+    bufp->fullBit(oldp+1841,(vlSelf->CoreTop__DOT__ICACHE__DOT__Scanf__DOT__hit_way_0_result));
+    bufp->fullBit(oldp+1842,(vlSelf->CoreTop__DOT__ICACHE__DOT__Scanf__DOT__hit_way_1_result));
+    bufp->fullCData(oldp+1843,(vlSelf->CoreTop__DOT__ID__DOT__Inst_decode_0),4);
+    bufp->fullBit(oldp+1844,(vlSelf->CoreTop__DOT__ID__DOT__Inst_decode_3));
+    bufp->fullCData(oldp+1845,((((7U == (IData)(vlSelf->CoreTop__DOT__ID__DOT__Inst_decode_0))
                                   ? 2U : 0U) | ((3U 
                                                  == (IData)(vlSelf->CoreTop__DOT__ID__DOT__Inst_decode_0))
                                                  ? 2U
                                                  : 0U))),2);
-    bufp->fullBit(oldp+1898,((((8U == (IData)(vlSelf->CoreTop__DOT__ID__DOT__Inst_decode_0)) 
+    bufp->fullBit(oldp+1846,((((8U == (IData)(vlSelf->CoreTop__DOT__ID__DOT__Inst_decode_0)) 
                                | (7U == (IData)(vlSelf->CoreTop__DOT__ID__DOT__Inst_decode_0))) 
                               | (3U == (IData)(vlSelf->CoreTop__DOT__ID__DOT__Inst_decode_0)))));
-    bufp->fullBit(oldp+1899,((vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
+    bufp->fullBit(oldp+1847,((vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
                               >> 0x1fU)));
-    bufp->fullBit(oldp+1900,((1U & (vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
+    bufp->fullBit(oldp+1848,((1U & (vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
                                     >> 0x13U))));
-    bufp->fullBit(oldp+1901,((vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
+    bufp->fullBit(oldp+1849,((vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
                               >> 0x1fU)));
-    bufp->fullIData(oldp+1902,(((1U & (IData)((vlSelf->CoreTop__DOT__IF__DOT__temp 
+    bufp->fullIData(oldp+1850,(((1U & (IData)((vlSelf->CoreTop__DOT__IF__DOT__temp 
                                                >> 2U)))
                                  ? (IData)(((((1U == (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__state)) 
                                               & (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__Scanf_io_out_bits_hit))
@@ -2854,255 +2739,420 @@ VL_ATTR_COLD void VCoreTop___024root__trace_full_sub_0(VCoreTop___024root* vlSel
                                              & (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__Scanf_io_out_bits_hit))
                                              ? vlSelf->CoreTop__DOT__ICACHE__DOT__hit_data
                                              : vlSelf->CoreTop__DOT__ICACHE__DOT__mem_data)))),32);
-    bufp->fullBit(oldp+1903,(vlSelf->CoreTop__DOT__If_axi_birdge__DOT__ar_state));
-    bufp->fullQData(oldp+1904,(vlSelf->CoreTop__DOT__MEM__DOT__addr_temp),64);
-    bufp->fullBit(oldp+1906,((1U & (IData)((vlSelf->CoreTop__DOT__MMIO_io_in_rdata_rep_bits_rdata 
-                                            >> 0x3fU)))));
-    bufp->fullBit(oldp+1907,((1U & (IData)((vlSelf->CoreTop__DOT__MMIO_io_in_rdata_rep_bits_rdata 
-                                            >> 0x1fU)))));
-    bufp->fullBit(oldp+1908,((1U & ((IData)(vlSelf->CoreTop__DOT__MEM__DOT___mem_result_T_27) 
-                                    >> 7U))));
-    bufp->fullBit(oldp+1909,((1U & ((IData)(vlSelf->CoreTop__DOT__MEM__DOT___mem_result_T_44) 
-                                    >> 0xfU))));
-    bufp->fullQData(oldp+1910,(((0x45U == (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_aluoptype))
-                                 ? vlSelf->CoreTop__DOT__MMIO_io_in_rdata_rep_bits_rdata
-                                 : ((0x47U == (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_aluoptype))
-                                     ? ((1U & (IData)(
-                                                      (vlSelf->CoreTop__DOT__MEM__DOT__addr_temp 
-                                                       >> 2U)))
+    bufp->fullQData(oldp+1851,(vlSelf->CoreTop__DOT__MEM__DOT__addr_temp),64);
+    bufp->fullCData(oldp+1853,(vlSelf->CoreTop__DOT__MMEM__DOT__read_state),2);
+    bufp->fullCData(oldp+1854,(vlSelf->CoreTop__DOT__MMEM__DOT__write_state),2);
+    bufp->fullCData(oldp+1855,(vlSelf->CoreTop__DOT__MMEM__DOT__read_next_state),2);
+    bufp->fullCData(oldp+1856,(vlSelf->CoreTop__DOT__MMEM__DOT__write_next_state),2);
+    bufp->fullQData(oldp+1857,(vlSelf->CoreTop__DOT__MMEM__DOT__write_addr_buffer),64);
+    bufp->fullQData(oldp+1859,(vlSelf->CoreTop__DOT__MMEM__DOT__read_addr_buffer),64);
+    bufp->fullCData(oldp+1861,(vlSelf->CoreTop__DOT__MMEM__DOT__read_count),8);
+    bufp->fullBit(oldp+1862,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE_io_in_addr_req_valid));
+    bufp->fullBit(oldp+1863,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE_io_in_rdata_rep_ready));
+    bufp->fullBit(oldp+1864,((((IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___io_in_rdata_rep_bits_rdata_T_1) 
+                               | ((2U == (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state)) 
+                                  & (3U == (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__read_state)))) 
+                              & (~ (IData)(vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_we)))));
+    bufp->fullQData(oldp+1865,((((1U == (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state)) 
+                                 & (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf_io_out_bits_hit))
+                                 ? ((0U == (7U & (IData)(
+                                                         (vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr 
+                                                          >> 3U))))
+                                     ? (((QData)((IData)(
+                                                         vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf_io_out_bits_data[1U])) 
+                                         << 0x20U) 
+                                        | (QData)((IData)(
+                                                          vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf_io_out_bits_data[0U])))
+                                     : ((1U == (7U 
+                                                & (IData)(
+                                                          (vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr 
+                                                           >> 3U))))
                                          ? (((QData)((IData)(
-                                                             ((1U 
-                                                               & (IData)(
-                                                                         (vlSelf->CoreTop__DOT__MMIO_io_in_rdata_rep_bits_rdata 
-                                                                          >> 0x3fU)))
-                                                               ? 0xffffffffU
-                                                               : 0U))) 
+                                                             vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf_io_out_bits_data[3U])) 
                                              << 0x20U) 
                                             | (QData)((IData)(
-                                                              (vlSelf->CoreTop__DOT__MMIO_io_in_rdata_rep_bits_rdata 
-                                                               >> 0x20U))))
-                                         : (((QData)((IData)(
-                                                             ((1U 
-                                                               & (IData)(
-                                                                         (vlSelf->CoreTop__DOT__MMIO_io_in_rdata_rep_bits_rdata 
-                                                                          >> 0x1fU)))
-                                                               ? 0xffffffffU
-                                                               : 0U))) 
-                                             << 0x20U) 
-                                            | (QData)((IData)(vlSelf->CoreTop__DOT__MMIO_io_in_rdata_rep_bits_rdata))))
-                                     : ((0x11U == (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_aluoptype))
-                                         ? ((1U & (IData)(
-                                                          (vlSelf->CoreTop__DOT__MEM__DOT__addr_temp 
-                                                           >> 2U)))
-                                             ? (QData)((IData)(
-                                                               (vlSelf->CoreTop__DOT__MMIO_io_in_rdata_rep_bits_rdata 
-                                                                >> 0x20U)))
-                                             : (QData)((IData)(vlSelf->CoreTop__DOT__MMIO_io_in_rdata_rep_bits_rdata)))
-                                         : ((0x6fU 
-                                             == (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_aluoptype))
-                                             ? (QData)((IData)(vlSelf->CoreTop__DOT__MEM__DOT___mem_result_T_27))
-                                             : ((0xeU 
-                                                 == (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_aluoptype))
+                                                              vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf_io_out_bits_data[2U])))
+                                         : ((2U == 
+                                             (7U & (IData)(
+                                                           (vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr 
+                                                            >> 3U))))
+                                             ? (((QData)((IData)(
+                                                                 vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf_io_out_bits_data[5U])) 
+                                                 << 0x20U) 
+                                                | (QData)((IData)(
+                                                                  vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf_io_out_bits_data[4U])))
+                                             : ((3U 
+                                                 == 
+                                                 (7U 
+                                                  & (IData)(
+                                                            (vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr 
+                                                             >> 3U))))
                                                  ? 
-                                                ((((0x80U 
-                                                    & (IData)(vlSelf->CoreTop__DOT__MEM__DOT___mem_result_T_27))
-                                                    ? 0xffffffffffffffULL
-                                                    : 0ULL) 
-                                                  << 8U) 
-                                                 | (QData)((IData)(vlSelf->CoreTop__DOT__MEM__DOT___mem_result_T_27)))
+                                                (((QData)((IData)(
+                                                                  vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf_io_out_bits_data[7U])) 
+                                                  << 0x20U) 
+                                                 | (QData)((IData)(
+                                                                   vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf_io_out_bits_data[6U])))
                                                  : 
-                                                ((3U 
-                                                  == (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_aluoptype))
+                                                ((4U 
+                                                  == 
+                                                  (7U 
+                                                   & (IData)(
+                                                             (vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr 
+                                                              >> 3U))))
                                                   ? 
-                                                 ((((0x8000U 
-                                                     & (IData)(vlSelf->CoreTop__DOT__MEM__DOT___mem_result_T_44))
-                                                     ? 0xffffffffffffULL
-                                                     : 0ULL) 
-                                                   << 0x10U) 
-                                                  | (QData)((IData)(vlSelf->CoreTop__DOT__MEM__DOT___mem_result_T_44)))
+                                                 (((QData)((IData)(
+                                                                   vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf_io_out_bits_data[9U])) 
+                                                   << 0x20U) 
+                                                  | (QData)((IData)(
+                                                                    vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf_io_out_bits_data[8U])))
                                                   : 
-                                                 ((4U 
-                                                   == (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_aluoptype))
-                                                   ? (QData)((IData)(vlSelf->CoreTop__DOT__MEM__DOT___mem_result_T_44))
-                                                   : 0ULL)))))))),64);
-    bufp->fullBit(oldp+1912,(vlSelf->CoreTop__DOT__MEM_axi_birdge__DOT__ar_state));
-    bufp->fullCData(oldp+1913,(vlSelf->CoreTop__DOT__MMEM__DOT__state),2);
-    bufp->fullBit(oldp+1914,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE_io_in_addr_req_valid));
-    bufp->fullBit(oldp+1915,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE_io_in_rdata_rep_valid));
-    bufp->fullQData(oldp+1916,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE_io_in_rdata_rep_bits_rdata),64);
-    bufp->fullBit(oldp+1918,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE_io_in_wdata_rep));
-    bufp->fullBit(oldp+1919,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE_io_out_addr_req_valid));
-    bufp->fullQData(oldp+1920,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE_io_out_addr_req_bits_addr),64);
-    bufp->fullBit(oldp+1922,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE_io_out_addr_req_bits_ce));
-    bufp->fullBit(oldp+1923,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE_io_out_addr_req_bits_we));
-    bufp->fullQData(oldp+1924,((((QData)((IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg[1U])) 
+                                                 ((5U 
+                                                   == 
+                                                   (7U 
+                                                    & (IData)(
+                                                              (vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr 
+                                                               >> 3U))))
+                                                   ? 
+                                                  (((QData)((IData)(
+                                                                    vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf_io_out_bits_data[0xbU])) 
+                                                    << 0x20U) 
+                                                   | (QData)((IData)(
+                                                                     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf_io_out_bits_data[0xaU])))
+                                                   : 
+                                                  ((6U 
+                                                    == 
+                                                    (7U 
+                                                     & (IData)(
+                                                               (vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr 
+                                                                >> 3U))))
+                                                    ? 
+                                                   (((QData)((IData)(
+                                                                     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf_io_out_bits_data[0xdU])) 
+                                                     << 0x20U) 
+                                                    | (QData)((IData)(
+                                                                      vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf_io_out_bits_data[0xcU])))
+                                                    : 
+                                                   ((7U 
+                                                     == 
+                                                     (7U 
+                                                      & (IData)(
+                                                                (vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr 
+                                                                 >> 3U))))
+                                                     ? 
+                                                    (((QData)((IData)(
+                                                                      vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf_io_out_bits_data[0xfU])) 
+                                                      << 0x20U) 
+                                                     | (QData)((IData)(
+                                                                       vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf_io_out_bits_data[0xeU])))
+                                                     : 0ULL))))))))
+                                 : ((0U == (7U & (IData)(
+                                                         (vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr 
+                                                          >> 3U))))
+                                     ? (((QData)((IData)(
+                                                         vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[1U])) 
+                                         << 0x20U) 
+                                        | (QData)((IData)(
+                                                          vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[0U])))
+                                     : ((1U == (7U 
+                                                & (IData)(
+                                                          (vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr 
+                                                           >> 3U))))
+                                         ? (((QData)((IData)(
+                                                             vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[3U])) 
+                                             << 0x20U) 
+                                            | (QData)((IData)(
+                                                              vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[2U])))
+                                         : ((2U == 
+                                             (7U & (IData)(
+                                                           (vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr 
+                                                            >> 3U))))
+                                             ? (((QData)((IData)(
+                                                                 vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[5U])) 
+                                                 << 0x20U) 
+                                                | (QData)((IData)(
+                                                                  vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[4U])))
+                                             : ((3U 
+                                                 == 
+                                                 (7U 
+                                                  & (IData)(
+                                                            (vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr 
+                                                             >> 3U))))
+                                                 ? 
+                                                (((QData)((IData)(
+                                                                  vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[7U])) 
+                                                  << 0x20U) 
+                                                 | (QData)((IData)(
+                                                                   vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[6U])))
+                                                 : 
+                                                ((4U 
+                                                  == 
+                                                  (7U 
+                                                   & (IData)(
+                                                             (vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr 
+                                                              >> 3U))))
+                                                  ? 
+                                                 (((QData)((IData)(
+                                                                   vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[9U])) 
+                                                   << 0x20U) 
+                                                  | (QData)((IData)(
+                                                                    vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[8U])))
+                                                  : 
+                                                 ((5U 
+                                                   == 
+                                                   (7U 
+                                                    & (IData)(
+                                                              (vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr 
+                                                               >> 3U))))
+                                                   ? 
+                                                  (((QData)((IData)(
+                                                                    vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[0xbU])) 
+                                                    << 0x20U) 
+                                                   | (QData)((IData)(
+                                                                     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[0xaU])))
+                                                   : 
+                                                  ((6U 
+                                                    == 
+                                                    (7U 
+                                                     & (IData)(
+                                                               (vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr 
+                                                                >> 3U))))
+                                                    ? 
+                                                   (((QData)((IData)(
+                                                                     vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[0xdU])) 
+                                                     << 0x20U) 
+                                                    | (QData)((IData)(
+                                                                      vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[0xcU])))
+                                                    : 
+                                                   ((7U 
+                                                     == 
+                                                     (7U 
+                                                      & (IData)(
+                                                                (vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr 
+                                                                 >> 3U))))
+                                                     ? 
+                                                    (((QData)((IData)(
+                                                                      vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[0xfU])) 
+                                                      << 0x20U) 
+                                                     | (QData)((IData)(
+                                                                       vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[0xeU])))
+                                                     : 0ULL)))))))))),64);
+    bufp->fullBit(oldp+1867,(((IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___Cache_data_io_write_bus_valid_T_3) 
+                              | ((IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___io_in_rdata_rep_valid_T_4) 
+                                 & (IData)(vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_we)))));
+    bufp->fullBit(oldp+1868,(((~ (((IData)(vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_valid) 
+                                   & (0xa0000000ULL 
+                                      <= vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr)) 
+                                  & (0xa2000000ULL 
+                                     >= vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr))) 
+                              & (IData)(vlSelf->CoreTop__DOT__ARBITER_io_in1_raddr_req_ready))));
+    bufp->fullBit(oldp+1869,((1U == (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__read_state))));
+    bufp->fullQData(oldp+1870,(((1U == (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__read_state))
+                                 ? vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_addr_reg
+                                 : 0ULL)),64);
+    bufp->fullBit(oldp+1872,(((~ (((IData)(vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_valid) 
+                                   & (0xa0000000ULL 
+                                      <= vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr)) 
+                                  & (0xa2000000ULL 
+                                     >= vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr))) 
+                              & (IData)(vlSelf->CoreTop__DOT__ARBITER_io_in1_waddr_req_ready))));
+    bufp->fullBit(oldp+1873,((1U == (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__write_state))));
+    bufp->fullQData(oldp+1874,(((1U == (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__write_state))
+                                 ? vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_addr_reg
+                                 : 0ULL)),64);
+    bufp->fullBit(oldp+1876,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE_io_out_rdata_rep_valid));
+    bufp->fullBit(oldp+1877,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE_io_out_wdata_req_ready));
+    bufp->fullBit(oldp+1878,((2U == (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__write_state))));
+    bufp->fullQData(oldp+1879,((((QData)((IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg[1U])) 
                                  << 0x20U) | (QData)((IData)(
                                                              vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg[0U])))),64);
-    bufp->fullBit(oldp+1926,(((IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE_io_in_addr_req_valid) 
+    bufp->fullBit(oldp+1881,((7U == (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__count_write))));
+    bufp->fullBit(oldp+1882,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE_io_out_wb_valid));
+    bufp->fullBit(oldp+1883,(vlSelf->CoreTop__DOT__MMIO__DOT__birdge_io_in_addr_req_valid));
+    bufp->fullBit(oldp+1884,(vlSelf->CoreTop__DOT__MMIO__DOT__birdge_io_in_rdata_rep_ready));
+    bufp->fullBit(oldp+1885,(vlSelf->CoreTop__DOT__MMIO__DOT__birdge_io_out_rdata_rep_valid));
+    bufp->fullBit(oldp+1886,(vlSelf->CoreTop__DOT__MMIO__DOT__birdge_io_in_wdata_req_valid));
+    bufp->fullBit(oldp+1887,(vlSelf->CoreTop__DOT__MMIO__DOT__birdge_io_out_wb_valid));
+    bufp->fullBit(oldp+1888,(((((IData)(vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_valid) 
+                                & (0xa0000000ULL <= vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr)) 
+                               & (0xa2000000ULL >= vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr)) 
+                              & (IData)(vlSelf->CoreTop__DOT__ARBITER_io_in1_raddr_req_ready))));
+    bufp->fullBit(oldp+1889,((1U == (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__birdge__DOT__read_state))));
+    bufp->fullBit(oldp+1890,(((((IData)(vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_valid) 
+                                & (0xa0000000ULL <= vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr)) 
+                               & (0xa2000000ULL >= vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr)) 
+                              & (IData)(vlSelf->CoreTop__DOT__ARBITER_io_in1_waddr_req_ready))));
+    bufp->fullBit(oldp+1891,((1U == (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__birdge__DOT__write_state))));
+    bufp->fullBit(oldp+1892,(((((IData)(vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_valid) 
+                                & (0xa0000000ULL <= vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr)) 
+                               & (0xa2000000ULL >= vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr)) 
+                              & (IData)(vlSelf->CoreTop__DOT__ARBITER_io_in1_wdata_req_ready))));
+    bufp->fullBit(oldp+1893,((2U == (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__birdge__DOT__write_state))));
+    bufp->fullBit(oldp+1894,((3U == (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__birdge__DOT__write_state))));
+    bufp->fullBit(oldp+1895,(((IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE_io_in_addr_req_valid) 
                               & (0U == (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state)))));
-    bufp->fullQData(oldp+1927,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data_io_write_bus_addr),64);
-    bufp->fullBit(oldp+1929,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data_io_write_bus_valid));
-    bufp->fullCData(oldp+1930,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data_io_write_bus_waymask),2);
-    bufp->fullWData(oldp+1931,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data_io_write_bus_wdata),512);
-    bufp->fullQData(oldp+1947,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0_tag_w_data),53);
-    bufp->fullQData(oldp+1949,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1_tag_w_data),53);
-    bufp->fullBit(oldp+1951,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0
+    bufp->fullQData(oldp+1896,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data_io_write_bus_addr),64);
+    bufp->fullBit(oldp+1898,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data_io_write_bus_valid));
+    bufp->fullCData(oldp+1899,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data_io_write_bus_waymask),2);
+    bufp->fullWData(oldp+1900,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data_io_write_bus_wdata),512);
+    bufp->fullQData(oldp+1916,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0_tag_w_data),53);
+    bufp->fullQData(oldp+1918,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1_tag_w_data),53);
+    bufp->fullBit(oldp+1920,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0
                              [vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0_valid_w_addr_pipe_0]));
-    bufp->fullBit(oldp+1952,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1
+    bufp->fullBit(oldp+1921,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1
                              [vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1_valid_w_addr_pipe_0]));
-    bufp->fullWData(oldp+1953,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0_data_w_data),512);
-    bufp->fullWData(oldp+1969,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1_data_w_data),512);
-    bufp->fullQData(oldp+1985,((vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr 
+    bufp->fullWData(oldp+1922,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0_data_w_data),512);
+    bufp->fullWData(oldp+1938,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1_data_w_data),512);
+    bufp->fullQData(oldp+1954,((vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr 
                                 >> 0xbU)),53);
-    bufp->fullCData(oldp+1987,((0x1fU & (IData)((vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr 
+    bufp->fullCData(oldp+1956,((0x1fU & (IData)((vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr 
                                                  >> 6U)))),5);
-    bufp->fullCData(oldp+1988,((0x3fU & (IData)(vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr))),6);
-    bufp->fullBit(oldp+1989,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf_io_in_valid_REG));
-    bufp->fullBit(oldp+1990,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf_io_out_bits_hit));
-    bufp->fullWData(oldp+1991,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf_io_out_bits_data),512);
-    bufp->fullBit(oldp+2007,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf_io_out_bits_hit_way_0));
-    bufp->fullBit(oldp+2008,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf_io_out_bits_hit_way_1));
-    bufp->fullBit(oldp+2009,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[0]));
-    bufp->fullBit(oldp+2010,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[1]));
-    bufp->fullBit(oldp+2011,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[2]));
-    bufp->fullBit(oldp+2012,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[3]));
-    bufp->fullBit(oldp+2013,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[4]));
-    bufp->fullBit(oldp+2014,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[5]));
-    bufp->fullBit(oldp+2015,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[6]));
-    bufp->fullBit(oldp+2016,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[7]));
-    bufp->fullBit(oldp+2017,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[8]));
-    bufp->fullBit(oldp+2018,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[9]));
-    bufp->fullBit(oldp+2019,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[10]));
-    bufp->fullBit(oldp+2020,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[11]));
-    bufp->fullBit(oldp+2021,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[12]));
-    bufp->fullBit(oldp+2022,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[13]));
-    bufp->fullBit(oldp+2023,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[14]));
-    bufp->fullBit(oldp+2024,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[15]));
-    bufp->fullBit(oldp+2025,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[16]));
-    bufp->fullBit(oldp+2026,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[17]));
-    bufp->fullBit(oldp+2027,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[18]));
-    bufp->fullBit(oldp+2028,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[19]));
-    bufp->fullBit(oldp+2029,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[20]));
-    bufp->fullBit(oldp+2030,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[21]));
-    bufp->fullBit(oldp+2031,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[22]));
-    bufp->fullBit(oldp+2032,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[23]));
-    bufp->fullBit(oldp+2033,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[24]));
-    bufp->fullBit(oldp+2034,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[25]));
-    bufp->fullBit(oldp+2035,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[26]));
-    bufp->fullBit(oldp+2036,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[27]));
-    bufp->fullBit(oldp+2037,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[28]));
-    bufp->fullBit(oldp+2038,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[29]));
-    bufp->fullBit(oldp+2039,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[30]));
-    bufp->fullBit(oldp+2040,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[31]));
-    bufp->fullBit(oldp+2041,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru_lru_w_MPORT_en_pipe_0));
-    bufp->fullCData(oldp+2042,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru_lru_w_MPORT_addr_pipe_0),5);
-    bufp->fullBit(oldp+2043,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru_lru_w_MPORT_data));
-    bufp->fullBit(oldp+2044,(((0U != (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state)) 
+    bufp->fullCData(oldp+1957,((0x3fU & (IData)(vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr))),6);
+    bufp->fullBit(oldp+1958,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf_io_in_valid_REG));
+    bufp->fullBit(oldp+1959,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf_io_out_bits_hit));
+    bufp->fullWData(oldp+1960,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf_io_out_bits_data),512);
+    bufp->fullBit(oldp+1976,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf_io_out_bits_hit_way_0));
+    bufp->fullBit(oldp+1977,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf_io_out_bits_hit_way_1));
+    bufp->fullBit(oldp+1978,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[0]));
+    bufp->fullBit(oldp+1979,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[1]));
+    bufp->fullBit(oldp+1980,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[2]));
+    bufp->fullBit(oldp+1981,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[3]));
+    bufp->fullBit(oldp+1982,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[4]));
+    bufp->fullBit(oldp+1983,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[5]));
+    bufp->fullBit(oldp+1984,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[6]));
+    bufp->fullBit(oldp+1985,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[7]));
+    bufp->fullBit(oldp+1986,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[8]));
+    bufp->fullBit(oldp+1987,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[9]));
+    bufp->fullBit(oldp+1988,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[10]));
+    bufp->fullBit(oldp+1989,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[11]));
+    bufp->fullBit(oldp+1990,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[12]));
+    bufp->fullBit(oldp+1991,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[13]));
+    bufp->fullBit(oldp+1992,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[14]));
+    bufp->fullBit(oldp+1993,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[15]));
+    bufp->fullBit(oldp+1994,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[16]));
+    bufp->fullBit(oldp+1995,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[17]));
+    bufp->fullBit(oldp+1996,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[18]));
+    bufp->fullBit(oldp+1997,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[19]));
+    bufp->fullBit(oldp+1998,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[20]));
+    bufp->fullBit(oldp+1999,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[21]));
+    bufp->fullBit(oldp+2000,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[22]));
+    bufp->fullBit(oldp+2001,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[23]));
+    bufp->fullBit(oldp+2002,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[24]));
+    bufp->fullBit(oldp+2003,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[25]));
+    bufp->fullBit(oldp+2004,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[26]));
+    bufp->fullBit(oldp+2005,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[27]));
+    bufp->fullBit(oldp+2006,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[28]));
+    bufp->fullBit(oldp+2007,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[29]));
+    bufp->fullBit(oldp+2008,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[30]));
+    bufp->fullBit(oldp+2009,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru[31]));
+    bufp->fullBit(oldp+2010,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru_lru_w_MPORT_en_pipe_0));
+    bufp->fullCData(oldp+2011,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru_lru_w_MPORT_addr_pipe_0),5);
+    bufp->fullBit(oldp+2012,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru_lru_w_MPORT_data));
+    bufp->fullBit(oldp+2013,(((0U != (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state)) 
                               & ((1U == (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state)) 
                                  & ((IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf_io_out_bits_hit) 
                                     & (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf_io_out_bits_hit_way_0))))));
-    bufp->fullBit(oldp+2045,(((0U != (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state)) 
+    bufp->fullBit(oldp+2014,(((0U != (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state)) 
                               & ((1U == (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state)) 
                                  & ((IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf_io_out_bits_hit) 
                                     & (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf_io_out_bits_hit_way_1))))));
-    bufp->fullBit(oldp+2046,(((0U != (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state)) 
+    bufp->fullBit(oldp+2015,(((0U != (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state)) 
                               & ((1U != (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state)) 
                                  & ((2U == (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state)) 
-                                    & ((8U == (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__count)) 
+                                    & ((IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___T_8) 
                                        & (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru_r)))))));
-    bufp->fullBit(oldp+2047,(((0U != (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state)) 
+    bufp->fullBit(oldp+2016,(((0U != (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state)) 
                               & ((1U != (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state)) 
                                  & ((2U == (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state)) 
-                                    & ((8U == (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__count)) 
+                                    & ((IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___T_8) 
                                        & (~ (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru_r))))))));
-    bufp->fullBit(oldp+2048,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[0]));
-    bufp->fullBit(oldp+2049,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[1]));
-    bufp->fullBit(oldp+2050,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[2]));
-    bufp->fullBit(oldp+2051,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[3]));
-    bufp->fullBit(oldp+2052,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[4]));
-    bufp->fullBit(oldp+2053,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[5]));
-    bufp->fullBit(oldp+2054,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[6]));
-    bufp->fullBit(oldp+2055,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[7]));
-    bufp->fullBit(oldp+2056,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[8]));
-    bufp->fullBit(oldp+2057,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[9]));
-    bufp->fullBit(oldp+2058,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[10]));
-    bufp->fullBit(oldp+2059,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[11]));
-    bufp->fullBit(oldp+2060,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[12]));
-    bufp->fullBit(oldp+2061,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[13]));
-    bufp->fullBit(oldp+2062,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[14]));
-    bufp->fullBit(oldp+2063,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[15]));
-    bufp->fullBit(oldp+2064,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[16]));
-    bufp->fullBit(oldp+2065,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[17]));
-    bufp->fullBit(oldp+2066,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[18]));
-    bufp->fullBit(oldp+2067,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[19]));
-    bufp->fullBit(oldp+2068,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[20]));
-    bufp->fullBit(oldp+2069,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[21]));
-    bufp->fullBit(oldp+2070,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[22]));
-    bufp->fullBit(oldp+2071,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[23]));
-    bufp->fullBit(oldp+2072,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[24]));
-    bufp->fullBit(oldp+2073,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[25]));
-    bufp->fullBit(oldp+2074,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[26]));
-    bufp->fullBit(oldp+2075,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[27]));
-    bufp->fullBit(oldp+2076,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[28]));
-    bufp->fullBit(oldp+2077,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[29]));
-    bufp->fullBit(oldp+2078,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[30]));
-    bufp->fullBit(oldp+2079,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[31]));
-    bufp->fullBit(oldp+2080,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0_dirt_w_en_pipe_0));
-    bufp->fullCData(oldp+2081,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0_dirt_w_addr_pipe_0),5);
-    bufp->fullBit(oldp+2082,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0
+    bufp->fullBit(oldp+2017,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[0]));
+    bufp->fullBit(oldp+2018,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[1]));
+    bufp->fullBit(oldp+2019,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[2]));
+    bufp->fullBit(oldp+2020,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[3]));
+    bufp->fullBit(oldp+2021,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[4]));
+    bufp->fullBit(oldp+2022,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[5]));
+    bufp->fullBit(oldp+2023,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[6]));
+    bufp->fullBit(oldp+2024,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[7]));
+    bufp->fullBit(oldp+2025,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[8]));
+    bufp->fullBit(oldp+2026,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[9]));
+    bufp->fullBit(oldp+2027,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[10]));
+    bufp->fullBit(oldp+2028,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[11]));
+    bufp->fullBit(oldp+2029,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[12]));
+    bufp->fullBit(oldp+2030,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[13]));
+    bufp->fullBit(oldp+2031,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[14]));
+    bufp->fullBit(oldp+2032,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[15]));
+    bufp->fullBit(oldp+2033,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[16]));
+    bufp->fullBit(oldp+2034,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[17]));
+    bufp->fullBit(oldp+2035,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[18]));
+    bufp->fullBit(oldp+2036,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[19]));
+    bufp->fullBit(oldp+2037,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[20]));
+    bufp->fullBit(oldp+2038,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[21]));
+    bufp->fullBit(oldp+2039,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[22]));
+    bufp->fullBit(oldp+2040,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[23]));
+    bufp->fullBit(oldp+2041,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[24]));
+    bufp->fullBit(oldp+2042,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[25]));
+    bufp->fullBit(oldp+2043,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[26]));
+    bufp->fullBit(oldp+2044,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[27]));
+    bufp->fullBit(oldp+2045,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[28]));
+    bufp->fullBit(oldp+2046,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[29]));
+    bufp->fullBit(oldp+2047,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[30]));
+    bufp->fullBit(oldp+2048,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0[31]));
+    bufp->fullBit(oldp+2049,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0_dirt_w_en_pipe_0));
+    bufp->fullCData(oldp+2050,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0_dirt_w_addr_pipe_0),5);
+    bufp->fullBit(oldp+2051,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0
                              [vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_0_dirt_w_addr_pipe_0]));
-    bufp->fullBit(oldp+2083,((1U & (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__waymask))));
-    bufp->fullBit(oldp+2084,(((IData)(vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_we) 
-                              & (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___io_in_rdata_rep_valid_T_5))));
-    bufp->fullBit(oldp+2085,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[0]));
-    bufp->fullBit(oldp+2086,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[1]));
-    bufp->fullBit(oldp+2087,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[2]));
-    bufp->fullBit(oldp+2088,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[3]));
-    bufp->fullBit(oldp+2089,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[4]));
-    bufp->fullBit(oldp+2090,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[5]));
-    bufp->fullBit(oldp+2091,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[6]));
-    bufp->fullBit(oldp+2092,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[7]));
-    bufp->fullBit(oldp+2093,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[8]));
-    bufp->fullBit(oldp+2094,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[9]));
-    bufp->fullBit(oldp+2095,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[10]));
-    bufp->fullBit(oldp+2096,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[11]));
-    bufp->fullBit(oldp+2097,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[12]));
-    bufp->fullBit(oldp+2098,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[13]));
-    bufp->fullBit(oldp+2099,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[14]));
-    bufp->fullBit(oldp+2100,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[15]));
-    bufp->fullBit(oldp+2101,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[16]));
-    bufp->fullBit(oldp+2102,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[17]));
-    bufp->fullBit(oldp+2103,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[18]));
-    bufp->fullBit(oldp+2104,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[19]));
-    bufp->fullBit(oldp+2105,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[20]));
-    bufp->fullBit(oldp+2106,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[21]));
-    bufp->fullBit(oldp+2107,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[22]));
-    bufp->fullBit(oldp+2108,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[23]));
-    bufp->fullBit(oldp+2109,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[24]));
-    bufp->fullBit(oldp+2110,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[25]));
-    bufp->fullBit(oldp+2111,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[26]));
-    bufp->fullBit(oldp+2112,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[27]));
-    bufp->fullBit(oldp+2113,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[28]));
-    bufp->fullBit(oldp+2114,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[29]));
-    bufp->fullBit(oldp+2115,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[30]));
-    bufp->fullBit(oldp+2116,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[31]));
-    bufp->fullBit(oldp+2117,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1_dirt_w_en_pipe_0));
-    bufp->fullCData(oldp+2118,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1_dirt_w_addr_pipe_0),5);
-    bufp->fullBit(oldp+2119,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1
+    bufp->fullBit(oldp+2052,((1U & (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__waymask))));
+    bufp->fullBit(oldp+2053,(((IData)(vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_we) 
+                              & (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT___T_61))));
+    bufp->fullBit(oldp+2054,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[0]));
+    bufp->fullBit(oldp+2055,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[1]));
+    bufp->fullBit(oldp+2056,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[2]));
+    bufp->fullBit(oldp+2057,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[3]));
+    bufp->fullBit(oldp+2058,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[4]));
+    bufp->fullBit(oldp+2059,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[5]));
+    bufp->fullBit(oldp+2060,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[6]));
+    bufp->fullBit(oldp+2061,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[7]));
+    bufp->fullBit(oldp+2062,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[8]));
+    bufp->fullBit(oldp+2063,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[9]));
+    bufp->fullBit(oldp+2064,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[10]));
+    bufp->fullBit(oldp+2065,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[11]));
+    bufp->fullBit(oldp+2066,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[12]));
+    bufp->fullBit(oldp+2067,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[13]));
+    bufp->fullBit(oldp+2068,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[14]));
+    bufp->fullBit(oldp+2069,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[15]));
+    bufp->fullBit(oldp+2070,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[16]));
+    bufp->fullBit(oldp+2071,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[17]));
+    bufp->fullBit(oldp+2072,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[18]));
+    bufp->fullBit(oldp+2073,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[19]));
+    bufp->fullBit(oldp+2074,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[20]));
+    bufp->fullBit(oldp+2075,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[21]));
+    bufp->fullBit(oldp+2076,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[22]));
+    bufp->fullBit(oldp+2077,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[23]));
+    bufp->fullBit(oldp+2078,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[24]));
+    bufp->fullBit(oldp+2079,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[25]));
+    bufp->fullBit(oldp+2080,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[26]));
+    bufp->fullBit(oldp+2081,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[27]));
+    bufp->fullBit(oldp+2082,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[28]));
+    bufp->fullBit(oldp+2083,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[29]));
+    bufp->fullBit(oldp+2084,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[30]));
+    bufp->fullBit(oldp+2085,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1[31]));
+    bufp->fullBit(oldp+2086,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1_dirt_w_en_pipe_0));
+    bufp->fullCData(oldp+2087,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1_dirt_w_addr_pipe_0),5);
+    bufp->fullBit(oldp+2088,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1
                              [vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__dirt_1_dirt_w_addr_pipe_0]));
-    bufp->fullBit(oldp+2120,((1U & ((IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__waymask) 
+    bufp->fullBit(oldp+2089,((1U & ((IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__waymask) 
                                     >> 1U))));
-    bufp->fullCData(oldp+2121,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state),2);
-    bufp->fullWData(oldp+2122,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg),512);
-    bufp->fullQData(oldp+2138,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_addr_reg),64);
-    bufp->fullBit(oldp+2140,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru_r));
-    bufp->fullCData(oldp+2141,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__count),4);
-    bufp->fullBit(oldp+2142,((8U == (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__count))));
-    bufp->fullCData(oldp+2143,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__count_write),4);
-    bufp->fullBit(oldp+2144,((8U == (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__count_write))));
-    bufp->fullQData(oldp+2145,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_addr_reg),64);
-    bufp->fullWData(oldp+2147,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg),512);
-    bufp->fullQData(oldp+2163,(((0U == (7U & (IData)(
+    bufp->fullCData(oldp+2090,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__state),3);
+    bufp->fullCData(oldp+2091,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__read_state),2);
+    bufp->fullCData(oldp+2092,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__write_state),2);
+    bufp->fullWData(oldp+2093,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg),512);
+    bufp->fullQData(oldp+2109,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_addr_reg),64);
+    bufp->fullBit(oldp+2111,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__lru_r));
+    bufp->fullCData(oldp+2112,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__count_write),4);
+    bufp->fullQData(oldp+2113,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_addr_reg),64);
+    bufp->fullWData(oldp+2115,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__mem_write_data_reg),512);
+    bufp->fullQData(oldp+2131,(((0U == (7U & (IData)(
                                                      (vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr 
                                                       >> 3U))))
                                  ? (((QData)((IData)(
@@ -3187,7 +3237,7 @@ VL_ATTR_COLD void VCoreTop___024root__trace_full_sub_0(VCoreTop___024root* vlSel
                                                     | (QData)((IData)(
                                                                       vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf_io_out_bits_data[0xeU])))
                                                     : 0ULL))))))))),64);
-    bufp->fullQData(oldp+2165,(((0U == (7U & (IData)(
+    bufp->fullQData(oldp+2133,(((0U == (7U & (IData)(
                                                      (vlSelf->CoreTop__DOT__MEM_io_cache_io_addr_req_bits_addr 
                                                       >> 3U))))
                                  ? (((QData)((IData)(
@@ -3272,8 +3322,8 @@ VL_ATTR_COLD void VCoreTop___024root__trace_full_sub_0(VCoreTop___024root* vlSel
                                                     | (QData)((IData)(
                                                                       vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__data_line_reg[0xeU])))
                                                     : 0ULL))))))))),64);
-    bufp->fullQData(oldp+2167,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__wmaskextend_Genmask),64);
-    bufp->fullQData(oldp+2169,((((QData)((IData)(((
+    bufp->fullQData(oldp+2135,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__wmaskextend_Genmask),64);
+    bufp->fullQData(oldp+2137,((((QData)((IData)(((
                                                    ((1U 
                                                      & (IData)(
                                                                (vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__wmaskextend_Genmask 
@@ -3327,8 +3377,8 @@ VL_ATTR_COLD void VCoreTop___024root__trace_full_sub_0(VCoreTop___024root* vlSel
                                                                         & (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__wmaskextend_Genmask))
                                                                         ? 0xffU
                                                                         : 0U)))))))),64);
-    bufp->fullWData(oldp+2171,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__wmaskextend_lo_lo),128);
-    bufp->fullQData(oldp+2175,((((QData)((IData)(((
+    bufp->fullWData(oldp+2139,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__wmaskextend_lo_lo),128);
+    bufp->fullQData(oldp+2143,((((QData)((IData)(((
                                                    ((1U 
                                                      & (IData)(
                                                                (vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__wmaskextend_Genmask 
@@ -3384,8 +3434,8 @@ VL_ATTR_COLD void VCoreTop___024root__trace_full_sub_0(VCoreTop___024root* vlSel
                                                                                 >> 0x10U)))
                                                                         ? 0xffU
                                                                         : 0U)))))))),64);
-    bufp->fullWData(oldp+2177,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__wmaskextend_lo),256);
-    bufp->fullQData(oldp+2185,((((QData)((IData)(((
+    bufp->fullWData(oldp+2145,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__wmaskextend_lo),256);
+    bufp->fullQData(oldp+2153,((((QData)((IData)(((
                                                    ((1U 
                                                      & (IData)(
                                                                (vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__wmaskextend_Genmask 
@@ -3441,8 +3491,8 @@ VL_ATTR_COLD void VCoreTop___024root__trace_full_sub_0(VCoreTop___024root* vlSel
                                                                                 >> 0x20U)))
                                                                         ? 0xffU
                                                                         : 0U)))))))),64);
-    bufp->fullWData(oldp+2187,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__wmaskextend_hi_lo),128);
-    bufp->fullQData(oldp+2191,((((QData)((IData)(((
+    bufp->fullWData(oldp+2155,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__wmaskextend_hi_lo),128);
+    bufp->fullQData(oldp+2159,((((QData)((IData)(((
                                                    ((1U 
                                                      & (IData)(
                                                                (vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__wmaskextend_Genmask 
@@ -3498,8 +3548,8 @@ VL_ATTR_COLD void VCoreTop___024root__trace_full_sub_0(VCoreTop___024root* vlSel
                                                                                 >> 0x30U)))
                                                                         ? 0xffU
                                                                         : 0U)))))))),64);
-    bufp->fullWData(oldp+2193,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__wmaskextend_hi),256);
-    bufp->fullWData(oldp+2201,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__wmaskextend),512);
+    bufp->fullWData(oldp+2161,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__wmaskextend_hi),256);
+    bufp->fullWData(oldp+2169,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__wmaskextend),512);
     __Vtemp_hc2882e76__0[0U] = (IData)(vlSelf->CoreTop__DOT__MEM_io_cache_io_wdata_req_bits_wdata);
     __Vtemp_hc2882e76__0[1U] = (IData)((vlSelf->CoreTop__DOT__MEM_io_cache_io_wdata_req_bits_wdata 
                                         >> 0x20U));
@@ -3524,264 +3574,618 @@ VL_ATTR_COLD void VCoreTop___024root__trace_full_sub_0(VCoreTop___024root* vlSel
     __Vtemp_hc2882e76__0[0xeU] = (IData)(vlSelf->CoreTop__DOT__MEM_io_cache_io_wdata_req_bits_wdata);
     __Vtemp_hc2882e76__0[0xfU] = (IData)((vlSelf->CoreTop__DOT__MEM_io_cache_io_wdata_req_bits_wdata 
                                           >> 0x20U));
-    bufp->fullWData(oldp+2217,(__Vtemp_hc2882e76__0),512);
-    bufp->fullCData(oldp+2233,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__waymask),2);
-    bufp->fullWData(oldp+2234,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[0]),512);
-    bufp->fullWData(oldp+2250,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[1]),512);
-    bufp->fullWData(oldp+2266,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[2]),512);
-    bufp->fullWData(oldp+2282,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[3]),512);
-    bufp->fullWData(oldp+2298,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[4]),512);
-    bufp->fullWData(oldp+2314,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[5]),512);
-    bufp->fullWData(oldp+2330,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[6]),512);
-    bufp->fullWData(oldp+2346,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[7]),512);
-    bufp->fullWData(oldp+2362,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[8]),512);
-    bufp->fullWData(oldp+2378,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[9]),512);
-    bufp->fullWData(oldp+2394,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[10]),512);
-    bufp->fullWData(oldp+2410,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[11]),512);
-    bufp->fullWData(oldp+2426,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[12]),512);
-    bufp->fullWData(oldp+2442,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[13]),512);
-    bufp->fullWData(oldp+2458,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[14]),512);
-    bufp->fullWData(oldp+2474,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[15]),512);
-    bufp->fullWData(oldp+2490,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[16]),512);
-    bufp->fullWData(oldp+2506,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[17]),512);
-    bufp->fullWData(oldp+2522,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[18]),512);
-    bufp->fullWData(oldp+2538,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[19]),512);
-    bufp->fullWData(oldp+2554,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[20]),512);
-    bufp->fullWData(oldp+2570,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[21]),512);
-    bufp->fullWData(oldp+2586,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[22]),512);
-    bufp->fullWData(oldp+2602,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[23]),512);
-    bufp->fullWData(oldp+2618,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[24]),512);
-    bufp->fullWData(oldp+2634,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[25]),512);
-    bufp->fullWData(oldp+2650,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[26]),512);
-    bufp->fullWData(oldp+2666,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[27]),512);
-    bufp->fullWData(oldp+2682,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[28]),512);
-    bufp->fullWData(oldp+2698,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[29]),512);
-    bufp->fullWData(oldp+2714,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[30]),512);
-    bufp->fullWData(oldp+2730,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[31]),512);
-    bufp->fullBit(oldp+2746,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0_data_w_en_pipe_0));
-    bufp->fullCData(oldp+2747,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0_data_w_addr_pipe_0),5);
-    bufp->fullCData(oldp+2748,((0x1fU & (IData)((vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data_io_write_bus_addr 
+    bufp->fullWData(oldp+2185,(__Vtemp_hc2882e76__0),512);
+    bufp->fullCData(oldp+2201,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__waymask),2);
+    bufp->fullWData(oldp+2202,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[0]),512);
+    bufp->fullWData(oldp+2218,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[1]),512);
+    bufp->fullWData(oldp+2234,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[2]),512);
+    bufp->fullWData(oldp+2250,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[3]),512);
+    bufp->fullWData(oldp+2266,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[4]),512);
+    bufp->fullWData(oldp+2282,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[5]),512);
+    bufp->fullWData(oldp+2298,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[6]),512);
+    bufp->fullWData(oldp+2314,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[7]),512);
+    bufp->fullWData(oldp+2330,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[8]),512);
+    bufp->fullWData(oldp+2346,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[9]),512);
+    bufp->fullWData(oldp+2362,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[10]),512);
+    bufp->fullWData(oldp+2378,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[11]),512);
+    bufp->fullWData(oldp+2394,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[12]),512);
+    bufp->fullWData(oldp+2410,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[13]),512);
+    bufp->fullWData(oldp+2426,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[14]),512);
+    bufp->fullWData(oldp+2442,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[15]),512);
+    bufp->fullWData(oldp+2458,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[16]),512);
+    bufp->fullWData(oldp+2474,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[17]),512);
+    bufp->fullWData(oldp+2490,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[18]),512);
+    bufp->fullWData(oldp+2506,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[19]),512);
+    bufp->fullWData(oldp+2522,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[20]),512);
+    bufp->fullWData(oldp+2538,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[21]),512);
+    bufp->fullWData(oldp+2554,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[22]),512);
+    bufp->fullWData(oldp+2570,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[23]),512);
+    bufp->fullWData(oldp+2586,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[24]),512);
+    bufp->fullWData(oldp+2602,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[25]),512);
+    bufp->fullWData(oldp+2618,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[26]),512);
+    bufp->fullWData(oldp+2634,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[27]),512);
+    bufp->fullWData(oldp+2650,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[28]),512);
+    bufp->fullWData(oldp+2666,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[29]),512);
+    bufp->fullWData(oldp+2682,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[30]),512);
+    bufp->fullWData(oldp+2698,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0[31]),512);
+    bufp->fullBit(oldp+2714,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0_data_w_en_pipe_0));
+    bufp->fullCData(oldp+2715,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_0_data_w_addr_pipe_0),5);
+    bufp->fullCData(oldp+2716,((0x1fU & (IData)((vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data_io_write_bus_addr 
                                                  >> 6U)))),5);
-    bufp->fullBit(oldp+2749,((1U & (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data_io_write_bus_waymask))));
-    bufp->fullWData(oldp+2750,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[0]),512);
-    bufp->fullWData(oldp+2766,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[1]),512);
-    bufp->fullWData(oldp+2782,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[2]),512);
-    bufp->fullWData(oldp+2798,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[3]),512);
-    bufp->fullWData(oldp+2814,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[4]),512);
-    bufp->fullWData(oldp+2830,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[5]),512);
-    bufp->fullWData(oldp+2846,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[6]),512);
-    bufp->fullWData(oldp+2862,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[7]),512);
-    bufp->fullWData(oldp+2878,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[8]),512);
-    bufp->fullWData(oldp+2894,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[9]),512);
-    bufp->fullWData(oldp+2910,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[10]),512);
-    bufp->fullWData(oldp+2926,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[11]),512);
-    bufp->fullWData(oldp+2942,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[12]),512);
-    bufp->fullWData(oldp+2958,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[13]),512);
-    bufp->fullWData(oldp+2974,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[14]),512);
-    bufp->fullWData(oldp+2990,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[15]),512);
-    bufp->fullWData(oldp+3006,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[16]),512);
-    bufp->fullWData(oldp+3022,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[17]),512);
-    bufp->fullWData(oldp+3038,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[18]),512);
-    bufp->fullWData(oldp+3054,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[19]),512);
-    bufp->fullWData(oldp+3070,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[20]),512);
-    bufp->fullWData(oldp+3086,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[21]),512);
-    bufp->fullWData(oldp+3102,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[22]),512);
-    bufp->fullWData(oldp+3118,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[23]),512);
-    bufp->fullWData(oldp+3134,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[24]),512);
-    bufp->fullWData(oldp+3150,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[25]),512);
-    bufp->fullWData(oldp+3166,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[26]),512);
-    bufp->fullWData(oldp+3182,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[27]),512);
-    bufp->fullWData(oldp+3198,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[28]),512);
-    bufp->fullWData(oldp+3214,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[29]),512);
-    bufp->fullWData(oldp+3230,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[30]),512);
-    bufp->fullWData(oldp+3246,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[31]),512);
-    bufp->fullBit(oldp+3262,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1_data_w_en_pipe_0));
-    bufp->fullCData(oldp+3263,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1_data_w_addr_pipe_0),5);
-    bufp->fullBit(oldp+3264,((1U & ((IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data_io_write_bus_waymask) 
+    bufp->fullBit(oldp+2717,((1U & (IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data_io_write_bus_waymask))));
+    bufp->fullWData(oldp+2718,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[0]),512);
+    bufp->fullWData(oldp+2734,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[1]),512);
+    bufp->fullWData(oldp+2750,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[2]),512);
+    bufp->fullWData(oldp+2766,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[3]),512);
+    bufp->fullWData(oldp+2782,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[4]),512);
+    bufp->fullWData(oldp+2798,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[5]),512);
+    bufp->fullWData(oldp+2814,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[6]),512);
+    bufp->fullWData(oldp+2830,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[7]),512);
+    bufp->fullWData(oldp+2846,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[8]),512);
+    bufp->fullWData(oldp+2862,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[9]),512);
+    bufp->fullWData(oldp+2878,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[10]),512);
+    bufp->fullWData(oldp+2894,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[11]),512);
+    bufp->fullWData(oldp+2910,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[12]),512);
+    bufp->fullWData(oldp+2926,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[13]),512);
+    bufp->fullWData(oldp+2942,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[14]),512);
+    bufp->fullWData(oldp+2958,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[15]),512);
+    bufp->fullWData(oldp+2974,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[16]),512);
+    bufp->fullWData(oldp+2990,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[17]),512);
+    bufp->fullWData(oldp+3006,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[18]),512);
+    bufp->fullWData(oldp+3022,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[19]),512);
+    bufp->fullWData(oldp+3038,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[20]),512);
+    bufp->fullWData(oldp+3054,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[21]),512);
+    bufp->fullWData(oldp+3070,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[22]),512);
+    bufp->fullWData(oldp+3086,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[23]),512);
+    bufp->fullWData(oldp+3102,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[24]),512);
+    bufp->fullWData(oldp+3118,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[25]),512);
+    bufp->fullWData(oldp+3134,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[26]),512);
+    bufp->fullWData(oldp+3150,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[27]),512);
+    bufp->fullWData(oldp+3166,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[28]),512);
+    bufp->fullWData(oldp+3182,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[29]),512);
+    bufp->fullWData(oldp+3198,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[30]),512);
+    bufp->fullWData(oldp+3214,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1[31]),512);
+    bufp->fullBit(oldp+3230,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1_data_w_en_pipe_0));
+    bufp->fullCData(oldp+3231,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_1_data_w_addr_pipe_0),5);
+    bufp->fullBit(oldp+3232,((1U & ((IData)(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data_io_write_bus_waymask) 
                                     >> 1U))));
-    bufp->fullQData(oldp+3265,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[0]),53);
-    bufp->fullQData(oldp+3267,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[1]),53);
-    bufp->fullQData(oldp+3269,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[2]),53);
-    bufp->fullQData(oldp+3271,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[3]),53);
-    bufp->fullQData(oldp+3273,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[4]),53);
-    bufp->fullQData(oldp+3275,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[5]),53);
-    bufp->fullQData(oldp+3277,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[6]),53);
-    bufp->fullQData(oldp+3279,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[7]),53);
-    bufp->fullQData(oldp+3281,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[8]),53);
-    bufp->fullQData(oldp+3283,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[9]),53);
-    bufp->fullQData(oldp+3285,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[10]),53);
-    bufp->fullQData(oldp+3287,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[11]),53);
-    bufp->fullQData(oldp+3289,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[12]),53);
-    bufp->fullQData(oldp+3291,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[13]),53);
-    bufp->fullQData(oldp+3293,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[14]),53);
-    bufp->fullQData(oldp+3295,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[15]),53);
-    bufp->fullQData(oldp+3297,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[16]),53);
-    bufp->fullQData(oldp+3299,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[17]),53);
-    bufp->fullQData(oldp+3301,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[18]),53);
-    bufp->fullQData(oldp+3303,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[19]),53);
-    bufp->fullQData(oldp+3305,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[20]),53);
-    bufp->fullQData(oldp+3307,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[21]),53);
-    bufp->fullQData(oldp+3309,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[22]),53);
-    bufp->fullQData(oldp+3311,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[23]),53);
-    bufp->fullQData(oldp+3313,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[24]),53);
-    bufp->fullQData(oldp+3315,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[25]),53);
-    bufp->fullQData(oldp+3317,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[26]),53);
-    bufp->fullQData(oldp+3319,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[27]),53);
-    bufp->fullQData(oldp+3321,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[28]),53);
-    bufp->fullQData(oldp+3323,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[29]),53);
-    bufp->fullQData(oldp+3325,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[30]),53);
-    bufp->fullQData(oldp+3327,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[31]),53);
-    bufp->fullBit(oldp+3329,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0_tag_w_en_pipe_0));
-    bufp->fullCData(oldp+3330,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0_tag_w_addr_pipe_0),5);
-    bufp->fullQData(oldp+3331,((vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data_io_write_bus_addr 
+    bufp->fullQData(oldp+3233,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[0]),53);
+    bufp->fullQData(oldp+3235,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[1]),53);
+    bufp->fullQData(oldp+3237,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[2]),53);
+    bufp->fullQData(oldp+3239,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[3]),53);
+    bufp->fullQData(oldp+3241,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[4]),53);
+    bufp->fullQData(oldp+3243,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[5]),53);
+    bufp->fullQData(oldp+3245,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[6]),53);
+    bufp->fullQData(oldp+3247,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[7]),53);
+    bufp->fullQData(oldp+3249,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[8]),53);
+    bufp->fullQData(oldp+3251,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[9]),53);
+    bufp->fullQData(oldp+3253,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[10]),53);
+    bufp->fullQData(oldp+3255,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[11]),53);
+    bufp->fullQData(oldp+3257,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[12]),53);
+    bufp->fullQData(oldp+3259,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[13]),53);
+    bufp->fullQData(oldp+3261,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[14]),53);
+    bufp->fullQData(oldp+3263,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[15]),53);
+    bufp->fullQData(oldp+3265,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[16]),53);
+    bufp->fullQData(oldp+3267,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[17]),53);
+    bufp->fullQData(oldp+3269,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[18]),53);
+    bufp->fullQData(oldp+3271,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[19]),53);
+    bufp->fullQData(oldp+3273,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[20]),53);
+    bufp->fullQData(oldp+3275,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[21]),53);
+    bufp->fullQData(oldp+3277,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[22]),53);
+    bufp->fullQData(oldp+3279,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[23]),53);
+    bufp->fullQData(oldp+3281,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[24]),53);
+    bufp->fullQData(oldp+3283,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[25]),53);
+    bufp->fullQData(oldp+3285,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[26]),53);
+    bufp->fullQData(oldp+3287,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[27]),53);
+    bufp->fullQData(oldp+3289,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[28]),53);
+    bufp->fullQData(oldp+3291,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[29]),53);
+    bufp->fullQData(oldp+3293,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[30]),53);
+    bufp->fullQData(oldp+3295,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0[31]),53);
+    bufp->fullBit(oldp+3297,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0_tag_w_en_pipe_0));
+    bufp->fullCData(oldp+3298,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_0_tag_w_addr_pipe_0),5);
+    bufp->fullQData(oldp+3299,((vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data_io_write_bus_addr 
                                 >> 0xbU)),53);
-    bufp->fullQData(oldp+3333,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[0]),53);
-    bufp->fullQData(oldp+3335,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[1]),53);
-    bufp->fullQData(oldp+3337,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[2]),53);
-    bufp->fullQData(oldp+3339,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[3]),53);
-    bufp->fullQData(oldp+3341,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[4]),53);
-    bufp->fullQData(oldp+3343,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[5]),53);
-    bufp->fullQData(oldp+3345,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[6]),53);
-    bufp->fullQData(oldp+3347,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[7]),53);
-    bufp->fullQData(oldp+3349,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[8]),53);
-    bufp->fullQData(oldp+3351,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[9]),53);
-    bufp->fullQData(oldp+3353,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[10]),53);
-    bufp->fullQData(oldp+3355,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[11]),53);
-    bufp->fullQData(oldp+3357,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[12]),53);
-    bufp->fullQData(oldp+3359,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[13]),53);
-    bufp->fullQData(oldp+3361,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[14]),53);
-    bufp->fullQData(oldp+3363,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[15]),53);
-    bufp->fullQData(oldp+3365,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[16]),53);
-    bufp->fullQData(oldp+3367,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[17]),53);
-    bufp->fullQData(oldp+3369,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[18]),53);
-    bufp->fullQData(oldp+3371,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[19]),53);
-    bufp->fullQData(oldp+3373,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[20]),53);
-    bufp->fullQData(oldp+3375,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[21]),53);
-    bufp->fullQData(oldp+3377,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[22]),53);
-    bufp->fullQData(oldp+3379,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[23]),53);
-    bufp->fullQData(oldp+3381,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[24]),53);
-    bufp->fullQData(oldp+3383,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[25]),53);
-    bufp->fullQData(oldp+3385,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[26]),53);
-    bufp->fullQData(oldp+3387,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[27]),53);
-    bufp->fullQData(oldp+3389,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[28]),53);
-    bufp->fullQData(oldp+3391,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[29]),53);
-    bufp->fullQData(oldp+3393,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[30]),53);
-    bufp->fullQData(oldp+3395,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[31]),53);
-    bufp->fullBit(oldp+3397,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1_tag_w_en_pipe_0));
-    bufp->fullCData(oldp+3398,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1_tag_w_addr_pipe_0),5);
-    bufp->fullBit(oldp+3399,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[0]));
-    bufp->fullBit(oldp+3400,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[1]));
-    bufp->fullBit(oldp+3401,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[2]));
-    bufp->fullBit(oldp+3402,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[3]));
-    bufp->fullBit(oldp+3403,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[4]));
-    bufp->fullBit(oldp+3404,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[5]));
-    bufp->fullBit(oldp+3405,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[6]));
-    bufp->fullBit(oldp+3406,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[7]));
-    bufp->fullBit(oldp+3407,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[8]));
-    bufp->fullBit(oldp+3408,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[9]));
-    bufp->fullBit(oldp+3409,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[10]));
-    bufp->fullBit(oldp+3410,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[11]));
-    bufp->fullBit(oldp+3411,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[12]));
-    bufp->fullBit(oldp+3412,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[13]));
-    bufp->fullBit(oldp+3413,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[14]));
-    bufp->fullBit(oldp+3414,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[15]));
-    bufp->fullBit(oldp+3415,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[16]));
-    bufp->fullBit(oldp+3416,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[17]));
-    bufp->fullBit(oldp+3417,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[18]));
-    bufp->fullBit(oldp+3418,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[19]));
-    bufp->fullBit(oldp+3419,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[20]));
-    bufp->fullBit(oldp+3420,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[21]));
-    bufp->fullBit(oldp+3421,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[22]));
-    bufp->fullBit(oldp+3422,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[23]));
-    bufp->fullBit(oldp+3423,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[24]));
-    bufp->fullBit(oldp+3424,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[25]));
-    bufp->fullBit(oldp+3425,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[26]));
-    bufp->fullBit(oldp+3426,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[27]));
-    bufp->fullBit(oldp+3427,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[28]));
-    bufp->fullBit(oldp+3428,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[29]));
-    bufp->fullBit(oldp+3429,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[30]));
-    bufp->fullBit(oldp+3430,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[31]));
-    bufp->fullBit(oldp+3431,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0_valid_w_en_pipe_0));
-    bufp->fullCData(oldp+3432,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0_valid_w_addr_pipe_0),5);
-    bufp->fullBit(oldp+3433,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[0]));
-    bufp->fullBit(oldp+3434,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[1]));
-    bufp->fullBit(oldp+3435,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[2]));
-    bufp->fullBit(oldp+3436,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[3]));
-    bufp->fullBit(oldp+3437,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[4]));
-    bufp->fullBit(oldp+3438,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[5]));
-    bufp->fullBit(oldp+3439,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[6]));
-    bufp->fullBit(oldp+3440,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[7]));
-    bufp->fullBit(oldp+3441,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[8]));
-    bufp->fullBit(oldp+3442,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[9]));
-    bufp->fullBit(oldp+3443,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[10]));
-    bufp->fullBit(oldp+3444,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[11]));
-    bufp->fullBit(oldp+3445,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[12]));
-    bufp->fullBit(oldp+3446,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[13]));
-    bufp->fullBit(oldp+3447,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[14]));
-    bufp->fullBit(oldp+3448,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[15]));
-    bufp->fullBit(oldp+3449,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[16]));
-    bufp->fullBit(oldp+3450,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[17]));
-    bufp->fullBit(oldp+3451,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[18]));
-    bufp->fullBit(oldp+3452,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[19]));
-    bufp->fullBit(oldp+3453,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[20]));
-    bufp->fullBit(oldp+3454,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[21]));
-    bufp->fullBit(oldp+3455,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[22]));
-    bufp->fullBit(oldp+3456,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[23]));
-    bufp->fullBit(oldp+3457,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[24]));
-    bufp->fullBit(oldp+3458,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[25]));
-    bufp->fullBit(oldp+3459,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[26]));
-    bufp->fullBit(oldp+3460,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[27]));
-    bufp->fullBit(oldp+3461,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[28]));
-    bufp->fullBit(oldp+3462,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[29]));
-    bufp->fullBit(oldp+3463,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[30]));
-    bufp->fullBit(oldp+3464,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[31]));
-    bufp->fullBit(oldp+3465,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1_valid_w_en_pipe_0));
-    bufp->fullCData(oldp+3466,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1_valid_w_addr_pipe_0),5);
-    bufp->fullBit(oldp+3467,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf__DOT__hit_way_0_result));
-    bufp->fullBit(oldp+3468,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf__DOT__hit_way_1_result));
-    bufp->fullBit(oldp+3469,(vlSelf->clock));
-    bufp->fullBit(oldp+3470,(vlSelf->reset));
-    bufp->fullQData(oldp+3471,(vlSelf->io_pc),64);
-    bufp->fullIData(oldp+3473,(vlSelf->io_inst),32);
-    bufp->fullCData(oldp+3474,(vlSelf->CoreTop__DOT__MMEM__DOT__next_state),2);
-    bufp->fullBit(oldp+3475,(1U));
-    bufp->fullCData(oldp+3476,(0U),5);
-    bufp->fullCData(oldp+3477,(1U),5);
-    bufp->fullCData(oldp+3478,(2U),5);
-    bufp->fullCData(oldp+3479,(3U),5);
-    bufp->fullCData(oldp+3480,(4U),5);
-    bufp->fullCData(oldp+3481,(5U),5);
-    bufp->fullCData(oldp+3482,(6U),5);
-    bufp->fullCData(oldp+3483,(7U),5);
-    bufp->fullCData(oldp+3484,(8U),5);
-    bufp->fullCData(oldp+3485,(9U),5);
-    bufp->fullCData(oldp+3486,(0xaU),5);
-    bufp->fullCData(oldp+3487,(0xbU),5);
-    bufp->fullCData(oldp+3488,(0xcU),5);
-    bufp->fullCData(oldp+3489,(0xdU),5);
-    bufp->fullCData(oldp+3490,(0xeU),5);
-    bufp->fullCData(oldp+3491,(0xfU),5);
-    bufp->fullCData(oldp+3492,(0x10U),5);
-    bufp->fullCData(oldp+3493,(0x11U),5);
-    bufp->fullCData(oldp+3494,(0x12U),5);
-    bufp->fullCData(oldp+3495,(0x13U),5);
-    bufp->fullCData(oldp+3496,(0x14U),5);
-    bufp->fullCData(oldp+3497,(0x15U),5);
-    bufp->fullCData(oldp+3498,(0x16U),5);
-    bufp->fullCData(oldp+3499,(0x17U),5);
-    bufp->fullCData(oldp+3500,(0x18U),5);
-    bufp->fullCData(oldp+3501,(0x19U),5);
-    bufp->fullCData(oldp+3502,(0x1aU),5);
-    bufp->fullCData(oldp+3503,(0x1bU),5);
-    bufp->fullCData(oldp+3504,(0x1cU),5);
-    bufp->fullCData(oldp+3505,(0x1dU),5);
-    bufp->fullCData(oldp+3506,(0x1eU),5);
-    bufp->fullCData(oldp+3507,(0x1fU),5);
-    bufp->fullBit(oldp+3508,(0U));
-    bufp->fullQData(oldp+3509,(0ULL),64);
-    bufp->fullCData(oldp+3511,(0U),8);
-    bufp->fullCData(oldp+3512,(0U),2);
-    bufp->fullCData(oldp+3513,(1U),2);
-    bufp->fullCData(oldp+3514,(2U),2);
-    bufp->fullCData(oldp+3515,(3U),2);
+    bufp->fullQData(oldp+3301,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[0]),53);
+    bufp->fullQData(oldp+3303,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[1]),53);
+    bufp->fullQData(oldp+3305,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[2]),53);
+    bufp->fullQData(oldp+3307,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[3]),53);
+    bufp->fullQData(oldp+3309,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[4]),53);
+    bufp->fullQData(oldp+3311,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[5]),53);
+    bufp->fullQData(oldp+3313,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[6]),53);
+    bufp->fullQData(oldp+3315,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[7]),53);
+    bufp->fullQData(oldp+3317,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[8]),53);
+    bufp->fullQData(oldp+3319,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[9]),53);
+    bufp->fullQData(oldp+3321,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[10]),53);
+    bufp->fullQData(oldp+3323,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[11]),53);
+    bufp->fullQData(oldp+3325,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[12]),53);
+    bufp->fullQData(oldp+3327,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[13]),53);
+    bufp->fullQData(oldp+3329,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[14]),53);
+    bufp->fullQData(oldp+3331,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[15]),53);
+    bufp->fullQData(oldp+3333,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[16]),53);
+    bufp->fullQData(oldp+3335,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[17]),53);
+    bufp->fullQData(oldp+3337,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[18]),53);
+    bufp->fullQData(oldp+3339,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[19]),53);
+    bufp->fullQData(oldp+3341,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[20]),53);
+    bufp->fullQData(oldp+3343,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[21]),53);
+    bufp->fullQData(oldp+3345,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[22]),53);
+    bufp->fullQData(oldp+3347,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[23]),53);
+    bufp->fullQData(oldp+3349,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[24]),53);
+    bufp->fullQData(oldp+3351,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[25]),53);
+    bufp->fullQData(oldp+3353,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[26]),53);
+    bufp->fullQData(oldp+3355,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[27]),53);
+    bufp->fullQData(oldp+3357,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[28]),53);
+    bufp->fullQData(oldp+3359,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[29]),53);
+    bufp->fullQData(oldp+3361,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[30]),53);
+    bufp->fullQData(oldp+3363,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1[31]),53);
+    bufp->fullBit(oldp+3365,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1_tag_w_en_pipe_0));
+    bufp->fullCData(oldp+3366,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__TAG_1_tag_w_addr_pipe_0),5);
+    bufp->fullBit(oldp+3367,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[0]));
+    bufp->fullBit(oldp+3368,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[1]));
+    bufp->fullBit(oldp+3369,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[2]));
+    bufp->fullBit(oldp+3370,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[3]));
+    bufp->fullBit(oldp+3371,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[4]));
+    bufp->fullBit(oldp+3372,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[5]));
+    bufp->fullBit(oldp+3373,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[6]));
+    bufp->fullBit(oldp+3374,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[7]));
+    bufp->fullBit(oldp+3375,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[8]));
+    bufp->fullBit(oldp+3376,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[9]));
+    bufp->fullBit(oldp+3377,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[10]));
+    bufp->fullBit(oldp+3378,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[11]));
+    bufp->fullBit(oldp+3379,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[12]));
+    bufp->fullBit(oldp+3380,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[13]));
+    bufp->fullBit(oldp+3381,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[14]));
+    bufp->fullBit(oldp+3382,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[15]));
+    bufp->fullBit(oldp+3383,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[16]));
+    bufp->fullBit(oldp+3384,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[17]));
+    bufp->fullBit(oldp+3385,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[18]));
+    bufp->fullBit(oldp+3386,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[19]));
+    bufp->fullBit(oldp+3387,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[20]));
+    bufp->fullBit(oldp+3388,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[21]));
+    bufp->fullBit(oldp+3389,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[22]));
+    bufp->fullBit(oldp+3390,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[23]));
+    bufp->fullBit(oldp+3391,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[24]));
+    bufp->fullBit(oldp+3392,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[25]));
+    bufp->fullBit(oldp+3393,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[26]));
+    bufp->fullBit(oldp+3394,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[27]));
+    bufp->fullBit(oldp+3395,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[28]));
+    bufp->fullBit(oldp+3396,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[29]));
+    bufp->fullBit(oldp+3397,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[30]));
+    bufp->fullBit(oldp+3398,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0[31]));
+    bufp->fullBit(oldp+3399,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0_valid_w_en_pipe_0));
+    bufp->fullCData(oldp+3400,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_0_valid_w_addr_pipe_0),5);
+    bufp->fullBit(oldp+3401,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[0]));
+    bufp->fullBit(oldp+3402,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[1]));
+    bufp->fullBit(oldp+3403,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[2]));
+    bufp->fullBit(oldp+3404,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[3]));
+    bufp->fullBit(oldp+3405,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[4]));
+    bufp->fullBit(oldp+3406,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[5]));
+    bufp->fullBit(oldp+3407,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[6]));
+    bufp->fullBit(oldp+3408,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[7]));
+    bufp->fullBit(oldp+3409,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[8]));
+    bufp->fullBit(oldp+3410,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[9]));
+    bufp->fullBit(oldp+3411,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[10]));
+    bufp->fullBit(oldp+3412,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[11]));
+    bufp->fullBit(oldp+3413,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[12]));
+    bufp->fullBit(oldp+3414,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[13]));
+    bufp->fullBit(oldp+3415,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[14]));
+    bufp->fullBit(oldp+3416,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[15]));
+    bufp->fullBit(oldp+3417,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[16]));
+    bufp->fullBit(oldp+3418,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[17]));
+    bufp->fullBit(oldp+3419,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[18]));
+    bufp->fullBit(oldp+3420,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[19]));
+    bufp->fullBit(oldp+3421,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[20]));
+    bufp->fullBit(oldp+3422,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[21]));
+    bufp->fullBit(oldp+3423,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[22]));
+    bufp->fullBit(oldp+3424,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[23]));
+    bufp->fullBit(oldp+3425,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[24]));
+    bufp->fullBit(oldp+3426,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[25]));
+    bufp->fullBit(oldp+3427,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[26]));
+    bufp->fullBit(oldp+3428,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[27]));
+    bufp->fullBit(oldp+3429,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[28]));
+    bufp->fullBit(oldp+3430,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[29]));
+    bufp->fullBit(oldp+3431,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[30]));
+    bufp->fullBit(oldp+3432,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1[31]));
+    bufp->fullBit(oldp+3433,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1_valid_w_en_pipe_0));
+    bufp->fullCData(oldp+3434,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Cache_data__DOT__data_valid_1_valid_w_addr_pipe_0),5);
+    bufp->fullBit(oldp+3435,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf__DOT__hit_way_0_result));
+    bufp->fullBit(oldp+3436,(vlSelf->CoreTop__DOT__MMIO__DOT__DCACHE__DOT__Scanf__DOT__hit_way_1_result));
+    bufp->fullCData(oldp+3437,(vlSelf->CoreTop__DOT__MMIO__DOT__birdge__DOT__read_state),2);
+    bufp->fullCData(oldp+3438,(vlSelf->CoreTop__DOT__MMIO__DOT__birdge__DOT__write_state),2);
+    bufp->fullBit(oldp+3439,(((((IData)(vlSelf->CoreTop__DOT__EX__DOT__branch_flag) 
+                                & (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_inst_valid)) 
+                               & (IData)(vlSelf->CoreTop__DOT__valid_1)) 
+                              & (~ (IData)(vlSelf->CoreTop__DOT__MEM__DOT___io_out_valid_T_6)))));
+    bufp->fullQData(oldp+3440,(((0x19U == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
+                                 ? vlSelf->CoreTop__DOT__EX__DOT___alu_result_T_1
+                                 : vlSelf->CoreTop__DOT__EX__DOT___GEN_289)),64);
+    bufp->fullIData(oldp+3442,(((IData)(vlSelf->CoreTop__DOT__EX_io_is_flush)
+                                 ? 0U : ((1U & (IData)(
+                                                       (vlSelf->CoreTop__DOT__IF__DOT__temp 
+                                                        >> 2U)))
+                                          ? (IData)(
+                                                    ((((1U 
+                                                        == (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__state)) 
+                                                       & (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__Scanf_io_out_bits_hit))
+                                                       ? vlSelf->CoreTop__DOT__ICACHE__DOT__hit_data
+                                                       : vlSelf->CoreTop__DOT__ICACHE__DOT__mem_data) 
+                                                     >> 0x20U))
+                                          : (IData)(
+                                                    (((1U 
+                                                       == (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__state)) 
+                                                      & (IData)(vlSelf->CoreTop__DOT__ICACHE__DOT__Scanf_io_out_bits_hit))
+                                                      ? vlSelf->CoreTop__DOT__ICACHE__DOT__hit_data
+                                                      : vlSelf->CoreTop__DOT__ICACHE__DOT__mem_data))))),32);
+    bufp->fullQData(oldp+3443,(((((IData)(vlSelf->CoreTop__DOT__EX_io_out_bits_ctrl_rf_rfWen) 
+                                  & ((IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_rfDest) 
+                                     == (0x1fU & (vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
+                                                  >> 0xfU)))) 
+                                 & (0U != (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_rfDest)))
+                                 ? vlSelf->CoreTop__DOT__EX_io_out_bits_ctrl_rf_rfData
+                                 : ((((IData)(vlSelf->CoreTop__DOT__MEM_io_out_bits_ctrl_rf_rfWen) 
+                                      & ((IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_rf_rfDest) 
+                                         == (0x1fU 
+                                             & (vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
+                                                >> 0xfU)))) 
+                                     & (0U != (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_rf_rfDest)))
+                                     ? vlSelf->CoreTop__DOT__MEM_io_out_bits_ctrl_rf_rfData
+                                     : ((((IData)(vlSelf->CoreTop__DOT__WB_io_out_bits_ctrl_rf_rfWen) 
+                                          & ((IData)(vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_rf_rfDest) 
+                                             == (0x1fU 
+                                                 & (vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
+                                                    >> 0xfU)))) 
+                                         & (0U != (IData)(vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_rf_rfDest)))
+                                         ? vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_rf_rfData
+                                         : ((0U == 
+                                             (0x1fU 
+                                              & (vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
+                                                 >> 0xfU)))
+                                             ? 0ULL
+                                             : vlSelf->CoreTop__DOT__rf
+                                            [(0x1fU 
+                                              & (vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
+                                                 >> 0xfU))]))))),64);
+    bufp->fullQData(oldp+3445,(((((IData)(vlSelf->CoreTop__DOT__EX_io_out_bits_ctrl_rf_rfWen) 
+                                  & ((IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_rfDest) 
+                                     == (0x1fU & (vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
+                                                  >> 0x14U)))) 
+                                 & (0U != (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_rfDest)))
+                                 ? vlSelf->CoreTop__DOT__EX_io_out_bits_ctrl_rf_rfData
+                                 : ((((IData)(vlSelf->CoreTop__DOT__MEM_io_out_bits_ctrl_rf_rfWen) 
+                                      & ((IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_rf_rfDest) 
+                                         == (0x1fU 
+                                             & (vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
+                                                >> 0x14U)))) 
+                                     & (0U != (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_rf_rfDest)))
+                                     ? vlSelf->CoreTop__DOT__MEM_io_out_bits_ctrl_rf_rfData
+                                     : ((((IData)(vlSelf->CoreTop__DOT__WB_io_out_bits_ctrl_rf_rfWen) 
+                                          & ((IData)(vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_rf_rfDest) 
+                                             == (0x1fU 
+                                                 & (vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
+                                                    >> 0x14U)))) 
+                                         & (0U != (IData)(vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_rf_rfDest)))
+                                         ? vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_rf_rfData
+                                         : ((0U == 
+                                             (0x1fU 
+                                              & (vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
+                                                 >> 0x14U)))
+                                             ? 0ULL
+                                             : vlSelf->CoreTop__DOT__rf
+                                            [(0x1fU 
+                                              & (vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst 
+                                                 >> 0x14U))]))))),64);
+    bufp->fullBit(oldp+3447,((1U & (~ (((0U == ((0x13U 
+                                                 == 
+                                                 (0x707fU 
+                                                  & vlSelf->CoreTop__DOT__ID_io_in_bits_r_Inst))
+                                                 ? 0x40U
+                                                 : (IData)(vlSelf->CoreTop__DOT__ID__DOT___Inst_decode_T_316))) 
+                                        | (IData)(vlSelf->CoreTop__DOT__EX_io_is_flush)) 
+                                       | (~ (IData)(vlSelf->CoreTop__DOT__valid)))))));
+    bufp->fullQData(oldp+3448,(((0U == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_src1Type))
+                                 ? vlSelf->CoreTop__DOT__mem_bypass_io_Bypass_REG1
+                                 : vlSelf->CoreTop__DOT__EX__DOT___GEN_1)),64);
+    bufp->fullQData(oldp+3450,(((0U == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_src2Type))
+                                 ? vlSelf->CoreTop__DOT__mem_bypass_io_Bypass_REG2
+                                 : vlSelf->CoreTop__DOT__EX__DOT___GEN_3)),64);
+    bufp->fullQData(oldp+3452,(((IData)(vlSelf->CoreTop__DOT__EX__DOT__is_mul)
+                                 ? vlSelf->CoreTop__DOT__EX__DOT___shift_result_T
+                                 : (QData)((IData)(vlSelf->CoreTop__DOT__EX__DOT___shift_result_T)))),64);
+    bufp->fullQData(oldp+3454,(((IData)(vlSelf->CoreTop__DOT__EX__DOT__is_mul)
+                                 ? vlSelf->CoreTop__DOT__EX__DOT__src2
+                                 : (QData)((IData)(vlSelf->CoreTop__DOT__EX__DOT__src2)))),64);
+    bufp->fullQData(oldp+3456,(((0x40U == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
+                                 ? vlSelf->CoreTop__DOT__EX__DOT___alu_result_T_1
+                                 : ((0x1aU == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
+                                     ? vlSelf->CoreTop__DOT__EX__DOT__src2
+                                     : ((0x68U == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
+                                         ? vlSelf->CoreTop__DOT__EX__DOT___alu_result_T_7
+                                         : ((0x44U 
+                                             == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
+                                             ? (vlSelf->CoreTop__DOT__EX__DOT___shift_result_T 
+                                                | vlSelf->CoreTop__DOT__EX__DOT__src2)
+                                             : ((0x69U 
+                                                 == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
+                                                 ? vlSelf->CoreTop__DOT__EX__DOT___alu_result_T_10
+                                                 : 
+                                                ((0x71U 
+                                                  == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
+                                                  ? 
+                                                 (vlSelf->CoreTop__DOT__EX__DOT___shift_result_T 
+                                                  & vlSelf->CoreTop__DOT__EX__DOT__src2)
+                                                  : vlSelf->CoreTop__DOT__EX__DOT___GEN_145))))))),64);
+    bufp->fullQData(oldp+3458,(((0x6aU == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
+                                 ? ((vlSelf->CoreTop__DOT__EX__DOT___shift_result_T 
+                                     < vlSelf->CoreTop__DOT__EX__DOT__src2)
+                                     ? 1ULL : 0ULL)
+                                 : ((2U == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
+                                     ? (VL_LTS_IQQ(64, vlSelf->CoreTop__DOT__EX__DOT___shift_result_T, vlSelf->CoreTop__DOT__EX__DOT__src2)
+                                         ? 1ULL : 0ULL)
+                                     : 0ULL))),64);
+    VL_EXTEND_WQ(127,64, __Vtemp_h84c74001__0, VL_SHIFTRS_QQI(64,64,5, vlSelf->CoreTop__DOT__EX__DOT___shift_result_T, 
+                                                              (0x1fU 
+                                                               & (IData)(vlSelf->CoreTop__DOT__EX__DOT__src2))));
+    VL_EXTEND_WQ(127,64, __Vtemp_h8248920c__0, (((QData)((IData)(
+                                                                 ((vlSelf->CoreTop__DOT__EX__DOT___shift_result_T_5[0U] 
+                                                                   >> 0x1fU)
+                                                                   ? 0xffffffffU
+                                                                   : 0U))) 
+                                                 << 0x20U) 
+                                                | (QData)((IData)(
+                                                                  vlSelf->CoreTop__DOT__EX__DOT___shift_result_T_5[0U]))));
+    VL_EXTEND_WQ(127,64, __Vtemp_h14069084__0, vlSelf->CoreTop__DOT__EX__DOT___shift_result_T);
+    VL_SHIFTL_WWI(127,127,6, __Vtemp_hf92011cd__0, __Vtemp_h14069084__0, 
+                  (0x3fU & (IData)(vlSelf->CoreTop__DOT__EX__DOT__src2)));
+    VL_EXTEND_WQ(127,64, __Vtemp_h6acab13b__0, ((0x75U 
+                                                 == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
+                                                 ? 
+                                                (vlSelf->CoreTop__DOT__EX__DOT___shift_result_T 
+                                                 >> 
+                                                 (0x3fU 
+                                                  & (IData)(vlSelf->CoreTop__DOT__EX__DOT__src2)))
+                                                 : 
+                                                ((5U 
+                                                  == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
+                                                  ? 
+                                                 (((QData)((IData)(
+                                                                   ((vlSelf->CoreTop__DOT__EX__DOT___shift_result_T_16[0U] 
+                                                                     >> 0x1fU)
+                                                                     ? 0xffffffffU
+                                                                     : 0U))) 
+                                                   << 0x20U) 
+                                                  | (QData)((IData)(
+                                                                    vlSelf->CoreTop__DOT__EX__DOT___shift_result_T_16[0U])))
+                                                  : 
+                                                 ((6U 
+                                                   == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
+                                                   ? vlSelf->CoreTop__DOT__EX__DOT___shift_result_T_28
+                                                   : 
+                                                  ((8U 
+                                                    == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
+                                                    ? vlSelf->CoreTop__DOT__EX__DOT___shift_result_T_35
+                                                    : 
+                                                   ((9U 
+                                                     == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
+                                                     ? vlSelf->CoreTop__DOT__EX__DOT___shift_result_T_28
+                                                     : 
+                                                    ((0xaU 
+                                                      == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
+                                                      ? vlSelf->CoreTop__DOT__EX__DOT___shift_result_T_35
+                                                      : 
+                                                     ((0x14U 
+                                                       == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
+                                                       ? 
+                                                      VL_SHIFTRS_QQI(64,64,6, vlSelf->CoreTop__DOT__EX__DOT___shift_result_T, 
+                                                                     (0x3fU 
+                                                                      & (IData)(vlSelf->CoreTop__DOT__EX__DOT__src2)))
+                                                       : 0ULL))))))));
+    bufp->fullQData(oldp+3460,((((QData)((IData)(((0x6eU 
+                                                   == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
+                                                   ? 
+                                                  __Vtemp_h84c74001__0[1U]
+                                                   : 
+                                                  ((0x73U 
+                                                    == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
+                                                    ? 
+                                                   __Vtemp_h8248920c__0[1U]
+                                                    : 
+                                                   ((0x41U 
+                                                     == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
+                                                     ? 
+                                                    __Vtemp_hf92011cd__0[1U]
+                                                     : 
+                                                    __Vtemp_h6acab13b__0[1U]))))) 
+                                 << 0x20U) | (QData)((IData)(
+                                                             ((0x6eU 
+                                                               == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
+                                                               ? 
+                                                              __Vtemp_h84c74001__0[0U]
+                                                               : 
+                                                              ((0x73U 
+                                                                == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
+                                                                ? 
+                                                               __Vtemp_h8248920c__0[0U]
+                                                                : 
+                                                               ((0x41U 
+                                                                 == (IData)(vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_signal_aluoptype))
+                                                                 ? 
+                                                                __Vtemp_hf92011cd__0[0U]
+                                                                 : 
+                                                                __Vtemp_h6acab13b__0[0U]))))))),64);
+    bufp->fullQData(oldp+3462,((((((0U == (IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT___s_o_T_2))
+                                    ? vlSelf->CoreTop__DOT__EX__DOT__div__DOT___T_13
+                                    : 0ULL) | ((1U 
+                                                == (IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT___s_o_T_2))
+                                                ? vlSelf->CoreTop__DOT__EX__DOT__div__DOT___T_18
+                                                : 0ULL)) 
+                                 | ((2U == (IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT___s_o_T_2))
+                                     ? vlSelf->CoreTop__DOT__EX__DOT__div__DOT___T_18
+                                     : 0ULL)) | ((3U 
+                                                  == (IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT___s_o_T_2))
+                                                  ? vlSelf->CoreTop__DOT__EX__DOT__div__DOT___T_13
+                                                  : 0ULL))),64);
+    bufp->fullQData(oldp+3464,((((((0U == (IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT___s_o_T_2))
+                                    ? vlSelf->CoreTop__DOT__EX__DOT__div__DOT___T_16
+                                    : 0ULL) | ((1U 
+                                                == (IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT___s_o_T_2))
+                                                ? vlSelf->CoreTop__DOT__EX__DOT__div__DOT___T_16
+                                                : 0ULL)) 
+                                 | ((2U == (IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT___s_o_T_2))
+                                     ? vlSelf->CoreTop__DOT__EX__DOT__div__DOT___T_26
+                                     : 0ULL)) | ((3U 
+                                                  == (IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT___s_o_T_2))
+                                                  ? vlSelf->CoreTop__DOT__EX__DOT__div__DOT___T_26
+                                                  : 0ULL))),64);
+    bufp->fullQData(oldp+3466,(((0x45U == (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_aluoptype))
+                                 ? vlSelf->CoreTop__DOT__MMIO_io_in_rdata_rep_bits_rdata
+                                 : ((0x47U == (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_aluoptype))
+                                     ? ((1U & (IData)(
+                                                      (vlSelf->CoreTop__DOT__MEM__DOT__addr_temp 
+                                                       >> 2U)))
+                                         ? (((QData)((IData)(
+                                                             ((1U 
+                                                               & (IData)(
+                                                                         (vlSelf->CoreTop__DOT__MMIO_io_in_rdata_rep_bits_rdata 
+                                                                          >> 0x3fU)))
+                                                               ? 0xffffffffU
+                                                               : 0U))) 
+                                             << 0x20U) 
+                                            | (QData)((IData)(
+                                                              (vlSelf->CoreTop__DOT__MMIO_io_in_rdata_rep_bits_rdata 
+                                                               >> 0x20U))))
+                                         : (((QData)((IData)(
+                                                             ((1U 
+                                                               & (IData)(
+                                                                         (vlSelf->CoreTop__DOT__MMIO_io_in_rdata_rep_bits_rdata 
+                                                                          >> 0x1fU)))
+                                                               ? 0xffffffffU
+                                                               : 0U))) 
+                                             << 0x20U) 
+                                            | (QData)((IData)(vlSelf->CoreTop__DOT__MMIO_io_in_rdata_rep_bits_rdata))))
+                                     : ((0x11U == (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_aluoptype))
+                                         ? ((1U & (IData)(
+                                                          (vlSelf->CoreTop__DOT__MEM__DOT__addr_temp 
+                                                           >> 2U)))
+                                             ? (QData)((IData)(
+                                                               (vlSelf->CoreTop__DOT__MMIO_io_in_rdata_rep_bits_rdata 
+                                                                >> 0x20U)))
+                                             : (QData)((IData)(vlSelf->CoreTop__DOT__MMIO_io_in_rdata_rep_bits_rdata)))
+                                         : ((0x6fU 
+                                             == (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_aluoptype))
+                                             ? (QData)((IData)(vlSelf->CoreTop__DOT__MEM__DOT___mem_result_T_27))
+                                             : ((0xeU 
+                                                 == (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_aluoptype))
+                                                 ? 
+                                                ((((0x80U 
+                                                    & (IData)(vlSelf->CoreTop__DOT__MEM__DOT___mem_result_T_27))
+                                                    ? 0xffffffffffffffULL
+                                                    : 0ULL) 
+                                                  << 8U) 
+                                                 | (QData)((IData)(vlSelf->CoreTop__DOT__MEM__DOT___mem_result_T_27)))
+                                                 : 
+                                                ((3U 
+                                                  == (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_aluoptype))
+                                                  ? 
+                                                 ((((0x8000U 
+                                                     & (IData)(vlSelf->CoreTop__DOT__MEM__DOT___mem_result_T_44))
+                                                     ? 0xffffffffffffULL
+                                                     : 0ULL) 
+                                                   << 0x10U) 
+                                                  | (QData)((IData)(vlSelf->CoreTop__DOT__MEM__DOT___mem_result_T_44)))
+                                                  : 
+                                                 ((4U 
+                                                   == (IData)(vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_aluoptype))
+                                                   ? (QData)((IData)(vlSelf->CoreTop__DOT__MEM__DOT___mem_result_T_44))
+                                                   : 0ULL)))))))),64);
+    bufp->fullBit(oldp+3468,(vlSelf->CoreTop__DOT__ICACHE_io_in_rdata_rep_valid));
+    bufp->fullBit(oldp+3469,(vlSelf->CoreTop__DOT__EX_io_is_flush));
+    bufp->fullQData(oldp+3470,(vlSelf->CoreTop__DOT__mem_bypass_io_Bypass_REG1),64);
+    bufp->fullQData(oldp+3472,(vlSelf->CoreTop__DOT__mem_bypass_io_Bypass_REG2),64);
+    bufp->fullQData(oldp+3474,(vlSelf->CoreTop__DOT__EX_io_out_bits_ctrl_rf_rfData),64);
+    bufp->fullQData(oldp+3476,(vlSelf->CoreTop__DOT__MEM_io_out_bits_ctrl_rf_rfData),64);
+    bufp->fullQData(oldp+3478,(vlSelf->CoreTop__DOT__MMIO_io_in_rdata_rep_bits_rdata),64);
+    bufp->fullQData(oldp+3480,(vlSelf->CoreTop__DOT__MMEM__DOT__rdata),64);
+    bufp->fullQData(oldp+3482,(vlSelf->CoreTop__DOT__EX__DOT__div_io_in_bits_ctrl_data_src1),64);
+    bufp->fullQData(oldp+3484,(vlSelf->CoreTop__DOT__EX__DOT__div_io_in_bits_ctrl_data_src2),64);
+    bufp->fullQData(oldp+3486,(vlSelf->CoreTop__DOT__EX__DOT__div_io_out_bits_result_quotient),64);
+    bufp->fullQData(oldp+3488,(vlSelf->CoreTop__DOT__EX__DOT__div_io_out_bits_result_remainder),64);
+    bufp->fullQData(oldp+3490,(vlSelf->CoreTop__DOT__EX__DOT___shift_result_T),64);
+    bufp->fullQData(oldp+3492,(vlSelf->CoreTop__DOT__EX__DOT__src2),64);
+    bufp->fullBit(oldp+3494,((1U & (IData)((vlSelf->CoreTop__DOT__EX__DOT___alu_result_T_1 
+                                            >> 0x1fU)))));
+    bufp->fullBit(oldp+3495,((1U & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div_io_out_bits_result_quotient 
+                                            >> 0x1fU)))));
+    bufp->fullBit(oldp+3496,((1U & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div_io_out_bits_result_remainder 
+                                            >> 0x1fU)))));
+    bufp->fullBit(oldp+3497,((1U & (IData)((vlSelf->CoreTop__DOT__EX__DOT___alu_result_T_10 
+                                            >> 0x1fU)))));
+    bufp->fullBit(oldp+3498,((vlSelf->CoreTop__DOT__EX__DOT___shift_result_T_5[0U] 
+                              >> 0x1fU)));
+    bufp->fullBit(oldp+3499,((vlSelf->CoreTop__DOT__EX__DOT___shift_result_T_16[0U] 
+                              >> 0x1fU)));
+    bufp->fullBit(oldp+3500,((vlSelf->CoreTop__DOT__EX__DOT___shift_result_T_25 
+                              >> 0x1fU)));
+    bufp->fullBit(oldp+3501,((vlSelf->CoreTop__DOT__EX__DOT___shift_result_T_31 
+                              >> 0x1fU)));
+    bufp->fullBit(oldp+3502,((1U & (IData)((vlSelf->CoreTop__DOT__EX__DOT___shift_result_T 
+                                            >> 0x1fU)))));
+    bufp->fullBit(oldp+3503,((1U & (IData)((vlSelf->CoreTop__DOT__EX__DOT__src2 
+                                            >> 0x1fU)))));
+    bufp->fullBit(oldp+3504,(vlSelf->CoreTop__DOT__EX__DOT__branch_flag));
+    bufp->fullBit(oldp+3505,((1U & (IData)((vlSelf->CoreTop__DOT__MMIO_io_in_rdata_rep_bits_rdata 
+                                            >> 0x3fU)))));
+    bufp->fullBit(oldp+3506,((1U & (IData)((vlSelf->CoreTop__DOT__MMIO_io_in_rdata_rep_bits_rdata 
+                                            >> 0x1fU)))));
+    bufp->fullBit(oldp+3507,((1U & ((IData)(vlSelf->CoreTop__DOT__MEM__DOT___mem_result_T_27) 
+                                    >> 7U))));
+    bufp->fullBit(oldp+3508,((1U & ((IData)(vlSelf->CoreTop__DOT__MEM__DOT___mem_result_T_44) 
+                                    >> 0xfU))));
+    bufp->fullBit(oldp+3509,(vlSelf->clock));
+    bufp->fullBit(oldp+3510,(vlSelf->reset));
+    bufp->fullQData(oldp+3511,(vlSelf->io_pc),64);
+    bufp->fullIData(oldp+3513,(vlSelf->io_inst),32);
+    bufp->fullBit(oldp+3514,(1U));
+    bufp->fullCData(oldp+3515,(0U),5);
+    bufp->fullCData(oldp+3516,(1U),5);
+    bufp->fullCData(oldp+3517,(2U),5);
+    bufp->fullCData(oldp+3518,(3U),5);
+    bufp->fullCData(oldp+3519,(4U),5);
+    bufp->fullCData(oldp+3520,(5U),5);
+    bufp->fullCData(oldp+3521,(6U),5);
+    bufp->fullCData(oldp+3522,(7U),5);
+    bufp->fullCData(oldp+3523,(8U),5);
+    bufp->fullCData(oldp+3524,(9U),5);
+    bufp->fullCData(oldp+3525,(0xaU),5);
+    bufp->fullCData(oldp+3526,(0xbU),5);
+    bufp->fullCData(oldp+3527,(0xcU),5);
+    bufp->fullCData(oldp+3528,(0xdU),5);
+    bufp->fullCData(oldp+3529,(0xeU),5);
+    bufp->fullCData(oldp+3530,(0xfU),5);
+    bufp->fullCData(oldp+3531,(0x10U),5);
+    bufp->fullCData(oldp+3532,(0x11U),5);
+    bufp->fullCData(oldp+3533,(0x12U),5);
+    bufp->fullCData(oldp+3534,(0x13U),5);
+    bufp->fullCData(oldp+3535,(0x14U),5);
+    bufp->fullCData(oldp+3536,(0x15U),5);
+    bufp->fullCData(oldp+3537,(0x16U),5);
+    bufp->fullCData(oldp+3538,(0x17U),5);
+    bufp->fullCData(oldp+3539,(0x18U),5);
+    bufp->fullCData(oldp+3540,(0x19U),5);
+    bufp->fullCData(oldp+3541,(0x1aU),5);
+    bufp->fullCData(oldp+3542,(0x1bU),5);
+    bufp->fullCData(oldp+3543,(0x1cU),5);
+    bufp->fullCData(oldp+3544,(0x1dU),5);
+    bufp->fullCData(oldp+3545,(0x1eU),5);
+    bufp->fullCData(oldp+3546,(0x1fU),5);
+    bufp->fullCData(oldp+3547,(0U),2);
+    bufp->fullCData(oldp+3548,(1U),4);
+    bufp->fullCData(oldp+3549,(3U),3);
+    bufp->fullCData(oldp+3550,(0U),3);
+    bufp->fullCData(oldp+3551,(1U),2);
+    bufp->fullCData(oldp+3552,(0U),4);
+    bufp->fullCData(oldp+3553,(vlSelf->CoreTop__DOT__MMEM_rd_id),4);
+    bufp->fullCData(oldp+3554,(vlSelf->CoreTop__DOT__MMEM_rd_resp),2);
+    bufp->fullCData(oldp+3555,(vlSelf->CoreTop__DOT__MMEM_wr_id),4);
+    bufp->fullBit(oldp+3556,(0U));
+    bufp->fullIData(oldp+3557,(0x40U),32);
+    bufp->fullCData(oldp+3558,(2U),2);
 }

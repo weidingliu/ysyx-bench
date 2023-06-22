@@ -237,7 +237,7 @@ class Axi_full_Bundle_in extends Axi_Lite_Bundle with Axi_paramete {
     val last = Output(Bool())
   }))
   val wb = Decoupled(new Bundle() {
-    val wid = Output(UInt(4.W))
+    val id = Output(UInt(4.W))
     val breap = Output(UInt(2.W))
   })
 }

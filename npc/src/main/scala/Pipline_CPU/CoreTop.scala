@@ -4,10 +4,11 @@ import Pipline_CPU.frontend._
 import Pipline_CPU.backend._
 import chisel3._
 import chisel3.util._
-import cache.Cache
+import cache.{Cache, Cache_Axi}
 import axi.sram2axi
 import axi.Sram2axi_mulit
 import axi.AxiArbiter
+import axi.Axi_FULLArbiter
 
 class DIP_model extends BlackBox{
   val io = IO(new Bundle() {
@@ -21,14 +22,6 @@ class DIP_model extends BlackBox{
 
   })
 }
-//class ifm extends BlackBox{
-//  val io = IO(new Bundle() {
-//    val reset=Input(Bool())
-//    val clk=Input(Clock())
-//    val pc = Input(UInt(64.W))
-//    val inst = Output(UInt(32.W))
-//  })
-//}
 
 class SRAM extends BlackBox{
   val io = IO(new Bundle() {
@@ -55,6 +48,54 @@ class SRAM extends BlackBox{
     val bvalid = Output(Bool())
     val bready = Input(Bool())
     val bresp = Output(UInt(2.W))
+  })
+}
+
+class SRAM_AXI extends BlackBox{
+  val io = IO(new Bundle() {
+    val reset = Input(Bool())
+    val clk = Input(Clock())
+
+    val ar_valid = Input(Bool())
+    val ar_ready = Output(Bool())
+    val ar_addr = Input(UInt(64.W))
+    val ar_id = Input(UInt(4.W))
+    val ar_len = Input(UInt(8.W))
+    val ar_size = Input(UInt(3.W))
+    val ar_prot = Input(UInt(3.W))
+    val ar_burst = Input(UInt(2.W))
+    val ar_lock = Input(UInt(2.W))
+    val ar_cache = Input(UInt(4.W))
+
+    val rd_valid = Output(Bool())
+    val rd_ready = Input(Bool())
+    val rd_data = Output(UInt(64.W))
+    val rd_id = Output(UInt(4.W))
+    val rd_resp = Output(UInt(2.W))
+    val rd_last = Output(Bool())
+
+    val aw_valid = Input(Bool())
+    val aw_ready = Output(Bool())
+    val aw_addr = Input(UInt(64.W))
+    val aw_id = Input(UInt(4.W))
+    val aw_len = Input(UInt(8.W))
+    val aw_size = Input(UInt(3.W))
+    val aw_prot = Input(UInt(3.W))
+    val aw_burst = Input(UInt(2.W))
+    val aw_lock = Input(UInt(2.W))
+    val aw_cache = Input(UInt(4.W))
+
+    val wd_valid = Input(Bool())
+    val wd_ready = Output(Bool())
+    val wd_data = Input(UInt(64.W))
+    val wstrb = Input(UInt(8.W))
+    val wd_id = Input(UInt(4.W))
+    val wd_last = Input(Bool())
+
+    val wr_valid = Output(Bool())
+    val wr_ready = Input(Bool())
+    val wr_breap = Output(UInt(2.W))
+    val wr_id = Output(UInt(4.W))
   })
 }
 
@@ -103,15 +144,15 @@ class CoreTop extends Module with Paramete{
 
   val mem_bypass =Module(new MEM_Bypass)
 
-  val ICACHE = Module(new Cache("icache"))
+  val ICACHE = Module(new Cache_Axi("icache"))
 
-  val If_axi_birdge = Module(new Sram2axi_mulit)
-  val MEM_axi_birdge = Module(new Sram2axi_mulit)
+//  val If_axi_birdge = Module(new Sram2axi_mulit)
+//  val MEM_axi_birdge = Module(new Sram2axi_mulit)
 
 //  val IFMEM = Module(new SRAM)
-  val MMEM = Module(new SRAM)
+  val MMEM = Module(new SRAM_AXI)
 
-  val ARBITER = Module(new AxiArbiter)
+  val ARBITER = Module(new Axi_FULLArbiter)
 
   val MMIO = Module(new MMIO)
 //  val DCACHE = Module(new Cache("Dcache"))
@@ -132,36 +173,55 @@ class CoreTop extends Module with Paramete{
   IF.io.cache_req.rdata_rep <> ICACHE.io.in.rdata_rep
   ICACHE.io.flush := EX.io.is_flush
 
-  If_axi_birdge.io.in.addr_req <> ICACHE.io.out.addr_req
-  If_axi_birdge.io.in.wdata_req.get <> ICACHE.io.out.wdata_req.get
-  If_axi_birdge.io.in.rdata_rep <> ICACHE.io.out.rdata_rep
-  If_axi_birdge.io.in.wdata_rep.get <> ICACHE.io.out.wdata_rep.get
+  ARBITER.io.in2 <> ICACHE.io.out
+  ARBITER.io.in1 <> MMIO.io.out
 
-    ARBITER.io.in2 <> If_axi_birdge.io.out
-    ARBITER.io.in1 <> MEM_axi_birdge.io.out
+  MMEM.io.reset := reset
+  MMEM.io.clk := clock
 
-    MMEM.io.reset := reset
-    MMEM.io.clk := clock
-    ARBITER.io.out.raddr_req.ready := MMEM.io.ar_ready
-    MMEM.io.ar_valid := ARBITER.io.out.raddr_req.valid
-    MMEM.io.araddr := ARBITER.io.out.raddr_req.bits.addr
+  ARBITER.io.out.raddr_req.ready := MMEM.io.ar_ready
+  MMEM.io.ar_valid := ARBITER.io.out.raddr_req.valid
+  MMEM.io.ar_addr := ARBITER.io.out.raddr_req.bits.addr
+  MMEM.io.ar_id := ARBITER.io.out.raddr_req.bits.id
+  MMEM.io.ar_size := ARBITER.io.out.raddr_req.bits.size
+  MMEM.io.ar_len := ARBITER.io.out.raddr_req.bits.len
+  MMEM.io.ar_lock := ARBITER.io.out.raddr_req.bits.lock
+  MMEM.io.ar_cache := ARBITER.io.out.raddr_req.bits.cache
+  MMEM.io.ar_burst := ARBITER.io.out.raddr_req.bits.brust
+  MMEM.io.ar_prot := ARBITER.io.out.raddr_req.bits.prot
 
-    ARBITER.io.out.waddr_req.ready := MMEM.io.aw_ready
-    MMEM.io.aw_valid := ARBITER.io.out.waddr_req.valid
-    MMEM.io.awaddr := ARBITER.io.out.waddr_req.bits.addr
 
-    ARBITER.io.out.wdata_req.ready := MMEM.io.w_ready
-    MMEM.io.wdata := ARBITER.io.out.wdata_req.bits.wdata
-    MMEM.io.wstrb := ARBITER.io.out.wdata_req.bits.wmask
-    MMEM.io.w_valid := ARBITER.io.out.wdata_req.valid
+  ARBITER.io.out.waddr_req.ready := MMEM.io.aw_ready
+  MMEM.io.aw_valid := ARBITER.io.out.waddr_req.valid
+  MMEM.io.aw_addr := ARBITER.io.out.waddr_req.bits.addr
+  MMEM.io.aw_id := ARBITER.io.out.waddr_req.bits.id
+  MMEM.io.aw_size := ARBITER.io.out.waddr_req.bits.size
+  MMEM.io.aw_len := ARBITER.io.out.waddr_req.bits.len
+  MMEM.io.aw_lock := ARBITER.io.out.waddr_req.bits.lock
+  MMEM.io.aw_cache := ARBITER.io.out.waddr_req.bits.cache
+  MMEM.io.aw_burst := ARBITER.io.out.waddr_req.bits.brust
+  MMEM.io.aw_prot := ARBITER.io.out.waddr_req.bits.prot
 
-    MMEM.io.r_ready := ARBITER.io.out.rdata_rep.ready
-    ARBITER.io.out.rdata_rep.valid := MMEM.io.r_valid
-    ARBITER.io.out.rdata_rep.bits.rdata := MMEM.io.rdata
+  ARBITER.io.out.wdata_req.ready := MMEM.io.wd_ready
+  MMEM.io.wd_data := ARBITER.io.out.wdata_req.bits.data
+  MMEM.io.wstrb := ARBITER.io.out.wdata_req.bits.wstrb
+  MMEM.io.wd_valid := ARBITER.io.out.wdata_req.valid
+  MMEM.io.wd_id := ARBITER.io.out.wdata_req.bits.id
+  MMEM.io.wd_last := ARBITER.io.out.wdata_req.bits.last
 
-    ARBITER.io.out.wb.valid := MMEM.io.bvalid
-    ARBITER.io.out.wb.bits := MMEM.io.bresp
-    MMEM.io.bready := ARBITER.io.out.wb.ready
+
+  MMEM.io.rd_ready := ARBITER.io.out.rdata_rep.ready
+  ARBITER.io.out.rdata_rep.valid := MMEM.io.rd_valid
+  ARBITER.io.out.rdata_rep.bits.data := MMEM.io.rd_data
+  ARBITER.io.out.rdata_rep.bits.id := MMEM.io.rd_id
+  ARBITER.io.out.rdata_rep.bits.last := MMEM.io.rd_last
+  ARBITER.io.out.rdata_rep.bits.resp := MMEM.io.rd_resp
+
+  ARBITER.io.out.wb.valid := MMEM.io.wr_valid
+  ARBITER.io.out.wb.bits.breap := MMEM.io.wr_breap
+  ARBITER.io.out.wb.bits.id := MMEM.io.wr_id
+  MMEM.io.wr_ready := ARBITER.io.out.wb.ready
+
 
 //  IFMEM.io.reset := reset
 //  IFMEM.io.clk := clock
@@ -216,38 +276,6 @@ class CoreTop extends Module with Paramete{
 
 
   MEM.io.cache_io <> MMIO.io.in
-
-//  IF.io.cache_req.addr_req <> ICACHE.io.in.addr_req
-//  IF.io.cache_req.rdata_rep <> ICACHE.io.in.rdata_rep
-//  ICACHE.io.flush := EX.io.is_flush
-
-  MEM_axi_birdge.io.in.addr_req <> MMIO.io.out.addr_req
-  MEM_axi_birdge.io.in.wdata_req.get <> MMIO.io.out.wdata_req.get
-  MEM_axi_birdge.io.in.rdata_rep <> MMIO.io.out.rdata_rep
-  MEM_axi_birdge.io.in.wdata_rep.get <> MMIO.io.out.wdata_rep.get
-
-//  MMEM.io.reset := reset
-//  MMEM.io.clk := clock
-//  MEM_axi_birdge.io.out.raddr_req.ready := MMEM.io.ar_ready
-//  MMEM.io.ar_valid := MEM_axi_birdge.io.out.raddr_req.valid
-//  MMEM.io.araddr := MEM_axi_birdge.io.out.raddr_req.bits.addr
-//
-//  MEM_axi_birdge.io.out.waddr_req.ready := MMEM.io.aw_ready
-//  MMEM.io.aw_valid := MEM_axi_birdge.io.out.waddr_req.valid
-//  MMEM.io.awaddr := MEM_axi_birdge.io.out.waddr_req.bits.addr
-//
-//  MEM_axi_birdge.io.out.wdata_req.ready := MMEM.io.w_ready
-//  MMEM.io.wdata := MEM_axi_birdge.io.out.wdata_req.bits.wdata
-//  MMEM.io.wstrb := MEM_axi_birdge.io.out.wdata_req.bits.wmask
-//  MMEM.io.w_valid := MEM_axi_birdge.io.out.wdata_req.valid
-//
-//  MMEM.io.r_ready := MEM_axi_birdge.io.out.rdata_rep.ready
-//  MEM_axi_birdge.io.out.rdata_rep.valid := MMEM.io.r_valid
-//  MEM_axi_birdge.io.out.rdata_rep.bits.rdata := MMEM.io.rdata
-//
-//  MEM_axi_birdge.io.out.wb.valid := MMEM.io.bvalid
-//  MEM_axi_birdge.io.out.wb.bits := MMEM.io.bresp
-//  MMEM.io.bready := MEM_axi_birdge.io.out.wb.ready
 
   bypass.io.MEM_rf <> MEM.io.out.bits.ctrl_rf
 
