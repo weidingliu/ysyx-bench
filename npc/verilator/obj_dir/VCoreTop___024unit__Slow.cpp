@@ -10,8 +10,8 @@
 
 void VCoreTop___024unit___ctor_var_reset(VCoreTop___024unit* vlSelf);
 
-VCoreTop___024unit::VCoreTop___024unit(VCoreTop__Syms* symsp, const char* name)
-    : VerilatedModule{name}
+VCoreTop___024unit::VCoreTop___024unit(VCoreTop__Syms* symsp, const char* v__name)
+    : VerilatedModule{v__name}
     , vlSymsp{symsp}
  {
     // Reset structure values

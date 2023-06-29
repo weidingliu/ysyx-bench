@@ -2,7 +2,7 @@ package Pipline_CPU
 
 import chisel3._
 import chisel3.util._
-import Pipline_CPU.cache.{Cache, Cache_Axi}
+import Pipline_CPU.cache.Cache_Axi
 import Pipline_CPU.axi.Sram_axifull
 class MMIO extends Module with Paramete{
   val io = IO(new Bundle() {

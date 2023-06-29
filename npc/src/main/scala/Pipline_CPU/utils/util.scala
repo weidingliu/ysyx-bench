@@ -101,6 +101,7 @@ object MaskGen extends CacheParamete{
   }
 }
 
+
 //object  Lookup_List{
 //  def apply[T <: Data] (sel:UInt,mapping:Iterable[(List[UInt],T)]): T =
 //    Mux1H(mapping.map(m=>(m._1 === sel , m._2)))

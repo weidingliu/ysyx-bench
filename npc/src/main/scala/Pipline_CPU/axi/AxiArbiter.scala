@@ -265,7 +265,7 @@ class Axi_FULLArbiter extends Module{
 
 }
 
-class AxiArbiter extends Module{
+class AxiliteArbiter extends Module{
   val io = IO(new Bundle() {
     val in1 = new Axi_lite_Bundle_in
     val in2 = new Axi_lite_Bundle_in

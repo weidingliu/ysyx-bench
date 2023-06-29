@@ -304,10 +304,10 @@ always @(*) begin
     end
     else begin 
         // $display("%h %h %h %h %h\n",read_addr_buffer,ar_addr,read_count,ar_valid,read_state);
-        if(read_state == data_transform && clk == 1'b1) begin 
+        if(read_state == data_transform && clk == 1'b0) begin 
             pmem_read(read_addr_buffer, rdata);
         end
-        if(write_state == data_transform && clk == 1'b1) begin 
+        if(write_state == data_transform && clk == 1'b0) begin 
             pmem_write(write_addr_buffer, wd_data, wstrb);
         end
     end

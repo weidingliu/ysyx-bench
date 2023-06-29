@@ -7,12 +7,12 @@
 ### Switches...
 # C11 constructs required?  0/1 (always on now)
 VM_C11 = 1
+# Timing enabled?  0/1
+VM_TIMING = 0
 # Coverage output mode?  0/1 (from --coverage)
 VM_COVERAGE = 0
 # Parallel builds?  0/1 (from --output-split)
 VM_PARALLEL_BUILDS = 0
-# Threaded output mode?  0/1/N threads (from --threads)
-VM_THREADS = 0
 # Tracing output mode?  0/1 (from --trace/--trace-fst)
 VM_TRACE = 1
 # Tracing output mode in VCD format?  0/1 (from --trace)
@@ -52,6 +52,7 @@ VM_GLOBAL_FAST += \
 	verilated \
 	verilated_dpi \
 	verilated_vcd_c \
+	verilated_threads \
 
 # Global classes, need linked once per executable, non-fast-path, compile with low/medium optimization
 VM_GLOBAL_SLOW += \

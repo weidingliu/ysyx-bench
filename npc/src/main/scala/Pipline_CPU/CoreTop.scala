@@ -4,10 +4,10 @@ import Pipline_CPU.frontend._
 import Pipline_CPU.backend._
 import chisel3._
 import chisel3.util._
-import cache.{Cache, Cache_Axi}
+import cache.Cache_Axi
 import axi.sram2axi
 import axi.Sram2axi_mulit
-import axi.AxiArbiter
+import axi.AxiliteArbiter
 import axi.Axi_FULLArbiter
 
 class DIP_model extends BlackBox{
@@ -19,7 +19,6 @@ class DIP_model extends BlackBox{
     val inst_valid = Input(Bool())
     val dnpc = Input(UInt(64.W))
     val is_skip=Input(Bool())
-
   })
 }
 
@@ -109,9 +108,7 @@ class MEM extends BlackBox{
     val wdata=Input(UInt(64.W))
     val rdata=Output(UInt(64.W))
     val wmask=Input(UInt(8.W))
-
   })
-
 }
 
 class CoreTop extends Module with Paramete{

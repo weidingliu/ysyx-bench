@@ -52,7 +52,6 @@ VM_USER_CLASSES = \
 	mmio \
 	dut \
 	pmem \
-	irq \
 	tb_CPUTop \
 	disasm \
 
@@ -62,7 +61,6 @@ VM_USER_DIR = \
 	src/device \
 	src/difftest \
 	src/memory \
-	src/system \
 	src/util \
 
 
@@ -86,8 +84,6 @@ mmio.o: src/device/mmio.c
 dut.o: src/difftest/dut.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 pmem.o: src/memory/pmem.c
-	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
-irq.o: src/system/irq.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 tb_CPUTop.o: src/tb_CPUTop.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<

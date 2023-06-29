@@ -28,6 +28,6 @@ VCoreTop__Syms::VCoreTop__Syms(VerilatedContext* contextp, const char* namep, VC
     TOP.__Vconfigure(true);
     TOP____024unit.__Vconfigure(true);
     // Setup export functions
-    for (int __Vfinal=0; __Vfinal<2; __Vfinal++) {
+    for (int __Vfinal = 0; __Vfinal < 2; ++__Vfinal) {
     }
 }

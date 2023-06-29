@@ -16,7 +16,7 @@ class VCoreTop___024unit final : public VerilatedModule {
     VCoreTop__Syms* const vlSymsp;
 
     // CONSTRUCTORS
-    VCoreTop___024unit(VCoreTop__Syms* symsp, const char* name);
+    VCoreTop___024unit(VCoreTop__Syms* symsp, const char* v__name);
     ~VCoreTop___024unit();
     VL_UNCOPYABLE(VCoreTop___024unit);
 

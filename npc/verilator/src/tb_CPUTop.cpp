@@ -36,6 +36,10 @@ const char *reg_name[] = {
 char ibuf[IRTRACE][128];
 static uint32_t irbuf_point=0;
 #endif
+#ifdef PERF
+static uint64_t clock_count=0;
+static uint64_t inst_count=0;
+#endif
 static bool step_print_inst = false;
 vluint64_t sim_time=0;
 
@@ -154,12 +158,18 @@ void exe_once(VCoreTop *s,VerilatedContext* contextp,VerilatedVcdC *m_trace){
             sim_time++;
             
         }
+        #ifdef PERF
+        clock_count++;
+        #endif
         //printf("%lx  %lx %d %x\n",pc,dnpc,inst_valid,inst);
        // printf("dfgghhhh %d\n",inst_valid);
     }while(inst_valid == 0 && (! contextp->gotFinish()));
     uint32_t inst= Inst[0];
    // printf("%lx  %lx %d %x\n",pc,dnpc,inst_valid,Inst[0]);
    //printf("%d\n",is_skip_ref);
+    #ifdef PERF
+        inst_count++;
+    #endif
     #ifdef ITRACE
 
             void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
@@ -517,11 +527,23 @@ else if(cpu_gpr[10] !=0) {
     #endif
 
     printf("\033[40;31mHIT BAD TRAP at pc = \033[0m \033[40;31m0x%016lx\033[0m\n",pc);
+    
+    #ifdef PERF
+    printf("simulation end\n");
+    printf("clock sum is %ld\n",clock_count);
+    printf("inst sum is %ld\n",inst_count);
+    printf("IPC is %03f\n",inst_count/(float)clock_count);
+    #endif
     exit(EXIT_FAILURE);
     //exit(EXIT_SUCCESS);
 }
 else printf("\033[40;32mHIT GOOD TRAP at pc = \033[0m \033[40;32m0x%016lx\033[0m\n",pc);
-
+#ifdef PERF
+printf("simulation end\n");
+printf("clock sum is %ld\n",clock_count);
+printf("inst sum is %ld\n",inst_count);
+printf("IPC is %03f\n",inst_count/(float)clock_count);
+#endif
 exit(EXIT_SUCCESS);
 
 

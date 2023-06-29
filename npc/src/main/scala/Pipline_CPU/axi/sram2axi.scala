@@ -213,7 +213,7 @@ class Sram_axifull extends Module with Paramete{
   io.out.raddr_req.bits.prot := 0.U(3.W)
   io.out.raddr_req.valid := Mux(read_state === read_transfer_addr,true.B,false.B)
   io.out.raddr_req.bits.addr := io.in.addr_req.bits.addr
-  io.out.raddr_req.bits.len := 0x0.U(8.W)
+  io.out.raddr_req.bits.len := 0.U(8.W)
 
   io.out.waddr_req.bits.id := 1.U(4.W)
   io.out.waddr_req.bits.size := "b011".U(3.W)
@@ -223,7 +223,7 @@ class Sram_axifull extends Module with Paramete{
   io.out.waddr_req.bits.prot := 0.U(3.W)
   io.out.waddr_req.valid := Mux(write_state === write_transfer_addr,true.B,false.B)
   io.out.waddr_req.bits.addr := io.in.addr_req.bits.addr
-  io.out.waddr_req.bits.len := 0x0.U(8.W)
+  io.out.waddr_req.bits.len := 0.U(8.W)
 
   io.out.rdata_rep.ready := io.in.rdata_rep.ready
   io.in.rdata_rep.bits.rdata := io.out.rdata_rep.bits.data

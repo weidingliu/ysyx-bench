@@ -36,27 +36,15 @@ VCoreTop::~VCoreTop() {
 }
 
 //============================================================
-// Evaluation loop
+// Evaluation function
 
-void VCoreTop___024root___eval_initial(VCoreTop___024root* vlSelf);
-void VCoreTop___024root___eval_settle(VCoreTop___024root* vlSelf);
-void VCoreTop___024root___eval(VCoreTop___024root* vlSelf);
 #ifdef VL_DEBUG
 void VCoreTop___024root___eval_debug_assertions(VCoreTop___024root* vlSelf);
 #endif  // VL_DEBUG
-void VCoreTop___024root___final(VCoreTop___024root* vlSelf);
-
-static void _eval_initial_loop(VCoreTop__Syms* __restrict vlSymsp) {
-    vlSymsp->__Vm_didInit = true;
-    VCoreTop___024root___eval_initial(&(vlSymsp->TOP));
-    // Evaluate till stable
-    vlSymsp->__Vm_activity = true;
-    do {
-        VL_DEBUG_IF(VL_DBG_MSGF("+ Initial loop\n"););
-        VCoreTop___024root___eval_settle(&(vlSymsp->TOP));
-        VCoreTop___024root___eval(&(vlSymsp->TOP));
-    } while (0);
-}
+void VCoreTop___024root___eval_static(VCoreTop___024root* vlSelf);
+void VCoreTop___024root___eval_initial(VCoreTop___024root* vlSelf);
+void VCoreTop___024root___eval_settle(VCoreTop___024root* vlSelf);
+void VCoreTop___024root___eval(VCoreTop___024root* vlSelf);
 
 void VCoreTop::eval_step() {
     VL_DEBUG_IF(VL_DBG_MSGF("+++++TOP Evaluate VCoreTop::eval_step\n"); );
@@ -64,15 +52,32 @@ void VCoreTop::eval_step() {
     // Debug assertions
     VCoreTop___024root___eval_debug_assertions(&(vlSymsp->TOP));
 #endif  // VL_DEBUG
-    // Initialize
-    if (VL_UNLIKELY(!vlSymsp->__Vm_didInit)) _eval_initial_loop(vlSymsp);
-    // Evaluate till stable
     vlSymsp->__Vm_activity = true;
-    do {
-        VL_DEBUG_IF(VL_DBG_MSGF("+ Clock loop\n"););
-        VCoreTop___024root___eval(&(vlSymsp->TOP));
-    } while (0);
+    vlSymsp->__Vm_deleter.deleteAll();
+    if (VL_UNLIKELY(!vlSymsp->__Vm_didInit)) {
+        vlSymsp->__Vm_didInit = true;
+        VL_DEBUG_IF(VL_DBG_MSGF("+ Initial\n"););
+        VCoreTop___024root___eval_static(&(vlSymsp->TOP));
+        VCoreTop___024root___eval_initial(&(vlSymsp->TOP));
+        VCoreTop___024root___eval_settle(&(vlSymsp->TOP));
+    }
+    // MTask 0 start
+    VL_DEBUG_IF(VL_DBG_MSGF("MTask0 starting\n"););
+    Verilated::mtaskId(0);
+    VL_DEBUG_IF(VL_DBG_MSGF("+ Eval\n"););
+    VCoreTop___024root___eval(&(vlSymsp->TOP));
     // Evaluate cleanup
+    Verilated::endOfThreadMTask(vlSymsp->__Vm_evalMsgQp);
+    Verilated::endOfEval(vlSymsp->__Vm_evalMsgQp);
+}
+
+//============================================================
+// Events and timing
+bool VCoreTop::eventsPending() { return false; }
+
+uint64_t VCoreTop::nextTimeSlot() {
+    VL_FATAL_MT(__FILE__, __LINE__, "", "%Error: No delays in the design");
+    return 0;
 }
 
 //============================================================
@@ -85,8 +90,10 @@ const char* VCoreTop::name() const {
 //============================================================
 // Invoke final blocks
 
+void VCoreTop___024root___eval_final(VCoreTop___024root* vlSelf);
+
 VL_ATTR_COLD void VCoreTop::final() {
-    VCoreTop___024root___final(&(vlSymsp->TOP));
+    VCoreTop___024root___eval_final(&(vlSymsp->TOP));
 }
 
 //============================================================
