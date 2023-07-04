@@ -18,7 +18,7 @@ SYSTEMC_LIBDIR ?=
 
 ### Switches...
 # C++ code coverage  0/1 (from --prof-c)
-VM_PROFC = 0
+VM_PROFC = 1
 # SystemC output mode?  0/1 (from --sc)
 VM_SC = 0
 # Legacy or SystemC output mode?  0/1 (from --sc)
@@ -37,12 +37,15 @@ VM_MODPREFIX = VCoreTop
 VM_USER_CFLAGS = \
 	-I /home/liuweiding/ysyx-workbench/npc/verilator/src/include -I /usr/lib/llvm-13/include \
 	-Wno-tautological-compare \
+	-O3 \
+	-fprofile-generate \
 
 # User LDLIBS (from -LDFLAGS on Verilator command line)
 VM_USER_LDLIBS = \
 	-lLLVM-13 -ldl \
 	-lreadline \
 	-lSDL2 -lSDL2_image \
+	-fprofile-generate \
 
 # User .cpp files (from .cpp's on Verilator command line)
 VM_USER_CLASSES = \
