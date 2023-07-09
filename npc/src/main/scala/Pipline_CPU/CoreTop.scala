@@ -123,6 +123,7 @@ class CoreTop extends Module with Paramete{
 
 //  val IFM = Module(new ifm)
 
+
   val ID = Module(new ID)
 
   val EX = Module(new EXE)
@@ -168,7 +169,7 @@ class CoreTop extends Module with Paramete{
 //  ICACHE.io.in.bits.addr := IF.io.out.bits.PC
   IF.io.cache_req.addr_req <> ICACHE.io.in.addr_req
   IF.io.cache_req.rdata_rep <> ICACHE.io.in.rdata_rep
-  ICACHE.io.flush := EX.io.is_flush
+  ICACHE.io.flush := 0.U
 
   ARBITER.io.in2 <> ICACHE.io.out
   ARBITER.io.in1 <> MMIO.io.out
@@ -245,8 +246,9 @@ class CoreTop extends Module with Paramete{
 
   IF.io.flush := EX.io.is_flush
 //  IF.io.flush := EX.io.is_flush
+  BUFFER_Connect(IF.io.out,ID.io.in,ID.io.out.fire,EX.io.is_flush)
   //ID
-  Pipline_Connect(IF.io.out,ID.io.in,ID.io.out.fire,EX.io.is_flush)
+//  Pipline_Connect(IF.io.out,ID.io.in,ID.io.out.fire,EX.io.is_flush)
   ID.io.REG1 := bypass.io.Bypass_REG1
   ID.io.REG2 := bypass.io.Bypass_REG2
   ID.io.flush := EX.io.is_flush
@@ -266,6 +268,7 @@ class CoreTop extends Module with Paramete{
   EX.io.src1 := mem_bypass.io.Bypass_REG1
   EX.io.src2 := mem_bypass.io.Bypass_REG2
 
+  EX.io.icache_busy := ICACHE.io.cache_busy
 //  ID.io.flush := EX.io.is_flush
 //MEM
   Pipline_Connect(EX.io.out,MEM.io.in,MEM.io.out.fire,0.B)

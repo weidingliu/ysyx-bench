@@ -23,3 +23,31 @@ object Pipline_Connect {
     right.valid := valid
   }
 }
+
+object BUFFER_Connect {
+  def apply[T <: Data](left: DecoupledIO[T],right: DecoupledIO[T],right_fire: Bool,flush: Bool) = {
+    val head = RegInit(0.U(5.W))
+    val tail = RegInit(0.U(5.W))
+    val empty = head === tail
+    val full = (head(3,0) === tail (3,0)) && (head(4) ^ tail(4))
+
+    val buffer = Reg(Vec(32,left.bits.cloneType))
+
+    when(right_fire){
+      tail := tail + 1.U
+    }
+    when(left.valid && !full){
+      head := head + 1.U
+      buffer(head) := left.bits
+    }
+    when(flush){
+      head := 0.U(5.W)
+      tail := 0.U(5.W)
+    }
+    right.bits := buffer(tail(3,0))
+    left.ready := !full
+    right.valid := !empty
+
+  }
+}
+

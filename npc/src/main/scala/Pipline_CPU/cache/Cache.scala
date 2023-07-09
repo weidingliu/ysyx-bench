@@ -429,6 +429,7 @@ class Cache_Axi (Type : String) extends Module with CacheParamete{
   val io = IO(new Bundle() {
     val in = new Cache_MemReq_Bundle(Type)
     val flush = Input(Bool())
+    val cache_busy = Output(Bool())
 
     val out = new Axi_full_Bundle_out
   })
@@ -831,7 +832,7 @@ class Cache_Axi (Type : String) extends Module with CacheParamete{
   io.out.wdata_req.bits.id := 1.U(4.W)
   io.out.wb.ready := true.B
 
-
+  io.cache_busy := !(state === idle)
 
 }
 

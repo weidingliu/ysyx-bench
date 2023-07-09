@@ -91,6 +91,7 @@ class EXE extends Module with Paramete{
     val out = Decoupled(new MEMIO)
     val is_break = Output(Bool())
     val is_flush = Output(Bool())
+    val icache_busy = Input(Bool())
 
   })
 //  val rf = new RF
@@ -116,7 +117,7 @@ class EXE extends Module with Paramete{
 //  val mul = Module(new Shift_MUL(xlen))
 //  val mul = Module(new Booth_MUL(3,xlen))
   val mul = Module(new MUL(3,xlen))
-  val div = Module(new DIV(xlen))
+  val div = Module(new Radix_DIV(xlen))
 
   Imm := io.in.bits.ctrl_data.Imm
   PC := io.in.bits.ctrl_flow.PC
@@ -411,7 +412,7 @@ class EXE extends Module with Paramete{
   CSRDIFF.io.mepc := RegNext(RegNext(csr.mepc))
   CSRDIFF.io.mstatus := RegNext(RegNext(csr.mstatus))
 
-  io.is_flush := Mux((branch_flag === 1.U || io.branchIO.is_jump === 1.U) && io.in.valid,1.U,0.U)
+  io.is_flush := Mux((branch_flag === 1.U || io.branchIO.is_jump === 1.U) && io.in.valid && !io.icache_busy,1.U,0.U)
   io.is_break := Mux((io.in.bits.ctrl_signal.aluoptype === ALUOPType.ebreak && io.out.bits.ctrl_signal.inst_valid), 1.U, 0.U)
 
 //  io.is_mem := Mux(io.in.bits.ctrl_signal.fuType === FUType.mem,1.B,0.B)
@@ -433,6 +434,6 @@ class EXE extends Module with Paramete{
   io.branchIO.is_branch := branch_flag & io.out.bits.ctrl_signal.inst_valid & io.in.valid & io.out.ready//Mux(time_int === 1.U, 1.U, branch_flag)
   io.branchIO.is_jump := Mux(io.in.bits.ctrl_signal.fuType === FUType.jump && io.out.bits.ctrl_signal.inst_valid && io.in.valid & io.out.ready, 1.U, 0.U)
 
-  io.out.valid := Mux(!(!mul.io.out.valid && is_mul ) && !(!div.io.out.valid && is_div) && io.in.valid ,1.U,0.U)
-  io.in.ready := Mux(((!mul.io.out.valid && is_mul) || (!div.io.out.valid && is_div)) && io.in.valid,0.U,io.out.ready)
+  io.out.valid := Mux(!(!mul.io.out.valid && is_mul ) && !(!div.io.out.valid && is_div) && io.in.valid && !((branch_flag === 1.U || io.branchIO.is_jump === 1.U) && io.icache_busy),1.U,0.U)
+  io.in.ready := Mux(((!mul.io.out.valid && is_mul) || (!div.io.out.valid && is_div)) && io.in.valid || ((branch_flag === 1.U || io.branchIO.is_jump === 1.U) && io.icache_busy),0.U,io.out.ready)
 }
