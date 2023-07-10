@@ -84,8 +84,10 @@ class EXE extends Module with Paramete{
   val io = IO(new Bundle() {
    val in = Flipped(Decoupled(new DecoderIO))
 
-    val src1 = Input(UInt(xlen.W))
-    val src2 = Input(UInt(xlen.W))
+//    val src1 = Input(UInt(xlen.W))
+//    val src2 = Input(UInt(xlen.W))
+
+    val is_mem = Output(Bool())
 
    val branchIO = new BranchIO
     val out = Decoupled(new MEMIO)
@@ -111,7 +113,9 @@ class EXE extends Module with Paramete{
     || io.in.bits.ctrl_signal.aluoptype === ALUOPType.remw || io.in.bits.ctrl_signal.aluoptype === ALUOPType.remuw)
   val is_div_sign = (io.in.bits.ctrl_signal.aluoptype === ALUOPType.div || io.in.bits.ctrl_signal.aluoptype === ALUOPType.divw
     || io.in.bits.ctrl_signal.aluoptype === ALUOPType.rem || io.in.bits.ctrl_signal.aluoptype === ALUOPType.remw )
-
+  io.is_mem := io.in.valid & (io.in.bits.ctrl_signal.fuType === FUType.mem) & (io.in.bits.ctrl_signal.aluoptype === ALUOPType.lb ||
+    io.in.bits.ctrl_signal.aluoptype === ALUOPType.lbu || io.in.bits.ctrl_signal.aluoptype === ALUOPType.ld || io.in.bits.ctrl_signal.aluoptype === ALUOPType.lh ||
+    io.in.bits.ctrl_signal.aluoptype === ALUOPType.lhu || io.in.bits.ctrl_signal.aluoptype === ALUOPType.lw || io.in.bits.ctrl_signal.aluoptype === ALUOPType.lwu)
   val csr = new CSR
   val CSRDIFF=Module(new CSR_DIFF)
 //  val mul = Module(new Shift_MUL(xlen))
@@ -124,7 +128,7 @@ class EXE extends Module with Paramete{
 
   switch(io.in.bits.ctrl_signal.src1Type) {
     is(SRCType.R) {
-      src1 := io.src1
+      src1 := io.in.bits.ctrl_data.src1
     }
     is(SRCType.PC) {
       src1 := PC
@@ -136,7 +140,7 @@ class EXE extends Module with Paramete{
   switch(io.in.bits.ctrl_signal.src2Type) {
     is(SRCType.R) {
 
-      src2 := io.src2
+      src2 := io.in.bits.ctrl_data.src2
     }
     is(SRCType.imm) {
       src2 := Imm
@@ -146,7 +150,8 @@ class EXE extends Module with Paramete{
 
   val alu_result = WireDefault(0.U(xlen.W))
   val dnpc = WireDefault(io.in.bits.ctrl_flow.PC+4.U(xlen.W))
-
+  val csr_result = WireDefault(0.U(xlen.W))
+  val csr_idx = WireDefault(0.U(12.W))
 
   val mul_hi=mul.io.out.bits.result.result_hi
   val mul_lo=mul.io.out.bits.result.result_lo
@@ -214,11 +219,15 @@ class EXE extends Module with Paramete{
     }
     is(ALUOPType.csrrs) {
       alu_result := csr.read(Imm(11, 0))
-      csr.write(Imm(11, 0), csr.read(Imm(11, 0)) | src1)
+      csr_result := csr.read(Imm(11, 0)) | src1
+      csr_idx := Imm(11, 0)
+//      csr.write(Imm(11, 0), csr.read(Imm(11, 0)) | src1)
     }
     is(ALUOPType.csrrw) {
       alu_result := csr.read(Imm(11, 0))
-      csr.write(Imm(11, 0), src1)
+      csr_result := src1
+      csr_idx := Imm(11, 0)
+//      csr.write(Imm(11, 0), src1)
     }
   }
   val shift_result = WireDefault(0.U(xlen.W))
@@ -348,11 +357,15 @@ class EXE extends Module with Paramete{
   switch(io.in.bits.ctrl_signal.aluoptype) {
     is(ALUOPType.ecall) {
       csr_data := csr.read(CSR_index.mtvec)
-      csr.write(CSR_index.mstatus, csr.read(CSR_index.mstatus) & "hfffffffffffffff7".U(xlen.W))
+      csr_idx := CSR_index.mstatus
+      csr_result := csr.read(CSR_index.mstatus) & "hfffffffffffffff7".U(xlen.W)
+//      csr.write(CSR_index.mstatus, csr.read(CSR_index.mstatus) & "hfffffffffffffff7".U(xlen.W))
     }
     is(ALUOPType.mret) {
       csr_data := csr.read(CSR_index.mepc)
-      csr.write(CSR_index.mstatus, csr.read(CSR_index.mstatus) | "h0000000000000008".U(xlen.W))
+      csr_idx := CSR_index.mstatus
+      csr_result := csr.read(CSR_index.mstatus) | "h0000000000000008".U(xlen.W)
+//      csr.write(CSR_index.mstatus, csr.read(CSR_index.mstatus) | "h0000000000000008".U(xlen.W))
     }
   }
 
@@ -412,9 +425,6 @@ class EXE extends Module with Paramete{
   CSRDIFF.io.mepc := RegNext(RegNext(csr.mepc))
   CSRDIFF.io.mstatus := RegNext(RegNext(csr.mstatus))
 
-  io.is_flush := Mux((branch_flag === 1.U || io.branchIO.is_jump === 1.U) && io.in.valid && !io.icache_busy,1.U,0.U)
-  io.is_break := Mux((io.in.bits.ctrl_signal.aluoptype === ALUOPType.ebreak && io.out.bits.ctrl_signal.inst_valid), 1.U, 0.U)
-
 //  io.is_mem := Mux(io.in.bits.ctrl_signal.fuType === FUType.mem,1.B,0.B)
 
   io.out.bits.ctrl_signal <> io.in.bits.ctrl_signal
@@ -431,9 +441,20 @@ class EXE extends Module with Paramete{
   io.out.bits.ctrl_rf.rfWen := Mux(io.in.valid,io.in.bits.ctrl_signal.rfWen,0.U)
   io.out.bits.ctrl_flow.Dnpc := dnpc
   io.branchIO.dnpc := dnpc//Mux(time_int === 1.U, csr.read(CSR_index.mtvec), dnpc)
-  io.branchIO.is_branch := branch_flag & io.out.bits.ctrl_signal.inst_valid & io.in.valid & io.out.ready//Mux(time_int === 1.U, 1.U, branch_flag)
-  io.branchIO.is_jump := Mux(io.in.bits.ctrl_signal.fuType === FUType.jump && io.out.bits.ctrl_signal.inst_valid && io.in.valid & io.out.ready, 1.U, 0.U)
 
-  io.out.valid := Mux(!(!mul.io.out.valid && is_mul ) && !(!div.io.out.valid && is_div) && io.in.valid && !((branch_flag === 1.U || io.branchIO.is_jump === 1.U) && io.icache_busy),1.U,0.U)
-  io.in.ready := Mux(((!mul.io.out.valid && is_mul) || (!div.io.out.valid && is_div)) && io.in.valid || ((branch_flag === 1.U || io.branchIO.is_jump === 1.U) && io.icache_busy),0.U,io.out.ready)
+  val is_branch = branch_flag & io.out.bits.ctrl_signal.inst_valid & io.in.valid
+  val is_jump = io.in.bits.ctrl_signal.fuType === FUType.jump && io.out.bits.ctrl_signal.inst_valid && io.in.valid
+  io.branchIO.is_branch := is_branch & io.out.ready & !io.icache_busy//Mux(time_int === 1.U, 1.U, branch_flag)
+  io.branchIO.is_jump := Mux(is_jump & io.out.ready & !io.icache_busy, 1.U, 0.U)
+
+  io.is_flush := Mux((is_branch === 1.U || is_jump === 1.U) && io.in.valid & io.out.ready & !io.icache_busy , 1.U, 0.U)
+  io.is_break := Mux((io.in.bits.ctrl_signal.aluoptype === ALUOPType.ebreak && io.out.bits.ctrl_signal.inst_valid), 1.U, 0.U)
+
+  io.out.bits.ctrl_csr.csr_en := Mux(io.in.bits.ctrl_signal.aluoptype === ALUOPType.mret || io.in.bits.ctrl_signal.aluoptype === ALUOPType.mret
+    || io.in.bits.ctrl_signal.aluoptype === ALUOPType.csrrs || io.in.bits.ctrl_signal.aluoptype === ALUOPType.csrrw,true.B,false.B)
+  io.out.bits.ctrl_csr.csr_idx := csr_idx
+  io.out.bits.ctrl_csr.csr_data := csr_result
+
+  io.out.valid := Mux(!(!mul.io.out.valid && is_mul ) && !(!div.io.out.valid && is_div) && io.in.valid && !((is_branch === 1.U || is_jump === 1.U) && io.icache_busy),1.U,0.U)
+  io.in.ready := Mux(((!mul.io.out.valid && is_mul) || (!div.io.out.valid && is_div)) && io.in.valid || ((is_branch === 1.U || is_jump === 1.U) && io.icache_busy),0.U,io.out.ready)
 }

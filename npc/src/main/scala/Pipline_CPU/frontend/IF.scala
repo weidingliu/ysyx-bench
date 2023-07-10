@@ -31,8 +31,8 @@ class IF extends Module with Paramete{
   io.out.valid := Mux(io.cache_req.rdata_rep.valid,1.U,0.U)
 
   io.cache_req.addr_req.bits.addr := temp
-  io.cache_req.addr_req.valid := Mux(io.out.ready,true.B,false.B)
-  io.cache_req.addr_req.bits.ce := true.B
+  io.cache_req.addr_req.valid := Mux(io.out.ready & !io.branch_io.is_jump & !io.branch_io.is_branch,true.B,false.B)
+  io.cache_req.addr_req.bits.ce := Mux(io.branch_io.is_jump || io.branch_io.is_branch,false.B,true.B)
   io.cache_req.addr_req.bits.we := false.B
 //  io.flush := io.flush
 

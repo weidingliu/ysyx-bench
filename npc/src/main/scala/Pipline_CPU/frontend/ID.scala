@@ -43,6 +43,9 @@ class ID extends Module with Paramete{
     val REG2 = Input(UInt(xlen.W))
     val flush = Input(Bool())
 
+    val ex_is_mem = Input(Bool())
+    val ex_reg = Flipped(new RFCtrlIO)
+
     val out = Decoupled(new DecoderIO)
 
 //    val rf_bus = Output(UInt(5.W))
@@ -100,9 +103,9 @@ class ID extends Module with Paramete{
   io.out.bits.ctrl_data.src2 := io.REG2
 //  io.out.bits.ctrl_data.src1 :=
 //    io.out.bits.ctrl_data.src2 :=
-
+ val stall_req = io.ex_is_mem && io.ex_reg.rfWen && (io.ex_reg.rfDest === rs || io.ex_reg.rfDest === rt)
 //  io.out.valid := Mux(io.flush,0.U,1.U)
-  io.out.valid := Mux(io.in.valid,1.U,0.U)//Mux(io.out.ready && io.in.valid,1.U,0.U)
-  io.in.ready := io.out.ready
+  io.out.valid := Mux(io.in.valid & !stall_req,1.U,0.U)//Mux(io.out.ready && io.in.valid,1.U,0.U)
+  io.in.ready := Mux(stall_req,false.B,io.out.ready)
   //println(io.out.bits.ctrl_signal.inst_valid)
 }

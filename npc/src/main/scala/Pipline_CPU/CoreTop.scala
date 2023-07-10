@@ -140,7 +140,7 @@ class CoreTop extends Module with Paramete{
 
   val bypass = Module(new Bypass)
 
-  val mem_bypass =Module(new MEM_Bypass)
+//  val mem_bypass =Module(new MEM_Bypass)
 
   val ICACHE = Module(new Cache_Axi("icache"))
 
@@ -252,7 +252,8 @@ class CoreTop extends Module with Paramete{
   ID.io.REG1 := bypass.io.Bypass_REG1
   ID.io.REG2 := bypass.io.Bypass_REG2
   ID.io.flush := EX.io.is_flush
-
+  ID.io.ex_is_mem :=   EX.io.is_mem
+  ID.io.ex_reg := EX.io.out.bits.ctrl_rf
 //  ID.io.exe_is_mem := EX.io.is_mem
 //  ID.io.exe_rf <> EX.io.out.bits.ctrl_rf
   //EXE
@@ -260,15 +261,16 @@ class CoreTop extends Module with Paramete{
   IF.io.branch_io <> EX.io.branchIO
   bypass.io.EX_rf <> EX.io.out.bits.ctrl_rf
 
-  mem_bypass.io.Reg1 := EX.io.in.bits.ctrl_data.src1
-  mem_bypass.io.Reg2 := EX.io.in.bits.ctrl_data.src2
-  mem_bypass.io.reg_index1 := EX.io.in.bits.ctrl_signal.rfSrc1
-  mem_bypass.io.reg_index2 := EX.io.in.bits.ctrl_signal.rfSrc2
+//  mem_bypass.io.Reg1 := EX.io.in.bits.ctrl_data.src1
+//  mem_bypass.io.Reg2 := EX.io.in.bits.ctrl_data.src2
+//  mem_bypass.io.reg_index1 := EX.io.in.bits.ctrl_signal.rfSrc1
+//  mem_bypass.io.reg_index2 := EX.io.in.bits.ctrl_signal.rfSrc2
 
-  EX.io.src1 := mem_bypass.io.Bypass_REG1
-  EX.io.src2 := mem_bypass.io.Bypass_REG2
+//  EX.io.src1 := mem_bypass.io.Bypass_REG1
+//  EX.io.src2 := mem_bypass.io.Bypass_REG2
 
   EX.io.icache_busy := ICACHE.io.cache_busy
+
 //  ID.io.flush := EX.io.is_flush
 //MEM
   Pipline_Connect(EX.io.out,MEM.io.in,MEM.io.out.fire,0.B)
@@ -279,7 +281,7 @@ class CoreTop extends Module with Paramete{
 
   bypass.io.MEM_rf <> MEM.io.out.bits.ctrl_rf
 
-  mem_bypass.io.MEM_rf <> MEM.io.out.bits.ctrl_rf
+//  mem_bypass.io.MEM_rf <> MEM.io.out.bits.ctrl_rf
 
 
 //WB
@@ -289,7 +291,7 @@ class CoreTop extends Module with Paramete{
   }
   WB.io.out.ready := 1.U
   bypass.io.WB_rf <> WB.io.out.bits.ctrl_rf
-
+//  mem_bypass.io.WB_rf <> WB.io.out.bits.ctrl_rf
 
   DIP.io.is_break := RegNext(RegNext(EX.io.is_break))
   for (i <- 0 until NReg) {

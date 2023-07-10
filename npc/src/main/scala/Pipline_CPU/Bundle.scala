@@ -40,10 +40,17 @@ class MEMCtrlIO extends Bundle with Paramete{
   val we =Output(Bool())
 }
 
+class CSR_WRIO extends Bundle with Paramete{
+  val csr_data = Output(UInt(xlen.W))
+  val csr_en = Output(Bool())
+  val csr_idx = Output(UInt(12.W))
+  val ecall = Output(Bool())
+  val ert = Output(Bool())
+}
 
-
-class CSRCtrlIO extends Bundle with Paramete{
-
+class CSR_RDIO extends Bundle with Paramete{
+  val rd_data = Input(UInt(xlen.W))
+  val csr_addr = Output(UInt(12.W))
 }
 
 class RFCtrlIO extends Bundle with Paramete{
@@ -75,12 +82,14 @@ class MEMIO extends Bundle with Paramete{
   val ctrl_flow = new CtrlFlowIO
   val ctrl_rf = new RFCtrlIO
   val ctrl_data = new DataSrcIO
+  val ctrl_csr = new CSR_WRIO
 }
 
 class WBIO extends Bundle with Paramete{
   val ctrl_signal = new CtrlSignalIO
   val ctrl_flow = new CtrlFlowIO
   val ctrl_rf = new RFCtrlIO
+  val ctrl_csr = new CSR_WRIO
 }
 class Mul_data_flow (mul_len:Int)extends Bundle with  Paramete{
   val src1 = Input(UInt(mul_len.W))

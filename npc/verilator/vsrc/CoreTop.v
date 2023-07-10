@@ -21,7 +21,7 @@ module IF(
   reg [63:0] temp; // @[IF.scala 22:21]
   wire [63:0] _temp_T_3 = temp + 64'h4; // @[IF.scala 23:136]
   wire [31:0] inst = temp[2] ? io_cache_req_rdata_rep_bits_rdata[63:32] : io_cache_req_rdata_rep_bits_rdata[31:0]; // @[IF.scala 40:17]
-  assign io_cache_req_addr_req_valid = io_out_ready; // @[IF.scala 34:37]
+  assign io_cache_req_addr_req_valid = io_out_ready & ~io_branch_io_is_jump & ~io_branch_io_is_branch; // @[IF.scala 34:75]
   assign io_cache_req_addr_req_bits_addr = temp; // @[IF.scala 33:35]
   assign io_cache_req_rdata_rep_ready = io_out_ready; // @[IF.scala 39:32]
   assign io_out_valid = io_cache_req_rdata_rep_valid; // @[IF.scala 31:22]
@@ -89,6 +89,9 @@ module ID(
   input  [63:0] io_REG1,
   input  [63:0] io_REG2,
   input         io_flush,
+  input         io_ex_is_mem,
+  input  [4:0]  io_ex_reg_rfDest,
+  input         io_ex_reg_rfWen,
   input         io_out_ready,
   output        io_out_valid,
   output [2:0]  io_out_bits_ctrl_signal_src1Type,
@@ -106,7 +109,9 @@ module ID(
   output [63:0] io_out_bits_ctrl_flow_PC,
   output [31:0] io_out_bits_ctrl_flow_inst
 );
-  wire [4:0] rd = io_in_bits_Inst[11:7]; // @[ID.scala 51:88]
+  wire [4:0] rs = io_in_bits_Inst[19:15]; // @[ID.scala 54:38]
+  wire [4:0] rt = io_in_bits_Inst[24:20]; // @[ID.scala 54:63]
+  wire [4:0] rd = io_in_bits_Inst[11:7]; // @[ID.scala 54:88]
   wire [31:0] _Inst_decode_T = io_in_bits_Inst & 32'h707f; // @[Lookup.scala 31:38]
   wire  _Inst_decode_T_1 = 32'h13 == _Inst_decode_T; // @[Lookup.scala 31:38]
   wire [31:0] _Inst_decode_T_2 = io_in_bits_Inst & 32'hfc00707f; // @[Lookup.scala 31:38]
@@ -418,21 +423,22 @@ module ID(
   wire [63:0] _imm_T_10 = _imm_T_5 | _imm_T_6; // @[Mux.scala 27:73]
   wire [63:0] _imm_T_11 = _imm_T_10 | _imm_T_7; // @[Mux.scala 27:73]
   wire [63:0] _imm_T_12 = _imm_T_11 | _imm_T_8; // @[Mux.scala 27:73]
-  assign io_out_valid = io_in_valid; // @[ID.scala 105:22]
-  assign io_out_bits_ctrl_signal_src1Type = {{1'd0}, srctype1}; // @[ID.scala 87:36]
-  assign io_out_bits_ctrl_signal_src2Type = {{2'd0}, srctype2}; // @[ID.scala 88:36]
+  wire  stall_req = io_ex_is_mem & io_ex_reg_rfWen & (io_ex_reg_rfDest == rs | io_ex_reg_rfDest == rt); // @[ID.scala 106:50]
+  assign io_out_valid = io_in_valid & ~stall_req; // @[ID.scala 108:35]
+  assign io_out_bits_ctrl_signal_src1Type = {{1'd0}, srctype1}; // @[ID.scala 90:36]
+  assign io_out_bits_ctrl_signal_src2Type = {{2'd0}, srctype2}; // @[ID.scala 91:36]
   assign io_out_bits_ctrl_signal_fuType = _Inst_decode_T_1 ? 3'h0 : _Inst_decode_T_253; // @[Lookup.scala 34:39]
-  assign io_out_bits_ctrl_signal_inst_valid = Inst_decode_2 == 7'h0 | io_flush | ~io_in_valid ? 1'h0 : 1'h1; // @[ID.scala 89:44]
-  assign io_out_bits_ctrl_signal_rfSrc1 = io_in_bits_Inst[19:15]; // @[ID.scala 51:38]
-  assign io_out_bits_ctrl_signal_rfSrc2 = io_in_bits_Inst[24:20]; // @[ID.scala 51:63]
-  assign io_out_bits_ctrl_signal_rfWen = io_in_valid & Inst_decode_3; // @[ID.scala 84:39]
+  assign io_out_bits_ctrl_signal_inst_valid = Inst_decode_2 == 7'h0 | io_flush | ~io_in_valid ? 1'h0 : 1'h1; // @[ID.scala 92:44]
+  assign io_out_bits_ctrl_signal_rfSrc1 = io_in_bits_Inst[19:15]; // @[ID.scala 54:38]
+  assign io_out_bits_ctrl_signal_rfSrc2 = io_in_bits_Inst[24:20]; // @[ID.scala 54:63]
+  assign io_out_bits_ctrl_signal_rfWen = io_in_valid & Inst_decode_3; // @[ID.scala 87:39]
   assign io_out_bits_ctrl_signal_aluoptype = _Inst_decode_T_1 ? 7'h40 : _Inst_decode_T_316; // @[Lookup.scala 34:39]
-  assign io_out_bits_ctrl_signal_rfDest = io_in_bits_Inst[11:7]; // @[ID.scala 51:88]
-  assign io_out_bits_ctrl_data_src1 = io_REG1; // @[ID.scala 99:30]
-  assign io_out_bits_ctrl_data_src2 = io_REG2; // @[ID.scala 100:30]
+  assign io_out_bits_ctrl_signal_rfDest = io_in_bits_Inst[11:7]; // @[ID.scala 54:88]
+  assign io_out_bits_ctrl_data_src1 = io_REG1; // @[ID.scala 102:30]
+  assign io_out_bits_ctrl_data_src2 = io_REG2; // @[ID.scala 103:30]
   assign io_out_bits_ctrl_data_Imm = _imm_T_12 | _imm_T_9; // @[Mux.scala 27:73]
-  assign io_out_bits_ctrl_flow_PC = io_in_bits_PC; // @[ID.scala 92:28]
-  assign io_out_bits_ctrl_flow_inst = io_in_bits_Inst; // @[ID.scala 93:30]
+  assign io_out_bits_ctrl_flow_PC = io_in_bits_PC; // @[ID.scala 95:28]
+  assign io_out_bits_ctrl_flow_inst = io_in_bits_Inst; // @[ID.scala 96:30]
 endmodule
 module Partial_product(
   input  [2:0]   io_y_3,
@@ -794,8 +800,6 @@ module EXE(
   input  [2:0]  io_in_bits_ctrl_signal_src2Type,
   input  [2:0]  io_in_bits_ctrl_signal_fuType,
   input         io_in_bits_ctrl_signal_inst_valid,
-  input  [4:0]  io_in_bits_ctrl_signal_rfSrc1,
-  input  [4:0]  io_in_bits_ctrl_signal_rfSrc2,
   input         io_in_bits_ctrl_signal_rfWen,
   input  [6:0]  io_in_bits_ctrl_signal_aluoptype,
   input  [4:0]  io_in_bits_ctrl_signal_rfDest,
@@ -804,8 +808,7 @@ module EXE(
   input  [63:0] io_in_bits_ctrl_data_Imm,
   input  [63:0] io_in_bits_ctrl_flow_PC,
   input  [31:0] io_in_bits_ctrl_flow_inst,
-  input  [63:0] io_src1,
-  input  [63:0] io_src2,
+  output        io_is_mem,
   output        io_branchIO_is_branch,
   output        io_branchIO_is_jump,
   output [63:0] io_branchIO_dnpc,
@@ -844,66 +847,73 @@ module EXE(
   reg [63:0] _RAND_12;
   reg [63:0] _RAND_13;
 `endif // RANDOMIZE_REG_INIT
-  wire [63:0] CSRDIFF_mepc; // @[EXE.scala 116:21]
-  wire [63:0] CSRDIFF_mcause; // @[EXE.scala 116:21]
-  wire [63:0] CSRDIFF_mstatus; // @[EXE.scala 116:21]
-  wire [63:0] CSRDIFF_mtvec; // @[EXE.scala 116:21]
-  wire  mul_clock; // @[EXE.scala 119:19]
-  wire  mul_reset; // @[EXE.scala 119:19]
-  wire  mul_io_in_valid; // @[EXE.scala 119:19]
-  wire [63:0] mul_io_in_bits_ctrl_data_src1; // @[EXE.scala 119:19]
-  wire [63:0] mul_io_in_bits_ctrl_data_src2; // @[EXE.scala 119:19]
-  wire  mul_io_out_valid; // @[EXE.scala 119:19]
-  wire [63:0] mul_io_out_bits_result_result_lo; // @[EXE.scala 119:19]
-  wire  div_clock; // @[EXE.scala 120:19]
-  wire  div_reset; // @[EXE.scala 120:19]
-  wire  div_io_in_valid; // @[EXE.scala 120:19]
-  wire  div_io_in_bits_ctrl_flow_div_signed; // @[EXE.scala 120:19]
-  wire [63:0] div_io_in_bits_ctrl_data_src1; // @[EXE.scala 120:19]
-  wire [63:0] div_io_in_bits_ctrl_data_src2; // @[EXE.scala 120:19]
-  wire  div_io_out_valid; // @[EXE.scala 120:19]
-  wire [63:0] div_io_out_bits_result_quotient; // @[EXE.scala 120:19]
-  wire [63:0] div_io_out_bits_result_remainder; // @[EXE.scala 120:19]
-  wire  _is_mul_T = 7'h78 == io_in_bits_ctrl_signal_aluoptype; // @[EXE.scala 105:32]
-  wire  _is_mul_T_1 = 7'h7 == io_in_bits_ctrl_signal_aluoptype; // @[EXE.scala 105:86]
+  wire [63:0] CSRDIFF_mepc; // @[EXE.scala 120:21]
+  wire [63:0] CSRDIFF_mcause; // @[EXE.scala 120:21]
+  wire [63:0] CSRDIFF_mstatus; // @[EXE.scala 120:21]
+  wire [63:0] CSRDIFF_mtvec; // @[EXE.scala 120:21]
+  wire  mul_clock; // @[EXE.scala 123:19]
+  wire  mul_reset; // @[EXE.scala 123:19]
+  wire  mul_io_in_valid; // @[EXE.scala 123:19]
+  wire [63:0] mul_io_in_bits_ctrl_data_src1; // @[EXE.scala 123:19]
+  wire [63:0] mul_io_in_bits_ctrl_data_src2; // @[EXE.scala 123:19]
+  wire  mul_io_out_valid; // @[EXE.scala 123:19]
+  wire [63:0] mul_io_out_bits_result_result_lo; // @[EXE.scala 123:19]
+  wire  div_clock; // @[EXE.scala 124:19]
+  wire  div_reset; // @[EXE.scala 124:19]
+  wire  div_io_in_valid; // @[EXE.scala 124:19]
+  wire  div_io_in_bits_ctrl_flow_div_signed; // @[EXE.scala 124:19]
+  wire [63:0] div_io_in_bits_ctrl_data_src1; // @[EXE.scala 124:19]
+  wire [63:0] div_io_in_bits_ctrl_data_src2; // @[EXE.scala 124:19]
+  wire  div_io_out_valid; // @[EXE.scala 124:19]
+  wire [63:0] div_io_out_bits_result_quotient; // @[EXE.scala 124:19]
+  wire [63:0] div_io_out_bits_result_remainder; // @[EXE.scala 124:19]
+  wire  _is_mul_T = 7'h78 == io_in_bits_ctrl_signal_aluoptype; // @[EXE.scala 107:32]
+  wire  _is_mul_T_1 = 7'h7 == io_in_bits_ctrl_signal_aluoptype; // @[EXE.scala 107:86]
   wire  is_mul = (7'h78 == io_in_bits_ctrl_signal_aluoptype | 7'h7 == io_in_bits_ctrl_signal_aluoptype) &
-    io_in_bits_ctrl_signal_inst_valid & io_in_valid; // @[EXE.scala 105:161]
-  wire  _is_div_T = io_in_bits_ctrl_signal_aluoptype == 7'h43; // @[EXE.scala 106:50]
-  wire  _is_div_T_2 = io_in_bits_ctrl_signal_aluoptype == 7'h43 | io_in_bits_ctrl_signal_aluoptype == 7'h13; // @[EXE.scala 106:68]
-  wire  _is_div_T_3 = io_in_bits_ctrl_signal_aluoptype == 7'h79; // @[EXE.scala 107:41]
-  wire  _is_div_T_5 = io_in_bits_ctrl_signal_aluoptype == 7'h10; // @[EXE.scala 107:96]
+    io_in_bits_ctrl_signal_inst_valid & io_in_valid; // @[EXE.scala 107:161]
+  wire  _is_div_T = io_in_bits_ctrl_signal_aluoptype == 7'h43; // @[EXE.scala 108:50]
+  wire  _is_div_T_2 = io_in_bits_ctrl_signal_aluoptype == 7'h43 | io_in_bits_ctrl_signal_aluoptype == 7'h13; // @[EXE.scala 108:68]
+  wire  _is_div_T_3 = io_in_bits_ctrl_signal_aluoptype == 7'h79; // @[EXE.scala 109:41]
+  wire  _is_div_T_5 = io_in_bits_ctrl_signal_aluoptype == 7'h10; // @[EXE.scala 109:96]
   wire  _is_div_T_6 = _is_div_T_2 | io_in_bits_ctrl_signal_aluoptype == 7'h79 | io_in_bits_ctrl_signal_aluoptype == 7'h10
-    ; // @[EXE.scala 107:60]
-  wire  _is_div_T_7 = io_in_bits_ctrl_signal_aluoptype == 7'h12; // @[EXE.scala 108:41]
+    ; // @[EXE.scala 109:60]
+  wire  _is_div_T_7 = io_in_bits_ctrl_signal_aluoptype == 7'h12; // @[EXE.scala 110:41]
   wire  _is_div_T_10 = _is_div_T_6 | io_in_bits_ctrl_signal_aluoptype == 7'h12 | io_in_bits_ctrl_signal_aluoptype == 7'hf
-    ; // @[EXE.scala 108:59]
-  wire  _is_div_T_11 = io_in_bits_ctrl_signal_aluoptype == 7'h7a; // @[EXE.scala 109:41]
-  wire  _is_div_T_13 = io_in_bits_ctrl_signal_aluoptype == 7'hd; // @[EXE.scala 109:96]
+    ; // @[EXE.scala 110:59]
+  wire  _is_div_T_11 = io_in_bits_ctrl_signal_aluoptype == 7'h7a; // @[EXE.scala 111:41]
+  wire  _is_div_T_13 = io_in_bits_ctrl_signal_aluoptype == 7'hd; // @[EXE.scala 111:96]
   wire  is_div = (_is_div_T_10 | io_in_bits_ctrl_signal_aluoptype == 7'h7a | io_in_bits_ctrl_signal_aluoptype == 7'hd)
-     & io_in_bits_ctrl_signal_inst_valid & io_in_valid; // @[EXE.scala 109:154]
-  wire  _is_divw_T_2 = _is_div_T_3 | _is_div_T_5; // @[EXE.scala 110:70]
-  wire  is_divw = _is_divw_T_2 | _is_div_T_11 | _is_div_T_13; // @[EXE.scala 111:60]
-  wire  _is_div_sign_T_2 = _is_div_T | _is_div_T_3; // @[EXE.scala 112:73]
-  wire  is_div_sign = _is_div_sign_T_2 | _is_div_T_7 | _is_div_T_11; // @[EXE.scala 113:59]
+     & io_in_bits_ctrl_signal_inst_valid & io_in_valid; // @[EXE.scala 111:154]
+  wire  _is_divw_T_2 = _is_div_T_3 | _is_div_T_5; // @[EXE.scala 112:70]
+  wire  is_divw = _is_divw_T_2 | _is_div_T_11 | _is_div_T_13; // @[EXE.scala 113:60]
+  wire  _is_div_sign_T_2 = _is_div_T | _is_div_T_3; // @[EXE.scala 114:73]
+  wire  is_div_sign = _is_div_sign_T_2 | _is_div_T_7 | _is_div_T_11; // @[EXE.scala 115:59]
+  wire  _io_is_mem_T_3 = io_in_bits_ctrl_signal_aluoptype == 7'h6f; // @[EXE.scala 117:38]
+  wire  _io_is_mem_T_4 = io_in_bits_ctrl_signal_aluoptype == 7'he | _io_is_mem_T_3; // @[EXE.scala 116:130]
+  wire  _io_is_mem_T_9 = io_in_bits_ctrl_signal_aluoptype == 7'h4; // @[EXE.scala 118:38]
+  wire  _io_is_mem_T_10 = _io_is_mem_T_4 | io_in_bits_ctrl_signal_aluoptype == 7'h45 | io_in_bits_ctrl_signal_aluoptype
+     == 7'h3 | _io_is_mem_T_9; // @[EXE.scala 117:162]
+  wire  _io_is_mem_T_14 = _io_is_mem_T_10 | io_in_bits_ctrl_signal_aluoptype == 7'h47 | io_in_bits_ctrl_signal_aluoptype
+     == 7'h11; // @[EXE.scala 118:109]
   reg [63:0] mepc; // @[CSR.scala 18:17]
   reg [63:0] mcause; // @[CSR.scala 19:23]
   reg [63:0] mstatus; // @[CSR.scala 20:24]
   reg [63:0] mtvec; // @[CSR.scala 21:22]
   reg [63:0] mie; // @[CSR.scala 22:20]
   reg [63:0] mip; // @[CSR.scala 23:20]
-  wire [63:0] _GEN_1 = 3'h2 == io_in_bits_ctrl_signal_src1Type ? io_in_bits_ctrl_flow_PC : 64'h0; // @[EXE.scala 125:43 130:12]
-  wire [63:0] src1 = 3'h0 == io_in_bits_ctrl_signal_src1Type ? io_src1 : _GEN_1; // @[EXE.scala 125:43 127:12]
-  wire [63:0] _GEN_3 = 3'h1 == io_in_bits_ctrl_signal_src2Type ? io_in_bits_ctrl_data_Imm : 64'h0; // @[EXE.scala 136:43 142:12]
-  wire [63:0] src2 = 3'h0 == io_in_bits_ctrl_signal_src2Type ? io_src2 : _GEN_3; // @[EXE.scala 136:43 139:12]
-  wire [63:0] _dnpc_T_1 = io_in_bits_ctrl_flow_PC + 64'h4; // @[EXE.scala 148:49]
-  wire [63:0] _alu_result_T_1 = src1 + src2; // @[EXE.scala 159:26]
+  wire [63:0] _GEN_1 = 3'h2 == io_in_bits_ctrl_signal_src1Type ? io_in_bits_ctrl_flow_PC : 64'h0; // @[EXE.scala 129:43 134:12]
+  wire [63:0] src1 = 3'h0 == io_in_bits_ctrl_signal_src1Type ? io_in_bits_ctrl_data_src1 : _GEN_1; // @[EXE.scala 129:43 131:12]
+  wire [63:0] _GEN_3 = 3'h1 == io_in_bits_ctrl_signal_src2Type ? io_in_bits_ctrl_data_Imm : 64'h0; // @[EXE.scala 140:43 146:12]
+  wire [63:0] src2 = 3'h0 == io_in_bits_ctrl_signal_src2Type ? io_in_bits_ctrl_data_src2 : _GEN_3; // @[EXE.scala 140:43 143:12]
+  wire [63:0] _dnpc_T_1 = io_in_bits_ctrl_flow_PC + 64'h4; // @[EXE.scala 152:49]
+  wire [63:0] _alu_result_T_1 = src1 + src2; // @[EXE.scala 163:26]
   wire  alu_result_sign = _alu_result_T_1[31]; // @[util.scala 11:19]
   wire [31:0] _alu_result_T_6 = alu_result_sign ? 32'hffffffff : 32'h0; // @[Bitwise.scala 74:12]
   wire [63:0] _alu_result_T_7 = {_alu_result_T_6,_alu_result_T_1[31:0]}; // @[Cat.scala 31:58]
-  wire [63:0] _alu_result_T_8 = src1 | src2; // @[EXE.scala 168:26]
-  wire [63:0] _alu_result_T_10 = src1 - src2; // @[EXE.scala 171:26]
-  wire [63:0] _alu_result_T_11 = src1 & src2; // @[EXE.scala 174:26]
-  wire [63:0] _alu_result_T_12 = src1 ^ src2; // @[EXE.scala 177:26]
+  wire [63:0] _alu_result_T_8 = src1 | src2; // @[EXE.scala 172:26]
+  wire [63:0] _alu_result_T_10 = src1 - src2; // @[EXE.scala 175:26]
+  wire [63:0] _alu_result_T_11 = src1 & src2; // @[EXE.scala 178:26]
+  wire [63:0] _alu_result_T_12 = src1 ^ src2; // @[EXE.scala 181:26]
   wire  alu_result_sign_2 = mul_io_out_bits_result_result_lo[31]; // @[util.scala 11:19]
   wire [31:0] _alu_result_T_21 = alu_result_sign_2 ? 32'hffffffff : 32'h0; // @[Bitwise.scala 74:12]
   wire [63:0] _alu_result_T_22 = {_alu_result_T_21,mul_io_out_bits_result_result_lo[31:0]}; // @[Cat.scala 31:58]
@@ -928,7 +938,7 @@ module EXE(
   wire [63:0] _alu_result_T_55 = _alu_result_T_48 ? mepc : _alu_result_T_54; // @[Mux.scala 101:16]
   wire [63:0] _alu_result_T_56 = _alu_result_T_47 ? mtvec : _alu_result_T_55; // @[Mux.scala 101:16]
   wire [63:0] _alu_result_T_57 = _alu_result_T_46 ? mstatus : _alu_result_T_56; // @[Mux.scala 101:16]
-  wire [63:0] _T_39 = _alu_result_T_57 | src1; // @[EXE.scala 217:50]
+  wire [63:0] _T_39 = _alu_result_T_57 | src1; // @[EXE.scala 221:50]
   wire [63:0] _GEN_5 = _alu_result_T_51 ? _T_39 : mip; // @[CSR.scala 50:41 51:13 23:20]
   wire [63:0] _GEN_6 = _alu_result_T_50 ? _T_39 : mie; // @[CSR.scala 47:41 48:13 22:20]
   wire [63:0] _GEN_7 = _alu_result_T_50 ? mip : _GEN_5; // @[CSR.scala 23:20 47:41]
@@ -971,258 +981,261 @@ module EXE(
   wire [63:0] _GEN_44 = _alu_result_T_46 ? mcause : _GEN_38; // @[CSR.scala 19:23 35:38]
   wire [63:0] _GEN_45 = _alu_result_T_46 ? mie : _GEN_39; // @[CSR.scala 22:20 35:38]
   wire [63:0] _GEN_46 = _alu_result_T_46 ? mip : _GEN_40; // @[CSR.scala 23:20 35:38]
-  wire [63:0] _GEN_47 = 7'h16 == io_in_bits_ctrl_signal_aluoptype ? _alu_result_T_57 : 64'h0; // @[EXE.scala 157:44 220:18]
-  wire [63:0] _GEN_48 = 7'h16 == io_in_bits_ctrl_signal_aluoptype ? _GEN_41 : mstatus; // @[EXE.scala 157:44 CSR.scala 20:24]
-  wire [63:0] _GEN_49 = 7'h16 == io_in_bits_ctrl_signal_aluoptype ? _GEN_42 : mtvec; // @[EXE.scala 157:44 CSR.scala 21:22]
-  wire [63:0] _GEN_50 = 7'h16 == io_in_bits_ctrl_signal_aluoptype ? _GEN_43 : mepc; // @[EXE.scala 157:44 CSR.scala 18:17]
-  wire [63:0] _GEN_51 = 7'h16 == io_in_bits_ctrl_signal_aluoptype ? _GEN_44 : mcause; // @[EXE.scala 157:44 CSR.scala 19:23]
-  wire [63:0] _GEN_52 = 7'h16 == io_in_bits_ctrl_signal_aluoptype ? _GEN_45 : mie; // @[EXE.scala 157:44 CSR.scala 22:20]
-  wire [63:0] _GEN_53 = 7'h16 == io_in_bits_ctrl_signal_aluoptype ? _GEN_46 : mip; // @[EXE.scala 157:44 CSR.scala 23:20]
-  wire [63:0] _GEN_54 = 7'h15 == io_in_bits_ctrl_signal_aluoptype ? _alu_result_T_57 : _GEN_47; // @[EXE.scala 157:44 216:18]
-  wire [63:0] _GEN_55 = 7'h15 == io_in_bits_ctrl_signal_aluoptype ? _GEN_20 : _GEN_48; // @[EXE.scala 157:44]
-  wire [63:0] _GEN_56 = 7'h15 == io_in_bits_ctrl_signal_aluoptype ? _GEN_21 : _GEN_49; // @[EXE.scala 157:44]
-  wire [63:0] _GEN_57 = 7'h15 == io_in_bits_ctrl_signal_aluoptype ? _GEN_22 : _GEN_50; // @[EXE.scala 157:44]
-  wire [63:0] _GEN_58 = 7'h15 == io_in_bits_ctrl_signal_aluoptype ? _GEN_23 : _GEN_51; // @[EXE.scala 157:44]
-  wire [63:0] _GEN_59 = 7'h15 == io_in_bits_ctrl_signal_aluoptype ? _GEN_24 : _GEN_52; // @[EXE.scala 157:44]
-  wire [63:0] _GEN_60 = 7'h15 == io_in_bits_ctrl_signal_aluoptype ? _GEN_25 : _GEN_53; // @[EXE.scala 157:44]
-  wire [63:0] _GEN_61 = 7'h43 == io_in_bits_ctrl_signal_aluoptype ? div_io_out_bits_result_quotient : _GEN_54; // @[EXE.scala 157:44 213:18]
-  wire [63:0] _GEN_62 = 7'h43 == io_in_bits_ctrl_signal_aluoptype ? mstatus : _GEN_55; // @[EXE.scala 157:44 CSR.scala 20:24]
-  wire [63:0] _GEN_63 = 7'h43 == io_in_bits_ctrl_signal_aluoptype ? mtvec : _GEN_56; // @[EXE.scala 157:44 CSR.scala 21:22]
-  wire [63:0] _GEN_64 = 7'h43 == io_in_bits_ctrl_signal_aluoptype ? mepc : _GEN_57; // @[EXE.scala 157:44 CSR.scala 18:17]
-  wire [63:0] _GEN_65 = 7'h43 == io_in_bits_ctrl_signal_aluoptype ? mcause : _GEN_58; // @[EXE.scala 157:44 CSR.scala 19:23]
-  wire [63:0] _GEN_66 = 7'h43 == io_in_bits_ctrl_signal_aluoptype ? mie : _GEN_59; // @[EXE.scala 157:44 CSR.scala 22:20]
-  wire [63:0] _GEN_67 = 7'h43 == io_in_bits_ctrl_signal_aluoptype ? mip : _GEN_60; // @[EXE.scala 157:44 CSR.scala 23:20]
-  wire [63:0] _GEN_68 = 7'h13 == io_in_bits_ctrl_signal_aluoptype ? div_io_out_bits_result_quotient : _GEN_61; // @[EXE.scala 157:44 210:18]
-  wire [63:0] _GEN_69 = 7'h13 == io_in_bits_ctrl_signal_aluoptype ? mstatus : _GEN_62; // @[EXE.scala 157:44 CSR.scala 20:24]
-  wire [63:0] _GEN_70 = 7'h13 == io_in_bits_ctrl_signal_aluoptype ? mtvec : _GEN_63; // @[EXE.scala 157:44 CSR.scala 21:22]
-  wire [63:0] _GEN_71 = 7'h13 == io_in_bits_ctrl_signal_aluoptype ? mepc : _GEN_64; // @[EXE.scala 157:44 CSR.scala 18:17]
-  wire [63:0] _GEN_72 = 7'h13 == io_in_bits_ctrl_signal_aluoptype ? mcause : _GEN_65; // @[EXE.scala 157:44 CSR.scala 19:23]
-  wire [63:0] _GEN_73 = 7'h13 == io_in_bits_ctrl_signal_aluoptype ? mie : _GEN_66; // @[EXE.scala 157:44 CSR.scala 22:20]
-  wire [63:0] _GEN_74 = 7'h13 == io_in_bits_ctrl_signal_aluoptype ? mip : _GEN_67; // @[EXE.scala 157:44 CSR.scala 23:20]
-  wire [63:0] _GEN_75 = 7'h10 == io_in_bits_ctrl_signal_aluoptype ? _alu_result_T_26 : _GEN_68; // @[EXE.scala 157:44 207:18]
-  wire [63:0] _GEN_76 = 7'h10 == io_in_bits_ctrl_signal_aluoptype ? mstatus : _GEN_69; // @[EXE.scala 157:44 CSR.scala 20:24]
-  wire [63:0] _GEN_77 = 7'h10 == io_in_bits_ctrl_signal_aluoptype ? mtvec : _GEN_70; // @[EXE.scala 157:44 CSR.scala 21:22]
-  wire [63:0] _GEN_78 = 7'h10 == io_in_bits_ctrl_signal_aluoptype ? mepc : _GEN_71; // @[EXE.scala 157:44 CSR.scala 18:17]
-  wire [63:0] _GEN_79 = 7'h10 == io_in_bits_ctrl_signal_aluoptype ? mcause : _GEN_72; // @[EXE.scala 157:44 CSR.scala 19:23]
-  wire [63:0] _GEN_80 = 7'h10 == io_in_bits_ctrl_signal_aluoptype ? mie : _GEN_73; // @[EXE.scala 157:44 CSR.scala 22:20]
-  wire [63:0] _GEN_81 = 7'h10 == io_in_bits_ctrl_signal_aluoptype ? mip : _GEN_74; // @[EXE.scala 157:44 CSR.scala 23:20]
-  wire [63:0] _GEN_82 = 7'h12 == io_in_bits_ctrl_signal_aluoptype ? div_io_out_bits_result_remainder : _GEN_75; // @[EXE.scala 157:44 204:18]
-  wire [63:0] _GEN_83 = 7'h12 == io_in_bits_ctrl_signal_aluoptype ? mstatus : _GEN_76; // @[EXE.scala 157:44 CSR.scala 20:24]
-  wire [63:0] _GEN_84 = 7'h12 == io_in_bits_ctrl_signal_aluoptype ? mtvec : _GEN_77; // @[EXE.scala 157:44 CSR.scala 21:22]
-  wire [63:0] _GEN_85 = 7'h12 == io_in_bits_ctrl_signal_aluoptype ? mepc : _GEN_78; // @[EXE.scala 157:44 CSR.scala 18:17]
-  wire [63:0] _GEN_86 = 7'h12 == io_in_bits_ctrl_signal_aluoptype ? mcause : _GEN_79; // @[EXE.scala 157:44 CSR.scala 19:23]
-  wire [63:0] _GEN_87 = 7'h12 == io_in_bits_ctrl_signal_aluoptype ? mie : _GEN_80; // @[EXE.scala 157:44 CSR.scala 22:20]
-  wire [63:0] _GEN_88 = 7'h12 == io_in_bits_ctrl_signal_aluoptype ? mip : _GEN_81; // @[EXE.scala 157:44 CSR.scala 23:20]
-  wire [63:0] _GEN_89 = 7'hf == io_in_bits_ctrl_signal_aluoptype ? div_io_out_bits_result_remainder : _GEN_82; // @[EXE.scala 157:44 201:18]
-  wire [63:0] _GEN_90 = 7'hf == io_in_bits_ctrl_signal_aluoptype ? mstatus : _GEN_83; // @[EXE.scala 157:44 CSR.scala 20:24]
-  wire [63:0] _GEN_91 = 7'hf == io_in_bits_ctrl_signal_aluoptype ? mtvec : _GEN_84; // @[EXE.scala 157:44 CSR.scala 21:22]
-  wire [63:0] _GEN_92 = 7'hf == io_in_bits_ctrl_signal_aluoptype ? mepc : _GEN_85; // @[EXE.scala 157:44 CSR.scala 18:17]
-  wire [63:0] _GEN_93 = 7'hf == io_in_bits_ctrl_signal_aluoptype ? mcause : _GEN_86; // @[EXE.scala 157:44 CSR.scala 19:23]
-  wire [63:0] _GEN_94 = 7'hf == io_in_bits_ctrl_signal_aluoptype ? mie : _GEN_87; // @[EXE.scala 157:44 CSR.scala 22:20]
-  wire [63:0] _GEN_95 = 7'hf == io_in_bits_ctrl_signal_aluoptype ? mip : _GEN_88; // @[EXE.scala 157:44 CSR.scala 23:20]
-  wire [63:0] _GEN_96 = _is_mul_T_1 ? mul_io_out_bits_result_result_lo : _GEN_89; // @[EXE.scala 157:44 198:18]
-  wire [63:0] _GEN_97 = _is_mul_T_1 ? mstatus : _GEN_90; // @[EXE.scala 157:44 CSR.scala 20:24]
-  wire [63:0] _GEN_98 = _is_mul_T_1 ? mtvec : _GEN_91; // @[EXE.scala 157:44 CSR.scala 21:22]
-  wire [63:0] _GEN_99 = _is_mul_T_1 ? mepc : _GEN_92; // @[EXE.scala 157:44 CSR.scala 18:17]
-  wire [63:0] _GEN_100 = _is_mul_T_1 ? mcause : _GEN_93; // @[EXE.scala 157:44 CSR.scala 19:23]
-  wire [63:0] _GEN_101 = _is_mul_T_1 ? mie : _GEN_94; // @[EXE.scala 157:44 CSR.scala 22:20]
-  wire [63:0] _GEN_102 = _is_mul_T_1 ? mip : _GEN_95; // @[EXE.scala 157:44 CSR.scala 23:20]
-  wire [63:0] _GEN_103 = 7'h1 == io_in_bits_ctrl_signal_aluoptype ? _alu_result_T_40 : _GEN_96; // @[EXE.scala 157:44 195:18]
-  wire [63:0] _GEN_104 = 7'h1 == io_in_bits_ctrl_signal_aluoptype ? mstatus : _GEN_97; // @[EXE.scala 157:44 CSR.scala 20:24]
-  wire [63:0] _GEN_105 = 7'h1 == io_in_bits_ctrl_signal_aluoptype ? mtvec : _GEN_98; // @[EXE.scala 157:44 CSR.scala 21:22]
-  wire [63:0] _GEN_106 = 7'h1 == io_in_bits_ctrl_signal_aluoptype ? mepc : _GEN_99; // @[EXE.scala 157:44 CSR.scala 18:17]
-  wire [63:0] _GEN_107 = 7'h1 == io_in_bits_ctrl_signal_aluoptype ? mcause : _GEN_100; // @[EXE.scala 157:44 CSR.scala 19:23]
-  wire [63:0] _GEN_108 = 7'h1 == io_in_bits_ctrl_signal_aluoptype ? mie : _GEN_101; // @[EXE.scala 157:44 CSR.scala 22:20]
-  wire [63:0] _GEN_109 = 7'h1 == io_in_bits_ctrl_signal_aluoptype ? mip : _GEN_102; // @[EXE.scala 157:44 CSR.scala 23:20]
-  wire [63:0] _GEN_110 = 7'hd == io_in_bits_ctrl_signal_aluoptype ? _alu_result_T_30 : _GEN_103; // @[EXE.scala 157:44 192:18]
-  wire [63:0] _GEN_111 = 7'hd == io_in_bits_ctrl_signal_aluoptype ? mstatus : _GEN_104; // @[EXE.scala 157:44 CSR.scala 20:24]
-  wire [63:0] _GEN_112 = 7'hd == io_in_bits_ctrl_signal_aluoptype ? mtvec : _GEN_105; // @[EXE.scala 157:44 CSR.scala 21:22]
-  wire [63:0] _GEN_113 = 7'hd == io_in_bits_ctrl_signal_aluoptype ? mepc : _GEN_106; // @[EXE.scala 157:44 CSR.scala 18:17]
-  wire [63:0] _GEN_114 = 7'hd == io_in_bits_ctrl_signal_aluoptype ? mcause : _GEN_107; // @[EXE.scala 157:44 CSR.scala 19:23]
-  wire [63:0] _GEN_115 = 7'hd == io_in_bits_ctrl_signal_aluoptype ? mie : _GEN_108; // @[EXE.scala 157:44 CSR.scala 22:20]
-  wire [63:0] _GEN_116 = 7'hd == io_in_bits_ctrl_signal_aluoptype ? mip : _GEN_109; // @[EXE.scala 157:44 CSR.scala 23:20]
-  wire [63:0] _GEN_117 = 7'h7a == io_in_bits_ctrl_signal_aluoptype ? _alu_result_T_30 : _GEN_110; // @[EXE.scala 157:44 189:18]
-  wire [63:0] _GEN_118 = 7'h7a == io_in_bits_ctrl_signal_aluoptype ? mstatus : _GEN_111; // @[EXE.scala 157:44 CSR.scala 20:24]
-  wire [63:0] _GEN_119 = 7'h7a == io_in_bits_ctrl_signal_aluoptype ? mtvec : _GEN_112; // @[EXE.scala 157:44 CSR.scala 21:22]
-  wire [63:0] _GEN_120 = 7'h7a == io_in_bits_ctrl_signal_aluoptype ? mepc : _GEN_113; // @[EXE.scala 157:44 CSR.scala 18:17]
-  wire [63:0] _GEN_121 = 7'h7a == io_in_bits_ctrl_signal_aluoptype ? mcause : _GEN_114; // @[EXE.scala 157:44 CSR.scala 19:23]
-  wire [63:0] _GEN_122 = 7'h7a == io_in_bits_ctrl_signal_aluoptype ? mie : _GEN_115; // @[EXE.scala 157:44 CSR.scala 22:20]
-  wire [63:0] _GEN_123 = 7'h7a == io_in_bits_ctrl_signal_aluoptype ? mip : _GEN_116; // @[EXE.scala 157:44 CSR.scala 23:20]
-  wire [63:0] _GEN_124 = 7'h79 == io_in_bits_ctrl_signal_aluoptype ? _alu_result_T_26 : _GEN_117; // @[EXE.scala 157:44 186:18]
-  wire [63:0] _GEN_125 = 7'h79 == io_in_bits_ctrl_signal_aluoptype ? mstatus : _GEN_118; // @[EXE.scala 157:44 CSR.scala 20:24]
-  wire [63:0] _GEN_126 = 7'h79 == io_in_bits_ctrl_signal_aluoptype ? mtvec : _GEN_119; // @[EXE.scala 157:44 CSR.scala 21:22]
-  wire [63:0] _GEN_127 = 7'h79 == io_in_bits_ctrl_signal_aluoptype ? mepc : _GEN_120; // @[EXE.scala 157:44 CSR.scala 18:17]
-  wire [63:0] _GEN_128 = 7'h79 == io_in_bits_ctrl_signal_aluoptype ? mcause : _GEN_121; // @[EXE.scala 157:44 CSR.scala 19:23]
-  wire [63:0] _GEN_129 = 7'h79 == io_in_bits_ctrl_signal_aluoptype ? mie : _GEN_122; // @[EXE.scala 157:44 CSR.scala 22:20]
-  wire [63:0] _GEN_130 = 7'h79 == io_in_bits_ctrl_signal_aluoptype ? mip : _GEN_123; // @[EXE.scala 157:44 CSR.scala 23:20]
-  wire [63:0] _GEN_131 = _is_mul_T ? _alu_result_T_22 : _GEN_124; // @[EXE.scala 157:44 183:18]
-  wire [63:0] _GEN_132 = _is_mul_T ? mstatus : _GEN_125; // @[EXE.scala 157:44 CSR.scala 20:24]
-  wire [63:0] _GEN_133 = _is_mul_T ? mtvec : _GEN_126; // @[EXE.scala 157:44 CSR.scala 21:22]
-  wire [63:0] _GEN_134 = _is_mul_T ? mepc : _GEN_127; // @[EXE.scala 157:44 CSR.scala 18:17]
-  wire [63:0] _GEN_135 = _is_mul_T ? mcause : _GEN_128; // @[EXE.scala 157:44 CSR.scala 19:23]
-  wire [63:0] _GEN_136 = _is_mul_T ? mie : _GEN_129; // @[EXE.scala 157:44 CSR.scala 22:20]
-  wire [63:0] _GEN_137 = _is_mul_T ? mip : _GEN_130; // @[EXE.scala 157:44 CSR.scala 23:20]
-  wire [63:0] _GEN_138 = 7'h6d == io_in_bits_ctrl_signal_aluoptype ? _alu_result_T_7 : _GEN_131; // @[EXE.scala 157:44 180:18]
-  wire [63:0] _GEN_139 = 7'h6d == io_in_bits_ctrl_signal_aluoptype ? mstatus : _GEN_132; // @[EXE.scala 157:44 CSR.scala 20:24]
-  wire [63:0] _GEN_140 = 7'h6d == io_in_bits_ctrl_signal_aluoptype ? mtvec : _GEN_133; // @[EXE.scala 157:44 CSR.scala 21:22]
-  wire [63:0] _GEN_141 = 7'h6d == io_in_bits_ctrl_signal_aluoptype ? mepc : _GEN_134; // @[EXE.scala 157:44 CSR.scala 18:17]
-  wire [63:0] _GEN_142 = 7'h6d == io_in_bits_ctrl_signal_aluoptype ? mcause : _GEN_135; // @[EXE.scala 157:44 CSR.scala 19:23]
-  wire [63:0] _GEN_143 = 7'h6d == io_in_bits_ctrl_signal_aluoptype ? mie : _GEN_136; // @[EXE.scala 157:44 CSR.scala 22:20]
-  wire [63:0] _GEN_144 = 7'h6d == io_in_bits_ctrl_signal_aluoptype ? mip : _GEN_137; // @[EXE.scala 157:44 CSR.scala 23:20]
-  wire [63:0] _GEN_145 = 7'h72 == io_in_bits_ctrl_signal_aluoptype ? _alu_result_T_12 : _GEN_138; // @[EXE.scala 157:44 177:18]
-  wire [63:0] _GEN_146 = 7'h72 == io_in_bits_ctrl_signal_aluoptype ? mstatus : _GEN_139; // @[EXE.scala 157:44 CSR.scala 20:24]
-  wire [63:0] _GEN_147 = 7'h72 == io_in_bits_ctrl_signal_aluoptype ? mtvec : _GEN_140; // @[EXE.scala 157:44 CSR.scala 21:22]
-  wire [63:0] _GEN_148 = 7'h72 == io_in_bits_ctrl_signal_aluoptype ? mepc : _GEN_141; // @[EXE.scala 157:44 CSR.scala 18:17]
-  wire [63:0] _GEN_149 = 7'h72 == io_in_bits_ctrl_signal_aluoptype ? mcause : _GEN_142; // @[EXE.scala 157:44 CSR.scala 19:23]
-  wire [63:0] _GEN_150 = 7'h72 == io_in_bits_ctrl_signal_aluoptype ? mie : _GEN_143; // @[EXE.scala 157:44 CSR.scala 22:20]
-  wire [63:0] _GEN_151 = 7'h72 == io_in_bits_ctrl_signal_aluoptype ? mip : _GEN_144; // @[EXE.scala 157:44 CSR.scala 23:20]
-  wire [63:0] _GEN_152 = 7'h71 == io_in_bits_ctrl_signal_aluoptype ? _alu_result_T_11 : _GEN_145; // @[EXE.scala 157:44 174:18]
-  wire [63:0] _GEN_153 = 7'h71 == io_in_bits_ctrl_signal_aluoptype ? mstatus : _GEN_146; // @[EXE.scala 157:44 CSR.scala 20:24]
-  wire [63:0] _GEN_154 = 7'h71 == io_in_bits_ctrl_signal_aluoptype ? mtvec : _GEN_147; // @[EXE.scala 157:44 CSR.scala 21:22]
-  wire [63:0] _GEN_155 = 7'h71 == io_in_bits_ctrl_signal_aluoptype ? mepc : _GEN_148; // @[EXE.scala 157:44 CSR.scala 18:17]
-  wire [63:0] _GEN_156 = 7'h71 == io_in_bits_ctrl_signal_aluoptype ? mcause : _GEN_149; // @[EXE.scala 157:44 CSR.scala 19:23]
-  wire [63:0] _GEN_157 = 7'h71 == io_in_bits_ctrl_signal_aluoptype ? mie : _GEN_150; // @[EXE.scala 157:44 CSR.scala 22:20]
-  wire [63:0] _GEN_158 = 7'h71 == io_in_bits_ctrl_signal_aluoptype ? mip : _GEN_151; // @[EXE.scala 157:44 CSR.scala 23:20]
-  wire [63:0] _GEN_159 = 7'h69 == io_in_bits_ctrl_signal_aluoptype ? _alu_result_T_10 : _GEN_152; // @[EXE.scala 157:44 171:18]
-  wire [63:0] _GEN_160 = 7'h69 == io_in_bits_ctrl_signal_aluoptype ? mstatus : _GEN_153; // @[EXE.scala 157:44 CSR.scala 20:24]
-  wire [63:0] _GEN_161 = 7'h69 == io_in_bits_ctrl_signal_aluoptype ? mtvec : _GEN_154; // @[EXE.scala 157:44 CSR.scala 21:22]
-  wire [63:0] _GEN_162 = 7'h69 == io_in_bits_ctrl_signal_aluoptype ? mepc : _GEN_155; // @[EXE.scala 157:44 CSR.scala 18:17]
-  wire [63:0] _GEN_163 = 7'h69 == io_in_bits_ctrl_signal_aluoptype ? mcause : _GEN_156; // @[EXE.scala 157:44 CSR.scala 19:23]
-  wire [63:0] _GEN_164 = 7'h69 == io_in_bits_ctrl_signal_aluoptype ? mie : _GEN_157; // @[EXE.scala 157:44 CSR.scala 22:20]
-  wire [63:0] _GEN_165 = 7'h69 == io_in_bits_ctrl_signal_aluoptype ? mip : _GEN_158; // @[EXE.scala 157:44 CSR.scala 23:20]
-  wire [63:0] _GEN_166 = 7'h44 == io_in_bits_ctrl_signal_aluoptype ? _alu_result_T_8 : _GEN_159; // @[EXE.scala 157:44 168:18]
-  wire [63:0] _GEN_167 = 7'h44 == io_in_bits_ctrl_signal_aluoptype ? mstatus : _GEN_160; // @[EXE.scala 157:44 CSR.scala 20:24]
-  wire [63:0] _GEN_168 = 7'h44 == io_in_bits_ctrl_signal_aluoptype ? mtvec : _GEN_161; // @[EXE.scala 157:44 CSR.scala 21:22]
-  wire [63:0] _GEN_169 = 7'h44 == io_in_bits_ctrl_signal_aluoptype ? mepc : _GEN_162; // @[EXE.scala 157:44 CSR.scala 18:17]
-  wire [63:0] _GEN_170 = 7'h44 == io_in_bits_ctrl_signal_aluoptype ? mcause : _GEN_163; // @[EXE.scala 157:44 CSR.scala 19:23]
-  wire [63:0] _GEN_171 = 7'h44 == io_in_bits_ctrl_signal_aluoptype ? mie : _GEN_164; // @[EXE.scala 157:44 CSR.scala 22:20]
-  wire [63:0] _GEN_172 = 7'h44 == io_in_bits_ctrl_signal_aluoptype ? mip : _GEN_165; // @[EXE.scala 157:44 CSR.scala 23:20]
-  wire [63:0] _GEN_173 = 7'h68 == io_in_bits_ctrl_signal_aluoptype ? _alu_result_T_7 : _GEN_166; // @[EXE.scala 157:44 165:18]
-  wire [63:0] _GEN_174 = 7'h68 == io_in_bits_ctrl_signal_aluoptype ? mstatus : _GEN_167; // @[EXE.scala 157:44 CSR.scala 20:24]
-  wire [63:0] _GEN_177 = 7'h68 == io_in_bits_ctrl_signal_aluoptype ? mcause : _GEN_170; // @[EXE.scala 157:44 CSR.scala 19:23]
-  wire [63:0] _GEN_180 = 7'h1a == io_in_bits_ctrl_signal_aluoptype ? src2 : _GEN_173; // @[EXE.scala 157:44 162:18]
-  wire [63:0] _GEN_181 = 7'h1a == io_in_bits_ctrl_signal_aluoptype ? mstatus : _GEN_174; // @[EXE.scala 157:44 CSR.scala 20:24]
-  wire [63:0] alu_result = 7'h40 == io_in_bits_ctrl_signal_aluoptype ? _alu_result_T_1 : _GEN_180; // @[EXE.scala 157:44 159:18]
-  wire [63:0] _shift_result_T = 3'h0 == io_in_bits_ctrl_signal_src1Type ? io_src1 : _GEN_1; // @[EXE.scala 227:29]
-  wire [63:0] _shift_result_T_3 = $signed(_shift_result_T) >>> src2[4:0]; // @[EXE.scala 227:51]
-  wire [94:0] _GEN_0 = {{31'd0}, src1}; // @[EXE.scala 231:39]
-  wire [94:0] _shift_result_T_5 = _GEN_0 << src2[4:0]; // @[EXE.scala 231:39]
+  wire [63:0] _GEN_47 = 7'h16 == io_in_bits_ctrl_signal_aluoptype ? _alu_result_T_57 : 64'h0; // @[EXE.scala 161:44 224:18]
+  wire [63:0] _GEN_48 = 7'h16 == io_in_bits_ctrl_signal_aluoptype ? _GEN_41 : mstatus; // @[EXE.scala 161:44 CSR.scala 20:24]
+  wire [63:0] _GEN_49 = 7'h16 == io_in_bits_ctrl_signal_aluoptype ? _GEN_42 : mtvec; // @[EXE.scala 161:44 CSR.scala 21:22]
+  wire [63:0] _GEN_50 = 7'h16 == io_in_bits_ctrl_signal_aluoptype ? _GEN_43 : mepc; // @[EXE.scala 161:44 CSR.scala 18:17]
+  wire [63:0] _GEN_51 = 7'h16 == io_in_bits_ctrl_signal_aluoptype ? _GEN_44 : mcause; // @[EXE.scala 161:44 CSR.scala 19:23]
+  wire [63:0] _GEN_52 = 7'h16 == io_in_bits_ctrl_signal_aluoptype ? _GEN_45 : mie; // @[EXE.scala 161:44 CSR.scala 22:20]
+  wire [63:0] _GEN_53 = 7'h16 == io_in_bits_ctrl_signal_aluoptype ? _GEN_46 : mip; // @[EXE.scala 161:44 CSR.scala 23:20]
+  wire [63:0] _GEN_54 = 7'h15 == io_in_bits_ctrl_signal_aluoptype ? _alu_result_T_57 : _GEN_47; // @[EXE.scala 161:44 220:18]
+  wire [63:0] _GEN_55 = 7'h15 == io_in_bits_ctrl_signal_aluoptype ? _GEN_20 : _GEN_48; // @[EXE.scala 161:44]
+  wire [63:0] _GEN_56 = 7'h15 == io_in_bits_ctrl_signal_aluoptype ? _GEN_21 : _GEN_49; // @[EXE.scala 161:44]
+  wire [63:0] _GEN_57 = 7'h15 == io_in_bits_ctrl_signal_aluoptype ? _GEN_22 : _GEN_50; // @[EXE.scala 161:44]
+  wire [63:0] _GEN_58 = 7'h15 == io_in_bits_ctrl_signal_aluoptype ? _GEN_23 : _GEN_51; // @[EXE.scala 161:44]
+  wire [63:0] _GEN_59 = 7'h15 == io_in_bits_ctrl_signal_aluoptype ? _GEN_24 : _GEN_52; // @[EXE.scala 161:44]
+  wire [63:0] _GEN_60 = 7'h15 == io_in_bits_ctrl_signal_aluoptype ? _GEN_25 : _GEN_53; // @[EXE.scala 161:44]
+  wire [63:0] _GEN_61 = 7'h43 == io_in_bits_ctrl_signal_aluoptype ? div_io_out_bits_result_quotient : _GEN_54; // @[EXE.scala 161:44 217:18]
+  wire [63:0] _GEN_62 = 7'h43 == io_in_bits_ctrl_signal_aluoptype ? mstatus : _GEN_55; // @[EXE.scala 161:44 CSR.scala 20:24]
+  wire [63:0] _GEN_63 = 7'h43 == io_in_bits_ctrl_signal_aluoptype ? mtvec : _GEN_56; // @[EXE.scala 161:44 CSR.scala 21:22]
+  wire [63:0] _GEN_64 = 7'h43 == io_in_bits_ctrl_signal_aluoptype ? mepc : _GEN_57; // @[EXE.scala 161:44 CSR.scala 18:17]
+  wire [63:0] _GEN_65 = 7'h43 == io_in_bits_ctrl_signal_aluoptype ? mcause : _GEN_58; // @[EXE.scala 161:44 CSR.scala 19:23]
+  wire [63:0] _GEN_66 = 7'h43 == io_in_bits_ctrl_signal_aluoptype ? mie : _GEN_59; // @[EXE.scala 161:44 CSR.scala 22:20]
+  wire [63:0] _GEN_67 = 7'h43 == io_in_bits_ctrl_signal_aluoptype ? mip : _GEN_60; // @[EXE.scala 161:44 CSR.scala 23:20]
+  wire [63:0] _GEN_68 = 7'h13 == io_in_bits_ctrl_signal_aluoptype ? div_io_out_bits_result_quotient : _GEN_61; // @[EXE.scala 161:44 214:18]
+  wire [63:0] _GEN_69 = 7'h13 == io_in_bits_ctrl_signal_aluoptype ? mstatus : _GEN_62; // @[EXE.scala 161:44 CSR.scala 20:24]
+  wire [63:0] _GEN_70 = 7'h13 == io_in_bits_ctrl_signal_aluoptype ? mtvec : _GEN_63; // @[EXE.scala 161:44 CSR.scala 21:22]
+  wire [63:0] _GEN_71 = 7'h13 == io_in_bits_ctrl_signal_aluoptype ? mepc : _GEN_64; // @[EXE.scala 161:44 CSR.scala 18:17]
+  wire [63:0] _GEN_72 = 7'h13 == io_in_bits_ctrl_signal_aluoptype ? mcause : _GEN_65; // @[EXE.scala 161:44 CSR.scala 19:23]
+  wire [63:0] _GEN_73 = 7'h13 == io_in_bits_ctrl_signal_aluoptype ? mie : _GEN_66; // @[EXE.scala 161:44 CSR.scala 22:20]
+  wire [63:0] _GEN_74 = 7'h13 == io_in_bits_ctrl_signal_aluoptype ? mip : _GEN_67; // @[EXE.scala 161:44 CSR.scala 23:20]
+  wire [63:0] _GEN_75 = 7'h10 == io_in_bits_ctrl_signal_aluoptype ? _alu_result_T_26 : _GEN_68; // @[EXE.scala 161:44 211:18]
+  wire [63:0] _GEN_76 = 7'h10 == io_in_bits_ctrl_signal_aluoptype ? mstatus : _GEN_69; // @[EXE.scala 161:44 CSR.scala 20:24]
+  wire [63:0] _GEN_77 = 7'h10 == io_in_bits_ctrl_signal_aluoptype ? mtvec : _GEN_70; // @[EXE.scala 161:44 CSR.scala 21:22]
+  wire [63:0] _GEN_78 = 7'h10 == io_in_bits_ctrl_signal_aluoptype ? mepc : _GEN_71; // @[EXE.scala 161:44 CSR.scala 18:17]
+  wire [63:0] _GEN_79 = 7'h10 == io_in_bits_ctrl_signal_aluoptype ? mcause : _GEN_72; // @[EXE.scala 161:44 CSR.scala 19:23]
+  wire [63:0] _GEN_80 = 7'h10 == io_in_bits_ctrl_signal_aluoptype ? mie : _GEN_73; // @[EXE.scala 161:44 CSR.scala 22:20]
+  wire [63:0] _GEN_81 = 7'h10 == io_in_bits_ctrl_signal_aluoptype ? mip : _GEN_74; // @[EXE.scala 161:44 CSR.scala 23:20]
+  wire [63:0] _GEN_82 = 7'h12 == io_in_bits_ctrl_signal_aluoptype ? div_io_out_bits_result_remainder : _GEN_75; // @[EXE.scala 161:44 208:18]
+  wire [63:0] _GEN_83 = 7'h12 == io_in_bits_ctrl_signal_aluoptype ? mstatus : _GEN_76; // @[EXE.scala 161:44 CSR.scala 20:24]
+  wire [63:0] _GEN_84 = 7'h12 == io_in_bits_ctrl_signal_aluoptype ? mtvec : _GEN_77; // @[EXE.scala 161:44 CSR.scala 21:22]
+  wire [63:0] _GEN_85 = 7'h12 == io_in_bits_ctrl_signal_aluoptype ? mepc : _GEN_78; // @[EXE.scala 161:44 CSR.scala 18:17]
+  wire [63:0] _GEN_86 = 7'h12 == io_in_bits_ctrl_signal_aluoptype ? mcause : _GEN_79; // @[EXE.scala 161:44 CSR.scala 19:23]
+  wire [63:0] _GEN_87 = 7'h12 == io_in_bits_ctrl_signal_aluoptype ? mie : _GEN_80; // @[EXE.scala 161:44 CSR.scala 22:20]
+  wire [63:0] _GEN_88 = 7'h12 == io_in_bits_ctrl_signal_aluoptype ? mip : _GEN_81; // @[EXE.scala 161:44 CSR.scala 23:20]
+  wire [63:0] _GEN_89 = 7'hf == io_in_bits_ctrl_signal_aluoptype ? div_io_out_bits_result_remainder : _GEN_82; // @[EXE.scala 161:44 205:18]
+  wire [63:0] _GEN_90 = 7'hf == io_in_bits_ctrl_signal_aluoptype ? mstatus : _GEN_83; // @[EXE.scala 161:44 CSR.scala 20:24]
+  wire [63:0] _GEN_91 = 7'hf == io_in_bits_ctrl_signal_aluoptype ? mtvec : _GEN_84; // @[EXE.scala 161:44 CSR.scala 21:22]
+  wire [63:0] _GEN_92 = 7'hf == io_in_bits_ctrl_signal_aluoptype ? mepc : _GEN_85; // @[EXE.scala 161:44 CSR.scala 18:17]
+  wire [63:0] _GEN_93 = 7'hf == io_in_bits_ctrl_signal_aluoptype ? mcause : _GEN_86; // @[EXE.scala 161:44 CSR.scala 19:23]
+  wire [63:0] _GEN_94 = 7'hf == io_in_bits_ctrl_signal_aluoptype ? mie : _GEN_87; // @[EXE.scala 161:44 CSR.scala 22:20]
+  wire [63:0] _GEN_95 = 7'hf == io_in_bits_ctrl_signal_aluoptype ? mip : _GEN_88; // @[EXE.scala 161:44 CSR.scala 23:20]
+  wire [63:0] _GEN_96 = _is_mul_T_1 ? mul_io_out_bits_result_result_lo : _GEN_89; // @[EXE.scala 161:44 202:18]
+  wire [63:0] _GEN_97 = _is_mul_T_1 ? mstatus : _GEN_90; // @[EXE.scala 161:44 CSR.scala 20:24]
+  wire [63:0] _GEN_98 = _is_mul_T_1 ? mtvec : _GEN_91; // @[EXE.scala 161:44 CSR.scala 21:22]
+  wire [63:0] _GEN_99 = _is_mul_T_1 ? mepc : _GEN_92; // @[EXE.scala 161:44 CSR.scala 18:17]
+  wire [63:0] _GEN_100 = _is_mul_T_1 ? mcause : _GEN_93; // @[EXE.scala 161:44 CSR.scala 19:23]
+  wire [63:0] _GEN_101 = _is_mul_T_1 ? mie : _GEN_94; // @[EXE.scala 161:44 CSR.scala 22:20]
+  wire [63:0] _GEN_102 = _is_mul_T_1 ? mip : _GEN_95; // @[EXE.scala 161:44 CSR.scala 23:20]
+  wire [63:0] _GEN_103 = 7'h1 == io_in_bits_ctrl_signal_aluoptype ? _alu_result_T_40 : _GEN_96; // @[EXE.scala 161:44 199:18]
+  wire [63:0] _GEN_104 = 7'h1 == io_in_bits_ctrl_signal_aluoptype ? mstatus : _GEN_97; // @[EXE.scala 161:44 CSR.scala 20:24]
+  wire [63:0] _GEN_105 = 7'h1 == io_in_bits_ctrl_signal_aluoptype ? mtvec : _GEN_98; // @[EXE.scala 161:44 CSR.scala 21:22]
+  wire [63:0] _GEN_106 = 7'h1 == io_in_bits_ctrl_signal_aluoptype ? mepc : _GEN_99; // @[EXE.scala 161:44 CSR.scala 18:17]
+  wire [63:0] _GEN_107 = 7'h1 == io_in_bits_ctrl_signal_aluoptype ? mcause : _GEN_100; // @[EXE.scala 161:44 CSR.scala 19:23]
+  wire [63:0] _GEN_108 = 7'h1 == io_in_bits_ctrl_signal_aluoptype ? mie : _GEN_101; // @[EXE.scala 161:44 CSR.scala 22:20]
+  wire [63:0] _GEN_109 = 7'h1 == io_in_bits_ctrl_signal_aluoptype ? mip : _GEN_102; // @[EXE.scala 161:44 CSR.scala 23:20]
+  wire [63:0] _GEN_110 = 7'hd == io_in_bits_ctrl_signal_aluoptype ? _alu_result_T_30 : _GEN_103; // @[EXE.scala 161:44 196:18]
+  wire [63:0] _GEN_111 = 7'hd == io_in_bits_ctrl_signal_aluoptype ? mstatus : _GEN_104; // @[EXE.scala 161:44 CSR.scala 20:24]
+  wire [63:0] _GEN_112 = 7'hd == io_in_bits_ctrl_signal_aluoptype ? mtvec : _GEN_105; // @[EXE.scala 161:44 CSR.scala 21:22]
+  wire [63:0] _GEN_113 = 7'hd == io_in_bits_ctrl_signal_aluoptype ? mepc : _GEN_106; // @[EXE.scala 161:44 CSR.scala 18:17]
+  wire [63:0] _GEN_114 = 7'hd == io_in_bits_ctrl_signal_aluoptype ? mcause : _GEN_107; // @[EXE.scala 161:44 CSR.scala 19:23]
+  wire [63:0] _GEN_115 = 7'hd == io_in_bits_ctrl_signal_aluoptype ? mie : _GEN_108; // @[EXE.scala 161:44 CSR.scala 22:20]
+  wire [63:0] _GEN_116 = 7'hd == io_in_bits_ctrl_signal_aluoptype ? mip : _GEN_109; // @[EXE.scala 161:44 CSR.scala 23:20]
+  wire [63:0] _GEN_117 = 7'h7a == io_in_bits_ctrl_signal_aluoptype ? _alu_result_T_30 : _GEN_110; // @[EXE.scala 161:44 193:18]
+  wire [63:0] _GEN_118 = 7'h7a == io_in_bits_ctrl_signal_aluoptype ? mstatus : _GEN_111; // @[EXE.scala 161:44 CSR.scala 20:24]
+  wire [63:0] _GEN_119 = 7'h7a == io_in_bits_ctrl_signal_aluoptype ? mtvec : _GEN_112; // @[EXE.scala 161:44 CSR.scala 21:22]
+  wire [63:0] _GEN_120 = 7'h7a == io_in_bits_ctrl_signal_aluoptype ? mepc : _GEN_113; // @[EXE.scala 161:44 CSR.scala 18:17]
+  wire [63:0] _GEN_121 = 7'h7a == io_in_bits_ctrl_signal_aluoptype ? mcause : _GEN_114; // @[EXE.scala 161:44 CSR.scala 19:23]
+  wire [63:0] _GEN_122 = 7'h7a == io_in_bits_ctrl_signal_aluoptype ? mie : _GEN_115; // @[EXE.scala 161:44 CSR.scala 22:20]
+  wire [63:0] _GEN_123 = 7'h7a == io_in_bits_ctrl_signal_aluoptype ? mip : _GEN_116; // @[EXE.scala 161:44 CSR.scala 23:20]
+  wire [63:0] _GEN_124 = 7'h79 == io_in_bits_ctrl_signal_aluoptype ? _alu_result_T_26 : _GEN_117; // @[EXE.scala 161:44 190:18]
+  wire [63:0] _GEN_125 = 7'h79 == io_in_bits_ctrl_signal_aluoptype ? mstatus : _GEN_118; // @[EXE.scala 161:44 CSR.scala 20:24]
+  wire [63:0] _GEN_126 = 7'h79 == io_in_bits_ctrl_signal_aluoptype ? mtvec : _GEN_119; // @[EXE.scala 161:44 CSR.scala 21:22]
+  wire [63:0] _GEN_127 = 7'h79 == io_in_bits_ctrl_signal_aluoptype ? mepc : _GEN_120; // @[EXE.scala 161:44 CSR.scala 18:17]
+  wire [63:0] _GEN_128 = 7'h79 == io_in_bits_ctrl_signal_aluoptype ? mcause : _GEN_121; // @[EXE.scala 161:44 CSR.scala 19:23]
+  wire [63:0] _GEN_129 = 7'h79 == io_in_bits_ctrl_signal_aluoptype ? mie : _GEN_122; // @[EXE.scala 161:44 CSR.scala 22:20]
+  wire [63:0] _GEN_130 = 7'h79 == io_in_bits_ctrl_signal_aluoptype ? mip : _GEN_123; // @[EXE.scala 161:44 CSR.scala 23:20]
+  wire [63:0] _GEN_131 = _is_mul_T ? _alu_result_T_22 : _GEN_124; // @[EXE.scala 161:44 187:18]
+  wire [63:0] _GEN_132 = _is_mul_T ? mstatus : _GEN_125; // @[EXE.scala 161:44 CSR.scala 20:24]
+  wire [63:0] _GEN_133 = _is_mul_T ? mtvec : _GEN_126; // @[EXE.scala 161:44 CSR.scala 21:22]
+  wire [63:0] _GEN_134 = _is_mul_T ? mepc : _GEN_127; // @[EXE.scala 161:44 CSR.scala 18:17]
+  wire [63:0] _GEN_135 = _is_mul_T ? mcause : _GEN_128; // @[EXE.scala 161:44 CSR.scala 19:23]
+  wire [63:0] _GEN_136 = _is_mul_T ? mie : _GEN_129; // @[EXE.scala 161:44 CSR.scala 22:20]
+  wire [63:0] _GEN_137 = _is_mul_T ? mip : _GEN_130; // @[EXE.scala 161:44 CSR.scala 23:20]
+  wire [63:0] _GEN_138 = 7'h6d == io_in_bits_ctrl_signal_aluoptype ? _alu_result_T_7 : _GEN_131; // @[EXE.scala 161:44 184:18]
+  wire [63:0] _GEN_139 = 7'h6d == io_in_bits_ctrl_signal_aluoptype ? mstatus : _GEN_132; // @[EXE.scala 161:44 CSR.scala 20:24]
+  wire [63:0] _GEN_140 = 7'h6d == io_in_bits_ctrl_signal_aluoptype ? mtvec : _GEN_133; // @[EXE.scala 161:44 CSR.scala 21:22]
+  wire [63:0] _GEN_141 = 7'h6d == io_in_bits_ctrl_signal_aluoptype ? mepc : _GEN_134; // @[EXE.scala 161:44 CSR.scala 18:17]
+  wire [63:0] _GEN_142 = 7'h6d == io_in_bits_ctrl_signal_aluoptype ? mcause : _GEN_135; // @[EXE.scala 161:44 CSR.scala 19:23]
+  wire [63:0] _GEN_143 = 7'h6d == io_in_bits_ctrl_signal_aluoptype ? mie : _GEN_136; // @[EXE.scala 161:44 CSR.scala 22:20]
+  wire [63:0] _GEN_144 = 7'h6d == io_in_bits_ctrl_signal_aluoptype ? mip : _GEN_137; // @[EXE.scala 161:44 CSR.scala 23:20]
+  wire [63:0] _GEN_145 = 7'h72 == io_in_bits_ctrl_signal_aluoptype ? _alu_result_T_12 : _GEN_138; // @[EXE.scala 161:44 181:18]
+  wire [63:0] _GEN_146 = 7'h72 == io_in_bits_ctrl_signal_aluoptype ? mstatus : _GEN_139; // @[EXE.scala 161:44 CSR.scala 20:24]
+  wire [63:0] _GEN_147 = 7'h72 == io_in_bits_ctrl_signal_aluoptype ? mtvec : _GEN_140; // @[EXE.scala 161:44 CSR.scala 21:22]
+  wire [63:0] _GEN_148 = 7'h72 == io_in_bits_ctrl_signal_aluoptype ? mepc : _GEN_141; // @[EXE.scala 161:44 CSR.scala 18:17]
+  wire [63:0] _GEN_149 = 7'h72 == io_in_bits_ctrl_signal_aluoptype ? mcause : _GEN_142; // @[EXE.scala 161:44 CSR.scala 19:23]
+  wire [63:0] _GEN_150 = 7'h72 == io_in_bits_ctrl_signal_aluoptype ? mie : _GEN_143; // @[EXE.scala 161:44 CSR.scala 22:20]
+  wire [63:0] _GEN_151 = 7'h72 == io_in_bits_ctrl_signal_aluoptype ? mip : _GEN_144; // @[EXE.scala 161:44 CSR.scala 23:20]
+  wire [63:0] _GEN_152 = 7'h71 == io_in_bits_ctrl_signal_aluoptype ? _alu_result_T_11 : _GEN_145; // @[EXE.scala 161:44 178:18]
+  wire [63:0] _GEN_153 = 7'h71 == io_in_bits_ctrl_signal_aluoptype ? mstatus : _GEN_146; // @[EXE.scala 161:44 CSR.scala 20:24]
+  wire [63:0] _GEN_154 = 7'h71 == io_in_bits_ctrl_signal_aluoptype ? mtvec : _GEN_147; // @[EXE.scala 161:44 CSR.scala 21:22]
+  wire [63:0] _GEN_155 = 7'h71 == io_in_bits_ctrl_signal_aluoptype ? mepc : _GEN_148; // @[EXE.scala 161:44 CSR.scala 18:17]
+  wire [63:0] _GEN_156 = 7'h71 == io_in_bits_ctrl_signal_aluoptype ? mcause : _GEN_149; // @[EXE.scala 161:44 CSR.scala 19:23]
+  wire [63:0] _GEN_157 = 7'h71 == io_in_bits_ctrl_signal_aluoptype ? mie : _GEN_150; // @[EXE.scala 161:44 CSR.scala 22:20]
+  wire [63:0] _GEN_158 = 7'h71 == io_in_bits_ctrl_signal_aluoptype ? mip : _GEN_151; // @[EXE.scala 161:44 CSR.scala 23:20]
+  wire [63:0] _GEN_159 = 7'h69 == io_in_bits_ctrl_signal_aluoptype ? _alu_result_T_10 : _GEN_152; // @[EXE.scala 161:44 175:18]
+  wire [63:0] _GEN_160 = 7'h69 == io_in_bits_ctrl_signal_aluoptype ? mstatus : _GEN_153; // @[EXE.scala 161:44 CSR.scala 20:24]
+  wire [63:0] _GEN_161 = 7'h69 == io_in_bits_ctrl_signal_aluoptype ? mtvec : _GEN_154; // @[EXE.scala 161:44 CSR.scala 21:22]
+  wire [63:0] _GEN_162 = 7'h69 == io_in_bits_ctrl_signal_aluoptype ? mepc : _GEN_155; // @[EXE.scala 161:44 CSR.scala 18:17]
+  wire [63:0] _GEN_163 = 7'h69 == io_in_bits_ctrl_signal_aluoptype ? mcause : _GEN_156; // @[EXE.scala 161:44 CSR.scala 19:23]
+  wire [63:0] _GEN_164 = 7'h69 == io_in_bits_ctrl_signal_aluoptype ? mie : _GEN_157; // @[EXE.scala 161:44 CSR.scala 22:20]
+  wire [63:0] _GEN_165 = 7'h69 == io_in_bits_ctrl_signal_aluoptype ? mip : _GEN_158; // @[EXE.scala 161:44 CSR.scala 23:20]
+  wire [63:0] _GEN_166 = 7'h44 == io_in_bits_ctrl_signal_aluoptype ? _alu_result_T_8 : _GEN_159; // @[EXE.scala 161:44 172:18]
+  wire [63:0] _GEN_167 = 7'h44 == io_in_bits_ctrl_signal_aluoptype ? mstatus : _GEN_160; // @[EXE.scala 161:44 CSR.scala 20:24]
+  wire [63:0] _GEN_168 = 7'h44 == io_in_bits_ctrl_signal_aluoptype ? mtvec : _GEN_161; // @[EXE.scala 161:44 CSR.scala 21:22]
+  wire [63:0] _GEN_169 = 7'h44 == io_in_bits_ctrl_signal_aluoptype ? mepc : _GEN_162; // @[EXE.scala 161:44 CSR.scala 18:17]
+  wire [63:0] _GEN_170 = 7'h44 == io_in_bits_ctrl_signal_aluoptype ? mcause : _GEN_163; // @[EXE.scala 161:44 CSR.scala 19:23]
+  wire [63:0] _GEN_171 = 7'h44 == io_in_bits_ctrl_signal_aluoptype ? mie : _GEN_164; // @[EXE.scala 161:44 CSR.scala 22:20]
+  wire [63:0] _GEN_172 = 7'h44 == io_in_bits_ctrl_signal_aluoptype ? mip : _GEN_165; // @[EXE.scala 161:44 CSR.scala 23:20]
+  wire [63:0] _GEN_173 = 7'h68 == io_in_bits_ctrl_signal_aluoptype ? _alu_result_T_7 : _GEN_166; // @[EXE.scala 161:44 169:18]
+  wire [63:0] _GEN_174 = 7'h68 == io_in_bits_ctrl_signal_aluoptype ? mstatus : _GEN_167; // @[EXE.scala 161:44 CSR.scala 20:24]
+  wire [63:0] _GEN_177 = 7'h68 == io_in_bits_ctrl_signal_aluoptype ? mcause : _GEN_170; // @[EXE.scala 161:44 CSR.scala 19:23]
+  wire [63:0] _GEN_180 = 7'h1a == io_in_bits_ctrl_signal_aluoptype ? src2 : _GEN_173; // @[EXE.scala 161:44 166:18]
+  wire [63:0] _GEN_181 = 7'h1a == io_in_bits_ctrl_signal_aluoptype ? mstatus : _GEN_174; // @[EXE.scala 161:44 CSR.scala 20:24]
+  wire [63:0] alu_result = 7'h40 == io_in_bits_ctrl_signal_aluoptype ? _alu_result_T_1 : _GEN_180; // @[EXE.scala 161:44 163:18]
+  wire [63:0] _shift_result_T = 3'h0 == io_in_bits_ctrl_signal_src1Type ? io_in_bits_ctrl_data_src1 : _GEN_1; // @[EXE.scala 231:29]
+  wire [63:0] _shift_result_T_3 = $signed(_shift_result_T) >>> src2[4:0]; // @[EXE.scala 231:51]
+  wire [94:0] _GEN_0 = {{31'd0}, src1}; // @[EXE.scala 235:39]
+  wire [94:0] _shift_result_T_5 = _GEN_0 << src2[4:0]; // @[EXE.scala 235:39]
   wire  shift_result_sign = _shift_result_T_5[31]; // @[util.scala 11:19]
   wire [31:0] _shift_result_T_8 = shift_result_sign ? 32'hffffffff : 32'h0; // @[Bitwise.scala 74:12]
   wire [63:0] _shift_result_T_9 = {_shift_result_T_8,_shift_result_T_5[31:0]}; // @[Cat.scala 31:58]
-  wire [126:0] _GEN_2 = {{63'd0}, src1}; // @[EXE.scala 234:28]
-  wire [126:0] _shift_result_T_11 = _GEN_2 << src2[5:0]; // @[EXE.scala 234:28]
-  wire [63:0] _shift_result_T_13 = src1 >> src2[5:0]; // @[EXE.scala 237:35]
-  wire [94:0] _GEN_4 = {{63'd0}, src1[31:0]}; // @[EXE.scala 240:46]
-  wire [94:0] _shift_result_T_16 = _GEN_4 << src2[5:0]; // @[EXE.scala 240:46]
+  wire [126:0] _GEN_2 = {{63'd0}, src1}; // @[EXE.scala 238:28]
+  wire [126:0] _shift_result_T_11 = _GEN_2 << src2[5:0]; // @[EXE.scala 238:28]
+  wire [63:0] _shift_result_T_13 = src1 >> src2[5:0]; // @[EXE.scala 241:35]
+  wire [94:0] _GEN_4 = {{63'd0}, src1[31:0]}; // @[EXE.scala 244:46]
+  wire [94:0] _shift_result_T_16 = _GEN_4 << src2[5:0]; // @[EXE.scala 244:46]
   wire  shift_result_sign_1 = _shift_result_T_16[31]; // @[util.scala 11:19]
   wire [31:0] _shift_result_T_19 = shift_result_sign_1 ? 32'hffffffff : 32'h0; // @[Bitwise.scala 74:12]
   wire [63:0] _shift_result_T_20 = {_shift_result_T_19,_shift_result_T_16[31:0]}; // @[Cat.scala 31:58]
-  wire [31:0] _shift_result_T_22 = src1[31:0]; // @[EXE.scala 243:46]
-  wire [31:0] _shift_result_T_25 = $signed(_shift_result_T_22) >>> src2[4:0]; // @[EXE.scala 243:68]
+  wire [31:0] _shift_result_T_22 = src1[31:0]; // @[EXE.scala 247:46]
+  wire [31:0] _shift_result_T_25 = $signed(_shift_result_T_22) >>> src2[4:0]; // @[EXE.scala 247:68]
   wire  shift_result_sign_2 = _shift_result_T_25[31]; // @[util.scala 11:19]
   wire [31:0] _shift_result_T_27 = shift_result_sign_2 ? 32'hffffffff : 32'h0; // @[Bitwise.scala 74:12]
   wire [63:0] _shift_result_T_28 = {_shift_result_T_27,_shift_result_T_25}; // @[Cat.scala 31:58]
-  wire [31:0] _shift_result_T_31 = src1[31:0] >> src2[4:0]; // @[EXE.scala 246:46]
+  wire [31:0] _shift_result_T_31 = src1[31:0] >> src2[4:0]; // @[EXE.scala 250:46]
   wire  shift_result_sign_3 = _shift_result_T_31[31]; // @[util.scala 11:19]
   wire [31:0] _shift_result_T_34 = shift_result_sign_3 ? 32'hffffffff : 32'h0; // @[Bitwise.scala 74:12]
   wire [63:0] _shift_result_T_35 = {_shift_result_T_34,_shift_result_T_31}; // @[Cat.scala 31:58]
-  wire [63:0] _shift_result_T_54 = $signed(_shift_result_T) >>> src2[5:0]; // @[EXE.scala 255:51]
-  wire [63:0] _GEN_194 = 7'h14 == io_in_bits_ctrl_signal_aluoptype ? _shift_result_T_54 : 64'h0; // @[EXE.scala 225:44 255:20]
-  wire [63:0] _GEN_195 = 7'ha == io_in_bits_ctrl_signal_aluoptype ? _shift_result_T_35 : _GEN_194; // @[EXE.scala 225:44 252:20]
-  wire [63:0] _GEN_196 = 7'h9 == io_in_bits_ctrl_signal_aluoptype ? _shift_result_T_28 : _GEN_195; // @[EXE.scala 225:44 249:20]
-  wire [63:0] _GEN_197 = 7'h8 == io_in_bits_ctrl_signal_aluoptype ? _shift_result_T_35 : _GEN_196; // @[EXE.scala 225:44 246:20]
-  wire [63:0] _GEN_198 = 7'h6 == io_in_bits_ctrl_signal_aluoptype ? _shift_result_T_28 : _GEN_197; // @[EXE.scala 225:44 243:20]
-  wire [63:0] _GEN_199 = 7'h5 == io_in_bits_ctrl_signal_aluoptype ? _shift_result_T_20 : _GEN_198; // @[EXE.scala 225:44 240:20]
-  wire [63:0] _GEN_200 = 7'h75 == io_in_bits_ctrl_signal_aluoptype ? _shift_result_T_13 : _GEN_199; // @[EXE.scala 225:44 237:20]
-  wire [126:0] _GEN_201 = 7'h41 == io_in_bits_ctrl_signal_aluoptype ? _shift_result_T_11 : {{63'd0}, _GEN_200}; // @[EXE.scala 225:44 234:20]
-  wire [126:0] _GEN_202 = 7'h73 == io_in_bits_ctrl_signal_aluoptype ? {{63'd0}, _shift_result_T_9} : _GEN_201; // @[EXE.scala 225:44 231:20]
-  wire [126:0] _GEN_203 = 7'h6e == io_in_bits_ctrl_signal_aluoptype ? {{63'd0}, _shift_result_T_3} : _GEN_202; // @[EXE.scala 225:44 227:20]
+  wire [63:0] _shift_result_T_54 = $signed(_shift_result_T) >>> src2[5:0]; // @[EXE.scala 259:51]
+  wire [63:0] _GEN_194 = 7'h14 == io_in_bits_ctrl_signal_aluoptype ? _shift_result_T_54 : 64'h0; // @[EXE.scala 229:44 259:20]
+  wire [63:0] _GEN_195 = 7'ha == io_in_bits_ctrl_signal_aluoptype ? _shift_result_T_35 : _GEN_194; // @[EXE.scala 229:44 256:20]
+  wire [63:0] _GEN_196 = 7'h9 == io_in_bits_ctrl_signal_aluoptype ? _shift_result_T_28 : _GEN_195; // @[EXE.scala 229:44 253:20]
+  wire [63:0] _GEN_197 = 7'h8 == io_in_bits_ctrl_signal_aluoptype ? _shift_result_T_35 : _GEN_196; // @[EXE.scala 229:44 250:20]
+  wire [63:0] _GEN_198 = 7'h6 == io_in_bits_ctrl_signal_aluoptype ? _shift_result_T_28 : _GEN_197; // @[EXE.scala 229:44 247:20]
+  wire [63:0] _GEN_199 = 7'h5 == io_in_bits_ctrl_signal_aluoptype ? _shift_result_T_20 : _GEN_198; // @[EXE.scala 229:44 244:20]
+  wire [63:0] _GEN_200 = 7'h75 == io_in_bits_ctrl_signal_aluoptype ? _shift_result_T_13 : _GEN_199; // @[EXE.scala 229:44 241:20]
+  wire [126:0] _GEN_201 = 7'h41 == io_in_bits_ctrl_signal_aluoptype ? _shift_result_T_11 : {{63'd0}, _GEN_200}; // @[EXE.scala 229:44 238:20]
+  wire [126:0] _GEN_202 = 7'h73 == io_in_bits_ctrl_signal_aluoptype ? {{63'd0}, _shift_result_T_9} : _GEN_201; // @[EXE.scala 229:44 235:20]
+  wire [126:0] _GEN_203 = 7'h6e == io_in_bits_ctrl_signal_aluoptype ? {{63'd0}, _shift_result_T_3} : _GEN_202; // @[EXE.scala 229:44 231:20]
   wire [63:0] _mul_io_in_bits_ctrl_data_src1_T_2 = {32'h0,src1[31:0]}; // @[Cat.scala 31:58]
   wire [63:0] _mul_io_in_bits_ctrl_data_src2_T_2 = {32'h0,src2[31:0]}; // @[Cat.scala 31:58]
-  wire  _mul_io_in_valid_T = ~mul_io_out_valid; // @[EXE.scala 264:36]
+  wire  _mul_io_in_valid_T = ~mul_io_out_valid; // @[EXE.scala 268:36]
   wire  div_io_in_bits_ctrl_data_src1_sign = src1[31]; // @[util.scala 11:19]
   wire [31:0] _div_io_in_bits_ctrl_data_src1_T_2 = div_io_in_bits_ctrl_data_src1_sign ? 32'hffffffff : 32'h0; // @[Bitwise.scala 74:12]
   wire [63:0] _div_io_in_bits_ctrl_data_src1_T_3 = {_div_io_in_bits_ctrl_data_src1_T_2,src1[31:0]}; // @[Cat.scala 31:58]
   wire [63:0] _div_io_in_bits_ctrl_data_src1_T_7 = is_div_sign ? _div_io_in_bits_ctrl_data_src1_T_3 :
-    _mul_io_in_bits_ctrl_data_src1_T_2; // @[EXE.scala 270:51]
+    _mul_io_in_bits_ctrl_data_src1_T_2; // @[EXE.scala 274:51]
   wire  div_io_in_bits_ctrl_data_src2_sign = src2[31]; // @[util.scala 11:19]
   wire [31:0] _div_io_in_bits_ctrl_data_src2_T_2 = div_io_in_bits_ctrl_data_src2_sign ? 32'hffffffff : 32'h0; // @[Bitwise.scala 74:12]
   wire [63:0] _div_io_in_bits_ctrl_data_src2_T_3 = {_div_io_in_bits_ctrl_data_src2_T_2,src2[31:0]}; // @[Cat.scala 31:58]
   wire [63:0] _div_io_in_bits_ctrl_data_src2_T_7 = is_div_sign ? _div_io_in_bits_ctrl_data_src2_T_3 :
-    _mul_io_in_bits_ctrl_data_src2_T_2; // @[EXE.scala 271:51]
-  wire  _div_io_in_valid_T = ~div_io_out_valid; // @[EXE.scala 272:36]
-  wire  _compar_result_T = src1 < src2; // @[EXE.scala 280:34]
-  wire [63:0] _compar_result_T_1 = src1 < src2 ? 64'h1 : 64'h0; // @[EXE.scala 280:27]
-  wire [63:0] _compar_result_T_3 = 3'h0 == io_in_bits_ctrl_signal_src2Type ? io_src2 : _GEN_3; // @[EXE.scala 283:48]
-  wire  _compar_result_T_4 = $signed(_shift_result_T) < $signed(_compar_result_T_3); // @[EXE.scala 283:41]
-  wire [63:0] _compar_result_T_5 = $signed(_shift_result_T) < $signed(_compar_result_T_3) ? 64'h1 : 64'h0; // @[EXE.scala 283:27]
-  wire [63:0] _GEN_204 = 7'h2 == io_in_bits_ctrl_signal_aluoptype ? _compar_result_T_5 : 64'h0; // @[EXE.scala 278:44 283:21]
-  wire [63:0] compar_result = 7'h6a == io_in_bits_ctrl_signal_aluoptype ? _compar_result_T_1 : _GEN_204; // @[EXE.scala 278:44 280:21]
-  wire  _jump_result_T = io_in_bits_ctrl_signal_fuType == 3'h3; // @[EXE.scala 288:52]
-  wire [63:0] jump_result = io_in_bits_ctrl_signal_fuType == 3'h3 ? _dnpc_T_1 : 64'h0; // @[EXE.scala 288:21]
-  wire [63:0] _GEN_206 = 3'h5 == io_in_bits_ctrl_signal_fuType ? compar_result : 64'h0; // @[EXE.scala 291:41 305:18]
+    _mul_io_in_bits_ctrl_data_src2_T_2; // @[EXE.scala 275:51]
+  wire  _div_io_in_valid_T = ~div_io_out_valid; // @[EXE.scala 276:36]
+  wire  _compar_result_T = src1 < src2; // @[EXE.scala 284:34]
+  wire [63:0] _compar_result_T_1 = src1 < src2 ? 64'h1 : 64'h0; // @[EXE.scala 284:27]
+  wire [63:0] _compar_result_T_3 = 3'h0 == io_in_bits_ctrl_signal_src2Type ? io_in_bits_ctrl_data_src2 : _GEN_3; // @[EXE.scala 287:48]
+  wire  _compar_result_T_4 = $signed(_shift_result_T) < $signed(_compar_result_T_3); // @[EXE.scala 287:41]
+  wire [63:0] _compar_result_T_5 = $signed(_shift_result_T) < $signed(_compar_result_T_3) ? 64'h1 : 64'h0; // @[EXE.scala 287:27]
+  wire [63:0] _GEN_204 = 7'h2 == io_in_bits_ctrl_signal_aluoptype ? _compar_result_T_5 : 64'h0; // @[EXE.scala 282:44 287:21]
+  wire [63:0] compar_result = 7'h6a == io_in_bits_ctrl_signal_aluoptype ? _compar_result_T_1 : _GEN_204; // @[EXE.scala 282:44 284:21]
+  wire  _jump_result_T = io_in_bits_ctrl_signal_fuType == 3'h3; // @[EXE.scala 292:52]
+  wire [63:0] jump_result = io_in_bits_ctrl_signal_fuType == 3'h3 ? _dnpc_T_1 : 64'h0; // @[EXE.scala 292:21]
+  wire [63:0] _GEN_206 = 3'h5 == io_in_bits_ctrl_signal_fuType ? compar_result : 64'h0; // @[EXE.scala 295:41 309:18]
   wire [63:0] shift_result = _GEN_203[63:0];
-  wire [63:0] _GEN_207 = 3'h1 == io_in_bits_ctrl_signal_fuType ? shift_result : _GEN_206; // @[EXE.scala 291:41 302:18]
-  wire [63:0] _GEN_208 = 3'h2 == io_in_bits_ctrl_signal_fuType ? 64'h0 : _GEN_207; // @[EXE.scala 291:41 299:18]
-  wire [63:0] _GEN_209 = 3'h3 == io_in_bits_ctrl_signal_fuType ? jump_result : _GEN_208; // @[EXE.scala 291:41 296:18]
-  wire  _T_71 = 7'h6b == io_in_bits_ctrl_signal_aluoptype; // @[EXE.scala 313:44]
-  wire [63:0] _branch_result_T_1 = io_in_bits_ctrl_flow_PC + io_in_bits_ctrl_data_Imm; // @[EXE.scala 315:27]
-  wire  _T_72 = 7'h6c == io_in_bits_ctrl_signal_aluoptype; // @[EXE.scala 313:44]
-  wire  _T_73 = 7'h76 == io_in_bits_ctrl_signal_aluoptype; // @[EXE.scala 313:44]
-  wire  _T_74 = 7'h7b == io_in_bits_ctrl_signal_aluoptype; // @[EXE.scala 313:44]
-  wire  _T_75 = 7'hb == io_in_bits_ctrl_signal_aluoptype; // @[EXE.scala 313:44]
-  wire  _T_76 = 7'hc == io_in_bits_ctrl_signal_aluoptype; // @[EXE.scala 313:44]
-  wire  _T_77 = 7'h17 == io_in_bits_ctrl_signal_aluoptype; // @[EXE.scala 313:44]
-  wire  _T_78 = 7'h18 == io_in_bits_ctrl_signal_aluoptype; // @[EXE.scala 313:44]
-  wire  _GEN_212 = 7'h17 == io_in_bits_ctrl_signal_aluoptype | 7'h18 == io_in_bits_ctrl_signal_aluoptype; // @[EXE.scala 313:44 340:19]
-  wire [63:0] _GEN_213 = 7'hc == io_in_bits_ctrl_signal_aluoptype ? _branch_result_T_1 : 64'h0; // @[EXE.scala 313:44 335:21]
-  wire  _GEN_214 = 7'hc == io_in_bits_ctrl_signal_aluoptype ? src1 >= src2 : _GEN_212; // @[EXE.scala 313:44 336:19]
-  wire [63:0] _GEN_215 = 7'hb == io_in_bits_ctrl_signal_aluoptype ? _branch_result_T_1 : _GEN_213; // @[EXE.scala 313:44 331:21]
-  wire  _GEN_216 = 7'hb == io_in_bits_ctrl_signal_aluoptype ? _compar_result_T : _GEN_214; // @[EXE.scala 313:44 332:19]
-  wire [63:0] _GEN_217 = 7'h7b == io_in_bits_ctrl_signal_aluoptype ? _branch_result_T_1 : _GEN_215; // @[EXE.scala 313:44 327:21]
-  wire  _GEN_218 = 7'h7b == io_in_bits_ctrl_signal_aluoptype ? _compar_result_T_4 : _GEN_216; // @[EXE.scala 313:44 328:19]
-  wire [63:0] _GEN_219 = 7'h76 == io_in_bits_ctrl_signal_aluoptype ? _branch_result_T_1 : _GEN_217; // @[EXE.scala 313:44 323:21]
+  wire [63:0] _GEN_207 = 3'h1 == io_in_bits_ctrl_signal_fuType ? shift_result : _GEN_206; // @[EXE.scala 295:41 306:18]
+  wire [63:0] _GEN_208 = 3'h2 == io_in_bits_ctrl_signal_fuType ? 64'h0 : _GEN_207; // @[EXE.scala 295:41 303:18]
+  wire [63:0] _GEN_209 = 3'h3 == io_in_bits_ctrl_signal_fuType ? jump_result : _GEN_208; // @[EXE.scala 295:41 300:18]
+  wire  _T_71 = 7'h6b == io_in_bits_ctrl_signal_aluoptype; // @[EXE.scala 317:44]
+  wire [63:0] _branch_result_T_1 = io_in_bits_ctrl_flow_PC + io_in_bits_ctrl_data_Imm; // @[EXE.scala 319:27]
+  wire  _T_72 = 7'h6c == io_in_bits_ctrl_signal_aluoptype; // @[EXE.scala 317:44]
+  wire  _T_73 = 7'h76 == io_in_bits_ctrl_signal_aluoptype; // @[EXE.scala 317:44]
+  wire  _T_74 = 7'h7b == io_in_bits_ctrl_signal_aluoptype; // @[EXE.scala 317:44]
+  wire  _T_75 = 7'hb == io_in_bits_ctrl_signal_aluoptype; // @[EXE.scala 317:44]
+  wire  _T_76 = 7'hc == io_in_bits_ctrl_signal_aluoptype; // @[EXE.scala 317:44]
+  wire  _T_77 = 7'h17 == io_in_bits_ctrl_signal_aluoptype; // @[EXE.scala 317:44]
+  wire  _T_78 = 7'h18 == io_in_bits_ctrl_signal_aluoptype; // @[EXE.scala 317:44]
+  wire  _GEN_212 = 7'h17 == io_in_bits_ctrl_signal_aluoptype | 7'h18 == io_in_bits_ctrl_signal_aluoptype; // @[EXE.scala 317:44 344:19]
+  wire [63:0] _GEN_213 = 7'hc == io_in_bits_ctrl_signal_aluoptype ? _branch_result_T_1 : 64'h0; // @[EXE.scala 317:44 339:21]
+  wire  _GEN_214 = 7'hc == io_in_bits_ctrl_signal_aluoptype ? src1 >= src2 : _GEN_212; // @[EXE.scala 317:44 340:19]
+  wire [63:0] _GEN_215 = 7'hb == io_in_bits_ctrl_signal_aluoptype ? _branch_result_T_1 : _GEN_213; // @[EXE.scala 317:44 335:21]
+  wire  _GEN_216 = 7'hb == io_in_bits_ctrl_signal_aluoptype ? _compar_result_T : _GEN_214; // @[EXE.scala 317:44 336:19]
+  wire [63:0] _GEN_217 = 7'h7b == io_in_bits_ctrl_signal_aluoptype ? _branch_result_T_1 : _GEN_215; // @[EXE.scala 317:44 331:21]
+  wire  _GEN_218 = 7'h7b == io_in_bits_ctrl_signal_aluoptype ? _compar_result_T_4 : _GEN_216; // @[EXE.scala 317:44 332:19]
+  wire [63:0] _GEN_219 = 7'h76 == io_in_bits_ctrl_signal_aluoptype ? _branch_result_T_1 : _GEN_217; // @[EXE.scala 317:44 327:21]
   wire  _GEN_220 = 7'h76 == io_in_bits_ctrl_signal_aluoptype ? $signed(_shift_result_T) >= $signed(_compar_result_T_3)
-     : _GEN_218; // @[EXE.scala 313:44 324:19]
-  wire [63:0] _GEN_221 = 7'h6c == io_in_bits_ctrl_signal_aluoptype ? _branch_result_T_1 : _GEN_219; // @[EXE.scala 313:44 319:21]
-  wire  _GEN_222 = 7'h6c == io_in_bits_ctrl_signal_aluoptype ? src1 != src2 : _GEN_220; // @[EXE.scala 313:44 320:19]
-  wire [63:0] branch_result = 7'h6b == io_in_bits_ctrl_signal_aluoptype ? _branch_result_T_1 : _GEN_221; // @[EXE.scala 313:44 315:21]
-  wire  branch_flag = 7'h6b == io_in_bits_ctrl_signal_aluoptype ? src1 == src2 : _GEN_222; // @[EXE.scala 313:44 316:19]
-  wire [63:0] _T_92 = mstatus & 64'hfffffffffffffff7; // @[EXE.scala 351:64]
-  wire [63:0] _T_112 = mstatus | 64'h8; // @[EXE.scala 355:64]
-  wire [63:0] _GEN_267 = _T_78 ? mepc : 64'h0; // @[EXE.scala 348:44 354:16]
-  wire [63:0] csr_data = _T_77 ? mtvec : _GEN_267; // @[EXE.scala 348:44 350:16]
+     : _GEN_218; // @[EXE.scala 317:44 328:19]
+  wire [63:0] _GEN_221 = 7'h6c == io_in_bits_ctrl_signal_aluoptype ? _branch_result_T_1 : _GEN_219; // @[EXE.scala 317:44 323:21]
+  wire  _GEN_222 = 7'h6c == io_in_bits_ctrl_signal_aluoptype ? src1 != src2 : _GEN_220; // @[EXE.scala 317:44 324:19]
+  wire [63:0] branch_result = 7'h6b == io_in_bits_ctrl_signal_aluoptype ? _branch_result_T_1 : _GEN_221; // @[EXE.scala 317:44 319:21]
+  wire  branch_flag = 7'h6b == io_in_bits_ctrl_signal_aluoptype ? src1 == src2 : _GEN_222; // @[EXE.scala 317:44 320:19]
+  wire [63:0] _T_92 = mstatus & 64'hfffffffffffffff7; // @[EXE.scala 355:64]
+  wire [63:0] _T_112 = mstatus | 64'h8; // @[EXE.scala 359:64]
+  wire [63:0] _GEN_267 = _T_78 ? mepc : 64'h0; // @[EXE.scala 352:44 358:16]
+  wire [63:0] csr_data = _T_77 ? mtvec : _GEN_267; // @[EXE.scala 352:44 354:16]
   wire [63:0] _dnpc_T_7 = {_alu_result_T_1[63:1],1'h0}; // @[Cat.scala 31:58]
-  wire [63:0] _dnpc_T_11 = branch_flag ? branch_result : _dnpc_T_1; // @[EXE.scala 368:18]
-  wire [63:0] _GEN_281 = _T_78 ? csr_data : _dnpc_T_1; // @[EXE.scala 360:44 391:12]
-  wire [63:0] _GEN_282 = _T_77 ? csr_data : _GEN_281; // @[EXE.scala 360:44 388:12]
-  wire [63:0] _GEN_283 = _T_75 ? _dnpc_T_11 : _GEN_282; // @[EXE.scala 360:44 384:12]
-  wire [63:0] _GEN_284 = _T_74 ? _dnpc_T_11 : _GEN_283; // @[EXE.scala 360:44 381:12]
-  wire [63:0] _GEN_285 = _T_76 ? _dnpc_T_11 : _GEN_284; // @[EXE.scala 360:44 378:12]
-  wire [63:0] _GEN_286 = _T_73 ? _dnpc_T_11 : _GEN_285; // @[EXE.scala 360:44 375:12]
-  wire [63:0] _GEN_287 = _T_72 ? _dnpc_T_11 : _GEN_286; // @[EXE.scala 360:44 372:12]
-  wire [63:0] _GEN_288 = _T_71 ? _dnpc_T_11 : _GEN_287; // @[EXE.scala 360:44 368:12]
-  wire [63:0] _GEN_289 = 7'h48 == io_in_bits_ctrl_signal_aluoptype ? _dnpc_T_7 : _GEN_288; // @[EXE.scala 360:44 365:12]
-  reg [63:0] CSRDIFF_io_mtvec_REG; // @[EXE.scala 410:38]
-  reg [63:0] CSRDIFF_io_mtvec_REG_1; // @[EXE.scala 410:30]
-  reg [63:0] CSRDIFF_io_mcause_REG; // @[EXE.scala 411:39]
-  reg [63:0] CSRDIFF_io_mcause_REG_1; // @[EXE.scala 411:31]
-  reg [63:0] CSRDIFF_io_mepc_REG; // @[EXE.scala 412:37]
-  reg [63:0] CSRDIFF_io_mepc_REG_1; // @[EXE.scala 412:29]
-  reg [63:0] CSRDIFF_io_mstatus_REG; // @[EXE.scala 413:40]
-  reg [63:0] CSRDIFF_io_mstatus_REG_1; // @[EXE.scala 413:32]
-  wire  _io_is_flush_T_2 = branch_flag | io_branchIO_is_jump; // @[EXE.scala 415:43]
-  wire  _io_out_valid_T_1 = _mul_io_in_valid_T & is_mul; // @[EXE.scala 437:43]
-  wire  _io_out_valid_T_4 = _div_io_in_valid_T & is_div; // @[EXE.scala 437:78]
-  wire  _io_out_valid_T_11 = _io_is_flush_T_2 & io_icache_busy; // @[EXE.scala 437:162]
-  CSR_DIFF CSRDIFF ( // @[EXE.scala 116:21]
+  wire [63:0] _dnpc_T_11 = branch_flag ? branch_result : _dnpc_T_1; // @[EXE.scala 372:18]
+  wire [63:0] _GEN_281 = _T_78 ? csr_data : _dnpc_T_1; // @[EXE.scala 364:44 395:12]
+  wire [63:0] _GEN_282 = _T_77 ? csr_data : _GEN_281; // @[EXE.scala 364:44 392:12]
+  wire [63:0] _GEN_283 = _T_75 ? _dnpc_T_11 : _GEN_282; // @[EXE.scala 364:44 388:12]
+  wire [63:0] _GEN_284 = _T_74 ? _dnpc_T_11 : _GEN_283; // @[EXE.scala 364:44 385:12]
+  wire [63:0] _GEN_285 = _T_76 ? _dnpc_T_11 : _GEN_284; // @[EXE.scala 364:44 382:12]
+  wire [63:0] _GEN_286 = _T_73 ? _dnpc_T_11 : _GEN_285; // @[EXE.scala 364:44 379:12]
+  wire [63:0] _GEN_287 = _T_72 ? _dnpc_T_11 : _GEN_286; // @[EXE.scala 364:44 376:12]
+  wire [63:0] _GEN_288 = _T_71 ? _dnpc_T_11 : _GEN_287; // @[EXE.scala 364:44 372:12]
+  wire [63:0] _GEN_289 = 7'h48 == io_in_bits_ctrl_signal_aluoptype ? _dnpc_T_7 : _GEN_288; // @[EXE.scala 364:44 369:12]
+  reg [63:0] CSRDIFF_io_mtvec_REG; // @[EXE.scala 414:38]
+  reg [63:0] CSRDIFF_io_mtvec_REG_1; // @[EXE.scala 414:30]
+  reg [63:0] CSRDIFF_io_mcause_REG; // @[EXE.scala 415:39]
+  reg [63:0] CSRDIFF_io_mcause_REG_1; // @[EXE.scala 415:31]
+  reg [63:0] CSRDIFF_io_mepc_REG; // @[EXE.scala 416:37]
+  reg [63:0] CSRDIFF_io_mepc_REG_1; // @[EXE.scala 416:29]
+  reg [63:0] CSRDIFF_io_mstatus_REG; // @[EXE.scala 417:40]
+  reg [63:0] CSRDIFF_io_mstatus_REG_1; // @[EXE.scala 417:32]
+  wire  is_branch = branch_flag & io_out_bits_ctrl_signal_inst_valid & io_in_valid; // @[EXE.scala 436:68]
+  wire  is_jump = _jump_result_T & io_out_bits_ctrl_signal_inst_valid & io_in_valid; // @[EXE.scala 437:101]
+  wire  _io_branchIO_is_branch_T_1 = ~io_icache_busy; // @[EXE.scala 438:55]
+  wire  _io_is_flush_T_2 = is_branch | is_jump; // @[EXE.scala 441:41]
+  wire  _io_out_valid_T_1 = _mul_io_in_valid_T & is_mul; // @[EXE.scala 444:43]
+  wire  _io_out_valid_T_4 = _div_io_in_valid_T & is_div; // @[EXE.scala 444:78]
+  wire  _io_out_valid_T_11 = _io_is_flush_T_2 & io_icache_busy; // @[EXE.scala 444:148]
+  CSR_DIFF CSRDIFF ( // @[EXE.scala 120:21]
     .mepc(CSRDIFF_mepc),
     .mcause(CSRDIFF_mcause),
     .mstatus(CSRDIFF_mstatus),
     .mtvec(CSRDIFF_mtvec)
   );
-  MUL mul ( // @[EXE.scala 119:19]
+  MUL mul ( // @[EXE.scala 123:19]
     .clock(mul_clock),
     .reset(mul_reset),
     .io_in_valid(mul_io_in_valid),
@@ -1231,7 +1244,7 @@ module EXE(
     .io_out_valid(mul_io_out_valid),
     .io_out_bits_result_result_lo(mul_io_out_bits_result_result_lo)
   );
-  Radix_DIV div ( // @[EXE.scala 120:19]
+  Radix_DIV div ( // @[EXE.scala 124:19]
     .clock(div_clock),
     .reset(div_reset),
     .io_in_valid(div_io_in_valid),
@@ -1242,105 +1255,106 @@ module EXE(
     .io_out_bits_result_quotient(div_io_out_bits_result_quotient),
     .io_out_bits_result_remainder(div_io_out_bits_result_remainder)
   );
-  assign io_in_ready = (_io_out_valid_T_1 | _io_out_valid_T_4) & io_in_valid | _io_out_valid_T_11 ? 1'h0 : io_out_ready; // @[EXE.scala 438:21]
-  assign io_branchIO_is_branch = branch_flag & io_out_bits_ctrl_signal_inst_valid & io_in_valid & io_out_ready; // @[EXE.scala 434:91]
-  assign io_branchIO_is_jump = _jump_result_T & io_out_bits_ctrl_signal_inst_valid & io_in_valid & io_out_ready; // @[EXE.scala 435:129]
-  assign io_branchIO_dnpc = 7'h19 == io_in_bits_ctrl_signal_aluoptype ? _alu_result_T_1 : _GEN_289; // @[EXE.scala 360:44 362:12]
+  assign io_in_ready = (_io_out_valid_T_1 | _io_out_valid_T_4) & io_in_valid | _io_out_valid_T_11 ? 1'h0 : io_out_ready; // @[EXE.scala 445:21]
+  assign io_is_mem = io_in_valid & io_in_bits_ctrl_signal_fuType == 3'h4 & _io_is_mem_T_14; // @[EXE.scala 116:77]
+  assign io_branchIO_is_branch = is_branch & io_out_ready & ~io_icache_busy; // @[EXE.scala 438:53]
+  assign io_branchIO_is_jump = is_jump & io_out_ready & _io_branchIO_is_branch_T_1; // @[EXE.scala 439:53]
+  assign io_branchIO_dnpc = 7'h19 == io_in_bits_ctrl_signal_aluoptype ? _alu_result_T_1 : _GEN_289; // @[EXE.scala 364:44 366:12]
   assign io_out_valid = ~(_mul_io_in_valid_T & is_mul) & ~(_div_io_in_valid_T & is_div) & io_in_valid & ~(
-    _io_is_flush_T_2 & io_icache_busy); // @[EXE.scala 437:104]
-  assign io_out_bits_ctrl_signal_fuType = io_in_bits_ctrl_signal_fuType; // @[EXE.scala 420:27]
-  assign io_out_bits_ctrl_signal_inst_valid = io_in_bits_ctrl_signal_inst_valid; // @[EXE.scala 424:38]
-  assign io_out_bits_ctrl_signal_rfWen = io_in_bits_ctrl_signal_rfWen; // @[EXE.scala 420:27]
-  assign io_out_bits_ctrl_signal_aluoptype = io_in_bits_ctrl_signal_aluoptype; // @[EXE.scala 420:27]
-  assign io_out_bits_ctrl_flow_PC = io_in_bits_ctrl_flow_PC; // @[EXE.scala 421:25]
-  assign io_out_bits_ctrl_flow_inst = io_in_bits_ctrl_flow_inst; // @[EXE.scala 421:25]
-  assign io_out_bits_ctrl_flow_Dnpc = 7'h19 == io_in_bits_ctrl_signal_aluoptype ? _alu_result_T_1 : _GEN_289; // @[EXE.scala 360:44 362:12]
-  assign io_out_bits_ctrl_rf_rfDest = io_in_bits_ctrl_signal_rfDest; // @[EXE.scala 430:30]
-  assign io_out_bits_ctrl_rf_rfWen = io_in_valid & io_in_bits_ctrl_signal_rfWen; // @[EXE.scala 431:35]
-  assign io_out_bits_ctrl_rf_rfData = 3'h0 == io_in_bits_ctrl_signal_fuType ? alu_result : _GEN_209; // @[EXE.scala 291:41 293:18]
-  assign io_out_bits_ctrl_data_src1 = 3'h0 == io_in_bits_ctrl_signal_src1Type ? io_src1 : _GEN_1; // @[EXE.scala 125:43 127:12]
-  assign io_out_bits_ctrl_data_src2 = 3'h0 == io_in_bits_ctrl_signal_src2Type ? io_src2 : _GEN_3; // @[EXE.scala 136:43 139:12]
-  assign io_out_bits_ctrl_data_Imm = io_in_bits_ctrl_data_Imm; // @[EXE.scala 422:25]
-  assign io_is_break = io_in_bits_ctrl_signal_aluoptype == 7'h42 & io_out_bits_ctrl_signal_inst_valid; // @[EXE.scala 416:77]
-  assign io_is_flush = (branch_flag | io_branchIO_is_jump) & io_in_valid & ~io_icache_busy; // @[EXE.scala 415:90]
-  assign CSRDIFF_mepc = CSRDIFF_io_mepc_REG_1; // @[EXE.scala 412:19]
-  assign CSRDIFF_mcause = CSRDIFF_io_mcause_REG_1; // @[EXE.scala 411:21]
-  assign CSRDIFF_mstatus = CSRDIFF_io_mstatus_REG_1; // @[EXE.scala 413:22]
-  assign CSRDIFF_mtvec = CSRDIFF_io_mtvec_REG_1; // @[EXE.scala 410:20]
+    _io_is_flush_T_2 & io_icache_busy); // @[EXE.scala 444:104]
+  assign io_out_bits_ctrl_signal_fuType = io_in_bits_ctrl_signal_fuType; // @[EXE.scala 421:27]
+  assign io_out_bits_ctrl_signal_inst_valid = io_in_bits_ctrl_signal_inst_valid; // @[EXE.scala 425:38]
+  assign io_out_bits_ctrl_signal_rfWen = io_in_bits_ctrl_signal_rfWen; // @[EXE.scala 421:27]
+  assign io_out_bits_ctrl_signal_aluoptype = io_in_bits_ctrl_signal_aluoptype; // @[EXE.scala 421:27]
+  assign io_out_bits_ctrl_flow_PC = io_in_bits_ctrl_flow_PC; // @[EXE.scala 422:25]
+  assign io_out_bits_ctrl_flow_inst = io_in_bits_ctrl_flow_inst; // @[EXE.scala 422:25]
+  assign io_out_bits_ctrl_flow_Dnpc = 7'h19 == io_in_bits_ctrl_signal_aluoptype ? _alu_result_T_1 : _GEN_289; // @[EXE.scala 364:44 366:12]
+  assign io_out_bits_ctrl_rf_rfDest = io_in_bits_ctrl_signal_rfDest; // @[EXE.scala 431:30]
+  assign io_out_bits_ctrl_rf_rfWen = io_in_valid & io_in_bits_ctrl_signal_rfWen; // @[EXE.scala 432:35]
+  assign io_out_bits_ctrl_rf_rfData = 3'h0 == io_in_bits_ctrl_signal_fuType ? alu_result : _GEN_209; // @[EXE.scala 295:41 297:18]
+  assign io_out_bits_ctrl_data_src1 = 3'h0 == io_in_bits_ctrl_signal_src1Type ? io_in_bits_ctrl_data_src1 : _GEN_1; // @[EXE.scala 129:43 131:12]
+  assign io_out_bits_ctrl_data_src2 = 3'h0 == io_in_bits_ctrl_signal_src2Type ? io_in_bits_ctrl_data_src2 : _GEN_3; // @[EXE.scala 140:43 143:12]
+  assign io_out_bits_ctrl_data_Imm = io_in_bits_ctrl_data_Imm; // @[EXE.scala 423:25]
+  assign io_is_break = io_in_bits_ctrl_signal_aluoptype == 7'h42 & io_out_bits_ctrl_signal_inst_valid; // @[EXE.scala 442:77]
+  assign io_is_flush = (is_branch | is_jump) & io_in_valid & io_out_ready & _io_branchIO_is_branch_T_1; // @[EXE.scala 441:91]
+  assign CSRDIFF_mepc = CSRDIFF_io_mepc_REG_1; // @[EXE.scala 416:19]
+  assign CSRDIFF_mcause = CSRDIFF_io_mcause_REG_1; // @[EXE.scala 415:21]
+  assign CSRDIFF_mstatus = CSRDIFF_io_mstatus_REG_1; // @[EXE.scala 417:22]
+  assign CSRDIFF_mtvec = CSRDIFF_io_mtvec_REG_1; // @[EXE.scala 414:20]
   assign mul_clock = clock;
   assign mul_reset = reset;
-  assign mul_io_in_valid = is_mul & ~mul_io_out_valid; // @[EXE.scala 264:33]
-  assign mul_io_in_bits_ctrl_data_src1 = is_mul ? src1 : _mul_io_in_bits_ctrl_data_src1_T_2; // @[EXE.scala 260:39]
-  assign mul_io_in_bits_ctrl_data_src2 = is_mul ? src2 : _mul_io_in_bits_ctrl_data_src2_T_2; // @[EXE.scala 261:39]
+  assign mul_io_in_valid = is_mul & ~mul_io_out_valid; // @[EXE.scala 268:33]
+  assign mul_io_in_bits_ctrl_data_src1 = is_mul ? src1 : _mul_io_in_bits_ctrl_data_src1_T_2; // @[EXE.scala 264:39]
+  assign mul_io_in_bits_ctrl_data_src2 = is_mul ? src2 : _mul_io_in_bits_ctrl_data_src2_T_2; // @[EXE.scala 265:39]
   assign div_clock = clock;
   assign div_reset = reset;
-  assign div_io_in_valid = is_div & ~div_io_out_valid; // @[EXE.scala 272:33]
-  assign div_io_in_bits_ctrl_flow_div_signed = _is_div_sign_T_2 | _is_div_T_7 | _is_div_T_11; // @[EXE.scala 113:59]
-  assign div_io_in_bits_ctrl_data_src1 = is_divw ? _div_io_in_bits_ctrl_data_src1_T_7 : src1; // @[EXE.scala 270:39]
-  assign div_io_in_bits_ctrl_data_src2 = is_divw ? _div_io_in_bits_ctrl_data_src2_T_7 : src2; // @[EXE.scala 271:39]
+  assign div_io_in_valid = is_div & ~div_io_out_valid; // @[EXE.scala 276:33]
+  assign div_io_in_bits_ctrl_flow_div_signed = _is_div_sign_T_2 | _is_div_T_7 | _is_div_T_11; // @[EXE.scala 115:59]
+  assign div_io_in_bits_ctrl_data_src1 = is_divw ? _div_io_in_bits_ctrl_data_src1_T_7 : src1; // @[EXE.scala 274:39]
+  assign div_io_in_bits_ctrl_data_src2 = is_divw ? _div_io_in_bits_ctrl_data_src2_T_7 : src2; // @[EXE.scala 275:39]
   always @(posedge clock) begin
-    if (_T_77) begin // @[EXE.scala 395:44]
+    if (_T_77) begin // @[EXE.scala 399:44]
       mepc <= io_in_bits_ctrl_flow_PC;
-    end else if (!(7'h40 == io_in_bits_ctrl_signal_aluoptype)) begin // @[EXE.scala 157:44]
-      if (!(7'h1a == io_in_bits_ctrl_signal_aluoptype)) begin // @[EXE.scala 157:44]
-        if (!(7'h68 == io_in_bits_ctrl_signal_aluoptype)) begin // @[EXE.scala 157:44]
+    end else if (!(7'h40 == io_in_bits_ctrl_signal_aluoptype)) begin // @[EXE.scala 161:44]
+      if (!(7'h1a == io_in_bits_ctrl_signal_aluoptype)) begin // @[EXE.scala 161:44]
+        if (!(7'h68 == io_in_bits_ctrl_signal_aluoptype)) begin // @[EXE.scala 161:44]
           mepc <= _GEN_169;
         end
       end
     end
     if (reset) begin // @[CSR.scala 19:23]
       mcause <= 64'h0; // @[CSR.scala 19:23]
-    end else if (_T_77) begin // @[EXE.scala 395:44]
+    end else if (_T_77) begin // @[EXE.scala 399:44]
       mcause <= 64'hb;
-    end else if (!(7'h40 == io_in_bits_ctrl_signal_aluoptype)) begin // @[EXE.scala 157:44]
-      if (!(7'h1a == io_in_bits_ctrl_signal_aluoptype)) begin // @[EXE.scala 157:44]
+    end else if (!(7'h40 == io_in_bits_ctrl_signal_aluoptype)) begin // @[EXE.scala 161:44]
+      if (!(7'h1a == io_in_bits_ctrl_signal_aluoptype)) begin // @[EXE.scala 161:44]
         mcause <= _GEN_177;
       end
     end
     if (reset) begin // @[CSR.scala 20:24]
       mstatus <= 64'h0; // @[CSR.scala 20:24]
-    end else if (_T_77) begin // @[EXE.scala 348:44]
+    end else if (_T_77) begin // @[EXE.scala 352:44]
       mstatus <= _T_92;
-    end else if (_T_78) begin // @[EXE.scala 348:44]
+    end else if (_T_78) begin // @[EXE.scala 352:44]
       mstatus <= _T_112;
-    end else if (!(7'h40 == io_in_bits_ctrl_signal_aluoptype)) begin // @[EXE.scala 157:44]
+    end else if (!(7'h40 == io_in_bits_ctrl_signal_aluoptype)) begin // @[EXE.scala 161:44]
       mstatus <= _GEN_181;
     end
     if (reset) begin // @[CSR.scala 21:22]
       mtvec <= 64'h0; // @[CSR.scala 21:22]
-    end else if (!(7'h40 == io_in_bits_ctrl_signal_aluoptype)) begin // @[EXE.scala 157:44]
-      if (!(7'h1a == io_in_bits_ctrl_signal_aluoptype)) begin // @[EXE.scala 157:44]
-        if (!(7'h68 == io_in_bits_ctrl_signal_aluoptype)) begin // @[EXE.scala 157:44]
+    end else if (!(7'h40 == io_in_bits_ctrl_signal_aluoptype)) begin // @[EXE.scala 161:44]
+      if (!(7'h1a == io_in_bits_ctrl_signal_aluoptype)) begin // @[EXE.scala 161:44]
+        if (!(7'h68 == io_in_bits_ctrl_signal_aluoptype)) begin // @[EXE.scala 161:44]
           mtvec <= _GEN_168;
         end
       end
     end
     if (reset) begin // @[CSR.scala 22:20]
       mie <= 64'h0; // @[CSR.scala 22:20]
-    end else if (!(7'h40 == io_in_bits_ctrl_signal_aluoptype)) begin // @[EXE.scala 157:44]
-      if (!(7'h1a == io_in_bits_ctrl_signal_aluoptype)) begin // @[EXE.scala 157:44]
-        if (!(7'h68 == io_in_bits_ctrl_signal_aluoptype)) begin // @[EXE.scala 157:44]
+    end else if (!(7'h40 == io_in_bits_ctrl_signal_aluoptype)) begin // @[EXE.scala 161:44]
+      if (!(7'h1a == io_in_bits_ctrl_signal_aluoptype)) begin // @[EXE.scala 161:44]
+        if (!(7'h68 == io_in_bits_ctrl_signal_aluoptype)) begin // @[EXE.scala 161:44]
           mie <= _GEN_171;
         end
       end
     end
     if (reset) begin // @[CSR.scala 23:20]
       mip <= 64'h0; // @[CSR.scala 23:20]
-    end else if (!(7'h40 == io_in_bits_ctrl_signal_aluoptype)) begin // @[EXE.scala 157:44]
-      if (!(7'h1a == io_in_bits_ctrl_signal_aluoptype)) begin // @[EXE.scala 157:44]
-        if (!(7'h68 == io_in_bits_ctrl_signal_aluoptype)) begin // @[EXE.scala 157:44]
+    end else if (!(7'h40 == io_in_bits_ctrl_signal_aluoptype)) begin // @[EXE.scala 161:44]
+      if (!(7'h1a == io_in_bits_ctrl_signal_aluoptype)) begin // @[EXE.scala 161:44]
+        if (!(7'h68 == io_in_bits_ctrl_signal_aluoptype)) begin // @[EXE.scala 161:44]
           mip <= _GEN_172;
         end
       end
     end
-    CSRDIFF_io_mtvec_REG <= mtvec; // @[EXE.scala 410:38]
-    CSRDIFF_io_mtvec_REG_1 <= CSRDIFF_io_mtvec_REG; // @[EXE.scala 410:30]
-    CSRDIFF_io_mcause_REG <= mcause; // @[EXE.scala 411:39]
-    CSRDIFF_io_mcause_REG_1 <= CSRDIFF_io_mcause_REG; // @[EXE.scala 411:31]
-    CSRDIFF_io_mepc_REG <= mepc; // @[EXE.scala 412:37]
-    CSRDIFF_io_mepc_REG_1 <= CSRDIFF_io_mepc_REG; // @[EXE.scala 412:29]
-    CSRDIFF_io_mstatus_REG <= mstatus; // @[EXE.scala 413:40]
-    CSRDIFF_io_mstatus_REG_1 <= CSRDIFF_io_mstatus_REG; // @[EXE.scala 413:32]
+    CSRDIFF_io_mtvec_REG <= mtvec; // @[EXE.scala 414:38]
+    CSRDIFF_io_mtvec_REG_1 <= CSRDIFF_io_mtvec_REG; // @[EXE.scala 414:30]
+    CSRDIFF_io_mcause_REG <= mcause; // @[EXE.scala 415:39]
+    CSRDIFF_io_mcause_REG_1 <= CSRDIFF_io_mcause_REG; // @[EXE.scala 415:31]
+    CSRDIFF_io_mepc_REG <= mepc; // @[EXE.scala 416:37]
+    CSRDIFF_io_mepc_REG_1 <= CSRDIFF_io_mepc_REG; // @[EXE.scala 416:29]
+    CSRDIFF_io_mstatus_REG <= mstatus; // @[EXE.scala 417:40]
+    CSRDIFF_io_mstatus_REG_1 <= CSRDIFF_io_mstatus_REG; // @[EXE.scala 417:32]
   end
 // Register and memory initialization
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
@@ -1662,23 +1676,6 @@ module Bypass(
   wire [63:0] _reg2_temp_T_16 = _reg2_temp_T_9 ? io_MEM_rf_rfData : _reg2_temp_T_15; // @[Mux.scala 47:70]
   assign io_Bypass_REG1 = _reg1_temp_T_4 ? io_EX_rf_rfData : _reg1_temp_T_16; // @[Mux.scala 47:70]
   assign io_Bypass_REG2 = _reg2_temp_T_4 ? io_EX_rf_rfData : _reg2_temp_T_16; // @[Mux.scala 47:70]
-endmodule
-module MEM_Bypass(
-  input  [4:0]  io_MEM_rf_rfDest,
-  input         io_MEM_rf_rfWen,
-  input  [63:0] io_MEM_rf_rfData,
-  input  [63:0] io_Reg1,
-  input  [4:0]  io_reg_index1,
-  input  [63:0] io_Reg2,
-  input  [4:0]  io_reg_index2,
-  output [63:0] io_Bypass_REG1,
-  output [63:0] io_Bypass_REG2
-);
-  wire  _reg1_temp_T_3 = io_MEM_rf_rfDest != 5'h0; // @[Bypass.scala 66:95]
-  wire  _reg1_temp_T_4 = io_MEM_rf_rfWen & io_MEM_rf_rfDest == io_reg_index1 & io_MEM_rf_rfDest != 5'h0; // @[Bypass.scala 66:75]
-  wire  _reg2_temp_T_4 = io_MEM_rf_rfWen & io_MEM_rf_rfDest == io_reg_index2 & _reg1_temp_T_3; // @[Bypass.scala 72:75]
-  assign io_Bypass_REG1 = _reg1_temp_T_4 ? io_MEM_rf_rfData : io_Reg1; // @[Mux.scala 47:70]
-  assign io_Bypass_REG2 = _reg2_temp_T_4 ? io_MEM_rf_rfData : io_Reg2; // @[Mux.scala 47:70]
 endmodule
 module Cache_Data(
   input          clock,
@@ -3696,42 +3693,40 @@ module CoreTop(
   reg [31:0] _RAND_72;
   reg [31:0] _RAND_73;
   reg [31:0] _RAND_74;
-  reg [31:0] _RAND_75;
-  reg [31:0] _RAND_76;
+  reg [63:0] _RAND_75;
+  reg [63:0] _RAND_76;
   reg [63:0] _RAND_77;
   reg [63:0] _RAND_78;
-  reg [63:0] _RAND_79;
-  reg [63:0] _RAND_80;
+  reg [31:0] _RAND_79;
+  reg [31:0] _RAND_80;
   reg [31:0] _RAND_81;
   reg [31:0] _RAND_82;
   reg [31:0] _RAND_83;
   reg [31:0] _RAND_84;
-  reg [31:0] _RAND_85;
+  reg [63:0] _RAND_85;
   reg [31:0] _RAND_86;
   reg [63:0] _RAND_87;
   reg [31:0] _RAND_88;
   reg [63:0] _RAND_89;
-  reg [31:0] _RAND_90;
+  reg [63:0] _RAND_90;
   reg [63:0] _RAND_91;
   reg [63:0] _RAND_92;
-  reg [63:0] _RAND_93;
-  reg [63:0] _RAND_94;
+  reg [31:0] _RAND_93;
+  reg [31:0] _RAND_94;
   reg [31:0] _RAND_95;
-  reg [31:0] _RAND_96;
+  reg [63:0] _RAND_96;
   reg [31:0] _RAND_97;
   reg [63:0] _RAND_98;
   reg [31:0] _RAND_99;
-  reg [63:0] _RAND_100;
-  reg [31:0] _RAND_101;
+  reg [31:0] _RAND_100;
+  reg [63:0] _RAND_101;
   reg [31:0] _RAND_102;
-  reg [63:0] _RAND_103;
+  reg [31:0] _RAND_103;
   reg [31:0] _RAND_104;
   reg [31:0] _RAND_105;
   reg [31:0] _RAND_106;
-  reg [31:0] _RAND_107;
-  reg [31:0] _RAND_108;
-  reg [63:0] _RAND_109;
-  reg [63:0] _RAND_110;
+  reg [63:0] _RAND_107;
+  reg [63:0] _RAND_108;
 `endif // RANDOMIZE_REG_INIT
   wire  IF_clock; // @[CoreTop.scala 122:18]
   wire  IF_reset; // @[CoreTop.scala 122:18]
@@ -3754,6 +3749,9 @@ module CoreTop(
   wire [63:0] ID_io_REG1; // @[CoreTop.scala 127:18]
   wire [63:0] ID_io_REG2; // @[CoreTop.scala 127:18]
   wire  ID_io_flush; // @[CoreTop.scala 127:18]
+  wire  ID_io_ex_is_mem; // @[CoreTop.scala 127:18]
+  wire [4:0] ID_io_ex_reg_rfDest; // @[CoreTop.scala 127:18]
+  wire  ID_io_ex_reg_rfWen; // @[CoreTop.scala 127:18]
   wire  ID_io_out_ready; // @[CoreTop.scala 127:18]
   wire  ID_io_out_valid; // @[CoreTop.scala 127:18]
   wire [2:0] ID_io_out_bits_ctrl_signal_src1Type; // @[CoreTop.scala 127:18]
@@ -3778,8 +3776,6 @@ module CoreTop(
   wire [2:0] EX_io_in_bits_ctrl_signal_src2Type; // @[CoreTop.scala 129:18]
   wire [2:0] EX_io_in_bits_ctrl_signal_fuType; // @[CoreTop.scala 129:18]
   wire  EX_io_in_bits_ctrl_signal_inst_valid; // @[CoreTop.scala 129:18]
-  wire [4:0] EX_io_in_bits_ctrl_signal_rfSrc1; // @[CoreTop.scala 129:18]
-  wire [4:0] EX_io_in_bits_ctrl_signal_rfSrc2; // @[CoreTop.scala 129:18]
   wire  EX_io_in_bits_ctrl_signal_rfWen; // @[CoreTop.scala 129:18]
   wire [6:0] EX_io_in_bits_ctrl_signal_aluoptype; // @[CoreTop.scala 129:18]
   wire [4:0] EX_io_in_bits_ctrl_signal_rfDest; // @[CoreTop.scala 129:18]
@@ -3788,8 +3784,7 @@ module CoreTop(
   wire [63:0] EX_io_in_bits_ctrl_data_Imm; // @[CoreTop.scala 129:18]
   wire [63:0] EX_io_in_bits_ctrl_flow_PC; // @[CoreTop.scala 129:18]
   wire [31:0] EX_io_in_bits_ctrl_flow_inst; // @[CoreTop.scala 129:18]
-  wire [63:0] EX_io_src1; // @[CoreTop.scala 129:18]
-  wire [63:0] EX_io_src2; // @[CoreTop.scala 129:18]
+  wire  EX_io_is_mem; // @[CoreTop.scala 129:18]
   wire  EX_io_branchIO_is_branch; // @[CoreTop.scala 129:18]
   wire  EX_io_branchIO_is_jump; // @[CoreTop.scala 129:18]
   wire [63:0] EX_io_branchIO_dnpc; // @[CoreTop.scala 129:18]
@@ -4024,15 +4019,6 @@ module CoreTop(
   wire [4:0] bypass_io_reg_index2; // @[CoreTop.scala 141:22]
   wire [63:0] bypass_io_Bypass_REG1; // @[CoreTop.scala 141:22]
   wire [63:0] bypass_io_Bypass_REG2; // @[CoreTop.scala 141:22]
-  wire [4:0] mem_bypass_io_MEM_rf_rfDest; // @[CoreTop.scala 143:25]
-  wire  mem_bypass_io_MEM_rf_rfWen; // @[CoreTop.scala 143:25]
-  wire [63:0] mem_bypass_io_MEM_rf_rfData; // @[CoreTop.scala 143:25]
-  wire [63:0] mem_bypass_io_Reg1; // @[CoreTop.scala 143:25]
-  wire [4:0] mem_bypass_io_reg_index1; // @[CoreTop.scala 143:25]
-  wire [63:0] mem_bypass_io_Reg2; // @[CoreTop.scala 143:25]
-  wire [4:0] mem_bypass_io_reg_index2; // @[CoreTop.scala 143:25]
-  wire [63:0] mem_bypass_io_Bypass_REG1; // @[CoreTop.scala 143:25]
-  wire [63:0] mem_bypass_io_Bypass_REG2; // @[CoreTop.scala 143:25]
   wire  ICACHE_clock; // @[CoreTop.scala 145:22]
   wire  ICACHE_reset; // @[CoreTop.scala 145:22]
   wire  ICACHE_io_in_addr_req_valid; // @[CoreTop.scala 145:22]
@@ -4169,10 +4155,10 @@ module CoreTop(
   wire  MMIO_io_out_wb_valid; // @[CoreTop.scala 155:20]
   wire [1:0] MMIO_io_out_wb_bits_breap; // @[CoreTop.scala 155:20]
   wire  _T = ID_io_out_ready & ID_io_out_valid; // @[Decoupled.scala 50:35]
-  reg [4:0] head; // @[Pipline.scala 29:23]
-  reg [4:0] tail; // @[Pipline.scala 30:23]
+  reg [5:0] head; // @[Pipline.scala 29:23]
+  reg [5:0] tail; // @[Pipline.scala 30:23]
   wire  empty = head == tail; // @[Pipline.scala 31:22]
-  wire  full = head[3:0] == tail[3:0] & (head[4] ^ tail[4]); // @[Pipline.scala 32:43]
+  wire  full = head[4:0] == tail[4:0] & (head[5] ^ tail[5]); // @[Pipline.scala 32:43]
   reg [63:0] buffer_0_PC; // @[Pipline.scala 34:21]
   reg [31:0] buffer_0_Inst; // @[Pipline.scala 34:21]
   reg [63:0] buffer_1_PC; // @[Pipline.scala 34:21]
@@ -4237,82 +4223,79 @@ module CoreTop(
   reg [31:0] buffer_30_Inst; // @[Pipline.scala 34:21]
   reg [63:0] buffer_31_PC; // @[Pipline.scala 34:21]
   reg [31:0] buffer_31_Inst; // @[Pipline.scala 34:21]
-  wire [4:0] _tail_T_1 = tail + 5'h1; // @[Pipline.scala 37:20]
-  wire [4:0] _head_T_1 = head + 5'h1; // @[Pipline.scala 40:20]
-  wire [31:0] _buffer_head_Inst = IF_io_out_bits_Inst; // @[Pipline.scala 41:{20,20}]
-  wire [63:0] _buffer_head_PC = IF_io_out_bits_PC; // @[Pipline.scala 41:{20,20}]
-  wire [31:0] _GEN_133 = 4'h1 == tail[3:0] ? buffer_1_Inst : buffer_0_Inst; // @[Pipline.scala 47:{16,16}]
-  wire [31:0] _GEN_134 = 4'h2 == tail[3:0] ? buffer_2_Inst : _GEN_133; // @[Pipline.scala 47:{16,16}]
-  wire [31:0] _GEN_135 = 4'h3 == tail[3:0] ? buffer_3_Inst : _GEN_134; // @[Pipline.scala 47:{16,16}]
-  wire [31:0] _GEN_136 = 4'h4 == tail[3:0] ? buffer_4_Inst : _GEN_135; // @[Pipline.scala 47:{16,16}]
-  wire [31:0] _GEN_137 = 4'h5 == tail[3:0] ? buffer_5_Inst : _GEN_136; // @[Pipline.scala 47:{16,16}]
-  wire [31:0] _GEN_138 = 4'h6 == tail[3:0] ? buffer_6_Inst : _GEN_137; // @[Pipline.scala 47:{16,16}]
-  wire [31:0] _GEN_139 = 4'h7 == tail[3:0] ? buffer_7_Inst : _GEN_138; // @[Pipline.scala 47:{16,16}]
-  wire [31:0] _GEN_140 = 4'h8 == tail[3:0] ? buffer_8_Inst : _GEN_139; // @[Pipline.scala 47:{16,16}]
-  wire [31:0] _GEN_141 = 4'h9 == tail[3:0] ? buffer_9_Inst : _GEN_140; // @[Pipline.scala 47:{16,16}]
-  wire [31:0] _GEN_142 = 4'ha == tail[3:0] ? buffer_10_Inst : _GEN_141; // @[Pipline.scala 47:{16,16}]
-  wire [31:0] _GEN_143 = 4'hb == tail[3:0] ? buffer_11_Inst : _GEN_142; // @[Pipline.scala 47:{16,16}]
-  wire [31:0] _GEN_144 = 4'hc == tail[3:0] ? buffer_12_Inst : _GEN_143; // @[Pipline.scala 47:{16,16}]
-  wire [31:0] _GEN_145 = 4'hd == tail[3:0] ? buffer_13_Inst : _GEN_144; // @[Pipline.scala 47:{16,16}]
-  wire [31:0] _GEN_146 = 4'he == tail[3:0] ? buffer_14_Inst : _GEN_145; // @[Pipline.scala 47:{16,16}]
-  wire [31:0] _GEN_147 = 4'hf == tail[3:0] ? buffer_15_Inst : _GEN_146; // @[Pipline.scala 47:{16,16}]
-  wire [4:0] _GEN_261 = {{1'd0}, tail[3:0]}; // @[Pipline.scala 47:{16,16}]
-  wire [31:0] _GEN_148 = 5'h10 == _GEN_261 ? buffer_16_Inst : _GEN_147; // @[Pipline.scala 47:{16,16}]
-  wire [31:0] _GEN_149 = 5'h11 == _GEN_261 ? buffer_17_Inst : _GEN_148; // @[Pipline.scala 47:{16,16}]
-  wire [31:0] _GEN_150 = 5'h12 == _GEN_261 ? buffer_18_Inst : _GEN_149; // @[Pipline.scala 47:{16,16}]
-  wire [31:0] _GEN_151 = 5'h13 == _GEN_261 ? buffer_19_Inst : _GEN_150; // @[Pipline.scala 47:{16,16}]
-  wire [31:0] _GEN_152 = 5'h14 == _GEN_261 ? buffer_20_Inst : _GEN_151; // @[Pipline.scala 47:{16,16}]
-  wire [31:0] _GEN_153 = 5'h15 == _GEN_261 ? buffer_21_Inst : _GEN_152; // @[Pipline.scala 47:{16,16}]
-  wire [31:0] _GEN_154 = 5'h16 == _GEN_261 ? buffer_22_Inst : _GEN_153; // @[Pipline.scala 47:{16,16}]
-  wire [31:0] _GEN_155 = 5'h17 == _GEN_261 ? buffer_23_Inst : _GEN_154; // @[Pipline.scala 47:{16,16}]
-  wire [31:0] _GEN_156 = 5'h18 == _GEN_261 ? buffer_24_Inst : _GEN_155; // @[Pipline.scala 47:{16,16}]
-  wire [31:0] _GEN_157 = 5'h19 == _GEN_261 ? buffer_25_Inst : _GEN_156; // @[Pipline.scala 47:{16,16}]
-  wire [31:0] _GEN_158 = 5'h1a == _GEN_261 ? buffer_26_Inst : _GEN_157; // @[Pipline.scala 47:{16,16}]
-  wire [31:0] _GEN_159 = 5'h1b == _GEN_261 ? buffer_27_Inst : _GEN_158; // @[Pipline.scala 47:{16,16}]
-  wire [31:0] _GEN_160 = 5'h1c == _GEN_261 ? buffer_28_Inst : _GEN_159; // @[Pipline.scala 47:{16,16}]
-  wire [31:0] _GEN_161 = 5'h1d == _GEN_261 ? buffer_29_Inst : _GEN_160; // @[Pipline.scala 47:{16,16}]
-  wire [31:0] _GEN_162 = 5'h1e == _GEN_261 ? buffer_30_Inst : _GEN_161; // @[Pipline.scala 47:{16,16}]
-  wire [63:0] _GEN_165 = 4'h1 == tail[3:0] ? buffer_1_PC : buffer_0_PC; // @[Pipline.scala 47:{16,16}]
-  wire [63:0] _GEN_166 = 4'h2 == tail[3:0] ? buffer_2_PC : _GEN_165; // @[Pipline.scala 47:{16,16}]
-  wire [63:0] _GEN_167 = 4'h3 == tail[3:0] ? buffer_3_PC : _GEN_166; // @[Pipline.scala 47:{16,16}]
-  wire [63:0] _GEN_168 = 4'h4 == tail[3:0] ? buffer_4_PC : _GEN_167; // @[Pipline.scala 47:{16,16}]
-  wire [63:0] _GEN_169 = 4'h5 == tail[3:0] ? buffer_5_PC : _GEN_168; // @[Pipline.scala 47:{16,16}]
-  wire [63:0] _GEN_170 = 4'h6 == tail[3:0] ? buffer_6_PC : _GEN_169; // @[Pipline.scala 47:{16,16}]
-  wire [63:0] _GEN_171 = 4'h7 == tail[3:0] ? buffer_7_PC : _GEN_170; // @[Pipline.scala 47:{16,16}]
-  wire [63:0] _GEN_172 = 4'h8 == tail[3:0] ? buffer_8_PC : _GEN_171; // @[Pipline.scala 47:{16,16}]
-  wire [63:0] _GEN_173 = 4'h9 == tail[3:0] ? buffer_9_PC : _GEN_172; // @[Pipline.scala 47:{16,16}]
-  wire [63:0] _GEN_174 = 4'ha == tail[3:0] ? buffer_10_PC : _GEN_173; // @[Pipline.scala 47:{16,16}]
-  wire [63:0] _GEN_175 = 4'hb == tail[3:0] ? buffer_11_PC : _GEN_174; // @[Pipline.scala 47:{16,16}]
-  wire [63:0] _GEN_176 = 4'hc == tail[3:0] ? buffer_12_PC : _GEN_175; // @[Pipline.scala 47:{16,16}]
-  wire [63:0] _GEN_177 = 4'hd == tail[3:0] ? buffer_13_PC : _GEN_176; // @[Pipline.scala 47:{16,16}]
-  wire [63:0] _GEN_178 = 4'he == tail[3:0] ? buffer_14_PC : _GEN_177; // @[Pipline.scala 47:{16,16}]
-  wire [63:0] _GEN_179 = 4'hf == tail[3:0] ? buffer_15_PC : _GEN_178; // @[Pipline.scala 47:{16,16}]
-  wire [63:0] _GEN_180 = 5'h10 == _GEN_261 ? buffer_16_PC : _GEN_179; // @[Pipline.scala 47:{16,16}]
-  wire [63:0] _GEN_181 = 5'h11 == _GEN_261 ? buffer_17_PC : _GEN_180; // @[Pipline.scala 47:{16,16}]
-  wire [63:0] _GEN_182 = 5'h12 == _GEN_261 ? buffer_18_PC : _GEN_181; // @[Pipline.scala 47:{16,16}]
-  wire [63:0] _GEN_183 = 5'h13 == _GEN_261 ? buffer_19_PC : _GEN_182; // @[Pipline.scala 47:{16,16}]
-  wire [63:0] _GEN_184 = 5'h14 == _GEN_261 ? buffer_20_PC : _GEN_183; // @[Pipline.scala 47:{16,16}]
-  wire [63:0] _GEN_185 = 5'h15 == _GEN_261 ? buffer_21_PC : _GEN_184; // @[Pipline.scala 47:{16,16}]
-  wire [63:0] _GEN_186 = 5'h16 == _GEN_261 ? buffer_22_PC : _GEN_185; // @[Pipline.scala 47:{16,16}]
-  wire [63:0] _GEN_187 = 5'h17 == _GEN_261 ? buffer_23_PC : _GEN_186; // @[Pipline.scala 47:{16,16}]
-  wire [63:0] _GEN_188 = 5'h18 == _GEN_261 ? buffer_24_PC : _GEN_187; // @[Pipline.scala 47:{16,16}]
-  wire [63:0] _GEN_189 = 5'h19 == _GEN_261 ? buffer_25_PC : _GEN_188; // @[Pipline.scala 47:{16,16}]
-  wire [63:0] _GEN_190 = 5'h1a == _GEN_261 ? buffer_26_PC : _GEN_189; // @[Pipline.scala 47:{16,16}]
-  wire [63:0] _GEN_191 = 5'h1b == _GEN_261 ? buffer_27_PC : _GEN_190; // @[Pipline.scala 47:{16,16}]
-  wire [63:0] _GEN_192 = 5'h1c == _GEN_261 ? buffer_28_PC : _GEN_191; // @[Pipline.scala 47:{16,16}]
-  wire [63:0] _GEN_193 = 5'h1d == _GEN_261 ? buffer_29_PC : _GEN_192; // @[Pipline.scala 47:{16,16}]
-  wire [63:0] _GEN_194 = 5'h1e == _GEN_261 ? buffer_30_PC : _GEN_193; // @[Pipline.scala 47:{16,16}]
-  wire  _T_3 = EX_io_out_ready & EX_io_out_valid; // @[Decoupled.scala 50:35]
+  wire [5:0] _tail_T_1 = tail + 6'h1; // @[Pipline.scala 37:20]
+  wire [5:0] _head_T_1 = head + 6'h1; // @[Pipline.scala 40:20]
+  wire [31:0] _buffer_T_3_Inst = IF_io_out_bits_Inst; // @[Pipline.scala 41:{25,25}]
+  wire [63:0] _buffer_T_3_PC = IF_io_out_bits_PC; // @[Pipline.scala 41:{25,25}]
+  wire [31:0] _GEN_133 = 5'h1 == tail[4:0] ? buffer_1_Inst : buffer_0_Inst; // @[Pipline.scala 47:{16,16}]
+  wire [31:0] _GEN_134 = 5'h2 == tail[4:0] ? buffer_2_Inst : _GEN_133; // @[Pipline.scala 47:{16,16}]
+  wire [31:0] _GEN_135 = 5'h3 == tail[4:0] ? buffer_3_Inst : _GEN_134; // @[Pipline.scala 47:{16,16}]
+  wire [31:0] _GEN_136 = 5'h4 == tail[4:0] ? buffer_4_Inst : _GEN_135; // @[Pipline.scala 47:{16,16}]
+  wire [31:0] _GEN_137 = 5'h5 == tail[4:0] ? buffer_5_Inst : _GEN_136; // @[Pipline.scala 47:{16,16}]
+  wire [31:0] _GEN_138 = 5'h6 == tail[4:0] ? buffer_6_Inst : _GEN_137; // @[Pipline.scala 47:{16,16}]
+  wire [31:0] _GEN_139 = 5'h7 == tail[4:0] ? buffer_7_Inst : _GEN_138; // @[Pipline.scala 47:{16,16}]
+  wire [31:0] _GEN_140 = 5'h8 == tail[4:0] ? buffer_8_Inst : _GEN_139; // @[Pipline.scala 47:{16,16}]
+  wire [31:0] _GEN_141 = 5'h9 == tail[4:0] ? buffer_9_Inst : _GEN_140; // @[Pipline.scala 47:{16,16}]
+  wire [31:0] _GEN_142 = 5'ha == tail[4:0] ? buffer_10_Inst : _GEN_141; // @[Pipline.scala 47:{16,16}]
+  wire [31:0] _GEN_143 = 5'hb == tail[4:0] ? buffer_11_Inst : _GEN_142; // @[Pipline.scala 47:{16,16}]
+  wire [31:0] _GEN_144 = 5'hc == tail[4:0] ? buffer_12_Inst : _GEN_143; // @[Pipline.scala 47:{16,16}]
+  wire [31:0] _GEN_145 = 5'hd == tail[4:0] ? buffer_13_Inst : _GEN_144; // @[Pipline.scala 47:{16,16}]
+  wire [31:0] _GEN_146 = 5'he == tail[4:0] ? buffer_14_Inst : _GEN_145; // @[Pipline.scala 47:{16,16}]
+  wire [31:0] _GEN_147 = 5'hf == tail[4:0] ? buffer_15_Inst : _GEN_146; // @[Pipline.scala 47:{16,16}]
+  wire [31:0] _GEN_148 = 5'h10 == tail[4:0] ? buffer_16_Inst : _GEN_147; // @[Pipline.scala 47:{16,16}]
+  wire [31:0] _GEN_149 = 5'h11 == tail[4:0] ? buffer_17_Inst : _GEN_148; // @[Pipline.scala 47:{16,16}]
+  wire [31:0] _GEN_150 = 5'h12 == tail[4:0] ? buffer_18_Inst : _GEN_149; // @[Pipline.scala 47:{16,16}]
+  wire [31:0] _GEN_151 = 5'h13 == tail[4:0] ? buffer_19_Inst : _GEN_150; // @[Pipline.scala 47:{16,16}]
+  wire [31:0] _GEN_152 = 5'h14 == tail[4:0] ? buffer_20_Inst : _GEN_151; // @[Pipline.scala 47:{16,16}]
+  wire [31:0] _GEN_153 = 5'h15 == tail[4:0] ? buffer_21_Inst : _GEN_152; // @[Pipline.scala 47:{16,16}]
+  wire [31:0] _GEN_154 = 5'h16 == tail[4:0] ? buffer_22_Inst : _GEN_153; // @[Pipline.scala 47:{16,16}]
+  wire [31:0] _GEN_155 = 5'h17 == tail[4:0] ? buffer_23_Inst : _GEN_154; // @[Pipline.scala 47:{16,16}]
+  wire [31:0] _GEN_156 = 5'h18 == tail[4:0] ? buffer_24_Inst : _GEN_155; // @[Pipline.scala 47:{16,16}]
+  wire [31:0] _GEN_157 = 5'h19 == tail[4:0] ? buffer_25_Inst : _GEN_156; // @[Pipline.scala 47:{16,16}]
+  wire [31:0] _GEN_158 = 5'h1a == tail[4:0] ? buffer_26_Inst : _GEN_157; // @[Pipline.scala 47:{16,16}]
+  wire [31:0] _GEN_159 = 5'h1b == tail[4:0] ? buffer_27_Inst : _GEN_158; // @[Pipline.scala 47:{16,16}]
+  wire [31:0] _GEN_160 = 5'h1c == tail[4:0] ? buffer_28_Inst : _GEN_159; // @[Pipline.scala 47:{16,16}]
+  wire [31:0] _GEN_161 = 5'h1d == tail[4:0] ? buffer_29_Inst : _GEN_160; // @[Pipline.scala 47:{16,16}]
+  wire [31:0] _GEN_162 = 5'h1e == tail[4:0] ? buffer_30_Inst : _GEN_161; // @[Pipline.scala 47:{16,16}]
+  wire [63:0] _GEN_165 = 5'h1 == tail[4:0] ? buffer_1_PC : buffer_0_PC; // @[Pipline.scala 47:{16,16}]
+  wire [63:0] _GEN_166 = 5'h2 == tail[4:0] ? buffer_2_PC : _GEN_165; // @[Pipline.scala 47:{16,16}]
+  wire [63:0] _GEN_167 = 5'h3 == tail[4:0] ? buffer_3_PC : _GEN_166; // @[Pipline.scala 47:{16,16}]
+  wire [63:0] _GEN_168 = 5'h4 == tail[4:0] ? buffer_4_PC : _GEN_167; // @[Pipline.scala 47:{16,16}]
+  wire [63:0] _GEN_169 = 5'h5 == tail[4:0] ? buffer_5_PC : _GEN_168; // @[Pipline.scala 47:{16,16}]
+  wire [63:0] _GEN_170 = 5'h6 == tail[4:0] ? buffer_6_PC : _GEN_169; // @[Pipline.scala 47:{16,16}]
+  wire [63:0] _GEN_171 = 5'h7 == tail[4:0] ? buffer_7_PC : _GEN_170; // @[Pipline.scala 47:{16,16}]
+  wire [63:0] _GEN_172 = 5'h8 == tail[4:0] ? buffer_8_PC : _GEN_171; // @[Pipline.scala 47:{16,16}]
+  wire [63:0] _GEN_173 = 5'h9 == tail[4:0] ? buffer_9_PC : _GEN_172; // @[Pipline.scala 47:{16,16}]
+  wire [63:0] _GEN_174 = 5'ha == tail[4:0] ? buffer_10_PC : _GEN_173; // @[Pipline.scala 47:{16,16}]
+  wire [63:0] _GEN_175 = 5'hb == tail[4:0] ? buffer_11_PC : _GEN_174; // @[Pipline.scala 47:{16,16}]
+  wire [63:0] _GEN_176 = 5'hc == tail[4:0] ? buffer_12_PC : _GEN_175; // @[Pipline.scala 47:{16,16}]
+  wire [63:0] _GEN_177 = 5'hd == tail[4:0] ? buffer_13_PC : _GEN_176; // @[Pipline.scala 47:{16,16}]
+  wire [63:0] _GEN_178 = 5'he == tail[4:0] ? buffer_14_PC : _GEN_177; // @[Pipline.scala 47:{16,16}]
+  wire [63:0] _GEN_179 = 5'hf == tail[4:0] ? buffer_15_PC : _GEN_178; // @[Pipline.scala 47:{16,16}]
+  wire [63:0] _GEN_180 = 5'h10 == tail[4:0] ? buffer_16_PC : _GEN_179; // @[Pipline.scala 47:{16,16}]
+  wire [63:0] _GEN_181 = 5'h11 == tail[4:0] ? buffer_17_PC : _GEN_180; // @[Pipline.scala 47:{16,16}]
+  wire [63:0] _GEN_182 = 5'h12 == tail[4:0] ? buffer_18_PC : _GEN_181; // @[Pipline.scala 47:{16,16}]
+  wire [63:0] _GEN_183 = 5'h13 == tail[4:0] ? buffer_19_PC : _GEN_182; // @[Pipline.scala 47:{16,16}]
+  wire [63:0] _GEN_184 = 5'h14 == tail[4:0] ? buffer_20_PC : _GEN_183; // @[Pipline.scala 47:{16,16}]
+  wire [63:0] _GEN_185 = 5'h15 == tail[4:0] ? buffer_21_PC : _GEN_184; // @[Pipline.scala 47:{16,16}]
+  wire [63:0] _GEN_186 = 5'h16 == tail[4:0] ? buffer_22_PC : _GEN_185; // @[Pipline.scala 47:{16,16}]
+  wire [63:0] _GEN_187 = 5'h17 == tail[4:0] ? buffer_23_PC : _GEN_186; // @[Pipline.scala 47:{16,16}]
+  wire [63:0] _GEN_188 = 5'h18 == tail[4:0] ? buffer_24_PC : _GEN_187; // @[Pipline.scala 47:{16,16}]
+  wire [63:0] _GEN_189 = 5'h19 == tail[4:0] ? buffer_25_PC : _GEN_188; // @[Pipline.scala 47:{16,16}]
+  wire [63:0] _GEN_190 = 5'h1a == tail[4:0] ? buffer_26_PC : _GEN_189; // @[Pipline.scala 47:{16,16}]
+  wire [63:0] _GEN_191 = 5'h1b == tail[4:0] ? buffer_27_PC : _GEN_190; // @[Pipline.scala 47:{16,16}]
+  wire [63:0] _GEN_192 = 5'h1c == tail[4:0] ? buffer_28_PC : _GEN_191; // @[Pipline.scala 47:{16,16}]
+  wire [63:0] _GEN_193 = 5'h1d == tail[4:0] ? buffer_29_PC : _GEN_192; // @[Pipline.scala 47:{16,16}]
+  wire [63:0] _GEN_194 = 5'h1e == tail[4:0] ? buffer_30_PC : _GEN_193; // @[Pipline.scala 47:{16,16}]
+  wire  _T_4 = EX_io_out_ready & EX_io_out_valid; // @[Decoupled.scala 50:35]
   reg  valid; // @[Pipline.scala 8:24]
-  wire  _GEN_196 = _T_3 ? 1'h0 : valid; // @[Pipline.scala 10:22 11:13 8:24]
-  wire  _T_4 = ID_io_out_valid & EX_io_in_ready; // @[Pipline.scala 13:21]
+  wire  _GEN_196 = _T_4 ? 1'h0 : valid; // @[Pipline.scala 10:22 11:13 8:24]
+  wire  _T_5 = ID_io_out_valid & EX_io_in_ready; // @[Pipline.scala 13:21]
   wire  _GEN_197 = ID_io_out_valid & EX_io_in_ready | _GEN_196; // @[Pipline.scala 13:37 14:13]
   reg [2:0] EX_io_in_bits_r_ctrl_signal_src1Type; // @[Reg.scala 16:16]
   reg [2:0] EX_io_in_bits_r_ctrl_signal_src2Type; // @[Reg.scala 16:16]
   reg [2:0] EX_io_in_bits_r_ctrl_signal_fuType; // @[Reg.scala 16:16]
   reg  EX_io_in_bits_r_ctrl_signal_inst_valid; // @[Reg.scala 16:16]
-  reg [4:0] EX_io_in_bits_r_ctrl_signal_rfSrc1; // @[Reg.scala 16:16]
-  reg [4:0] EX_io_in_bits_r_ctrl_signal_rfSrc2; // @[Reg.scala 16:16]
   reg  EX_io_in_bits_r_ctrl_signal_rfWen; // @[Reg.scala 16:16]
   reg [6:0] EX_io_in_bits_r_ctrl_signal_aluoptype; // @[Reg.scala 16:16]
   reg [4:0] EX_io_in_bits_r_ctrl_signal_rfDest; // @[Reg.scala 16:16]
@@ -4321,10 +4304,10 @@ module CoreTop(
   reg [63:0] EX_io_in_bits_r_ctrl_data_Imm; // @[Reg.scala 16:16]
   reg [63:0] EX_io_in_bits_r_ctrl_flow_PC; // @[Reg.scala 16:16]
   reg [31:0] EX_io_in_bits_r_ctrl_flow_inst; // @[Reg.scala 16:16]
-  wire  _T_6 = MEM_io_out_ready & MEM_io_out_valid; // @[Decoupled.scala 50:35]
+  wire  _T_7 = MEM_io_out_ready & MEM_io_out_valid; // @[Decoupled.scala 50:35]
   reg  valid_1; // @[Pipline.scala 8:24]
-  wire  _GEN_215 = _T_6 ? 1'h0 : valid_1; // @[Pipline.scala 10:22 11:13 8:24]
-  wire  _T_7 = EX_io_out_valid & MEM_io_in_ready; // @[Pipline.scala 13:21]
+  wire  _GEN_215 = _T_7 ? 1'h0 : valid_1; // @[Pipline.scala 10:22 11:13 8:24]
+  wire  _T_8 = EX_io_out_valid & MEM_io_in_ready; // @[Pipline.scala 13:21]
   wire  _GEN_216 = EX_io_out_valid & MEM_io_in_ready | _GEN_215; // @[Pipline.scala 13:37 14:13]
   reg [2:0] MEM_io_in_bits_r_ctrl_signal_fuType; // @[Reg.scala 16:16]
   reg  MEM_io_in_bits_r_ctrl_signal_inst_valid; // @[Reg.scala 16:16]
@@ -4338,10 +4321,10 @@ module CoreTop(
   reg [63:0] MEM_io_in_bits_r_ctrl_data_src1; // @[Reg.scala 16:16]
   reg [63:0] MEM_io_in_bits_r_ctrl_data_src2; // @[Reg.scala 16:16]
   reg [63:0] MEM_io_in_bits_r_ctrl_data_Imm; // @[Reg.scala 16:16]
-  wire  _T_9 = WB_io_out_ready & WB_io_out_valid; // @[Decoupled.scala 50:35]
+  wire  _T_10 = WB_io_out_ready & WB_io_out_valid; // @[Decoupled.scala 50:35]
   reg  valid_2; // @[Pipline.scala 8:24]
-  wire  _GEN_237 = _T_9 ? 1'h0 : valid_2; // @[Pipline.scala 10:22 11:13 8:24]
-  wire  _T_10 = MEM_io_out_valid; // @[Pipline.scala 13:21]
+  wire  _GEN_237 = _T_10 ? 1'h0 : valid_2; // @[Pipline.scala 10:22 11:13 8:24]
+  wire  _T_11 = MEM_io_out_valid; // @[Pipline.scala 13:21]
   wire  _GEN_238 = MEM_io_out_valid | _GEN_237; // @[Pipline.scala 13:37 14:13]
   reg  WB_io_in_bits_r_ctrl_signal_inst_valid; // @[Reg.scala 16:16]
   reg  WB_io_in_bits_r_ctrl_signal_rfWen; // @[Reg.scala 16:16]
@@ -4351,15 +4334,15 @@ module CoreTop(
   reg  WB_io_in_bits_r_ctrl_flow_skip; // @[Reg.scala 16:16]
   reg [4:0] WB_io_in_bits_r_ctrl_rf_rfDest; // @[Reg.scala 16:16]
   reg [63:0] WB_io_in_bits_r_ctrl_rf_rfData; // @[Reg.scala 16:16]
-  wire  _T_13 = WB_io_out_bits_ctrl_rf_rfDest == 5'h0; // @[RF.scala 9:61]
-  wire [63:0] _T_14 = WB_io_out_bits_ctrl_rf_rfData; // @[RF.scala 9:78]
-  reg  DIP_io_is_break_REG; // @[CoreTop.scala 294:37]
-  reg  DIP_io_is_break_REG_1; // @[CoreTop.scala 294:29]
-  reg [31:0] DIP_io_inst_REG; // @[CoreTop.scala 298:25]
-  reg  DIP_io_is_skip_REG; // @[CoreTop.scala 299:28]
-  reg  DIP_io_inst_valid_REG; // @[CoreTop.scala 300:31]
-  reg [63:0] DIP_io_pc_REG; // @[CoreTop.scala 301:23]
-  reg [63:0] DIP_io_dnpc_REG; // @[CoreTop.scala 302:25]
+  wire  _T_14 = WB_io_out_bits_ctrl_rf_rfDest == 5'h0; // @[RF.scala 9:61]
+  wire [63:0] _T_15 = WB_io_out_bits_ctrl_rf_rfData; // @[RF.scala 9:78]
+  reg  DIP_io_is_break_REG; // @[CoreTop.scala 296:37]
+  reg  DIP_io_is_break_REG_1; // @[CoreTop.scala 296:29]
+  reg [31:0] DIP_io_inst_REG; // @[CoreTop.scala 300:25]
+  reg  DIP_io_is_skip_REG; // @[CoreTop.scala 301:28]
+  reg  DIP_io_inst_valid_REG; // @[CoreTop.scala 302:31]
+  reg [63:0] DIP_io_pc_REG; // @[CoreTop.scala 303:23]
+  reg [63:0] DIP_io_dnpc_REG; // @[CoreTop.scala 304:25]
   IF IF ( // @[CoreTop.scala 122:18]
     .clock(IF_clock),
     .reset(IF_reset),
@@ -4384,6 +4367,9 @@ module CoreTop(
     .io_REG1(ID_io_REG1),
     .io_REG2(ID_io_REG2),
     .io_flush(ID_io_flush),
+    .io_ex_is_mem(ID_io_ex_is_mem),
+    .io_ex_reg_rfDest(ID_io_ex_reg_rfDest),
+    .io_ex_reg_rfWen(ID_io_ex_reg_rfWen),
     .io_out_ready(ID_io_out_ready),
     .io_out_valid(ID_io_out_valid),
     .io_out_bits_ctrl_signal_src1Type(ID_io_out_bits_ctrl_signal_src1Type),
@@ -4410,8 +4396,6 @@ module CoreTop(
     .io_in_bits_ctrl_signal_src2Type(EX_io_in_bits_ctrl_signal_src2Type),
     .io_in_bits_ctrl_signal_fuType(EX_io_in_bits_ctrl_signal_fuType),
     .io_in_bits_ctrl_signal_inst_valid(EX_io_in_bits_ctrl_signal_inst_valid),
-    .io_in_bits_ctrl_signal_rfSrc1(EX_io_in_bits_ctrl_signal_rfSrc1),
-    .io_in_bits_ctrl_signal_rfSrc2(EX_io_in_bits_ctrl_signal_rfSrc2),
     .io_in_bits_ctrl_signal_rfWen(EX_io_in_bits_ctrl_signal_rfWen),
     .io_in_bits_ctrl_signal_aluoptype(EX_io_in_bits_ctrl_signal_aluoptype),
     .io_in_bits_ctrl_signal_rfDest(EX_io_in_bits_ctrl_signal_rfDest),
@@ -4420,8 +4404,7 @@ module CoreTop(
     .io_in_bits_ctrl_data_Imm(EX_io_in_bits_ctrl_data_Imm),
     .io_in_bits_ctrl_flow_PC(EX_io_in_bits_ctrl_flow_PC),
     .io_in_bits_ctrl_flow_inst(EX_io_in_bits_ctrl_flow_inst),
-    .io_src1(EX_io_src1),
-    .io_src2(EX_io_src2),
+    .io_is_mem(EX_io_is_mem),
     .io_branchIO_is_branch(EX_io_branchIO_is_branch),
     .io_branchIO_is_jump(EX_io_branchIO_is_jump),
     .io_branchIO_dnpc(EX_io_branchIO_dnpc),
@@ -4557,17 +4540,6 @@ module CoreTop(
     .io_reg_index2(bypass_io_reg_index2),
     .io_Bypass_REG1(bypass_io_Bypass_REG1),
     .io_Bypass_REG2(bypass_io_Bypass_REG2)
-  );
-  MEM_Bypass mem_bypass ( // @[CoreTop.scala 143:25]
-    .io_MEM_rf_rfDest(mem_bypass_io_MEM_rf_rfDest),
-    .io_MEM_rf_rfWen(mem_bypass_io_MEM_rf_rfWen),
-    .io_MEM_rf_rfData(mem_bypass_io_MEM_rf_rfData),
-    .io_Reg1(mem_bypass_io_Reg1),
-    .io_reg_index1(mem_bypass_io_reg_index1),
-    .io_Reg2(mem_bypass_io_Reg2),
-    .io_reg_index2(mem_bypass_io_reg_index2),
-    .io_Bypass_REG1(mem_bypass_io_Bypass_REG1),
-    .io_Bypass_REG2(mem_bypass_io_Bypass_REG2)
   );
   Cache_Axi ICACHE ( // @[CoreTop.scala 145:22]
     .clock(ICACHE_clock),
@@ -4814,27 +4786,30 @@ module CoreTop(
   assign rf_DIP_io_rf_31_MPORT_en = 1'h1;
   assign rf_DIP_io_rf_31_MPORT_addr = 5'h1f;
   assign rf_DIP_io_rf_31_MPORT_data = rf[rf_DIP_io_rf_31_MPORT_addr]; // @[RF.scala 7:15]
-  assign rf_MPORT_data = _T_13 ? 64'h0 : _T_14;
+  assign rf_MPORT_data = _T_14 ? 64'h0 : _T_15;
   assign rf_MPORT_addr = WB_io_out_bits_ctrl_rf_rfDest;
   assign rf_MPORT_mask = 1'h1;
   assign rf_MPORT_en = WB_io_out_bits_ctrl_rf_rfWen;
-  assign io_pc = IF_io_out_bits_PC; // @[CoreTop.scala 304:9]
-  assign io_inst = WB_io_out_bits_ctrl_flow_inst; // @[CoreTop.scala 303:11]
+  assign io_pc = IF_io_out_bits_PC; // @[CoreTop.scala 306:9]
+  assign io_inst = WB_io_out_bits_ctrl_flow_inst; // @[CoreTop.scala 305:11]
   assign IF_clock = clock;
   assign IF_reset = reset;
-  assign IF_io_branch_io_is_branch = EX_io_branchIO_is_branch; // @[CoreTop.scala 260:19]
-  assign IF_io_branch_io_is_jump = EX_io_branchIO_is_jump; // @[CoreTop.scala 260:19]
-  assign IF_io_branch_io_dnpc = EX_io_branchIO_dnpc; // @[CoreTop.scala 260:19]
+  assign IF_io_branch_io_is_branch = EX_io_branchIO_is_branch; // @[CoreTop.scala 261:19]
+  assign IF_io_branch_io_is_jump = EX_io_branchIO_is_jump; // @[CoreTop.scala 261:19]
+  assign IF_io_branch_io_dnpc = EX_io_branchIO_dnpc; // @[CoreTop.scala 261:19]
   assign IF_io_cache_req_rdata_rep_valid = ICACHE_io_in_rdata_rep_valid; // @[CoreTop.scala 171:29]
   assign IF_io_cache_req_rdata_rep_bits_rdata = ICACHE_io_in_rdata_rep_bits_rdata; // @[CoreTop.scala 171:29]
   assign IF_io_out_ready = ~full; // @[Pipline.scala 48:19]
   assign IF_io_flush = EX_io_is_flush; // @[CoreTop.scala 247:15]
   assign ID_io_in_valid = ~empty; // @[Pipline.scala 49:20]
-  assign ID_io_in_bits_PC = 5'h1f == _GEN_261 ? buffer_31_PC : _GEN_194; // @[Pipline.scala 47:{16,16}]
-  assign ID_io_in_bits_Inst = 5'h1f == _GEN_261 ? buffer_31_Inst : _GEN_162; // @[Pipline.scala 47:{16,16}]
+  assign ID_io_in_bits_PC = 5'h1f == tail[4:0] ? buffer_31_PC : _GEN_194; // @[Pipline.scala 47:{16,16}]
+  assign ID_io_in_bits_Inst = 5'h1f == tail[4:0] ? buffer_31_Inst : _GEN_162; // @[Pipline.scala 47:{16,16}]
   assign ID_io_REG1 = bypass_io_Bypass_REG1; // @[CoreTop.scala 252:14]
   assign ID_io_REG2 = bypass_io_Bypass_REG2; // @[CoreTop.scala 253:14]
   assign ID_io_flush = EX_io_is_flush; // @[CoreTop.scala 254:15]
+  assign ID_io_ex_is_mem = EX_io_is_mem; // @[CoreTop.scala 255:19]
+  assign ID_io_ex_reg_rfDest = EX_io_out_bits_ctrl_rf_rfDest; // @[CoreTop.scala 256:16]
+  assign ID_io_ex_reg_rfWen = EX_io_out_bits_ctrl_rf_rfWen; // @[CoreTop.scala 256:16]
   assign ID_io_out_ready = EX_io_in_ready; // @[Pipline.scala 20:16]
   assign EX_clock = clock;
   assign EX_reset = reset;
@@ -4843,8 +4818,6 @@ module CoreTop(
   assign EX_io_in_bits_ctrl_signal_src2Type = EX_io_in_bits_r_ctrl_signal_src2Type; // @[Pipline.scala 21:16]
   assign EX_io_in_bits_ctrl_signal_fuType = EX_io_in_bits_r_ctrl_signal_fuType; // @[Pipline.scala 21:16]
   assign EX_io_in_bits_ctrl_signal_inst_valid = EX_io_in_bits_r_ctrl_signal_inst_valid; // @[Pipline.scala 21:16]
-  assign EX_io_in_bits_ctrl_signal_rfSrc1 = EX_io_in_bits_r_ctrl_signal_rfSrc1; // @[Pipline.scala 21:16]
-  assign EX_io_in_bits_ctrl_signal_rfSrc2 = EX_io_in_bits_r_ctrl_signal_rfSrc2; // @[Pipline.scala 21:16]
   assign EX_io_in_bits_ctrl_signal_rfWen = EX_io_in_bits_r_ctrl_signal_rfWen; // @[Pipline.scala 21:16]
   assign EX_io_in_bits_ctrl_signal_aluoptype = EX_io_in_bits_r_ctrl_signal_aluoptype; // @[Pipline.scala 21:16]
   assign EX_io_in_bits_ctrl_signal_rfDest = EX_io_in_bits_r_ctrl_signal_rfDest; // @[Pipline.scala 21:16]
@@ -4853,48 +4826,46 @@ module CoreTop(
   assign EX_io_in_bits_ctrl_data_Imm = EX_io_in_bits_r_ctrl_data_Imm; // @[Pipline.scala 21:16]
   assign EX_io_in_bits_ctrl_flow_PC = EX_io_in_bits_r_ctrl_flow_PC; // @[Pipline.scala 21:16]
   assign EX_io_in_bits_ctrl_flow_inst = EX_io_in_bits_r_ctrl_flow_inst; // @[Pipline.scala 21:16]
-  assign EX_io_src1 = mem_bypass_io_Bypass_REG1; // @[CoreTop.scala 268:14]
-  assign EX_io_src2 = mem_bypass_io_Bypass_REG2; // @[CoreTop.scala 269:14]
   assign EX_io_out_ready = MEM_io_in_ready; // @[Pipline.scala 20:16]
-  assign EX_io_icache_busy = ICACHE_io_cache_busy; // @[CoreTop.scala 271:21]
-  assign DIP_is_break = DIP_io_is_break_REG_1; // @[CoreTop.scala 294:19]
-  assign DIP_rf_0 = rf_DIP_io_rf_0_MPORT_data; // @[CoreTop.scala 296:18]
-  assign DIP_rf_1 = rf_DIP_io_rf_1_MPORT_data; // @[CoreTop.scala 296:18]
-  assign DIP_rf_2 = rf_DIP_io_rf_2_MPORT_data; // @[CoreTop.scala 296:18]
-  assign DIP_rf_3 = rf_DIP_io_rf_3_MPORT_data; // @[CoreTop.scala 296:18]
-  assign DIP_rf_4 = rf_DIP_io_rf_4_MPORT_data; // @[CoreTop.scala 296:18]
-  assign DIP_rf_5 = rf_DIP_io_rf_5_MPORT_data; // @[CoreTop.scala 296:18]
-  assign DIP_rf_6 = rf_DIP_io_rf_6_MPORT_data; // @[CoreTop.scala 296:18]
-  assign DIP_rf_7 = rf_DIP_io_rf_7_MPORT_data; // @[CoreTop.scala 296:18]
-  assign DIP_rf_8 = rf_DIP_io_rf_8_MPORT_data; // @[CoreTop.scala 296:18]
-  assign DIP_rf_9 = rf_DIP_io_rf_9_MPORT_data; // @[CoreTop.scala 296:18]
-  assign DIP_rf_10 = rf_DIP_io_rf_10_MPORT_data; // @[CoreTop.scala 296:18]
-  assign DIP_rf_11 = rf_DIP_io_rf_11_MPORT_data; // @[CoreTop.scala 296:18]
-  assign DIP_rf_12 = rf_DIP_io_rf_12_MPORT_data; // @[CoreTop.scala 296:18]
-  assign DIP_rf_13 = rf_DIP_io_rf_13_MPORT_data; // @[CoreTop.scala 296:18]
-  assign DIP_rf_14 = rf_DIP_io_rf_14_MPORT_data; // @[CoreTop.scala 296:18]
-  assign DIP_rf_15 = rf_DIP_io_rf_15_MPORT_data; // @[CoreTop.scala 296:18]
-  assign DIP_rf_16 = rf_DIP_io_rf_16_MPORT_data; // @[CoreTop.scala 296:18]
-  assign DIP_rf_17 = rf_DIP_io_rf_17_MPORT_data; // @[CoreTop.scala 296:18]
-  assign DIP_rf_18 = rf_DIP_io_rf_18_MPORT_data; // @[CoreTop.scala 296:18]
-  assign DIP_rf_19 = rf_DIP_io_rf_19_MPORT_data; // @[CoreTop.scala 296:18]
-  assign DIP_rf_20 = rf_DIP_io_rf_20_MPORT_data; // @[CoreTop.scala 296:18]
-  assign DIP_rf_21 = rf_DIP_io_rf_21_MPORT_data; // @[CoreTop.scala 296:18]
-  assign DIP_rf_22 = rf_DIP_io_rf_22_MPORT_data; // @[CoreTop.scala 296:18]
-  assign DIP_rf_23 = rf_DIP_io_rf_23_MPORT_data; // @[CoreTop.scala 296:18]
-  assign DIP_rf_24 = rf_DIP_io_rf_24_MPORT_data; // @[CoreTop.scala 296:18]
-  assign DIP_rf_25 = rf_DIP_io_rf_25_MPORT_data; // @[CoreTop.scala 296:18]
-  assign DIP_rf_26 = rf_DIP_io_rf_26_MPORT_data; // @[CoreTop.scala 296:18]
-  assign DIP_rf_27 = rf_DIP_io_rf_27_MPORT_data; // @[CoreTop.scala 296:18]
-  assign DIP_rf_28 = rf_DIP_io_rf_28_MPORT_data; // @[CoreTop.scala 296:18]
-  assign DIP_rf_29 = rf_DIP_io_rf_29_MPORT_data; // @[CoreTop.scala 296:18]
-  assign DIP_rf_30 = rf_DIP_io_rf_30_MPORT_data; // @[CoreTop.scala 296:18]
-  assign DIP_rf_31 = rf_DIP_io_rf_31_MPORT_data; // @[CoreTop.scala 296:18]
-  assign DIP_inst = DIP_io_inst_REG; // @[CoreTop.scala 298:15]
-  assign DIP_pc = DIP_io_pc_REG; // @[CoreTop.scala 301:13]
-  assign DIP_inst_valid = DIP_io_inst_valid_REG; // @[CoreTop.scala 300:21]
-  assign DIP_dnpc = DIP_io_dnpc_REG; // @[CoreTop.scala 302:15]
-  assign DIP_is_skip = DIP_io_is_skip_REG; // @[CoreTop.scala 299:18]
+  assign EX_io_icache_busy = ICACHE_io_cache_busy; // @[CoreTop.scala 272:21]
+  assign DIP_is_break = DIP_io_is_break_REG_1; // @[CoreTop.scala 296:19]
+  assign DIP_rf_0 = rf_DIP_io_rf_0_MPORT_data; // @[CoreTop.scala 298:18]
+  assign DIP_rf_1 = rf_DIP_io_rf_1_MPORT_data; // @[CoreTop.scala 298:18]
+  assign DIP_rf_2 = rf_DIP_io_rf_2_MPORT_data; // @[CoreTop.scala 298:18]
+  assign DIP_rf_3 = rf_DIP_io_rf_3_MPORT_data; // @[CoreTop.scala 298:18]
+  assign DIP_rf_4 = rf_DIP_io_rf_4_MPORT_data; // @[CoreTop.scala 298:18]
+  assign DIP_rf_5 = rf_DIP_io_rf_5_MPORT_data; // @[CoreTop.scala 298:18]
+  assign DIP_rf_6 = rf_DIP_io_rf_6_MPORT_data; // @[CoreTop.scala 298:18]
+  assign DIP_rf_7 = rf_DIP_io_rf_7_MPORT_data; // @[CoreTop.scala 298:18]
+  assign DIP_rf_8 = rf_DIP_io_rf_8_MPORT_data; // @[CoreTop.scala 298:18]
+  assign DIP_rf_9 = rf_DIP_io_rf_9_MPORT_data; // @[CoreTop.scala 298:18]
+  assign DIP_rf_10 = rf_DIP_io_rf_10_MPORT_data; // @[CoreTop.scala 298:18]
+  assign DIP_rf_11 = rf_DIP_io_rf_11_MPORT_data; // @[CoreTop.scala 298:18]
+  assign DIP_rf_12 = rf_DIP_io_rf_12_MPORT_data; // @[CoreTop.scala 298:18]
+  assign DIP_rf_13 = rf_DIP_io_rf_13_MPORT_data; // @[CoreTop.scala 298:18]
+  assign DIP_rf_14 = rf_DIP_io_rf_14_MPORT_data; // @[CoreTop.scala 298:18]
+  assign DIP_rf_15 = rf_DIP_io_rf_15_MPORT_data; // @[CoreTop.scala 298:18]
+  assign DIP_rf_16 = rf_DIP_io_rf_16_MPORT_data; // @[CoreTop.scala 298:18]
+  assign DIP_rf_17 = rf_DIP_io_rf_17_MPORT_data; // @[CoreTop.scala 298:18]
+  assign DIP_rf_18 = rf_DIP_io_rf_18_MPORT_data; // @[CoreTop.scala 298:18]
+  assign DIP_rf_19 = rf_DIP_io_rf_19_MPORT_data; // @[CoreTop.scala 298:18]
+  assign DIP_rf_20 = rf_DIP_io_rf_20_MPORT_data; // @[CoreTop.scala 298:18]
+  assign DIP_rf_21 = rf_DIP_io_rf_21_MPORT_data; // @[CoreTop.scala 298:18]
+  assign DIP_rf_22 = rf_DIP_io_rf_22_MPORT_data; // @[CoreTop.scala 298:18]
+  assign DIP_rf_23 = rf_DIP_io_rf_23_MPORT_data; // @[CoreTop.scala 298:18]
+  assign DIP_rf_24 = rf_DIP_io_rf_24_MPORT_data; // @[CoreTop.scala 298:18]
+  assign DIP_rf_25 = rf_DIP_io_rf_25_MPORT_data; // @[CoreTop.scala 298:18]
+  assign DIP_rf_26 = rf_DIP_io_rf_26_MPORT_data; // @[CoreTop.scala 298:18]
+  assign DIP_rf_27 = rf_DIP_io_rf_27_MPORT_data; // @[CoreTop.scala 298:18]
+  assign DIP_rf_28 = rf_DIP_io_rf_28_MPORT_data; // @[CoreTop.scala 298:18]
+  assign DIP_rf_29 = rf_DIP_io_rf_29_MPORT_data; // @[CoreTop.scala 298:18]
+  assign DIP_rf_30 = rf_DIP_io_rf_30_MPORT_data; // @[CoreTop.scala 298:18]
+  assign DIP_rf_31 = rf_DIP_io_rf_31_MPORT_data; // @[CoreTop.scala 298:18]
+  assign DIP_inst = DIP_io_inst_REG; // @[CoreTop.scala 300:15]
+  assign DIP_pc = DIP_io_pc_REG; // @[CoreTop.scala 303:13]
+  assign DIP_inst_valid = DIP_io_inst_valid_REG; // @[CoreTop.scala 302:21]
+  assign DIP_dnpc = DIP_io_dnpc_REG; // @[CoreTop.scala 304:15]
+  assign DIP_is_skip = DIP_io_is_skip_REG; // @[CoreTop.scala 301:18]
   assign MEM_io_in_valid = valid_1; // @[Pipline.scala 23:17]
   assign MEM_io_in_bits_ctrl_signal_fuType = MEM_io_in_bits_r_ctrl_signal_fuType; // @[Pipline.scala 21:16]
   assign MEM_io_in_bits_ctrl_signal_inst_valid = MEM_io_in_bits_r_ctrl_signal_inst_valid; // @[Pipline.scala 21:16]
@@ -4909,9 +4880,9 @@ module CoreTop(
   assign MEM_io_in_bits_ctrl_data_src2 = MEM_io_in_bits_r_ctrl_data_src2; // @[Pipline.scala 21:16]
   assign MEM_io_in_bits_ctrl_data_Imm = MEM_io_in_bits_r_ctrl_data_Imm; // @[Pipline.scala 21:16]
   assign MEM_io_out_ready = 1'h1; // @[Pipline.scala 20:16]
-  assign MEM_io_cache_io_rdata_rep_valid = MMIO_io_in_rdata_rep_valid; // @[CoreTop.scala 278:19]
-  assign MEM_io_cache_io_rdata_rep_bits_rdata = MMIO_io_in_rdata_rep_bits_rdata; // @[CoreTop.scala 278:19]
-  assign MEM_io_cache_io_wdata_rep = MMIO_io_in_wdata_rep; // @[CoreTop.scala 278:19]
+  assign MEM_io_cache_io_rdata_rep_valid = MMIO_io_in_rdata_rep_valid; // @[CoreTop.scala 280:19]
+  assign MEM_io_cache_io_rdata_rep_bits_rdata = MMIO_io_in_rdata_rep_bits_rdata; // @[CoreTop.scala 280:19]
+  assign MEM_io_cache_io_wdata_rep = MMIO_io_in_wdata_rep; // @[CoreTop.scala 280:19]
   assign WB_io_in_valid = valid_2; // @[Pipline.scala 23:17]
   assign WB_io_in_bits_ctrl_signal_inst_valid = WB_io_in_bits_r_ctrl_signal_inst_valid; // @[Pipline.scala 21:16]
   assign WB_io_in_bits_ctrl_signal_rfWen = WB_io_in_bits_r_ctrl_signal_rfWen; // @[Pipline.scala 21:16]
@@ -4921,27 +4892,20 @@ module CoreTop(
   assign WB_io_in_bits_ctrl_flow_skip = WB_io_in_bits_r_ctrl_flow_skip; // @[Pipline.scala 21:16]
   assign WB_io_in_bits_ctrl_rf_rfDest = WB_io_in_bits_r_ctrl_rf_rfDest; // @[Pipline.scala 21:16]
   assign WB_io_in_bits_ctrl_rf_rfData = WB_io_in_bits_r_ctrl_rf_rfData; // @[Pipline.scala 21:16]
-  assign WB_io_out_ready = 1'h1; // @[CoreTop.scala 290:19]
-  assign bypass_io_EX_rf_rfDest = EX_io_out_bits_ctrl_rf_rfDest; // @[CoreTop.scala 261:19]
-  assign bypass_io_EX_rf_rfWen = EX_io_out_bits_ctrl_rf_rfWen; // @[CoreTop.scala 261:19]
-  assign bypass_io_EX_rf_rfData = EX_io_out_bits_ctrl_rf_rfData; // @[CoreTop.scala 261:19]
-  assign bypass_io_MEM_rf_rfDest = MEM_io_out_bits_ctrl_rf_rfDest; // @[CoreTop.scala 280:20]
-  assign bypass_io_MEM_rf_rfWen = MEM_io_out_bits_ctrl_rf_rfWen; // @[CoreTop.scala 280:20]
-  assign bypass_io_MEM_rf_rfData = MEM_io_out_bits_ctrl_rf_rfData; // @[CoreTop.scala 280:20]
-  assign bypass_io_WB_rf_rfDest = WB_io_out_bits_ctrl_rf_rfDest; // @[CoreTop.scala 291:19]
-  assign bypass_io_WB_rf_rfWen = WB_io_out_bits_ctrl_rf_rfWen; // @[CoreTop.scala 291:19]
-  assign bypass_io_WB_rf_rfData = WB_io_out_bits_ctrl_rf_rfData; // @[CoreTop.scala 291:19]
+  assign WB_io_out_ready = 1'h1; // @[CoreTop.scala 292:19]
+  assign bypass_io_EX_rf_rfDest = EX_io_out_bits_ctrl_rf_rfDest; // @[CoreTop.scala 262:19]
+  assign bypass_io_EX_rf_rfWen = EX_io_out_bits_ctrl_rf_rfWen; // @[CoreTop.scala 262:19]
+  assign bypass_io_EX_rf_rfData = EX_io_out_bits_ctrl_rf_rfData; // @[CoreTop.scala 262:19]
+  assign bypass_io_MEM_rf_rfDest = MEM_io_out_bits_ctrl_rf_rfDest; // @[CoreTop.scala 282:20]
+  assign bypass_io_MEM_rf_rfWen = MEM_io_out_bits_ctrl_rf_rfWen; // @[CoreTop.scala 282:20]
+  assign bypass_io_MEM_rf_rfData = MEM_io_out_bits_ctrl_rf_rfData; // @[CoreTop.scala 282:20]
+  assign bypass_io_WB_rf_rfDest = WB_io_out_bits_ctrl_rf_rfDest; // @[CoreTop.scala 293:19]
+  assign bypass_io_WB_rf_rfWen = WB_io_out_bits_ctrl_rf_rfWen; // @[CoreTop.scala 293:19]
+  assign bypass_io_WB_rf_rfData = WB_io_out_bits_ctrl_rf_rfData; // @[CoreTop.scala 293:19]
   assign bypass_io_Reg1 = ID_io_out_bits_ctrl_signal_rfSrc1 == 5'h0 ? 64'h0 : rf_bypass_io_Reg1_MPORT_data; // @[RF.scala 8:37]
   assign bypass_io_reg_index1 = ID_io_out_bits_ctrl_signal_rfSrc1; // @[CoreTop.scala 163:24]
   assign bypass_io_Reg2 = ID_io_out_bits_ctrl_signal_rfSrc2 == 5'h0 ? 64'h0 : rf_bypass_io_Reg2_MPORT_data; // @[RF.scala 8:37]
   assign bypass_io_reg_index2 = ID_io_out_bits_ctrl_signal_rfSrc2; // @[CoreTop.scala 164:24]
-  assign mem_bypass_io_MEM_rf_rfDest = MEM_io_out_bits_ctrl_rf_rfDest; // @[CoreTop.scala 282:24]
-  assign mem_bypass_io_MEM_rf_rfWen = MEM_io_out_bits_ctrl_rf_rfWen; // @[CoreTop.scala 282:24]
-  assign mem_bypass_io_MEM_rf_rfData = MEM_io_out_bits_ctrl_rf_rfData; // @[CoreTop.scala 282:24]
-  assign mem_bypass_io_Reg1 = EX_io_in_bits_ctrl_data_src1; // @[CoreTop.scala 263:22]
-  assign mem_bypass_io_reg_index1 = EX_io_in_bits_ctrl_signal_rfSrc1; // @[CoreTop.scala 265:28]
-  assign mem_bypass_io_Reg2 = EX_io_in_bits_ctrl_data_src2; // @[CoreTop.scala 264:22]
-  assign mem_bypass_io_reg_index2 = EX_io_in_bits_ctrl_signal_rfSrc2; // @[CoreTop.scala 266:28]
   assign ICACHE_clock = clock;
   assign ICACHE_reset = reset;
   assign ICACHE_io_in_addr_req_valid = IF_io_cache_req_addr_req_valid; // @[CoreTop.scala 170:28]
@@ -5006,12 +4970,12 @@ module CoreTop(
   assign ARBITER_io_out_wb_bits_breap = MMEM_wr_breap; // @[CoreTop.scala 219:32]
   assign MMIO_clock = clock;
   assign MMIO_reset = reset;
-  assign MMIO_io_in_addr_req_valid = MEM_io_cache_io_addr_req_valid; // @[CoreTop.scala 278:19]
-  assign MMIO_io_in_addr_req_bits_addr = MEM_io_cache_io_addr_req_bits_addr; // @[CoreTop.scala 278:19]
-  assign MMIO_io_in_addr_req_bits_ce = MEM_io_cache_io_addr_req_bits_ce; // @[CoreTop.scala 278:19]
-  assign MMIO_io_in_addr_req_bits_we = MEM_io_cache_io_addr_req_bits_we; // @[CoreTop.scala 278:19]
-  assign MMIO_io_in_wdata_req_bits_wdata = MEM_io_cache_io_wdata_req_bits_wdata; // @[CoreTop.scala 278:19]
-  assign MMIO_io_in_wdata_req_bits_wmask = MEM_io_cache_io_wdata_req_bits_wmask; // @[CoreTop.scala 278:19]
+  assign MMIO_io_in_addr_req_valid = MEM_io_cache_io_addr_req_valid; // @[CoreTop.scala 280:19]
+  assign MMIO_io_in_addr_req_bits_addr = MEM_io_cache_io_addr_req_bits_addr; // @[CoreTop.scala 280:19]
+  assign MMIO_io_in_addr_req_bits_ce = MEM_io_cache_io_addr_req_bits_ce; // @[CoreTop.scala 280:19]
+  assign MMIO_io_in_addr_req_bits_we = MEM_io_cache_io_addr_req_bits_we; // @[CoreTop.scala 280:19]
+  assign MMIO_io_in_wdata_req_bits_wdata = MEM_io_cache_io_wdata_req_bits_wdata; // @[CoreTop.scala 280:19]
+  assign MMIO_io_in_wdata_req_bits_wmask = MEM_io_cache_io_wdata_req_bits_wmask; // @[CoreTop.scala 280:19]
   assign MMIO_io_out_raddr_req_ready = ARBITER_io_in1_raddr_req_ready; // @[CoreTop.scala 175:18]
   assign MMIO_io_out_waddr_req_ready = ARBITER_io_in1_waddr_req_ready; // @[CoreTop.scala 175:18]
   assign MMIO_io_out_rdata_rep_valid = ARBITER_io_in1_rdata_rep_valid; // @[CoreTop.scala 175:18]
@@ -5025,337 +4989,337 @@ module CoreTop(
       rf[rf_MPORT_addr] <= rf_MPORT_data; // @[RF.scala 7:15]
     end
     if (reset) begin // @[Pipline.scala 29:23]
-      head <= 5'h0; // @[Pipline.scala 29:23]
+      head <= 6'h0; // @[Pipline.scala 29:23]
     end else if (EX_io_is_flush) begin // @[Pipline.scala 43:16]
-      head <= 5'h0; // @[Pipline.scala 44:12]
+      head <= 6'h0; // @[Pipline.scala 44:12]
     end else if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
       head <= _head_T_1; // @[Pipline.scala 40:12]
     end
     if (reset) begin // @[Pipline.scala 30:23]
-      tail <= 5'h0; // @[Pipline.scala 30:23]
+      tail <= 6'h0; // @[Pipline.scala 30:23]
     end else if (EX_io_is_flush) begin // @[Pipline.scala 43:16]
-      tail <= 5'h0; // @[Pipline.scala 45:12]
+      tail <= 6'h0; // @[Pipline.scala 45:12]
     end else if (_T) begin // @[Pipline.scala 36:21]
       tail <= _tail_T_1; // @[Pipline.scala 37:12]
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h0 == head) begin // @[Pipline.scala 41:20]
-        buffer_0_PC <= _buffer_head_PC; // @[Pipline.scala 41:20]
+      if (5'h0 == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_0_PC <= _buffer_T_3_PC; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h0 == head) begin // @[Pipline.scala 41:20]
-        buffer_0_Inst <= _buffer_head_Inst; // @[Pipline.scala 41:20]
+      if (5'h0 == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_0_Inst <= _buffer_T_3_Inst; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h1 == head) begin // @[Pipline.scala 41:20]
-        buffer_1_PC <= _buffer_head_PC; // @[Pipline.scala 41:20]
+      if (5'h1 == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_1_PC <= _buffer_T_3_PC; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h1 == head) begin // @[Pipline.scala 41:20]
-        buffer_1_Inst <= _buffer_head_Inst; // @[Pipline.scala 41:20]
+      if (5'h1 == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_1_Inst <= _buffer_T_3_Inst; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h2 == head) begin // @[Pipline.scala 41:20]
-        buffer_2_PC <= _buffer_head_PC; // @[Pipline.scala 41:20]
+      if (5'h2 == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_2_PC <= _buffer_T_3_PC; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h2 == head) begin // @[Pipline.scala 41:20]
-        buffer_2_Inst <= _buffer_head_Inst; // @[Pipline.scala 41:20]
+      if (5'h2 == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_2_Inst <= _buffer_T_3_Inst; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h3 == head) begin // @[Pipline.scala 41:20]
-        buffer_3_PC <= _buffer_head_PC; // @[Pipline.scala 41:20]
+      if (5'h3 == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_3_PC <= _buffer_T_3_PC; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h3 == head) begin // @[Pipline.scala 41:20]
-        buffer_3_Inst <= _buffer_head_Inst; // @[Pipline.scala 41:20]
+      if (5'h3 == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_3_Inst <= _buffer_T_3_Inst; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h4 == head) begin // @[Pipline.scala 41:20]
-        buffer_4_PC <= _buffer_head_PC; // @[Pipline.scala 41:20]
+      if (5'h4 == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_4_PC <= _buffer_T_3_PC; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h4 == head) begin // @[Pipline.scala 41:20]
-        buffer_4_Inst <= _buffer_head_Inst; // @[Pipline.scala 41:20]
+      if (5'h4 == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_4_Inst <= _buffer_T_3_Inst; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h5 == head) begin // @[Pipline.scala 41:20]
-        buffer_5_PC <= _buffer_head_PC; // @[Pipline.scala 41:20]
+      if (5'h5 == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_5_PC <= _buffer_T_3_PC; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h5 == head) begin // @[Pipline.scala 41:20]
-        buffer_5_Inst <= _buffer_head_Inst; // @[Pipline.scala 41:20]
+      if (5'h5 == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_5_Inst <= _buffer_T_3_Inst; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h6 == head) begin // @[Pipline.scala 41:20]
-        buffer_6_PC <= _buffer_head_PC; // @[Pipline.scala 41:20]
+      if (5'h6 == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_6_PC <= _buffer_T_3_PC; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h6 == head) begin // @[Pipline.scala 41:20]
-        buffer_6_Inst <= _buffer_head_Inst; // @[Pipline.scala 41:20]
+      if (5'h6 == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_6_Inst <= _buffer_T_3_Inst; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h7 == head) begin // @[Pipline.scala 41:20]
-        buffer_7_PC <= _buffer_head_PC; // @[Pipline.scala 41:20]
+      if (5'h7 == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_7_PC <= _buffer_T_3_PC; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h7 == head) begin // @[Pipline.scala 41:20]
-        buffer_7_Inst <= _buffer_head_Inst; // @[Pipline.scala 41:20]
+      if (5'h7 == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_7_Inst <= _buffer_T_3_Inst; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h8 == head) begin // @[Pipline.scala 41:20]
-        buffer_8_PC <= _buffer_head_PC; // @[Pipline.scala 41:20]
+      if (5'h8 == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_8_PC <= _buffer_T_3_PC; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h8 == head) begin // @[Pipline.scala 41:20]
-        buffer_8_Inst <= _buffer_head_Inst; // @[Pipline.scala 41:20]
+      if (5'h8 == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_8_Inst <= _buffer_T_3_Inst; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h9 == head) begin // @[Pipline.scala 41:20]
-        buffer_9_PC <= _buffer_head_PC; // @[Pipline.scala 41:20]
+      if (5'h9 == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_9_PC <= _buffer_T_3_PC; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h9 == head) begin // @[Pipline.scala 41:20]
-        buffer_9_Inst <= _buffer_head_Inst; // @[Pipline.scala 41:20]
+      if (5'h9 == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_9_Inst <= _buffer_T_3_Inst; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'ha == head) begin // @[Pipline.scala 41:20]
-        buffer_10_PC <= _buffer_head_PC; // @[Pipline.scala 41:20]
+      if (5'ha == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_10_PC <= _buffer_T_3_PC; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'ha == head) begin // @[Pipline.scala 41:20]
-        buffer_10_Inst <= _buffer_head_Inst; // @[Pipline.scala 41:20]
+      if (5'ha == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_10_Inst <= _buffer_T_3_Inst; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'hb == head) begin // @[Pipline.scala 41:20]
-        buffer_11_PC <= _buffer_head_PC; // @[Pipline.scala 41:20]
+      if (5'hb == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_11_PC <= _buffer_T_3_PC; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'hb == head) begin // @[Pipline.scala 41:20]
-        buffer_11_Inst <= _buffer_head_Inst; // @[Pipline.scala 41:20]
+      if (5'hb == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_11_Inst <= _buffer_T_3_Inst; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'hc == head) begin // @[Pipline.scala 41:20]
-        buffer_12_PC <= _buffer_head_PC; // @[Pipline.scala 41:20]
+      if (5'hc == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_12_PC <= _buffer_T_3_PC; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'hc == head) begin // @[Pipline.scala 41:20]
-        buffer_12_Inst <= _buffer_head_Inst; // @[Pipline.scala 41:20]
+      if (5'hc == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_12_Inst <= _buffer_T_3_Inst; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'hd == head) begin // @[Pipline.scala 41:20]
-        buffer_13_PC <= _buffer_head_PC; // @[Pipline.scala 41:20]
+      if (5'hd == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_13_PC <= _buffer_T_3_PC; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'hd == head) begin // @[Pipline.scala 41:20]
-        buffer_13_Inst <= _buffer_head_Inst; // @[Pipline.scala 41:20]
+      if (5'hd == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_13_Inst <= _buffer_T_3_Inst; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'he == head) begin // @[Pipline.scala 41:20]
-        buffer_14_PC <= _buffer_head_PC; // @[Pipline.scala 41:20]
+      if (5'he == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_14_PC <= _buffer_T_3_PC; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'he == head) begin // @[Pipline.scala 41:20]
-        buffer_14_Inst <= _buffer_head_Inst; // @[Pipline.scala 41:20]
+      if (5'he == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_14_Inst <= _buffer_T_3_Inst; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'hf == head) begin // @[Pipline.scala 41:20]
-        buffer_15_PC <= _buffer_head_PC; // @[Pipline.scala 41:20]
+      if (5'hf == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_15_PC <= _buffer_T_3_PC; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'hf == head) begin // @[Pipline.scala 41:20]
-        buffer_15_Inst <= _buffer_head_Inst; // @[Pipline.scala 41:20]
+      if (5'hf == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_15_Inst <= _buffer_T_3_Inst; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h10 == head) begin // @[Pipline.scala 41:20]
-        buffer_16_PC <= _buffer_head_PC; // @[Pipline.scala 41:20]
+      if (5'h10 == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_16_PC <= _buffer_T_3_PC; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h10 == head) begin // @[Pipline.scala 41:20]
-        buffer_16_Inst <= _buffer_head_Inst; // @[Pipline.scala 41:20]
+      if (5'h10 == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_16_Inst <= _buffer_T_3_Inst; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h11 == head) begin // @[Pipline.scala 41:20]
-        buffer_17_PC <= _buffer_head_PC; // @[Pipline.scala 41:20]
+      if (5'h11 == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_17_PC <= _buffer_T_3_PC; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h11 == head) begin // @[Pipline.scala 41:20]
-        buffer_17_Inst <= _buffer_head_Inst; // @[Pipline.scala 41:20]
+      if (5'h11 == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_17_Inst <= _buffer_T_3_Inst; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h12 == head) begin // @[Pipline.scala 41:20]
-        buffer_18_PC <= _buffer_head_PC; // @[Pipline.scala 41:20]
+      if (5'h12 == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_18_PC <= _buffer_T_3_PC; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h12 == head) begin // @[Pipline.scala 41:20]
-        buffer_18_Inst <= _buffer_head_Inst; // @[Pipline.scala 41:20]
+      if (5'h12 == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_18_Inst <= _buffer_T_3_Inst; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h13 == head) begin // @[Pipline.scala 41:20]
-        buffer_19_PC <= _buffer_head_PC; // @[Pipline.scala 41:20]
+      if (5'h13 == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_19_PC <= _buffer_T_3_PC; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h13 == head) begin // @[Pipline.scala 41:20]
-        buffer_19_Inst <= _buffer_head_Inst; // @[Pipline.scala 41:20]
+      if (5'h13 == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_19_Inst <= _buffer_T_3_Inst; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h14 == head) begin // @[Pipline.scala 41:20]
-        buffer_20_PC <= _buffer_head_PC; // @[Pipline.scala 41:20]
+      if (5'h14 == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_20_PC <= _buffer_T_3_PC; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h14 == head) begin // @[Pipline.scala 41:20]
-        buffer_20_Inst <= _buffer_head_Inst; // @[Pipline.scala 41:20]
+      if (5'h14 == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_20_Inst <= _buffer_T_3_Inst; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h15 == head) begin // @[Pipline.scala 41:20]
-        buffer_21_PC <= _buffer_head_PC; // @[Pipline.scala 41:20]
+      if (5'h15 == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_21_PC <= _buffer_T_3_PC; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h15 == head) begin // @[Pipline.scala 41:20]
-        buffer_21_Inst <= _buffer_head_Inst; // @[Pipline.scala 41:20]
+      if (5'h15 == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_21_Inst <= _buffer_T_3_Inst; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h16 == head) begin // @[Pipline.scala 41:20]
-        buffer_22_PC <= _buffer_head_PC; // @[Pipline.scala 41:20]
+      if (5'h16 == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_22_PC <= _buffer_T_3_PC; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h16 == head) begin // @[Pipline.scala 41:20]
-        buffer_22_Inst <= _buffer_head_Inst; // @[Pipline.scala 41:20]
+      if (5'h16 == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_22_Inst <= _buffer_T_3_Inst; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h17 == head) begin // @[Pipline.scala 41:20]
-        buffer_23_PC <= _buffer_head_PC; // @[Pipline.scala 41:20]
+      if (5'h17 == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_23_PC <= _buffer_T_3_PC; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h17 == head) begin // @[Pipline.scala 41:20]
-        buffer_23_Inst <= _buffer_head_Inst; // @[Pipline.scala 41:20]
+      if (5'h17 == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_23_Inst <= _buffer_T_3_Inst; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h18 == head) begin // @[Pipline.scala 41:20]
-        buffer_24_PC <= _buffer_head_PC; // @[Pipline.scala 41:20]
+      if (5'h18 == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_24_PC <= _buffer_T_3_PC; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h18 == head) begin // @[Pipline.scala 41:20]
-        buffer_24_Inst <= _buffer_head_Inst; // @[Pipline.scala 41:20]
+      if (5'h18 == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_24_Inst <= _buffer_T_3_Inst; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h19 == head) begin // @[Pipline.scala 41:20]
-        buffer_25_PC <= _buffer_head_PC; // @[Pipline.scala 41:20]
+      if (5'h19 == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_25_PC <= _buffer_T_3_PC; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h19 == head) begin // @[Pipline.scala 41:20]
-        buffer_25_Inst <= _buffer_head_Inst; // @[Pipline.scala 41:20]
+      if (5'h19 == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_25_Inst <= _buffer_T_3_Inst; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h1a == head) begin // @[Pipline.scala 41:20]
-        buffer_26_PC <= _buffer_head_PC; // @[Pipline.scala 41:20]
+      if (5'h1a == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_26_PC <= _buffer_T_3_PC; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h1a == head) begin // @[Pipline.scala 41:20]
-        buffer_26_Inst <= _buffer_head_Inst; // @[Pipline.scala 41:20]
+      if (5'h1a == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_26_Inst <= _buffer_T_3_Inst; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h1b == head) begin // @[Pipline.scala 41:20]
-        buffer_27_PC <= _buffer_head_PC; // @[Pipline.scala 41:20]
+      if (5'h1b == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_27_PC <= _buffer_T_3_PC; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h1b == head) begin // @[Pipline.scala 41:20]
-        buffer_27_Inst <= _buffer_head_Inst; // @[Pipline.scala 41:20]
+      if (5'h1b == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_27_Inst <= _buffer_T_3_Inst; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h1c == head) begin // @[Pipline.scala 41:20]
-        buffer_28_PC <= _buffer_head_PC; // @[Pipline.scala 41:20]
+      if (5'h1c == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_28_PC <= _buffer_T_3_PC; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h1c == head) begin // @[Pipline.scala 41:20]
-        buffer_28_Inst <= _buffer_head_Inst; // @[Pipline.scala 41:20]
+      if (5'h1c == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_28_Inst <= _buffer_T_3_Inst; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h1d == head) begin // @[Pipline.scala 41:20]
-        buffer_29_PC <= _buffer_head_PC; // @[Pipline.scala 41:20]
+      if (5'h1d == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_29_PC <= _buffer_T_3_PC; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h1d == head) begin // @[Pipline.scala 41:20]
-        buffer_29_Inst <= _buffer_head_Inst; // @[Pipline.scala 41:20]
+      if (5'h1d == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_29_Inst <= _buffer_T_3_Inst; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h1e == head) begin // @[Pipline.scala 41:20]
-        buffer_30_PC <= _buffer_head_PC; // @[Pipline.scala 41:20]
+      if (5'h1e == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_30_PC <= _buffer_T_3_PC; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h1e == head) begin // @[Pipline.scala 41:20]
-        buffer_30_Inst <= _buffer_head_Inst; // @[Pipline.scala 41:20]
+      if (5'h1e == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_30_Inst <= _buffer_T_3_Inst; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h1f == head) begin // @[Pipline.scala 41:20]
-        buffer_31_PC <= _buffer_head_PC; // @[Pipline.scala 41:20]
+      if (5'h1f == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_31_PC <= _buffer_T_3_PC; // @[Pipline.scala 41:25]
       end
     end
     if (IF_io_out_valid & ~full) begin // @[Pipline.scala 39:30]
-      if (5'h1f == head) begin // @[Pipline.scala 41:20]
-        buffer_31_Inst <= _buffer_head_Inst; // @[Pipline.scala 41:20]
+      if (5'h1f == head[4:0]) begin // @[Pipline.scala 41:25]
+        buffer_31_Inst <= _buffer_T_3_Inst; // @[Pipline.scala 41:25]
       end
     end
     if (reset) begin // @[Pipline.scala 8:24]
@@ -5365,46 +5329,40 @@ module CoreTop(
     end else begin
       valid <= _GEN_197;
     end
-    if (_T_4) begin // @[Reg.scala 17:18]
+    if (_T_5) begin // @[Reg.scala 17:18]
       EX_io_in_bits_r_ctrl_signal_src1Type <= ID_io_out_bits_ctrl_signal_src1Type; // @[Reg.scala 17:22]
     end
-    if (_T_4) begin // @[Reg.scala 17:18]
+    if (_T_5) begin // @[Reg.scala 17:18]
       EX_io_in_bits_r_ctrl_signal_src2Type <= ID_io_out_bits_ctrl_signal_src2Type; // @[Reg.scala 17:22]
     end
-    if (_T_4) begin // @[Reg.scala 17:18]
+    if (_T_5) begin // @[Reg.scala 17:18]
       EX_io_in_bits_r_ctrl_signal_fuType <= ID_io_out_bits_ctrl_signal_fuType; // @[Reg.scala 17:22]
     end
-    if (_T_4) begin // @[Reg.scala 17:18]
+    if (_T_5) begin // @[Reg.scala 17:18]
       EX_io_in_bits_r_ctrl_signal_inst_valid <= ID_io_out_bits_ctrl_signal_inst_valid; // @[Reg.scala 17:22]
     end
-    if (_T_4) begin // @[Reg.scala 17:18]
-      EX_io_in_bits_r_ctrl_signal_rfSrc1 <= ID_io_out_bits_ctrl_signal_rfSrc1; // @[Reg.scala 17:22]
-    end
-    if (_T_4) begin // @[Reg.scala 17:18]
-      EX_io_in_bits_r_ctrl_signal_rfSrc2 <= ID_io_out_bits_ctrl_signal_rfSrc2; // @[Reg.scala 17:22]
-    end
-    if (_T_4) begin // @[Reg.scala 17:18]
+    if (_T_5) begin // @[Reg.scala 17:18]
       EX_io_in_bits_r_ctrl_signal_rfWen <= ID_io_out_bits_ctrl_signal_rfWen; // @[Reg.scala 17:22]
     end
-    if (_T_4) begin // @[Reg.scala 17:18]
+    if (_T_5) begin // @[Reg.scala 17:18]
       EX_io_in_bits_r_ctrl_signal_aluoptype <= ID_io_out_bits_ctrl_signal_aluoptype; // @[Reg.scala 17:22]
     end
-    if (_T_4) begin // @[Reg.scala 17:18]
+    if (_T_5) begin // @[Reg.scala 17:18]
       EX_io_in_bits_r_ctrl_signal_rfDest <= ID_io_out_bits_ctrl_signal_rfDest; // @[Reg.scala 17:22]
     end
-    if (_T_4) begin // @[Reg.scala 17:18]
+    if (_T_5) begin // @[Reg.scala 17:18]
       EX_io_in_bits_r_ctrl_data_src1 <= ID_io_out_bits_ctrl_data_src1; // @[Reg.scala 17:22]
     end
-    if (_T_4) begin // @[Reg.scala 17:18]
+    if (_T_5) begin // @[Reg.scala 17:18]
       EX_io_in_bits_r_ctrl_data_src2 <= ID_io_out_bits_ctrl_data_src2; // @[Reg.scala 17:22]
     end
-    if (_T_4) begin // @[Reg.scala 17:18]
+    if (_T_5) begin // @[Reg.scala 17:18]
       EX_io_in_bits_r_ctrl_data_Imm <= ID_io_out_bits_ctrl_data_Imm; // @[Reg.scala 17:22]
     end
-    if (_T_4) begin // @[Reg.scala 17:18]
+    if (_T_5) begin // @[Reg.scala 17:18]
       EX_io_in_bits_r_ctrl_flow_PC <= ID_io_out_bits_ctrl_flow_PC; // @[Reg.scala 17:22]
     end
-    if (_T_4) begin // @[Reg.scala 17:18]
+    if (_T_5) begin // @[Reg.scala 17:18]
       EX_io_in_bits_r_ctrl_flow_inst <= ID_io_out_bits_ctrl_flow_inst; // @[Reg.scala 17:22]
     end
     if (reset) begin // @[Pipline.scala 8:24]
@@ -5412,40 +5370,40 @@ module CoreTop(
     end else begin
       valid_1 <= _GEN_216;
     end
-    if (_T_7) begin // @[Reg.scala 17:18]
+    if (_T_8) begin // @[Reg.scala 17:18]
       MEM_io_in_bits_r_ctrl_signal_fuType <= EX_io_out_bits_ctrl_signal_fuType; // @[Reg.scala 17:22]
     end
-    if (_T_7) begin // @[Reg.scala 17:18]
+    if (_T_8) begin // @[Reg.scala 17:18]
       MEM_io_in_bits_r_ctrl_signal_inst_valid <= EX_io_out_bits_ctrl_signal_inst_valid; // @[Reg.scala 17:22]
     end
-    if (_T_7) begin // @[Reg.scala 17:18]
+    if (_T_8) begin // @[Reg.scala 17:18]
       MEM_io_in_bits_r_ctrl_signal_rfWen <= EX_io_out_bits_ctrl_signal_rfWen; // @[Reg.scala 17:22]
     end
-    if (_T_7) begin // @[Reg.scala 17:18]
+    if (_T_8) begin // @[Reg.scala 17:18]
       MEM_io_in_bits_r_ctrl_signal_aluoptype <= EX_io_out_bits_ctrl_signal_aluoptype; // @[Reg.scala 17:22]
     end
-    if (_T_7) begin // @[Reg.scala 17:18]
+    if (_T_8) begin // @[Reg.scala 17:18]
       MEM_io_in_bits_r_ctrl_flow_PC <= EX_io_out_bits_ctrl_flow_PC; // @[Reg.scala 17:22]
     end
-    if (_T_7) begin // @[Reg.scala 17:18]
+    if (_T_8) begin // @[Reg.scala 17:18]
       MEM_io_in_bits_r_ctrl_flow_inst <= EX_io_out_bits_ctrl_flow_inst; // @[Reg.scala 17:22]
     end
-    if (_T_7) begin // @[Reg.scala 17:18]
+    if (_T_8) begin // @[Reg.scala 17:18]
       MEM_io_in_bits_r_ctrl_flow_Dnpc <= EX_io_out_bits_ctrl_flow_Dnpc; // @[Reg.scala 17:22]
     end
-    if (_T_7) begin // @[Reg.scala 17:18]
+    if (_T_8) begin // @[Reg.scala 17:18]
       MEM_io_in_bits_r_ctrl_rf_rfDest <= EX_io_out_bits_ctrl_rf_rfDest; // @[Reg.scala 17:22]
     end
-    if (_T_7) begin // @[Reg.scala 17:18]
+    if (_T_8) begin // @[Reg.scala 17:18]
       MEM_io_in_bits_r_ctrl_rf_rfData <= EX_io_out_bits_ctrl_rf_rfData; // @[Reg.scala 17:22]
     end
-    if (_T_7) begin // @[Reg.scala 17:18]
+    if (_T_8) begin // @[Reg.scala 17:18]
       MEM_io_in_bits_r_ctrl_data_src1 <= EX_io_out_bits_ctrl_data_src1; // @[Reg.scala 17:22]
     end
-    if (_T_7) begin // @[Reg.scala 17:18]
+    if (_T_8) begin // @[Reg.scala 17:18]
       MEM_io_in_bits_r_ctrl_data_src2 <= EX_io_out_bits_ctrl_data_src2; // @[Reg.scala 17:22]
     end
-    if (_T_7) begin // @[Reg.scala 17:18]
+    if (_T_8) begin // @[Reg.scala 17:18]
       MEM_io_in_bits_r_ctrl_data_Imm <= EX_io_out_bits_ctrl_data_Imm; // @[Reg.scala 17:22]
     end
     if (reset) begin // @[Pipline.scala 8:24]
@@ -5453,37 +5411,37 @@ module CoreTop(
     end else begin
       valid_2 <= _GEN_238;
     end
-    if (_T_10) begin // @[Reg.scala 17:18]
+    if (_T_11) begin // @[Reg.scala 17:18]
       WB_io_in_bits_r_ctrl_signal_inst_valid <= MEM_io_out_bits_ctrl_signal_inst_valid; // @[Reg.scala 17:22]
     end
-    if (_T_10) begin // @[Reg.scala 17:18]
+    if (_T_11) begin // @[Reg.scala 17:18]
       WB_io_in_bits_r_ctrl_signal_rfWen <= MEM_io_out_bits_ctrl_signal_rfWen; // @[Reg.scala 17:22]
     end
-    if (_T_10) begin // @[Reg.scala 17:18]
+    if (_T_11) begin // @[Reg.scala 17:18]
       WB_io_in_bits_r_ctrl_flow_PC <= MEM_io_out_bits_ctrl_flow_PC; // @[Reg.scala 17:22]
     end
-    if (_T_10) begin // @[Reg.scala 17:18]
+    if (_T_11) begin // @[Reg.scala 17:18]
       WB_io_in_bits_r_ctrl_flow_inst <= MEM_io_out_bits_ctrl_flow_inst; // @[Reg.scala 17:22]
     end
-    if (_T_10) begin // @[Reg.scala 17:18]
+    if (_T_11) begin // @[Reg.scala 17:18]
       WB_io_in_bits_r_ctrl_flow_Dnpc <= MEM_io_out_bits_ctrl_flow_Dnpc; // @[Reg.scala 17:22]
     end
-    if (_T_10) begin // @[Reg.scala 17:18]
+    if (_T_11) begin // @[Reg.scala 17:18]
       WB_io_in_bits_r_ctrl_flow_skip <= MEM_io_out_bits_ctrl_flow_skip; // @[Reg.scala 17:22]
     end
-    if (_T_10) begin // @[Reg.scala 17:18]
+    if (_T_11) begin // @[Reg.scala 17:18]
       WB_io_in_bits_r_ctrl_rf_rfDest <= MEM_io_out_bits_ctrl_rf_rfDest; // @[Reg.scala 17:22]
     end
-    if (_T_10) begin // @[Reg.scala 17:18]
+    if (_T_11) begin // @[Reg.scala 17:18]
       WB_io_in_bits_r_ctrl_rf_rfData <= MEM_io_out_bits_ctrl_rf_rfData; // @[Reg.scala 17:22]
     end
-    DIP_io_is_break_REG <= EX_io_is_break; // @[CoreTop.scala 294:37]
-    DIP_io_is_break_REG_1 <= DIP_io_is_break_REG; // @[CoreTop.scala 294:29]
-    DIP_io_inst_REG <= WB_io_out_bits_ctrl_flow_inst; // @[CoreTop.scala 298:25]
-    DIP_io_is_skip_REG <= WB_io_out_bits_ctrl_flow_skip; // @[CoreTop.scala 299:28]
-    DIP_io_inst_valid_REG <= WB_io_out_valid & WB_io_out_bits_ctrl_signal_inst_valid; // @[CoreTop.scala 300:35]
-    DIP_io_pc_REG <= WB_io_out_bits_ctrl_flow_PC; // @[CoreTop.scala 301:23]
-    DIP_io_dnpc_REG <= WB_io_out_bits_ctrl_flow_Dnpc; // @[CoreTop.scala 302:25]
+    DIP_io_is_break_REG <= EX_io_is_break; // @[CoreTop.scala 296:37]
+    DIP_io_is_break_REG_1 <= DIP_io_is_break_REG; // @[CoreTop.scala 296:29]
+    DIP_io_inst_REG <= WB_io_out_bits_ctrl_flow_inst; // @[CoreTop.scala 300:25]
+    DIP_io_is_skip_REG <= WB_io_out_bits_ctrl_flow_skip; // @[CoreTop.scala 301:28]
+    DIP_io_inst_valid_REG <= WB_io_out_valid & WB_io_out_bits_ctrl_signal_inst_valid; // @[CoreTop.scala 302:35]
+    DIP_io_pc_REG <= WB_io_out_bits_ctrl_flow_PC; // @[CoreTop.scala 303:23]
+    DIP_io_dnpc_REG <= WB_io_out_bits_ctrl_flow_Dnpc; // @[CoreTop.scala 304:25]
   end
 // Register and memory initialization
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
@@ -5527,9 +5485,9 @@ initial begin
 `endif // RANDOMIZE_MEM_INIT
 `ifdef RANDOMIZE_REG_INIT
   _RAND_1 = {1{`RANDOM}};
-  head = _RAND_1[4:0];
+  head = _RAND_1[5:0];
   _RAND_2 = {1{`RANDOM}};
-  tail = _RAND_2[4:0];
+  tail = _RAND_2[5:0];
   _RAND_3 = {2{`RANDOM}};
   buffer_0_PC = _RAND_3[63:0];
   _RAND_4 = {1{`RANDOM}};
@@ -5669,83 +5627,79 @@ initial begin
   _RAND_71 = {1{`RANDOM}};
   EX_io_in_bits_r_ctrl_signal_inst_valid = _RAND_71[0:0];
   _RAND_72 = {1{`RANDOM}};
-  EX_io_in_bits_r_ctrl_signal_rfSrc1 = _RAND_72[4:0];
+  EX_io_in_bits_r_ctrl_signal_rfWen = _RAND_72[0:0];
   _RAND_73 = {1{`RANDOM}};
-  EX_io_in_bits_r_ctrl_signal_rfSrc2 = _RAND_73[4:0];
+  EX_io_in_bits_r_ctrl_signal_aluoptype = _RAND_73[6:0];
   _RAND_74 = {1{`RANDOM}};
-  EX_io_in_bits_r_ctrl_signal_rfWen = _RAND_74[0:0];
-  _RAND_75 = {1{`RANDOM}};
-  EX_io_in_bits_r_ctrl_signal_aluoptype = _RAND_75[6:0];
-  _RAND_76 = {1{`RANDOM}};
-  EX_io_in_bits_r_ctrl_signal_rfDest = _RAND_76[4:0];
+  EX_io_in_bits_r_ctrl_signal_rfDest = _RAND_74[4:0];
+  _RAND_75 = {2{`RANDOM}};
+  EX_io_in_bits_r_ctrl_data_src1 = _RAND_75[63:0];
+  _RAND_76 = {2{`RANDOM}};
+  EX_io_in_bits_r_ctrl_data_src2 = _RAND_76[63:0];
   _RAND_77 = {2{`RANDOM}};
-  EX_io_in_bits_r_ctrl_data_src1 = _RAND_77[63:0];
+  EX_io_in_bits_r_ctrl_data_Imm = _RAND_77[63:0];
   _RAND_78 = {2{`RANDOM}};
-  EX_io_in_bits_r_ctrl_data_src2 = _RAND_78[63:0];
-  _RAND_79 = {2{`RANDOM}};
-  EX_io_in_bits_r_ctrl_data_Imm = _RAND_79[63:0];
-  _RAND_80 = {2{`RANDOM}};
-  EX_io_in_bits_r_ctrl_flow_PC = _RAND_80[63:0];
+  EX_io_in_bits_r_ctrl_flow_PC = _RAND_78[63:0];
+  _RAND_79 = {1{`RANDOM}};
+  EX_io_in_bits_r_ctrl_flow_inst = _RAND_79[31:0];
+  _RAND_80 = {1{`RANDOM}};
+  valid_1 = _RAND_80[0:0];
   _RAND_81 = {1{`RANDOM}};
-  EX_io_in_bits_r_ctrl_flow_inst = _RAND_81[31:0];
+  MEM_io_in_bits_r_ctrl_signal_fuType = _RAND_81[2:0];
   _RAND_82 = {1{`RANDOM}};
-  valid_1 = _RAND_82[0:0];
+  MEM_io_in_bits_r_ctrl_signal_inst_valid = _RAND_82[0:0];
   _RAND_83 = {1{`RANDOM}};
-  MEM_io_in_bits_r_ctrl_signal_fuType = _RAND_83[2:0];
+  MEM_io_in_bits_r_ctrl_signal_rfWen = _RAND_83[0:0];
   _RAND_84 = {1{`RANDOM}};
-  MEM_io_in_bits_r_ctrl_signal_inst_valid = _RAND_84[0:0];
-  _RAND_85 = {1{`RANDOM}};
-  MEM_io_in_bits_r_ctrl_signal_rfWen = _RAND_85[0:0];
+  MEM_io_in_bits_r_ctrl_signal_aluoptype = _RAND_84[6:0];
+  _RAND_85 = {2{`RANDOM}};
+  MEM_io_in_bits_r_ctrl_flow_PC = _RAND_85[63:0];
   _RAND_86 = {1{`RANDOM}};
-  MEM_io_in_bits_r_ctrl_signal_aluoptype = _RAND_86[6:0];
+  MEM_io_in_bits_r_ctrl_flow_inst = _RAND_86[31:0];
   _RAND_87 = {2{`RANDOM}};
-  MEM_io_in_bits_r_ctrl_flow_PC = _RAND_87[63:0];
+  MEM_io_in_bits_r_ctrl_flow_Dnpc = _RAND_87[63:0];
   _RAND_88 = {1{`RANDOM}};
-  MEM_io_in_bits_r_ctrl_flow_inst = _RAND_88[31:0];
+  MEM_io_in_bits_r_ctrl_rf_rfDest = _RAND_88[4:0];
   _RAND_89 = {2{`RANDOM}};
-  MEM_io_in_bits_r_ctrl_flow_Dnpc = _RAND_89[63:0];
-  _RAND_90 = {1{`RANDOM}};
-  MEM_io_in_bits_r_ctrl_rf_rfDest = _RAND_90[4:0];
+  MEM_io_in_bits_r_ctrl_rf_rfData = _RAND_89[63:0];
+  _RAND_90 = {2{`RANDOM}};
+  MEM_io_in_bits_r_ctrl_data_src1 = _RAND_90[63:0];
   _RAND_91 = {2{`RANDOM}};
-  MEM_io_in_bits_r_ctrl_rf_rfData = _RAND_91[63:0];
+  MEM_io_in_bits_r_ctrl_data_src2 = _RAND_91[63:0];
   _RAND_92 = {2{`RANDOM}};
-  MEM_io_in_bits_r_ctrl_data_src1 = _RAND_92[63:0];
-  _RAND_93 = {2{`RANDOM}};
-  MEM_io_in_bits_r_ctrl_data_src2 = _RAND_93[63:0];
-  _RAND_94 = {2{`RANDOM}};
-  MEM_io_in_bits_r_ctrl_data_Imm = _RAND_94[63:0];
+  MEM_io_in_bits_r_ctrl_data_Imm = _RAND_92[63:0];
+  _RAND_93 = {1{`RANDOM}};
+  valid_2 = _RAND_93[0:0];
+  _RAND_94 = {1{`RANDOM}};
+  WB_io_in_bits_r_ctrl_signal_inst_valid = _RAND_94[0:0];
   _RAND_95 = {1{`RANDOM}};
-  valid_2 = _RAND_95[0:0];
-  _RAND_96 = {1{`RANDOM}};
-  WB_io_in_bits_r_ctrl_signal_inst_valid = _RAND_96[0:0];
+  WB_io_in_bits_r_ctrl_signal_rfWen = _RAND_95[0:0];
+  _RAND_96 = {2{`RANDOM}};
+  WB_io_in_bits_r_ctrl_flow_PC = _RAND_96[63:0];
   _RAND_97 = {1{`RANDOM}};
-  WB_io_in_bits_r_ctrl_signal_rfWen = _RAND_97[0:0];
+  WB_io_in_bits_r_ctrl_flow_inst = _RAND_97[31:0];
   _RAND_98 = {2{`RANDOM}};
-  WB_io_in_bits_r_ctrl_flow_PC = _RAND_98[63:0];
+  WB_io_in_bits_r_ctrl_flow_Dnpc = _RAND_98[63:0];
   _RAND_99 = {1{`RANDOM}};
-  WB_io_in_bits_r_ctrl_flow_inst = _RAND_99[31:0];
-  _RAND_100 = {2{`RANDOM}};
-  WB_io_in_bits_r_ctrl_flow_Dnpc = _RAND_100[63:0];
-  _RAND_101 = {1{`RANDOM}};
-  WB_io_in_bits_r_ctrl_flow_skip = _RAND_101[0:0];
+  WB_io_in_bits_r_ctrl_flow_skip = _RAND_99[0:0];
+  _RAND_100 = {1{`RANDOM}};
+  WB_io_in_bits_r_ctrl_rf_rfDest = _RAND_100[4:0];
+  _RAND_101 = {2{`RANDOM}};
+  WB_io_in_bits_r_ctrl_rf_rfData = _RAND_101[63:0];
   _RAND_102 = {1{`RANDOM}};
-  WB_io_in_bits_r_ctrl_rf_rfDest = _RAND_102[4:0];
-  _RAND_103 = {2{`RANDOM}};
-  WB_io_in_bits_r_ctrl_rf_rfData = _RAND_103[63:0];
+  DIP_io_is_break_REG = _RAND_102[0:0];
+  _RAND_103 = {1{`RANDOM}};
+  DIP_io_is_break_REG_1 = _RAND_103[0:0];
   _RAND_104 = {1{`RANDOM}};
-  DIP_io_is_break_REG = _RAND_104[0:0];
+  DIP_io_inst_REG = _RAND_104[31:0];
   _RAND_105 = {1{`RANDOM}};
-  DIP_io_is_break_REG_1 = _RAND_105[0:0];
+  DIP_io_is_skip_REG = _RAND_105[0:0];
   _RAND_106 = {1{`RANDOM}};
-  DIP_io_inst_REG = _RAND_106[31:0];
-  _RAND_107 = {1{`RANDOM}};
-  DIP_io_is_skip_REG = _RAND_107[0:0];
-  _RAND_108 = {1{`RANDOM}};
-  DIP_io_inst_valid_REG = _RAND_108[0:0];
-  _RAND_109 = {2{`RANDOM}};
-  DIP_io_pc_REG = _RAND_109[63:0];
-  _RAND_110 = {2{`RANDOM}};
-  DIP_io_dnpc_REG = _RAND_110[63:0];
+  DIP_io_inst_valid_REG = _RAND_106[0:0];
+  _RAND_107 = {2{`RANDOM}};
+  DIP_io_pc_REG = _RAND_107[63:0];
+  _RAND_108 = {2{`RANDOM}};
+  DIP_io_dnpc_REG = _RAND_108[63:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
