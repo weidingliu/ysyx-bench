@@ -263,7 +263,6 @@ class EXE extends Module with Paramete{
     is(ALUOPType.sra) {
       shift_result := (src1.asSInt >> src2(5, 0)).asUInt
     }
-
   }
 
   mul.io.in.bits.ctrl_data.src1 := Mux(is_mul,src1,Cat(Fill(32,0.U),src1(31,0)))

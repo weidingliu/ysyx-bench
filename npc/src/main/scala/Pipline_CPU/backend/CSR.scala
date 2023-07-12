@@ -13,6 +13,49 @@ object CSR_index {
 
   def apply() =UInt(12.W)
 }
+class CSR_ extends Module with Paramete{
+  val io = IO(new Bundle() {
+    val rd = new CSR_RDIO
+    val wr = new CSR_WRIO
+  })
+  val mepc = Reg(UInt(xlen.W))
+  val mcause = RegInit(0.U(xlen.W))
+  val mstatus = RegInit(0.U(xlen.W))
+  val mtvec = RegInit(0.U(xlen.W))
+  val mie = RegInit(0.U(xlen.W))
+  val mip = RegInit(0.U(xlen.W))
+// read port
+  val read_table = Seq(
+    (io.rd.csr_addr === CSR_index.mstatus) -> mstatus,
+    (io.rd.csr_addr  === CSR_index.mtvec) -> mtvec,
+    (io.rd.csr_addr  === CSR_index.mepc) -> mepc,
+    (io.rd.csr_addr  === CSR_index.mcause) -> mcause,
+    (io.rd.csr_addr  === CSR_index.mie) -> mie,
+    (io.rd.csr_addr  === CSR_index.mip) -> mip,
+  )
+  io.rd.rd_data := MuxCase(0.U(xlen.W),read_table)
+  //write port
+  when(io.wr.csr_idx === CSR_index.mstatus && io.wr.csr_en) {
+    mstatus := io.wr.csr_data(xlen - 1, 0)
+  }
+    .elsewhen(io.wr.csr_idx === CSR_index.mtvec && io.wr.csr_en) {
+      mtvec := io.wr.csr_data(xlen - 1, 0)
+    }
+    .elsewhen(io.wr.csr_idx === CSR_index.mepc && io.wr.csr_en) {
+      mepc := io.wr.csr_data(xlen - 1, 0)
+    }
+    .elsewhen(io.wr.csr_idx === CSR_index.mcause && io.wr.csr_en) {
+      mcause := io.wr.csr_data(xlen - 1, 0)
+    }
+    .elsewhen(io.wr.csr_idx === CSR_index.mie && io.wr.csr_en) {
+      mie := io.wr.csr_data(xlen - 1, 0)
+    }
+    .elsewhen(io.wr.csr_idx === CSR_index.mip && io.wr.csr_en) {
+      mip := io.wr.csr_data(xlen - 1, 0)
+    }
+    .otherwise {}
+}
+
 
 class CSR extends Paramete{
   val mepc = Reg(UInt(xlen.W))
