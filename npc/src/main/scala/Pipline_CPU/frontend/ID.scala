@@ -91,6 +91,8 @@ class ID extends Module with Paramete{
   io.out.bits.ctrl_signal.src2Type := srctype2
   io.out.bits.ctrl_signal.inst_valid := Mux(aluoptype === ALUOPType.NOP || io.flush || !io.in.valid,0.U,1.U)
   io.out.bits.ctrl_signal.rfDest := rd
+  io.out.bits.ctrl_signal.ertn_flush := aluoptype === ALUOPType.mret
+  io.out.bits.ctrl_signal.excp_flush := aluoptype === ALUOPType.ecall
 
   io.out.bits.ctrl_flow.PC := io.in.bits.PC
   io.out.bits.ctrl_flow.inst := io.in.bits.Inst

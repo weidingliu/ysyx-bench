@@ -86,7 +86,6 @@ class EXE extends Module with Paramete{
 
 //    val src1 = Input(UInt(xlen.W))
 //    val src2 = Input(UInt(xlen.W))
-
     val is_mem = Output(Bool())
 
    val branchIO = new BranchIO
@@ -94,7 +93,7 @@ class EXE extends Module with Paramete{
     val is_break = Output(Bool())
     val is_flush = Output(Bool())
     val icache_busy = Input(Bool())
-
+    val csr_rd_io = Flipped(new CSR_RDIO)
   })
 //  val rf = new RF
 //  val reg1 = rf.read(io.in.bits.ctrl_signal.rfSrc1)
@@ -139,14 +138,12 @@ class EXE extends Module with Paramete{
   }
   switch(io.in.bits.ctrl_signal.src2Type) {
     is(SRCType.R) {
-
       src2 := io.in.bits.ctrl_data.src2
     }
     is(SRCType.imm) {
       src2 := Imm
     }
   }
-
 
   val alu_result = WireDefault(0.U(xlen.W))
   val dnpc = WireDefault(io.in.bits.ctrl_flow.PC+4.U(xlen.W))
@@ -218,13 +215,13 @@ class EXE extends Module with Paramete{
       alu_result := div_q
     }
     is(ALUOPType.csrrs) {
-      alu_result := csr.read(Imm(11, 0))
-      csr_result := csr.read(Imm(11, 0)) | src1
+      alu_result := io.csr_rd_io.rd_data
+      csr_result := io.csr_rd_io.rd_data | src1
       csr_idx := Imm(11, 0)
 //      csr.write(Imm(11, 0), csr.read(Imm(11, 0)) | src1)
     }
     is(ALUOPType.csrrw) {
-      alu_result := csr.read(Imm(11, 0))
+      alu_result := io.csr_rd_io.rd_data
       csr_result := src1
       csr_idx := Imm(11, 0)
 //      csr.write(Imm(11, 0), src1)
@@ -424,6 +421,7 @@ class EXE extends Module with Paramete{
   CSRDIFF.io.mepc := RegNext(RegNext(csr.mepc))
   CSRDIFF.io.mstatus := RegNext(RegNext(csr.mstatus))
 
+  io.csr_rd_io.csr_addr := csr_idx
 //  io.is_mem := Mux(io.in.bits.ctrl_signal.fuType === FUType.mem,1.B,0.B)
 
   io.out.bits.ctrl_signal <> io.in.bits.ctrl_signal
