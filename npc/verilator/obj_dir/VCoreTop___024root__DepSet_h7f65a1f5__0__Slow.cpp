@@ -15,7 +15,7 @@ VL_ATTR_COLD void VCoreTop___024root___eval_initial__TOP(VCoreTop___024root* vlS
     VCoreTop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    VCoreTop___024root___eval_initial__TOP\n"); );
     // Body
-    VCoreTop___024unit____Vdpiimwrap_set_csr__Vdpioc2_TOP____024unit(vlSelf->CoreTop__DOT__EX__DOT__CSRDIFF__DOT__inst_csr);
+    VCoreTop___024unit____Vdpiimwrap_set_csr__Vdpioc2_TOP____024unit(vlSelf->CoreTop__DOT__CSR__DOT__CSRDIFF__DOT__inst_csr);
 }
 
 #ifdef VL_DEBUG

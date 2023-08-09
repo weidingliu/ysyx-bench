@@ -50,6 +50,7 @@ class SRAM extends BlackBox{
   })
 }
 
+
 class SRAM_AXI extends BlackBox{
   val io = IO(new Bundle() {
     val reset = Input(Bool())
@@ -154,6 +155,10 @@ class CoreTop extends Module with Paramete{
 
   val MMIO = Module(new MMIO)
 //  val DCACHE = Module(new Cache("Dcache"))
+  val CSR = Module(new CSR_)
+
+  val excp_flush = WB.io.out.bits.ctrl_signal.excp_flush
+  val mert_flush = WB.io.out.bits.ctrl_signal.ertn_flush
 
 //  io.pc := IF.io.out.bits.PC
   // bypass
@@ -162,7 +167,6 @@ class CoreTop extends Module with Paramete{
 
   bypass.io.reg_index1 := ID.io.out.bits.ctrl_signal.rfSrc1
   bypass.io.reg_index2 := ID.io.out.bits.ctrl_signal.rfSrc2
-
 
   // fetch inst
 //  IF.io.inst := ICACHE.io.rdata
@@ -246,7 +250,7 @@ class CoreTop extends Module with Paramete{
 
   IF.io.flush := EX.io.is_flush
 //  IF.io.flush := EX.io.is_flush
-  BUFFER_Connect(IF.io.out,ID.io.in,ID.io.out.fire,EX.io.is_flush)
+  BUFFER_Connect(IF.io.out,ID.io.in,ID.io.out.fire,EX.io.is_flush | excp_flush | mert_flush)
   //ID
 //  Pipline_Connect(IF.io.out,ID.io.in,ID.io.out.fire,EX.io.is_flush)
   ID.io.REG1 := bypass.io.Bypass_REG1
@@ -257,10 +261,11 @@ class CoreTop extends Module with Paramete{
 //  ID.io.exe_is_mem := EX.io.is_mem
 //  ID.io.exe_rf <> EX.io.out.bits.ctrl_rf
   //EXE
-  Pipline_Connect(ID.io.out,EX.io.in,EX.io.out.fire,EX.io.is_flush)
+  Pipline_Connect(ID.io.out,EX.io.in,EX.io.out.fire,EX.io.is_flush | excp_flush | mert_flush)
   IF.io.branch_io <> EX.io.branchIO
   bypass.io.EX_rf <> EX.io.out.bits.ctrl_rf
-
+  EX.io.csr_rd_io.rd_data := CSR.io.rd.rd_data
+  CSR.io.rd.csr_addr := EX.io.csr_rd_io.csr_addr
 //  mem_bypass.io.Reg1 := EX.io.in.bits.ctrl_data.src1
 //  mem_bypass.io.Reg2 := EX.io.in.bits.ctrl_data.src2
 //  mem_bypass.io.reg_index1 := EX.io.in.bits.ctrl_signal.rfSrc1
@@ -273,7 +278,7 @@ class CoreTop extends Module with Paramete{
 
 //  ID.io.flush := EX.io.is_flush
 //MEM
-  Pipline_Connect(EX.io.out,MEM.io.in,MEM.io.out.fire,0.B)
+  Pipline_Connect(EX.io.out,MEM.io.in,MEM.io.out.fire,excp_flush | mert_flush)
 //  MEM.io.mem.rdata := DCACHE.io.in.rdata_rep.bits.rdata
 
 
@@ -285,7 +290,7 @@ class CoreTop extends Module with Paramete{
 
 
 //WB
-  Pipline_Connect(MEM.io.out,WB.io.in,WB.io.out.fire,0.B)
+  Pipline_Connect(MEM.io.out,WB.io.in,WB.io.out.fire,excp_flush | mert_flush)
   when((WB.io.out.bits.ctrl_rf.rfWen === RD.write)) {
     Reg.write(WB.io.out.bits.ctrl_rf.rfDest, WB.io.out.bits.ctrl_rf.rfData)
   }
@@ -293,6 +298,11 @@ class CoreTop extends Module with Paramete{
   bypass.io.WB_rf <> WB.io.out.bits.ctrl_rf
 //  mem_bypass.io.WB_rf <> WB.io.out.bits.ctrl_rf
 
+  CSR.io.wr <> WB.io.out.bits.ctrl_csr
+  CSR.io.excp_flush := WB.io.out.bits.ctrl_signal.excp_flush
+  CSR.io.mert_flush := WB.io.out.bits.ctrl_signal.ertn_flush
+
+  // difftest
   DIP.io.is_break := RegNext(RegNext(EX.io.is_break))
   for (i <- 0 until NReg) {
     DIP.io.rf(i) := Reg.rf(i)
@@ -304,6 +314,7 @@ class CoreTop extends Module with Paramete{
   DIP.io.dnpc := RegNext(WB.io.out.bits.ctrl_flow.Dnpc)
   io.inst := WB.io.out.bits.ctrl_flow.inst
   io.pc := IF.io.out.bits.PC
+
 
 }
 

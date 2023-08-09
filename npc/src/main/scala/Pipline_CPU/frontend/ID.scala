@@ -99,6 +99,10 @@ class ID extends Module with Paramete{
   io.out.bits.ctrl_flow.Dnpc := 0.U(xlen.W)
   io.out.bits.ctrl_flow.skip := 0.B
 
+  io.out.bits.ctrl_csr.csr_en := Mux((aluoptype === ALUOPType.csrrs || aluoptype === ALUOPType.csrrw) & io.in.valid,true.B,false.B)
+  io.out.bits.ctrl_csr.csr_data := 0.U
+  io.out.bits.ctrl_csr.csr_idx := imm(11,0)
+
   io.out.bits.ctrl_data.Imm := imm
 
   io.out.bits.ctrl_data.src1 := io.REG1

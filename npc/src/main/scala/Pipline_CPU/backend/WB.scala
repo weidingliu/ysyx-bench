@@ -8,15 +8,17 @@ class WB extends Module with Paramete{
     val in = Flipped(Decoupled(new WBIO))
 
     val out = Decoupled(new WBIO)
+
+//    val csr_wb = new CSR_WRIO
   })
 
   io.out.bits <> io.in.bits
-  when(io.in.valid){
-    when(io.in.bits.ctrl_csr.csr_en){
-
-    }
-  }
-
+//  when(io.in.valid){
+//    when(io.in.bits.ctrl_csr.csr_en){
+//
+//    }
+//  }
+  io.out.bits.ctrl_csr.csr_en := Mux(io.in.valid,io.in.bits.ctrl_csr.csr_en,0.U)
   io.out.bits.ctrl_signal.inst_valid := Mux(io.in.valid,io.in.bits.ctrl_signal.inst_valid,0.U)
   io.out.bits.ctrl_rf.rfWen := Mux(io.in.valid,io.in.bits.ctrl_signal.rfWen,0.U)
 

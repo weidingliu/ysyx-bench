@@ -46,8 +46,8 @@ class CSR_WRIO extends Bundle with Paramete{
   val csr_data = Output(UInt(xlen.W))
   val csr_en = Output(Bool())
   val csr_idx = Output(UInt(12.W))
-  val ecall = Output(Bool())
-  val ert = Output(Bool())
+//  val ecall = Output(Bool())
+//  val ert = Output(Bool())
 }
 
 class CSR_RDIO extends Bundle with Paramete{
@@ -77,6 +77,7 @@ class DecoderIO extends Bundle with Paramete{
   val ctrl_signal = new CtrlSignalIO
   val ctrl_data = new DataSrcIO
   val ctrl_flow = new CtrlFlowIO
+  val ctrl_csr = new CSR_WRIO
 }
 
 class MEMIO extends Bundle with Paramete{

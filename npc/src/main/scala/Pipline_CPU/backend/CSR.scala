@@ -13,10 +13,20 @@ object CSR_index {
 
   def apply() =UInt(12.W)
 }
+class CSR_DIFF extends BlackBox{
+  val io=IO(new Bundle() {
+    val mepc = Input(UInt(64.W))
+    val mcause = Input(UInt(64.W))
+    val mstatus = Input(UInt(64.W))
+    val mtvec = Input(UInt(64.W))
+  })
+}
 class CSR_ extends Module with Paramete{
   val io = IO(new Bundle() {
-    val rd = new CSR_RDIO
-    val wr = new CSR_WRIO
+    val rd = Flipped(new CSR_RDIO)
+    val wr = Flipped(new CSR_WRIO)
+    val excp_flush = Input(Bool())
+    val mert_flush = Input(Bool())
   })
   val mepc = Reg(UInt(xlen.W))
   val mcause = RegInit(0.U(xlen.W))
@@ -24,6 +34,7 @@ class CSR_ extends Module with Paramete{
   val mtvec = RegInit(0.U(xlen.W))
   val mie = RegInit(0.U(xlen.W))
   val mip = RegInit(0.U(xlen.W))
+
 // read port
   val read_table = Seq(
     (io.rd.csr_addr === CSR_index.mstatus) -> mstatus,
@@ -34,6 +45,7 @@ class CSR_ extends Module with Paramete{
     (io.rd.csr_addr  === CSR_index.mip) -> mip,
   )
   io.rd.rd_data := MuxCase(0.U(xlen.W),read_table)
+
   //write port
   when(io.wr.csr_idx === CSR_index.mstatus && io.wr.csr_en) {
     mstatus := io.wr.csr_data(xlen - 1, 0)
@@ -54,6 +66,13 @@ class CSR_ extends Module with Paramete{
       mip := io.wr.csr_data(xlen - 1, 0)
     }
     .otherwise {}
+
+
+  val CSRDIFF = Module(new CSR_DIFF)
+  CSRDIFF.io.mepc := mepc
+  CSRDIFF.io.mtvec := mtvec
+  CSRDIFF.io.mcause := mcause
+  CSRDIFF.io.mstatus := mstatus
 }
 
 
