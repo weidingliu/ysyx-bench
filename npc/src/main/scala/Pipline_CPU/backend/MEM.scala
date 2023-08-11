@@ -188,10 +188,6 @@ class MEM_stage extends Module with Paramete {
 
   io.cache_io.rdata_rep.ready := true.B
 
-//  io.mem.addr := addr_temp
-//  io.mem.wdata := wdata_temp
-//  io.mem.wmask := wmask_temp
-
   io.out.valid := Mux(!io.in.valid|(io.in.valid & io.in.bits.ctrl_signal.fuType === FUType.mem & ((!io.cache_io.rdata_rep.valid) & (!io.cache_io.wdata_rep.get))),false.B,true.B)
   io.in.ready := Mux(io.in.valid & io.in.bits.ctrl_signal.fuType === FUType.mem & ((!io.cache_io.rdata_rep.valid) & (!io.cache_io.wdata_rep.get)),false.B,io.out.ready)
 //  printf(p"PC: ${Hexadecimal(io.in.bits.ctrl_flow.PC)}\n")

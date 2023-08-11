@@ -211,7 +211,7 @@ void execute(VCoreTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uin
         //printf("%d %lx\n",inst_valid,pc);
         if(!ref_is_irq && inst_valid==1){
             bool flag=difftest_step(dnpc);
-        
+            //printf("----------%016lx\n",dnpc);
             if(!flag) {state=ABORT; break;}
         }
         #endif

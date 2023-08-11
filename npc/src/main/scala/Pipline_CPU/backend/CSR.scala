@@ -27,6 +27,10 @@ class CSR_ extends Module with Paramete{
     val wr = Flipped(new CSR_WRIO)
     val excp_flush = Input(Bool())
     val mert_flush = Input(Bool())
+    val epc = Input(UInt(xlen.W))
+
+    val mtvec_o = Output(UInt(xlen.W))
+    val mepc_o = Output(UInt(xlen.W))
   })
   val mepc = Reg(UInt(xlen.W))
   val mcause = RegInit(0.U(xlen.W))
@@ -45,6 +49,15 @@ class CSR_ extends Module with Paramete{
     (io.rd.csr_addr  === CSR_index.mip) -> mip,
   )
   io.rd.rd_data := MuxCase(0.U(xlen.W),read_table)
+
+  when(io.excp_flush){
+    mstatus := mstatus & "hfffffffffffffff7".U(xlen.W)
+    mcause := 11.U(xlen.W)
+    mepc := io.epc
+  }
+  when(io.mert_flush){
+    mstatus := mstatus | "h0000000000000008".U(xlen.W)
+  }
 
   //write port
   when(io.wr.csr_idx === CSR_index.mstatus && io.wr.csr_en) {
@@ -67,6 +80,8 @@ class CSR_ extends Module with Paramete{
     }
     .otherwise {}
 
+  io.mtvec_o := mtvec
+  io.mepc_o := mepc
 
   val CSRDIFF = Module(new CSR_DIFF)
   CSRDIFF.io.mepc := mepc

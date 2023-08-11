@@ -211,7 +211,6 @@ class CoreTop extends Module with Paramete{
   MMEM.io.wd_id := ARBITER.io.out.wdata_req.bits.id
   MMEM.io.wd_last := ARBITER.io.out.wdata_req.bits.last
 
-
   MMEM.io.rd_ready := ARBITER.io.out.rdata_rep.ready
   ARBITER.io.out.rdata_rep.valid := MMEM.io.rd_valid
   ARBITER.io.out.rdata_rep.bits.data := MMEM.io.rd_data
@@ -224,33 +223,17 @@ class CoreTop extends Module with Paramete{
   ARBITER.io.out.wb.bits.id := MMEM.io.wr_id
   MMEM.io.wr_ready := ARBITER.io.out.wb.ready
 
-
-//  IFMEM.io.reset := reset
-//  IFMEM.io.clk := clock
-//  If_axi_birdge.io.out.raddr_req.ready := IFMEM.io.ar_ready
-//  IFMEM.io.ar_valid := If_axi_birdge.io.out.raddr_req.valid
-//  IFMEM.io.araddr := If_axi_birdge.io.out.raddr_req.bits.addr
-//
-//  If_axi_birdge.io.out.waddr_req.ready := IFMEM.io.aw_ready
-//  IFMEM.io.aw_valid := If_axi_birdge.io.out.waddr_req.valid
-//  IFMEM.io.awaddr := If_axi_birdge.io.out.waddr_req.bits.addr
-//
-//  If_axi_birdge.io.out.wdata_req.ready := IFMEM.io.w_ready
-//  IFMEM.io.wdata := If_axi_birdge.io.out.wdata_req.bits.wdata
-//  IFMEM.io.wstrb := If_axi_birdge.io.out.wdata_req.bits.wmask
-//  IFMEM.io.w_valid := If_axi_birdge.io.out.wdata_req.valid
-//
-//  IFMEM.io.r_ready := If_axi_birdge.io.out.rdata_rep.ready
-//  If_axi_birdge.io.out.rdata_rep.valid := IFMEM.io.r_valid
-//  If_axi_birdge.io.out.rdata_rep.bits.rdata := IFMEM.io.rdata
-//
-//  If_axi_birdge.io.out.wb.valid := IFMEM.io.bvalid
-//  If_axi_birdge.io.out.wb.bits := IFMEM.io.bresp
-//  IFMEM.io.bready := If_axi_birdge.io.out.wb.ready
-
   IF.io.flush := EX.io.is_flush
+  IF.io.excp_flush := WB.io.out.bits.ctrl_signal.excp_flush
+  IF.io.mret_flush := WB.io.out.bits.ctrl_signal.ertn_flush
+  IF.io.mret := CSR.io.mepc_o
+  IF.io.mtvec := CSR.io.mtvec_o
+
+  IF.io.wb_stall := WB.io.stall
+  IF.io.ex_stall := EX.io.stall
+
 //  IF.io.flush := EX.io.is_flush
-  BUFFER_Connect(IF.io.out,ID.io.in,ID.io.out.fire,EX.io.is_flush | excp_flush | mert_flush)
+  BUFFER_Connect(IF.io.out,ID.io.in,ID.io.out.fire,EX.io.is_flush | excp_flush | mert_flush | WB.io.stall | EX.io.stall)
   //ID
 //  Pipline_Connect(IF.io.out,ID.io.in,ID.io.out.fire,EX.io.is_flush)
   ID.io.REG1 := bypass.io.Bypass_REG1
@@ -285,6 +268,7 @@ class CoreTop extends Module with Paramete{
   MEM.io.cache_io <> MMIO.io.in
 
   bypass.io.MEM_rf <> MEM.io.out.bits.ctrl_rf
+  WB.io.icache_busy := ICACHE.io.cache_busy
 
 //  mem_bypass.io.MEM_rf <> MEM.io.out.bits.ctrl_rf
 
@@ -301,6 +285,7 @@ class CoreTop extends Module with Paramete{
   CSR.io.wr <> WB.io.out.bits.ctrl_csr
   CSR.io.excp_flush := WB.io.out.bits.ctrl_signal.excp_flush
   CSR.io.mert_flush := WB.io.out.bits.ctrl_signal.ertn_flush
+  CSR.io.epc := WB.io.out.bits.ctrl_flow.PC
 
   // difftest
   DIP.io.is_break := RegNext(RegNext(EX.io.is_break))
@@ -311,7 +296,7 @@ class CoreTop extends Module with Paramete{
   DIP.io.is_skip := RegNext(WB.io.out.bits.ctrl_flow.skip)
   DIP.io.inst_valid := RegNext(Mux(WB.io.out.valid,WB.io.out.bits.ctrl_signal.inst_valid,0.U))
   DIP.io.pc := RegNext(WB.io.out.bits.ctrl_flow.PC)
-  DIP.io.dnpc := RegNext(WB.io.out.bits.ctrl_flow.Dnpc)
+  DIP.io.dnpc := RegNext(Mux(WB.io.out.bits.ctrl_signal.excp_flush,CSR.io.mtvec_o,Mux(WB.io.out.bits.ctrl_signal.ertn_flush,CSR.io.mepc_o,WB.io.out.bits.ctrl_flow.Dnpc)))
   io.inst := WB.io.out.bits.ctrl_flow.inst
   io.pc := IF.io.out.bits.PC
 
