@@ -297,10 +297,9 @@ class CoreTop extends Module with Paramete{
   DIP.io.inst_valid := RegNext(Mux(WB.io.out.valid,WB.io.out.bits.ctrl_signal.inst_valid,0.U))
   DIP.io.pc := RegNext(WB.io.out.bits.ctrl_flow.PC)
   DIP.io.dnpc := RegNext(Mux(WB.io.out.bits.ctrl_signal.excp_flush,CSR.io.mtvec_o,Mux(WB.io.out.bits.ctrl_signal.ertn_flush,CSR.io.mepc_o,WB.io.out.bits.ctrl_flow.Dnpc)))
+
   io.inst := WB.io.out.bits.ctrl_flow.inst
   io.pc := IF.io.out.bits.PC
-
-
 }
 
 import chisel3.stage._

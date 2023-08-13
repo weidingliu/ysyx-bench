@@ -4880,8 +4880,8 @@ module CoreTop(
   assign rf_MPORT_addr = WB_io_out_bits_ctrl_rf_rfDest;
   assign rf_MPORT_mask = 1'h1;
   assign rf_MPORT_en = WB_io_out_bits_ctrl_rf_rfWen;
-  assign io_pc = IF_io_out_bits_PC; // @[CoreTop.scala 301:9]
-  assign io_inst = WB_io_out_bits_ctrl_flow_inst; // @[CoreTop.scala 300:11]
+  assign io_pc = IF_io_out_bits_PC; // @[CoreTop.scala 302:9]
+  assign io_inst = WB_io_out_bits_ctrl_flow_inst; // @[CoreTop.scala 301:11]
   assign IF_clock = clock;
   assign IF_reset = reset;
   assign IF_io_branch_io_is_branch = EX_io_branchIO_is_branch; // @[CoreTop.scala 248:19]
