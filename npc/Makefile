@@ -36,6 +36,7 @@ clean:
 sim: verilog
 	#$(MAKE) -C $(BPATH) 
 	cp -f ./build/CoreTop.v ./verilator/vsrc
+	cp -f ./src/main/scala/Pipline_CPU/backend/div.v ./verilator/vsrc
 	$(info  $(IMG))
 	$(MAKE) -C ./verilator IMG=$(IMG) WTRACE=$(WTRACE)
 	

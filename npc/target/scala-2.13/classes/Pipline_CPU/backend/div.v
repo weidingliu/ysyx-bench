@@ -1,6 +1,6 @@
 
 
-module V_Div(
+module div(
     input wire clk,
     input wire reset,
 
@@ -37,7 +37,7 @@ wire [63:0]negtive_b;
 wire [63:0] s_o;
 wire [63:0] r_o;
 
-wire [64:0]res_div;
+wire [63:0]res_div;
 
 assign R = dividend[127:64];
 assign res_div = dividend[127:63] - {1'b0,divisor};
@@ -86,7 +86,7 @@ always @(posedge clk) begin
     else begin
         case(state)
             idle: begin
-                dividend <= {{64{1'b0}},((div_signed & in_a[63]) ? negtive_a:in_a)};
+                dividend <= {64{1'b0},};
                 divisor <= (div_signed & in_b[63]) ? negtive_b:in_b;
             end
             Run: begin
@@ -94,9 +94,6 @@ always @(posedge clk) begin
                 dividend <= (res_div[64]? {res_div,dividend[62:0]}: dividend) << 1;
             end
             eNDs: begin
-
-            end
-            default: begin 
 
             end
         endcase
@@ -109,7 +106,7 @@ always @(posedge clk) begin
     end
     else begin 
         if(state == Run) count <= count + 9'b1;
-        if(state == idle || state == eNDs) count <= 9'b0;
+        if(state == idle) count <= 9'b0;
     end
 end
 

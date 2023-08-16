@@ -7,6 +7,23 @@ import Pipline_CPU.DIV_OUT
 import Pipline_CPU.utils.LookupTree
 
 
+class V_Div extends BlackBox{
+  val io = IO(new Bundle(){
+    val clk = Input(Clock())
+    val reset = Input(Bool())
+    
+    val in_valid = Input(Bool())
+    val in_a = Input(UInt(64.W))
+    val in_b = Input(UInt(64.W))
+    val div_signed = Input(Bool())
+    val flush = Input(Bool())
+
+    val result_valid = Output(Bool())
+    val quotient = Output(UInt(64.W))
+    val remainder = Output(UInt(64.W))
+  })
+}
+
 class DIV (div_len:Int)extends Module with Paramete{
   val io = IO(new Bundle() {
     val in = Flipped(Decoupled(new DIV_IN(div_len)))
@@ -142,7 +159,45 @@ class Radix_DIV (div_len:Int)extends Module with Paramete{
   io.out.bits.result.remainder := Mux(io.in.bits.ctrl_flow.div_signed, r_o, dividend(div_len * 2 - 1, div_len))
 }
 
+class Div_Top (div_len:Int)extends Module with Paramete{
+    val io = IO(new Bundle() {
+      val in = Flipped(Decoupled(new DIV_IN(div_len)))
+      val out = Decoupled(new DIV_OUT(div_len))
+  })
+  val div = div_select match{
+    case "Radix" => {
+      val divi = Module(new Radix_DIV(div_len))
+      io.in <> divi.io.in
+      io.out <> divi.io.out
+    }
+    case "Veri" => {
+      val divi = Module(new V_Div)
+      divi.io.clk := clock
+      divi.io.reset := reset
+      divi.io.flush := io.in.bits.ctrl_flow.flush
+      divi.io.div_signed := io.in.bits.ctrl_flow.div_signed
+      divi.io.in_valid := io.in.valid
+      divi.io.in_a := io.in.bits.ctrl_data.src1
+      divi.io.in_b := io.in.bits.ctrl_data.src2
+
+      io.out.valid := divi.io.result_valid
+      io.out.bits.result.quotient := divi.io.quotient
+      io.out.bits.result.remainder := divi.io.remainder
+
+      io.in.ready := true.B
+    }
+    case _ => {
+      val divi = Module(new Radix_DIV(div_len))
+      io.in <> divi.io.in
+      io.out <> divi.io.out
+    }
+  }
+    
+  
+
+}
+
 import chisel3.stage._
 object app extends App{
-  (new ChiselStage).emitVerilog(new DIV(64),Array("--target-dir", "build"))
+  (new ChiselStage).emitVerilog(new Div_Top(64),Array("--target-dir", "build"))
 }

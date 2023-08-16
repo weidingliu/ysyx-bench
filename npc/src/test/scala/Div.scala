@@ -6,7 +6,7 @@ import org.scalatest.freespec.AnyFreeSpec
 class DIV_test extends AnyFreeSpec with ChiselScalatestTester {
 
   "ALU" in {
-    test(new Radix_DIV(64)) { c =>
+    test(new Div_Top(64)) { c =>
       c.reset.poke(1.B)
       c.clock.step()
       c.clock.step()

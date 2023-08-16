@@ -113,7 +113,7 @@ class EXE extends Module with Paramete{
 //  val mul = Module(new Shift_MUL(xlen))
 //  val mul = Module(new Booth_MUL(3,xlen))
   val mul = Module(new MUL(3,xlen))
-  val div = Module(new Radix_DIV(xlen))
+  val div = Module(new Div_Top(xlen))
 
   Imm := io.in.bits.ctrl_data.Imm
   PC := io.in.bits.ctrl_flow.PC
