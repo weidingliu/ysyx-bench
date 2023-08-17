@@ -105,7 +105,7 @@ end
 // counter 
 always @(posedge clk) begin
     if(reset) begin 
-        count <= 9'b0;
+        count <= 9'h0;
     end
     else begin 
         if(state == Run) count <= count + 9'b1;
