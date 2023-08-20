@@ -159,6 +159,57 @@ class Radix_DIV (div_len:Int)extends Module with Paramete{
   io.out.bits.result.remainder := Mux(io.in.bits.ctrl_flow.div_signed, r_o, dividend(div_len * 2 - 1, div_len))
 }
 
+class Radix2Div(div_len:Int) extends Module with Paramete{
+  val io = IO(new Bundle(){
+    val in = Flipped(Decoupled(new DIV_IN(div_len)))
+    val out = Decoupled(new DIV_OUT(div_len))
+  })
+  def abs(a:UInt,sign:Bool): (Bool,UInt) = {
+    val s = a(div_len-1) && sign
+    (s,Mux(s,-a,a))
+  }
+
+  val s_idle :: s_log2 :: s_shift :: s_compute :: s_finish :: Nil = Enum(5)
+  val state = RegInit(s_idle)
+  val NewReq = (state === s_idle) & io.in.valid
+
+  val shiftReg = Reg(UInt((1+div_len*2).W))
+  val hi = shiftReg(div_len * 2,div_len)
+  val lo = shiftReg(div_len - 1,0)
+
+  val (aSign,aVal) = abs(io.in.bits.ctrl_data.src1,io.in.bits.ctrl_flow.div_signed)
+  val (bSign,bVal) = abs(io.in.bits.ctrl_data.src2,io.in.bits.ctrl_flow.div_signed)
+  val qSign = aSign ^ bSign
+
+  val aValx2Reg = RegEnable(Cat(aVal,"b0".U),NewReq)
+
+  val cnt = Counter(div_len)
+
+  when(NewReq){
+    state := s_log2
+  }.elsewhen(state === s_log2){
+    state := s_shift
+    val cntShift = (64.U | Log2(bVal)) - Log2(aVal)
+
+    cnt.value := Mux(cntShift >= (div_len-1).U,(div_len-1).U,cntShift)
+  }.elsewhen(state === s_shift){
+    shiftReg := aValx2Reg << cnt.value
+    state := s_compute
+  }.elsewhen(state === s_compute){
+    val enough = hi.asUInt >= bVal.asUInt
+    shiftReg := Cat(Mux(enough, hi - bVal, hi)(div_len - 1, 0), lo, enough)
+    cnt.inc()
+    when(cnt.value === ((div_len-1).U)){state := s_finish}
+  }.elsewhen(state === s_finish){
+    when(io.out.ready){ state := s_idle}
+  }
+
+  io.out.bits.result.remainder := Mux(aSign,-hi(div_len,1),hi(div_len,1))
+  io.out.bits.result.quotient := Mux(qSign,-lo,lo)
+  io.out.valid := state === s_finish
+  io.in.ready := state === s_idle
+}
+
 class Div_Top (div_len:Int)extends Module with Paramete{
     val io = IO(new Bundle() {
       val in = Flipped(Decoupled(new DIV_IN(div_len)))
@@ -185,6 +236,11 @@ class Div_Top (div_len:Int)extends Module with Paramete{
       io.out.bits.result.remainder := divi.io.remainder
 
       io.in.ready := true.B
+    }
+    case "ImproveRadix" => {
+      val divi = Module(new Radix2Div(div_len))
+      io.in <> divi.io.in
+      io.out <> divi.io.out
     }
     case _ => {
       val divi = Module(new Radix_DIV(div_len))

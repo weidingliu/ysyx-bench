@@ -41,7 +41,7 @@ wire [64:0]res_div;
 
 assign R = dividend[127:64];
 assign res_div = dividend[127:63] - {1'b0,divisor};
-assign s = count == 9'd64;
+assign s = count == 9'd63;
 assign negtive_S = ~S + 'h1;
 assign negtive_R = ~R + 'h1;
 
@@ -91,7 +91,7 @@ always @(posedge clk) begin
             end
             Run: begin
                 S <= res_div[64] ? {S[62:0],1'b0}:{S[62:0],1'b1};
-                dividend <= (res_div[64]? {res_div,dividend[62:0]}: dividend) << 1;
+                dividend <= (!res_div[64]? {res_div,dividend[62:0]}: dividend) << 1;
             end
             eNDs: begin
 

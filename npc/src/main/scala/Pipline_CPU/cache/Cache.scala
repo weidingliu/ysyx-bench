@@ -502,7 +502,7 @@ class Cache_Axi (Type : String) extends Module with CacheParamete{
       }
     }
     is(miss) {
-      when(io.in.rdata_rep.ready && read_state === refill) {
+      when(io.in.rdata_rep.ready && read_state === refill || io.flush) {
         state := idle
       }
     }

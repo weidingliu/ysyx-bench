@@ -21,15 +21,16 @@ class DIV_test extends AnyFreeSpec with ChiselScalatestTester {
       c.io.in.bits.ctrl_flow.div_signed.poke("b0".U)
       c.io.in.bits.ctrl_flow.flush.poke(0.U)
 //      c.io.in.bits.ctrl_flow.mulw.poke(0.U)
+      c.io.out.ready.poke(1.B)
       while (i<65){
         c.clock.step()
         i=i+1
-//        println("result is " + c.io.out.bits.result.quotient.peek().toString() + " cout is " + c.io.out.bits.result.remainder.peek().toString())
-//        println("valid is " + c.io.out.valid.peek().toString())
+        println("1 result is " + c.io.out.bits.result.quotient.peek().toString() + " cout is " + c.io.out.bits.result.remainder.peek().toString())
+        println("1 valid is " + c.io.out.valid.peek().toString())
 //        println("dsffg " + c.count.toString())
       }
-      println("result is " + c.io.out.bits.result.quotient.peek().toString() + " cout is " + c.io.out.bits.result.remainder.peek().toString())
-      println("valid is " + c.io.out.valid.peek().toString())
+//      println("result is " + c.io.out.bits.result.quotient.peek().toString() + " cout is " + c.io.out.bits.result.remainder.peek().toString())
+//      println("valid is " + c.io.out.valid.peek().toString())
 
       c.clock.step()
       i = 0
@@ -43,11 +44,11 @@ class DIV_test extends AnyFreeSpec with ChiselScalatestTester {
       while (i < 65) {
         c.clock.step()
         i = i + 1
-        //        println("result is " + c.io.out.bits.result.quotient.peek().toString() + " cout is " + c.io.out.bits.result.remainder.peek().toString())
-        //        println("valid is " + c.io.out.valid.peek().toString())
+                println("2 result is " + c.io.out.bits.result.quotient.peek().toString() + " cout is " + c.io.out.bits.result.remainder.peek().toString())
+                println("2 valid is " + c.io.out.valid.peek().toString())
       }
-      println("result is " + c.io.out.bits.result.quotient.peek().toString() + " cout is " + c.io.out.bits.result.remainder.peek().toString())
-      println("valid is " + c.io.out.valid.peek().toString())
+//      println("result is " + c.io.out.bits.result.quotient.peek().toString() + " cout is " + c.io.out.bits.result.remainder.peek().toString())
+//      println("valid is " + c.io.out.valid.peek().toString())
 
       c.clock.step()
       i = 0
@@ -61,11 +62,11 @@ class DIV_test extends AnyFreeSpec with ChiselScalatestTester {
       while (i < 65) {
         c.clock.step()
         i = i + 1
-        //        println("result is " + c.io.out.bits.result.quotient.peek().toString() + " cout is " + c.io.out.bits.result.remainder.peek().toString())
-        //        println("valid is " + c.io.out.valid.peek().toString())
+                println("3 result is " + c.io.out.bits.result.quotient.peek().toString() + " cout is " + c.io.out.bits.result.remainder.peek().toString())
+                println("3 valid is " + c.io.out.valid.peek().toString())
       }
-      println("result is " + c.io.out.bits.result.quotient.peek().toString() + " cout is " + c.io.out.bits.result.remainder.peek().toString())
-      println("valid is " + c.io.out.valid.peek().toString())
+//      println("result is " + c.io.out.bits.result.quotient.peek().toString() + " cout is " + c.io.out.bits.result.remainder.peek().toString())
+//      println("valid is " + c.io.out.valid.peek().toString())
 
     }
   }

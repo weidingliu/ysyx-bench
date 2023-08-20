@@ -173,7 +173,7 @@ class CoreTop extends Module with Paramete{
 //  ICACHE.io.in.bits.addr := IF.io.out.bits.PC
   IF.io.cache_req.addr_req <> ICACHE.io.in.addr_req
   IF.io.cache_req.rdata_rep <> ICACHE.io.in.rdata_rep
-  ICACHE.io.flush := 0.U
+  ICACHE.io.flush := EX.io.is_flush | excp_flush | mert_flush | WB.io.stall | EX.io.stall
 
   ARBITER.io.in2 <> ICACHE.io.out
   ARBITER.io.in1 <> MMIO.io.out
@@ -234,6 +234,7 @@ class CoreTop extends Module with Paramete{
 
 //  IF.io.flush := EX.io.is_flush
   BUFFER_Connect(IF.io.out,ID.io.in,ID.io.out.fire,EX.io.is_flush | excp_flush | mert_flush | WB.io.stall | EX.io.stall)
+  // Pipline_Connect(IF.io.out,ID.io.in,ID.io.out.fire,EX.io.is_flush | excp_flush | mert_flush | WB.io.stall | EX.io.stall)
   //ID
 //  Pipline_Connect(IF.io.out,ID.io.in,ID.io.out.fire,EX.io.is_flush)
   ID.io.REG1 := bypass.io.Bypass_REG1
