@@ -189,7 +189,7 @@ class Radix2Div(div_len:Int) extends Module with Paramete{
     state := s_log2
   }.elsewhen(state === s_log2){
     state := s_shift
-    val cntShift = (64.U | Log2(bVal)) - Log2(aVal)
+    val cntShift = (64.U | Log2(bVal)) - Log2(aValx2Reg)
 
     cnt.value := Mux(cntShift >= (div_len-1).U,(div_len-1).U,cntShift)
   }.elsewhen(state === s_shift){
