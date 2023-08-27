@@ -669,7 +669,8 @@ module Radix2Div(
   reg [31:0] _RAND_0;
   reg [159:0] _RAND_1;
   reg [95:0] _RAND_2;
-  reg [31:0] _RAND_3;
+  reg [63:0] _RAND_3;
+  reg [31:0] _RAND_4;
 `endif // RANDOMIZE_REG_INIT
   reg [2:0] state; // @[DIV.scala 173:22]
   wire  NewReq = state == 3'h0 & io_in_valid; // @[DIV.scala 174:35]
@@ -681,13 +682,13 @@ module Radix2Div(
   wire [63:0] aVal = aSign ? _T_1 : io_in_bits_ctrl_data_src1; // @[DIV.scala 169:11]
   wire  bSign = io_in_bits_ctrl_data_src2[63] & io_in_bits_ctrl_flow_div_signed; // @[DIV.scala 168:26]
   wire [63:0] _T_3 = 64'h0 - io_in_bits_ctrl_data_src2; // @[DIV.scala 169:14]
-  wire [63:0] bVal = bSign ? _T_3 : io_in_bits_ctrl_data_src2; // @[DIV.scala 169:11]
   wire  qSign = aSign ^ bSign; // @[DIV.scala 182:21]
   wire [64:0] _aValx2Reg_T = {aVal,1'h0}; // @[Cat.scala 31:58]
   reg [64:0] aValx2Reg; // @[Reg.scala 16:16]
+  reg [63:0] bValReg; // @[Reg.scala 16:16]
   reg [5:0] value; // @[Counter.scala 62:40]
-  wire [31:0] cntShift_hi = bVal[63:32]; // @[CircuitMath.scala 35:17]
-  wire [31:0] cntShift_lo = bVal[31:0]; // @[CircuitMath.scala 36:17]
+  wire [31:0] cntShift_hi = bValReg[63:32]; // @[CircuitMath.scala 35:17]
+  wire [31:0] cntShift_lo = bValReg[31:0]; // @[CircuitMath.scala 36:17]
   wire  cntShift_useHi = |cntShift_hi; // @[CircuitMath.scala 37:22]
   wire [15:0] cntShift_hi_1 = cntShift_hi[31:16]; // @[CircuitMath.scala 35:17]
   wire [15:0] cntShift_lo_1 = cntShift_hi[15:0]; // @[CircuitMath.scala 36:17]
@@ -793,8 +794,8 @@ module Radix2Div(
   wire [4:0] _cntShift_T_107 = {cntShift_useHi_8,_cntShift_T_106}; // @[Cat.scala 31:58]
   wire [4:0] _cntShift_T_108 = cntShift_useHi ? _cntShift_T_53 : _cntShift_T_107; // @[CircuitMath.scala 38:21]
   wire [5:0] _cntShift_T_109 = {cntShift_useHi,_cntShift_T_108}; // @[Cat.scala 31:58]
-  wire [6:0] _GEN_16 = {{1'd0}, _cntShift_T_109}; // @[DIV.scala 192:26]
-  wire [6:0] _cntShift_T_110 = 7'h40 | _GEN_16; // @[DIV.scala 192:26]
+  wire [6:0] _GEN_17 = {{1'd0}, _cntShift_T_109}; // @[DIV.scala 193:26]
+  wire [6:0] _cntShift_T_110 = 7'h40 | _GEN_17; // @[DIV.scala 193:26]
   wire  cntShift_hi_15 = aValx2Reg[64]; // @[CircuitMath.scala 35:17]
   wire [63:0] cntShift_lo_15 = aValx2Reg[63:0]; // @[CircuitMath.scala 36:17]
   wire  cntShift_useHi_15 = |cntShift_hi_15; // @[CircuitMath.scala 37:22]
@@ -907,55 +908,62 @@ module Radix2Div(
   wire [5:0] _cntShift_T_220 = {cntShift_useHi_16,_cntShift_T_219}; // @[Cat.scala 31:58]
   wire [5:0] _cntShift_T_221 = cntShift_useHi_15 ? 6'h0 : _cntShift_T_220; // @[CircuitMath.scala 38:21]
   wire [6:0] _cntShift_T_222 = {cntShift_useHi_15,_cntShift_T_221}; // @[Cat.scala 31:58]
-  wire [6:0] cntShift = _cntShift_T_110 - _cntShift_T_222; // @[DIV.scala 192:40]
-  wire [6:0] _value_T_1 = cntShift >= 7'h3f ? 7'h3f : cntShift; // @[DIV.scala 194:21]
-  wire [127:0] _GEN_0 = {{63'd0}, aValx2Reg}; // @[DIV.scala 196:27]
-  wire [127:0] _shiftReg_T = _GEN_0 << value; // @[DIV.scala 196:27]
-  wire [64:0] _GEN_17 = {{1'd0}, bVal}; // @[DIV.scala 199:28]
-  wire  enough = hi >= _GEN_17; // @[DIV.scala 199:28]
-  wire [64:0] _shiftReg_T_2 = hi - _GEN_17; // @[DIV.scala 200:36]
-  wire [64:0] _shiftReg_T_3 = enough ? _shiftReg_T_2 : hi; // @[DIV.scala 200:24]
+  wire [6:0] cntShift = _cntShift_T_110 - _cntShift_T_222; // @[DIV.scala 193:43]
+  wire [6:0] _value_T_1 = cntShift >= 7'h3f ? 7'h3f : cntShift; // @[DIV.scala 195:21]
+  wire [127:0] _GEN_0 = {{63'd0}, aValx2Reg}; // @[DIV.scala 197:27]
+  wire [127:0] _shiftReg_T = _GEN_0 << value; // @[DIV.scala 197:27]
+  wire [64:0] _GEN_18 = {{1'd0}, bValReg}; // @[DIV.scala 200:28]
+  wire  enough = hi >= _GEN_18; // @[DIV.scala 200:28]
+  wire [64:0] _shiftReg_T_2 = hi - _GEN_18; // @[DIV.scala 201:36]
+  wire [64:0] _shiftReg_T_3 = enough ? _shiftReg_T_2 : hi; // @[DIV.scala 201:24]
   wire [128:0] _shiftReg_T_5 = {_shiftReg_T_3[63:0],lo,enough}; // @[Cat.scala 31:58]
   wire  wrap = value == 6'h3f; // @[Counter.scala 74:24]
   wire [5:0] _value_T_3 = value + 6'h1; // @[Counter.scala 78:24]
-  wire [2:0] _GEN_1 = wrap ? 3'h4 : state; // @[DIV.scala 173:22 202:{40,47}]
-  wire [2:0] _GEN_3 = state == 3'h4 ? 3'h0 : state; // @[DIV.scala 173:22 203:33]
-  wire [5:0] _GEN_5 = state == 3'h3 ? _value_T_3 : value; // @[DIV.scala 198:34 Counter.scala 78:15 62:40]
-  wire [2:0] _GEN_6 = state == 3'h3 ? _GEN_1 : _GEN_3; // @[DIV.scala 198:34]
-  wire [5:0] _GEN_9 = state == 3'h2 ? value : _GEN_5; // @[DIV.scala 195:32 Counter.scala 62:40]
-  wire [6:0] _GEN_11 = state == 3'h1 ? _value_T_1 : {{1'd0}, _GEN_9}; // @[DIV.scala 190:31 194:15]
-  wire [6:0] _GEN_14 = NewReq ? {{1'd0}, value} : _GEN_11; // @[DIV.scala 188:15 Counter.scala 62:40]
-  wire [63:0] _io_out_bits_result_remainder_T_2 = 64'h0 - hi[64:1]; // @[DIV.scala 207:45]
-  wire [63:0] _io_out_bits_result_quotient_T_1 = 64'h0 - lo; // @[DIV.scala 208:44]
-  wire [6:0] _GEN_19 = reset ? 7'h0 : _GEN_14; // @[Counter.scala 62:{40,40}]
-  assign io_out_valid = state == 3'h4; // @[DIV.scala 209:25]
-  assign io_out_bits_result_quotient = qSign ? _io_out_bits_result_quotient_T_1 : lo; // @[DIV.scala 208:37]
-  assign io_out_bits_result_remainder = aSign ? _io_out_bits_result_remainder_T_2 : hi[64:1]; // @[DIV.scala 207:38]
+  wire [2:0] _GEN_2 = wrap ? 3'h4 : state; // @[DIV.scala 173:22 203:{40,47}]
+  wire [2:0] _GEN_4 = state == 3'h4 ? 3'h0 : state; // @[DIV.scala 173:22 204:33]
+  wire [5:0] _GEN_6 = state == 3'h3 ? _value_T_3 : value; // @[DIV.scala 199:34 Counter.scala 78:15 62:40]
+  wire [2:0] _GEN_7 = state == 3'h3 ? _GEN_2 : _GEN_4; // @[DIV.scala 199:34]
+  wire [5:0] _GEN_10 = state == 3'h2 ? value : _GEN_6; // @[DIV.scala 196:32 Counter.scala 62:40]
+  wire [6:0] _GEN_12 = state == 3'h1 ? _value_T_1 : {{1'd0}, _GEN_10}; // @[DIV.scala 191:31 195:15]
+  wire [6:0] _GEN_15 = NewReq ? {{1'd0}, value} : _GEN_12; // @[DIV.scala 189:15 Counter.scala 62:40]
+  wire [63:0] _io_out_bits_result_remainder_T_2 = 64'h0 - hi[64:1]; // @[DIV.scala 208:45]
+  wire [63:0] _io_out_bits_result_quotient_T_1 = 64'h0 - lo; // @[DIV.scala 209:44]
+  wire [6:0] _GEN_20 = reset ? 7'h0 : _GEN_15; // @[Counter.scala 62:{40,40}]
+  assign io_out_valid = state == 3'h4; // @[DIV.scala 210:25]
+  assign io_out_bits_result_quotient = qSign ? _io_out_bits_result_quotient_T_1 : lo; // @[DIV.scala 209:37]
+  assign io_out_bits_result_remainder = aSign ? _io_out_bits_result_remainder_T_2 : hi[64:1]; // @[DIV.scala 208:38]
   always @(posedge clock) begin
     if (reset) begin // @[DIV.scala 173:22]
       state <= 3'h0; // @[DIV.scala 173:22]
-    end else if (NewReq) begin // @[DIV.scala 188:15]
-      state <= 3'h1; // @[DIV.scala 189:11]
-    end else if (state == 3'h1) begin // @[DIV.scala 190:31]
-      state <= 3'h2; // @[DIV.scala 191:11]
-    end else if (state == 3'h2) begin // @[DIV.scala 195:32]
-      state <= 3'h3; // @[DIV.scala 197:11]
+    end else if (NewReq) begin // @[DIV.scala 189:15]
+      state <= 3'h1; // @[DIV.scala 190:11]
+    end else if (state == 3'h1) begin // @[DIV.scala 191:31]
+      state <= 3'h2; // @[DIV.scala 192:11]
+    end else if (state == 3'h2) begin // @[DIV.scala 196:32]
+      state <= 3'h3; // @[DIV.scala 198:11]
     end else begin
-      state <= _GEN_6;
+      state <= _GEN_7;
     end
-    if (!(NewReq)) begin // @[DIV.scala 188:15]
-      if (!(state == 3'h1)) begin // @[DIV.scala 190:31]
-        if (state == 3'h2) begin // @[DIV.scala 195:32]
-          shiftReg <= {{1'd0}, _shiftReg_T}; // @[DIV.scala 196:14]
-        end else if (state == 3'h3) begin // @[DIV.scala 198:34]
-          shiftReg <= _shiftReg_T_5; // @[DIV.scala 200:14]
+    if (!(NewReq)) begin // @[DIV.scala 189:15]
+      if (!(state == 3'h1)) begin // @[DIV.scala 191:31]
+        if (state == 3'h2) begin // @[DIV.scala 196:32]
+          shiftReg <= {{1'd0}, _shiftReg_T}; // @[DIV.scala 197:14]
+        end else if (state == 3'h3) begin // @[DIV.scala 199:34]
+          shiftReg <= _shiftReg_T_5; // @[DIV.scala 201:14]
         end
       end
     end
     if (NewReq) begin // @[Reg.scala 17:18]
       aValx2Reg <= _aValx2Reg_T; // @[Reg.scala 17:22]
     end
-    value <= _GEN_19[5:0]; // @[Counter.scala 62:{40,40}]
+    if (NewReq) begin // @[Reg.scala 17:18]
+      if (bSign) begin // @[DIV.scala 169:11]
+        bValReg <= _T_3;
+      end else begin
+        bValReg <= io_in_bits_ctrl_data_src2;
+      end
+    end
+    value <= _GEN_20[5:0]; // @[Counter.scala 62:{40,40}]
   end
 // Register and memory initialization
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
@@ -999,8 +1007,10 @@ initial begin
   shiftReg = _RAND_1[128:0];
   _RAND_2 = {3{`RANDOM}};
   aValx2Reg = _RAND_2[64:0];
-  _RAND_3 = {1{`RANDOM}};
-  value = _RAND_3[5:0];
+  _RAND_3 = {2{`RANDOM}};
+  bValReg = _RAND_3[63:0];
+  _RAND_4 = {1{`RANDOM}};
+  value = _RAND_4[5:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
@@ -1020,16 +1030,16 @@ module Div_Top(
   output [63:0] io_out_bits_result_quotient,
   output [63:0] io_out_bits_result_remainder
 );
-  wire  divi_clock; // @[DIV.scala 241:24]
-  wire  divi_reset; // @[DIV.scala 241:24]
-  wire  divi_io_in_valid; // @[DIV.scala 241:24]
-  wire  divi_io_in_bits_ctrl_flow_div_signed; // @[DIV.scala 241:24]
-  wire [63:0] divi_io_in_bits_ctrl_data_src1; // @[DIV.scala 241:24]
-  wire [63:0] divi_io_in_bits_ctrl_data_src2; // @[DIV.scala 241:24]
-  wire  divi_io_out_valid; // @[DIV.scala 241:24]
-  wire [63:0] divi_io_out_bits_result_quotient; // @[DIV.scala 241:24]
-  wire [63:0] divi_io_out_bits_result_remainder; // @[DIV.scala 241:24]
-  Radix2Div divi ( // @[DIV.scala 241:24]
+  wire  divi_clock; // @[DIV.scala 242:24]
+  wire  divi_reset; // @[DIV.scala 242:24]
+  wire  divi_io_in_valid; // @[DIV.scala 242:24]
+  wire  divi_io_in_bits_ctrl_flow_div_signed; // @[DIV.scala 242:24]
+  wire [63:0] divi_io_in_bits_ctrl_data_src1; // @[DIV.scala 242:24]
+  wire [63:0] divi_io_in_bits_ctrl_data_src2; // @[DIV.scala 242:24]
+  wire  divi_io_out_valid; // @[DIV.scala 242:24]
+  wire [63:0] divi_io_out_bits_result_quotient; // @[DIV.scala 242:24]
+  wire [63:0] divi_io_out_bits_result_remainder; // @[DIV.scala 242:24]
+  Radix2Div divi ( // @[DIV.scala 242:24]
     .clock(divi_clock),
     .reset(divi_reset),
     .io_in_valid(divi_io_in_valid),
@@ -1040,15 +1050,15 @@ module Div_Top(
     .io_out_bits_result_quotient(divi_io_out_bits_result_quotient),
     .io_out_bits_result_remainder(divi_io_out_bits_result_remainder)
   );
-  assign io_out_valid = divi_io_out_valid; // @[DIV.scala 243:14]
-  assign io_out_bits_result_quotient = divi_io_out_bits_result_quotient; // @[DIV.scala 243:14]
-  assign io_out_bits_result_remainder = divi_io_out_bits_result_remainder; // @[DIV.scala 243:14]
+  assign io_out_valid = divi_io_out_valid; // @[DIV.scala 244:14]
+  assign io_out_bits_result_quotient = divi_io_out_bits_result_quotient; // @[DIV.scala 244:14]
+  assign io_out_bits_result_remainder = divi_io_out_bits_result_remainder; // @[DIV.scala 244:14]
   assign divi_clock = clock;
   assign divi_reset = reset;
-  assign divi_io_in_valid = io_in_valid; // @[DIV.scala 242:13]
-  assign divi_io_in_bits_ctrl_flow_div_signed = io_in_bits_ctrl_flow_div_signed; // @[DIV.scala 242:13]
-  assign divi_io_in_bits_ctrl_data_src1 = io_in_bits_ctrl_data_src1; // @[DIV.scala 242:13]
-  assign divi_io_in_bits_ctrl_data_src2 = io_in_bits_ctrl_data_src2; // @[DIV.scala 242:13]
+  assign divi_io_in_valid = io_in_valid; // @[DIV.scala 243:13]
+  assign divi_io_in_bits_ctrl_flow_div_signed = io_in_bits_ctrl_flow_div_signed; // @[DIV.scala 243:13]
+  assign divi_io_in_bits_ctrl_data_src1 = io_in_bits_ctrl_data_src1; // @[DIV.scala 243:13]
+  assign divi_io_in_bits_ctrl_data_src2 = io_in_bits_ctrl_data_src2; // @[DIV.scala 243:13]
 endmodule
 module EXE(
   input         clock,

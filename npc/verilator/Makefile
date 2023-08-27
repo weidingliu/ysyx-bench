@@ -18,9 +18,11 @@ CFLAGS += -CFLAGS "-D WTRACE"
 endif
 ##CFLAGS+=-CFLAGS $(shell llvm-config-13 --cxxflags) -CFLAGS -fPIE
 
+verilator_FLAGS = -Wno-fatal --trace ##-j 8 ##--prof-cfuncs
+
 vcd:	
 	@echo $(CFLAGS)
-	verilator -Wno-fatal --trace --prof-cfuncs -j $(nproc) -cc  $(VSRC) --top-module CoreTop  -O3 --exe $(CSRC) $(LDFLAGS) $(CFLAGS)
+	verilator $(verilator_FLAGS) -cc  $(VSRC) --top-module CoreTop  -O3 --exe $(CSRC) $(LDFLAGS) $(CFLAGS)
 	$(MAKE) -C obj_dir -f VCoreTop.mk VCoreTop 
 	##$(info $(bin_path)$(ALL)-$(ARCH).bin)
 	./obj_dir/VCoreTop $(IMG) $(SO_PATH)

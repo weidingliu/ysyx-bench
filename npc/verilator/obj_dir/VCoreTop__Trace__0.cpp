@@ -1020,113 +1020,113 @@ void VCoreTop___024root__trace_chg_sub_0(VCoreTop___024root* vlSelf, VerilatedVc
                                    ? (- vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi_io_in_bits_ctrl_data_src1)
                                    : vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi_io_in_bits_ctrl_data_src1)),64);
         bufp->chgBit(oldp+599,(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bSign));
-        bufp->chgQData(oldp+600,(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal),64);
-        bufp->chgBit(oldp+602,(((IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__aSign) 
+        bufp->chgBit(oldp+600,(((IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__aSign) 
                                 ^ (IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bSign))));
-        bufp->chgWData(oldp+603,(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__aValx2Reg),65);
+        bufp->chgWData(oldp+601,(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__aValx2Reg),65);
+        bufp->chgQData(oldp+604,(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg),64);
         bufp->chgCData(oldp+606,(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__value),6);
-        bufp->chgIData(oldp+607,((IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+        bufp->chgIData(oldp+607,((IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                           >> 0x20U))),32);
-        bufp->chgIData(oldp+608,((IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal)),32);
-        bufp->chgBit(oldp+609,((0U != (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+        bufp->chgIData(oldp+608,((IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg)),32);
+        bufp->chgBit(oldp+609,((0U != (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                >> 0x20U)))));
         bufp->chgSData(oldp+610,((0xffffU & (IData)(
-                                                    (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+                                                    (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                      >> 0x30U)))),16);
         bufp->chgSData(oldp+611,((0xffffU & (IData)(
-                                                    (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+                                                    (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                      >> 0x20U)))),16);
         bufp->chgBit(oldp+612,((0U != (0xffffU & (IData)(
-                                                         (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+                                                         (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                           >> 0x30U))))));
-        bufp->chgCData(oldp+613,((0xffU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+        bufp->chgCData(oldp+613,((0xffU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                    >> 0x38U)))),8);
-        bufp->chgCData(oldp+614,((0xffU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+        bufp->chgCData(oldp+614,((0xffU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                    >> 0x30U)))),8);
         bufp->chgBit(oldp+615,((0U != (0xffU & (IData)(
-                                                       (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+                                                       (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                         >> 0x38U))))));
-        bufp->chgCData(oldp+616,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+        bufp->chgCData(oldp+616,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                   >> 0x3cU)))),4);
-        bufp->chgCData(oldp+617,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+        bufp->chgCData(oldp+617,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                   >> 0x38U)))),4);
         bufp->chgBit(oldp+618,((0U != (0xfU & (IData)(
-                                                      (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+                                                      (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                        >> 0x3cU))))));
-        bufp->chgCData(oldp+619,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+        bufp->chgCData(oldp+619,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                   >> 0x34U)))),4);
-        bufp->chgCData(oldp+620,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+        bufp->chgCData(oldp+620,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                   >> 0x30U)))),4);
         bufp->chgBit(oldp+621,((0U != (0xfU & (IData)(
-                                                      (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+                                                      (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                        >> 0x34U))))));
-        bufp->chgCData(oldp+622,((0xffU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+        bufp->chgCData(oldp+622,((0xffU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                    >> 0x28U)))),8);
-        bufp->chgCData(oldp+623,((0xffU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+        bufp->chgCData(oldp+623,((0xffU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                    >> 0x20U)))),8);
         bufp->chgBit(oldp+624,((0U != (0xffU & (IData)(
-                                                       (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+                                                       (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                         >> 0x28U))))));
-        bufp->chgCData(oldp+625,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+        bufp->chgCData(oldp+625,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                   >> 0x2cU)))),4);
-        bufp->chgCData(oldp+626,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+        bufp->chgCData(oldp+626,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                   >> 0x28U)))),4);
         bufp->chgBit(oldp+627,((0U != (0xfU & (IData)(
-                                                      (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+                                                      (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                        >> 0x2cU))))));
-        bufp->chgCData(oldp+628,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+        bufp->chgCData(oldp+628,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                   >> 0x24U)))),4);
-        bufp->chgCData(oldp+629,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+        bufp->chgCData(oldp+629,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                   >> 0x20U)))),4);
         bufp->chgBit(oldp+630,((0U != (0xfU & (IData)(
-                                                      (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+                                                      (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                        >> 0x24U))))));
         bufp->chgSData(oldp+631,((0xffffU & (IData)(
-                                                    (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+                                                    (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                      >> 0x10U)))),16);
-        bufp->chgSData(oldp+632,((0xffffU & (IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal))),16);
+        bufp->chgSData(oldp+632,((0xffffU & (IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg))),16);
         bufp->chgBit(oldp+633,((0U != (0xffffU & (IData)(
-                                                         (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+                                                         (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                           >> 0x10U))))));
-        bufp->chgCData(oldp+634,((0xffU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+        bufp->chgCData(oldp+634,((0xffU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                    >> 0x18U)))),8);
-        bufp->chgCData(oldp+635,((0xffU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+        bufp->chgCData(oldp+635,((0xffU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                    >> 0x10U)))),8);
         bufp->chgBit(oldp+636,((0U != (0xffU & (IData)(
-                                                       (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+                                                       (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                         >> 0x18U))))));
-        bufp->chgCData(oldp+637,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+        bufp->chgCData(oldp+637,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                   >> 0x1cU)))),4);
-        bufp->chgCData(oldp+638,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+        bufp->chgCData(oldp+638,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                   >> 0x18U)))),4);
         bufp->chgBit(oldp+639,((0U != (0xfU & (IData)(
-                                                      (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+                                                      (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                        >> 0x1cU))))));
-        bufp->chgCData(oldp+640,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+        bufp->chgCData(oldp+640,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                   >> 0x14U)))),4);
-        bufp->chgCData(oldp+641,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+        bufp->chgCData(oldp+641,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                   >> 0x10U)))),4);
         bufp->chgBit(oldp+642,((0U != (0xfU & (IData)(
-                                                      (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+                                                      (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                        >> 0x14U))))));
-        bufp->chgCData(oldp+643,((0xffU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+        bufp->chgCData(oldp+643,((0xffU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                    >> 8U)))),8);
-        bufp->chgCData(oldp+644,((0xffU & (IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal))),8);
+        bufp->chgCData(oldp+644,((0xffU & (IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg))),8);
         bufp->chgBit(oldp+645,((0U != (0xffU & (IData)(
-                                                       (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+                                                       (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                         >> 8U))))));
-        bufp->chgCData(oldp+646,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+        bufp->chgCData(oldp+646,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                   >> 0xcU)))),4);
-        bufp->chgCData(oldp+647,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+        bufp->chgCData(oldp+647,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                   >> 8U)))),4);
         bufp->chgBit(oldp+648,((0U != (0xfU & (IData)(
-                                                      (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+                                                      (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                        >> 0xcU))))));
-        bufp->chgCData(oldp+649,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+        bufp->chgCData(oldp+649,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                   >> 4U)))),4);
-        bufp->chgCData(oldp+650,((0xfU & (IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal))),4);
+        bufp->chgCData(oldp+650,((0xfU & (IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg))),4);
         bufp->chgBit(oldp+651,((0U != (0xfU & (IData)(
-                                                      (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+                                                      (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                        >> 4U))))));
         bufp->chgBit(oldp+652,((1U & vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__aValx2Reg[2U])));
         bufp->chgQData(oldp+653,((((QData)((IData)(

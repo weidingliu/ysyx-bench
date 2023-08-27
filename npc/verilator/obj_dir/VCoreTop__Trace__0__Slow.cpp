@@ -886,9 +886,9 @@ VL_ATTR_COLD void VCoreTop___024root__trace_init_sub__TOP__0(VCoreTop___024root*
     tracep->declBit(c+597,"aSign", false,-1);
     tracep->declQuad(c+598,"aVal", false,-1, 63,0);
     tracep->declBit(c+600,"bSign", false,-1);
-    tracep->declQuad(c+601,"bVal", false,-1, 63,0);
-    tracep->declBit(c+603,"qSign", false,-1);
-    tracep->declArray(c+604,"aValx2Reg", false,-1, 64,0);
+    tracep->declBit(c+601,"qSign", false,-1);
+    tracep->declArray(c+602,"aValx2Reg", false,-1, 64,0);
+    tracep->declQuad(c+605,"bValReg", false,-1, 63,0);
     tracep->declBus(c+607,"value", false,-1, 5,0);
     tracep->declBus(c+608,"cntShift_hi", false,-1, 31,0);
     tracep->declBus(c+609,"cntShift_lo", false,-1, 31,0);
@@ -2829,110 +2829,110 @@ VL_ATTR_COLD void VCoreTop___024root__trace_full_sub_0(VCoreTop___024root* vlSel
                                 ? (- vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi_io_in_bits_ctrl_data_src1)
                                 : vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi_io_in_bits_ctrl_data_src1)),64);
     bufp->fullBit(oldp+600,(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bSign));
-    bufp->fullQData(oldp+601,(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal),64);
-    bufp->fullBit(oldp+603,(((IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__aSign) 
+    bufp->fullBit(oldp+601,(((IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__aSign) 
                              ^ (IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bSign))));
-    bufp->fullWData(oldp+604,(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__aValx2Reg),65);
+    bufp->fullWData(oldp+602,(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__aValx2Reg),65);
+    bufp->fullQData(oldp+605,(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg),64);
     bufp->fullCData(oldp+607,(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__value),6);
-    bufp->fullIData(oldp+608,((IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+    bufp->fullIData(oldp+608,((IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                        >> 0x20U))),32);
-    bufp->fullIData(oldp+609,((IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal)),32);
-    bufp->fullBit(oldp+610,((0U != (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+    bufp->fullIData(oldp+609,((IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg)),32);
+    bufp->fullBit(oldp+610,((0U != (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                             >> 0x20U)))));
-    bufp->fullSData(oldp+611,((0xffffU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+    bufp->fullSData(oldp+611,((0xffffU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                   >> 0x30U)))),16);
-    bufp->fullSData(oldp+612,((0xffffU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+    bufp->fullSData(oldp+612,((0xffffU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                   >> 0x20U)))),16);
     bufp->fullBit(oldp+613,((0U != (0xffffU & (IData)(
-                                                      (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+                                                      (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                        >> 0x30U))))));
-    bufp->fullCData(oldp+614,((0xffU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+    bufp->fullCData(oldp+614,((0xffU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                 >> 0x38U)))),8);
-    bufp->fullCData(oldp+615,((0xffU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+    bufp->fullCData(oldp+615,((0xffU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                 >> 0x30U)))),8);
     bufp->fullBit(oldp+616,((0U != (0xffU & (IData)(
-                                                    (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+                                                    (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                      >> 0x38U))))));
-    bufp->fullCData(oldp+617,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+    bufp->fullCData(oldp+617,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                >> 0x3cU)))),4);
-    bufp->fullCData(oldp+618,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+    bufp->fullCData(oldp+618,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                >> 0x38U)))),4);
     bufp->fullBit(oldp+619,((0U != (0xfU & (IData)(
-                                                   (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+                                                   (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                     >> 0x3cU))))));
-    bufp->fullCData(oldp+620,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+    bufp->fullCData(oldp+620,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                >> 0x34U)))),4);
-    bufp->fullCData(oldp+621,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+    bufp->fullCData(oldp+621,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                >> 0x30U)))),4);
     bufp->fullBit(oldp+622,((0U != (0xfU & (IData)(
-                                                   (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+                                                   (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                     >> 0x34U))))));
-    bufp->fullCData(oldp+623,((0xffU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+    bufp->fullCData(oldp+623,((0xffU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                 >> 0x28U)))),8);
-    bufp->fullCData(oldp+624,((0xffU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+    bufp->fullCData(oldp+624,((0xffU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                 >> 0x20U)))),8);
     bufp->fullBit(oldp+625,((0U != (0xffU & (IData)(
-                                                    (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+                                                    (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                      >> 0x28U))))));
-    bufp->fullCData(oldp+626,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+    bufp->fullCData(oldp+626,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                >> 0x2cU)))),4);
-    bufp->fullCData(oldp+627,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+    bufp->fullCData(oldp+627,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                >> 0x28U)))),4);
     bufp->fullBit(oldp+628,((0U != (0xfU & (IData)(
-                                                   (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+                                                   (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                     >> 0x2cU))))));
-    bufp->fullCData(oldp+629,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+    bufp->fullCData(oldp+629,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                >> 0x24U)))),4);
-    bufp->fullCData(oldp+630,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+    bufp->fullCData(oldp+630,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                >> 0x20U)))),4);
     bufp->fullBit(oldp+631,((0U != (0xfU & (IData)(
-                                                   (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+                                                   (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                     >> 0x24U))))));
-    bufp->fullSData(oldp+632,((0xffffU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+    bufp->fullSData(oldp+632,((0xffffU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                   >> 0x10U)))),16);
-    bufp->fullSData(oldp+633,((0xffffU & (IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal))),16);
+    bufp->fullSData(oldp+633,((0xffffU & (IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg))),16);
     bufp->fullBit(oldp+634,((0U != (0xffffU & (IData)(
-                                                      (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+                                                      (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                        >> 0x10U))))));
-    bufp->fullCData(oldp+635,((0xffU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+    bufp->fullCData(oldp+635,((0xffU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                 >> 0x18U)))),8);
-    bufp->fullCData(oldp+636,((0xffU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+    bufp->fullCData(oldp+636,((0xffU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                 >> 0x10U)))),8);
     bufp->fullBit(oldp+637,((0U != (0xffU & (IData)(
-                                                    (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+                                                    (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                      >> 0x18U))))));
-    bufp->fullCData(oldp+638,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+    bufp->fullCData(oldp+638,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                >> 0x1cU)))),4);
-    bufp->fullCData(oldp+639,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+    bufp->fullCData(oldp+639,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                >> 0x18U)))),4);
     bufp->fullBit(oldp+640,((0U != (0xfU & (IData)(
-                                                   (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+                                                   (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                     >> 0x1cU))))));
-    bufp->fullCData(oldp+641,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+    bufp->fullCData(oldp+641,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                >> 0x14U)))),4);
-    bufp->fullCData(oldp+642,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+    bufp->fullCData(oldp+642,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                >> 0x10U)))),4);
     bufp->fullBit(oldp+643,((0U != (0xfU & (IData)(
-                                                   (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+                                                   (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                     >> 0x14U))))));
-    bufp->fullCData(oldp+644,((0xffU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+    bufp->fullCData(oldp+644,((0xffU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                 >> 8U)))),8);
-    bufp->fullCData(oldp+645,((0xffU & (IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal))),8);
+    bufp->fullCData(oldp+645,((0xffU & (IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg))),8);
     bufp->fullBit(oldp+646,((0U != (0xffU & (IData)(
-                                                    (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+                                                    (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                      >> 8U))))));
-    bufp->fullCData(oldp+647,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+    bufp->fullCData(oldp+647,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                >> 0xcU)))),4);
-    bufp->fullCData(oldp+648,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+    bufp->fullCData(oldp+648,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                >> 8U)))),4);
     bufp->fullBit(oldp+649,((0U != (0xfU & (IData)(
-                                                   (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+                                                   (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                     >> 0xcU))))));
-    bufp->fullCData(oldp+650,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+    bufp->fullCData(oldp+650,((0xfU & (IData)((vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                >> 4U)))),4);
-    bufp->fullCData(oldp+651,((0xfU & (IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal))),4);
+    bufp->fullCData(oldp+651,((0xfU & (IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg))),4);
     bufp->fullBit(oldp+652,((0U != (0xfU & (IData)(
-                                                   (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bVal 
+                                                   (vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__bValReg 
                                                     >> 4U))))));
     bufp->fullBit(oldp+653,((1U & vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__aValx2Reg[2U])));
     bufp->fullQData(oldp+654,((((QData)((IData)(vlSelf->CoreTop__DOT__EX__DOT__div__DOT__divi__DOT__aValx2Reg[1U])) 

@@ -7,26 +7,11 @@
 
 #include "VCoreTop___024root.h"
 
-void VCoreTop___024root___ico_sequent__TOP__0(VCoreTop___024root* vlSelf);
-
-void VCoreTop___024root___eval_ico(VCoreTop___024root* vlSelf) {
-    if (false && vlSelf) {}  // Prevent unused
-    VCoreTop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VCoreTop___024root___eval_ico\n"); );
-    // Body
-    if (vlSelf->__VicoTriggered.at(0U)) {
-        VCoreTop___024root___ico_sequent__TOP__0(vlSelf);
-        vlSelf->__Vm_traceActivity[1U] = 1U;
-    }
-}
-
-void VCoreTop___024root___eval_act(VCoreTop___024root* vlSelf) {
-    if (false && vlSelf) {}  // Prevent unused
-    VCoreTop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VCoreTop___024root___eval_act\n"); );
-}
-
 void VCoreTop___024root___nba_sequent__TOP__0(VCoreTop___024root* vlSelf);
+void VCoreTop___024root___nba_sequent__TOP__1(VCoreTop___024root* vlSelf);
+void VCoreTop___024root___nba_sequent__TOP__2(VCoreTop___024root* vlSelf);
+void VCoreTop___024root___nba_sequent__TOP__3(VCoreTop___024root* vlSelf);
+void VCoreTop___024root___nba_sequent__TOP__4(VCoreTop___024root* vlSelf);
 
 void VCoreTop___024root___eval_nba(VCoreTop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
@@ -36,6 +21,10 @@ void VCoreTop___024root___eval_nba(VCoreTop___024root* vlSelf) {
     if (vlSelf->__VnbaTriggered.at(0U)) {
         VCoreTop___024root___nba_sequent__TOP__0(vlSelf);
         vlSelf->__Vm_traceActivity[2U] = 1U;
+        VCoreTop___024root___nba_sequent__TOP__1(vlSelf);
+        VCoreTop___024root___nba_sequent__TOP__2(vlSelf);
+        VCoreTop___024root___nba_sequent__TOP__3(vlSelf);
+        VCoreTop___024root___nba_sequent__TOP__4(vlSelf);
     }
 }
 
@@ -43,10 +32,12 @@ void VCoreTop___024root___eval_triggers__ico(VCoreTop___024root* vlSelf);
 #ifdef VL_DEBUG
 VL_ATTR_COLD void VCoreTop___024root___dump_triggers__ico(VCoreTop___024root* vlSelf);
 #endif  // VL_DEBUG
+void VCoreTop___024root___eval_ico(VCoreTop___024root* vlSelf);
 void VCoreTop___024root___eval_triggers__act(VCoreTop___024root* vlSelf);
 #ifdef VL_DEBUG
 VL_ATTR_COLD void VCoreTop___024root___dump_triggers__act(VCoreTop___024root* vlSelf);
 #endif  // VL_DEBUG
+void VCoreTop___024root___eval_act(VCoreTop___024root* vlSelf);
 #ifdef VL_DEBUG
 VL_ATTR_COLD void VCoreTop___024root___dump_triggers__nba(VCoreTop___024root* vlSelf);
 #endif  // VL_DEBUG
@@ -72,7 +63,7 @@ void VCoreTop___024root___eval(VCoreTop___024root* vlSelf) {
 #ifdef VL_DEBUG
                 VCoreTop___024root___dump_triggers__ico(vlSelf);
 #endif
-                VL_FATAL_MT("vsrc/CoreTop.v", 3805, "", "Input combinational region did not converge.");
+                VL_FATAL_MT("vsrc/CoreTop.v", 60799, "", "Input combinational region did not converge.");
             }
             vlSelf->__VicoIterCount = ((IData)(1U) 
                                        + vlSelf->__VicoIterCount);
@@ -95,7 +86,7 @@ void VCoreTop___024root___eval(VCoreTop___024root* vlSelf) {
 #ifdef VL_DEBUG
                     VCoreTop___024root___dump_triggers__act(vlSelf);
 #endif
-                    VL_FATAL_MT("vsrc/CoreTop.v", 3805, "", "Active region did not converge.");
+                    VL_FATAL_MT("vsrc/CoreTop.v", 60799, "", "Active region did not converge.");
                 }
                 vlSelf->__VactIterCount = ((IData)(1U) 
                                            + vlSelf->__VactIterCount);
@@ -110,7 +101,7 @@ void VCoreTop___024root___eval(VCoreTop___024root* vlSelf) {
 #ifdef VL_DEBUG
                 VCoreTop___024root___dump_triggers__nba(vlSelf);
 #endif
-                VL_FATAL_MT("vsrc/CoreTop.v", 3805, "", "NBA region did not converge.");
+                VL_FATAL_MT("vsrc/CoreTop.v", 60799, "", "NBA region did not converge.");
             }
             __VnbaIterCount = ((IData)(1U) + __VnbaIterCount);
             VCoreTop___024root___eval_nba(vlSelf);

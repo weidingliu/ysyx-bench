@@ -182,6 +182,7 @@ class Radix2Div(div_len:Int) extends Module with Paramete{
   val qSign = aSign ^ bSign
 
   val aValx2Reg = RegEnable(Cat(aVal,"b0".U),NewReq)
+  val bValReg = RegEnable(bVal,NewReq)
 
   val cnt = Counter(div_len)
 
@@ -189,15 +190,15 @@ class Radix2Div(div_len:Int) extends Module with Paramete{
     state := s_log2
   }.elsewhen(state === s_log2){
     state := s_shift
-    val cntShift = (64.U | Log2(bVal)) - Log2(aValx2Reg)
+    val cntShift = (64.U | Log2(bValReg)) - Log2(aValx2Reg)
 
     cnt.value := Mux(cntShift >= (div_len-1).U,(div_len-1).U,cntShift)
   }.elsewhen(state === s_shift){
     shiftReg := aValx2Reg << cnt.value
     state := s_compute
   }.elsewhen(state === s_compute){
-    val enough = hi.asUInt >= bVal.asUInt
-    shiftReg := Cat(Mux(enough, hi - bVal, hi)(div_len - 1, 0), lo, enough)
+    val enough = hi.asUInt >= bValReg.asUInt
+    shiftReg := Cat(Mux(enough, hi - bValReg, hi)(div_len - 1, 0), lo, enough)
     cnt.inc()
     when(cnt.value === ((div_len-1).U)){state := s_finish}
   }.elsewhen(state === s_finish){
