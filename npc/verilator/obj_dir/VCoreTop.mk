@@ -39,6 +39,7 @@ VM_USER_CFLAGS = \
 	-Wno-tautological-compare \
 	-O3 \
 	-fprofile-generate \
+	-static \
 
 # User LDLIBS (from -LDFLAGS on Verilator command line)
 VM_USER_LDLIBS = \
