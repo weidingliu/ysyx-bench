@@ -39,7 +39,6 @@ VM_USER_CFLAGS = \
 	-Wno-tautological-compare \
 	-O3 \
 	-fprofile-generate \
-	-static \
 
 # User LDLIBS (from -LDFLAGS on Verilator command line)
 VM_USER_LDLIBS = \
@@ -47,6 +46,7 @@ VM_USER_LDLIBS = \
 	-lreadline \
 	-lSDL2 -lSDL2_image \
 	-fprofile-generate \
+	-static \
 
 # User .cpp files (from .cpp's on Verilator command line)
 VM_USER_CLASSES = \
