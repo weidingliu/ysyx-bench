@@ -18,7 +18,7 @@ CFLAGS += -CFLAGS "-D WTRACE"
 endif
 ##CFLAGS+=-CFLAGS $(shell llvm-config-13 --cxxflags) -CFLAGS -fPIE
 
-verilator_FLAGS = -Wno-fatal --compiler clang##--trace ##-j 8 ##--prof-cfuncs
+verilator_FLAGS = -Wno-fatal --compiler clang ##--trace ##-j 8 ##--prof-cfuncs
 
 vcd:	
 	@echo $(CFLAGS)
