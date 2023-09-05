@@ -19,12 +19,9 @@ static int fd=-1;
 static uint64_t start=0;
 
 uint32_t NDL_GetTicks() {
-  //printf("dfgggppp---------p\n");
   struct timeval time;
   gettimeofday(&time,NULL);
   return time.tv_sec*1000+time.tv_usec/1000-start;
-
-  //return (tv.tv_sec*1000 + tv.tv_usec/1000)-start;
 }
 
 int NDL_PollEvent(char *buf, int len) {
@@ -95,9 +92,6 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
         o=lseek(fdm,((y+mid_y+i)*screen_w+x+mid_x)*4,SEEK_SET);
         assert(o!=-1);
         o=write(fdm,pixels+i*w,w*4);
-       /* if(o<0) {
-            perror("error:");
-        }*/
         assert(o!=-1);
     }
 }
