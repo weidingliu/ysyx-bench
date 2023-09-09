@@ -19,7 +19,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   src_w=srcrect!=NULL? srcrect->x+srcrect->w:src->w;
   src_h=srcrect!=NULL? srcrect->y+srcrect->h:src->h;
   dst_w=dst->w;
-  dst_h=dst->h;
+  dst_h=dst->h; 
 //printf("%d %d %d %d %d %d %d %d\n",src_x,src_y,src_w,src_h,dst_x,dst_y,src_w,src_h);
   
   if(dst->format->BitsPerPixel==8){
