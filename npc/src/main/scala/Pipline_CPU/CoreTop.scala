@@ -192,7 +192,6 @@ class CoreTop extends Module with Paramete{
   MMEM.io.ar_burst := ARBITER.io.out.raddr_req.bits.brust
   MMEM.io.ar_prot := ARBITER.io.out.raddr_req.bits.prot
 
-
   ARBITER.io.out.waddr_req.ready := MMEM.io.aw_ready
   MMEM.io.aw_valid := ARBITER.io.out.waddr_req.valid
   MMEM.io.aw_addr := ARBITER.io.out.waddr_req.bits.addr
@@ -233,7 +232,7 @@ class CoreTop extends Module with Paramete{
   IF.io.ex_stall := EX.io.stall
 
 //  IF.io.flush := EX.io.is_flush
-  BUFFER_Connect(IF.io.out,ID.io.in,ID.io.out.fire,EX.io.is_flush | excp_flush | mert_flush | WB.io.stall | EX.io.stall)
+  BUFFER_Connect(IF.io.out,ID.io.in,ID.io.out.fire,EX.io.is_flush | excp_flush | mert_flush | WB.io.stall | EX.io.stall | WB.io.stall)
 //   Pipline_Connect(IF.io.out,ID.io.in,ID.io.out.fire,EX.io.is_flush | excp_flush | mert_flush | WB.io.stall | EX.io.stall)
   //ID
 //  Pipline_Connect(IF.io.out,ID.io.in,ID.io.out.fire,EX.io.is_flush)
@@ -245,7 +244,7 @@ class CoreTop extends Module with Paramete{
 //  ID.io.exe_is_mem := EX.io.is_mem
 //  ID.io.exe_rf <> EX.io.out.bits.ctrl_rf
   //EXE
-  Pipline_Connect(ID.io.out,EX.io.in,EX.io.out.fire,EX.io.is_flush | excp_flush | mert_flush)
+  Pipline_Connect(ID.io.out,EX.io.in,EX.io.out.fire,EX.io.is_flush | excp_flush | mert_flush | WB.io.stall)
   IF.io.branch_io <> EX.io.branchIO
   bypass.io.EX_rf <> EX.io.out.bits.ctrl_rf
   EX.io.csr_rd_io.rd_data := CSR.io.rd.rd_data
@@ -262,7 +261,7 @@ class CoreTop extends Module with Paramete{
 
 //  ID.io.flush := EX.io.is_flush
 //MEM
-  Pipline_Connect(EX.io.out,MEM.io.in,MEM.io.out.fire,excp_flush | mert_flush)
+  Pipline_Connect(EX.io.out,MEM.io.in,MEM.io.out.fire,excp_flush | mert_flush | WB.io.stall)
 //  MEM.io.mem.rdata := DCACHE.io.in.rdata_rep.bits.rdata
 
 

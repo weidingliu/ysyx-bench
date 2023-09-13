@@ -199,8 +199,8 @@ VL_ATTR_COLD void VCoreTop___024root___ctor_var_reset(VCoreTop___024root* vlSelf
     vlSelf->CoreTop__DOT__ARBITER_io_in1_wb_ready = VL_RAND_RESET_I(1);
     vlSelf->CoreTop__DOT__ARBITER_io_in1_wb_valid = VL_RAND_RESET_I(1);
     vlSelf->CoreTop__DOT___T = VL_RAND_RESET_I(1);
-    vlSelf->CoreTop__DOT___T_2 = VL_RAND_RESET_I(1);
-    vlSelf->CoreTop__DOT___T_4 = VL_RAND_RESET_I(1);
+    vlSelf->CoreTop__DOT___T_3 = VL_RAND_RESET_I(1);
+    vlSelf->CoreTop__DOT___T_5 = VL_RAND_RESET_I(1);
     vlSelf->CoreTop__DOT__head = VL_RAND_RESET_I(6);
     vlSelf->CoreTop__DOT__tail = VL_RAND_RESET_I(6);
     vlSelf->CoreTop__DOT__full = VL_RAND_RESET_I(1);
@@ -287,9 +287,9 @@ VL_ATTR_COLD void VCoreTop___024root___ctor_var_reset(VCoreTop___024root* vlSelf
     vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_flow_PC = VL_RAND_RESET_Q(64);
     vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_flow_inst = VL_RAND_RESET_I(32);
     vlSelf->CoreTop__DOT__EX_io_in_bits_r_ctrl_csr_csr_idx = VL_RAND_RESET_I(12);
-    vlSelf->CoreTop__DOT___T_14 = VL_RAND_RESET_I(1);
+    vlSelf->CoreTop__DOT___T_16 = VL_RAND_RESET_I(1);
     vlSelf->CoreTop__DOT__valid_1 = VL_RAND_RESET_I(1);
-    vlSelf->CoreTop__DOT___T_15 = VL_RAND_RESET_I(1);
+    vlSelf->CoreTop__DOT___T_18 = VL_RAND_RESET_I(1);
     vlSelf->CoreTop__DOT___GEN_221 = VL_RAND_RESET_I(1);
     vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_fuType = VL_RAND_RESET_I(3);
     vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_signal_inst_valid = VL_RAND_RESET_I(1);
@@ -309,7 +309,7 @@ VL_ATTR_COLD void VCoreTop___024root___ctor_var_reset(VCoreTop___024root* vlSelf
     vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_csr_csr_en = VL_RAND_RESET_I(1);
     vlSelf->CoreTop__DOT__MEM_io_in_bits_r_ctrl_csr_csr_idx = VL_RAND_RESET_I(12);
     vlSelf->CoreTop__DOT__valid_2 = VL_RAND_RESET_I(1);
-    vlSelf->CoreTop__DOT___T_19 = VL_RAND_RESET_I(1);
+    vlSelf->CoreTop__DOT___T_22 = VL_RAND_RESET_I(1);
     vlSelf->CoreTop__DOT___GEN_248 = VL_RAND_RESET_I(1);
     vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_signal_inst_valid = VL_RAND_RESET_I(1);
     vlSelf->CoreTop__DOT__WB_io_in_bits_r_ctrl_signal_rfWen = VL_RAND_RESET_I(1);
