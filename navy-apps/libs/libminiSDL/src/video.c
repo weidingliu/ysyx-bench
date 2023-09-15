@@ -26,7 +26,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
     int src_i=src_y;
     for(int i=dst_y;i<dst_h;i++){
         int src_j=src_x;
-        uint8_t * dstpix = (uint8_t *)dst->pixels+i*dst->w;
+        uint8_t * dstpix = (uint8_t *)dst->pixels+i*dst_w;
         uint8_t * srcpix = (uint8_t *)src->pixels+src_i*src->w;
         for(int j=dst_x;j<dst_w;j++){
            *(dstpix + j)=*(srcpix + src_j);
@@ -41,7 +41,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
         int src_i=src_y;
         for(int i=dst_y;i<dst_h;i++){
             int src_j=src_x;
-            uint32_t * dstpix = (uint32_t *)dst->pixels + i*dst->w;
+            uint32_t * dstpix = (uint32_t *)dst->pixels + i*dst_w;
             uint32_t * srcpix = (uint32_t *)src->pixels + src_i*src->w;
             for(int j=dst_x;j<dst_w;j++){
                *(dstpix + j)=*(srcpix + src_j);
