@@ -6,6 +6,7 @@
 #include <sys/time.h>
 #include <difftest.h>
 #include <device.h>
+#include <limits.h>
 
 
 uint64_t boot_time = 0;
@@ -91,29 +92,6 @@ extern "C" void pmem_write(long long addr, long long wdata, char wmask) {
       //is_skip_ref=1;
       return;
   }
-//   if((addr& ~0x7ull)>=0x83000000){
-    
-//     long long *p=&wdata;
-//   uint8_t *temp=(uint8_t *)p;
-//   int i=0;
-//   unsigned char loop= (unsigned char) wmask;
-//   //printf("%llx\n",*(long long *)(mem+(addr & ~0x7)-0x80000000));
-//   long long host_addr= (addr & ~0x7ull);
-//   while(loop!=0){
-//       if(loop & 1){
-//           printf("%x\n",*temp);
-//           memcpy((uint8_t *)host_addr,temp,sizeof(uint8_t));
-//           printf("%x\n",*temp);
-//       }
-//       //printf("%d  %x  \n",i,loop);
-//       temp++;
-//       i++;
-//       loop=loop>>1;
-//   }
-
-//     is_skip_ref=1;
-//     return;
-//   }
 
   if((((addr & ~0x7ull)-RESET_VECTOR)>MAX_MEM) ) {
   	#ifdef DIFFTEST 
@@ -125,22 +103,18 @@ extern "C" void pmem_write(long long addr, long long wdata, char wmask) {
   	//assert(0);
   }
 
-
-  long long *p=&wdata;
-  uint8_t *temp=(uint8_t *)p;
-  int i=0;
-  unsigned char loop= (unsigned char) wmask;
   long long offset=(addr& ~0x7ull)-RESET_VECTOR;
-  while(loop!=0){
-      if(loop & 1){
-          if(((offset+i)>MAX_MEM) ){ printf("%llx\n",addr & ~0x7ull);assert(0);}
-          memcpy(mem+offset+i,temp,sizeof(uint8_t));
-      }
-      //printf("%d  %x  \n",i,loop);
-      temp++;
-      i++;
-      loop=loop>>1;
+  unsigned long long mask = 0;
+  unsigned long long old_data;
+  if(((offset+sizeof(long long))>MAX_MEM) ){ printf("%llx\n",addr & ~0x7ull);assert(0);}
+  memcpy(&old_data,mem+offset,sizeof(long long));
+  int i=0;
+  for(;i<8;i++){
+  	if((long long)wmask & 1) mask |= 0xffull << (8*i);
+  	wmask >>=1;
   }
+  unsigned long long new_data = wdata & mask | old_data & ~mask;
+  memcpy(mem+offset,&new_data,sizeof(long long));
   #ifdef mtrace 
   printf("WRITE--- ADDR:  %016llx  DATA:  %016llx  MASK:  %x\n",addr,wdata,(uint8_t)wmask);
   #endif
