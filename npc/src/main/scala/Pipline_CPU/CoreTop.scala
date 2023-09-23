@@ -305,5 +305,9 @@ class CoreTop extends Module with Paramete{
 import chisel3.stage._
 
 object Spec extends App{
-  (new ChiselStage).emitVerilog(new CoreTop(),Array("--target-dir", "build"))
+  (new chisel3.stage.ChiselStage).execute(Array("--target-dir", "build"), Seq(
+    chisel3.stage.ChiselGeneratorAnnotation(() => new CoreTop()),
+    firrtl.stage.RunFirrtlTransformAnnotation(new AddModulePrefix()),
+    ModulePrefixAnnotation("ysyx_22050321_")
+  ))
 }
