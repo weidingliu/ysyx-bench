@@ -10,114 +10,112 @@ import axi.Sram2axi_mulit
 import axi.AxiliteArbiter
 import axi.Axi_FULLArbiter
 
-class DIP_model extends BlackBox{
-  val io = IO(new Bundle() {
-    val is_break = Input(Bool())
-    val rf=Input(Vec(32,UInt(64.W)))
-    val inst=Input(UInt(32.W))
-    val pc = Input(UInt(64.W))
-    val inst_valid = Input(Bool())
-    val dnpc = Input(UInt(64.W))
-    val is_skip=Input(Bool())
-  })
-}
+//class DIP_model extends BlackBox{
+//  val io = IO(new Bundle() {
+//    val is_break = Input(Bool())
+//    val rf=Input(Vec(32,UInt(64.W)))
+//    val inst=Input(UInt(32.W))
+//    val pc = Input(UInt(64.W))
+//    val inst_valid = Input(Bool())
+//    val dnpc = Input(UInt(64.W))
+//    val is_skip=Input(Bool())
+//  })
+//}
 
-class SRAM extends BlackBox{
-  val io = IO(new Bundle() {
-    val reset = Input(Bool())
-    val clk = Input(Clock())
+//class SRAM extends BlackBox{
+//  val io = IO(new Bundle() {
+//    val reset = Input(Bool())
+//    val clk = Input(Clock())
+//
+//    val ar_valid = Input(Bool())
+//    val ar_ready = Output(Bool())
+//    val araddr = Input(UInt(64.W))
+//
+//    val r_valid = Output(Bool())
+//    val r_ready = Input(Bool())
+//    val rdata = Output(UInt(64.W))
+//
+//    val aw_valid = Input(Bool())
+//    val aw_ready = Output(Bool())
+//    val awaddr = Input(UInt(64.W))
+//
+//    val w_valid = Input(Bool())
+//    val w_ready = Output(Bool())
+//    val wdata = Input(UInt(64.W))
+//    val wstrb = Input(UInt(8.W))
+//
+//    val bvalid = Output(Bool())
+//    val bready = Input(Bool())
+//    val bresp = Output(UInt(2.W))
+//  })
+//}
+//
+//
+//class SRAM_AXI extends BlackBox{
+//  val io = IO(new Bundle() {
+//    val reset = Input(Bool())
+//    val clk = Input(Clock())
+//
+//    val ar_valid = Input(Bool())
+//    val ar_ready = Output(Bool())
+//    val ar_addr = Input(UInt(64.W))
+//    val ar_id = Input(UInt(4.W))
+//    val ar_len = Input(UInt(8.W))
+//    val ar_size = Input(UInt(3.W))
+//    val ar_prot = Input(UInt(3.W))
+//    val ar_burst = Input(UInt(2.W))
+//    val ar_lock = Input(UInt(2.W))
+//    val ar_cache = Input(UInt(4.W))
+//
+//    val rd_valid = Output(Bool())
+//    val rd_ready = Input(Bool())
+//    val rd_data = Output(UInt(64.W))
+//    val rd_id = Output(UInt(4.W))
+//    val rd_resp = Output(UInt(2.W))
+//    val rd_last = Output(Bool())
+//
+//    val aw_valid = Input(Bool())
+//    val aw_ready = Output(Bool())
+//    val aw_addr = Input(UInt(64.W))
+//    val aw_id = Input(UInt(4.W))
+//    val aw_len = Input(UInt(8.W))
+//    val aw_size = Input(UInt(3.W))
+//    val aw_prot = Input(UInt(3.W))
+//    val aw_burst = Input(UInt(2.W))
+//    val aw_lock = Input(UInt(2.W))
+//    val aw_cache = Input(UInt(4.W))
+//
+//    val wd_valid = Input(Bool())
+//    val wd_ready = Output(Bool())
+//    val wd_data = Input(UInt(64.W))
+//    val wstrb = Input(UInt(8.W))
+//    val wd_id = Input(UInt(4.W))
+//    val wd_last = Input(Bool())
+//
+//    val wr_valid = Output(Bool())
+//    val wr_ready = Input(Bool())
+//    val wr_breap = Output(UInt(2.W))
+//    val wr_id = Output(UInt(4.W))
+//  })
+//}
+//
+//class MEM extends BlackBox{
+//  val io=IO(new Bundle() {
+//    val addr=Input(UInt(64.W))
+//    val reset=Input(Bool())
+//    val clk=Input(Clock())
+//    val we=Input(Bool())
+//    val ce=Input(Bool())
+//    val wdata=Input(UInt(64.W))
+//    val rdata=Output(UInt(64.W))
+//    val wmask=Input(UInt(8.W))
+//  })
+//}
 
-    val ar_valid = Input(Bool())
-    val ar_ready = Output(Bool())
-    val araddr = Input(UInt(64.W))
-
-    val r_valid = Output(Bool())
-    val r_ready = Input(Bool())
-    val rdata = Output(UInt(64.W))
-
-    val aw_valid = Input(Bool())
-    val aw_ready = Output(Bool())
-    val awaddr = Input(UInt(64.W))
-
-    val w_valid = Input(Bool())
-    val w_ready = Output(Bool())
-    val wdata = Input(UInt(64.W))
-    val wstrb = Input(UInt(8.W))
-
-    val bvalid = Output(Bool())
-    val bready = Input(Bool())
-    val bresp = Output(UInt(2.W))
-  })
-}
-
-
-class SRAM_AXI extends BlackBox{
-  val io = IO(new Bundle() {
-    val reset = Input(Bool())
-    val clk = Input(Clock())
-
-    val ar_valid = Input(Bool())
-    val ar_ready = Output(Bool())
-    val ar_addr = Input(UInt(64.W))
-    val ar_id = Input(UInt(4.W))
-    val ar_len = Input(UInt(8.W))
-    val ar_size = Input(UInt(3.W))
-    val ar_prot = Input(UInt(3.W))
-    val ar_burst = Input(UInt(2.W))
-    val ar_lock = Input(UInt(2.W))
-    val ar_cache = Input(UInt(4.W))
-
-    val rd_valid = Output(Bool())
-    val rd_ready = Input(Bool())
-    val rd_data = Output(UInt(64.W))
-    val rd_id = Output(UInt(4.W))
-    val rd_resp = Output(UInt(2.W))
-    val rd_last = Output(Bool())
-
-    val aw_valid = Input(Bool())
-    val aw_ready = Output(Bool())
-    val aw_addr = Input(UInt(64.W))
-    val aw_id = Input(UInt(4.W))
-    val aw_len = Input(UInt(8.W))
-    val aw_size = Input(UInt(3.W))
-    val aw_prot = Input(UInt(3.W))
-    val aw_burst = Input(UInt(2.W))
-    val aw_lock = Input(UInt(2.W))
-    val aw_cache = Input(UInt(4.W))
-
-    val wd_valid = Input(Bool())
-    val wd_ready = Output(Bool())
-    val wd_data = Input(UInt(64.W))
-    val wstrb = Input(UInt(8.W))
-    val wd_id = Input(UInt(4.W))
-    val wd_last = Input(Bool())
-
-    val wr_valid = Output(Bool())
-    val wr_ready = Input(Bool())
-    val wr_breap = Output(UInt(2.W))
-    val wr_id = Output(UInt(4.W))
-  })
-}
-
-class MEM extends BlackBox{
-  val io=IO(new Bundle() {
-    val addr=Input(UInt(64.W))
-    val reset=Input(Bool())
-    val clk=Input(Clock())
-    val we=Input(Bool())
-    val ce=Input(Bool())
-    val wdata=Input(UInt(64.W))
-    val rdata=Output(UInt(64.W))
-    val wmask=Input(UInt(8.W))
-  })
-}
-
-class CoreTop extends Module with Paramete{
+class ysyx_22050321 extends Module with Paramete{
   val io =IO(new Bundle() {
     val pc = Output(UInt(xlen.W))
     val inst = Output(UInt(instlen.W))
-//    val inst_valid = Output(Bool())
-//    val result = Output(UInt(xlen.W))
 //    val time_int = Output(UInt(1.W))
   })
   val IF = Module(new IF)
@@ -129,7 +127,7 @@ class CoreTop extends Module with Paramete{
 
   val EX = Module(new EXE)
 
-  val DIP = Module(new DIP_model)
+//  val DIP = Module(new DIP_model)
 
   val Reg = new RF
 
@@ -149,7 +147,7 @@ class CoreTop extends Module with Paramete{
 //  val MEM_axi_birdge = Module(new Sram2axi_mulit)
 
 //  val IFMEM = Module(new SRAM)
-  val MMEM = Module(new SRAM_AXI)
+//  val MMEM = Module(new SRAM_AXI)
 
   val ARBITER = Module(new Axi_FULLArbiter)
 
@@ -178,8 +176,8 @@ class CoreTop extends Module with Paramete{
   ARBITER.io.in2 <> ICACHE.io.out
   ARBITER.io.in1 <> MMIO.io.out
 
-  MMEM.io.reset := reset
-  MMEM.io.clk := clock
+//  MMEM.io.reset := reset
+//  MMEM.io.clk := clock
 
   ARBITER.io.out.raddr_req.ready := MMEM.io.ar_ready
   MMEM.io.ar_valid := ARBITER.io.out.raddr_req.valid
@@ -288,15 +286,15 @@ class CoreTop extends Module with Paramete{
   CSR.io.epc := WB.io.out.bits.ctrl_flow.PC
 
   // difftest
-  DIP.io.is_break := RegNext(RegNext(EX.io.is_break))
-  for (i <- 0 until NReg) {
-    DIP.io.rf(i) := Reg.rf(i)
-  }
-  DIP.io.inst := RegNext(WB.io.out.bits.ctrl_flow.inst)
-  DIP.io.is_skip := RegNext(WB.io.out.bits.ctrl_flow.skip)
-  DIP.io.inst_valid := RegNext(Mux(WB.io.out.valid,WB.io.out.bits.ctrl_signal.inst_valid,0.U))
-  DIP.io.pc := RegNext(WB.io.out.bits.ctrl_flow.PC)
-  DIP.io.dnpc := RegNext(Mux(WB.io.out.bits.ctrl_signal.excp_flush,CSR.io.mtvec_o,Mux(WB.io.out.bits.ctrl_signal.ertn_flush,CSR.io.mepc_o,WB.io.out.bits.ctrl_flow.Dnpc)))
+//  DIP.io.is_break := RegNext(RegNext(EX.io.is_break))
+//  for (i <- 0 until NReg) {
+//    DIP.io.rf(i) := Reg.rf(i)
+//  }
+//  DIP.io.inst := RegNext(WB.io.out.bits.ctrl_flow.inst)
+//  DIP.io.is_skip := RegNext(WB.io.out.bits.ctrl_flow.skip)
+//  DIP.io.inst_valid := RegNext(Mux(WB.io.out.valid,WB.io.out.bits.ctrl_signal.inst_valid,0.U))
+//  DIP.io.pc := RegNext(WB.io.out.bits.ctrl_flow.PC)
+//  DIP.io.dnpc := RegNext(Mux(WB.io.out.bits.ctrl_signal.excp_flush,CSR.io.mtvec_o,Mux(WB.io.out.bits.ctrl_signal.ertn_flush,CSR.io.mepc_o,WB.io.out.bits.ctrl_flow.Dnpc)))
 
   io.inst := WB.io.out.bits.ctrl_flow.inst
   io.pc := IF.io.out.bits.PC
@@ -306,7 +304,7 @@ import chisel3.stage._
 
 object Spec extends App{
   (new chisel3.stage.ChiselStage).execute(Array("--target-dir", "build"), Seq(
-    chisel3.stage.ChiselGeneratorAnnotation(() => new CoreTop()),
+    chisel3.stage.ChiselGeneratorAnnotation(() => new ysyx_22050321()),
     firrtl.stage.RunFirrtlTransformAnnotation(new AddModulePrefix()),
     ModulePrefixAnnotation("ysyx_22050321_")
   ))
