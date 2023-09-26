@@ -114,9 +114,41 @@ import axi.Axi_FULLArbiter
 
 class ysyx_22050321 extends Module with Paramete{
   val io =IO(new Bundle() {
-    val pc = Output(UInt(xlen.W))
-    val inst = Output(UInt(instlen.W))
-//    val time_int = Output(UInt(1.W))
+    // ar
+    val master_araddr = Output(UInt(32.W))
+    val master_arid = Output(UInt(4.W))
+    val master_arlen = Output(UInt(8.W))
+    val master_arsize = Output(UInt(3.W))
+    val master_arburst = Output(UInt(2.W))
+    val master_arready = Input(Bool())
+    val master_arvalid = Output(Bool())
+    //aw
+    val master_awaddr = Output(UInt(32.W))
+    val master_awid = Output(UInt(4.W))
+    val master_awlen = Output(UInt(8.W))
+    val master_awsize = Output(UInt(3.W))
+    val master_awburst = Output(UInt(2.W))
+    val master_awready = Input(Bool())
+    val master_awvalid = Output(Bool())
+    //wd
+    val master_wdata = Output(UInt(64.W))
+    val master_wstrb = Output(UInt((64 / 8).W))
+    val master_wlast = Output(Bool())
+    val master_wready = Input(Bool())
+    val master_wvalid = Output(Bool())
+    //rd
+    val master_rid = Input(UInt(4.W))
+    val master_rdata = Input(UInt(64.W))
+    val master_rresp = Input(UInt(2.W))
+    val master_rlast = Input(Bool())
+    val master_rready = Output(Bool())
+    val master_rvalid = Input(Bool())
+    //wr
+    val master_bid = Input(UInt(4.W))
+    val master_bresp = Input(UInt(2.W))
+    val master_bready = Output(Bool())
+    val master_bvalid = Input(Bool())
+
   })
   val IF = Module(new IF)
 
@@ -179,46 +211,46 @@ class ysyx_22050321 extends Module with Paramete{
 //  MMEM.io.reset := reset
 //  MMEM.io.clk := clock
 
-  ARBITER.io.out.raddr_req.ready := MMEM.io.ar_ready
-  MMEM.io.ar_valid := ARBITER.io.out.raddr_req.valid
-  MMEM.io.ar_addr := ARBITER.io.out.raddr_req.bits.addr
-  MMEM.io.ar_id := ARBITER.io.out.raddr_req.bits.id
-  MMEM.io.ar_size := ARBITER.io.out.raddr_req.bits.size
-  MMEM.io.ar_len := ARBITER.io.out.raddr_req.bits.len
-  MMEM.io.ar_lock := ARBITER.io.out.raddr_req.bits.lock
-  MMEM.io.ar_cache := ARBITER.io.out.raddr_req.bits.cache
-  MMEM.io.ar_burst := ARBITER.io.out.raddr_req.bits.brust
-  MMEM.io.ar_prot := ARBITER.io.out.raddr_req.bits.prot
+  ARBITER.io.out.raddr_req.ready := io.master_arready
+  io.master_arvalid := ARBITER.io.out.raddr_req.valid
+  io.master_araddr := ARBITER.io.out.raddr_req.bits.addr
+  io.master_arid := ARBITER.io.out.raddr_req.bits.id
+  io.master_arsize := ARBITER.io.out.raddr_req.bits.size
+  io.master_arlen := ARBITER.io.out.raddr_req.bits.len
+//  io.ar_lock := ARBITER.io.out.raddr_req.bits.lock
+//  io.ar_cache := ARBITER.io.out.raddr_req.bits.cache
+  io.master_arburst := ARBITER.io.out.raddr_req.bits.brust
+//  io.ar_prot := ARBITER.io.out.raddr_req.bits.prot
 
-  ARBITER.io.out.waddr_req.ready := MMEM.io.aw_ready
-  MMEM.io.aw_valid := ARBITER.io.out.waddr_req.valid
-  MMEM.io.aw_addr := ARBITER.io.out.waddr_req.bits.addr
-  MMEM.io.aw_id := ARBITER.io.out.waddr_req.bits.id
-  MMEM.io.aw_size := ARBITER.io.out.waddr_req.bits.size
-  MMEM.io.aw_len := ARBITER.io.out.waddr_req.bits.len
-  MMEM.io.aw_lock := ARBITER.io.out.waddr_req.bits.lock
-  MMEM.io.aw_cache := ARBITER.io.out.waddr_req.bits.cache
-  MMEM.io.aw_burst := ARBITER.io.out.waddr_req.bits.brust
-  MMEM.io.aw_prot := ARBITER.io.out.waddr_req.bits.prot
+  ARBITER.io.out.waddr_req.ready := io.master_awready
+  io.master_awvalid := ARBITER.io.out.waddr_req.valid
+  io.master_awaddr := ARBITER.io.out.waddr_req.bits.addr
+  io.master_awid := ARBITER.io.out.waddr_req.bits.id
+  io.master_awsize := ARBITER.io.out.waddr_req.bits.size
+  io.master_awlen := ARBITER.io.out.waddr_req.bits.len
+//  io.aw_lock := ARBITER.io.out.waddr_req.bits.lock
+//  io.aw_cache := ARBITER.io.out.waddr_req.bits.cache
+  io.master_awburst := ARBITER.io.out.waddr_req.bits.brust
+//  io.aw_prot := ARBITER.io.out.waddr_req.bits.prot
 
-  ARBITER.io.out.wdata_req.ready := MMEM.io.wd_ready
-  MMEM.io.wd_data := ARBITER.io.out.wdata_req.bits.data
-  MMEM.io.wstrb := ARBITER.io.out.wdata_req.bits.wstrb
-  MMEM.io.wd_valid := ARBITER.io.out.wdata_req.valid
-  MMEM.io.wd_id := ARBITER.io.out.wdata_req.bits.id
-  MMEM.io.wd_last := ARBITER.io.out.wdata_req.bits.last
+  ARBITER.io.out.wdata_req.ready := io.master_wready
+  io.master_wdata := ARBITER.io.out.wdata_req.bits.data
+  io.master_wstrb := ARBITER.io.out.wdata_req.bits.wstrb
+  io.master_wvalid := ARBITER.io.out.wdata_req.valid
+//  io.wd_id := ARBITER.io.out.wdata_req.bits.id
+  io.master_wlast := ARBITER.io.out.wdata_req.bits.last
 
-  MMEM.io.rd_ready := ARBITER.io.out.rdata_rep.ready
-  ARBITER.io.out.rdata_rep.valid := MMEM.io.rd_valid
-  ARBITER.io.out.rdata_rep.bits.data := MMEM.io.rd_data
-  ARBITER.io.out.rdata_rep.bits.id := MMEM.io.rd_id
-  ARBITER.io.out.rdata_rep.bits.last := MMEM.io.rd_last
-  ARBITER.io.out.rdata_rep.bits.resp := MMEM.io.rd_resp
+  io.master_rready := ARBITER.io.out.rdata_rep.ready
+  ARBITER.io.out.rdata_rep.valid := io.master_rvalid
+  ARBITER.io.out.rdata_rep.bits.data := io.master_rdata
+  ARBITER.io.out.rdata_rep.bits.id := io.master_rid
+  ARBITER.io.out.rdata_rep.bits.last := io.master_rlast
+  ARBITER.io.out.rdata_rep.bits.resp := io.master_rresp
 
-  ARBITER.io.out.wb.valid := MMEM.io.wr_valid
-  ARBITER.io.out.wb.bits.breap := MMEM.io.wr_breap
-  ARBITER.io.out.wb.bits.id := MMEM.io.wr_id
-  MMEM.io.wr_ready := ARBITER.io.out.wb.ready
+  ARBITER.io.out.wb.valid := io.master_bvalid
+  ARBITER.io.out.wb.bits.breap := io.master_bresp
+  ARBITER.io.out.wb.bits.id := io.master_bid
+  io.master_bready := ARBITER.io.out.wb.ready
 
   IF.io.flush := EX.io.is_flush
   IF.io.excp_flush := WB.io.out.bits.ctrl_signal.excp_flush
@@ -285,19 +317,6 @@ class ysyx_22050321 extends Module with Paramete{
   CSR.io.mert_flush := WB.io.out.bits.ctrl_signal.ertn_flush
   CSR.io.epc := WB.io.out.bits.ctrl_flow.PC
 
-  // difftest
-//  DIP.io.is_break := RegNext(RegNext(EX.io.is_break))
-//  for (i <- 0 until NReg) {
-//    DIP.io.rf(i) := Reg.rf(i)
-//  }
-//  DIP.io.inst := RegNext(WB.io.out.bits.ctrl_flow.inst)
-//  DIP.io.is_skip := RegNext(WB.io.out.bits.ctrl_flow.skip)
-//  DIP.io.inst_valid := RegNext(Mux(WB.io.out.valid,WB.io.out.bits.ctrl_signal.inst_valid,0.U))
-//  DIP.io.pc := RegNext(WB.io.out.bits.ctrl_flow.PC)
-//  DIP.io.dnpc := RegNext(Mux(WB.io.out.bits.ctrl_signal.excp_flush,CSR.io.mtvec_o,Mux(WB.io.out.bits.ctrl_signal.ertn_flush,CSR.io.mepc_o,WB.io.out.bits.ctrl_flow.Dnpc)))
-
-  io.inst := WB.io.out.bits.ctrl_flow.inst
-  io.pc := IF.io.out.bits.PC
 }
 
 import chisel3.stage._
