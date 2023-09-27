@@ -112,8 +112,19 @@ import axi.Axi_FULLArbiter
 //  })
 //}
 
+class SRAMBundle extends Bundle{
+  val addr = Output(UInt(6.W))
+  val cen = Output(Bool())
+  val wen = Output(Bool())
+  val wmask = Output(UInt(128.W))
+  val wdata = Output(UInt(128.W))
+  val rdata = Input(UInt(128.W))
+}
+
 class ysyx_22050321 extends Module with Paramete{
   val io =IO(new Bundle() {
+    val interrupt = Input(Bool())
+    //master
     // ar
     val master_araddr = Output(UInt(32.W))
     val master_arid = Output(UInt(4.W))
@@ -148,6 +159,51 @@ class ysyx_22050321 extends Module with Paramete{
     val master_bresp = Input(UInt(2.W))
     val master_bready = Output(Bool())
     val master_bvalid = Input(Bool())
+    //slave
+    // ar
+    val slave = new Bundle() {
+      val araddr = Input(UInt(32.W))
+      val arid = Input(UInt(4.W))
+      val arlen = Input(UInt(8.W))
+      val arsize = Input(UInt(3.W))
+      val arburst = Input(UInt(2.W))
+      val arready = Output(Bool())
+      val arvalid = Input(Bool())
+      //aw
+      val awaddr = Input(UInt(32.W))
+      val awid = Input(UInt(4.W))
+      val awlen = Input(UInt(8.W))
+      val awsize = Input(UInt(3.W))
+      val awburst = Input(UInt(2.W))
+      val awready = Output(Bool())
+      val awvalid = Input(Bool())
+      //wd
+      val wdata = Input(UInt(64.W))
+      val wstrb = Input(UInt((64 / 8).W))
+      val wlast = Input(Bool())
+      val wready = Output(Bool())
+      val wvalid = Input(Bool())
+      //rd
+      val rid = Output(UInt(4.W))
+      val rdata = Output(UInt(64.W))
+      val rresp = Output(UInt(2.W))
+      val rlast = Output(Bool())
+      val rready = Input(Bool())
+      val rvalid = Output(Bool())
+      //wr
+      val bid = Output(UInt(4.W))
+      val bresp = Output(UInt(2.W))
+      val bready = Input(Bool())
+      val bvalid = Output(Bool())
+    }
+    val sram0 = new SRAMBundle
+    val sram1 = new SRAMBundle
+    val sram2 = new SRAMBundle
+    val sram3 = new SRAMBundle
+    val sram4 = new SRAMBundle
+    val sram5 = new SRAMBundle
+    val sram6 = new SRAMBundle
+    val sram7 = new SRAMBundle
 
   })
   val IF = Module(new IF)
@@ -317,6 +373,15 @@ class ysyx_22050321 extends Module with Paramete{
   CSR.io.mert_flush := WB.io.out.bits.ctrl_signal.ertn_flush
   CSR.io.epc := WB.io.out.bits.ctrl_flow.PC
 
+  io.slave := DontCare
+  io.sram0 := DontCare
+  io.sram1 := DontCare
+  io.sram2 := DontCare
+  io.sram3 := DontCare
+  io.sram4 := DontCare
+  io.sram5 := DontCare
+  io.sram6 := DontCare
+  io.sram7 := DontCare
 }
 
 import chisel3.stage._

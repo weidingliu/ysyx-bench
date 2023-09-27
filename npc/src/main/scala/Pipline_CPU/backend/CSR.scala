@@ -83,11 +83,11 @@ class CSR_ extends Module with Paramete{
   io.mtvec_o := mtvec
   io.mepc_o := mepc
 
-  val CSRDIFF = Module(new CSR_DIFF)
-  CSRDIFF.io.mepc := mepc
-  CSRDIFF.io.mtvec := mtvec
-  CSRDIFF.io.mcause := mcause
-  CSRDIFF.io.mstatus := mstatus
+//  val CSRDIFF = Module(new CSR_DIFF)
+//  CSRDIFF.io.mepc := mepc
+//  CSRDIFF.io.mtvec := mtvec
+//  CSRDIFF.io.mcause := mcause
+//  CSRDIFF.io.mstatus := mstatus
 }
 
 
