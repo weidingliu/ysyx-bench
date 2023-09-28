@@ -112,14 +112,7 @@ import axi.Axi_FULLArbiter
 //  })
 //}
 
-class SRAMBundle extends Bundle{
-  val addr = Output(UInt(6.W))
-  val cen = Output(Bool())
-  val wen = Output(Bool())
-  val wmask = Output(UInt(128.W))
-  val wdata = Output(UInt(128.W))
-  val rdata = Input(UInt(128.W))
-}
+
 
 class ysyx_22050321 extends Module with Paramete{
   val io =IO(new Bundle() {
@@ -382,6 +375,11 @@ class ysyx_22050321 extends Module with Paramete{
   io.sram5 := DontCare
   io.sram6 := DontCare
   io.sram7 := DontCare
+
+  ICACHE.io.sram0.rdata := DontCare
+  ICACHE.io.sram1.rdata := DontCare
+  ICACHE.io.sram2.rdata := DontCare
+  ICACHE.io.sram3.rdata := DontCare
 }
 
 import chisel3.stage._

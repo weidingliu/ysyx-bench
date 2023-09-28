@@ -7,7 +7,7 @@ import Pipline_CPU.utils.{MaskData, MaskGen}
 
 trait CacheParamete extends Paramete {
 //  val xlen = 64
-  val Cache_line_size = xlen*8
+  val Cache_line_size = xlen*4
   val Cache_line_wordnum = Cache_line_size/xlen
   val Cache_way = 2
   val Cache_line_num = 4096/Cache_way/Cache_line_size *8
@@ -55,7 +55,7 @@ class Scanf_data extends Module with CacheParamete{
       val data = Output(UInt(Cache_line_size.W))
       val meta = new Hit_data
       val hit_way = Output(Vec(Cache_way,UInt(1.W)))
-      val tag = Output(Vec(Cache_way,UInt(Tag_size.W)))
+//      val tag = Output(Vec(Cache_way,UInt(Tag_size.W)))
     })
   })
 //  val metaway = VecInit(new MetaBundle)
@@ -74,7 +74,6 @@ class Scanf_data extends Module with CacheParamete{
     hit_way(i) := scanf(io.in.bits.ctrl_data.tag,io.in.bits.meat.tag(i),io.in.bits.meat.valid(i) & io.in.valid)
   }
 
-//  val hit_ = VecInit(io.in.bits.meat.tag.map(m => ))
 
   for(i<-0 until Cache_way){
     when(hit_way(i) === 1.U){
@@ -93,7 +92,7 @@ class Scanf_data extends Module with CacheParamete{
   io.in.ready := 1.U
 
   io.out.bits.hit_way := hit_way
-  io.out.bits.tag := io.in.bits.meat.tag
+//  io.out.bits.tag := io.in.bits.meat.tag
 
 }
 
@@ -109,327 +108,91 @@ class Cache_Data extends Module with CacheParamete{
       val waymask = Input(UInt(Cache_way.W))
       val wdata = Input(UInt(Cache_line_size.W))
     }
+    val sram0 = new SRAMBundle
+    val sram1 = new SRAMBundle
+    val sram2 = new SRAMBundle
+    val sram3 = new SRAMBundle
+
     val out = Decoupled(new cache_data_bundle)
   })
   val tag = io.in.addr(xlen - 1, xlen - Tag_size)
   val index = io.in.addr(xlen-Tag_size-1,log2Ceil(Cache_line_size/8))
-  val offset = io.in.addr(log2Ceil(Cache_line_size/8)-1,0)
+//  val offset = io.in.addr(log2Ceil(Cache_line_size/8)-1,0)
 
   //data array
-  val data = SyncReadMem(Cache_line_num,Vec(Cache_way,UInt(Cache_line_size.W)))
+//  val data = SyncReadMem(Cache_line_num,Vec(Cache_way,UInt(Cache_line_size.W)))
   //meat data array
   val TAG = SyncReadMem(Cache_line_num,Vec(Cache_way,UInt(Tag_size.W)))
   val data_valid = SyncReadMem(Cache_line_num,Vec(Cache_way,UInt(1.W)))
 
-
   val valid_w = data_valid.read(index)
-  val data_w = data.read(index)
+//  val data_w = data.read(index)
   val tag_w = TAG.read(index)
 
   io.out.bits.ctrl_data.tag := tag
   io.out.bits.ctrl_data.index := index
-  io.out.bits.ctrl_data.offset := offset
+//  io.out.bits.ctrl_data.offset := offset
+  io.out.bits.ctrl_data.offset := DontCare
 
   io.out.bits.meat.valid := valid_w
-  io.out.bits.data.data := data_w
-//  io.out.bits.meat.dirt := dirt_w
+//  io.out.bits.data.data := data_w
+  io.out.bits.data.data(0) := Cat(io.sram1.rdata,io.sram0.rdata)
+  io.out.bits.data.data(1) := Cat(io.sram3.rdata,io.sram2.rdata)
+
   io.out.bits.meat.tag := tag_w
 
   io.out.valid := Mux(io.in.valid,1.U,0.U)
-  val wdata = VecInit(Seq.fill(Cache_way)(io.write_bus.wdata))
+//  val wdata = VecInit(Seq.fill(Cache_way)(io.write_bus.wdata))
   val wtag = VecInit(Seq.fill(Cache_way)(io.write_bus.addr(xlen - 1, xlen - Tag_size)))
   val valid = VecInit(Seq.fill(Cache_way)(1.U))
 //  val waymask = .getOrElse("b1".U)
   when(io.write_bus.valid){
-    data.write(io.write_bus.addr(xlen-Tag_size-1,log2Ceil(Cache_line_size/8)),wdata,io.write_bus.waymask.asBools)
+//    data.write(io.write_bus.addr(xlen-Tag_size-1,log2Ceil(Cache_line_size/8)),wdata,io.write_bus.waymask.asBools)
     TAG.write(io.write_bus.addr(xlen-Tag_size-1,log2Ceil(Cache_line_size/8)),wtag,io.write_bus.waymask.asBools)
     data_valid.write(io.write_bus.addr(xlen-Tag_size-1,log2Ceil(Cache_line_size/8)),valid,io.write_bus.waymask.asBools)
   }
+  io.sram0.addr := index
+  io.sram1.addr := index
+  io.sram2.addr := index
+  io.sram3.addr := index
+
+  io.sram0.wen := Mux(io.write_bus.valid & io.write_bus.waymask(0),0.B,1.B)
+  io.sram1.wen := Mux(io.write_bus.valid & io.write_bus.waymask(0),0.B,1.B)
+  io.sram2.wen := Mux(io.write_bus.valid & io.write_bus.waymask(1),0.B,1.B)
+  io.sram3.wen := Mux(io.write_bus.valid & io.write_bus.waymask(1),0.B,1.B)
+
+  io.sram0.wdata := io.write_bus.wdata
+  io.sram1.wdata := io.write_bus.wdata
+  io.sram2.wdata := io.write_bus.wdata
+  io.sram3.wdata := io.write_bus.wdata
+
+//  io.sram0.addr := io.write_bus.addr(xlen-Tag_size-1,log2Ceil(Cache_line_size/8))
+//  io.sram1.addr := io.write_bus.addr(xlen-Tag_size-1,log2Ceil(Cache_line_size/8))
+//  io.sram2.addr := io.write_bus.addr(xlen-Tag_size-1,log2Ceil(Cache_line_size/8))
+//  io.sram3.addr := io.write_bus.addr(xlen-Tag_size-1,log2Ceil(Cache_line_size/8))
+
+  io.sram0.cen := 0.U
+  io.sram1.cen := 0.U
+  io.sram2.cen := 0.U
+  io.sram3.cen := 0.U
+
+  io.sram0.wmask := Fill(128,true.B)
+  io.sram1.wmask := Fill(128,true.B)
+  io.sram2.wmask := Fill(128,true.B)
+  io.sram3.wmask := Fill(128,true.B)
 }
 
-//class Cache (Type : String) extends Module with CacheParamete {
-//    val io = IO(new Bundle() {
-////      val in = Flipped(Decoupled(new MEMCtrlIO))
-//      val in = new Cache_MemReq_Bundle(Type)
-//      val flush = Input(Bool())
-////      val out = Decoupled(new MEMCtrlIO)
-////      val mem_rdata = Input(UInt(xlen.W))
-//      val out = new CPU_MEM_Bundle("WRIO")
-//    })
-//  val Cache_data = Module(new Cache_Data)
-//  val Scanf = Module(new Scanf_data)
-//
-//  val idle :: scanf :: miss :: write_data :: Nil = Enum(4)
-//  val state = RegInit(idle)
-//  val hit = Scanf.io.out.bits.hit
-//  val data_line_reg = RegInit(0.U(Cache_line_size.W))
-//  val mem_addr_reg = RegInit(0.U(xlen.W))
-//
-//  val lru_r  = RegInit(0.U)
-//  val lru_w = WireDefault(0.U)
-//
-//  val hit_data = WireDefault(0.U(xlen.W))
-//  val mem_data = WireDefault(0.U(xlen.W))
-//  val lru = SyncReadMem(Cache_line_num,UInt(1.W)) //2 way
-//
-//
-//  val count = RegInit(0.U((log2Ceil(Cache_line_wordnum)+1).W))
-//  val s = count === Cache_line_wordnum.U
-//
-//
-//  val dirt_r = if(Type == "Dcache") Some(Reg(Vec(Cache_way, UInt(1.W)))) else None
-//  val dirt = if(Type == "Dcache") Some(SyncReadMem(Cache_line_num, Vec(Cache_way, UInt(1.W)))) else None
-//  val count_write = if(Type == "Dcache") Some(RegInit(0.U((log2Ceil(Cache_line_wordnum) + 1).W))) else None
-//  val s_w = if(Type == "Dcache") Some(count_write.get === Cache_line_wordnum.U) else None
-//  val dirt_w = if(Type == "Dcache") Some(dirt.get.read(Cache_data.io.out.bits.ctrl_data.index)) else None
-//  val mem_write_addr_reg = if(Type == "Dcache") Some(RegInit(0.U(xlen.W))) else None
-//  val mem_write_data_reg = if(Type == "Dcache") Some(RegInit(0.U(Cache_line_size.W))) else None
-////  val hit__write_data = if(Type == "Dcache") Some(WireDefault(0.U(Cache_line_size.W))) else None
-//  val hit_way_r = if(Type == "Dcache") Some(Reg(Vec(Cache_way,UInt(1.W)))) else None
-//  val tag_way = Scanf.io.out.bits.tag
-//
-////  val (count,s) = Counter(state === miss,Cache_line_wordnum)
-//  val hit_way = Wire(Vec(Cache_way,UInt(1.W)))
-//
-//  lru_w := lru.read(Cache_data.io.out.bits.ctrl_data.index)
-//
-//  switch(state){
-//    is(idle) {
-//      count := 0.U
-//    }
-//    is(scanf) {
-//        when(hit === 0.U){
-//          mem_addr_reg := Cat(io.in.addr_req.bits.addr(xlen-1,log2Ceil(Cache_line_size/8)),Fill(log2Ceil(Cache_line_size/8),0.U))
-//          lru_r := lru_w
-//          if (Type == "Dcache") {
-//            dirt_r.get := dirt_w.get
-//            count_write.get := 0.U
-//            mem_write_addr_reg.get := Cat(tag_way(lru_w), Scanf.io.out.bits.meta.ctrl_data.index,Fill(log2Ceil(Cache_line_size / 8), 0.U))
-//            mem_write_data_reg.get := Cache_data.io.out.bits.data(lru_w)
-//            hit_way_r.get := hit_way
-//          }
-//        }.otherwise{
-//          when(hit_way(0) === 1.U){
-//            lru.write(Cache_data.io.out.bits.ctrl_data.index,1.U)
-//          }
-//          when(hit_way(1) === 1.U){
-//            lru.write(Cache_data.io.out.bits.ctrl_data.index,0.U)
-//          }
-//        }
-//    }
-//    is(miss) {
-////      when(!io.in.rdata_rep.ready && s === true.B){
-////        count := count
-////      }.otherwise{
-////        count := count +1.U
-////      }
-//      when((!io.in.rdata_rep.ready && s === true.B) || (!io.out.rdata_rep.valid)) {
-//        count := count
-//      }.otherwise {
-//        count := count + 1.U
-//        mem_addr_reg := mem_addr_reg + 8.U
-//      }
-//
-////      when(count === (Cache_line_wordnum-1).U) {
-////        lru_w := lru.read(Cache_data.io.out.bits.ctrl_data.index)
-////      }
-//      when(s =/= true.B && io.out.rdata_rep.valid){
-//        data_line_reg := Cat(io.out.rdata_rep.bits.rdata,data_line_reg(Cache_line_size-1,xlen))
-//      }
-//      when(io.in.rdata_rep.ready && s === true.B ){
-//        when(lru_r === 1.U) {
-//          lru.write(Cache_data.io.out.bits.ctrl_data.index, 0.U)
-//        }.otherwise {
-//          lru.write(Cache_data.io.out.bits.ctrl_data.index, 1.U)
-//        }
-//        count:=0.U
-//      }
-//    }
-//
-//    is(write_data) {
-//      if(Type == "Dcache"){
-//        when(io.out.wdata_rep.get){
-//          count_write.get := count_write.get + 1.U
-//          mem_write_addr_reg.get := mem_write_addr_reg.get + 8.U
-//          mem_write_data_reg.get := Cat(Fill(xlen, 0.U), mem_write_data_reg.get(Cache_line_size - 1, xlen))
-//        }
-//
-//        when(s_w.get === true.B){
-//          count_write.get := 0.U
-//        }
-//      }
-//
-//    }
-//
-//  }
-//
-//  switch(io.in.addr_req.bits.addr(log2Ceil(Cache_line_size / xlen) + log2Ceil(xlen / 8) - 1, log2Ceil(xlen / 8))) {
-//    is("b000".U) {
-//      hit_data := Scanf.io.out.bits.data(xlen - 1, 0)
-//      mem_data := data_line_reg(xlen - 1, 0)
-//    }
-//    is("b001".U) {
-//      hit_data := Scanf.io.out.bits.data(2 * xlen - 1, xlen)
-//      mem_data := data_line_reg(2 * xlen - 1, xlen)
-//    }
-//    is("b010".U) {
-//      hit_data := Scanf.io.out.bits.data(3 * xlen - 1, 2 * xlen)
-//      mem_data := data_line_reg(3 * xlen - 1, 2 * xlen)
-//    }
-//    is("b011".U) {
-//      hit_data := Scanf.io.out.bits.data(4 * xlen - 1, 3 * xlen)
-//      mem_data := data_line_reg(4 * xlen - 1, 3 * xlen)
-//    }
-//    is("b100".U) {
-//      hit_data := Scanf.io.out.bits.data(5 * xlen - 1, 4 * xlen)
-//      mem_data := data_line_reg(5 * xlen - 1, 4 * xlen)
-//    }
-//    is("b101".U) {
-//      hit_data := Scanf.io.out.bits.data(6 * xlen - 1, 5 * xlen)
-//      mem_data := data_line_reg(6 * xlen - 1, 5 * xlen)
-//    }
-//    is("b110".U) {
-//      hit_data := Scanf.io.out.bits.data(7 * xlen - 1, 6 * xlen)
-//      mem_data := data_line_reg(7 * xlen - 1, 6 * xlen)
-//    }
-//    is("b111".U) {
-//      hit_data := Scanf.io.out.bits.data(8 * xlen - 1, 7 * xlen)
-//      mem_data := data_line_reg(8 * xlen - 1, 7 * xlen)
-//    }
-//  }
-//
-//  switch(state){
-//    is(idle){
-//      when(io.in.addr_req.valid){
-//        state := scanf
-//      }.otherwise{
-//        state := idle
-//      }
-//    }
-//    is(scanf){
-//        when(hit === 1.U){
-//          state := idle
-//        }.otherwise{
-//          if(Type == "Dcache"){
-//            when(dirt_w.get(lru_w) === 1.U){
-//              state := write_data
-//            }.otherwise{
-//              state := miss
-//            }
-//          }
-//          else{
-//            state := miss
-//          }
-//
-//        }
-//    }
-//    is(miss){
-//        when(s === true.B && io.in.rdata_rep.ready){
-//          state := idle
-//        }
-//    }
-//
-//    is(write_data) {
-//      if(Type == "Dcache") {
-//        when(s_w.get === true.B) {
-//          state := miss
-//        }
-//      }
-//    }
-//  }
-//  when (io.flush){
-//    state := idle
-//  }
-//  Scanf.io.out.ready := 1.U
-//
-//  io.in.rdata_rep.bits.rdata := Mux((state === scanf && hit),hit_data,mem_data)
-////  io.in.ready := 1.U
-//  io.in.addr_req.ready := true.B
-//
-//  //read data from cache
-//  Cache_data.io.in.valid := Mux(io.in.addr_req.valid && state === idle, 1.U, 0.U)
-//  Cache_data.io.in.addr := io.in.addr_req.bits.addr
-//  Scanf.io.in.valid := RegNext(Cache_data.io.out.valid)
-//  Scanf.io.in.bits.meat := (Cache_data.io.out.bits.meat)
-//  Scanf.io.in.bits.data := (Cache_data.io.out.bits.data)
-//  Scanf.io.in.bits.ctrl_data := (Cache_data.io.out.bits.ctrl_data)
-//  Cache_data.io.out.ready := Scanf.io.in.ready
-//  hit_way := Scanf.io.out.bits.hit_way
-////  when(io.in.rdata_rep.valid){
-////    printf(p"read : ${Hexadecimal(Scanf.io.out.bits.data)}\n")
-////  }
-//
-//  //read data from mem
-//  if(Type == "Dcache"){
-//    io.out.addr_req.valid := Mux(state === miss || state === write_data, true.B, false.B)
-//    io.out.addr_req.bits.ce := Mux(state === miss || (state === write_data && !s_w.get), 1.U, 0.U)
-//    io.out.addr_req.bits.addr := Mux(state === write_data,mem_write_addr_reg.get,mem_addr_reg)
-//    io.out.addr_req.bits.we := Mux(state === write_data && !s_w.get ,1.U,0.U)
-//    io.out.wdata_req.get.bits.wdata := mem_write_data_reg.get(xlen-1,0)
-//    io.out.wdata_req.get.bits.wmask := "hff".U(masklen.W)
-//  }
-//  else{
-//    io.out.addr_req.valid := Mux(state === miss, true.B, false.B)
-//    io.out.addr_req.bits.ce := Mux(state === miss, 1.U, 0.U)
-//    io.out.addr_req.bits.addr := mem_addr_reg
-//    io.out.addr_req.bits.we := 0.U
-//    io.out.wdata_req.get.bits.wdata := 0.U
-//    io.out.wdata_req.get.bits.wmask := 0.U
-//  }
-//
-//  //write back cache data
-//  io.in.rdata_rep.valid := Mux(((state === scanf && hit)||(state === miss && s === true.B)) && (!io.flush) && (!io.in.addr_req.bits.we), 1.B, 0.B)
-//  if(Type == "Dcache"){
-//    val wmaskextend = MaskGen(Cache_data.io.out.bits.ctrl_data.offset(log2Ceil(Cache_line_size/8)-1,log2Ceil(xlen/8)),
-//      io.in.wdata_req.get.bits.wmask & Fill(8,io.in.addr_req.bits.we))
-//
-//    val wdata_extend = Fill(Cache_line_size/xlen,io.in.wdata_req.get.bits.wdata)
-//    val wdata = Mux(state === miss && s === true.B,MaskData(data_line_reg,wmaskextend,wdata_extend),MaskData(Scanf.io.out.bits.data,wmaskextend,wdata_extend))
-////    when(Cache_data.io.write_bus.valid){
-////      printf("write\n")
-////      printf(p"${Hexadecimal(wmaskextend)}\n")
-////      printf(p"${Hexadecimal(Scanf.io.out.bits.data)}\n")
-////      //    printf(p"${Hexadecimal(wdata_extend)}\n")
-////      printf(p"${Hexadecimal(wdata)}\n")
-////    }
-//
-//    Cache_data.io.write_bus.valid := Mux((s || (state === scanf && io.in.addr_req.bits.we && hit)) && (!io.flush), true.B, false.B)
-//    Cache_data.io.write_bus.addr := Mux((state === miss && s === true.B) || (state === scanf && io.in.addr_req.bits.we && hit), io.in.addr_req.bits.addr, 0.U)
-//    Cache_data.io.write_bus.wdata := wdata
-//
-//    io.in.wdata_req.get.ready := true.B
-//    io.in.wdata_rep.get := Mux((state === scanf && io.in.addr_req.bits.we && hit) || (state === miss && s === true.B && io.in.addr_req.bits.we),true.B,false.B)
-////    val hitway_mask = WireDefault(Vec(Cache_way,0.U))
-////    for (i<-0 until Cache_way){
-////      when(hit_way_r.get(i) === 1.U){
-////        hitway_mask(i) := 1.U
-////      }
-////    }
-//    val dirt_write = VecInit(Seq.fill(Cache_way)(1.U(1.W)))
-//    val waymask = Mux(state === scanf && hit && io.in.addr_req.bits.we,hit_way.asUInt,Mux(lru_r === 1.U, "b10".U(2.W), "b01".U(2.W)))
-//    Cache_data.io.write_bus.waymask := waymask
-//    when(io.in.addr_req.bits.we & ((state === scanf && hit) | (state === miss & s === true.B))) {
-//      dirt.get.write(Cache_data.io.out.bits.ctrl_data.index,dirt_write,waymask.asBools)
-//    }
-//  }
-//  else {
-//    Cache_data.io.write_bus.valid := Mux(s, true.B, false.B)
-//    Cache_data.io.write_bus.addr := Mux(state === miss && s === true.B, io.in.addr_req.bits.addr, 0.U)
-//    Cache_data.io.write_bus.wdata := Mux(state === miss && s === true.B, data_line_reg, 0.U)
-//    val waymask = Mux(lru_r === 1.U, "b10".U(2.W), "b01".U(2.W))
-//    Cache_data.io.write_bus.waymask := waymask
-//  }
-////  io.out.wdata_req.get.ready := true.B
-//  io.out.rdata_rep.ready := true.B
-//  io.out.wdata_req.get.valid := Mux(state === write_data,true.B,false.B)
-//
-//}
 
 class Cache_Axi (Type : String) extends Module with CacheParamete{
   val io = IO(new Bundle() {
     val in = new Cache_MemReq_Bundle(Type)
     val flush = Input(Bool())
     val cache_busy = Output(Bool())
+
+    val sram0 = new SRAMBundle
+    val sram1 = new SRAMBundle
+    val sram2 = new SRAMBundle
+    val sram3 = new SRAMBundle
 
     val out = new Axi_full_Bundle_out
   })
@@ -636,83 +399,59 @@ class Cache_Axi (Type : String) extends Module with CacheParamete{
 
   }
 
+//  switch(io.in.addr_req.bits.addr(log2Ceil(Cache_line_size / xlen) + log2Ceil(xlen / 8) - 1, log2Ceil(xlen / 8))) {
+//    is("b000".U) {
+//      hit_data := Scanf.io.out.bits.data(xlen - 1, 0)
+//      mem_data := data_line_reg(xlen - 1, 0)
+//    }
+//    is("b001".U) {
+//      hit_data := Scanf.io.out.bits.data(2 * xlen - 1, xlen)
+//      mem_data := data_line_reg(2 * xlen - 1, xlen)
+//    }
+//    is("b010".U) {
+//      hit_data := Scanf.io.out.bits.data(3 * xlen - 1, 2 * xlen)
+//      mem_data := data_line_reg(3 * xlen - 1, 2 * xlen)
+//    }
+//    is("b011".U) {
+//      hit_data := Scanf.io.out.bits.data(4 * xlen - 1, 3 * xlen)
+//      mem_data := data_line_reg(4 * xlen - 1, 3 * xlen)
+//    }
+//    is("b100".U) {
+//      hit_data := Scanf.io.out.bits.data(5 * xlen - 1, 4 * xlen)
+//      mem_data := data_line_reg(5 * xlen - 1, 4 * xlen)
+//    }
+//    is("b101".U) {
+//      hit_data := Scanf.io.out.bits.data(6 * xlen - 1, 5 * xlen)
+//      mem_data := data_line_reg(6 * xlen - 1, 5 * xlen)
+//    }
+//    is("b110".U) {
+//      hit_data := Scanf.io.out.bits.data(7 * xlen - 1, 6 * xlen)
+//      mem_data := data_line_reg(7 * xlen - 1, 6 * xlen)
+//    }
+//    is("b111".U) {
+//      hit_data := Scanf.io.out.bits.data(8 * xlen - 1, 7 * xlen)
+//      mem_data := data_line_reg(8 * xlen - 1, 7 * xlen)
+//    }
+//  }
   switch(io.in.addr_req.bits.addr(log2Ceil(Cache_line_size / xlen) + log2Ceil(xlen / 8) - 1, log2Ceil(xlen / 8))) {
-    is("b000".U) {
+    is("b00".U) {
       hit_data := Scanf.io.out.bits.data(xlen - 1, 0)
       mem_data := data_line_reg(xlen - 1, 0)
     }
-    is("b001".U) {
+    is("b01".U) {
       hit_data := Scanf.io.out.bits.data(2 * xlen - 1, xlen)
       mem_data := data_line_reg(2 * xlen - 1, xlen)
     }
-    is("b010".U) {
+    is("b10".U) {
       hit_data := Scanf.io.out.bits.data(3 * xlen - 1, 2 * xlen)
       mem_data := data_line_reg(3 * xlen - 1, 2 * xlen)
     }
-    is("b011".U) {
+    is("b11".U) {
       hit_data := Scanf.io.out.bits.data(4 * xlen - 1, 3 * xlen)
       mem_data := data_line_reg(4 * xlen - 1, 3 * xlen)
     }
-    is("b100".U) {
-      hit_data := Scanf.io.out.bits.data(5 * xlen - 1, 4 * xlen)
-      mem_data := data_line_reg(5 * xlen - 1, 4 * xlen)
-    }
-    is("b101".U) {
-      hit_data := Scanf.io.out.bits.data(6 * xlen - 1, 5 * xlen)
-      mem_data := data_line_reg(6 * xlen - 1, 5 * xlen)
-    }
-    is("b110".U) {
-      hit_data := Scanf.io.out.bits.data(7 * xlen - 1, 6 * xlen)
-      mem_data := data_line_reg(7 * xlen - 1, 6 * xlen)
-    }
-    is("b111".U) {
-      hit_data := Scanf.io.out.bits.data(8 * xlen - 1, 7 * xlen)
-      mem_data := data_line_reg(8 * xlen - 1, 7 * xlen)
-    }
   }
 
-//  switch(state) {
-//    is(idle) {
-//      when(io.in.addr_req.valid) {
-//        state := scanf
-//      }.otherwise {
-//        state := idle
-//      }
-//    }
-//    is(scanf) {
-//      when(hit === 1.U) {
-//        state := idle
-//      }.otherwise {
-//        if (Type == "Dcache") {
-//          when(dirt_w.get(lru_w) === 1.U) {
-//            state := write_data
-//          }.otherwise {
-//            state := miss
-//          }
-//        }
-//        else {
-//          state := miss
-//        }
-//
-//      }
-//    }
-//    is(miss) {
-//      when(s === true.B && io.in.rdata_rep.ready) {
-//        state := idle
-//      }
-//    }
-//
-//    is(write_data) {
-//      if (Type == "Dcache") {
-//        when(s_w.get === true.B) {
-//          state := miss
-//        }
-//      }
-//    }
-//  }
-//  when(io.flush) {
-//    state := idle
-//  }
   Scanf.io.out.ready := 1.U
 
   io.in.rdata_rep.bits.rdata := Mux((state === scanf && hit), hit_data, mem_data)
@@ -834,6 +573,10 @@ class Cache_Axi (Type : String) extends Module with CacheParamete{
 
   io.cache_busy := !(state === idle)
 
+  io.sram0 <> Cache_data.io.sram0
+  io.sram1 <> Cache_data.io.sram1
+  io.sram2 <> Cache_data.io.sram2
+  io.sram3 <> Cache_data.io.sram3
 }
 
 
