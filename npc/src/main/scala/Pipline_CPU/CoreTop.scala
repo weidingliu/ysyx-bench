@@ -367,19 +367,16 @@ class ysyx_22050321 extends Module with Paramete{
   CSR.io.epc := WB.io.out.bits.ctrl_flow.PC
 
   io.slave := DontCare
-  io.sram0 := DontCare
-  io.sram1 := DontCare
-  io.sram2 := DontCare
-  io.sram3 := DontCare
-  io.sram4 := DontCare
-  io.sram5 := DontCare
-  io.sram6 := DontCare
-  io.sram7 := DontCare
 
-  ICACHE.io.sram0.rdata := DontCare
-  ICACHE.io.sram1.rdata := DontCare
-  ICACHE.io.sram2.rdata := DontCare
-  ICACHE.io.sram3.rdata := DontCare
+  ICACHE.io.sram0 <> io.sram0
+  ICACHE.io.sram1 <> io.sram1
+  ICACHE.io.sram2 <> io.sram2
+  ICACHE.io.sram3 <> io.sram3
+
+  MMIO.io.sram0 <> io.sram4
+  MMIO.io.sram1 <> io.sram5
+  MMIO.io.sram2 <> io.sram6
+  MMIO.io.sram3 <> io.sram7
 }
 
 import chisel3.stage._

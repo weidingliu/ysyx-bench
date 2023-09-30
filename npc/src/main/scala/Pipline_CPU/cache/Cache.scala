@@ -55,7 +55,7 @@ class Scanf_data extends Module with CacheParamete{
       val data = Output(UInt(Cache_line_size.W))
       val meta = new Hit_data
       val hit_way = Output(Vec(Cache_way,UInt(1.W)))
-//      val tag = Output(Vec(Cache_way,UInt(Tag_size.W)))
+      val tag = Output(Vec(Cache_way,UInt(Tag_size.W)))
     })
   })
 //  val metaway = VecInit(new MetaBundle)
@@ -92,7 +92,7 @@ class Scanf_data extends Module with CacheParamete{
   io.in.ready := 1.U
 
   io.out.bits.hit_way := hit_way
-//  io.out.bits.tag := io.in.bits.meat.tag
+  io.out.bits.tag := io.in.bits.meat.tag
 
 }
 

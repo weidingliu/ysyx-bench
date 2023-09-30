@@ -9,14 +9,19 @@ class MMIO extends Module with Paramete{
     val in = new Cache_MemReq_Bundle("Dcache")
 
     val out = new Axi_full_Bundle_out
+
+    val sram0 = new SRAMBundle
+    val sram1 = new SRAMBundle
+    val sram2 = new SRAMBundle
+    val sram3 = new SRAMBundle
   })
   val DCACHE = Module(new Cache_Axi("Dcache"))
   val birdge = Module(new Sram_axifull)
 
-  DCACHE.io.sram0.rdata := DontCare
-  DCACHE.io.sram1.rdata := DontCare
-  DCACHE.io.sram2.rdata := DontCare
-  DCACHE.io.sram3.rdata := DontCare
+  DCACHE.io.sram0 <> io.sram0
+  DCACHE.io.sram1 <> io.sram1
+  DCACHE.io.sram2 <> io.sram2
+  DCACHE.io.sram3 <> io.sram3
 
   DCACHE.io.in.rdata_rep.bits <> io.in.rdata_rep.bits
   DCACHE.io.in.addr_req.bits <> io.in.addr_req.bits

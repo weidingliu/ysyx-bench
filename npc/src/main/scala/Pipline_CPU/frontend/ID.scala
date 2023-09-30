@@ -5,6 +5,7 @@ import Pipline_CPU.isa._
 import chisel3._
 import chisel3.util._
 import backend.ALUOPType
+import firrtl.transforms.DontTouchAnnotation
 object InstrType{
   def InstrI = "b1000".U
   def InstrR = "b0101".U
@@ -113,5 +114,6 @@ class ID extends Module with Paramete{
 //  io.out.valid := Mux(io.flush,0.U,1.U)
   io.out.valid := Mux(io.in.valid & !stall_req,1.U,0.U)//Mux(io.out.ready && io.in.valid,1.U,0.U)
   io.in.ready := Mux(stall_req,false.B,io.out.ready)
+  dontTouch(io.in.ready)
   //println(io.out.bits.ctrl_signal.inst_valid)
 }

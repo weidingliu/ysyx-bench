@@ -21,6 +21,12 @@ object Pipline_Connect {
     right.bits := RegEnable(left.bits,left.valid && right.ready)
 //    right.bits := RegEnable(left.bits, 0.U,left.valid && right.ready)
     right.valid := valid
+//    dontTouch(left.valid)
+//    dontTouch(left.ready)
+//    dontTouch(right.ready)
+//    dontTouch(right.valid)
+//    dontTouch(right_fire)
+//    dontTouch(flush)
   }
 }
 

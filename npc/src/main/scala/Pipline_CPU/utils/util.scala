@@ -51,16 +51,22 @@ object MaskGen extends CacheParamete{
     val wmask_len = mask.getWidth
 //    val Genmask = WireDefault(0.U)
 //    println(offset)
-    val Genmask = MuxCase(0.U(Cache_line_wordnum.W),Seq(
-      (offset === WireInit("b000".U)) -> Cat(Fill(7 * wmask_len, 0.U), mask),
-      (offset === WireInit("b001".U)) -> Cat(Fill(6 * wmask_len, 0.U), mask, Fill(1 * wmask_len, 0.U)),
-      (offset === WireInit("b010".U)) -> Cat(Fill(5 * wmask_len, 0.U), mask, Fill(2 * wmask_len, 0.U)),
-      (offset === WireInit("b011".U)) -> Cat(Fill(4 * wmask_len, 0.U), mask, Fill(3 * wmask_len, 0.U)),
-      (offset === WireInit("b100".U)) -> Cat(Fill(3 * wmask_len, 0.U), mask, Fill(4 * wmask_len, 0.U)),
-      (offset === WireInit("b101".U)) -> Cat(Fill(2 * wmask_len, 0.U), mask, Fill(5 * wmask_len, 0.U)),
-      (offset === WireInit("b110".U)) -> Cat(Fill(1 * wmask_len, 0.U), mask, Fill(6 * wmask_len, 0.U)),
-      (offset === WireInit("b111".U)) -> Cat(mask, Fill(7 * wmask_len, 0.U)),
-    ))
+//    val Genmask = MuxCase(0.U(Cache_line_wordnum.W),Seq(
+//      (offset === WireInit("b000".U)) -> Cat(Fill(7 * wmask_len, 0.U), mask),
+//      (offset === WireInit("b001".U)) -> Cat(Fill(6 * wmask_len, 0.U), mask, Fill(1 * wmask_len, 0.U)),
+//      (offset === WireInit("b010".U)) -> Cat(Fill(5 * wmask_len, 0.U), mask, Fill(2 * wmask_len, 0.U)),
+//      (offset === WireInit("b011".U)) -> Cat(Fill(4 * wmask_len, 0.U), mask, Fill(3 * wmask_len, 0.U)),
+//      (offset === WireInit("b100".U)) -> Cat(Fill(3 * wmask_len, 0.U), mask, Fill(4 * wmask_len, 0.U)),
+//      (offset === WireInit("b101".U)) -> Cat(Fill(2 * wmask_len, 0.U), mask, Fill(5 * wmask_len, 0.U)),
+//      (offset === WireInit("b110".U)) -> Cat(Fill(1 * wmask_len, 0.U), mask, Fill(6 * wmask_len, 0.U)),
+//      (offset === WireInit("b111".U)) -> Cat(mask, Fill(7 * wmask_len, 0.U)),
+//    ))
+val Genmask = MuxCase(0.U(Cache_line_wordnum.W), Seq(
+  (offset === WireInit("b00".U)) -> Cat(Fill(3 * wmask_len, 0.U), mask),
+  (offset === WireInit("b01".U)) -> Cat(Fill(2 * wmask_len, 0.U), mask, Fill(1 * wmask_len, 0.U)),
+  (offset === WireInit("b10".U)) -> Cat(Fill(1 * wmask_len, 0.U), mask, Fill(2 * wmask_len, 0.U)),
+  (offset === WireInit("b11".U)) -> Cat(mask, Fill(3 * wmask_len, 0.U)),
+))
 //    println(Genmask.getWidth)
     MaskExtend(Genmask)
 //    switch(offset) {
