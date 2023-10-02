@@ -344,11 +344,6 @@ class AxiliteArbiter extends Module{
 
   when(io.out.rdata_rep.valid || io.out.wb.valid){
     when(choose_r === 0.U){
-      //      io.out.raddr_req <> io.in1.raddr_req
-      //      io.out.waddr_req <> io.in1.waddr_req
-      //      io.out.wdata_req <> io.in1.wdata_req
-      //      io.out.rdata_rep <> io.in1.rdata_rep
-      //      io.out.wb <> io.in1.wb
 
       io.in1.rdata_rep.valid := io.out.rdata_rep.valid
       io.in1.wb.valid := io.out.wb.valid

@@ -394,9 +394,7 @@ class Cache_Axi (Type : String) extends Module with CacheParamete{
           count_write.get := 0.U
         }
       }
-
     }
-
   }
 
 //  switch(io.in.addr_req.bits.addr(log2Ceil(Cache_line_size / xlen) + log2Ceil(xlen / 8) - 1, log2Ceil(xlen / 8))) {

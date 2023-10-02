@@ -26,7 +26,7 @@ class IF extends Module with Paramete{
 
   })
 
-  val temp = RegInit("h80000000".U(xlen.W))
+  val temp = RegInit("h3000_0000".U(xlen.W))
   temp := Mux(!io.wb_stall && !io.ex_stall && !io.excp_flush && !io.mret_flush,Mux(io.branch_io.is_jump || io.branch_io.is_branch, io.branch_io.dnpc,
     Mux(io.out.ready && io.cache_req.rdata_rep.valid,temp + 4.U(xlen.W),
       temp)), Mux(io.excp_flush,io.mtvec,Mux(io.mret_flush,io.mret,temp)))
