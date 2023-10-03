@@ -554,7 +554,7 @@ class Cache_Axi (Type : String) extends Module with CacheParamete{
   io.out.raddr_req.bits.prot := 0.U(3.W)
 //  io.out.raddr_req.valid := Mux(read_state === read_transfer_addr, true.B, false.B)
 //  io.out.raddr_req.bits.addr := io.in.addr_req.bits.addr
-  io.out.raddr_req.bits.len := 0x7.U(8.W)
+  io.out.raddr_req.bits.len := 0x3.U(8.W)
 
   io.out.waddr_req.bits.id := 1.U(4.W)
   io.out.waddr_req.bits.size := "b011".U(3.W)
@@ -564,7 +564,7 @@ class Cache_Axi (Type : String) extends Module with CacheParamete{
   io.out.waddr_req.bits.prot := 0.U(3.W)
 //  io.out.waddr_req.valid := Mux(write_state === write_transfer_addr, true.B, false.B)
 //  io.out.waddr_req.bits.addr := io.in.addr_req.bits.addr
-  io.out.waddr_req.bits.len := 0x7.U(8.W)
+  io.out.waddr_req.bits.len := 0x3.U(8.W)
 
   io.out.wdata_req.bits.id := 1.U(4.W)
   io.out.wb.ready := true.B

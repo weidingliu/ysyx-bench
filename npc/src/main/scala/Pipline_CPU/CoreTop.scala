@@ -222,7 +222,7 @@ class ysyx_22050321 extends Module with Paramete{
 
 //  val mem_bypass =Module(new MEM_Bypass)
 
-  val ICACHE = Module(new Cache_Axi("icache"))
+//  val ICACHE = Module(new Cache_Axi("icache"))
 
 //  val If_axi_birdge = Module(new Sram2axi_mulit)
 //  val MEM_axi_birdge = Module(new Sram2axi_mulit)
@@ -232,7 +232,8 @@ class ysyx_22050321 extends Module with Paramete{
 
   val ARBITER = Module(new Axi_FULLArbiter)
 
-  val MMIO = Module(new MMIO)
+  val DMMIO = Module(new MMIO("Dcache"))
+  val IMMIO = Module(new MMIO("Icache"))
 //  val DCACHE = Module(new Cache("Dcache"))
   val CSR = Module(new CSR_)
 
@@ -250,12 +251,12 @@ class ysyx_22050321 extends Module with Paramete{
   // fetch inst
 //  IF.io.inst := ICACHE.io.rdata
 //  ICACHE.io.in.bits.addr := IF.io.out.bits.PC
-  IF.io.cache_req.addr_req <> ICACHE.io.in.addr_req
-  IF.io.cache_req.rdata_rep <> ICACHE.io.in.rdata_rep
-  ICACHE.io.flush := 0.B // EX.io.is_flush | excp_flush | mert_flush | WB.io.stall | EX.io.stall
+  IF.io.cache_req.addr_req <> IMMIO.io.in.addr_req
+  IF.io.cache_req.rdata_rep <> IMMIO.io.in.rdata_rep
+  IMMIO.io.flush := 0.B // EX.io.is_flush | excp_flush | mert_flush | WB.io.stall | EX.io.stall
 
-  ARBITER.io.in2 <> ICACHE.io.out
-  ARBITER.io.in1 <> MMIO.io.out
+  ARBITER.io.in2 <> IMMIO.io.out
+  ARBITER.io.in1 <> DMMIO.io.out
 
 //  MMEM.io.reset := reset
 //  MMEM.io.clk := clock
@@ -328,15 +329,8 @@ class ysyx_22050321 extends Module with Paramete{
   bypass.io.EX_rf <> EX.io.out.bits.ctrl_rf
   EX.io.csr_rd_io.rd_data := CSR.io.rd.rd_data
   CSR.io.rd.csr_addr := EX.io.csr_rd_io.csr_addr
-//  mem_bypass.io.Reg1 := EX.io.in.bits.ctrl_data.src1
-//  mem_bypass.io.Reg2 := EX.io.in.bits.ctrl_data.src2
-//  mem_bypass.io.reg_index1 := EX.io.in.bits.ctrl_signal.rfSrc1
-//  mem_bypass.io.reg_index2 := EX.io.in.bits.ctrl_signal.rfSrc2
 
-//  EX.io.src1 := mem_bypass.io.Bypass_REG1
-//  EX.io.src2 := mem_bypass.io.Bypass_REG2
-
-  EX.io.icache_busy := ICACHE.io.cache_busy
+  EX.io.icache_busy := IMMIO.io.cache_busy
 
 //  ID.io.flush := EX.io.is_flush
 //MEM
@@ -344,10 +338,11 @@ class ysyx_22050321 extends Module with Paramete{
 //  MEM.io.mem.rdata := DCACHE.io.in.rdata_rep.bits.rdata
 
 
-  MEM.io.cache_io <> MMIO.io.in
+  MEM.io.cache_io <> DMMIO.io.in
+  DMMIO.io.flush := false.B
 
   bypass.io.MEM_rf <> MEM.io.out.bits.ctrl_rf
-  WB.io.icache_busy := ICACHE.io.cache_busy
+  WB.io.icache_busy := IMMIO.io.cache_busy
 
 //  mem_bypass.io.MEM_rf <> MEM.io.out.bits.ctrl_rf
 
@@ -368,15 +363,15 @@ class ysyx_22050321 extends Module with Paramete{
 
   io.slave := DontCare
 
-  ICACHE.io.sram0 <> io.sram0
-  ICACHE.io.sram1 <> io.sram1
-  ICACHE.io.sram2 <> io.sram2
-  ICACHE.io.sram3 <> io.sram3
+  IMMIO.io.sram0 <> io.sram0
+  IMMIO.io.sram1 <> io.sram1
+  IMMIO.io.sram2 <> io.sram2
+  IMMIO.io.sram3 <> io.sram3
 
-  MMIO.io.sram0 <> io.sram4
-  MMIO.io.sram1 <> io.sram5
-  MMIO.io.sram2 <> io.sram6
-  MMIO.io.sram3 <> io.sram7
+  DMMIO.io.sram0 <> io.sram4
+  DMMIO.io.sram1 <> io.sram5
+  DMMIO.io.sram2 <> io.sram6
+  DMMIO.io.sram3 <> io.sram7
 }
 
 import chisel3.stage._

@@ -14,89 +14,12 @@ class Axi_FULLArbiter extends Module{
   val state = RegInit(idle)
   val choose_r = RegInit(0.U(1.W))
   val choose = WireDefault(0.U(1.W))
-  when((io.in1.raddr_req.valid || io.in1.waddr_req.valid) && state === idle){
-    choose_r := 0.U
-//    io.out.raddr_req <> io.in1.raddr_req
-//    io.out.waddr_req <> io.in1.waddr_req
-//    io.out.wdata_req <> io.in1.wdata_req
-//    io.out.rdata_rep <> io.in1.rdata_rep
-//    io.out.wb <> io.in1.wb
-    io.out.wdata_req.valid := io.in1.wdata_req.valid
-    io.in1.wdata_req.ready := io.out.wdata_req.ready
 
-    io.in1.wb.valid := io.out.wb.valid
-    io.out.wb.ready := io.in1.wb.ready
-
-    io.out.raddr_req.valid := io.in1.raddr_req.valid
-    io.in1.raddr_req.ready := io.out.raddr_req.ready
-
-    io.out.waddr_req.valid := io.in1.waddr_req.valid
-    io.in1.waddr_req.ready := io.out.waddr_req.ready
-
-    io.out.rdata_rep.ready := io.in1.rdata_rep.ready
-    io.in1.rdata_rep.valid := io.out.rdata_rep.valid
-
-    io.in2.raddr_req.ready := false.B
-    io.in2.rdata_rep.valid := false.B
-    io.in2.waddr_req.ready := false.B
-    io.in2.wb.valid := false.B
-    io.in2.wdata_req.ready := false.B
-
-    io.in1.raddr_req.bits <> io.out.raddr_req.bits
-    io.in1.waddr_req.bits <> io.out.waddr_req.bits
-    io.in1.rdata_rep.bits <> io.out.rdata_rep.bits
-    io.in1.wb.bits <> io.out.wb.bits
-    io.in1.wdata_req.bits <> io.out.wdata_req.bits
-
-    io.in2.raddr_req.bits := DontCare
-    io.in2.waddr_req.bits := DontCare
-    io.in2.wdata_req.bits := DontCare
-    io.in2.rdata_rep.bits := DontCare
-    io.in2.wb.bits := DontCare
-
-    state := busy
-  }.elsewhen((io.in2.raddr_req.valid || io.in2.waddr_req.valid) && state === idle){
-    choose_r := 1.U
-//    io.out.raddr_req <> io.in2.raddr_req
-//    io.out.waddr_req <> io.in2.waddr_req
-//    io.out.wdata_req <> io.in2.wdata_req
-//    io.out.rdata_rep <> io.in2.rdata_rep
-//    io.out.wb <> io.in2.wb
-    io.out.wdata_req.valid := io.in2.wdata_req.valid
-    io.in2.wdata_req.ready := io.out.wdata_req.ready
-
-    io.in2.wb.valid := io.out.wb.valid
-    io.out.wb.ready := io.in2.wb.ready
-
-    io.out.raddr_req.valid := io.in2.raddr_req.valid
-    io.in2.raddr_req.ready := io.out.raddr_req.ready
-
-    io.out.waddr_req.valid := io.in2.waddr_req.valid
-    io.in2.waddr_req.ready := io.out.waddr_req.ready
-
-    io.out.rdata_rep.ready := io.in2.rdata_rep.ready
-    io.in2.rdata_rep.valid := io.out.rdata_rep.valid
-
-    io.in1.raddr_req.ready := false.B
-    io.in1.rdata_rep.valid := false.B
-    io.in1.waddr_req.ready := false.B
-    io.in1.wb.valid := false.B
-    io.in1.wdata_req.ready := false.B
-
-    io.in2.raddr_req.bits <> io.out.raddr_req.bits
-    io.in2.waddr_req.bits <> io.out.waddr_req.bits
-    io.in2.rdata_rep.bits <> io.out.rdata_rep.bits
-    io.in2.wb.bits <> io.out.wb.bits
-    io.in2.wdata_req.bits <> io.out.wdata_req.bits
-
-    io.in1.raddr_req.bits := DontCare
-    io.in1.waddr_req.bits := DontCare
-    io.in1.wdata_req.bits := DontCare
-    io.in1.rdata_rep.bits := DontCare
-    io.in1.wb.bits := DontCare
-
-    state := busy
-  }.elsewhen(state === busy){
+//  val in1_reg = new Axi_full_Bundle_in
+//  val in2_reg = new Axi_full_Bundle_in
+//  in1_reg := RegNext(io.in1)
+//  in2_reg := RegNext(io.in2)
+  when(state === busy){
     when(choose_r === 0.U) {
 
       io.in1.rdata_rep.valid := io.out.rdata_rep.valid
@@ -106,7 +29,7 @@ class Axi_FULLArbiter extends Module{
       io.in2.wb.valid := false.B
 
       io.out.rdata_rep.ready := io.in1.rdata_rep.ready
-//      io.out.wb.ready := io.in1.wb.ready
+      //      io.out.wb.ready := io.in1.wb.ready
       when((io.out.rdata_rep.bits.last && io.out.rdata_rep.valid) || io.out.wb.valid) {
         state := idle
       }
@@ -189,12 +112,13 @@ class Axi_FULLArbiter extends Module{
       io.in1.rdata_rep.bits := DontCare
       io.in1.wb.bits := DontCare
     }
-  }.otherwise{
-//    io.out.raddr_req <> io.in1.raddr_req
-//    io.out.waddr_req <> io.in1.waddr_req
-//    io.out.wdata_req <> io.in1.wdata_req
-//    io.out.rdata_rep <> io.in1.rdata_rep
-//    io.out.wb <> io.in1.wb
+  }.elsewhen((RegNext(io.in1.raddr_req.valid) || RegNext(io.in1.waddr_req.valid)) && state === idle) {
+    choose_r := 0.U
+    //    io.out.raddr_req <> io.in1.raddr_req
+    //    io.out.waddr_req <> io.in1.waddr_req
+    //    io.out.wdata_req <> io.in1.wdata_req
+    //    io.out.rdata_rep <> io.in1.rdata_rep
+    //    io.out.wb <> io.in1.wb
     io.out.wdata_req.valid := io.in1.wdata_req.valid
     io.in1.wdata_req.ready := io.out.wdata_req.ready
 
@@ -216,6 +140,47 @@ class Axi_FULLArbiter extends Module{
     io.in2.wb.valid := false.B
     io.in2.wdata_req.ready := false.B
 
+    io.in1.raddr_req.bits <> io.out.raddr_req.bits
+    io.in1.waddr_req.bits <> io.out.waddr_req.bits
+    io.in1.rdata_rep.bits <> io.out.rdata_rep.bits
+    io.in1.wb.bits <> io.out.wb.bits
+    io.in1.wdata_req.bits <> io.out.wdata_req.bits
+
+    io.in2.raddr_req.bits := DontCare
+    io.in2.waddr_req.bits := DontCare
+    io.in2.wdata_req.bits := DontCare
+    io.in2.rdata_rep.bits := DontCare
+    io.in2.wb.bits := DontCare
+
+    state := busy
+  }.elsewhen((RegNext(io.in2.raddr_req.valid) || RegNext(io.in2.waddr_req.valid)) && state === idle) {
+    choose_r := 1.U
+    //    io.out.raddr_req <> io.in2.raddr_req
+    //    io.out.waddr_req <> io.in2.waddr_req
+    //    io.out.wdata_req <> io.in2.wdata_req
+    //    io.out.rdata_rep <> io.in2.rdata_rep
+    //    io.out.wb <> io.in2.wb
+    io.out.wdata_req.valid := io.in2.wdata_req.valid
+    io.in2.wdata_req.ready := io.out.wdata_req.ready
+
+    io.in2.wb.valid := io.out.wb.valid
+    io.out.wb.ready := io.in2.wb.ready
+
+    io.out.raddr_req.valid := io.in2.raddr_req.valid
+    io.in2.raddr_req.ready := io.out.raddr_req.ready
+
+    io.out.waddr_req.valid := io.in2.waddr_req.valid
+    io.in2.waddr_req.ready := io.out.waddr_req.ready
+
+    io.out.rdata_rep.ready := io.in2.rdata_rep.ready
+    io.in2.rdata_rep.valid := io.out.rdata_rep.valid
+
+    io.in1.raddr_req.ready := false.B
+    io.in1.rdata_rep.valid := false.B
+    io.in1.waddr_req.ready := false.B
+    io.in1.wb.valid := false.B
+    io.in1.wdata_req.ready := false.B
+
     io.in2.raddr_req.bits <> io.out.raddr_req.bits
     io.in2.waddr_req.bits <> io.out.waddr_req.bits
     io.in2.rdata_rep.bits <> io.out.rdata_rep.bits
@@ -227,6 +192,45 @@ class Axi_FULLArbiter extends Module{
     io.in1.wdata_req.bits := DontCare
     io.in1.rdata_rep.bits := DontCare
     io.in1.wb.bits := DontCare
+
+    state := busy
+  }.otherwise{
+
+    io.in1 := DontCare
+    io.in2 := DontCare
+    io.out := DontCare
+//    io.out.wdata_req.valid := io.in1.wdata_req.valid
+//    io.in1.wdata_req.ready := io.out.wdata_req.ready
+//
+//    io.in1.wb.valid := io.out.wb.valid
+//    io.out.wb.ready := io.in1.wb.ready
+//
+//    io.out.raddr_req.valid := io.in1.raddr_req.valid
+//    io.in1.raddr_req.ready := io.out.raddr_req.ready
+//
+//    io.out.waddr_req.valid := io.in1.waddr_req.valid
+//    io.in1.waddr_req.ready := io.out.waddr_req.ready
+//
+//    io.out.rdata_rep.ready := io.in1.rdata_rep.ready
+//    io.in1.rdata_rep.valid := io.out.rdata_rep.valid
+//
+//    io.in2.raddr_req.ready := false.B
+//    io.in2.rdata_rep.valid := false.B
+//    io.in2.waddr_req.ready := false.B
+//    io.in2.wb.valid := false.B
+//    io.in2.wdata_req.ready := false.B
+//
+//    io.in2.raddr_req.bits <> io.out.raddr_req.bits
+//    io.in2.waddr_req.bits <> io.out.waddr_req.bits
+//    io.in2.rdata_rep.bits <> io.out.rdata_rep.bits
+//    io.in2.wb.bits <> io.out.wb.bits
+//    io.in2.wdata_req.bits <> io.out.wdata_req.bits
+//
+//    io.in1.raddr_req.bits := DontCare
+//    io.in1.waddr_req.bits := DontCare
+//    io.in1.wdata_req.bits := DontCare
+//    io.in1.rdata_rep.bits := DontCare
+//    io.in1.wb.bits := DontCare
 
 
 //    state := idle
@@ -275,13 +279,12 @@ class AxiliteArbiter extends Module{
   val state = RegInit(idle)
   val choose_r = RegInit(0.U(1.W))
   val choose = WireDefault(0.U(1.W))
+
+//  val in1_reg = RegNext(io.in1)
+//  val in2_reg = RegNext(io.in2)
+
   when((io.in1.raddr_req.valid || io.in1.waddr_req.valid) && state === idle){
     choose_r := 0.U
-    //    io.out.raddr_req <> io.in1.raddr_req
-    //    io.out.waddr_req <> io.in1.waddr_req
-    //    io.out.wdata_req <> io.in1.wdata_req
-    //    io.out.rdata_rep <> io.in1.rdata_rep
-    //    io.out.wb <> io.in1.wb
     io.in1.raddr_req.ready := true.B
     io.in1.waddr_req.ready := true.B
     io.in1.wdata_req.ready := true.B

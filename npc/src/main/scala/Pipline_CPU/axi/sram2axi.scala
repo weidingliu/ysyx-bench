@@ -153,9 +153,9 @@ class Sram2axi_mulit extends Module with Paramete{
 
 }
 
-class Sram_axifull extends Module with Paramete{
+class Sram_axifull (Type:String)extends Module with Paramete{
   val io = IO(new Bundle() {
-    val in = new Cache_MemReq_Bundle("Dcache")
+    val in = new Cache_MemReq_Bundle(Type)
     val out = new Axi_full_Bundle_out
   })
   val read_idle :: read_transfer_addr :: wait_data_transfer :: Nil = Enum(3)
@@ -206,8 +206,8 @@ class Sram_axifull extends Module with Paramete{
   }
 
   io.out.raddr_req.bits.id := 1.U(4.W)
-  io.out.raddr_req.bits.size := "b011".U(3.W)
-  io.out.raddr_req.bits.brust := 1.U(2.W)
+  io.out.raddr_req.bits.size := "b010".U(3.W)
+  io.out.raddr_req.bits.brust := 0.U(2.W)
   io.out.raddr_req.bits.lock := 0.U(2.W)
   io.out.raddr_req.bits.cache := 0.U(4.W)
   io.out.raddr_req.bits.prot := 0.U(3.W)
@@ -216,8 +216,8 @@ class Sram_axifull extends Module with Paramete{
   io.out.raddr_req.bits.len := 0.U(8.W)
 
   io.out.waddr_req.bits.id := 1.U(4.W)
-  io.out.waddr_req.bits.size := "b011".U(3.W)
-  io.out.waddr_req.bits.brust := 1.U(2.W)
+  io.out.waddr_req.bits.size := "b010".U(3.W)
+  io.out.waddr_req.bits.brust := 0.U(2.W)
   io.out.waddr_req.bits.lock := 0.U(2.W)
   io.out.waddr_req.bits.cache := 0.U(4.W)
   io.out.waddr_req.bits.prot := 0.U(3.W)
@@ -229,15 +229,17 @@ class Sram_axifull extends Module with Paramete{
   io.in.rdata_rep.bits.rdata := io.out.rdata_rep.bits.data
   io.in.rdata_rep.valid := io.out.rdata_rep.valid
 
-  io.out.wdata_req.valid := io.in.wdata_req.get.valid
-  io.out.wdata_req.bits.data := io.in.wdata_req.get.bits.wdata
+  io.out.wdata_req := DontCare
+  io.out.wb := DontCare
+  if(Type == "Dcache") io.out.wdata_req.valid := io.in.wdata_req.get.valid
+  if(Type == "Dcache") io.out.wdata_req.bits.data := io.in.wdata_req.get.bits.wdata
   io.out.wdata_req.bits.last := Mux(write_state === write_transfer_data,true.B,false.B)
   io.out.wdata_req.bits.id := 1.U(4.W)
-  io.out.wdata_req.bits.wstrb := io.in.wdata_req.get.bits.wmask
-  io.in.wdata_req.get.ready := Mux(write_state === write_transfer_data,true.B,false.B)
+  if(Type == "Dcache") io.out.wdata_req.bits.wstrb := io.in.wdata_req.get.bits.wmask
+  if(Type == "Dcache") io.in.wdata_req.get.ready := Mux(write_state === write_transfer_data,true.B,false.B)
 
   io.out.wb.ready := Mux(write_state === write_wait_respone,true.B,false.B)
-  io.in.wdata_rep.get := io.out.wb.valid & (io.out.wb.bits.breap === "b00".U)
+  if(Type == "Dcache") io.in.wdata_rep.get := io.out.wb.valid & (io.out.wb.bits.breap === "b00".U)
 
   io.in.addr_req.ready := Mux(read_state === read_idle && write_state === write_idle,true.B,false.B)
 
