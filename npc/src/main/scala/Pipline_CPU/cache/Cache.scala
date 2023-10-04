@@ -298,12 +298,12 @@ class Cache_Axi (Type : String) extends Module with CacheParamete{
       }
     }
     is(read_transfer_addr){
-      when(io.out.raddr_req.ready){
+      when(io.out.raddr_req.ready && io.out.raddr_req.valid){
         read_state := wait_data_transfer
       }
     }
     is(wait_data_transfer){
-      when(io.out.rdata_rep.valid && io.out.rdata_rep.bits.last){
+      when(io.out.rdata_rep.valid && io.out.rdata_rep.bits.last && io.out.rdata_rep.ready){
         read_state := refill
       }
     }
@@ -320,17 +320,17 @@ class Cache_Axi (Type : String) extends Module with CacheParamete{
       }
     }
     is(write_transfer_addr){
-      when(io.out.waddr_req.ready){
+      when(io.out.waddr_req.ready && io.out.waddr_req.valid){
         write_state := write_transfer_data
       }
     }
     is(write_transfer_data){
-      when(io.out.wdata_req.ready && io.out.wdata_req.bits.last){
+      when(io.out.wdata_req.ready && io.out.wdata_req.bits.last && io.out.wdata_req.valid){
         write_state := write_wait_respone
       }
     }
     is(write_wait_respone){
-      when(io.out.wb.valid && io.out.wb.bits.breap === "b00".U){
+      when(io.out.wb.valid && io.out.wb.bits.breap === "b00".U && io.out.wb.ready){
         write_state := write_idle
       }
     }
@@ -362,12 +362,6 @@ class Cache_Axi (Type : String) extends Module with CacheParamete{
       }
     }
     is(miss) {
-//      when((!io.in.rdata_rep.ready && s === true.B) || (!io.out.rdata_rep.valid)) {
-//        count := count
-//      }.otherwise {
-//        count := count + 1.U
-//        mem_addr_reg := mem_addr_reg + 8.U
-//      }
       when(read_state === wait_data_transfer && io.out.rdata_rep.valid){
         data_line_reg := Cat(io.out.rdata_rep.bits.data, data_line_reg(Cache_line_size - 1, xlen))
       }
@@ -482,9 +476,10 @@ class Cache_Axi (Type : String) extends Module with CacheParamete{
 //    io.out.addr_req.bits.addr := Mux(state === write_data, mem_write_addr_reg.get, mem_addr_reg)
 //    io.out.addr_req.bits.we := Mux(state === write_data && !s_w.get, 1.U, 0.U)
     io.out.wdata_req.valid := Mux(write_state === write_transfer_data , true.B,false.B)
-    io.out.wdata_req.bits.data := mem_write_data_reg.get(xlen - 1, 0)
-    io.out.wdata_req.bits.wstrb := "hff".U(masklen.W)
+    io.out.wdata_req.bits.data := Mux(write_state === write_transfer_data,mem_write_data_reg.get(xlen - 1, 0),0.U)
+    io.out.wdata_req.bits.wstrb := Mux(write_state === write_transfer_data,"hff".U(masklen.W),0.U)
     io.out.wdata_req.bits.last := Mux(s_w.get === true.B,true.B,false.B)
+    io.out.wb.ready := Mux(write_state === write_wait_respone,true.B,false.B)
   }
   else {
     io.out.raddr_req.valid := Mux(read_state === read_transfer_addr, true.B, false.B)
@@ -497,6 +492,7 @@ class Cache_Axi (Type : String) extends Module with CacheParamete{
     io.out.wdata_req.bits.data := 0.U
     io.out.wdata_req.bits.wstrb := "h00".U(masklen.W)
     io.out.wdata_req.bits.last := false.B
+    io.out.wb.ready := false.B
 
 //    io.out.addr_req.valid := Mux(state === miss, true.B, false.B)
 //    io.out.addr_req.bits.ce := Mux(state === miss, 1.U, 0.U)
@@ -543,31 +539,26 @@ class Cache_Axi (Type : String) extends Module with CacheParamete{
     Cache_data.io.write_bus.waymask := waymask
   }
   //  io.out.wdata_req.get.ready := true.B
-  io.out.rdata_rep.ready := true.B
+  io.out.rdata_rep.ready := Mux(read_state === wait_data_transfer,true.B,false.B)
 
-
-  io.out.raddr_req.bits.id := 1.U(4.W)
-  io.out.raddr_req.bits.size := "b011".U(3.W)
-  io.out.raddr_req.bits.brust := 1.U(2.W)
+  io.out.raddr_req.bits.id := Mux(io.out.raddr_req.valid,0.U(4.W),0.U(4.W))
+  io.out.raddr_req.bits.size := Mux(io.out.raddr_req.valid,"b011".U(3.W),0.U)
+  io.out.raddr_req.bits.brust := Mux(io.out.raddr_req.valid,1.U(2.W),0.U)
   io.out.raddr_req.bits.lock := 0.U(2.W)
   io.out.raddr_req.bits.cache := 0.U(4.W)
   io.out.raddr_req.bits.prot := 0.U(3.W)
-//  io.out.raddr_req.valid := Mux(read_state === read_transfer_addr, true.B, false.B)
-//  io.out.raddr_req.bits.addr := io.in.addr_req.bits.addr
-  io.out.raddr_req.bits.len := 0x3.U(8.W)
+  io.out.raddr_req.bits.len := Mux(io.out.raddr_req.valid,0x3.U(8.W),0.U)
 
-  io.out.waddr_req.bits.id := 1.U(4.W)
-  io.out.waddr_req.bits.size := "b011".U(3.W)
-  io.out.waddr_req.bits.brust := 1.U(2.W)
+  io.out.waddr_req.bits.id := Mux(io.out.waddr_req.valid,0.U(4.W),0.U)
+  io.out.waddr_req.bits.size := Mux(io.out.waddr_req.valid,"b011".U(3.W),0.U)
+  io.out.waddr_req.bits.brust := Mux(io.out.waddr_req.valid,1.U(2.W),0.U)
   io.out.waddr_req.bits.lock := 0.U(2.W)
   io.out.waddr_req.bits.cache := 0.U(4.W)
   io.out.waddr_req.bits.prot := 0.U(3.W)
-//  io.out.waddr_req.valid := Mux(write_state === write_transfer_addr, true.B, false.B)
-//  io.out.waddr_req.bits.addr := io.in.addr_req.bits.addr
-  io.out.waddr_req.bits.len := 0x3.U(8.W)
+  io.out.waddr_req.bits.len := Mux(io.out.waddr_req.valid,0x3.U(8.W),0.U)
 
-  io.out.wdata_req.bits.id := 1.U(4.W)
-  io.out.wb.ready := true.B
+  io.out.wdata_req.bits.id := 0.U(4.W)
+
 
   io.cache_busy := !(state === idle)
 
