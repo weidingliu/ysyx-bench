@@ -205,7 +205,7 @@ class Sram_axifull (Type:String)extends Module with Paramete{
     }
   }
 
-  io.out.raddr_req.bits.id := 0.U(4.W)
+  if(Type == "Dcache") io.out.raddr_req.bits.id := 0.U(4.W) else io.out.raddr_req.bits.id := 1.U(4.W)
   io.out.raddr_req.bits.size := "b010".U(3.W)
   io.out.raddr_req.bits.brust := 0.U(2.W)
   io.out.raddr_req.bits.lock := 0.U(2.W)
@@ -215,7 +215,7 @@ class Sram_axifull (Type:String)extends Module with Paramete{
   io.out.raddr_req.bits.addr := io.in.addr_req.bits.addr
   io.out.raddr_req.bits.len := 0.U(8.W)
 
-  io.out.waddr_req.bits.id := 0.U(4.W)
+  if(Type == "Dcache") io.out.waddr_req.bits.id := 0.U(4.W) else io.out.waddr_req.bits.id := 1.U(4.W)
   io.out.waddr_req.bits.size := "b010".U(3.W)
   io.out.waddr_req.bits.brust := 0.U(2.W)
   io.out.waddr_req.bits.lock := 0.U(2.W)
@@ -234,7 +234,7 @@ class Sram_axifull (Type:String)extends Module with Paramete{
   if(Type == "Dcache") io.out.wdata_req.valid := io.in.wdata_req.get.valid
   if(Type == "Dcache") io.out.wdata_req.bits.data := io.in.wdata_req.get.bits.wdata
   io.out.wdata_req.bits.last := Mux(write_state === write_transfer_data,true.B,false.B)
-  io.out.wdata_req.bits.id := 0.U(4.W)
+  if(Type == "Dcache") io.out.wdata_req.bits.id := 0.U(4.W) else io.out.wdata_req.bits.id := 1.U(4.W)
   if(Type == "Dcache") io.out.wdata_req.bits.wstrb := Cat(Fill(4,0.U(1.W)),io.in.wdata_req.get.bits.wmask(3,0))
   if(Type == "Dcache") io.in.wdata_req.get.ready := Mux(write_state === write_transfer_data,true.B,false.B)
 
