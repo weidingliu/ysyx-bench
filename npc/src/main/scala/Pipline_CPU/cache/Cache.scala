@@ -117,7 +117,7 @@ class Cache_Data extends Module with CacheParamete{
   })
   val tag = io.in.addr(xlen - 1, xlen - Tag_size)
   val index = io.in.addr(xlen-Tag_size-1,log2Ceil(Cache_line_size/8))
-//  val offset = io.in.addr(log2Ceil(Cache_line_size/8)-1,0)
+  val offset = io.in.addr(log2Ceil(Cache_line_size/8)-1,0)
 
   //data array
 //  val data = SyncReadMem(Cache_line_num,Vec(Cache_way,UInt(Cache_line_size.W)))
@@ -131,8 +131,8 @@ class Cache_Data extends Module with CacheParamete{
 
   io.out.bits.ctrl_data.tag := tag
   io.out.bits.ctrl_data.index := index
-//  io.out.bits.ctrl_data.offset := offset
-  io.out.bits.ctrl_data.offset := DontCare
+  io.out.bits.ctrl_data.offset := offset
+//  io.out.bits.ctrl_data.offset := DontCare
 
   io.out.bits.meat.valid := valid_w
 //  io.out.bits.data.data := data_w
@@ -161,10 +161,10 @@ class Cache_Data extends Module with CacheParamete{
   io.sram2.wen := Mux(io.write_bus.valid & io.write_bus.waymask(1),0.B,1.B)
   io.sram3.wen := Mux(io.write_bus.valid & io.write_bus.waymask(1),0.B,1.B)
 
-  io.sram0.wdata := io.write_bus.wdata
-  io.sram1.wdata := io.write_bus.wdata
-  io.sram2.wdata := io.write_bus.wdata
-  io.sram3.wdata := io.write_bus.wdata
+  io.sram0.wdata := io.write_bus.wdata(127,0)
+  io.sram1.wdata := io.write_bus.wdata(255,128)
+  io.sram2.wdata := io.write_bus.wdata(127,0)
+  io.sram3.wdata := io.write_bus.wdata(255,128)
 
 //  io.sram0.addr := io.write_bus.addr(xlen-Tag_size-1,log2Ceil(Cache_line_size/8))
 //  io.sram1.addr := io.write_bus.addr(xlen-Tag_size-1,log2Ceil(Cache_line_size/8))
@@ -176,10 +176,10 @@ class Cache_Data extends Module with CacheParamete{
   io.sram2.cen := 0.U
   io.sram3.cen := 0.U
 
-  io.sram0.wmask := Fill(128,true.B)
-  io.sram1.wmask := Fill(128,true.B)
-  io.sram2.wmask := Fill(128,true.B)
-  io.sram3.wmask := Fill(128,true.B)
+  io.sram0.wmask := Mux(io.write_bus.valid & io.write_bus.waymask(0),Fill(128,false.B),Fill(128,true.B))
+  io.sram1.wmask := Mux(io.write_bus.valid & io.write_bus.waymask(0),Fill(128,false.B),Fill(128,true.B))
+  io.sram2.wmask := Mux(io.write_bus.valid & io.write_bus.waymask(1),Fill(128,false.B),Fill(128,true.B))
+  io.sram3.wmask := Mux(io.write_bus.valid & io.write_bus.waymask(1),Fill(128,false.B),Fill(128,true.B))
 }
 
 
@@ -384,7 +384,7 @@ class Cache_Axi (Type : String) extends Module with CacheParamete{
 //          mem_write_addr_reg.get := mem_write_addr_reg.get + 8.U
           mem_write_data_reg.get := Cat(Fill(xlen, 0.U), mem_write_data_reg.get(Cache_line_size - 1, xlen))
         }
-        when(io.out.wdata_req.bits.last) {
+        when(io.out.wdata_req.bits.last && io.out.wdata_req.ready) {
           count_write.get := 0.U
         }
       }
@@ -517,12 +517,7 @@ class Cache_Axi (Type : String) extends Module with CacheParamete{
 
     io.in.wdata_req.get.ready := true.B
     io.in.wdata_rep.get := Mux((state === scanf && io.in.addr_req.bits.we && hit) || (state === miss && read_state === refill && io.in.addr_req.bits.we), true.B, false.B)
-    //    val hitway_mask = WireDefault(Vec(Cache_way,0.U))
-    //    for (i<-0 until Cache_way){
-    //      when(hit_way_r.get(i) === 1.U){
-    //        hitway_mask(i) := 1.U
-    //      }
-    //    }
+
     val dirt_write = VecInit(Seq.fill(Cache_way)(1.U(1.W)))
     val waymask = Mux(state === scanf && hit && io.in.addr_req.bits.we, hit_way.asUInt, Mux(lru_r === 1.U, "b10".U(2.W), "b01".U(2.W)))
     Cache_data.io.write_bus.waymask := waymask

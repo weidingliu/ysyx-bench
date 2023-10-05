@@ -86,7 +86,7 @@ class EXE extends Module with Paramete{
     val is_flush = Output(Bool())
     val icache_busy = Input(Bool())
     val csr_rd_io = new CSR_RDIO
-    val stall = Output(Bool())
+//    val stall = Output(Bool())
   })
 //  val rf = new RF
 //  val reg1 = rf.read(io.in.bits.ctrl_signal.rfSrc1)
@@ -429,13 +429,13 @@ class EXE extends Module with Paramete{
   io.is_flush := Mux((is_branch === 1.U || is_jump === 1.U) && io.in.valid & io.out.ready & !io.icache_busy , 1.U, 0.U)
   io.is_break := Mux((io.in.bits.ctrl_signal.aluoptype === ALUOPType.ebreak && io.out.bits.ctrl_signal.inst_valid), 1.U, 0.U)
 
-  io.stall := Mux((is_branch === 1.U || is_jump === 1.U) && io.in.valid & io.out.ready & !io.is_flush, true.B,false.B)
+//  io.stall := Mux((is_branch === 1.U || is_jump === 1.U) && io.in.valid & io.out.ready & !io.is_flush, true.B,false.B)
 
   io.out.bits.ctrl_csr.csr_en := Mux(io.in.bits.ctrl_signal.aluoptype === ALUOPType.mret || io.in.bits.ctrl_signal.aluoptype === ALUOPType.mret
     || io.in.bits.ctrl_signal.aluoptype === ALUOPType.csrrs || io.in.bits.ctrl_signal.aluoptype === ALUOPType.csrrw,true.B,false.B)
   io.out.bits.ctrl_csr.csr_idx := csr_idx
   io.out.bits.ctrl_csr.csr_data := csr_result
 
-  io.out.valid := Mux(!(!mul.io.out.valid && is_mul ) && !(!div.io.out.valid && is_div) && io.in.valid && !((is_branch === 1.U || is_jump === 1.U) && io.icache_busy) && !io.stall,1.U,0.U)
-  io.in.ready := Mux(((!mul.io.out.valid && is_mul) || (!div.io.out.valid && is_div)) && io.in.valid || ((is_branch === 1.U || is_jump === 1.U) && io.icache_busy) || io.stall,0.U,io.out.ready)
+  io.out.valid := Mux(!(!mul.io.out.valid && is_mul ) && !(!div.io.out.valid && is_div) && io.in.valid && !((is_branch === 1.U || is_jump === 1.U) && io.icache_busy) ,1.U,0.U)
+  io.in.ready := Mux(((!mul.io.out.valid && is_mul) || (!div.io.out.valid && is_div)) && io.in.valid || ((is_branch === 1.U || is_jump === 1.U) && io.icache_busy),0.U,io.out.ready)
 }

@@ -43,18 +43,18 @@ class MMIO (Type : String)extends Module with Paramete{
   if(Type == "Dcache") birdge.io.in.wdata_req.get.bits <> io.in.wdata_req.get.bits
   if(Type == "Dcache") birdge.io.in.wdata_rep.get <> io.in.wdata_rep.get
 
-  when(io.out.raddr_req.fire || io.out.waddr_req.fire) {
+  when(io.out.raddr_req.valid || io.out.waddr_req.valid) {
     busy := true.B
   }
   when(io.out.wb.fire || io.out.rdata_rep.fire) {
     busy := false.B
   }
 
-  when(io.in.addr_req.valid && io.in.addr_req.bits.addr <= "h80000000".U){ // && io.in.addr_req.bits.addr <= "h80000000".U
+  when(io.in.addr_req.bits.addr <= "h80000000".U){ // && io.in.addr_req.bits.addr <= "h80000000".U
 
 //    birdge.io.in <> io.in
     //input
-    birdge.io.in.addr_req.valid := io.in.addr_req.valid
+    birdge.io.in.addr_req.valid := io.in.addr_req.valid & !(io.flush & !busy)
     io.in.addr_req.ready := birdge.io.in.addr_req.ready
 
     if (Type == "Dcache") birdge.io.in.wdata_req.get.valid := io.in.wdata_req.get.valid
@@ -62,6 +62,10 @@ class MMIO (Type : String)extends Module with Paramete{
 
     io.in.rdata_rep.valid := birdge.io.in.rdata_rep.valid
     birdge.io.in.rdata_rep.ready := io.in.rdata_rep.ready
+
+    io.in.rdata_rep.bits <> birdge.io.in.rdata_rep.bits
+    birdge.io.in.addr_req.bits <> io.in.addr_req.bits
+    if (Type == "Dcache") io.in.wdata_req.get.bits <> birdge.io.in.wdata_req.get.bits
 
     if (Type == "Dcache") io.in.wdata_rep.get := birdge.io.in.wdata_rep.get
       //output
@@ -104,7 +108,7 @@ class MMIO (Type : String)extends Module with Paramete{
   }.otherwise{
 
 //input
-    CACHE.io.in.addr_req.valid := io.in.addr_req.valid
+    CACHE.io.in.addr_req.valid := io.in.addr_req.valid & !(io.flush & !busy)
     io.in.addr_req.ready := CACHE.io.in.addr_req.ready
 
     if(Type == "Dcache") CACHE.io.in.wdata_req.get.valid := io.in.wdata_req.get.valid
@@ -112,6 +116,10 @@ class MMIO (Type : String)extends Module with Paramete{
 
     io.in.rdata_rep.valid := CACHE.io.in.rdata_rep.valid
     CACHE.io.in.rdata_rep.ready := io.in.rdata_rep.ready
+
+    io.in.rdata_rep.bits <> CACHE.io.in.rdata_rep.bits
+    CACHE.io.in.addr_req.bits <> io.in.addr_req.bits
+    if(Type == "Dcache") io.in.wdata_req.get.bits <> CACHE.io.in.wdata_req.get.bits
 
     if(Type == "Dcache") io.in.wdata_rep.get := CACHE.io.in.wdata_rep.get
 //output

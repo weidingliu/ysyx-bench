@@ -9,7 +9,7 @@ class WB extends Module with Paramete{
 
     val out = Decoupled(new WBIO)
     val icache_busy = Input(Bool())
-    val stall = Output(Bool())
+//    val stall = Output(Bool())
 
   })
 
@@ -25,9 +25,9 @@ class WB extends Module with Paramete{
 
   io.out.bits.ctrl_signal.excp_flush := Mux(io.icache_busy,false.B,io.in.bits.ctrl_signal.excp_flush && io.in.valid)
   io.out.bits.ctrl_signal.ertn_flush := Mux(io.icache_busy,false.B,io.in.bits.ctrl_signal.ertn_flush && io.in.valid)
-  io.stall :=Mux(io.in.valid && (io.in.bits.ctrl_signal.excp_flush || io.in.bits.ctrl_signal.ertn_flush) && io.icache_busy,true.B,false.B)
+//  io.stall :=Mux(io.in.valid && (io.in.bits.ctrl_signal.excp_flush || io.in.bits.ctrl_signal.ertn_flush) && io.icache_busy,true.B,false.B)
 
-  io.out.valid := Mux(io.stall ,0.U,io.in.valid)
-  io.in.ready := Mux(io.stall,0.U,io.out.ready)
+  io.out.valid := io.in.valid
+  io.in.ready := io.out.ready
 
 }

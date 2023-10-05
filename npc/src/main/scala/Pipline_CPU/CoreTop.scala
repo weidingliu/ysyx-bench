@@ -253,7 +253,9 @@ class ysyx_22050321 extends Module with Paramete{
 //  ICACHE.io.in.bits.addr := IF.io.out.bits.PC
   IF.io.cache_req.addr_req <> IMMIO.io.in.addr_req
   IF.io.cache_req.rdata_rep <> IMMIO.io.in.rdata_rep
-  IMMIO.io.flush := 0.B // EX.io.is_flush | excp_flush | mert_flush | WB.io.stall | EX.io.stall
+
+  IMMIO.io.flush := EX.io.is_flush | excp_flush | mert_flush
+  DMMIO.io.flush := excp_flush | mert_flush
 
   ARBITER.io.in2 <> IMMIO.io.out
   ARBITER.io.in1 <> DMMIO.io.out
@@ -308,11 +310,9 @@ class ysyx_22050321 extends Module with Paramete{
   IF.io.mret := CSR.io.mepc_o
   IF.io.mtvec := CSR.io.mtvec_o
 
-  IF.io.wb_stall := WB.io.stall
-  IF.io.ex_stall := EX.io.stall
 
 //  IF.io.flush := EX.io.is_flush
-  BUFFER_Connect(IF.io.out,ID.io.in,ID.io.out.fire,EX.io.is_flush | excp_flush | mert_flush | WB.io.stall | EX.io.stall | WB.io.stall)
+  BUFFER_Connect(IF.io.out,ID.io.in,ID.io.out.fire,EX.io.is_flush | excp_flush | mert_flush)
 //   Pipline_Connect(IF.io.out,ID.io.in,ID.io.out.fire,EX.io.is_flush | excp_flush | mert_flush | WB.io.stall | EX.io.stall)
   //ID
 //  Pipline_Connect(IF.io.out,ID.io.in,ID.io.out.fire,EX.io.is_flush)
@@ -324,7 +324,7 @@ class ysyx_22050321 extends Module with Paramete{
 //  ID.io.exe_is_mem := EX.io.is_mem
 //  ID.io.exe_rf <> EX.io.out.bits.ctrl_rf
   //EXE
-  Pipline_Connect(ID.io.out,EX.io.in,EX.io.out.fire,EX.io.is_flush | excp_flush | mert_flush | WB.io.stall)
+  Pipline_Connect(ID.io.out,EX.io.in,EX.io.out.fire,EX.io.is_flush | excp_flush | mert_flush)
   IF.io.branch_io <> EX.io.branchIO
   bypass.io.EX_rf <> EX.io.out.bits.ctrl_rf
   EX.io.csr_rd_io.rd_data := CSR.io.rd.rd_data
@@ -334,7 +334,7 @@ class ysyx_22050321 extends Module with Paramete{
 
 //  ID.io.flush := EX.io.is_flush
 //MEM
-  Pipline_Connect(EX.io.out,MEM.io.in,MEM.io.out.fire,excp_flush | mert_flush | WB.io.stall)
+  Pipline_Connect(EX.io.out,MEM.io.in,MEM.io.out.fire,excp_flush | mert_flush)
 //  MEM.io.mem.rdata := DCACHE.io.in.rdata_rep.bits.rdata
 
 
