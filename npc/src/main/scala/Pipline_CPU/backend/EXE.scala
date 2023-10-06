@@ -223,10 +223,9 @@ class EXE extends Module with Paramete{
   val shift_result = WireDefault(0.U(xlen.W))
   switch(io.in.bits.ctrl_signal.aluoptype) {
     is(ALUOPType.srai) {
-      shift_result := (src1.asSInt >> src2(4, 0)).asUInt
+      shift_result := (src1.asSInt >> src2(5, 0)).asUInt
     }
     is(ALUOPType.sllw) {
-
       shift_result := SIgEXtend((src1 << src2(4, 0)) (31, 0), xlen)
     }
     is(ALUOPType.sll) {
@@ -236,7 +235,7 @@ class EXE extends Module with Paramete{
       shift_result := src1.asUInt >> src2(5, 0).asUInt
     }
     is(ALUOPType.slliw) {
-      shift_result := SIgEXtend((src1(31, 0) << src2(5, 0)) (31, 0), xlen)
+      shift_result := SIgEXtend((src1(31, 0) << src2(4, 0)) (31, 0), xlen)
     }
     is(ALUOPType.sraiw) {
       shift_result := SIgEXtend((src1(31, 0).asSInt >> src2(4, 0)) (31, 0), xlen)
