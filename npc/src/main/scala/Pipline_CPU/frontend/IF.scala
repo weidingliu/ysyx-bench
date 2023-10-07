@@ -28,12 +28,7 @@ class IF extends Module with Paramete{
   temp := Mux(!io.excp_flush && !io.mret_flush,Mux(io.branch_io.is_jump || io.branch_io.is_branch, io.branch_io.dnpc,
     Mux(io.out.ready && io.cache_req.rdata_rep.valid,temp + 4.U(xlen.W),
       temp)), Mux(io.excp_flush,io.mtvec,Mux(io.mret_flush,io.mret,temp)))
-//  temp := Mux(io.branch_io.is_jump || io.branch_io.is_branch, io.branch_io.dnpc, temp + 4.U(xlen.W))
 
-//  io.cache_io.bits.addr := temp
-//  io.cache_io.bits.ce := 1.U
-//  io.cache_io.bits.we := 0.U
-//  io.cache_io.ready := io.out.ready
   io.out.valid := Mux(io.cache_req.rdata_rep.valid,1.U,0.U)
 
   io.cache_req.addr_req.bits.addr := temp
