@@ -322,7 +322,7 @@ static int cmd_attach(char *args){
   return 0;
 }
 
-static char path[64]="/home/liuweiding/ysyx-workbench/nemu/resource/snapshot/";
+static char path[64]="$NEMU_HOME/resource/snapshot/";
 static int cmd_save(char *args){
   char *arg = strtok(NULL, " ");
   if(arg == NULL ){

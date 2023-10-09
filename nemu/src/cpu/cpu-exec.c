@@ -19,7 +19,7 @@
 #include <locale.h>
 #include <trace.h>
 
-#include </home/liuweiding/ysyx-workbench/nemu/src/monitor/sdb/sdb.h>
+#include "../monitor/sdb/sdb.h"
 /* The assembly code of instructions executed is only output to the screen
  * when the number of instructions executed is less than this value.
  * This is useful when you use the `si' command.
