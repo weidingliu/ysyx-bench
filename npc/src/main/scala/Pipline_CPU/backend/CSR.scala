@@ -32,9 +32,9 @@ class CSR_ extends Module with Paramete{
     val mtvec_o = Output(UInt(xlen.W))
     val mepc_o = Output(UInt(xlen.W))
 
-    val mtime = Input(UInt(xlen.W))
-    val mtimecmp = Input(UInt(xlen.W))
-    val
+//    val mtime = Input(UInt(xlen.W))
+//    val mtimecmp = Input(UInt(xlen.W))
+//    val
   })
   val mepc = Reg(UInt(xlen.W))
   val mcause = RegInit(0.U(xlen.W))
@@ -43,7 +43,8 @@ class CSR_ extends Module with Paramete{
   val mie = RegInit(0.U(xlen.W))
   val mip = RegInit(0.U(xlen.W))
 
-  val time_int = (io.mtime >= io.mtimecmp) && ((mstatus)(3, 3) === 1.U) & ((mie)(7, 7) === 1.U)
+//  val time_int = (io.mtime >= io.mtimecmp) && ((mstatus)(3, 3) === 1.U) & ((mie)(7, 7) === 1.U)
+  val time_int = false.B
 
 // read port
   val read_table = Seq(
