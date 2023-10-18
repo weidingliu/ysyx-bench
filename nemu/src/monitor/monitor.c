@@ -153,7 +153,7 @@ void init_ftrace(){
     
     read_elf(elf_path);
     #ifdef CONFIG_MULTIPLE_FTRACE
-    char elf_app[360]="$NEMU_HOME/../nanos-lite/build/ramdisk.img";
+    char elf_app[360]="../../../nanos-lite/build/ramdisk.img";
     printf("apps path is %s\n",elf_app);
     read_elf(elf_app);
     #endif
