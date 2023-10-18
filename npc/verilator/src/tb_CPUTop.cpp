@@ -216,7 +216,7 @@ void execute(VCoreTop *dut,VerilatedContext* contextp,VerilatedVcdC *m_trace,uin
         }
         #endif
         if(state==ABORT || state==END) break;
-        if(sim_time % 5 == 0) device_update();
+        if(sim_time % 15 == 0) device_update();
     }
     
     if(contextp->gotFinish()) state=END;

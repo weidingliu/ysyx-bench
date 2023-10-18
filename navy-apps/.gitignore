@@ -22,3 +22,8 @@ libs/libc/
 !/fsimg/share/music/rhythm/Si.ogg
 !/fsimg/share/music/rhythm/empty.ogg
 !/fsimg/share/pictures/projectn.bmp
+!/apps/pal/repo/
+!/apps/pal/Makefile
+!/libs/libc/include/
+!/libs/libc/src/
+!/libs/libc/Makefile

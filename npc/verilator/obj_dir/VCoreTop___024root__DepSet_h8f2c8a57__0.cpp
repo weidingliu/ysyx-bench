@@ -16,6 +16,7 @@ void VCoreTop___024root___eval_ico(VCoreTop___024root* vlSelf) {
     // Body
     if (vlSelf->__VicoTriggered.at(0U)) {
         VCoreTop___024root___ico_sequent__TOP__0(vlSelf);
+        vlSelf->__Vm_traceActivity[1U] = 1U;
     }
 }
 
@@ -34,6 +35,7 @@ void VCoreTop___024root___eval_nba(VCoreTop___024root* vlSelf) {
     // Body
     if (vlSelf->__VnbaTriggered.at(0U)) {
         VCoreTop___024root___nba_sequent__TOP__0(vlSelf);
+        vlSelf->__Vm_traceActivity[2U] = 1U;
     }
 }
 

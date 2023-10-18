@@ -129,7 +129,7 @@ menu "Testing and Debugging"
 
 config TRACE
   bool "Enable tracer"
-  default y
+  default n
   
 config MULTIPLE_FTRACE
     depends on TRACE
@@ -149,11 +149,11 @@ config TRACE_END
 config ITRACE
   
   bool "Enable instruction tracer"
-  default y
+  default n
 config DTRACE
   
   bool "Enable device tracer"
-  default y
+  default n
 
 config ITRACE_COND
   depends on ITRACE
