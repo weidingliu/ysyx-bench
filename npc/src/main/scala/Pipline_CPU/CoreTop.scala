@@ -266,6 +266,7 @@ class CoreTop extends Module with Paramete{
 
 
   MEM.io.cache_io <> MMIO.io.in
+  MEM.io.flush := WB.io.out.bits.ctrl_signal.excp_flush || WB.io.out.bits.ctrl_signal.ertn_flush || WB.io.stall
 
   bypass.io.MEM_rf <> MEM.io.out.bits.ctrl_rf
   WB.io.icache_busy := ICACHE.io.cache_busy

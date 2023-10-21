@@ -12,6 +12,7 @@ class MEM_stage extends Module with Paramete {
       val in = Flipped(Decoupled(new MEMIO))
 
       val out = Decoupled(new WBIO)
+      val flush = Input(Bool())
 
       val cache_io = new CPU_Cache_Bundle("Dcache")
     })
@@ -177,9 +178,9 @@ class MEM_stage extends Module with Paramete {
   io.out.bits.ctrl_csr <> io.in.bits.ctrl_csr
   io.out.bits.ctrl_csr.csr_en := Mux(io.in.valid,io.in.bits.ctrl_csr.csr_en,0.U)
 
-  io.cache_io.addr_req.valid := Mux(io.in.bits.ctrl_signal.fuType === FUType.mem && io.in.valid && io.out.bits.ctrl_signal.inst_valid,true.B,false.B)
+  io.cache_io.addr_req.valid := Mux(io.in.bits.ctrl_signal.fuType === FUType.mem && io.in.valid && io.out.bits.ctrl_signal.inst_valid && !io.flush,true.B,false.B)
   io.cache_io.addr_req.bits.addr := addr_temp
-  io.cache_io.addr_req.bits.ce := Mux(io.in.bits.ctrl_signal.fuType === FUType.mem && io.in.valid && io.out.bits.ctrl_signal.inst_valid,1.U,0.U)
+  io.cache_io.addr_req.bits.ce := Mux(io.in.bits.ctrl_signal.fuType === FUType.mem && io.in.valid && io.out.bits.ctrl_signal.inst_valid  && !io.flush,1.U,0.U)
   io.cache_io.addr_req.bits.we := we
 
   io.cache_io.wdata_req.get.bits.wdata := wdata_temp

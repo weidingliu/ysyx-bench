@@ -40,7 +40,6 @@ VM_USER_CFLAGS = \
 	-O3 \
 	-fprofile-generate \
 	-static \
-	-D WTRACE \
 
 # User LDLIBS (from -LDFLAGS on Verilator command line)
 VM_USER_LDLIBS = \
