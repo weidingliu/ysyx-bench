@@ -40,15 +40,13 @@ VM_USER_CFLAGS = \
 	-O3 \
 	-fprofile-generate \
 	-static \
-	-I/usr/lib/llvm-13/include -std=c++14   -fno-exceptions -D_GNU_SOURCE -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS \
-	-fPIE \
+	-D WTRACE \
 
 # User LDLIBS (from -LDFLAGS on Verilator command line)
 VM_USER_LDLIBS = \
 	-lreadline \
 	-lSDL2 -lSDL2_image \
 	-fprofile-generate \
-	-lLLVM-13 \
 
 # User .cpp files (from .cpp's on Verilator command line)
 VM_USER_CLASSES = \
@@ -59,7 +57,6 @@ VM_USER_CLASSES = \
 	dut \
 	pmem \
 	tb_CPUTop \
-	disasm \
 
 # User .cpp directories (from .cpp's on Verilator command line)
 VM_USER_DIR = \
@@ -67,7 +64,6 @@ VM_USER_DIR = \
 	src/device \
 	src/difftest \
 	src/memory \
-	src/util \
 
 
 ### Default rules...
@@ -92,8 +88,6 @@ dut.o: src/difftest/dut.c
 pmem.o: src/memory/pmem.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 tb_CPUTop.o: src/tb_CPUTop.cpp
-	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
-disasm.o: src/util/disasm.cc
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 
 ### Link rules... (from --exe)

@@ -833,13 +833,6 @@ class Cache_Axi (Type : String) extends Module with CacheParamete{
   io.out.wb.ready := true.B
 
   io.cache_busy := !(state === idle)
-  when(io.out.raddr_req.valid){
-    printf("%x--- %x\n",io.out.raddr_req.bits.addr,mem_addr_reg)
-  }
-  when(io.in.ddr_req.valid){
-    printf("%x\n",io.in.addr_req.bits.addr)
-  }
-
 
 }
 

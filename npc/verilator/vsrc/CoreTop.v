@@ -2303,17 +2303,6 @@ module Cache_Axi(
       end
     end
     Scanf_io_in_valid_REG <= Cache_data_io_out_valid; // @[Cache.scala 725:31]
-    `ifndef SYNTHESIS
-    `ifdef PRINTF_COND
-      if (`PRINTF_COND) begin
-    `endif
-        if (io_out_raddr_req_valid & ~reset) begin
-          $fwrite(32'h80000002,"%x--- %x\n",io_out_raddr_req_bits_addr,mem_addr_reg); // @[Cache.scala 837:11]
-        end
-    `ifdef PRINTF_COND
-      end
-    `endif
-    `endif // SYNTHESIS
   end
 // Register and memory initialization
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
@@ -3180,17 +3169,6 @@ module Cache_Axi_1(
       end
     end
     Scanf_io_in_valid_REG <= Cache_data_io_out_valid; // @[Cache.scala 725:31]
-    `ifndef SYNTHESIS
-    `ifdef PRINTF_COND
-      if (`PRINTF_COND) begin
-    `endif
-        if (io_out_raddr_req_valid & ~reset) begin
-          $fwrite(32'h80000002,"%x--- %x\n",io_out_raddr_req_bits_addr,mem_addr_reg); // @[Cache.scala 837:11]
-        end
-    `ifdef PRINTF_COND
-      end
-    `endif
-    `endif // SYNTHESIS
   end
 // Register and memory initialization
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
