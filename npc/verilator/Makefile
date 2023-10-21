@@ -1,5 +1,6 @@
 ##alias make = make -j $(nproc)
 ##bin_path = $(subst nemu,am-kernels/tests/cpu-tests/build/,$(NEMU_HOME))
+
 SO_PATH = $(NEMU_HOME)/build/riscv64-nemu-interpreter-so
 
 NPC_HOME = $(subst nemu,npc,$(NEMU_HOME))
@@ -9,9 +10,15 @@ vpath %.c %.cpp src
 
 VSRC :=$(wildcard vsrc/*.v)
 ##CFLAGS := include
-CSRC :=$(wildcard src/*.cpp src/util/*.cc src/difftest/*.c src/memory/*.c src/system/*.c src/device/*.c)
-LDFLAGS=-LDFLAGS "$(shell llvm-config-13 --libs) -ldl" -LDFLAGS -lreadline -LDFLAGS "-lSDL2 -lSDL2_image" -LDFLAGS -fprofile-generate
-CFLAGS=-CFLAGS "-I $$NPC_HOME/verilator/src/include -I /usr/lib/llvm-13/include" -CFLAGS -Wno-tautological-compare -CFLAGS -O3 -CFLAGS -fprofile-generate -CFLAGS -static
+CSRC +=$(wildcard src/*.cpp src/difftest/*.c src/memory/*.c src/system/*.c src/device/*.c)
+LDFLAGS += -LDFLAGS -lreadline -LDFLAGS "-lSDL2 -lSDL2_image" -LDFLAGS -fprofile-generate
+CFLAGS += -CFLAGS "-I $$NPC_HOME/verilator/src/include" -CFLAGS -Wno-tautological-compare -CFLAGS -O3 -CFLAGS -fprofile-generate -CFLAGS -static 
+
+ifdef ITRACE
+CSRC += src/util/*.cc
+LDFLAGS += -LDFLAGS "$(shell llvm-config-13 --libs)"
+CFLAGS += -CFLAGS "$(shell llvm-config-13 --cxxflags)" -CFLAGS -fPIE
+endif
 
 ifeq ("$(WTRACE)","y")
 CFLAGS += -CFLAGS "-D WTRACE"

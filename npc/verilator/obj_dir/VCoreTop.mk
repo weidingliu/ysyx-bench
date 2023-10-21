@@ -35,18 +35,20 @@ VM_PREFIX = VCoreTop
 VM_MODPREFIX = VCoreTop
 # User CFLAGS (from -CFLAGS on Verilator command line)
 VM_USER_CFLAGS = \
-	-I /home/liuweiding/ysyx-workbench/npc/verilator/src/include -I /usr/lib/llvm-13/include \
+	-I /home/liuweiding/ysyx-workbench/npc/verilator/src/include \
 	-Wno-tautological-compare \
 	-O3 \
 	-fprofile-generate \
 	-static \
+	-I/usr/lib/llvm-13/include -std=c++14   -fno-exceptions -D_GNU_SOURCE -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS \
+	-fPIE \
 
 # User LDLIBS (from -LDFLAGS on Verilator command line)
 VM_USER_LDLIBS = \
-	-lLLVM-13 -ldl \
 	-lreadline \
 	-lSDL2 -lSDL2_image \
 	-fprofile-generate \
+	-lLLVM-13 \
 
 # User .cpp files (from .cpp's on Verilator command line)
 VM_USER_CLASSES = \

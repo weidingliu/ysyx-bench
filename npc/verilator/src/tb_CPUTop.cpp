@@ -479,7 +479,9 @@ Reset(dut,contextp,NULL);//reset rtl
 #ifdef DIFFTEST 
 init_difftest(argv[2],mem_size,1,mem);
 #endif
+#ifdef ITRACE
 init_disasm("riscv64" "-pc-linux-gnu");
+#endif
 //reset rtl
 
 //execute 

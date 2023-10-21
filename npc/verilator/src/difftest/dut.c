@@ -16,30 +16,30 @@ Ref_difftest_init ref_difftest_init=NULL;
 
 void init_difftest(char *ref_so_file, uint32_t img_size, int port, uint8_t *mem){
   assert(ref_so_file != NULL);
-  printf("sdfgg\n");
+
   void *handle;
   handle = dlopen(ref_so_file, RTLD_LAZY);
   assert(handle);
-  printf("sdfgg\n");
+
   ref_difftest_memcpy = (Ref_difftest_memcpy)dlsym(handle, "difftest_memcpy");
   assert(ref_difftest_memcpy);
-  printf("sdfgg\n");
+
   ref_difftest_regcpy = (Ref_difftest_regcpy)dlsym(handle, "difftest_regcpy");
   assert(ref_difftest_regcpy);
-  printf("sdfgg\n");
+
   ref_difftest_exec = (Ref_difftest_exec)dlsym(handle, "difftest_exec");
   assert(ref_difftest_exec);
-  printf("sdfgg\n");
+
   ref_difftest_raise_intr = (Ref_difftest_raise_intr)dlsym(handle, "difftest_raise_intr");
   assert(ref_difftest_raise_intr);
-  printf("sdfgg\n");
+
   ref_difftest_init = (Ref_difftest_init)dlsym(handle, "difftest_init");
   assert(ref_difftest_init);
-printf("sdfgg\n");
+
   ref_difftest_init(port);
-  printf("sdfgg\n");
+
   ref_difftest_memcpy(RESET_VECTOR, mem, img_size, DIFFTEST_TO_REF);
-  printf("here5\n");
+
   ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
   
   printf("difftest \033[40;32mON\033[0m\n");
