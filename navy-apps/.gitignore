@@ -31,3 +31,4 @@ build/
 !/fsimg/bin/*
 !*.t
 !*.cat
+!*.h
