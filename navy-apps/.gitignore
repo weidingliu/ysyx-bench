@@ -27,4 +27,4 @@ libs/libc/
 !/libs/libc/include/
 !/libs/libc/src/
 !/libs/libc/Makefile
-!/apps/
+!/apps/*
