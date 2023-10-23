@@ -238,8 +238,8 @@ android/so
 resources
 
 unix/sdlpal
-sdlpal.cfg
-data
+!sdlpal.cfg
+!data
 
 generated.h
 

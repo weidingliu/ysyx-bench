@@ -32,3 +32,5 @@ build/
 !*.t
 !*.cat
 !*.h
+!fsimg/share/games/*
+!apps/pal/repo/data/*
