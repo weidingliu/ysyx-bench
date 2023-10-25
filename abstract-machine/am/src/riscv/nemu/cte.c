@@ -53,9 +53,4 @@ bool ienabled() {
 }
 
 void iset(bool enable) {
-   if(enable){
-       asm volatile("csrrs zero,mstatus, %0" : : "r"(0xa00001808));
-       asm volatile("csrrs zero,mie, %0" : : "r"(0x000000080));
-       
-   }
 }

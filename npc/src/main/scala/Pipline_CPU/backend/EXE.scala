@@ -223,7 +223,7 @@ class EXE extends Module with Paramete{
   val shift_result = WireDefault(0.U(xlen.W))
   switch(io.in.bits.ctrl_signal.aluoptype) {
     is(ALUOPType.srai) {
-      shift_result := (src1.asSInt >> src2(4, 0)).asUInt
+      shift_result := (src1.asSInt >> src2(5, 0)).asUInt
     }
     is(ALUOPType.sllw) {
 
