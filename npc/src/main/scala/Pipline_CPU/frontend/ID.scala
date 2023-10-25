@@ -43,6 +43,7 @@ class ID extends Module with Paramete{
     val REG1 = Input(UInt(xlen.W))
     val REG2 = Input(UInt(xlen.W))
     val flush = Input(Bool())
+    val has_int = Input(Bool())
 
     val ex_is_mem = Input(Bool())
     val ex_reg = Flipped(new RFCtrlIO)
@@ -115,5 +116,6 @@ class ID extends Module with Paramete{
   io.out.valid := Mux(io.in.valid & !stall_req,1.U,0.U)//Mux(io.out.ready && io.in.valid,1.U,0.U)
   io.in.ready := Mux(stall_req,false.B,io.out.ready)
   dontTouch(io.in.ready)
+  io.out.bits.ctrl_signal.has_int := io.has_int
   //println(io.out.bits.ctrl_signal.inst_valid)
 }

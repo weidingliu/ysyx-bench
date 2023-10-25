@@ -17,6 +17,7 @@ class CtrlSignalIO extends Bundle with Paramete{
   val rfDest = Output(UInt(5.W))
   val ertn_flush = Output(Bool())
   val excp_flush = Output(Bool())
+  val has_int = Output(Bool())
 }
 
 class DataSrcIO extends Bundle with Paramete{
