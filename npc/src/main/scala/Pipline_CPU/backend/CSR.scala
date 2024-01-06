@@ -34,7 +34,8 @@ class CSR_ extends Module with Paramete{
 
 //    val mtime = Input(UInt(xlen.W))
 //    val mtimecmp = Input(UInt(xlen.W))
-//    val
+//    val is_int = Input(Bool())
+//    val time_int = Input(Bool())
   })
   val mepc = Reg(UInt(xlen.W))
   val mcause = RegInit(0.U(xlen.W))
