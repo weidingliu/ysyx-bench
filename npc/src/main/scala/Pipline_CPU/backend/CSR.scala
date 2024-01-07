@@ -32,10 +32,10 @@ class CSR_ extends Module with Paramete{
     val mtvec_o = Output(UInt(xlen.W))
     val mepc_o = Output(UInt(xlen.W))
 
-//    val mtime = Input(UInt(xlen.W))
-//    val mtimecmp = Input(UInt(xlen.W))
-//    val is_int = Input(Bool())
-//    val time_int = Input(Bool())
+    val mtime = Input(UInt(xlen.W))
+    val mtimecmp = Input(UInt(xlen.W))
+    val wb_time_int = Input(Bool())
+    val has_time_int = Output(Bool())
   })
   val mepc = Reg(UInt(xlen.W))
   val mcause = RegInit(0.U(xlen.W))
@@ -44,8 +44,8 @@ class CSR_ extends Module with Paramete{
   val mie = RegInit(0.U(xlen.W))
   val mip = RegInit(0.U(xlen.W))
 
-//  val time_int = (io.mtime >= io.mtimecmp) && ((mstatus)(3, 3) === 1.U) & ((mie)(7, 7) === 1.U)
-  val time_int = false.B
+  val time_int = (io.mtime >= io.mtimecmp) && ((mstatus)(3, 3) === 1.U) & ((mie)(7, 7) === 1.U)
+  io.has_time_int := time_int
 
 // read port
   val read_table = Seq(
@@ -60,7 +60,7 @@ class CSR_ extends Module with Paramete{
 
   when(io.excp_flush){
     mstatus := mstatus & "hfffffffffffffff7".U(xlen.W)
-    mcause := Mux(time_int,7.U(xlen.W),11.U(xlen.W))
+    mcause := Mux(io.wb_time_int,7.U(xlen.W),11.U(xlen.W))
     mepc := io.epc
     mip := mip | 0x0000000000000080.U
   }

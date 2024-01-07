@@ -54,6 +54,7 @@ class MMIO (Type : String)extends Module with Paramete{
   }
   val is_uncached = io.in.addr_req.bits.addr < "h80000000".U && io.in.addr_req.bits.addr >= "h10000000".U
   val is_CLINT = io.in.addr_req.bits.addr >= "h02000000".U && io.in.addr_req.bits.addr < "h0200_ffff".U
+  val timeReadData = WireDefault(0.U(xlen.W))
   if(Type == "Dcache"){
     // timer
     val mtime = RegInit(0.U(xlen.W)) //0x0200bff8
@@ -64,6 +65,7 @@ class MMIO (Type : String)extends Module with Paramete{
     when(io.time_intfeedback.get){
       mtimecmp := mtimecmp + "h200000".U(xlen.W)
     }
+    timeReadData := Mux((io.in.addr_req.bits.addr === "h0200bff8".U(xlen.W)), mtime,mtimecmp)
   }
 
     birdge.io.in.addr_req.valid := Mux(is_uncached,io.in.addr_req.valid & !(io.flush & !busy),false.B)
@@ -72,10 +74,11 @@ class MMIO (Type : String)extends Module with Paramete{
     if (Type == "Dcache") birdge.io.in.wdata_req.get.valid := Mux(is_uncached,io.in.wdata_req.get.valid,false.B)
     if (Type == "Dcache") io.in.wdata_req.get.ready := Mux(is_uncached,birdge.io.in.wdata_req.get.ready,CACHE.io.in.wdata_req.get.ready)
 
-    io.in.rdata_rep.valid := Mux(is_uncached,birdge.io.in.rdata_rep.valid,CACHE.io.in.rdata_rep.valid)
+    io.in.rdata_rep.valid := Mux(is_CLINT, true.B, Mux(is_uncached,birdge.io.in.rdata_rep.valid,CACHE.io.in.rdata_rep.valid))
     birdge.io.in.rdata_rep.ready := Mux(is_uncached,io.in.rdata_rep.ready,false.B)
 
-    io.in.rdata_rep.bits <> birdge.io.in.rdata_rep.bits
+//    io.in.rdata_rep.bits <> birdge.io.in.rdata_rep.bits
+    io.in.rdata_rep.bits.rdata := Mux(is_CLINT, timeReadData, Mux(is_uncached, birdge.io.in.rdata_rep.bits.rdata, CACHE.io.in.rdata_rep.bits.rdata))
     birdge.io.in.addr_req.bits <> io.in.addr_req.bits
     if (Type == "Dcache") io.in.wdata_req.get.bits <> birdge.io.in.wdata_req.get.bits
 
@@ -117,7 +120,7 @@ class MMIO (Type : String)extends Module with Paramete{
     io.out.raddr_req.bits <> CACHE.io.out.raddr_req.bits
     io.out.waddr_req.bits <> CACHE.io.out.waddr_req.bits
     io.out.wdata_req.bits <> CACHE.io.out.wdata_req.bits
-    io.in.rdata_rep.bits <> CACHE.io.in.rdata_rep.bits
+//    io.in.rdata_rep.bits <> CACHE.io.in.rdata_rep.bits
     if (Type == "Dcache") io.in.wdata_req.get.bits <>  CACHE.io.in.wdata_req.get.bits
   }
 

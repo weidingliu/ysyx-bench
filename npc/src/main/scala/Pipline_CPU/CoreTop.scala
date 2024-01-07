@@ -310,7 +310,7 @@ class ysyx_22050321 extends Module with Paramete{
   IF.io.mret := CSR.io.mepc_o
   IF.io.mtvec := CSR.io.mtvec_o
 
-  DMMIO.io.time_intfeedback.get := DontCare ///////////////////////////////////////////////////////
+  DMMIO.io.time_intfeedback.get := WB.io.wb_time_int ///////////////////////////////////////////////////////
 //  IF.io.flush := EX.io.is_flush
   BUFFER_Connect(IF.io.out,ID.io.in,ID.io.out.fire,EX.io.is_flush | excp_flush | mert_flush)
 //   Pipline_Connect(IF.io.out,ID.io.in,ID.io.out.fire,EX.io.is_flush | excp_flush | mert_flush | WB.io.stall | EX.io.stall)
@@ -360,6 +360,11 @@ class ysyx_22050321 extends Module with Paramete{
   CSR.io.excp_flush := WB.io.out.bits.ctrl_signal.excp_flush
   CSR.io.mert_flush := WB.io.out.bits.ctrl_signal.ertn_flush
   CSR.io.epc := WB.io.out.bits.ctrl_flow.PC
+
+  CSR.io.mtime := DMMIO.io.mtime.get
+  CSR.io.mtimecmp := DMMIO.io.mtimecmp.get
+  CSR.io.wb_time_int := WB.io.wb_time_int
+  ID.io.has_int := CSR.io.has_time_int
 
   io.slave := DontCare
 
