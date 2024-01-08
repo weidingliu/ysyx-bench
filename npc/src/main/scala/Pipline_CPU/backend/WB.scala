@@ -26,4 +26,8 @@ class WB extends Module with Paramete{
   io.out.valid := io.in.valid
   io.in.ready := io.out.ready
 
+  when(io.out.valid){
+    printf(p"PC: ${Hexadecimal(io.out.bits.ctrl_flow.PC)}  Wen: ${Hexadecimal(io.out.bits.ctrl_rf.rfWen)} Dst: ${Hexadecimal(io.out.bits.ctrl_rf.rfDest)} Wdata: ${Hexadecimal(io.out.bits.ctrl_rf.rfData)}\n")
+  }
+
 }
