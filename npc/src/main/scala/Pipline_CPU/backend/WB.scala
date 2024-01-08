@@ -13,6 +13,8 @@ class WB extends Module with Paramete{
 
   })
 
+  val needExcp_flush = io.in.bits.ctrl_signal.excp_flush && io.in.valid
+  val needErtn_flush = io.in.bits.ctrl_signal.ertn_flush && io.in.valid
   io.out.bits <> io.in.bits
   io.out.bits.ctrl_csr.csr_en := Mux(io.in.valid,io.in.bits.ctrl_csr.csr_en,0.U)
   io.out.bits.ctrl_signal.inst_valid := Mux(io.in.valid,io.in.bits.ctrl_signal.inst_valid,0.U)
@@ -23,11 +25,11 @@ class WB extends Module with Paramete{
   io.wb_time_int := Mux(io.icache_busy,false.B,io.in.bits.ctrl_signal.has_int && io.in.valid)
 //  io.stall :=Mux(io.in.valid && (io.in.bits.ctrl_signal.excp_flush || io.in.bits.ctrl_signal.ertn_flush) && io.icache_busy,true.B,false.B)
 
-  io.out.valid := io.in.valid
-  io.in.ready := io.out.ready
+  io.out.valid := Mux((needExcp_flush || needErtn_flush) && io.icache_busy ,false.B, io.in.valid)
+  io.in.ready := Mux((needExcp_flush || needErtn_flush) && io.icache_busy ,false.B, io.out.ready)
 
-  when(io.out.valid){
-    printf(p"PC: ${Hexadecimal(io.out.bits.ctrl_flow.PC)}  Wen: ${Hexadecimal(io.out.bits.ctrl_rf.rfWen)} Dst: ${Hexadecimal(io.out.bits.ctrl_rf.rfDest)} Wdata: ${Hexadecimal(io.out.bits.ctrl_rf.rfData)}\n")
-  }
+//  when(io.out.valid){
+//    printf(p"PC: ${Hexadecimal(io.out.bits.ctrl_flow.PC)}  Wen: ${Hexadecimal(io.out.bits.ctrl_rf.rfWen)} Dst: ${Hexadecimal(io.out.bits.ctrl_rf.rfDest)} Wdata: ${Hexadecimal(io.out.bits.ctrl_rf.rfData)}\n")
+//  }
 
 }
