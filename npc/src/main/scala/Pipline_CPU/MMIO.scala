@@ -12,6 +12,7 @@ class MMIO (Type : String)extends Module with Paramete{
     val mtime = if(Type == "Dcache") Some(Output(UInt(xlen.W))) else None
     val mtimecmp = if(Type == "Dcache") Some(Output(UInt(xlen.W))) else None
     val time_intfeedback = if(Type == "Dcache") Some(Input(Bool())) else None
+    val fenceIO = Flipped(new fenceCacheIO)
 
     val out = new Axi_full_Bundle_out
 
@@ -34,6 +35,9 @@ class MMIO (Type : String)extends Module with Paramete{
 
   CACHE.io.in.rdata_rep.bits <> io.in.rdata_rep.bits
   CACHE.io.in.addr_req.bits <> io.in.addr_req.bits
+
+  CACHE.io.fenceIO <> io.fenceIO
+  dontTouch(io.fenceIO)
 
   if(Type == "Dcache") CACHE.io.in.wdata_req.get.bits <> io.in.wdata_req.get.bits else None
   if(Type == "Dcache") CACHE.io.in.wdata_rep.get <> io.in.wdata_rep.get else None

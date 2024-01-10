@@ -189,6 +189,8 @@ class Cache_Axi (Type : String) extends Module with CacheParamete{
     val flush = Input(Bool())
     val cache_busy = Output(Bool())
 
+    val fenceIO = Flipped(new fenceCacheIO)
+
     val sram0 = new SRAMBundle
     val sram1 = new SRAMBundle
     val sram2 = new SRAMBundle
@@ -218,6 +220,7 @@ class Cache_Axi (Type : String) extends Module with CacheParamete{
   val mem_data = WireDefault(0.U(xlen.W))
   val lru = SyncReadMem(Cache_line_num, UInt(1.W)) //2 way
 
+  io.fenceIO := DontCare
 
 //  val count = RegInit(0.U((log2Ceil(Cache_line_wordnum) + 1).W))
 //  val s = count === Cache_line_wordnum.U

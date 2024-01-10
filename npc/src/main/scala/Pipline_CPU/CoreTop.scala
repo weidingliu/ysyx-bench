@@ -372,11 +372,13 @@ class ysyx_22050321 extends Module with Paramete{
   IMMIO.io.sram1 <> io.sram1
   IMMIO.io.sram2 <> io.sram2
   IMMIO.io.sram3 <> io.sram3
+  IMMIO.io.fenceIO <> WB.io.fenceIO
 
   DMMIO.io.sram0 <> io.sram4
   DMMIO.io.sram1 <> io.sram5
   DMMIO.io.sram2 <> io.sram6
   DMMIO.io.sram3 <> io.sram7
+  DMMIO.io.fenceIO <> WB.io.fenceIO
 }
 
 import chisel3.stage._

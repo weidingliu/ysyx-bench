@@ -18,6 +18,8 @@ class CtrlSignalIO extends Bundle with Paramete{
   val ertn_flush = Output(Bool())
   val excp_flush = Output(Bool())
   val has_int = Output(Bool())
+  val is_fencei = Output(Bool())
+  val fenceiPC = Output(UInt(xlen.W))
 }
 
 class DataSrcIO extends Bundle with Paramete{
@@ -303,6 +305,10 @@ class SRAMBundle extends Bundle{
   val rdata = Input(UInt(128.W))
 }
 
+class fenceCacheIO extends Bundle{
+  val fenceReq = Output(Bool())
+  val fenceResp = Input(Bool())
+}
 //class Cache extends Bundle with Paramete{
 //
 //}

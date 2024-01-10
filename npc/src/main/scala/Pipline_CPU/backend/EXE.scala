@@ -420,6 +420,7 @@ class EXE extends Module with Paramete{
   io.out.bits.ctrl_rf.rfWen := Mux(io.in.valid,io.in.bits.ctrl_signal.rfWen,0.U)
   io.out.bits.ctrl_flow.Dnpc := dnpc
   io.branchIO.dnpc := dnpc//Mux(time_int === 1.U, csr.read(CSR_index.mtvec), dnpc)
+  io.out.bits.ctrl_signal.fenceiPC := dnpc
 
   val is_branch = branch_flag & io.out.bits.ctrl_signal.inst_valid & io.in.valid
   val is_jump = io.in.bits.ctrl_signal.fuType === FUType.jump && io.out.bits.ctrl_signal.inst_valid && io.in.valid
