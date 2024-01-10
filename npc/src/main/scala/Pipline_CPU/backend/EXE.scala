@@ -63,6 +63,7 @@ object ALUOPType{
   def ecall ="b0010111".U
   def mret ="b0011000".U
   def lui = "b0011010".U
+  def fencei = "b0011011".U
   def apply() = UInt(7.W)
 }
 object RD{

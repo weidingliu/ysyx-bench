@@ -16,10 +16,13 @@ object Priviledged extends Paramete{
 
   def CSRRW = BitPat("b???????_?????_?????_001_?????_1110011")
 
+  def FENCEI = BitPat("b???????_?????_?????_001_?????_0001111")
+
   val table = Array(
     CSRRS -> List(InstrType.InstrI, FUType.alu, ALUOPType.csrrs, RD.write),
     CSRRW -> List(InstrType.InstrI, FUType.alu, ALUOPType.csrrw, RD.write),
     ECALL -> List(InstrType.InstrN, FUType.alu, ALUOPType.ecall, RD.NOP),
     MRET -> List(InstrType.InstrN, FUType.alu, ALUOPType.mret, RD.NOP),
+    FENCEI -> List(InstrType.InstrI, FUType.alu, ALUOPType.fencei, RD.NOP),
   )
 }
