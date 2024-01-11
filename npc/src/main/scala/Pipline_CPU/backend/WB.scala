@@ -11,13 +11,16 @@ class WB extends Module with Paramete{
     val icache_busy = Input(Bool())
     val wb_time_int = Output(Bool())
 
-    val fenceIO = new fenceCacheIO
+    val dFenceIO = new fenceCacheIO
+    val iFenceIO = new fenceCacheIO
 
   })
   val idle :: waitCacheFlush :: flushPipline :: Nil = Enum(3)
   val fenceState = RegInit(idle)
-  io.fenceIO := DontCare
-  dontTouch(io.fenceIO)
+  io.dFenceIO := DontCare
+  io.iFenceIO := DontCare
+  dontTouch(io.dFenceIO)
+  dontTouch(io.iFenceIO)
 
   when(fenceState === idle && io.in.valid && io.in.bits.ctrl_signal.is_fencei){
     fenceState := waitCacheFlush

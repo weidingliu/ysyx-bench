@@ -225,7 +225,6 @@ class Cache_Axi (Type : String) extends Module with CacheParamete{
 //  val count = RegInit(0.U((log2Ceil(Cache_line_wordnum) + 1).W))
 //  val s = count === Cache_line_wordnum.U
 
-
   val dirt_r = if (Type == "Dcache") Some(Reg(Vec(Cache_way, UInt(1.W)))) else None
   val dirt = if (Type == "Dcache") Some(SyncReadMem(Cache_line_num, Vec(Cache_way, UInt(1.W)))) else None
   val count_write = if (Type == "Dcache") Some(RegInit(0.U((log2Ceil(Cache_line_wordnum) + 1).W))) else None
@@ -239,6 +238,14 @@ class Cache_Axi (Type : String) extends Module with CacheParamete{
 
   //  val (count,s) = Counter(state === miss,Cache_line_wordnum)
   val hit_way = Wire(Vec(Cache_way, UInt(1.W)))
+  // fence.i
+  val fenceReqReg = RegInit(false.B)
+  when(io.fenceIO.fenceReq){
+    fenceReqReg := true.B
+  }
+  when(io.fenceIO.fenceResp){
+    fenceReqReg := false.B
+  }
 
   lru_w := lru.read(Cache_data.io.out.bits.ctrl_data.index)
 
