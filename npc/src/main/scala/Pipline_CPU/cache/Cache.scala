@@ -201,7 +201,7 @@ class Cache_Axi (Type : String) extends Module with CacheParamete{
   val Cache_data = Module(new Cache_Data)
   val Scanf = Module(new Scanf_data)
 
-  val idle :: scanf :: miss :: write_data :: wait_axi_end :: Nil = Enum(5)
+  val idle :: scanf :: miss :: write_data :: wait_axi_end :: fenceIdle :: fenceLine :: fenceWayEnd :: Nil = Enum(8)
   val read_idle :: read_transfer_addr :: wait_data_transfer :: refill :: Nil = Enum(4)
   val write_idle :: write_transfer_addr :: write_transfer_data :: write_wait_respone :: Nil = Enum(4)
 
@@ -220,8 +220,6 @@ class Cache_Axi (Type : String) extends Module with CacheParamete{
   val mem_data = WireDefault(0.U(xlen.W))
   val lru = SyncReadMem(Cache_line_num, UInt(1.W)) //2 way
 
-  io.fenceIO := DontCare
-
 //  val count = RegInit(0.U((log2Ceil(Cache_line_wordnum) + 1).W))
 //  val s = count === Cache_line_wordnum.U
 
@@ -238,8 +236,14 @@ class Cache_Axi (Type : String) extends Module with CacheParamete{
 
   //  val (count,s) = Counter(state === miss,Cache_line_wordnum)
   val hit_way = Wire(Vec(Cache_way, UInt(1.W)))
+
   // fence.i
   val fenceReqReg = RegInit(false.B)
+  val baseAddr = RegInit(0.U(xlen.W)) // fence base addr (index,b00000)
+  val fenceNum = RegEnable(((Cache_line_num.U(xlen.W)) << 1).asUInt,(state === idle && fenceReqReg)) // fence num
+  val waycount = RegInit(0.U(log2Ceil(Cache_way).W))
+  val waymask = UIntToOH(waycount)
+
   when(io.fenceIO.fenceReq){
     fenceReqReg := true.B
   }
@@ -247,11 +251,41 @@ class Cache_Axi (Type : String) extends Module with CacheParamete{
     fenceReqReg := false.B
   }
 
+  when(state === fenceWayEnd && fenceNum =/= 0.U || state === idle && fenceReqReg){
+    baseAddr := 0.U(xlen.W)
+  }
+
+  when(state === fenceWayEnd){
+    waycount := waycount + 1.U(log2Ceil(Cache_way).W)
+  }.elsewhen(state === idle && fenceReqReg){
+    waycount := 0.U(log2Ceil(Cache_way).W)
+  }
+
+  when(state === fenceLine){
+    if(Type == "Dcache"){
+      when((dirt_w.get.asUInt & waymask).orR) { // if dirt
+
+      }.otherwise {
+
+      }
+    }
+    else {
+
+    }
+
+  }
+
+  io.fenceIO.fenceResp := (state === fenceWayEnd) && (fenceNum === 0.U)
+
+
   lru_w := lru.read(Cache_data.io.out.bits.ctrl_data.index)
 
   switch(state) {
     is(idle) {
-      when(io.in.addr_req.valid) {
+      when(fenceReqReg){
+        state := fenceIdle
+      }
+      .elsewhen(io.in.addr_req.valid) {
         state := scanf
       }.otherwise {
         state := idle
@@ -282,7 +316,10 @@ class Cache_Axi (Type : String) extends Module with CacheParamete{
 
     is(write_data) {
       if (Type == "Dcache") {
-        when(io.out.wb.valid && io.out.wb.bits.breap === "b00".U) {
+        when(fenceReqReg){
+          state := fenceLine
+        }
+        .elsewhen(io.out.wb.valid && io.out.wb.bits.breap === "b00".U) {
           state := miss
         }
       }
@@ -291,6 +328,15 @@ class Cache_Axi (Type : String) extends Module with CacheParamete{
       when((io.in.rdata_rep.ready && read_state === refill) || (io.out.wb.valid && io.out.wb.bits.breap === "b00".U)) {
         state := idle
       }
+    }
+    is(fenceIdle){
+
+    }
+    is(fenceLine){
+
+    }
+    is(fenceWayEnd){
+
     }
   }
   when(io.flush ) {
@@ -398,6 +444,15 @@ class Cache_Axi (Type : String) extends Module with CacheParamete{
           count_write.get := 0.U
         }
       }
+    }
+    is(fenceIdle) {
+
+    }
+    is(fenceLine) {
+
+    }
+    is(fenceWayEnd) {
+
     }
   }
 
