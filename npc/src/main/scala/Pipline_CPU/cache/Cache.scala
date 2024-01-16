@@ -107,6 +107,7 @@ class Cache_Data extends Module with CacheParamete{
       val valid = Input(Bool())
       val waymask = Input(UInt(Cache_way.W))
       val wdata = Input(UInt(Cache_line_size.W))
+      val fenceValid = Input(Bool())
     }
     val sram0 = new SRAMBundle
     val sram1 = new SRAMBundle
@@ -145,11 +146,13 @@ class Cache_Data extends Module with CacheParamete{
 //  val wdata = VecInit(Seq.fill(Cache_way)(io.write_bus.wdata))
   val wtag = VecInit(Seq.fill(Cache_way)(io.write_bus.addr(xlen - 1, xlen - Tag_size)))
   val valid = VecInit(Seq.fill(Cache_way)(1.U))
+  val invalid = VecInit(Seq.fill(Cache_way)(0.U))
+  val writeCachevalid = Mux(io.write_bus.valid, invalid,valid)
 //  val waymask = .getOrElse("b1".U)
   when(io.write_bus.valid){
 //    data.write(io.write_bus.addr(xlen-Tag_size-1,log2Ceil(Cache_line_size/8)),wdata,io.write_bus.waymask.asBools)
-    TAG.write(io.write_bus.addr(xlen-Tag_size-1,log2Ceil(Cache_line_size/8)),wtag,io.write_bus.waymask.asBools)
-    data_valid.write(io.write_bus.addr(xlen-Tag_size-1,log2Ceil(Cache_line_size/8)),valid,io.write_bus.waymask.asBools)
+    TAG.write(io.write_bus.addr(xlen - Tag_size - 1, log2Ceil(Cache_line_size / 8)), wtag, io.write_bus.waymask.asBools)
+    data_valid.write(io.write_bus.addr(xlen - Tag_size - 1, log2Ceil(Cache_line_size / 8)), writeCachevalid, io.write_bus.waymask.asBools)
   }
   io.sram0.addr := index
   io.sram1.addr := index
@@ -251,15 +254,6 @@ class Cache_Axi (Type : String) extends Module with CacheParamete{
     fenceReqReg := false.B
   }
 
-  when(state === fenceWayEnd && fenceNum =/= 0.U || state === idle && fenceReqReg){
-    baseAddr := 0.U(xlen.W)
-  }
-
-  when(state === fenceWayEnd){
-    waycount := waycount + 1.U(log2Ceil(Cache_way).W)
-  }.elsewhen(state === idle && fenceReqReg){
-    waycount := 0.U(log2Ceil(Cache_way).W)
-  }
 
   when(state === fenceLine){
     if(Type == "Dcache"){
@@ -316,8 +310,8 @@ class Cache_Axi (Type : String) extends Module with CacheParamete{
 
     is(write_data) {
       if (Type == "Dcache") {
-        when(fenceReqReg){
-          state := fenceLine
+        when(fenceReqReg && io.out.wb.valid && io.out.wb.bits.breap === "b00".U){
+          state := fenceWayEnd
         }
         .elsewhen(io.out.wb.valid && io.out.wb.bits.breap === "b00".U) {
           state := miss
@@ -330,13 +324,22 @@ class Cache_Axi (Type : String) extends Module with CacheParamete{
       }
     }
     is(fenceIdle){
-
+      state := fenceLine
     }
     is(fenceLine){
-
+      if (Type == "Dcache") {
+        when((dirt_w.get.asUInt & waymask).orR) { // if dirt
+          state := write_data
+        }.otherwise {
+          state := fenceWayEnd
+        }
+      }
+      else {
+          state := fenceWayEnd
+      }
     }
     is(fenceWayEnd){
-
+        state := fenceIdle
     }
   }
   when(io.flush ) {
@@ -396,6 +399,10 @@ class Cache_Axi (Type : String) extends Module with CacheParamete{
   switch(state) {
     is(idle) {
 //      count := 0.U
+      when(fenceReqReg){
+        waycount := 0.U(log2Ceil(Cache_way).W)
+        baseAddr := 0.U(xlen.W)
+      }
     }
     is(scanf) {
       when(hit === 0.U) {
@@ -449,10 +456,19 @@ class Cache_Axi (Type : String) extends Module with CacheParamete{
 
     }
     is(fenceLine) {
-
+      if (Type == "Dcache") {
+//        dirt_r.get := dirt_w.get
+        count_write.get := 0.U
+        mem_write_addr_reg.get := Cat(tag_way(waycount), Scanf.io.out.bits.meta.ctrl_data.index, Fill(log2Ceil(Cache_line_size / 8), 0.U))
+        mem_write_data_reg.get := Cache_data.io.out.bits.data(waycount)
+//        hit_way_r.get := hit_way
+      }
     }
     is(fenceWayEnd) {
-
+      val nextWay = fenceNum === (Cache_line_num + 1).U
+      baseAddr := Mux(nextWay, 0.U, baseAddr + (1.U << (Cache_line_size / 8)))
+      waycount := Mux(nextWay, waycount + 1.U(log2Ceil(Cache_way).W), waycount)
+      fenceNum := fenceNum - 1.U
     }
   }
 
@@ -516,8 +532,8 @@ class Cache_Axi (Type : String) extends Module with CacheParamete{
   io.in.addr_req.ready := true.B
 
   //read data from cache
-  Cache_data.io.in.valid := Mux(io.in.addr_req.valid && state === idle, 1.U, 0.U)
-  Cache_data.io.in.addr := io.in.addr_req.bits.addr
+  Cache_data.io.in.valid := Mux(io.in.addr_req.valid && state === idle || state === fenceIdle, 1.U, 0.U)
+  Cache_data.io.in.addr := Mux(fenceReqReg, baseAddr,io.in.addr_req.bits.addr)
   Scanf.io.in.valid := RegNext(Cache_data.io.out.valid)
   Scanf.io.in.bits.meat := (Cache_data.io.out.bits.meat)
   Scanf.io.in.bits.data := (Cache_data.io.out.bits.data)
@@ -576,27 +592,30 @@ class Cache_Axi (Type : String) extends Module with CacheParamete{
     val wdata_extend = Fill(Cache_line_size / xlen, io.in.wdata_req.get.bits.wdata)
     val wdata = Mux( read_state === refill, MaskData(data_line_reg, wmaskextend, wdata_extend), MaskData(Scanf.io.out.bits.data, wmaskextend, wdata_extend))
 //    printf("%x\n",wdata)
-    Cache_data.io.write_bus.valid := Mux((read_state === refill || (state === scanf && io.in.addr_req.bits.we && hit)) && (!io.flush), true.B, false.B)
-    Cache_data.io.write_bus.addr := Mux((state === miss && read_state === refill) || (state === scanf && io.in.addr_req.bits.we && hit), io.in.addr_req.bits.addr, 0.U)
+    Cache_data.io.write_bus.valid := Mux((read_state === refill || (state === scanf && io.in.addr_req.bits.we && hit)) && (!io.flush) ||
+      state === fenceWayEnd, true.B, false.B)
+    Cache_data.io.write_bus.addr := Mux((state === miss && read_state === refill) || (state === scanf && io.in.addr_req.bits.we && hit), io.in.addr_req.bits.addr, baseAddr)
     Cache_data.io.write_bus.wdata := wdata
 
     io.in.wdata_req.get.ready := true.B
     io.in.wdata_rep.get := Mux((state === scanf && io.in.addr_req.bits.we && hit) || (state === miss && read_state === refill && io.in.addr_req.bits.we), true.B, false.B)
 
-    val dirt_write = VecInit(Seq.fill(Cache_way)(1.U(1.W)))
+    val realDirtWrite = Mux(fenceReqReg, VecInit(Seq.fill(Cache_way)(0.U(1.W))), VecInit(Seq.fill(Cache_way)(1.U(1.W))))
     val waymask = Mux(state === scanf && hit && io.in.addr_req.bits.we, hit_way.asUInt, Mux(lru_r === 1.U, "b10".U(2.W), "b01".U(2.W)))
     Cache_data.io.write_bus.waymask := waymask
     when(io.in.addr_req.bits.we & ((state === scanf && hit) | (read_state === refill))) {
-      dirt.get.write(Cache_data.io.out.bits.ctrl_data.index, dirt_write, waymask.asBools)
+      dirt.get.write(Cache_data.io.out.bits.ctrl_data.index, realDirtWrite, waymask.asBools)
     }
+    Cache_data.io.write_bus.fenceValid := fenceReqReg
 
   }
   else {
-    Cache_data.io.write_bus.valid := Mux(read_state === refill, true.B, false.B)
-    Cache_data.io.write_bus.addr := Mux(read_state === refill, io.in.addr_req.bits.addr, 0.U)
+    Cache_data.io.write_bus.valid := Mux(read_state === refill || state === fenceWayEnd, true.B, false.B)
+    Cache_data.io.write_bus.addr := Mux(read_state === refill, io.in.addr_req.bits.addr, baseAddr)
     Cache_data.io.write_bus.wdata := Mux(read_state === refill, data_line_reg, 0.U)
-    val waymask = Mux(lru_r === 1.U, "b10".U(2.W), "b01".U(2.W))
+    val waymask = Mux(state === scanf && hit && io.in.addr_req.bits.we, hit_way.asUInt, Mux(lru_r === 1.U, "b10".U(2.W), "b01".U(2.W)))
     Cache_data.io.write_bus.waymask := waymask
+    Cache_data.io.write_bus.fenceValid := fenceReqReg
   }
   //  io.out.wdata_req.get.ready := true.B
   io.out.rdata_rep.ready := Mux(read_state === wait_data_transfer,true.B,false.B)
