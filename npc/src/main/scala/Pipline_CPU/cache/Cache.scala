@@ -147,7 +147,7 @@ class Cache_Data extends Module with CacheParamete{
   val wtag = VecInit(Seq.fill(Cache_way)(io.write_bus.addr(xlen - 1, xlen - Tag_size)))
   val valid = VecInit(Seq.fill(Cache_way)(1.U))
   val invalid = VecInit(Seq.fill(Cache_way)(0.U))
-  val writeCachevalid = Mux(io.write_bus.fenceValid, invalid,valid)
+  val writeCachevalid = Mux(io.write_bus.valid && io.write_bus.fenceValid, invalid,valid)
 //  val waymask = .getOrElse("b1".U)
   when(io.write_bus.valid){
 //    data.write(io.write_bus.addr(xlen-Tag_size-1,log2Ceil(Cache_line_size/8)),wdata,io.write_bus.waymask.asBools)
@@ -179,10 +179,10 @@ class Cache_Data extends Module with CacheParamete{
   io.sram2.cen := 0.U
   io.sram3.cen := 0.U
 
-  io.sram0.wmask := Mux(io.write_bus.valid & io.write_bus.waymask(0),Fill(128,true.B),Fill(128,false.B))
-  io.sram1.wmask := Mux(io.write_bus.valid & io.write_bus.waymask(0),Fill(128,true.B),Fill(128,false.B))
-  io.sram2.wmask := Mux(io.write_bus.valid & io.write_bus.waymask(1),Fill(128,true.B),Fill(128,false.B))
-  io.sram3.wmask := Mux(io.write_bus.valid & io.write_bus.waymask(1),Fill(128,true.B),Fill(128,false.B))
+  io.sram0.wmask := Mux(io.write_bus.valid & io.write_bus.waymask(0),Fill(128,false.B),Fill(128,true.B))
+  io.sram1.wmask := Mux(io.write_bus.valid & io.write_bus.waymask(0),Fill(128,false.B),Fill(128,true.B))
+  io.sram2.wmask := Mux(io.write_bus.valid & io.write_bus.waymask(1),Fill(128,false.B),Fill(128,true.B))
+  io.sram3.wmask := Mux(io.write_bus.valid & io.write_bus.waymask(1),Fill(128,false.B),Fill(128,true.B))
 }
 
 
