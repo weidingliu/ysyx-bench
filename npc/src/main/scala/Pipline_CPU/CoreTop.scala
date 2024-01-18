@@ -239,6 +239,8 @@ class ysyx_22050321 extends Module with Paramete{
 
   val excp_flush = WB.io.out.bits.ctrl_signal.excp_flush
   val mert_flush = WB.io.out.bits.ctrl_signal.ertn_flush
+  val fenceFlush = WB.io.out.bits.ctrl_signal.is_fencei && WB.io.out.valid
+  val fencePC = WB.io.out.bits.ctrl_signal.fenceiPC
 
 //  io.pc := IF.io.out.bits.PC
   // bypass
@@ -254,8 +256,8 @@ class ysyx_22050321 extends Module with Paramete{
   IF.io.cache_req.addr_req <> IMMIO.io.in.addr_req
   IF.io.cache_req.rdata_rep <> IMMIO.io.in.rdata_rep
 
-  IMMIO.io.flush := EX.io.is_flush | excp_flush | mert_flush
-  DMMIO.io.flush := excp_flush | mert_flush
+  IMMIO.io.flush := EX.io.is_flush | excp_flush | mert_flush | fenceFlush
+  DMMIO.io.flush := excp_flush | mert_flush | fenceFlush
 
   ARBITER.io.in2 <> IMMIO.io.out
   ARBITER.io.in1 <> DMMIO.io.out
@@ -309,10 +311,12 @@ class ysyx_22050321 extends Module with Paramete{
   IF.io.mret_flush := WB.io.out.bits.ctrl_signal.ertn_flush
   IF.io.mret := CSR.io.mepc_o
   IF.io.mtvec := CSR.io.mtvec_o
+  IF.io.fenceFlush := fenceFlush
+  IF.io.fencePC := fencePC
 
   DMMIO.io.time_intfeedback.get := WB.io.wb_time_int
 //  IF.io.flush := EX.io.is_flush
-  BUFFER_Connect(IF.io.out,ID.io.in,ID.io.out.fire,EX.io.is_flush | excp_flush | mert_flush)
+  BUFFER_Connect(IF.io.out,ID.io.in,ID.io.out.fire,EX.io.is_flush | excp_flush | mert_flush | fenceFlush)
 //   Pipline_Connect(IF.io.out,ID.io.in,ID.io.out.fire,EX.io.is_flush | excp_flush | mert_flush | WB.io.stall | EX.io.stall)
   //ID
 //  Pipline_Connect(IF.io.out,ID.io.in,ID.io.out.fire,EX.io.is_flush)
@@ -324,7 +328,7 @@ class ysyx_22050321 extends Module with Paramete{
 //  ID.io.exe_is_mem := EX.io.is_mem
 //  ID.io.exe_rf <> EX.io.out.bits.ctrl_rf
   //EXE
-  Pipline_Connect(ID.io.out,EX.io.in,EX.io.out.fire,EX.io.is_flush | excp_flush | mert_flush)
+  Pipline_Connect(ID.io.out,EX.io.in,EX.io.out.fire,EX.io.is_flush | excp_flush | mert_flush | fenceFlush)
   IF.io.branch_io <> EX.io.branchIO
   bypass.io.EX_rf <> EX.io.out.bits.ctrl_rf
   EX.io.csr_rd_io.rd_data := CSR.io.rd.rd_data
@@ -334,7 +338,7 @@ class ysyx_22050321 extends Module with Paramete{
 
 //  ID.io.flush := EX.io.is_flush
 //MEM
-  Pipline_Connect(EX.io.out,MEM.io.in,MEM.io.out.fire,excp_flush | mert_flush)
+  Pipline_Connect(EX.io.out,MEM.io.in,MEM.io.out.fire,excp_flush | mert_flush | fenceFlush)
 //  MEM.io.mem.rdata := DCACHE.io.in.rdata_rep.bits.rdata
 
 
@@ -348,7 +352,7 @@ class ysyx_22050321 extends Module with Paramete{
 
 
 //WB
-  Pipline_Connect(MEM.io.out,WB.io.in,WB.io.out.fire,excp_flush | mert_flush)
+  Pipline_Connect(MEM.io.out,WB.io.in,WB.io.out.fire,excp_flush | mert_flush | fenceFlush)
   when((WB.io.out.bits.ctrl_rf.rfWen === RD.write)) {
     Reg.write(WB.io.out.bits.ctrl_rf.rfDest, WB.io.out.bits.ctrl_rf.rfData)
   }

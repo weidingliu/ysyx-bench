@@ -17,13 +17,34 @@ class WB extends Module with Paramete{
   })
   val idle :: waitCacheFlush :: flushPipline :: Nil = Enum(3)
   val fenceState = RegInit(idle)
-  io.dFenceIO := DontCare
-  io.iFenceIO := DontCare
-  dontTouch(io.dFenceIO)
-  dontTouch(io.iFenceIO)
+  val dcacheFenceFinish = RegInit(false.B)
+  val icacheFenceFinish = RegInit(false.B)
+  when(io.dFenceIO.fenceResp){
+    dcacheFenceFinish :=true.B
+  }
+  when(fenceState === flushPipline){
+    dcacheFenceFinish :=false.B
+  }
+  when(io.iFenceIO.fenceResp){
+    icacheFenceFinish := true.B
+  }
+  when(fenceState === flushPipline) {
+    icacheFenceFinish := false.B
+  }
+
+  io.dFenceIO.fenceReq := fenceState === waitCacheFlush & !dcacheFenceFinish
+  io.iFenceIO.fenceReq := fenceState === waitCacheFlush & !icacheFenceFinish
 
   when(fenceState === idle && io.in.valid && io.in.bits.ctrl_signal.is_fencei){
     fenceState := waitCacheFlush
+  }
+  when(fenceState === waitCacheFlush){
+    when(dcacheFenceFinish && icacheFenceFinish){
+      fenceState := flushPipline
+    }
+  }
+  when(fenceState === flushPipline){
+    fenceState := idle
   }
 
   val needExcp_flush = io.in.bits.ctrl_signal.excp_flush && io.in.valid
@@ -38,8 +59,10 @@ class WB extends Module with Paramete{
   io.wb_time_int := Mux(io.icache_busy,false.B,io.in.bits.ctrl_signal.has_int && io.in.valid)
 //  io.stall :=Mux(io.in.valid && (io.in.bits.ctrl_signal.excp_flush || io.in.bits.ctrl_signal.ertn_flush) && io.icache_busy,true.B,false.B)
 
-  io.out.valid := Mux((needExcp_flush || needErtn_flush) && io.icache_busy ,false.B, io.in.valid)
-  io.in.ready := Mux((needExcp_flush || needErtn_flush) && io.icache_busy ,false.B, io.out.ready)
+  io.out.valid := Mux((needExcp_flush || needErtn_flush) && io.icache_busy ||
+    (io.in.valid && io.in.bits.ctrl_signal.is_fencei && fenceState =/= flushPipline),false.B, io.in.valid)
+  io.in.ready := Mux((needExcp_flush || needErtn_flush) && io.icache_busy ||
+    (io.in.valid && io.in.bits.ctrl_signal.is_fencei && fenceState =/= flushPipline),false.B, io.out.ready)
 
 //  when(io.out.valid){
 //    printf(p"PC: ${Hexadecimal(io.out.bits.ctrl_flow.PC)}  Wen: ${Hexadecimal(io.out.bits.ctrl_rf.rfWen)} Dst: ${Hexadecimal(io.out.bits.ctrl_rf.rfDest)} Wdata: ${Hexadecimal(io.out.bits.ctrl_rf.rfData)}\n")

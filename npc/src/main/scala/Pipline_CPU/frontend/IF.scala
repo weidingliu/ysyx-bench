@@ -21,13 +21,17 @@ class IF extends Module with Paramete{
     val mtvec = Input(UInt(xlen.W))
     val mret = Input(UInt(xlen.W))
 
+    val fencePC = Input(UInt(xlen.W))
+    val fenceFlush = Input(Bool())
+
+
 
   })
 
   val temp = RegInit("h3000_0000".U(xlen.W))
   temp := Mux(!io.excp_flush && !io.mret_flush,Mux(io.branch_io.is_jump || io.branch_io.is_branch, io.branch_io.dnpc,
-    Mux(io.out.ready && io.cache_req.rdata_rep.valid,temp + 4.U(xlen.W),
-      temp)), Mux(io.excp_flush,io.mtvec,Mux(io.mret_flush,io.mret,temp)))
+    Mux(io.fenceFlush, io.fencePC, Mux(io.out.ready && io.cache_req.rdata_rep.valid,temp + 4.U(xlen.W),
+      temp))), Mux(io.excp_flush,io.mtvec,Mux(io.mret_flush,io.mret,temp)))
 
   io.out.valid := Mux(io.cache_req.rdata_rep.valid,1.U,0.U)
 
