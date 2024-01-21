@@ -62,12 +62,12 @@ class MMIO (Type : String)extends Module with Paramete{
   if(Type == "Dcache"){
     // timer
     val mtime = RegInit(0.U(xlen.W)) //0x0200bff8
-    val mtimecmp = RegInit(2000.U(xlen.W)) //0x02004000
+    val mtimecmp = RegInit("h0df000".U(xlen.W)) //0x02004000
     mtime := mtime + 1.U
     io.mtime.get := mtime
     io.mtimecmp.get := mtimecmp
     when(io.time_intfeedback.get){
-      mtimecmp := mtimecmp + "h200000".U(xlen.W)
+      mtimecmp := mtimecmp + 4000.U(xlen.W)
     }
     timeReadData := Mux((io.in.addr_req.bits.addr === "h0200bff8".U(xlen.W)), mtime,mtimecmp)
   }

@@ -6,8 +6,8 @@ import chisel3.util._
 
 class Axi_FULLArbiter extends Module{
   val io = IO(new Bundle() {
-    val in1 = new Axi_full_Bundle_in
-    val in2 = new Axi_full_Bundle_in
+    val in1 = new Axi_full_Bundle_in // high
+    val in2 = new Axi_full_Bundle_in// low
     val out = new Axi_full_Bundle_out
   })
   val raNotArbiter = RegInit(false.B)

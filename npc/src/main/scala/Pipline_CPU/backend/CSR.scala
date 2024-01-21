@@ -60,7 +60,7 @@ class CSR_ extends Module with Paramete{
 
   when(io.excp_flush){
     mstatus := mstatus & "hfffffffffffffff7".U(xlen.W)
-    mcause := Mux(io.wb_time_int,7.U(xlen.W),11.U(xlen.W))
+    mcause := Mux(io.wb_time_int,"h8000000000000007".U(xlen.W),11.U(xlen.W))
     mepc := io.epc
     mip := mip | 0x0000000000000080.U
   }

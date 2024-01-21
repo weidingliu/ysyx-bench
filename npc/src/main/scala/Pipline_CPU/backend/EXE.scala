@@ -422,12 +422,13 @@ class EXE extends Module with Paramete{
   io.branchIO.dnpc := dnpc//Mux(time_int === 1.U, csr.read(CSR_index.mtvec), dnpc)
   io.out.bits.ctrl_signal.fenceiPC := dnpc
 
-  val is_branch = branch_flag & io.out.bits.ctrl_signal.inst_valid & io.in.valid
-  val is_jump = io.in.bits.ctrl_signal.fuType === FUType.jump && io.out.bits.ctrl_signal.inst_valid && io.in.valid
+  val is_branch = branch_flag & io.out.bits.ctrl_signal.inst_valid & io.in.valid & !io.in.bits.ctrl_signal.has_int
+  val is_jump = io.in.bits.ctrl_signal.fuType === FUType.jump && io.out.bits.ctrl_signal.inst_valid && io.in.valid & !io.in.bits.ctrl_signal.has_int
   io.branchIO.is_branch := is_branch & io.out.ready & !io.icache_busy//Mux(time_int === 1.U, 1.U, branch_flag)
   io.branchIO.is_jump := Mux(is_jump & io.out.ready & !io.icache_busy, 1.U, 0.U)
 
-  io.is_flush := Mux((is_branch === 1.U || is_jump === 1.U) && io.in.valid & io.out.ready & !io.icache_busy , 1.U, 0.U)
+  io.is_flush := Mux((is_branch === 1.U || is_jump === 1.U) && io.in.valid & io.out.ready & !io.icache_busy &&
+    !io.in.bits.ctrl_signal.has_int, 1.U, 0.U)
   io.is_break := Mux((io.in.bits.ctrl_signal.aluoptype === ALUOPType.ebreak && io.out.bits.ctrl_signal.inst_valid), 1.U, 0.U)
 
 //  io.stall := Mux((is_branch === 1.U || is_jump === 1.U) && io.in.valid & io.out.ready & !io.is_flush, true.B,false.B)
