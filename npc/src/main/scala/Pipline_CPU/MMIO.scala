@@ -57,7 +57,7 @@ class MMIO (Type : String)extends Module with Paramete{
     busy := false.B
   }
   val is_uncached = io.in.addr_req.bits.addr < "h80000000".U && io.in.addr_req.bits.addr >= "h10000000".U
-  val is_CLINT = io.in.addr_req.bits.addr >= "h02000000".U && io.in.addr_req.bits.addr < "h0200_ffff".U
+  val is_CLINT = io.in.addr_req.bits.addr >= "h0200_0000".U && io.in.addr_req.bits.addr < "h0200_ffff".U
   val timeReadData = WireDefault(0.U(xlen.W))
   if(Type == "Dcache"){
     // timer
@@ -67,9 +67,9 @@ class MMIO (Type : String)extends Module with Paramete{
     io.mtime.get := mtime
     io.mtimecmp.get := mtimecmp
     when(io.time_intfeedback.get){
-      mtimecmp := mtimecmp + 4000.U(xlen.W)
+      mtimecmp := mtimecmp + 20000.U(xlen.W)
     }
-    timeReadData := Mux((io.in.addr_req.bits.addr === "h0200bff8".U(xlen.W)), mtime,mtimecmp)
+    timeReadData := Mux((io.in.addr_req.bits.addr === "h0200_bff8".U(xlen.W)), mtime,mtimecmp)
   }
 
     birdge.io.in.addr_req.valid := Mux(is_uncached,io.in.addr_req.valid & !(io.flush & !busy),false.B)

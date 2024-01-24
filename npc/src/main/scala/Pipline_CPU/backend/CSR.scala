@@ -39,7 +39,7 @@ class CSR_ extends Module with Paramete{
   })
   val mepc = Reg(UInt(xlen.W))
   val mcause = RegInit(0.U(xlen.W))
-  val mstatus = RegInit(0.U(xlen.W))
+  val mstatus = RegInit("ha00001800".U(xlen.W))
   val mtvec = RegInit(0.U(xlen.W))
   val mie = RegInit(0.U(xlen.W))
   val mip = RegInit(0.U(xlen.W))
@@ -59,13 +59,13 @@ class CSR_ extends Module with Paramete{
   io.rd.rd_data := MuxCase(0.U(xlen.W),read_table)
 
   when(io.excp_flush){
-    mstatus := mstatus & "hfffffffffffffff7".U(xlen.W)
+    mstatus := mstatus & "hfffffffffffffff7".U(xlen.W) | 0x0000000000001800.U(xlen.W) | (mstatus(3) << 7 ).asUInt
     mcause := Mux(io.wb_time_int,"h8000000000000007".U(xlen.W),11.U(xlen.W))
     mepc := io.epc
     mip := mip | 0x0000000000000080.U
   }
   when(io.mert_flush){
-    mstatus := mstatus | "h0000000000000008".U(xlen.W)
+    mstatus := mstatus | "h0000000000000080".U(xlen.W) | (mstatus(7) << 3 ).asUInt
   }
 
   //write port

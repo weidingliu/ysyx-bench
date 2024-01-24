@@ -16,6 +16,8 @@ object InstrType{
   def InstrJ = "b0111".U
   def InstrS = "b1001".U
 
+  def InstrIC = "b1010".U
+
 }
 
 object FUType{
@@ -64,6 +66,7 @@ class ID extends Module with Paramete{
     (InstrType.InstrS) -> (SRCType.R, SRCType.R),
     (InstrType.InstrB) -> (SRCType.R, SRCType.R),
     (InstrType.InstrJ) -> (SRCType.PC, SRCType.imm),
+    (InstrType.InstrIC) -> (SRCType.imm, SRCType.R),
     (InstrType.InstrU) -> (SRCType.PC, SRCType.imm),
 
     (InstrType.InstrN) -> (SRCType.R, SRCType.R),
@@ -79,6 +82,7 @@ class ID extends Module with Paramete{
     InstrType.InstrU -> (SIgEXtend(Cat(io.in.bits.Inst(31, 12), Fill(12, 0.U)), xlen)),
     InstrType.InstrS -> (SIgEXtend(Cat(io.in.bits.Inst(31, 25), io.in.bits.Inst(11, 7)), xlen)),
     InstrType.InstrB -> (SIgEXtend(Cat(io.in.bits.Inst(31, 31), io.in.bits.Inst(7, 7), io.in.bits.Inst(30, 25), io.in.bits.Inst(11, 8), Fill(1, 0.U)), xlen)),
+    InstrType.InstrIC -> (ZeroEXtend(rs, xlen)),
   )
   val imm = LookupTree(instrtype, immtable.map(p => (p._1, p._2)))
 
@@ -103,9 +107,10 @@ class ID extends Module with Paramete{
   io.out.bits.ctrl_flow.Dnpc := 0.U(xlen.W)
   io.out.bits.ctrl_flow.skip := 0.B
 
-  io.out.bits.ctrl_csr.csr_en := Mux((aluoptype === ALUOPType.csrrs || aluoptype === ALUOPType.csrrw) & io.in.valid,true.B,false.B)
+  io.out.bits.ctrl_csr.csr_en := Mux((aluoptype === ALUOPType.csrrs || aluoptype === ALUOPType.csrrw ||
+    aluoptype === ALUOPType.csrrc) & io.in.valid,true.B,false.B)
   io.out.bits.ctrl_csr.csr_data := 0.U
-  io.out.bits.ctrl_csr.csr_idx := imm(11,0)
+  io.out.bits.ctrl_csr.csr_idx := io.in.bits.Inst(31,20)
 
   io.out.bits.ctrl_data.Imm := imm
 

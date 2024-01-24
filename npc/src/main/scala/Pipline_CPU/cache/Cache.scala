@@ -346,7 +346,11 @@ class Cache_Axi (Type : String) extends Module with CacheParamete{
       }
     }
     is(fenceWayEnd){
+      when(fenceNum === 0.U){
+        state := idle
+      }.otherwise{
         state := fenceIdle
+      }
     }
   }
   when(io.flush ) {

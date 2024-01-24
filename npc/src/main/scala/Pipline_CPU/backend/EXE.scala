@@ -64,6 +64,7 @@ object ALUOPType{
   def mret ="b0011000".U
   def lui = "b0011010".U
   def fencei = "b0011011".U
+  def csrrc = "b0111011".U
   def apply() = UInt(7.W)
 }
 object RD{
@@ -126,6 +127,9 @@ class EXE extends Module with Paramete{
     is(SRCType.PC) {
       src1 := PC
     }
+    is(SRCType.imm){
+      src1 := Imm
+    }
     is(SRCType.DONT_Care) {
       src1 := 0.U(xlen.W)
     }
@@ -136,6 +140,9 @@ class EXE extends Module with Paramete{
     }
     is(SRCType.imm) {
       src2 := Imm
+    }
+    is(SRCType.DONT_Care) {
+      src1 := 0.U(xlen.W)
     }
   }
 
@@ -219,6 +226,11 @@ class EXE extends Module with Paramete{
       csr_result := src1
       csr_idx := io.in.bits.ctrl_csr.csr_idx
 //      csr.write(Imm(11, 0), src1)
+    }
+    is(ALUOPType.csrrc){
+      alu_result := io.csr_rd_io.rd_data
+      csr_result := io.csr_rd_io.rd_data  & (~src1).asUInt
+      csr_idx := io.in.bits.ctrl_csr.csr_idx
     }
   }
   val shift_result = WireDefault(0.U(xlen.W))
