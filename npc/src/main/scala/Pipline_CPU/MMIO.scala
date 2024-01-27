@@ -42,7 +42,7 @@ class MMIO (Type : String)extends Module with Paramete{
   if(Type == "Dcache") CACHE.io.in.wdata_req.get.bits <> io.in.wdata_req.get.bits else None
   if(Type == "Dcache") CACHE.io.in.wdata_rep.get <> io.in.wdata_rep.get else None
   CACHE.io.flush := io.flush
-  io.cache_busy := CACHE.io.cache_busy || busy.asBool
+  io.cache_busy := CACHE.io.cache_busy || busy.asBool || io.out.raddr_req.valid || io.out.waddr_req.valid
 
 //  birdge.io.in <> io.in
   birdge.io.in.rdata_rep.bits <> io.in.rdata_rep.bits

@@ -477,7 +477,7 @@ class Cache_Axi (Type : String) extends Module with CacheParamete{
     }
     is(fenceWayEnd) {
       val nextWay = fenceNum === (Cache_line_num + 1).U
-      baseAddr := Mux(nextWay, 0.U, baseAddr + (1.U << (Cache_line_size / 8)))
+      baseAddr := Mux(nextWay, 0.U, baseAddr + (1.U << log2Ceil(Cache_line_size / 8)))
       waycount := Mux(nextWay, waycount + 1.U(log2Ceil(Cache_way).W), waycount)
       fenceNum := fenceNum - 1.U
     }
@@ -612,9 +612,9 @@ class Cache_Axi (Type : String) extends Module with CacheParamete{
     io.in.wdata_rep.get := Mux((state === scanf && io.in.addr_req.bits.we && hit) || (state === miss && read_state === refill && io.in.addr_req.bits.we), true.B, false.B)
 
     val realDirtWrite = Mux(fenceResp, VecInit(Seq.fill(Cache_way)(0.U(1.W))), VecInit(Seq.fill(Cache_way)(1.U(1.W))))
-    val waymask = Mux(state === scanf && hit && io.in.addr_req.bits.we, hit_way.asUInt, Mux(lru_r === 1.U, "b10".U(2.W), "b01".U(2.W)))
+    val waymask = Mux(state === scanf && hit && io.in.addr_req.bits.we, hit_way.asUInt, Mux(fenceResp, waycount,Mux(lru_r === 1.U, "b10".U(2.W), "b01".U(2.W))))
     Cache_data.io.write_bus.waymask := waymask
-    when(io.in.addr_req.bits.we & ((state === scanf && hit) | (read_state === refill))) {
+    when(io.in.addr_req.bits.we & ((state === scanf && hit) | (read_state === refill)) | state === fenceWayEnd) {
       dirt.get.write(Cache_data.io.out.bits.ctrl_data.index, realDirtWrite, waymask.asBools)
     }
     Cache_data.io.write_bus.fenceValid := fenceResp
@@ -624,7 +624,7 @@ class Cache_Axi (Type : String) extends Module with CacheParamete{
     Cache_data.io.write_bus.valid := Mux(read_state === refill || state === fenceWayEnd, true.B, false.B)
     Cache_data.io.write_bus.addr := Mux(read_state === refill, io.in.addr_req.bits.addr, baseAddr)
     Cache_data.io.write_bus.wdata := Mux(read_state === refill, data_line_reg, 0.U)
-    val waymask = Mux(state === scanf && hit && io.in.addr_req.bits.we, hit_way.asUInt, Mux(lru_r === 1.U, "b10".U(2.W), "b01".U(2.W)))
+    val waymask = Mux(state === scanf && hit && io.in.addr_req.bits.we, hit_way.asUInt, Mux(fenceResp, waycount,Mux(lru_r === 1.U, "b10".U(2.W), "b01".U(2.W))))
     Cache_data.io.write_bus.waymask := waymask
     Cache_data.io.write_bus.fenceValid := fenceResp
   }
